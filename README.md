@@ -38,7 +38,13 @@ enlazados (en la ficha del NBU se marca "También en Catálogo PMO").
   cardiología, neurología, hemoterapia, medicina nuclear, radioterapia, laboratorio, y más (~36 capítulos).
 - Son prestaciones de **cobertura obligatoria** del PMO; el arancel surge del nomenclador/convenio aplicable
   (el catálogo lista qué se cubre, no valores monetarios).
-- La app permite filtrar por **Nomenclador** (NBU / PMO) y navegar por especialidad.
+- Cada ficha médica incluye **"Asociación de códigos · qué cargar"**: normas generales de facturación por
+  capítulo (cirujano + ayudantes + gastos + anestesia por separado cap. 16 + anatomía patológica cap. 15, etc.).
+  Son **orientativas** (marcadas para verificar) y hay un marco (`meta.pmo_asociaciones`) para cargar reglas
+  específicas por código cuando se disponga de las Normas del Nomenclador.
+
+La interfaz separa **dos secciones** con un selector principal: **Laboratorio (NBU)** y **Prestaciones
+médicas (PMO)** — en cada una solo se ven sus códigos, grupos y determinaciones (no se mezclan).
 
 ## Uso
 

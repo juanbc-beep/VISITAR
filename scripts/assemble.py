@@ -189,6 +189,48 @@ PMO_CAP = {
     "35": "Radioterapia", "36": "Urología", "38": "Tratamientos especiales",
     "66": "Análisis clínicos (laboratorio)",
 }
+_SURG = [
+    "Acto quirúrgico: honorarios del cirujano (código de la práctica).",
+    "Ayudante(s) quirúrgico(s): se adicionan según la complejidad y la cantidad de ayudantes que admite el acto.",
+    "Gastos: derechos de quirófano/internación y materiales o insumos según el procedimiento.",
+    "Anestesia: se codifica y factura POR SEPARADO en el capítulo 16 (Anestesiología), según el acto quirúrgico.",
+    "Anatomía patológica: si se remite pieza o biopsia, se factura aparte (capítulo 15).",
+]
+_DIAG = [
+    "Honorarios profesionales de la práctica.",
+    "Gastos: insumos, contraste, película o material descartable cuando corresponda.",
+]
+# normas generales de facturación por capítulo (orientativas — verificar contra la norma aplicable)
+CHAPTER_NORMS = {p: {"que_cargar": list(_SURG), "ver_tambien": ["16", "15"]} for p in
+                 ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13"]}
+CHAPTER_NORMS.update({
+    "14": {"que_cargar": ["Práctica de alergia (testificación/tratamiento) + material o alergenos utilizados."], "ver_tambien": []},
+    "15": {"que_cargar": ["Se factura por pieza o biopsia remitida; cada material/taco corresponde a una determinación.",
+                          "Complementa al acto quirúrgico (capítulo 15 se factura aparte de la cirugía)."], "ver_tambien": []},
+    "16": {"que_cargar": ["Anestesia asociada al acto quirúrgico: se factura POR SEPARADO del honorario del cirujano.",
+                          "Las unidades/valor dependen de la cirugía realizada."], "ver_tambien": []},
+    "17": {"que_cargar": list(_DIAG), "ver_tambien": []},
+    "18": {"que_cargar": ["Honorarios + gastos. En estudios con contraste o intervencionismo, los insumos pueden facturarse aparte."], "ver_tambien": []},
+    "19": {"que_cargar": list(_DIAG), "ver_tambien": []},
+    "20": {"que_cargar": list(_DIAG), "ver_tambien": []},
+    "21": {"que_cargar": ["Estudio genético: honorarios + insumos. Puede requerir prácticas de laboratorio asociadas (NBU 66xxxx)."], "ver_tambien": []},
+    "22": {"que_cargar": list(_DIAG), "ver_tambien": []},
+    "24": {"que_cargar": ["Unidad transfusional + pruebas inmunohematológicas (grupo y factor, compatibilidad, Coombs) que se codifican en el NBU (66xxxx).",
+                          "Cruce con la sección Laboratorio para las determinaciones asociadas."], "ver_tambien": []},
+    "25": {"que_cargar": ["Se factura por sesión."], "ver_tambien": []},
+    "26": {"que_cargar": ["Honorarios + radiofármaco/insumos según el estudio."], "ver_tambien": []},
+    "28": {"que_cargar": list(_DIAG), "ver_tambien": []},
+    "29": {"que_cargar": list(_DIAG), "ver_tambien": []},
+    "30": {"que_cargar": list(_DIAG), "ver_tambien": []},
+    "31": {"que_cargar": list(_DIAG), "ver_tambien": []},
+    "32": {"que_cargar": ["Atención pediátrica: honorarios de la práctica/consulta."], "ver_tambien": []},
+    "33": {"que_cargar": ["Se factura por sesión (individual, grupal o familiar según corresponda)."], "ver_tambien": []},
+    "34": {"que_cargar": ["Honorarios + gastos. En estudios contrastados, el contraste/película puede facturarse aparte."], "ver_tambien": []},
+    "35": {"que_cargar": ["Radioterapia: se factura por tratamiento/campo según la planificación."], "ver_tambien": []},
+    "36": {"que_cargar": list(_DIAG), "ver_tambien": ["16"]},
+    "38": {"que_cargar": ["Tratamiento especial: honorarios + insumos/medicación según el esquema."], "ver_tambien": []},
+})
+
 _TITLE = (r"Operaciones?(?: en (?:el|la|los|las))?[^,.]*?(?:nervioso|visión|Endocrino|Mama|"
           r"Tórax|Cardiovascular|Digestivo y Abdomen|linfáticos|urinario y genital|Genital "
           r"Femenino[^,.]*|huesos y articulaciones|piel y tejido)|Anatomía patológica|"
@@ -307,6 +349,10 @@ db = {
             "PMO": "Catálogo de Prestaciones del PMO (prestaciones médicas y quirúrgicas)",
         },
         "nomenclador_counts": dict(nomen_stats),
+        "pmo_capitulos": PMO_CAP,
+        "pmo_normas_capitulo": CHAPTER_NORMS,
+        "pmo_normas_nota": "Normas generales orientativas de facturación por capítulo. Verificar siempre contra la norma/convenio aplicable. No reemplazan al texto oficial del nomenclador.",
+        "pmo_asociaciones": {},
         "grupos": dict(sorted(grupos_stats.items(), key=lambda x: -x[1])),
         "nota_grupos": "El 'grupo/especialidad' es orientativo para navegar. En el NBU la clasificación oficial es la sección (PMO/PE/Gestión); en el Catálogo PMO, el capítulo/especialidad proviene del código.",
     },
