@@ -86,6 +86,27 @@ def audit_tips(rec):
         t.append("Tiene Norma e Interpretación específica (ver detalle).")
     return t
 
+# ---------- frecuencia / seriado ----------
+FREQ_PAT = re.compile(
+    r"seriad|se factura\w* \d?\d?\s?66\d{4}\s?x\s?\d|66\d{4}\s?x\s?\d|"
+    r"hasta (?:tres|3|cinco|5|dos|2)|por cada|(?:una|1) vez|por d[ií]a|por a[ñn]o|anual", re.I)
+def extract_frecuencia(n):
+    if not n:
+        return []
+    txt = (n["norma"] + " " + n["interpretacion"]).strip()
+    out = []
+    for sent in re.split(r"(?<=[.])\s+", txt):
+        s = sent.strip()
+        if FREQ_PAT.search(s) and re.search(r"seriad|66\d{4}\s?x\s?\d|hasta (?:tres|3|cinco|5)|por cada|(?:una|1) vez|por d[ií]a", s, re.I):
+            if len(s) > 4 and s not in out:
+                out.append(s)
+    return out
+# curated seriado limits for the validator (máximo habitual y detalle)
+SERIADO = {
+    "660102": {"max": 5, "nota": "Seriado: ×3 en esputo, ×5 en orina (según material)."},
+    "660468": {"max": 3, "nota": "Seriado: hasta 3 tomas de muestra (×3)."},
+}
+
 # ---------- build records ----------
 records = {}
 for r in catalog:
@@ -131,7 +152,12 @@ for r in catalog:
     }
     if code in OVERLAY and (r["ub"] is None or abs((r["ub"] or 0) - OVERLAY[code]) > 1e-9):
         rec["valor"]["ub_actualizado_2024"] = OVERLAY[code]
+    rec["frecuencia"] = extract_frecuencia(n)
+    if code in SERIADO:
+        rec["seriado"] = SERIADO[code]
     rec["auditoria"] = audit_tips(rec)
+    if rec.get("seriado"):
+        rec["auditoria"].append("Seriado / frecuencia: " + rec["seriado"]["nota"])
     records[code] = rec
 
 # ---------- reverse relationships (bidirectional graph) ----------

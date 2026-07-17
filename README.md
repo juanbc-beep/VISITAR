@@ -29,10 +29,16 @@ Prestaciones Médicas** se incorporará en una próxima carga (el modelo de dato
 
 Abrí **`web/index.html`** en cualquier navegador (no requiere servidor ni conexión — la base va embebida).
 
-- Buscá por código, práctica, sinónimo o abreviatura.
-- Filtrá por sección, grupo o reglas/estados.
-- Hacé click en una práctica para ver el detalle; los **códigos relacionados son clickeables** y navegan entre sí.
-- Enlace directo a un código por hash: `index.html#660475`.
+Tres vistas (pestañas):
+- **Listado** — buscá por código, práctica, sinónimo o abreviatura; filtrá por sección, grupo o reglas/estados. Detalle con **códigos relacionados clickeables** que navegan entre sí. Enlace directo por hash: `index.html#660475`.
+- **Árbol de módulos** — jerarquía expandible de los módulos de facturación (qué incluye cada código y no debe facturarse por separado).
+- **Validador de facturación** — pegás una lista de códigos (con cantidades `×N`) y detecta doble facturación por inclusión, urgencias sin 661200, Acto Bioquímico faltante, seriados excedidos, desuso e inexistentes; calcula U.B. netas y arancel.
+
+Funciones operativas:
+- **Valor de la U.B.** (arriba): al cargarlo, se muestra el **arancel** ($) en el listado, la ficha y el validador. Se guarda en el navegador.
+- **Favoritos** (★): marcá códigos frecuentes; se guardan y se filtran con “★ Favoritos”.
+- **Exportar**: descargá a **CSV** (listado y validación) o **Imprimí/PDF** desde el navegador.
+- **Frecuencia/seriado**: los códigos con reglas de seriado (p. ej. `660102`, `660468`) las muestran en la ficha y el validador las controla.
 
 ## Estructura del repositorio
 
