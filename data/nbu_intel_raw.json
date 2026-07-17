@@ -1,0 +1,3096 @@
+{
+ "sinonimias": {
+  "661135": [
+   "DIFENILHIDANTOINA, MONITOREO de FÁRMACOS para ENF. CRONICAS (Anticonvulsivantes)",
+   "ETOSUXIMIDA, MONITOREO de FÁRMACOS para ENF. CRONICAS (Anticonvulsivantes)",
+   "FENITOINA, MONITOREO de FÁRMACOS para ENF. CRONICAS (Anticonvulsivantes)",
+   "FENOBARBITAL, MONITOREO de FÁRMACOS para ENF. CRONICAS (Anticonvulsivantes)",
+   "PRIMIDONA, MONITOREO de FÁRMACOS para ENF. CRONICAS (Anticonvulsivantes)",
+   "TEOFILINA, MONITOREO de FÁRMACOS para ENF. CRONICAS (Anticonvulsivantes)",
+   "VALPROATO LIBRE, MONITOREO de FÁRMACOS para ENF. CRONICAS (Anticonvulsivantes)",
+   "ÁCIDO VALPROICO, MONITOREO de FÁRMACOS para ENF. CRONICAS (Anticonvulsivantes)"
+  ],
+  "661130": [
+   "ALBUMINA URINARIA / MICROALBUMINURIA.",
+   "MAL - SINONIMA: ALBUMINA URINARIA"
+  ],
+  "660017": [
+   "ALCOHOLEMIA",
+   "ETANOL - sangre ALCOHOL ETÍLICO - sangre (ALCOHOLEMIA)"
+  ],
+  "660307": [
+   "ALCOLURIA"
+  ],
+  "661136": [
+   "AMITRIPTILINA-NORTRIPTILINA, MONITOREO de FÁRMACOS para ENF. CRONICAS (Anticonvulsivantes)",
+   "BROMOZEPAN, MONITOREO de FÁRMACOS para ENF. CRONICAS (Anticonvulsivantes)",
+   "CAFEÍNA, MONITOREO de FARMACOS para ENF. CRONICAS.",
+   "CARBAMAZEPINA, 10,11-DIHIDRO,10-HIDROXI- u OXCARBAZEPINA, MONITOREO de FÁRMACOS para ENF. CRONICAS (Anticonvulsivantes)",
+   "CARBAMAZEPINA, MONITOREO de FÁRMACOS para ENF. CRONICAS (Anticonvulsivantes)",
+   "CLOBAZAN-DESMETILCLOBAZAN, MONITOREO de FÁRMACOS para ENF. CRONICAS (Anticonvulsivantes)",
+   "CLOIMIPRAMINA, MONITOREO de FÁRMACOS para ENF. CRONICAS (Anticonvulsivantes)",
+   "CLONAZEPAN, MONITOREO de FÁRMACOS para ENF. CRONICAS (Anticonvulsivantes)",
+   "CLOZAPINA, MONITOREO de FÁRMACOS para ENF. CRONICAS (Anticonvulsivantes)",
+   "DESMETILCLOBAZAN-CLOBAZAN, MONITOREO de FÁRMACOS para ENF. CRONICAS (Anticonvulsivantes)",
+   "DIAZEPAN, MONITOREO de FÁRMACOS para ENF. CRONICAS (Anticonvulsivantes)",
+   "FLUNITRAZEPAN, MONITOREO de FÁRMACOS para ENF. CRONICAS (Anticonvulsivantes)",
+   "IMIPRAMINA, MONITOREO de FÁRMACOS para ENF. CRONICAS (Anticonvulsivantes)",
+   "LAMOTRIGINA, MONITOREO de FARMACOS para ENF. CRONICAS.",
+   "LORAZEPAN, MONITOREO de FÁRMACOS para ENF. CRONICAS (Anticonvulsivantes)",
+   "NITRAZEPAN, MONITOREO de FÁRMACOS para ENF. CRONICAS (Anticonvulsivantes)",
+   "NORTRIPTILINA-AMITRIPTILINA, MONITOREO de FÁRMACOS para ENF. CRONICAS (Anticonvulsivantes)",
+   "OXCARBAZEPINA o 10,11-DIHIDRO,10-HIDROXI- CARBAMAZEPINA, MONITOREO de FÁRMACOS para ENF. CRONICAS (Anticonvulsivantes)"
+  ],
+  "661050": [
+   "ANFETAMINAS - urinarias",
+   "BARBITURATOS, DROGA de ABUSO SCREENING - urinario",
+   "BENZODIAZEPINAS, DROGA de ABUSO SCREENING - urinarias.",
+   "CANNABINOIDES, DROGA de ABUSO SCREENING (MARIHUANA) - urinario",
+   "COCAINA, DROGA de ABUSO SCREENING - urinario",
+   "MARIHUANA, DROGAS de ABUSO SCREENING (CANNABINOIDES) - urinario",
+   "OPIACEOS, DROGAS de ABUSO SCREENING - urinario",
+   "OPIACEOS, METABOLITOS - DROGAS de ABUSO SCREENING - urinario"
+  ],
+  "660772": [
+   "BUTIRILCOLINESTERASA - PSEUDOCOLINESTERASA",
+   "COLINESTERASA INESPECÍFICA / COLINESTERASA TIPO II"
+  ],
+  "661115": [
+   "CA 125 (MARCADOR TUMORAL de OVARIO)"
+  ],
+  "661120": [
+   "CA 15. 3 (MARCADOR TUMORAL de MAMA)"
+  ],
+  "661125": [
+   "CA 19. 9 (MARCADOR TUMORAL de COLON)"
+  ],
+  "660465": [
+   "CURVA DE FRAGILIDAD OSMOTICA DE ERITROCITOS (HEMATIES, RESISTENCIA GLOBULAR OSMOTICA)"
+  ],
+  "660838": [
+   "ESPERMA, TEST POSCOITAL - SIMS-HUHNER",
+   "TEST POST-COITAL - TEST DE SIMS - HUBNER"
+  ],
+  "660373": [
+   "EXAMEN FISICO-QUIMICO Y MICROSCÓPICO DE MATERIA FECAL."
+  ],
+  "660418": [
+   "FOSFO HEXOSA ISOMERASA - GLUCOSA 6-FOSFATO DEHIDROGENASA"
+  ],
+  "660417": [
+   "GLUCOSURIA"
+  ],
+  "661170": [
+   "GONADOTROFINA CORIONICA, SUBUNIDAD BETA de (cualitativa) - HCG o BHCG"
+  ],
+  "661175": [
+   "GONADOTROFINA CORIONICA, SUBUNIDAD BETA de (cuantitativa) - HCG o BHCG"
+  ],
+  "660472": [
+   "HEMOGLOBINA LIBRE"
+  ],
+  "660479": [
+   "HEMOSIDERINURIA"
+  ],
+  "660189": [
+   "HIDROCORISONA - CORTISOL"
+  ],
+  "660053": [
+   "MICOLOGÍA, PRUEBA DE SENSIBILIDAD A ANTIFÚNGICOS"
+  ],
+  "660739": [
+   "PARATHORMONA molécula intacta (PTH mi / PTH i)"
+  ],
+  "660656": [
+   "PPD (MANTOUX, INTRADERMO-REACCION DE)"
+  ],
+  "660598": [
+   "PRUEBA PARA ARTRITIS REUMATOIDE"
+  ],
+  "662538": [
+   "alfa-HEXACLORAN - alfa-LINDANO - alfa-1,2,3,4,5,6- HEXACLOROCICLOHEXANO."
+  ],
+  "663016": [
+   "(β-HCH) - beta-HEXACLORURO de BENCENO - beta-HEXACLORAN - beta-LINDANO - beta-1,2,3,4,5,6- HEXACLOROCICLOHEXANO."
+  ],
+  "664350": [
+   "(δ-HCH) - delta-HEXACLORURO de BENCENO - delta- HEXACLORAN - delta-LINDANO - delta-1,2,3,4,5,6- HEXACLOROCICLOHEXANO"
+  ],
+  "665520": [
+   "(γ-HCH) - gamma-HEXACLORURO de BENCENO - gamma-HEXACLORAN - gamma-LINDANO - gamma-1,2,3,4,5,6-HEXACLOROCICLOHEXANO"
+  ],
+  "669905": [
+   "1,25-DIHIDROXICOLECALCIFEROL O CALCITRIOL - 1,25-VITAMINA D"
+  ],
+  "669913": [
+   "25-HIDROXICALCIFEROL"
+  ],
+  "667905": [
+   "2-METILFENOL (o - CRESOL)"
+  ],
+  "665055": [
+   "3,4-METILETILENDIOXIMETAMFETAMINA (MDMA) - ÉXTASIS"
+  ],
+  "667597": [
+   "3-METOXI, 4-HIDROXI- FENIL ETIL GLICOL (MOPEG)"
+  ],
+  "662025": [
+   "ACRA - Ac. Anti- RECEPTORES ACETILCOLINA",
+   "Ac. Anti- RECEPTORES ACETILCOLINA (ACRA)",
+   "RECEPTORES ACETILCOLINA Ac. Anti- (ACRA)"
+  ],
+  "669896": [
+   "ÁCIDO ASCÓRBICO (líquido seminal)"
+  ],
+  "669898": [
+   "ÁCIDO ASCÓRBICO (plaquetario)"
+  ],
+  "669270": [
+   "Ac. CISTICERCOSIS"
+  ],
+  "665503": [
+   "ÁCIDO GLUTÁMICO DESCARBOXILASA, Ac. Anti- (GAD, Ac. Anti- Glutamico Acid Decarboxilase)"
+  ],
+  "663734": [
+   "ANCA C, P - c/u (CITOPLASMA DE NEUTROFILO, Ac. Anti- c/u)",
+   "ANTIPROTEINASA 3 - CITOPLASMA DE NEUTROFILO, Ac. Anti- (ANCA C)",
+   "MIELOPEROXIDASA - CITOPLASMA DE NEUTROFILO, Ac. Anti- (ANCA P)"
+  ],
+  "666554": [
+   "ANNA-1 (Hu, Ac. Anti-)"
+  ],
+  "666947": [
+   "Anti- hígado de tipo I-antígeno citosol"
+  ],
+  "668656": [
+   "Antiproteinasa 3"
+  ],
+  "667260": [
+   "ARABINITOL o ARABITOL)"
+  ],
+  "668954": [
+   "ASCA - SACCHAROMYSES CEREVISIAE, Ac. Anti- IgA"
+  ],
+  "668956": [
+   "ASCA - SACCHAROMYSES CEREVISIAE, Ac. Anti- IgG"
+  ],
+  "669787": [
+   "BACOVA"
+  ],
+  "669642": [
+   "BCR/ABL p210 cuantitativo - TRANSLOCACIÓN BCR/ABL - CROMOSOMA FILADELFIA",
+   "CROMOSOMA FILADELFIA - BCR/ABL p210 cuantitativo - TRANSLOCACIÓN BCR/ABL"
+  ],
+  "663042": [
+   "Beta-d Glucosidasa (Enf. Gaucher)"
+  ],
+  "668446": [
+   "BIFENILOS POLICLORADOS"
+  ],
+  "668463": [
+   "BKV o VBK (cv)"
+  ],
+  "663145": [
+   "BRCA 1-2, PANEL ASHKENAZI - GEN SUPRESOR DE TUMOR DE MAMA",
+   "GEN SUPRESOR DE TUMOR DE MAMA - BRCA 1-2, PANEL ASHKENAZI"
+  ],
+  "663230": [
+   "C1 INHIBIDOR INMUNOLÓGICO"
+  ],
+  "667614": [
+   "CELULAS PARIETALES Ac. Anti- (MUCOSA GÁSTRICA, Ac. Anti-) (IFI)"
+  ],
+  "663427": [
+   "CITOGENÉTICO de Alta Resolución (Alta Sensibilidad)"
+  ],
+  "663443": [
+   "CITOGENÉTICO de MEDULA OSEA - CARIOTIPO",
+   "MEDULA OSEA, CITOGENÉTICO - CARIOTIPO"
+  ],
+  "663720": [
+   "CITOMEGALOVIRUS, carga viral (LCR - plasma y orina)"
+  ],
+  "663722": [
+   "CITOMEGALOVIRUS, DNA por PCR"
+  ],
+  "662120": [
+   "CITRATURIA (ÁCIDO CÍTRICO - urinario)"
+  ],
+  "662034": [
+   "COLINESTERASA ERITROCITARIA (ACETIL- )",
+   "COLINESTERASA ERITROCITARIA / COLINESTERASA TIPO I / ACETIL-COLINESTERASA"
+  ],
+  "666932": [
+   "CREMATOCRITO - GALACTOCRITO"
+  ],
+  "664145": [
+   "CROMOSOMA, ALTERACIONES del (c/u) - (FISH)",
+   "DELECCIÓN CROMOSOMA 6 MYB - CROMOSOMA, ALTERACIONES del (c/u) - (FISH)"
+  ],
+  "663239": [
+   "CYFRA 21-1 - CA 21-1 (MARCADOR TUMORAL de PULMÓN)"
+  ],
+  "664144": [
+   "DELECCIÓN 17 P53 - CROMOSOMA, ALTERACIONES del (c/u) - (FISH)"
+  ],
+  "664146": [
+   "DELECCIÓN C11 ATM-5q-7q - gen ATM - CROMOSOMA, ALTERACIONES del (c/u) - (FISH)"
+  ],
+  "664143": [
+   "DELECCIÓN CROMOSOMA 13 - CROMOSOMA, ALTERACIONES del (c/u) - (FISH)"
+  ],
+  "667742": [
+   "DIMETILTRIPTAMINA - N,N-DIMETILTRIPTAMINA."
+  ],
+  "669909": [
+   "ERGOCALCIFEROL + 25-HIDROXICALCIFEROL O COLECALCIFEROL"
+  ],
+  "664717": [
+   "EPSTEIN BARR, carga viral - PCR"
+  ],
+  "664858": [
+   "ESPERMOGRAMA COMPLETO"
+  ],
+  "669180": [
+   "ESTREPTOZIMA"
+  ],
+  "669118": [
+   "FACTOR DE CRECIMIENTO INSULÍNICO TIPO 1"
+  ],
+  "663093": [
+   "FACTOR NATRIURÉTICO (BNP)"
+  ],
+  "664964": [
+   "FRAGMENTACIÓN de ADN , TEST de (HALOSPERM / TEST DE TUNEL)",
+   "HALOSPERM / TEST DE TUNEL - TEST DE FRAGMENTACIÓN de ADN ESPERMÁTICO",
+   "TEST DE TUNEL - HALOSPERM - TEST DE FRAGMENTACIÓN de ADN ESPERMÁTICO"
+  ],
+  "664923": [
+   "GRADIENDE DE PERCOLL"
+  ],
+  "665785": [
+   "HEMOCROMATOSIS PRIMARIA o HEREDITARIA, Gen HH - PCR (HEMOCROMATOSIS HEREDITARIA HH - Gen HFE - CROMOSOMA 6)."
+  ],
+  "665871": [
+   "HEPARINA de BAJO PESO MOLECULAR (HBPM) - ACTIVIDAD ANTI XA de la HEPARINA (LMWH)."
+  ],
+  "669026": [
+   "INTOLERANCIA ALIMENTARIA, PANEL de Ac. IgG Anti",
+   "PANEL ALIMENTARIO Ac. IgG Anti"
+  ],
+  "669102": [
+   "JANUS QUINASA 2 (Jak 2) - mutación: V617F - SÍNDROMES MIELOPROLIFERATIVOS - FENOTIPIFICACIÓN."
+  ],
+  "669103": [
+   "SÍNDROMES MIELOPROLIFERATIVOS - FENOTIPIFICACIÓN."
+  ],
+  "669104": [
+   "JANUS QUINASA 2 (Jak 2) - MPL (cada mutación) - SÍNDROMES MIELOPROLIFERATIVOS - FENOTIPIFICACIÓN."
+  ],
+  "667773": [
+   "JARABE DE ARCE"
+  ],
+  "663350": [
+   "MARIHUANA, CONFIRMATORIO (LC MS/MS) - CANNABINOIDES, GC-MS"
+  ],
+  "668250": [
+   "MEMBRANA BASAL EN PIEL Ac. Anti"
+  ],
+  "667491": [
+   "MICOGRAMA"
+  ],
+  "664860": [
+   "MODULO II"
+  ],
+  "667210": [
+   "MURAMIDASA"
+  ],
+  "667640": [
+   "MUTACIONES de TIROSIN KINASA"
+  ],
+  "662410": [
+   "NEUROMIELITIS OPTICA-Ac. IgG (NMO-Ac. IgG) - ACUAPORINA 4"
+  ],
+  "668597": [
+   "NORPROPOXIFENO - PROPOXIFENO (LC-MSMS)"
+  ],
+  "665281": [
+   "PATERNIDAD DNA HASTA 3"
+  ],
+  "665576": [
+   "PÉPTIDO DEAMIDADO de GLIADINA, Ac. IgA Anti"
+  ],
+  "665583": [
+   "PÉPTIDO DEAMIDADO de GLIADINA, Ac. IgG Anti"
+  ],
+  "667775": [
+   "PESQUISA NEONATAL AMPLIADA POR ESPECTROMETRIA DE MASA EN TANDEM"
+  ],
+  "669120": [
+   "PROTEINA 3 DE FIJACIÓN AL FACTOR DE CRECIMIENTO"
+  ],
+  "665632": [
+   "PROTEÍNAS LIGADORA DE ANDROGENOS Y ESTROGENOS (GLAE / SHBG)"
+  ],
+  "665640": [
+   "PROTEÍNAS LIGADORA DE CORTICOIDES (CBG)"
+  ],
+  "669105": [
+   "RAPAMICINA - SIROLIMUS (DROGA CITOSTÁTICA)"
+  ],
+  "667840": [
+   "RECEPTOR, NMDA Ac. Anti- IgG contra- en LCR"
+  ],
+  "667841": [
+   "RECEPTOR, NMDA Ac. Anti- IgG contra- en sangre"
+  ],
+  "667636": [
+   "TIROSINA KINÉTICA MUSCULO ESPECÍFICO (MuSK, Ac. ANTI-)"
+  ],
+  "669734": [
+   "TnT-cuali - TROPONINA T (cualitativo)"
+  ],
+  "669735": [
+   "TnT-cuanti - TROPONINA T (cuantitativo)"
+  ]
+ },
+ "abreviaturas": {
+  "660001": [
+   "AB"
+  ],
+  "660005": [
+   "EAB"
+  ],
+  "660006": [
+   "ACTH"
+  ],
+  "660015": [
+   "Alb"
+  ],
+  "660016": [
+   "ADH"
+  ],
+  "660018": [
+   "Ald"
+  ],
+  "660020": [
+   "AFP"
+  ],
+  "660035": [
+   "ATBG - ATB"
+  ],
+  "660041": [
+   "AMB"
+  ],
+  "660042": [
+   "ASMA - AML"
+  ],
+  "660046": [
+   "ATG"
+  ],
+  "660049": [
+   "DNA"
+  ],
+  "660051": [
+   "ASTO",
+   "AELO"
+  ],
+  "660055": [
+   "AMA"
+  ],
+  "660056": [
+   "ANA",
+   "AAN"
+  ],
+  "660057": [
+   "α1 AT"
+  ],
+  "660059": [
+   "As"
+  ],
+  "660063": [
+   "HIV"
+  ],
+  "660108": [
+   "BJ"
+  ],
+  "660110": [
+   "- BbT - BbD - BbI"
+  ],
+  "660111": [
+   "Bb u"
+  ],
+  "660132": [
+   "Cd"
+  ],
+  "660133": [
+   "Ca"
+  ],
+  "660134": [
+   "Ca i"
+  ],
+  "660136": [
+   "Ca u"
+  ],
+  "660139": [
+   "PCO2"
+  ],
+  "660144": [
+   "CEA"
+  ],
+  "660168": [
+   "CL"
+  ],
+  "660172": [
+   "Cu"
+  ],
+  "660174": [
+   "Col"
+  ],
+  "660179": [
+   "CH-50"
+  ],
+  "660189": [
+   "Cort"
+  ],
+  "660190": [
+   "CPK - CK"
+  ],
+  "660192": [
+   "Cre - Cre u"
+  ],
+  "660193": [
+   "DCE"
+  ],
+  "660262": [
+   "DHEA-S"
+  ],
+  "660297": [
+   "VSG - ES"
+  ],
+  "660300": [
+   "E2"
+  ],
+  "660331": [
+   "F V"
+  ],
+  "660332": [
+   "F VII"
+  ],
+  "660333": [
+   "F VIII"
+  ],
+  "660334": [
+   "F IX"
+  ],
+  "660335": [
+   "F X"
+  ],
+  "660336": [
+   "MIF"
+  ],
+  "660337": [
+   "PKU - Phe - FA"
+  ],
+  "660338": [
+   "PKU - Phe - FA"
+  ],
+  "660343": [
+   "Fe"
+  ],
+  "660344": [
+   "PDF"
+  ],
+  "660350": [
+   "F"
+  ],
+  "660351": [
+   "F u"
+  ],
+  "660355": [
+   "FAP"
+  ],
+  "660356": [
+   "FAT"
+  ],
+  "660357": [
+   "FAL",
+   "ALP"
+  ],
+  "660362": [
+   "P"
+  ],
+  "660363": [
+   "P u"
+  ],
+  "660370": [
+   "FSH"
+  ],
+  "660371": [
+   "FTAbs"
+  ],
+  "660404": [
+   "PCO2 - PO2"
+  ],
+  "660412": [
+   "Glu - Gl"
+  ],
+  "660420": [
+   "γGT"
+  ],
+  "660433": [
+   "RH",
+   "Du",
+   "Dµ"
+  ],
+  "660466": [
+   "Hto"
+  ],
+  "660470": [
+   "Hb"
+  ],
+  "660535": [
+   "IEF"
+  ],
+  "660537": [
+   "IgA"
+  ],
+  "660538": [
+   "IgD"
+  ],
+  "660539": [
+   "IgE"
+  ],
+  "660540": [
+   "IgG"
+  ],
+  "660541": [
+   "IgM"
+  ],
+  "660594": [
+   "LDH"
+  ],
+  "660596": [
+   "Isoenzimas"
+  ],
+  "660598": [
+   "FR"
+  ],
+  "660606": [
+   "LAP"
+  ],
+  "660612": [
+   "LH"
+  ],
+  "660623": [
+   "Li"
+  ],
+  "660624": [
+   "Li AA"
+  ],
+  "660653": [
+   "Mg"
+  ],
+  "660654": [
+   "Mg u"
+  ],
+  "660656": [
+   "PPD"
+  ],
+  "660660": [
+   "Hg"
+  ],
+  "660670": [
+   "PB"
+  ],
+  "660672": [
+   "CO"
+  ],
+  "660702": [
+   "5'-NT"
+  ],
+  "660711": [
+   "OC"
+  ],
+  "660716": [
+   "PO2"
+  ],
+  "660739": [
+   "PTH mi",
+   "PTH i"
+  ],
+  "660749": [
+   "Pb"
+  ],
+  "660753": [
+   "K"
+  ],
+  "660754": [
+   "K u"
+  ],
+  "660758": [
+   "Pg"
+  ],
+  "660759": [
+   "Prl"
+  ],
+  "660761": [
+   "PCR"
+  ],
+  "660763": [
+   "PT"
+  ],
+  "660764": [
+   "PxE - Ptg"
+  ],
+  "660767": [
+   "PUri - PTu"
+  ],
+  "660770": [
+   "RIN"
+  ],
+  "660771": [
+   "TP"
+  ],
+  "660772": [
+   "CHE"
+  ],
+  "660813": [
+   "RH - GS"
+  ],
+  "660820": [
+   "RR"
+  ],
+  "660833": [
+   "SOMF"
+  ],
+  "660839": [
+   "Na"
+  ],
+  "660841": [
+   "GH",
+   "HGH"
+  ],
+  "660862": [
+   "TI"
+  ],
+  "660863": [
+   "To"
+  ],
+  "660865": [
+   "TSH"
+  ],
+  "660866": [
+   "T4"
+  ],
+  "660867": [
+   "FT4",
+   "T4L"
+  ],
+  "660870": [
+   "Tx - Toxo HA"
+  ],
+  "660871": [
+   "Tx - Toxo IFI"
+  ],
+  "660873": [
+   "TGO",
+   "AST",
+   "ASAT"
+  ],
+  "660874": [
+   "TGP",
+   "AGT",
+   "ALAT"
+  ],
+  "660876": [
+   "Tg"
+  ],
+  "660878": [
+   "T3"
+  ],
+  "660887": [
+   "APTT",
+   "TTPC",
+   "KT"
+  ],
+  "660904": [
+   "AU",
+   "AcU"
+  ],
+  "660905": [
+   "AU u",
+   "AcU u"
+  ],
+  "660932": [
+   "AVM"
+  ],
+  "660937": [
+   "Vit. A"
+  ],
+  "660938": [
+   "Vit. B12"
+  ],
+  "660939": [
+   "Vit. E"
+  ],
+  "660982": [
+   "Zn"
+  ],
+  "661000": [
+   "PSA-t"
+  ],
+  "661001": [
+   "ABI"
+  ],
+  "661025": [
+   "CMV IgG"
+  ],
+  "661030": [
+   "CMV IgM"
+  ],
+  "661035": [
+   "HDL"
+  ],
+  "661040": [
+   "LDL"
+  ],
+  "661045": [
+   "CPK-MB"
+  ],
+  "661055": [
+   "VEB"
+  ],
+  "661060": [
+   "VEB"
+  ],
+  "661070": [
+   "A1C",
+   "HbG"
+  ],
+  "661075": [
+   "HAV IgM"
+  ],
+  "661080": [
+   "CORE"
+  ],
+  "661085": [
+   "Ag HBe"
+  ],
+  "661086": [
+   "Ag HBs"
+  ],
+  "661090": [
+   "Ac HBs"
+  ],
+  "661095": [
+   "HCV"
+  ],
+  "661105": [
+   "HIV CV"
+  ],
+  "661110": [
+   "HIV WB"
+  ],
+  "661115": [
+   "CA 125"
+  ],
+  "661120": [
+   "CA 15-3"
+  ],
+  "661125": [
+   "CA 19-9"
+  ],
+  "661130": [
+   "MAL"
+  ],
+  "661170": [
+   "βHCG β",
+   "Sub (cualitativa)"
+  ],
+  "661175": [
+   "βHCG",
+   "Sub β (cuantitativa)"
+  ],
+  "661180": [
+   "StßHGA"
+  ],
+  "668802": [
+   "40,0",
+   "o TRAB",
+   "TBII"
+  ],
+  "669637": [
+   "N 220,0",
+   "RT - BCR",
+   "ABL"
+  ],
+  "664150": [
+   "220,0"
+  ],
+  "669642": [
+   "N 360,0",
+   "- BCR",
+   "ABL"
+  ],
+  "664147": [
+   "410,0"
+  ],
+  "662712": [
+   "80,0",
+   "HAD"
+  ],
+  "662713": [
+   "80,0",
+   "HAD u"
+  ],
+  "669503": [
+   "80,0"
+  ],
+  "663067": [
+   "120,0"
+  ],
+  "668466": [
+   "150,0",
+   "o VJC (cv) - JC (Carga viral)"
+  ],
+  "668467": [
+   "106,0",
+   "o VJC (PCR) - JC LCR (PCR)"
+  ],
+  "668682": [
+   "12,0",
+   "FEP, ZPP",
+   "ZP"
+  ],
+  "662001": [
+   "ABC"
+  ],
+  "662025": [
+   "ACRA"
+  ],
+  "662034": [
+   "ACHE"
+  ],
+  "662128": [
+   "AFA"
+  ],
+  "662182": [
+   "GABA"
+  ],
+  "662205": [
+   "HVA"
+  ],
+  "662247": [
+   "LSD"
+  ],
+  "662358": [
+   "TCA"
+  ],
+  "662379": [
+   "NEFA"
+  ],
+  "662401": [
+   "AC"
+  ],
+  "662405": [
+   "AAC"
+  ],
+  "662410": [
+   "NMO-Ac. IgG"
+  ],
+  "662495": [
+   "AT - Clearence"
+  ],
+  "662538": [
+   "BHC - α HCH"
+  ],
+  "662587": [
+   "Al pelo"
+  ],
+  "662589": [
+   "Al"
+  ],
+  "662591": [
+   "Al u"
+  ],
+  "662675": [
+   "∆ 4"
+  ],
+  "662704": [
+   "A G"
+  ],
+  "662730": [
+   "PSA c",
+   "PSA cx"
+  ],
+  "662734": [
+   "PSA-L+T"
+  ],
+  "662780": [
+   "Sb"
+  ],
+  "662782": [
+   "Sb u"
+  ],
+  "662790": [
+   "HAM"
+  ],
+  "662810": [
+   "APO A"
+  ],
+  "662811": [
+   "APO B"
+  ],
+  "662815": [
+   "APO E"
+  ],
+  "662834": [
+   "Ar pelo"
+  ],
+  "662837": [
+   "Ar uña"
+  ],
+  "662896": [
+   "Ba"
+  ],
+  "662897": [
+   "Ba u"
+  ],
+  "662931": [
+   "BETX"
+  ],
+  "662963": [
+   "Be"
+  ],
+  "662965": [
+   "Be u"
+  ],
+  "663016": [
+   "β BCH",
+   "HCH"
+  ],
+  "663025": [
+   "CTX"
+  ],
+  "663042": [
+   "B-GA"
+  ],
+  "663051": [
+   "ß-lactamasa"
+  ],
+  "663056": [
+   "FREE HCG"
+  ],
+  "663076": [
+   "BTA"
+  ],
+  "663093": [
+   "BNP"
+  ],
+  "663145": [
+   "BRCA"
+  ],
+  "663159": [
+   "W-2ME"
+  ],
+  "663230": [
+   "C1",
+   "C1 INH"
+  ],
+  "663239": [
+   "CYFRA 21-1"
+  ],
+  "663262": [
+   "Cd pelo"
+  ],
+  "663264": [
+   "Cd"
+  ],
+  "663290": [
+   "Ca pelo"
+  ],
+  "663292": [
+   "Ca saliva"
+  ],
+  "663310": [
+   "CPMF"
+  ],
+  "663546": [
+   "LE"
+  ],
+  "663717": [
+   "CMV - PP65"
+  ],
+  "663720": [
+   "(cuanti)"
+  ],
+  "663722": [
+   "(cuali)"
+  ],
+  "663734": [
+   "C, P - Anti- PR3"
+  ],
+  "663786": [
+   "Co"
+  ],
+  "663788": [
+   "Co u"
+  ],
+  "663814": [
+   "eritrocitario"
+  ],
+  "663820": [
+   "Cu u"
+  ],
+  "663880": [
+   "Anti- P68 KDA"
+  ],
+  "663910": [
+   "Col no HDL"
+  ],
+  "663922": [
+   "C1Q"
+  ],
+  "663939": [
+   "CBM"
+  ],
+  "663948": [
+   "CIM"
+  ],
+  "664002": [
+   "AACA"
+  ],
+  "664008": [
+   "CLU"
+  ],
+  "664132": [
+   "Cr pelo"
+  ],
+  "664134": [
+   "Cr"
+  ],
+  "664136": [
+   "Cr u"
+  ],
+  "664141": [
+   "CgA"
+  ],
+  "664340": [
+   "DHEA"
+  ],
+  "664350": [
+   "δ-HCH"
+  ],
+  "664375": [
+   "DPD"
+  ],
+  "664444": [
+   "DMFA"
+  ],
+  "664461": [
+   "DNAss"
+  ],
+  "664623": [
+   "ENA"
+  ],
+  "664632": [
+   "EMA IgA"
+  ],
+  "664640": [
+   "EMA IgG"
+  ],
+  "664700": [
+   "ECA"
+  ],
+  "664709": [
+   "EBNA"
+  ],
+  "664717": [
+   "EBV cv PCR"
+  ],
+  "664726": [
+   "EBV Ag. Ac"
+  ],
+  "664728": [
+   "EBV DNA PCR"
+  ],
+  "664734": [
+   "EPO"
+  ],
+  "665016": [
+   "Biodisponible"
+  ],
+  "665055": [
+   "MDMA",
+   "XTC"
+  ],
+  "665136": [
+   "PCP"
+  ],
+  "665144": [
+   "FEA"
+  ],
+  "665238": [
+   "PDF"
+  ],
+  "665298": [
+   "FK"
+  ],
+  "665324": [
+   "ACP",
+   "FAP"
+  ],
+  "665443": [
+   "PHI"
+  ],
+  "665469": [
+   "FAI"
+  ],
+  "665486": [
+   "FSH"
+  ],
+  "665503": [
+   "GAD"
+  ],
+  "665520": [
+   "γ-HCH"
+  ],
+  "665546": [
+   "Asialo, GM2, GD1b, GQ1b"
+  ],
+  "665576": [
+   "DGP IgA"
+  ],
+  "665583": [
+   "DGP IgG"
+  ],
+  "665632": [
+   "GLAE",
+   "SHBG"
+  ],
+  "665640": [
+   "CBG"
+  ],
+  "665666": [
+   "GPO"
+  ],
+  "665787": [
+   "C282Y"
+  ],
+  "665789": [
+   "H63D"
+  ],
+  "665791": [
+   "S65C"
+  ],
+  "665802": [
+   "Hb-A1"
+  ],
+  "665811": [
+   "Hb-A2"
+  ],
+  "665820": [
+   "Hb F"
+  ],
+  "665828": [
+   "Hb S"
+  ],
+  "665868": [
+   "PFA4"
+  ],
+  "665871": [
+   "o HBPM"
+  ],
+  "665888": [
+   "HAV IgG"
+  ],
+  "665896": [
+   "Ac Hbe"
+  ],
+  "665905": [
+   "CORE IgM"
+  ],
+  "665914": [
+   "HVB cv"
+  ],
+  "665931": [
+   "HBV-DNA"
+  ],
+  "665939": [
+   "HVC IgM"
+  ],
+  "665956": [
+   "HVC cv"
+  ],
+  "665965": [
+   "HVC genotip"
+  ],
+  "665973": [
+   "HVC LIA"
+  ],
+  "665982": [
+   "HVC PCR"
+  ],
+  "665990": [
+   "HVD IgG"
+  ],
+  "665993": [
+   "HVD IgM"
+  ],
+  "666008": [
+   "HVE IgG"
+  ],
+  "666028": [
+   "ErbB2"
+  ],
+  "666034": [
+   "VHS 1",
+   "2 IFI"
+  ],
+  "666037": [
+   "VHS 1",
+   "2 PCR"
+  ],
+  "666040": [
+   "VHS 1 IgA"
+  ],
+  "666042": [
+   "VHS 1 IgG"
+  ],
+  "666050": [
+   "VHS 1 IgM"
+  ],
+  "666059": [
+   "VHS 2 IgA"
+  ],
+  "666067": [
+   "VHS 2 IgG"
+  ],
+  "666076": [
+   "VHS 2 IgM"
+  ],
+  "666084": [
+   "VHS Ag"
+  ],
+  "666093": [
+   "HHV6-IgG"
+  ],
+  "666096": [
+   "HHV6-IgM"
+  ],
+  "666110": [
+   "VHS 7 IgG"
+  ],
+  "666113": [
+   "VHS 7 IgM"
+  ],
+  "666209": [
+   "Fe MO"
+  ],
+  "666213": [
+   "Fe u"
+  ],
+  "666554": [
+   "ANNA-1"
+  ],
+  "666708": [
+   "HOMA-IR"
+  ],
+  "666711": [
+   "IFR - MDRD-4"
+  ],
+  "666713": [
+   "RAC"
+  ],
+  "666730": [
+   "H1N1"
+  ],
+  "666732": [
+   "H1N1"
+  ],
+  "666819": [
+   "CIC"
+  ],
+  "666862": [
+   "IAA"
+  ],
+  "666905": [
+   "ICA"
+  ],
+  "666930": [
+   "LA",
+   "SSB"
+  ],
+  "666947": [
+   "LC1"
+  ],
+  "667187": [
+   "LP a"
+  ],
+  "667338": [
+   "Mn pelo"
+  ],
+  "667341": [
+   "Mn"
+  ],
+  "667343": [
+   "Mn u"
+  ],
+  "667375": [
+   "Hg pelo"
+  ],
+  "667439": [
+   "hMPV"
+  ],
+  "667440": [
+   "hMPV - PCR"
+  ],
+  "667460": [
+   "MTHRT"
+  ],
+  "667527": [
+   "AAMPO",
+   "Anti - MPO"
+  ],
+  "667529": [
+   "MPO"
+  ],
+  "667571": [
+   "AMA M2"
+  ],
+  "667773": [
+   "Leu-Neo"
+  ],
+  "667777": [
+   "- IRT - Neo"
+  ],
+  "667785": [
+   "TSH-neo"
+  ],
+  "667862": [
+   "NTX"
+  ],
+  "667905": [
+   "o-cresol"
+  ],
+  "667919": [
+   "o,o,o-"
+  ],
+  "668161": [
+   "mm",
+   "PTH m"
+  ],
+  "668284": [
+   "IgG",
+   "CCP IgG"
+  ],
+  "668286": [
+   "VIP"
+  ],
+  "668315": [
+   "ATPO",
+   "TPO"
+  ],
+  "668379": [
+   "PRP"
+  ],
+  "668385": [
+   "t - PA"
+  ],
+  "668387": [
+   "PAI - AIP"
+  ],
+  "668397": [
+   "Ag"
+  ],
+  "668400": [
+   "Ag u"
+  ],
+  "668409": [
+   "Pb pelo"
+  ],
+  "668435": [
+   "PBS"
+  ],
+  "668440": [
+   "PIS"
+  ],
+  "668463": [
+   "o VBK (cv)"
+  ],
+  "668464": [
+   "o VBK (PCR) - VIRUS (Genoma)"
+  ],
+  "668537": [
+   "K eritrocitario"
+  ],
+  "668554": [
+   "NT-ProBNP"
+  ],
+  "668563": [
+   "PCT"
+  ],
+  "668580": [
+   "17 - OH - Pg"
+  ],
+  "668623": [
+   "PCRus"
+  ],
+  "668627": [
+   "HE4"
+  ],
+  "668656": [
+   "PR3"
+  ],
+  "668780": [
+   "IGH",
+   "FGFR3"
+  ],
+  "668800": [
+   "RFSH"
+  ],
+  "668816": [
+   "sTRF"
+  ],
+  "668836": [
+   "ARA"
+  ],
+  "668853": [
+   "ANNA-2"
+  ],
+  "668860": [
+   "Anti-Riv P"
+  ],
+  "668888": [
+   "RNA"
+  ],
+  "668896": [
+   "RNP"
+  ],
+  "668905": [
+   "Ro",
+   "SSA"
+  ],
+  "668954": [
+   "ASCA IgA"
+  ],
+  "668956": [
+   "ASCA IgG"
+  ],
+  "669016": [
+   "Se"
+  ],
+  "669019": [
+   "Se u"
+  ],
+  "669058": [
+   "Si esputo"
+  ],
+  "669076": [
+   "VSR IgG"
+  ],
+  "669084": [
+   "VSR IgM"
+  ],
+  "669093": [
+   "VSR Ag"
+  ],
+  "669102": [
+   "Jak 2"
+  ],
+  "669118": [
+   "IGFB-1",
+   "IGF-1"
+  ],
+  "669120": [
+   "IGFBP-3"
+  ],
+  "669255": [
+   "SOD"
+  ],
+  "669265": [
+   "AC ICS"
+  ],
+  "669332": [
+   "NBTS"
+  ],
+  "669349": [
+   "NBT"
+  ],
+  "669366": [
+   "DHT"
+  ],
+  "669375": [
+   "To-L - Fto"
+  ],
+  "669383": [
+   "To-uri"
+  ],
+  "669443": [
+   "TGs"
+  ],
+  "669464": [
+   "TG LP"
+  ],
+  "669622": [
+   "TGA"
+  ],
+  "669631": [
+   "TGG"
+  ],
+  "669661": [
+   "T3-L"
+  ],
+  "669725": [
+   "TnI"
+  ],
+  "669734": [
+   "TnT-cuali"
+  ],
+  "669735": [
+   "TnT-cuanti"
+  ],
+  "669747": [
+   "α α TNF - FNT"
+  ],
+  "669787": [
+   "BACOVA"
+  ],
+  "669810": [
+   "VZ IgM"
+  ],
+  "669819": [
+   "VZ IgG"
+  ],
+  "669828": [
+   "VZ Ag"
+  ],
+  "669834": [
+   "VZ PCR"
+  ],
+  "669853": [
+   "FHA IgG"
+  ],
+  "669858": [
+   "FHA IgM"
+  ],
+  "669879": [
+   "Vit B1"
+  ],
+  "669887": [
+   "Vit B6"
+  ],
+  "669896": [
+   "Vit C"
+  ],
+  "669913": [
+   "Vit D3"
+  ],
+  "669960": [
+   "PCA-1"
+  ],
+  "669984": [
+   "Zn pelo"
+  ],
+  "669987": [
+   "Zn semen"
+  ],
+  "669990": [
+   "Zn urinario"
+  ]
+ },
+ "normas": {
+  "660001": {
+   "practica": "ACTO BIOQUÍMICO",
+   "norma": "- Se aplica a todas las prescripciones médicas, y contempla los procedimientos o etapas pre- y post- analíticas. - Comprende la toma de muestra hasta la interpretación y entrega de los resultados con el asesoramiento posterior, en el caso que sea necesario. - Se incluye UN (1) Acto Bioquímico por prescripción médica independientemente de la cantidad de análisis, horarios o fechas indicadas en la misma. - Incluye un (1) material descartable para una sola toma de muestra y/o espécimen.",
+   "interpretacion": "Representa todo lo comprendido en etapas pre- y post analíticas, incorporando en su estructura: 1. las condiciones y recomendaciones previas a la realización de las prácticas comprendidas en la prescripción médica para la preparación del paciente. 2. Toma y/o recepción de muestra incluyendo en cada caso que corresponda: Punción venosa y arterial o materiales obtenidos de las diferentes cavidades naturales del organismo, así como exudados, trasudados y tejidos superficiales. 3. No incluye el material descartable complementario (Cód. 660264). 4. La Actualización Científica y Capacitación permanente del profesional bioquímico.",
+   "includes": [],
+   "excludes": [
+    "660264"
+   ],
+   "included_in": []
+  },
+  "660005": {
+   "practica": "ACIDO BASE, Estado Acido Base (EAB).",
+   "norma": "- El Estado Ácido-Base (EAB), comprende la realización de EAB: C03H.; PC02; EB; PO2 y pH.",
+   "interpretacion": "Incluye códigos: 660109, 660139, 660404, 660716 y 660742.",
+   "includes": [
+    "660109",
+    "660139",
+    "660404",
+    "660716",
+    "660742"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "660036": {
+   "practica": "ANTIBIOGRAMA BACILO DE KOCH.",
+   "norma": "- Comprende prueba de siete antibióticos.",
+   "interpretacion": "",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "660102": {
+   "practica": "BACILOSCOPÍA DIRECTA Y CULTIVO.",
+   "norma": "- Comprende Baciloscopía directa y cultivo para BAAR por muestra a analizar. - En prescripción médica con solicitud de seriado sin aclarar el número de muestras a analizar, correspondiendo tres (3) muestras de esputo y cinco (5) para orina.",
+   "interpretacion": "Incluye código: 660101 Con la solicitud de seriado en la prescripción médica: se facturarán 660102x 3 en el caso de esputos y de 660102x5 cuando el material a analizar es orina.",
+   "includes": [
+    "660101"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "660105": {
+   "practica": "BACTERIOLOGICO, DIRECTO-CULTIVO e IDENTIFICACIÓN del GÉRMEN.",
+   "norma": "- Comprende el estudio bacteriológico directo y cultivo del material a analizar con la correspondiente tipificación de gérmenes. - Comprende únicamente cultivo de aerobios.",
+   "interpretacion": "Incluye código: 660104. No incluye los códigos: 660035, 660176, 660532.- Incluido en el código: 660187, 660468, 660903 y 660931.-",
+   "includes": [
+    "660104"
+   ],
+   "excludes": [
+    "660035",
+    "660176",
+    "660532"
+   ],
+   "included_in": [
+    "660187",
+    "660468",
+    "660903",
+    "660931"
+   ]
+  },
+  "660108": {
+   "practica": "BENCE- JONES, PROTEINAS de (HPLC / IMF)",
+   "norma": "- Comprende la realización de la práctica por HPLC - Electroforético o IEF.",
+   "interpretacion": "No se contempla la realización de esta práctica con técnica por calentamiento.",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "660109": {
+   "practica": "BICARBONATO.",
+   "norma": "",
+   "interpretacion": "Incluido en código: 660005.",
+   "includes": [],
+   "excludes": [],
+   "included_in": [
+    "660005"
+   ]
+  },
+  "660138": {
+   "practica": "CALCULO - urinario.",
+   "norma": "- Comprende realizar Examen Físico (Aspecto, tamaño, peso total, color, forma, consistencia) y el Examen Químico (Oxalato, Fosfatos, Uratos, Carbonatos y Calcio).",
+   "interpretacion": "",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "660139": {
+   "practica": "CARBÓNICO ANHÍDRIDO – (PCO2)",
+   "norma": "",
+   "interpretacion": "Incluido en código: 660005.",
+   "includes": [],
+   "excludes": [],
+   "included_in": [
+    "660005"
+   ]
+  },
+  "660164": {
+   "practica": "CITOLOGÍA EXFOLIATIVA - VAGINAL HORMONAL (POR CADA MUESTRA)",
+   "norma": "- Comprende la coloración específica y la observación y recuento porcentual de los diferentes tipos de células exfoliadas del epitelio vaginal, que permite determinar la relación entre estrógenos y prostágenos en el momento del ciclo estudiado.",
+   "interpretacion": "",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "660169": {
+   "practica": "COAGULACION, TIEMPO DE",
+   "norma": "- Comprende realización del tiempo de Coagulación. - No incluye Tiempo de Sangría.",
+   "interpretacion": "No incluye códigos: 668977.",
+   "includes": [],
+   "excludes": [
+    "668977"
+   ],
+   "included_in": []
+  },
+  "660171": {
+   "practica": "COAGULOGRAMA.",
+   "norma": "- Comprende realización de Coagulación, Recuento de Plaquetas, Tiempo de Protrombina, y Tromboplastina Parcial con caolín. - No incluye Tiempo de Sangría por método de Ivy.",
+   "interpretacion": "Incluye códigos: 660169, 660746, 660771 y 660887. No incluye código: 668977",
+   "includes": [
+    "660169",
+    "660746",
+    "660771",
+    "660887"
+   ],
+   "excludes": [
+    "668977"
+   ],
+   "included_in": []
+  },
+  "660176": {
+   "practica": "COLONIAS, RECUENTO DE.",
+   "norma": "- Comprende Recuento de Colonias en todos los casos que se justifique la cuantificación (Cultivos de materiales provenientes de: orina, catéter - lavado bronqueoalveolar, micológico en materia fecal)",
+   "interpretacion": "Incluido en código: 660911.",
+   "includes": [],
+   "excludes": [],
+   "included_in": [
+    "660911"
+   ]
+  },
+  "660183": {
+   "practica": "COOMBS DIRECTA MONOESPECÍFICA, PRUEBA DE",
+   "norma": "-Comprende la realización de la prueba con sueros anti-globulina humana monoespecífico.",
+   "interpretacion": "Puede ser usada en la caracterización de anemias hemolíticas autoinmunes y se aplicará el valor de cada suero utilizado.",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "660184": {
+   "practica": "COOMBS DIRECTA POLIESPECÍFICA, PRUEBA DE",
+   "norma": "-Comprende la realización de la prueba con suero anti-globulina humana poliespecífico.",
+   "interpretacion": "No incluye el código: 660183",
+   "includes": [],
+   "excludes": [
+    "660183"
+   ],
+   "included_in": []
+  },
+  "660186": {
+   "practica": "COOMBS INDIRECTA. AGLUTININAS ANTI-Rhₒ",
+   "norma": "- Comprende la Prueba de Coombs cuali- y cuantitativa e incluye la detección de anticuerpos contra panel celular.",
+   "interpretacion": "Incluye código: 666898",
+   "includes": [
+    "666898"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "660187": {
+   "practica": "COPROCULTIVO.",
+   "norma": "- Comprende el estudio bacteriológico completo de Materia Fecal, (directo, cultivo y tipificación de germen). - No incluye identificación serológica del germen.",
+   "interpretacion": "Incluye los códigos: 660104, 660105. No incluye el código: 660035, 660532.",
+   "includes": [
+    "660104",
+    "660105"
+   ],
+   "excludes": [
+    "660035",
+    "660532"
+   ],
+   "included_in": []
+  },
+  "660193": {
+   "practica": "CREATININA, CLEARENCE DE DEPURACIÓN.",
+   "norma": "- Comprende la determinación de Creatinina en sangre y orina con diuresis de 24,00 hs.",
+   "interpretacion": "Incluye el código: 660192.",
+   "includes": [
+    "660192"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "660244": {
+   "practica": "CHAGAS, PARASITEMIA.",
+   "norma": "- Comprende uno de los métodos de: gota gruesa, gota fresca, de Strout y de Micro hematocrito.-",
+   "interpretacion": "",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "660245": {
+   "practica": "CHAGAS, SEROLOGÍA - CONFIRMATORIO.",
+   "norma": "- Comprende la realización de serología por dos (2) métodos de acuerdo a la Ley 26281: CONFIRMATORIO por las técnicas de: HAI y ELISA ó HAI e IFI o HAI y QL.",
+   "interpretacion": "Se factura solo código 660245. Incluye: 660242 y 660243.",
+   "includes": [
+    "660242",
+    "660243"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "660264": {
+   "practica": "DESCARTABLE, MATERIAL COMPLEMENTARIO (DMC).",
+   "norma": "- Comprende el material descartable para cada toma de muestra que no esté contemplado en el: AB, ABI o en el ABC.",
+   "interpretacion": "Incluye un material descartable por cada muestra y/o espécimen no considerado en los códigos: 660001, 661001 o 662001",
+   "includes": [
+    "660001",
+    "661001",
+    "662001"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "660273": {
+   "practica": "DOMICILIO A MÁS DE DOS (2) Kms. - ADICIONAL por c/Km.",
+   "norma": "- Para asistir al domicilio que este a más de dos (2) Kms de distancia del Laboratorio, se debe incorporar este código por cada Km recorrido que supere los estipulados en el 660272",
+   "interpretacion": "No incluye el código 660272.",
+   "includes": [],
+   "excludes": [
+    "660272"
+   ],
+   "included_in": []
+  },
+  "660298": {
+   "practica": "ESPERMOGRAMA BASICO (EIVE)",
+   "norma": "- Comprende la realización de:",
+   "interpretacion": "No incluye los códigos: 660167, 660355, 665478. Incluye los códigos: 664868, 664775. Examen Macroscópico: aspecto, volumen, licuefacción, viscosidad y pH. Examen Microscópico: Recuento en cámara de espermatozoides y de células redondas. Motilidad espermática, Test de aglutinación, Test de eosina, Morfología de Kruger, Tinción de peroxidasa. No incluye Química Seminal (dosaje de: ácido cítrico, fosfatasa ácida prostática, fructosa).",
+   "includes": [
+    "664868",
+    "664775"
+   ],
+   "excludes": [
+    "660167",
+    "660355",
+    "665478"
+   ],
+   "included_in": []
+  },
+  "660309": {
+   "practica": "EXUDADO NASOFARÍNGEO, CULTIVO.",
+   "norma": "- Comprende la realización de cultivo con identificación bioquímica del gérmen de fauces o exudado de fauces.",
+   "interpretacion": "Incluye el código: 660105.",
+   "includes": [
+    "660105"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "660337": {
+   "practica": "FENILALANINA CONFIRMATORIO (HPLC).",
+   "norma": "Para su procesamiento se requiere de la determinación Fenilalanina neonatal (PKU) positiva.",
+   "interpretacion": "No incluye el código: 660338",
+   "includes": [],
+   "excludes": [
+    "660338"
+   ],
+   "included_in": []
+  },
+  "660338": {
+   "practica": "FENILALANINA NEONATAL (PKU).",
+   "norma": "- Comprende la realización individual de la práctica.",
+   "interpretacion": "",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "660349": {
+   "practica": "FÍSICO QUÍMICO, Examen de Exudados, Trasudados.",
+   "norma": "- Comprende Examen Físico-Químico: albúminas, glucosa, pH, aspecto post- centrifugación (sobrenadante y sedimento), color, coagulación, proteínas. - Comprende Ex. Citológico: recuento y fórmula leucocitaria, con examen bacteriológico directo. - En caso de Líquido Pleural donde se debe realizar LDH se codifica por separado 660594.",
+   "interpretacion": "Incluye los códigos: 660015, 660104, 660354, 660409, 660412, 660741, 660763. No incluye los códigos: 660105, 660594.",
+   "includes": [
+    "660015",
+    "660104",
+    "660354",
+    "660409",
+    "660412",
+    "660741",
+    "660763"
+   ],
+   "excludes": [
+    "660105",
+    "660594"
+   ],
+   "included_in": []
+  },
+  "660373": {
+   "practica": "FUNCIONAL DE MATERIA FECAL - básico. Sinonimia: EXAMEN FISICO- QUIMICO Y MICROSCÓPICO DE MATERIA FECAL.",
+   "norma": "- Comprende la realización de: EXAMEN FISICO: Cantidad de MF/24 hs. Color, Forma, Olor, Consistencia, Reacción, Ph. EXAMEN QUIMICO: Mucus o Mucina, Albúminas, Pigmentos, Sustancias reductoras, Grasas (Esteatocrito), Sangre oculta EXAMEN MICROSCÓPICO: Células descamativas, Leucocitos, Hematíes, Cristales, Parásitos, Fibras musculares, Fibras vegetales, Gotas de grasa.",
+   "interpretacion": "Toda aquella determinación que no se incluye en el presente módulo será a expreso pedido médico y codificado por separado.",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "660402": {
+   "practica": "GALACTOSEMIA.",
+   "norma": "- Comprende la realización individual de la práctica fuera del screening neonatal La evaluación del costo de la práctica individual no está considerada como práctica del screening neonatal.",
+   "interpretacion": "No es considerara por homologación de la práctica de screening neonatal.",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "660404": {
+   "practica": "GASES EN SANGRE, PCO2 y PO2.",
+   "norma": "",
+   "interpretacion": "Incluido en el código: 660005.",
+   "includes": [],
+   "excludes": [],
+   "included_in": [
+    "660005"
+   ]
+  },
+  "660413": {
+   "practica": "GLUCOSA, PRUEBA DE SOBRECARGA.",
+   "norma": "- Comprende hasta dos (2) determinaciones de Glucosas (Basal y 120 minutos post-sobrecarga con 75 gs. de Glucosa). - Se debe incluir un código 660412 por cada solicitud de dosaje de glucosa adicional a los especificados.",
+   "interpretacion": "Incluye la dosis oral de glucosa que corresponda administrar al paciente. No incluye dosajes de glucosa adicionales ni el material descartable extra a los señalados por norma.",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "660430": {
+   "practica": "GRAHAM, TEST DE.",
+   "norma": "-Comprende la búsqueda e investigación de elementos parasitarios en muestra obtenida solamente de escobillado anal de siete (7) días continuados según especificaciones técnicas del profesional bioquímico.",
+   "interpretacion": "No incluido en el código: 660736.",
+   "includes": [],
+   "excludes": [],
+   "included_in": [
+    "660736"
+   ]
+  },
+  "660433": {
+   "practica": "GRUPO SANGUÍNEO y FACTOR Rh o",
+   "norma": "- Comprende: en los casos que corresponda, la detección de variedad Dµ con uso de antisuero que detecten la variedad VI de Tippett.",
+   "interpretacion": "Incluye el código: 660813.",
+   "includes": [
+    "660813"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "660468": {
+   "practica": "HEMOCULTIVO, AEROBIOS.",
+   "norma": "- Comprende la realización de una muestra incluyendo Bacteriología directa y cultivo con identificación del gérmen, micología directa y cultivo con identificación.",
+   "interpretacion": "Incluye los códigos: 660105, 660665. La palabra seriado en la prescripción médica indica hasta tres (3) tomas de muestra (y se factura 660468 x 3).",
+   "includes": [
+    "660105",
+    "660665"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "660475": {
+   "practica": "HEMOGRAMA.",
+   "norma": "- Comprende la realización de Hematocrito, recuento de glóbulos blancos y glóbulos rojos; dosaje de hemoglobina; fórmula leucocitaria; caracteres morfológicos e índices hematimétricos.",
+   "interpretacion": "Incluye los códigos: 660354, 660409, 660410, 660466, 660470.",
+   "includes": [
+    "660354",
+    "660409",
+    "660410",
+    "660466",
+    "660470"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "660481": {
+   "practica": "HEPATOGRAMA.",
+   "norma": "- Comprende la determinación de: GOT, GPT, Fosfatasa Alcalina, Bilirrubina Total, Directa e Indirecta.",
+   "interpretacion": "Incluye los códigos: 660110, 660357, 660873 y 660874.",
+   "includes": [
+    "660110",
+    "660357",
+    "660873",
+    "660874"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "660532": {
+   "practica": "IDENTIFICACIÓN SEROLÓGICA DE GÉRMENES.",
+   "norma": "- Comprende las pruebas de antisueros contra cepas bacterianas aisladas en cultivos bacteriológicos.",
+   "interpretacion": "",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "660536": {
+   "practica": "INMUNOELECTROFORÉ SIS DE LÍQUIDOS BIOLÓGICOS.",
+   "norma": "- No comprende la realización de concentración de líquidos biológicos.",
+   "interpretacion": "No incluye el código: 660181.",
+   "includes": [],
+   "excludes": [
+    "660181"
+   ],
+   "included_in": []
+  },
+  "660546": {
+   "practica": "IONOGRAMA - sérico.",
+   "norma": "- Comprende la determinación de Sodio y Potasio en sangre.",
+   "interpretacion": "Incluye los códigos: 660753 y 660839.",
+   "includes": [
+    "660753",
+    "660839"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "660547": {
+   "practica": "IONOGRAMA - urinario.",
+   "norma": "- Comprende la determinación de Sodio y Potasio en orina.",
+   "interpretacion": "Incluye los códigos: 660754 y 660839.",
+   "includes": [
+    "660754",
+    "660839"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "660619": {
+   "practica": "LÍQUIDO CEFALORRAQUÍDEO – LCR.",
+   "norma": "- Comprende la realización de: Recuento de glóbulos blancos con fórmula leucocitaria, glucosa, proteínas totales, albúminas y reacción de floculación.",
+   "interpretacion": "Incluye los códigos: 660015, 660354, 660409, 660412, 660763.",
+   "includes": [
+    "660015",
+    "660354",
+    "660409",
+    "660412",
+    "660763"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "660620": {
+   "practica": "LÍQUIDO DE PUNCIÓN.",
+   "norma": "- Comprende Examen Físico-Químico: albúminas, glucosa, pH, aspecto post- centrifugación (sobrenadante y sedimento), color, coagulación, proteínas. - Comprende Ex. Citológico: recuento y fórmula leucocitaria. - En caso de Líquido Pleural donde se debe realizar LDH se codifica por separado 660594.",
+   "interpretacion": "Incluye los códigos: 660015, 660104, 660354, 660409, 660412, 660741, 660763.",
+   "includes": [
+    "660015",
+    "660104",
+    "660354",
+    "660409",
+    "660412",
+    "660741",
+    "660763"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "660623": {
+   "practica": "LITIO, (ISE - Ión selectivo - Fotometría de llama o fotometría de emisión).",
+   "norma": "- Debido a la baja Sensibilidad del método se recomienda utilizar método de dopaje de Li por A.A.",
+   "interpretacion": "Se recomienda por metodología codificar y valorizar con el ítem: 660624",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "660656": {
+   "practica": "MANTOUX, INTRADERMO- REACCION DE (PPD).",
+   "norma": "- Comprende la dosis, administración, lectura e interpretación con de la intradermorreacción.",
+   "interpretacion": "No incluye el código: 660001. Incluye el suministro del descartable y de las 2UT de Tuberculina. Incluye lo comprendido en código: 662001.",
+   "includes": [
+    "662001"
+   ],
+   "excludes": [
+    "660001"
+   ],
+   "included_in": []
+  },
+  "660664": {
+   "practica": "MICOLOGÍA (Directo y Coloración).",
+   "norma": "- Comprende examen directo y cultivo micológico para material proveniente de micosis superficiales (piel, pelos y uñas) (líquidos, exudados o flujo vaginal y uretral, punciones, secreciones, pelos, uñas y piel).",
+   "interpretacion": "Incluido en los códigos: 660665, 660903, 660931.",
+   "includes": [],
+   "excludes": [],
+   "included_in": [
+    "660665",
+    "660903",
+    "660931"
+   ]
+  },
+  "660665": {
+   "practica": "MICOLOGÍA (Cultivo e Identificación).",
+   "norma": "- Comprende examen directo y cultivo micológico para material proveniente de micosis superficiales (piel, pelos, uñas ) y mucosas.",
+   "interpretacion": "Incluye el código: 660664. Incluido en los códigos: 660903 660931.",
+   "includes": [
+    "660664"
+   ],
+   "excludes": [],
+   "included_in": [
+    "660903",
+    "660931"
+   ]
+  },
+  "660684": {
+   "practica": "MULTIRRESISTENCIA, VIGILANCIA DE BACTERIAS RESISTENTES",
+   "norma": "- Comprende la investigación de bacterias que presentan mecanismos de multirresistencia.",
+   "interpretacion": "No incluye el código: 660035, 660105, 660176 ni 660532.",
+   "includes": [],
+   "excludes": [
+    "660035",
+    "660105",
+    "660176",
+    "660532"
+   ],
+   "included_in": []
+  },
+  "660711": {
+   "practica": "ORINA COMPLETA.",
+   "norma": "- Comprende Examen Físico, Examen Químico y Examen en fresco de sedimento urinario.",
+   "interpretacion": "",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "660716": {
+   "practica": "OXÍGENO EN SANGRE, PO2",
+   "norma": "",
+   "interpretacion": "Incluido en el código: 660005.",
+   "includes": [],
+   "excludes": [],
+   "included_in": [
+    "660005"
+   ]
+  },
+  "660736": {
+   "practica": "PARASITOLOGICO en MATERIA FECAL.",
+   "norma": "- Comprende la búsqueda e investigación de elementos parasitarios de muestras en fresco y/o seriados.",
+   "interpretacion": "No incluye el código: 660430.",
+   "includes": [],
+   "excludes": [
+    "660430"
+   ],
+   "included_in": []
+  },
+  "660742": {
+   "practica": "PH - sanguíneo",
+   "norma": "",
+   "interpretacion": "Incluido en el código: 660005.",
+   "includes": [],
+   "excludes": [],
+   "included_in": [
+    "660005"
+   ]
+  },
+  "660753": {
+   "practica": "POTASEMIA.",
+   "norma": "",
+   "interpretacion": "Incluido en el código: 660546.",
+   "includes": [],
+   "excludes": [],
+   "included_in": [
+    "660546"
+   ]
+  },
+  "660754": {
+   "practica": "POTASURIA.",
+   "norma": "",
+   "interpretacion": "Incluido en el código: 660547.",
+   "includes": [],
+   "excludes": [],
+   "included_in": [
+    "660547"
+   ]
+  },
+  "660766": {
+   "practica": "PROTEINOGRAMA - líquidos biológicos.",
+   "norma": "- Comprende determinaciones de Proteínas totales, Albúminas y Globulinas diferenciadas en el espécimen a estudiar. No incluye la concentración de líquidos biológicos en los casos que corresponda.",
+   "interpretacion": "Incluye los códigos: 660015 y 660763. (Proteínas totales, Albúminas y Globulinas) a realizar en espécimen correspondiente. No incluye: 660181.",
+   "includes": [
+    "660015",
+    "660763"
+   ],
+   "excludes": [
+    "660181"
+   ],
+   "included_in": []
+  },
+  "660767": {
+   "practica": "PROTEINURIA.",
+   "norma": "- Comprende la cuantificación de Proteínas en orina.",
+   "interpretacion": "No se incluye en el código: 660711.",
+   "includes": [
+    "660711"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "660770": {
+   "practica": "PROTROMBINA, RIN",
+   "norma": "- Comprende la determinación del RIN para los casos de solicitud médica de Tiempo de Protrombina o Coagulograma en pacientes anticoagulados.",
+   "interpretacion": "En pacientes anticoagulados se factura: 660771+660770 o 660171+660770 según corresponda. No está incluido en los códigos: 660171 ni 660771.",
+   "includes": [],
+   "excludes": [],
+   "included_in": [
+    "660171",
+    "660771"
+   ]
+  },
+  "660771": {
+   "practica": "PROTROMBINA, TIEMPO DE.",
+   "norma": "- Comprende la determinación del Tiempo de Protrombina.",
+   "interpretacion": "Incluido en el código: 660171.",
+   "includes": [],
+   "excludes": [],
+   "included_in": [
+    "660171"
+   ]
+  },
+  "660772": {
+   "practica": "PSEUDO COLINESTERASA.",
+   "norma": "- Comprende determinación de Colinesterasa sanguínea.",
+   "interpretacion": "",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "660813": {
+   "practica": "Rh FACTOR - GRUPO o SANGUINEO.",
+   "norma": "- Comprende la determinación de los Sistemas ABO y de Rh . o",
+   "interpretacion": "Incluido en el código: 660433. Incluido en la Serología para transfusiones.",
+   "includes": [],
+   "excludes": [],
+   "included_in": [
+    "660433"
+   ]
+  },
+  "660833": {
+   "practica": "SANGRE OCULTA - materia fecal (SOMF) - inmunológico",
+   "norma": "- Comprende investigación de sangre oculta en materia fecal por método específico (monoclonal) – inmunológico.",
+   "interpretacion": "",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "660837": {
+   "practica": "SIDEROFILINA, CAPACIDAD de SATURACIÓN.",
+   "norma": "- Comprende cálculos e informe de Capacidad de Saturación de Transferrina (TRF) o Siderofilina.. - Incluye los dosaje de: Transferrina (TRF) y Ferremia (Fe).",
+   "interpretacion": "Incluye los códigos: 660343, 660875.",
+   "includes": [
+    "660343",
+    "660875"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "660838": {
+   "practica": "SIMS - HUHNER, TEST DE",
+   "norma": "- Comprende evaluación del moco cervical (volumen, PH, filancia, cristalización) y espermatozoides (recuento por campo y movilidad).",
+   "interpretacion": "",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "660839": {
+   "practica": "SODIO - sérico o urinario.",
+   "norma": "",
+   "interpretacion": "Incluido en el código: 660546 y 660547.",
+   "includes": [],
+   "excludes": [],
+   "included_in": [
+    "660546",
+    "660547"
+   ]
+  },
+  "660847": {
+   "practica": "SUDOR, TEST DE",
+   "norma": "- Comprende la determinación de Sodio y Cloro en sudor, previa Iontoforésis.",
+   "interpretacion": "",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "660865": {
+   "practica": "TIROTROFINA - TSH",
+   "norma": "- Comprende la realización individual de la práctica fuera del screening neonatal La evaluación del costo de la práctica individual no está considerada como práctica del screening neonatal.",
+   "interpretacion": "No es considerara por homologación de la práctica de screening neonatal.",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "660875": {
+   "practica": "TRANSFERRINA.",
+   "norma": "- Comprende la realización de TRF por método de IDR o Turbidimetría - No Incluye dosaje de: Ferremia (Fe) ni Capacidad de Saturación de Siderofilina.",
+   "interpretacion": "No incluye los códigos: 660343, 660837.",
+   "includes": [],
+   "excludes": [
+    "660343",
+    "660837"
+   ],
+   "included_in": []
+  },
+  "660903": {
+   "practica": "URETRAL, EXUDADO (Directo y Cultivo).",
+   "norma": "- Comprende el de material de Exudado Uretral o flujo con: • Examen Directo en Fresco y previa Coloración: con diferenciación morfológicas celulares, células guías o claves (clue cells), leucocitos, bacterias, hongos y parásitos. • Incluye Cultivo Micológico y Bacteriológico con la correspondiente tipificación del gérmen.",
+   "interpretacion": "Incluye los códigos: 660105, 660665. No incluye los códigos: 660035, 660532. No incluye tipificación serológica ni determinación de Antígenos.",
+   "includes": [
+    "660105",
+    "660665"
+   ],
+   "excludes": [
+    "660035",
+    "660532"
+   ],
+   "included_in": []
+  },
+  "660907": {
+   "practica": "UROCITOGRAMA (cada muestra)",
+   "norma": "- Comprende la coloración específica y la observación y recuento porcentual de los diferentes tipos de células exfoliadas del epitelio vesical, que permite determinar la relación entre estrógenos y prostágenos en el momento del ciclo estudiado.",
+   "interpretacion": "",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "660911": {
+   "practica": "UROCULTIVO (Módulo)",
+   "norma": "- Comprende la realización de: Cultivo con identificación del gérmen, Recuento de Colonias, Antibiograma y el Examen Físico- Químico de Orina con la determinación de: pH, Densidad, Proteínas Totales, Glucosa y Nitritos.",
+   "interpretacion": "Incluye los códigos: 660105, 660176, 660035 y 660711.- En la valorización del presente módulo se compensa estadísticamente los casos donde deben realizarse o no el total de las prácticas incluidas.",
+   "includes": [
+    "660105",
+    "660176",
+    "660035",
+    "660711"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "660923": {
+   "practica": "UROPROTEINOGRAMA",
+   "norma": "- Comprende determinaciones de Proteínas totales, Albúminas y Globulinas diferenciadas, previa concentración de muestra de orina.",
+   "interpretacion": "Incluye código: 660181.",
+   "includes": [
+    "660181"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "660931": {
+   "practica": "VAGINAL, EXUDADO o FLUJO.",
+   "norma": "- Comprende el estudio de material de Exudado Vaginal de Fondo de Saco con: • Examen Físico aspecto, cantidad, olor, pH, test de Amina (fishy odor). • Examen Directo en Fresco y previa Coloración: con diferenciación morfológicas celulares, células guías o claves (clue cells), leucocitos, bacterias, hongos y parásitos. • Incluye Cultivo Micológico y Bacteriológico con la correspondiente identificación del gérmen.",
+   "interpretacion": "Incluye los códigos: 660665 y 660105. Cuando se indica cultivo endocervical, se debe adicionar el código: 660105. No incluye los códigos 660035, 660532. No incluye tipificación serológica ni determinación de Antígenos.",
+   "includes": [
+    "660665",
+    "660105"
+   ],
+   "excludes": [
+    "660035",
+    "660532"
+   ],
+   "included_in": []
+  },
+  "660933": {
+   "practica": "V D R L / USR",
+   "norma": "- Comprende la determinación",
+   "interpretacion": " cualitativa y/o cuantitativa de VDRL o USR.",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "661001": {
+   "practica": "ACTO BIOQUÍMICO DE INTERNACIÓN (ABI)",
+   "norma": "- Se aplica para todas las prescripciones médicas de pacientes internados y contempla los procedimientos o etapas pre- y post- analíticas por día de internación.",
+   "interpretacion": "Representa e incluye todo lo comprendido en la Norma e Interpretación del código 660001. - (1) UN ABI por día incluye a toda/s la/s prescripción/es médica/s independientemente de la cantidad de prácticas de laboratorio y horarios indicadas en una o varias recetas.",
+   "includes": [
+    "660001"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "661050": {
+   "practica": "DROGAS DE ABUSO, SCREENING (c/u)",
+   "norma": "- Comprende la determinación en orina según prescripción médica por cada una de las siguientes sustancias: Anfetaminas - Barbitúricos - Benzodiazepinas - Cocaína - Marihuana (Cannabionoides) - Opiáceos.",
+   "interpretacion": "",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "661135": {
+   "practica": "MONITOREO DE FÁRMACOS PARA ENFERMEDADES CRÓNICAS I (Anticonvulsivantes I).",
+   "norma": "- Comprende la determinación según prescripción médica por cada una de las prácticas detalladas a continuación: Difenilhidantoina - Etosuximida - Fenitoina - Fenobarbital - Primidona - Teofilina - Valproato libre o Acido Valproico. (c / u).",
+   "interpretacion": "Esta clasificación se debe a la diferencia en los costos con el resto de las prácticas presentes en las Normas de trabajo correspondientes a los Códigos: 661136, 661137.",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "661136": {
+   "practica": "MONITOREO DE FÁRMACOS PARA ENFERMEDADES CRÓNICAS II (Anticonvulsivantes II).",
+   "norma": "- Comprende la determinación según prescripción médica por cada una de las prácticas detalladas a continuación: Amitriptilina (Nortriptilina) – Bromozepan - Cafeína – Carbamacepina - Clobazan (Desmetilclobazan) - Cloimipramina - Clonazepan - Clozapina - Diazepan - Bufotenina (N-Dimetil, 5Hidroxi- triptamina) (Código original es: 663213) - Epóxido de Carbamazepina (Código original es: 663213) - Flunitrazepan - Imipramina - Lamotrigina - Lorazepan - Nitrazepan - Oxacarbazepina",
+   "interpretacion": "Esta clasificación se debe a la diferencia en los costos con el resto de las prácticas presentes en las Normas de trabajo correspondientes a los Códigos: 661135, 661137.",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "661137": {
+   "practica": "MONITOREO DE FÁRMACOS PARA ENFERMEDADES CRÓNICAS III (Anticonvulsivantes III).",
+   "norma": "- Comprende la determinación según prescripción médica por la práctica señalada como: Levetiracetam (Código original es: 667070) - Topiramato (Código original es: 669490).",
+   "interpretacion": "Esta clasificación se debe a la diferencia en los costos con el resto de las prácticas presentes en las Normas de trabajo correspondientes a los Códigos: 661135, 661136.",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "661142": {
+   "practica": "PREPARACION DE SAGRE A TRANSFUNDIR (Módulo Transfusional)",
+   "norma": "- Comprende la realización de:",
+   "interpretacion": "Incluye determinaciones de los ítems: 661080, 661086, 661095, 660494, 660245 (660242+660243), 666275, 666537, 660933, 660433, 660813, 660186 y 666898.- HEPATITIS B, Ac. Anti- IgG / Totales (HBc IgG/Totales) - HEPATITIS B, Antígeno de Superficie (Ag.HBs ) - HEPATITIS C, Ac. anti- IgG (HCV Ac IgG) – BRUCELOSIS (HUDDLESSON o ROSA DE BENGALA) - CHAGAS (HAI y ELISA o HAI e IFI) - ANTICUERPOS ANTI HIV (1 y 2) y p24 - HTLV-I / II – SIFILIS – GRUPO SANGUÍNEO y FACTOR Rh - con detección de o variedad Dµ (variante VI de Tippett). COOMBS INDIRECTA (entre dador y receptor) e IRREGULARES ANTICUERPOS (Cualitativo).",
+   "includes": [
+    "661080",
+    "661086",
+    "661095",
+    "660494",
+    "660245",
+    "660242",
+    "660243",
+    "666275",
+    "666537",
+    "660933",
+    "660433",
+    "660813",
+    "660186",
+    "666898"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "661160": {
+   "practica": "TORCH",
+   "norma": "- Comprende la realización de serología con determinación de IgM para: Toxoplasmosis , Rubeola, Citomegalovirus y Herpes 1 y 2.",
+   "interpretacion": "Incluye los códigos: 669580 o 669588, 6601150, 661030, 666050 y 666076.-",
+   "includes": [
+    "669580",
+    "669588",
+    "660115",
+    "661030",
+    "666050",
+    "666076"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "661170": {
+   "practica": "SUBUNIDAD BETA de GONADOTROFINA CORIONICA (cualitativa) HCG o β-HCG - Sub β",
+   "norma": "- Comprende la realización de la práctica para la detección de la hormona en el diagnostico precoz de embarazo, sin la correspondiente cuantificación.",
+   "interpretacion": "No incluye código: 661175.",
+   "includes": [],
+   "excludes": [
+    "661175"
+   ],
+   "included_in": []
+  },
+  "661180": {
+   "practica": "TEST RÁPIDO de FAUCES para STREPTOCOCCUS β-HEMOLÍTICO Grupo “A”.",
+   "norma": "- Comprende la realización del test rápido cuando es realizado previo al cultivo de fauces o intratamiento en el que se justifica hacer diagnóstico imposibilitando cultivo.",
+   "interpretacion": "No incluye los códigos: 660309, 660532.",
+   "includes": [],
+   "excludes": [
+    "660309",
+    "660532"
+   ],
+   "included_in": []
+  },
+  "661196": {
+   "practica": "SCREENING NEONATAL x 6 (TSH, FENIL ALANINA y TIR -BIOTINIDASA, GALACTOSEMIA y 17- HO-PROGESTERONA - Neonatales)",
+   "norma": "- Comprende la realización de prácticas en muestras de sangre entera de recién nacidos colectadas en papel de filtro, definidas como obligatorias por la Ley Nacional 26279 sancionada el 08/08/2007 para la detección de las siguientes enfermedades: Fenilcetonuria, Hipotiroidismo Congénito, Fibrosis Quística, Galactosemia, Hiperplasia Suprarrenal Congénita y Deficiencia de Biotinidasa.",
+   "interpretacion": "Incluye las pruebas de screening neonatal para detección precoz comprendidas en los códigos y que quedan incluidos: 660338, 667777, 667785, 667768, 667759 y 667751. No incluye los códigos: 660245 y 660933 que se deben realizar y adicionar a la misma prescripción según la correspondiente Ley. Según Ley 26279 - Pesquisa Neonatal. Fenilcetonuria, Hipotiroidismo congénito, Fibrosis quística o mucoviscidosis Déficit de biotinidasa, Galactosemia, Hiperplasia suprarrenal congénita o Síndrome adrenogenital.",
+   "includes": [],
+   "excludes": [
+    "660245",
+    "660933"
+   ],
+   "included_in": [
+    "660338",
+    "667777",
+    "667785",
+    "667768",
+    "667759",
+    "667751"
+   ]
+  },
+  "661200": {
+   "practica": "URGENCIAS.",
+   "norma": "- Se considerará Urgencia a todas las prescripciones que se indique por pedido expreso del profesional médico y conste la conformidad del paciente o familiar (firma y Nº de Documento).",
+   "interpretacion": "- Se incluye un código 661200 a toda/s la/s prescripción/es médica/s de urgencia, independientemente del horario, día o cantidad de prácticas de laboratorio a realizar.",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "662002": {
+   "practica": "ADMINISTRACIÓN, carga por validación de afiliación.",
+   "norma": "Incluye: Comprobación on-line por web o sistema que se adapte a la necesidad de validación o identificación de la persona en el padrón de afiliación a la Obra Social, Instituto, Mutual y/o Empresa de Medicina Prepaga.",
+   "interpretacion": "Comprende la elegibilidad de la persona a ser atendida en el servicio que se presta. 1. No incluye la carga del contenido de la prescripción médica.",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "662003": {
+   "practica": "ADMINISTRACIÓN, ingreso, validación y seguimiento de autorización de las prestaciones o códigos.",
+   "norma": "Incluye: Comprobación on-line por web o sistema que se adapte a la necesidad de validación o identificación de la persona en el padrón de afiliación a la Obra Social, Instituto, Mutual y/o Empresa de Medicina Prepaga con solicitud y autorización previa auditoría de los estudios indicados en la prescripción médica y el seguimiento hasta la obtención de la autorización.",
+   "interpretacion": "Comprende la elegibilidad de la persona a ser atendida en el servicio que se presta con la carga de información de la prescripción médica: códigos y fecha de los estudios solicitados, diagnóstico, identificación de quien prescribe con matrícula profesional y seguimiento del proceso de previa auditoría hasta la obtención de la autorización.",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "662001": {
+   "practica": "ABC ACTO BIOQUÍMICO COMPLEMENTARIO",
+   "norma": "- Se aplica a toda prescripción médica que indica pruebas de sobrecarga, de inhibición o de estímulo. La toma de muestra hasta la interpretación y entrega de los resultados con el asesoramiento posterior, en el caso que sea necesario. - Se incluye UN (1) A.B.C. (Acto Bioquímico Complementario) como adicional cuando se requieren las mencionadas pruebas (de freno o inhibición, estímulo, sobrecarga, etc.). - Incluye solo un (1) material descartable adicional para una sola toma de muestra y/o espécimen, no contemplado en el AB (Cód. 660001)",
+   "interpretacion": "Cuando el ensayo lo requiera, incluye el acto de administrar al paciente, inyectables o preparados por vía oral. No incluye el suministro de los mismos.",
+   "includes": [
+    "660001"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "662704": {
+   "practica": "ANION GAP",
+   "norma": "- Comprende el cálculo e informe. - No Incluye los dosajes de analitos necesarios para el informe.",
+   "interpretacion": "No incluye los códigos individuales de determinaciones necesarias.",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "662709": {
+   "practica": "ANTICOAGULANTE LÚPICO",
+   "norma": "- Comprende la realización de: Tiempo de Protrombina, % de Protrombina (RIN), KPTT, con correcciones con plasma Normal y tiempo de veneno de víbora de Russel diluido (dVVRT).",
+   "interpretacion": "Incluye los códigos: 660770, 660771, 660887.",
+   "includes": [
+    "660770",
+    "660771",
+    "660887"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "662734": {
+   "practica": "ANTÍGENO PROSTÁTICO ESPECÍFICO, Libre+Total (PSA-L+T)",
+   "norma": "- Comprende la realización de Antígeno Prostático Específico (PSA) Total y Libre.-",
+   "interpretacion": "Incluye el código 661000 (PSA-Total) con la determinación de PSA-Libre.",
+   "includes": [
+    "661000"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "662739": {
+   "practica": "ANTIGENOS - PANEL GINECOLÓGICO - PCR",
+   "norma": "- Comprende la realización de: Chamydia trachomatis / Mycoplasma hominis / Mycoplasma genitalium / Ureaplasma urealyticum / Neisseria gonorrhoeae.",
+   "interpretacion": "",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "662743": {
+   "practica": "ANTIGENOS VIRALES - PANEL de DIARREICOS - PCR",
+   "norma": "- Comprende la realización de: Rotavirus / Adenovirus / Norovirus / Astrovirus / Sapovirus / Enterovirus.",
+   "interpretacion": "",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "662745": {
+   "practica": "ANTIGENOS VIRALES - PANEL de RESPIRATORIOS - BÁSICO",
+   "norma": "- Comprende la realización de: Influenza A- B / Parainfluenza 1-2-3 / Sincicial respiratorio / Adenovirus",
+   "interpretacion": "",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "662749": {
+   "practica": "ANTIGENOS VIRALES - PANEL de RESPIRATORIOS - PCR BÁSICO",
+   "norma": "- Comprende la realización de: Influenza A- B / Parainfluenza 1-2-3 / Sincicial respiratorio A-B / Adenovirus",
+   "interpretacion": "",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "662751": {
+   "practica": "ANTIGENOS VIRALES - PANEL de RESPIRATORIOS - PCR EXTENDIDO",
+   "norma": "- Comprende la realización de: Influenza A- B / Parainfluenza 1-2-3 / Sincicial respiratorio A-B / Adenovirus / Rinovirus Humanos / Mycoplasma pneumoniae / Metapneumovirus humano / Bocavirus humano / Chlamydophila pneumoniae)",
+   "interpretacion": "",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "663056": {
+   "practica": "Beta Libre hCG.",
+   "norma": "- Comprende la realización de: BETA Libre hCG para realizar conjuntamente con PAPP-A.",
+   "interpretacion": "No incluye el código: 668018. Cubre solo determinación: BETA Libre hCG sin incluir PAPP-A.",
+   "includes": [],
+   "excludes": [
+    "668018"
+   ],
+   "included_in": []
+  },
+  "663538": {
+   "practica": "CD, SUBPOBLACION LINFOCITARIA Citometría de Flujo (C/U)",
+   "norma": "- Comprende la realización de c/u de los CD a excepción de CD4 o CD8.",
+   "interpretacion": "No incluye las prácticas del código: 661015.",
+   "includes": [],
+   "excludes": [
+    "661015"
+   ],
+   "included_in": []
+  },
+  "663910": {
+   "practica": "COLESTEROL NO HDL",
+   "norma": "- Comprende la realización de Colesterol, HDL y los correspondientes cálculos.",
+   "interpretacion": "Incluye los códigos: 660174, 661035.",
+   "includes": [
+    "660174",
+    "661035"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "664256": {
+   "practica": "CRYPTOSPORIDIUM Sp,",
+   "norma": "- Comprende la Investigación Microscópica de Ag. (M.F.)",
+   "interpretacion": "",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "664623": {
+   "practica": "ENA, Ac. Anti- (ANTÍGENOS NUCLEARES EXTRAIDOS, Ac. Anti- )",
+   "norma": "- Comprende la realización de los Ac. Anti- : SSA - SSB - RNP y Sm .",
+   "interpretacion": "",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "664775": {
+   "practica": "ESPERMA, CÉLULAS REDONDAS CON DIFERENCIACIÓN DE PEROXIDASAS",
+   "norma": "",
+   "interpretacion": "Incluye el código: 664778",
+   "includes": [
+    "664778"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "664825": {
+   "practica": "ESPERMA, ESPERMATOZOIDES DE ORINA, RECUPERACIÓN PARA SELECCIÓN DIAGNÓSTICA",
+   "norma": "- Comprende: el informe del material recibido con recuento de espermatozoides, determinación de movilidad, vitalidad y selección de los mismos por técnica de swin up o gradiente según lo exija la muestra.",
+   "interpretacion": "",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "664827": {
+   "practica": "ESPERMA, ESPERMATOZOIDES DE ORINA, RECUPERACIÓN PARA SELECCIÓN EN INSEMINACIÓN",
+   "norma": "- Comprende: el informe del material recibido con recuento de espermatozoides, determinación de movilidad, vitalidad y selección de los mismos preparados para la inseminación, por técnica de swin up o gradiente según lo exija la muestra.",
+   "interpretacion": "",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "664858": {
+   "practica": "ESPERMA , MODULO I (ESPERMOGRAMA COMPLETO)",
+   "norma": "- Comprende la realización de: Examen Macroscópico: aspecto, volumen, licuefacción, viscosidad y Ph. Examen Microscópico (recuento; morfología espermática según la OMS y/o Kruger y vitalidad). Test de Eosina – Tinción de Peroxidasa. Química Seminal (dosaje de: ácido cítrico, fosfatasa ácida prostática, fructosa).",
+   "interpretacion": "Incluye los códigos: 660298, 660167, 660355, 665478. Ante la solicitud médica con la prescripción: “ Espermograma completo ” Por ser una expresión muy amplia y abarcativa, se sugiere codificar con el presente Ítem a modo de unificar criterio y universalizar las pautas de trabajo siguiendo la recomendación de todo lo que comprende realizar de acuerdo a la Norma Mínima de Trabajo.",
+   "includes": [
+    "660298",
+    "660167",
+    "660355",
+    "665478"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "664860": {
+   "practica": "ESPERMA, MODULO II",
+   "norma": "- Comprende: volumen, pH, viscosidad, licuefacción, recuento de espermatozoides, movilidad, vitalidad, morfología (criterio estricto), anticuerpos anti- espermatozoides directo, recuento de células redondas con diferenciación de peroxidasas, marcadores de secreción de glándulas anexas y epidídimos (Alfa-glucosidasa neutra, Zn, Fructosa, Acido Cítrico).",
+   "interpretacion": "Incluye los códigos: 660167, 660298, 665478, 669987, 662555, 660355 y 664749 (Mar test directo - Ac. Anti- espermatozoide).",
+   "includes": [
+    "660167",
+    "660298",
+    "665478",
+    "669987",
+    "662555",
+    "660355",
+    "664749"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "664878": {
+   "practica": "ESPERMA, PRUEBA DE SOBREVIDA ESPERMÁTICA",
+   "norma": "",
+   "interpretacion": "No incluye el código: 664941.",
+   "includes": [],
+   "excludes": [
+    "664941"
+   ],
+   "included_in": []
+  },
+  "664949": {
+   "practica": "ESPERMA, SWIM UP (INSEMINACIÓN)",
+   "norma": "",
+   "interpretacion": "- Incluye la preparación de la muestra para se Inseminada.",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "664978": {
+   "practica": "",
+   "norma": "ESPERMA, TEST DE - Incluye Espermograma, Swim-up - MOST",
+   "interpretacion": "Incluye el código: 664941. Test diagnóstico.",
+   "includes": [
+    "664941"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "666640": {
+   "practica": "IgG - INMUNOGLOBULINA G, Índice de (LCR/Sérica)",
+   "norma": "- Comprende la realización de: Dosaje de Albúmina sérica y de LCR con IgG sérica y de LCR.",
+   "interpretacion": "Incluye los códigos: 660015 (x2), 660540, 666648.",
+   "includes": [
+    "660015",
+    "660540",
+    "666648"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "666708": {
+   "practica": "INDICE de INSULINO RESISTENCIA",
+   "norma": "- Comprende cálculos e informe de Índices de Insulino-Resistencia. - Incluye los dosajes de Glucosa e Insulina.",
+   "interpretacion": "Incluye los códigos: 660412, 660543.",
+   "includes": [
+    "660412",
+    "660543"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "666711": {
+   "practica": "INDICE de FUNCIÓN RENAL",
+   "norma": "- Comprende cálculos e informe de Índices de Función Renal. - Incluye el dosaje de Creatinina.",
+   "interpretacion": "Incluye el código: 660192 y el cálculo del Índice de FGe.",
+   "includes": [
+    "660192"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "666713": {
+   "practica": "INDICE de LESIÓN RENAL (ALBUMINA / CREATININA) - urinario",
+   "norma": "- Comprende cálculos e informe de Índices de Lesión Renal. - Incluye los dosajes de Albuminuria y Creatininuria.",
+   "interpretacion": "Incluye los códigos: 661130, 660191 y el cálculo del Índice de Lesión Renal (RAC).",
+   "includes": [
+    "661130",
+    "660191"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "666714": {
+   "practica": "INDICE de LESIÓN RENAL (PROTEINURIA / CREATININA) - urinario",
+   "norma": "- Comprende cálculos e informe de Índices de Lesión Renal. - Incluye los dosajes de Proteinuria y Creatininuria.",
+   "interpretacion": "Incluye los códigos: 660767, 660191 y el cálculo del Índice de Lesión Renal (RPC).",
+   "includes": [
+    "660767",
+    "660191"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "666717": {
+   "practica": "INDICE de PRODUCCIÓN RETICULOCITARIA",
+   "norma": "- Comprende el cálculo e informe del índice de Producción Reticulocitaria. - Incluye las determinaciones de: Hematocrito, Hemoglobina y de Reticulocitos.",
+   "interpretacion": "Incluye los códigos: 660466, 660470, 660818 y el cálculo e informe correspondiente (IPR).",
+   "includes": [
+    "660466",
+    "660470",
+    "660818"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "666722": {
+   "practica": "INDICE de RESORCIÓN OSEA.",
+   "norma": "- Comprende el cálculo e informe del Índice de Resorción Ósea. Incluye el dosaje de: calciuria y creatininuria en orina de 2 o de 24 hs.",
+   "interpretacion": "- Incluye los códigos: 660136, 660191 .",
+   "includes": [
+    "660136",
+    "660191"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "666848": {
+   "practica": "INMUNOFIJACIÓN – LCR",
+   "norma": "- Comprende la determinación de Inmunoglogulinas: A, G y M",
+   "interpretacion": "No incluye los códigos: 660108, 660131.",
+   "includes": [],
+   "excludes": [
+    "660108",
+    "660131"
+   ],
+   "included_in": []
+  },
+  "666850": {
+   "practica": "INMUNOFIJACIÓN – sérica",
+   "norma": "- Comprende la determinación de Inmunoglobulinas: A, G y M",
+   "interpretacion": "No incluye los códigos: 660108, 660131.",
+   "includes": [],
+   "excludes": [
+    "660108",
+    "660131"
+   ],
+   "included_in": []
+  },
+  "666852": {
+   "practica": "INMUNOFIJACIÓN – urinaria",
+   "norma": "- Comprende la determinación de Inmunoglobulinas: A, G y M",
+   "interpretacion": "No incluye los códigos: 660108, 660131.",
+   "includes": [],
+   "excludes": [
+    "660108",
+    "660131"
+   ],
+   "included_in": []
+  },
+  "666898": {
+   "practica": "IRREGULARES ANTICUERPOS, Identificación.",
+   "norma": "- Comprende la determinación de anticuerpos sin cuantificar.",
+   "interpretacion": "",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "666939": {
+   "practica": "LACTOSA, TOLERANCIA A LA",
+   "norma": "- Comprende las 4 determinaciones de glucosa: Basal y post- 30, 60 y 120 min.",
+   "interpretacion": "No incluye el producto a administrar.",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "667489": {
+   "practica": "MICOLOGÍA, CULTIVO DE HONGOS PRODUCTORES DE MICOSIS PROFUNDAS O SISTÉMICAS.",
+   "norma": "- Comprende cultivo de hongos productores de micosis profundas (sistémicas, hipodérmicas o dermohipodérmicas u orgánicas).",
+   "interpretacion": "No incluye códigos: 667490, 667491.",
+   "includes": [],
+   "excludes": [
+    "667490",
+    "667491"
+   ],
+   "included_in": []
+  },
+  "667490": {
+   "practica": "MICOLOGÍA, IDENTIFICACIÓN DE HONGOS PRODUCTORES DE MICOSIS PROFUNDAS O SISTÉMICAS.",
+   "norma": "- Comprende identificación de hongos productores de micosis profundas (sistémicas, hipodérmicas o dermohipodérmicas u orgánicas).",
+   "interpretacion": "No incluye códigos: 667489, 667491",
+   "includes": [],
+   "excludes": [
+    "667489",
+    "667491"
+   ],
+   "included_in": []
+  },
+  "667491": {
+   "practica": "MICOLOGÍA, PRUEBA DE SENSIBILIDAD A ANTIFÚNGICOS.",
+   "norma": "- Comprende prueba de sensibilidad a antifúngicos en hongos productores de micosis profundas (sistémicas, hipodérmicas o dermohipodérmicas u orgánicas).",
+   "interpretacion": "No incluye códigos: 667489, 667490.",
+   "includes": [],
+   "excludes": [
+    "667489",
+    "667490"
+   ],
+   "included_in": []
+  },
+  "667775": {
+   "practica": "SCREENING NEONATAL AMPLIADO POR ESPECTROMETRIA DE MASA EN TANDEM (PESQUISA NEONATAL AMPLIADA POR ESPECTROMETRIA DE MASA EN TANDEM): Aminoácidos y Acilcarnitinas",
+   "norma": "- Comprende la realización de prácticas en muestras de sangre entera de recién nacidos colectadas en papel de filtro, que permiten la detección simultánea de diferentes Aminoacidopatías, Acidurias Orgánicas y Defectos de le Oxidación de Ácidos Grasos. Aminoacidopatías: Fenilcetonuria, Enfermedad de Jarabe de Arce, Homocistinuria, Citrulinemia Tipo I, Acidemia Argininosuccínica, Tirosinemia Tipo I. Acidurias Orgánicas: Acidemia Isovalérica, Acidemia Glutárica Tipo I, Acidemia 3-hidroxi-3-metil Glutárica, Deficiencia Múltiple de Carboxilasas, Acidemia Metilmalónica, Deficiencia de 3-metilcrotonil-CoA Carboxilasa, Acidemia Metilmalónica, Acidemia Propiónica, Deficiencia de β- Cetotiolasa. Defectos de Oxidación de Ácidos Grasos: Deficiencia de Acil-CoA Deshidrogenasa de cadena media (MCAD), Deficiencia de Acil-CoA Deshidrogenasa de cadena muy larga (VLCAD), Deficiencia de 3-OH-Acil- CoA Deshidrogenasa de cadena larga (LCHAD), Deficiencia de Proteína Trifuncional, Déficit Primario de Carnitina.",
+   "interpretacion": "",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "667999": {
+   "practica": "PANEL HEPÁTICO INMUNOLÓGICO",
+   "norma": "- Comprende la realización de: ANTI M2 - ANTI gp210 - ANTI sp100 - ANTI LKM 1 - ANTI LC1 - ANTI SLA - ANTI F-ACTINA",
+   "interpretacion": "",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "668018": {
+   "practica": "PPAP-A (PROTEÍNA A PLASMÁTICA ASOCIADA A EMBARAZO)",
+   "norma": "- Comprende la realización de: PAPP-A a efectuar conjuntamente con BETA Libre hCG.",
+   "interpretacion": "No incluye el código: 663056. Cubre solo determinación de PAPP-A sin incluir BETA Libre hCG.",
+   "includes": [],
+   "excludes": [
+    "663056"
+   ],
+   "included_in": []
+  },
+  "668298": {
+   "practica": "PERFIL LIPÍDICO",
+   "norma": "- Comprende la realización de: Colesterol Total - HDL-Colesterol - LDL-Colesterol - Triglicéridos.",
+   "interpretacion": "Incluye los códigos: 660174, 661035, 661040, 660876.",
+   "includes": [
+    "660174",
+    "661035",
+    "661040",
+    "660876"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "668327": {
+   "practica": "PESTICIDAS NITROGENADOS - c/u",
+   "norma": "- Comprende la detección de los siguientes productos: AMETRYN, ATRAZINA, PROMETRYN, PROPAZINA, SIMANZINA, TERBUITRYN y TERBUTHYLAZINA.",
+   "interpretacion": "Incluye la determinación por screening de los siguientes códigos: 662598, 662850, 668584, 668588, 669067, 669309, 669311.",
+   "includes": [
+    "662598",
+    "662850",
+    "668584",
+    "668588",
+    "669067",
+    "669309",
+    "669311"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "668332": {
+   "practica": "PESTICIDAS ORGANOCLORADOS (plaguicidas), urinarios",
+   "norma": "- Comprende la detección de los siguientes productos: ALDRÍN, Alfa-BHC, Beta-BHC, 4,4’- DDD (p,p’-DDD), 4,4’-DDE (p,p’- DDE), 4,4’-DDT (p,p’-DDT), Delta- BHC, DIELDRIN, ENDOSULFÁN I, ENDOSULFÁN II, ENDOSULFÁN SULFATO, ENDRÍN, ENDRÍN ALDEHIDO, Gamma-BHC, HEPTACLORO, HEPTACLORO EPOXIDO y LINDANE.",
+   "interpretacion": "Incluye la determinación por screening de los siguientes códigos: 662469, 662538, 663016, 664307, 664315, 664324, 664324, 664350, 664392, 664648, 664649, 664652, 664666, 664668, 665520, 665520, 666016, 666019, 667119.",
+   "includes": [
+    "662469",
+    "662538",
+    "663016",
+    "664307",
+    "664315",
+    "664324",
+    "664350",
+    "664392",
+    "664648",
+    "664649",
+    "664652",
+    "664666",
+    "664668",
+    "665520",
+    "666016",
+    "666019",
+    "667119"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "668337": {
+   "practica": "PESTICIDAS ORGANOFOSFORADOS (plaguicidas - parathion), plasmáticos",
+   "norma": "- Comprende la detección de los",
+   "interpretacion": "Incluye la determinación por screening de los siguientes códigos: 663756, 664388, 664435, 664452, 665043, 665127, 665204, 665307, 667319, 667449, 667454, 667919, 668170, 669246, 669426. siguientes productos: CLORPIRIFOSETIL, DIAZINÓN, DIMETOATO, DISULFOTON, ETIÓN, FAMFUR, FENITOTRIÓN, FORATO, MALATIÓN, METIL PARATIÓN, METIL-TRITIÓN, O,O,O-TIETILFOSFOROTOATO, PARATIÓN, SULFOTEP, TIONACINA.",
+   "includes": [
+    "663756",
+    "664388",
+    "664435",
+    "664452",
+    "665043",
+    "665127",
+    "665204",
+    "665307",
+    "667319",
+    "667449",
+    "667454",
+    "667919",
+    "668170",
+    "669246",
+    "669426"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "668383": {
+   "practica": "PLASMINÓGENO",
+   "norma": "- Comprende la realización como lo indica la norma de trabajo: con sustrato cromogénico y calibración.",
+   "interpretacion": "",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "668977": {
+   "practica": "SANGRÍA, TIEMPO DE Método de Ivy",
+   "norma": "- Comprende el Método de Ivy. - No se debe utilizar este código para el Método de Duke.",
+   "interpretacion": "No incluye el código: 660169.",
+   "includes": [],
+   "excludes": [
+    "660169"
+   ],
+   "included_in": []
+  },
+  "669026": {
+   "practica": "SENSIBILIDAD ALIMENTARIA, PANEL de Ac. IgG Anti-",
+   "norma": "- Comprende la realización de 10 Anticuerpos IgG Específicos de alimentos solicitados por intolerancia alimenticia.",
+   "interpretacion": "Se incluye un código cada 10 determinaciones según Anticuerpos IgG específicos de alimentos solicitados en prescripción médica.",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "669127": {
+   "practica": "SREPTOCOCCUS BETA- HEMOLÍTICO Grupo B - Prenatal",
+   "norma": "- Comprende la realización de la Investigación de Streptococcus beta- hemolíticos en ambas muestras: Vaginal y Anal, a realizarse en mujeres embarazadas a partir de las 35 semanas de gestación.",
+   "interpretacion": "Según Ley 26369.",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "669223": {
+   "practica": "SUDOR, TEST CONFIRMATORIO.",
+   "norma": "- Comprende la determinación de Sodio y Cloro en sudor, previa Iontoforésis, mediante Metodología con Inductor de Sudor con corriente iontoforética de configuración automática para la recolección de la muestra y sistema de circuitos electrónicos.",
+   "interpretacion": "",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "669637": {
+   "practica": "TRANSLOCACIÓN, varias - Cualitativa (c/u)",
+   "norma": "Comprende la realización de la detección por PCR punto final de una translocación cromosómica característica en Leucemias y/o tumores.",
+   "interpretacion": "",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "669642": {
+   "practica": "TRANSLOCACIÓN, varios - Cuantitativa (c/u)",
+   "norma": "Comprende la cuantificación del transcripto de fusión característico de Leucemias y/o tumores.",
+   "interpretacion": "",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  },
+  "669672": {
+   "practica": "TRIPLE TEST",
+   "norma": "- Incluye el dopaje de Beta-HCG, AFP y UE3 (Estriol no conjugado o E3 Libre)",
+   "interpretacion": "Incluye los códigos: 660020, 661175 y 665033.",
+   "includes": [
+    "660020",
+    "661175",
+    "665033"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "669716": {
+   "practica": "TROMBOFILIA, Panel básico.",
+   "norma": "-Comprende la realización de",
+   "interpretacion": "Incluye los códigos: 660771, 660887, 662709, 662803, 662982, 662984, 663392, 663401 y 665102 prácticas siguiendo un algoritmo básico incluyendo las determinaciones: PROTROMBINA, TIEMPO DE (TP), TROMBOPLASTINA, TIEMPO DE (KPTT / TTPC / KT) ANTICOAGULANTE LÚPICO, SIN INHIBICIÓN, ANTITROMBINA III FUNCIONAL, BETA 2 GLICOPROTEÍNA, Ac. IgG Anti-, BETA 2 GLICOPROTEÍNA, Ac. IgM Anti-, CARDIOLIPINAS, Ac. IgG Anti-, CARDIOLIPINAS, Ac. IgM Anti-, FACTOR V LEIDEN – PCR",
+   "includes": [
+    "660771",
+    "660887",
+    "662709",
+    "662803",
+    "662982",
+    "662984",
+    "663392",
+    "663401",
+    "665102"
+   ],
+   "excludes": [],
+   "included_in": []
+  },
+  "669759": {
+   "practica": "UREAPLASMA UREALÍTICUM (Cultivo)",
+   "norma": "- Comprende la realización de MYCOPLASMA - UREAPLASMA, por Cultivo.",
+   "interpretacion": "Incluido en el código 667700.-",
+   "includes": [],
+   "excludes": [],
+   "included_in": [
+    "667700"
+   ]
+  },
+  "669787": {
+   "practica": "VAGINAL, BALANCE DEL CONTENIDO (BACOVA)",
+   "norma": "- Comprende el estudio microscópico integral del contenido vaginal en fresco (400X), Gram (1000X) y Giemsa (400 y 1000X), con: Evaluación cuantitativa de morfotipos bacterianos y de la cantidad de leucocitos. Detección de la presencia de células epiteliales no habituales (Ca) en el contenido vaginal. Valor Numérico (VN), la Reacción Inflamatoria Vaginal (RIV).",
+   "interpretacion": "No incluye ninguno de los siguientes estudios: • cultivo micológico • cultivo bacteriológico con identificación del germen. • tipificación serológica. • ni determinación de antígenos.",
+   "includes": [],
+   "excludes": [],
+   "included_in": []
+  }
+ }
+}
