@@ -63,6 +63,7 @@
   --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 34px rgba(0,0,0,.44);
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html,body{margin:0;padding:0}
 body{
   background:var(--bg); color:var(--ink); font-family:var(--font-ui);
@@ -239,6 +240,34 @@ ul{margin:0;padding:0}
   .row{grid-template-columns:64px 1fr auto;gap:10px;padding:11px 12px}
   .stats{gap:7px}
 }
+/* ---------- view tabs + module tree ---------- */
+.viewtabs{display:inline-flex;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:3px;gap:2px;margin-bottom:14px}
+.vtab{border:none;background:none;padding:7px 15px;border-radius:8px;font-size:13.5px;font-weight:600;color:var(--muted);display:inline-flex;align-items:center;gap:7px;transition:.13s}
+.vtab.on{background:var(--surface);color:var(--accent-ink);box-shadow:var(--shadow)}
+.vtab:not(.on):hover{color:var(--ink)}
+.tree-intro{font-size:13px;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 16px;margin-bottom:14px;line-height:1.5}
+.tree-intro b{color:var(--ink)}
+.tree{display:flex;flex-direction:column;gap:6px}
+.tnode{}
+.tchildren{display:none;margin-left:19px;padding-left:16px;border-left:2px solid var(--line);margin-top:6px;flex-direction:column;gap:6px}
+.tnode.open>.tchildren{display:flex}
+.trow{display:flex;align-items:center;gap:11px;padding:10px 14px;background:var(--surface);border:1px solid var(--line);
+  border-radius:10px;transition:border-color .13s,box-shadow .13s}
+.trow:hover{border-color:var(--accent);box-shadow:var(--shadow)}
+.tnode.leaf>.trow{background:var(--surface-2)}
+.tcaret{width:22px;height:22px;flex-shrink:0;border:1px solid var(--line-2);border-radius:6px;background:var(--surface-2);
+  color:var(--accent);display:grid;place-items:center;font-size:11px;transition:transform .15s,background .13s;line-height:1}
+.tnode.open>.trow .tcaret{transform:rotate(90deg);background:var(--accent-soft)}
+.tcaret:hover{background:var(--accent-soft)}
+.tdot{width:22px;height:22px;flex-shrink:0;display:grid;place-items:center}
+.tdot::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--faint)}
+.tcode{font-family:var(--font-mono);font-weight:700;font-size:13.5px;color:var(--accent-ink);cursor:pointer;flex-shrink:0}
+.tname{font-size:13.5px;color:var(--ink);font-weight:600;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}
+.tnode.leaf .tname{font-weight:500;color:var(--ink-2)}
+.tcount{font-size:11px;font-weight:700;color:var(--inc);background:var(--inc-soft);padding:2px 8px;border-radius:999px;flex-shrink:0;letter-spacing:.2px}
+.tub{font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-size:12.5px;color:var(--muted);flex-shrink:0;min-width:56px;text-align:right}
+.tsec{font-size:10.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;padding:2px 6px;border-radius:5px;flex-shrink:0}
+@media (max-width:560px){.tub,.tsec{display:none}.tname{white-space:normal}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -289,12 +318,19 @@ ul{margin:0;padding:0}
   </aside>
 
   <main>
+    <div class="viewtabs" role="tablist">
+      <button class="vtab on" data-view="list" role="tab">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>Listado</button>
+      <button class="vtab" data-view="tree" role="tab">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5h7v5H3zM14 3h7v5h-7zM14 16h7v5h-7zM10 7h4M17 8v8M10 18h4"/></svg>Árbol de módulos</button>
+    </div>
     <div class="resbar">
       <div class="count" id="count"></div>
       <div class="chips" id="activeChips"></div>
     </div>
     <div class="list" id="list"></div>
     <button class="more" id="moreBtn" hidden>Ver más resultados</button>
+    <div class="tree" id="tree" hidden></div>
   </main>
 </div>
 
@@ -44859,7 +44895,7 @@ const SEC_LABEL={PMO:'PMO',PE:'Prácticas Especiales',GESTION:'Gestión Adm.'};
 const SEC_CLASS={PMO:'b-pmo',PE:'b-pe',GESTION:'b-gestion'};
 const SEC_COLORVAR={PMO:'var(--pmo)',PE:'var(--pe)',GESTION:'var(--gestion)'};
 
-const state={q:'',seccion:new Set(),grupo:new Set(),flags:new Set(),limit:80};
+const state={q:'',seccion:new Set(),grupo:new Set(),flags:new Set(),limit:80,view:'list'};
 const el=id=>document.getElementById(id);
 
 /* ---------- stats ---------- */
@@ -44948,10 +44984,7 @@ function rowHTML(c){
 }
 function esc(s){return (s||'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));}
 
-function render(){
-  const res=filtered();
-  el('count').innerHTML=`<b>${res.length.toLocaleString('es-AR')}</b> práctica${res.length!==1?'s':''}`;
-  // active chips
+function renderChips(){
   const chips=[];
   state.seccion.forEach(s=>chips.push(chip('seccion',s,SEC_LABEL[s])));
   state.grupo.forEach(g=>chips.push(chip('grupo',g,g)));
@@ -44962,6 +44995,17 @@ function render(){
     document.querySelector(`.opt[data-f="${b.dataset.f}"][data-v="${cssEsc(b.dataset.v)}"]`)?.classList.remove('on');
     render();
   }));
+}
+function render(){
+  renderChips();
+  const treeMode=state.view==='tree';
+  el('list').hidden=treeMode; el('tree').hidden=!treeMode;
+  el('moreBtn').style.display=treeMode?'none':'';
+  document.querySelectorAll('.vtab').forEach(v=>v.classList.toggle('on',v.dataset.view===state.view));
+  document.querySelector('.opt[data-f="grupo"]')?.closest('.panel')?.style.setProperty('opacity',treeMode?'.5':'1');
+  if(treeMode){renderTree();return;}
+  const res=filtered();
+  el('count').innerHTML=`<b>${res.length.toLocaleString('es-AR')}</b> práctica${res.length!==1?'s':''}`;
   if(!res.length){el('list').innerHTML=`<div class="empty"><b>Sin resultados</b>Probá con otro término o limpiá los filtros.</div>`;el('moreBtn').hidden=true;return;}
   const shown=res.slice(0,state.limit);
   el('list').innerHTML=shown.map(rowHTML).join('');
@@ -44973,6 +45017,53 @@ function render(){
 function chip(f,v,label){return `<span class="fchip">${esc(label)}<button data-f="${f}" data-v="${esc(v)}" aria-label="Quitar">×</button></span>`;}
 function cssEsc(s){return (window.CSS&&CSS.escape)?CSS.escape(s):s.replace(/"/g,'\\"');}
 el('moreBtn').addEventListener('click',()=>{state.limit+=120;render();});
+
+/* ---------- module tree ---------- */
+const INCLUDED=new Set();CODES.forEach(c=>c.relaciones.incluye.forEach(x=>INCLUDED.add(x)));
+function isModule(c){return c&&c.relaciones&&c.relaciones.incluye.length>0;}
+function subtreeMatches(code,terms,seen){
+  const c=BYCODE[code];if(!c||seen.has(code))return false;seen.add(code);
+  if(terms.every(t=>c._h.includes(t)))return true;
+  return c.relaciones.incluye.some(x=>subtreeMatches(x,terms,seen));
+}
+function treeNodeHTML(code,ancestry){
+  const c=BYCODE[code];
+  if(!c)return `<div class="tnode leaf"><div class="trow"><span class="tdot"></span><span class="tcode">${code}</span><span class="tname" style="color:var(--faint)">(código externo)</span></div></div>`;
+  const inc=c.relaciones.incluye.filter(x=>!ancestry.has(x));
+  const mod=inc.length>0;
+  const secCls={PMO:'b-pmo',PE:'b-pe',GESTION:'b-gestion'}[c.seccion];
+  const ub=c.valor.ub!=null?`${c.valor.ub} UB`:'—';
+  const children=mod?`<div class="tchildren">${inc.map(x=>treeNodeHTML(x,new Set([...ancestry,code]))).join('')}</div>`:'';
+  return `<div class="tnode ${mod?'mod':'leaf'}">
+    <div class="trow">
+      ${mod?`<button class="tcaret" aria-label="Expandir/plegar">▸</button>`:`<span class="tdot"></span>`}
+      <span class="tcode" data-code="${code}">${code}</span>
+      <span class="tname" data-code="${code}" title="${esc(c.nombre)}">${esc(c.nombre)}</span>
+      ${mod?`<span class="tcount">incluye ${inc.length}</span>`:''}
+      <span class="tsec ${secCls}">${c.seccion}</span>
+      <span class="tub">${ub}</span>
+    </div>${children}
+  </div>`;
+}
+function renderTree(){
+  const secOK=c=>!state.seccion.size||state.seccion.has(c.seccion);
+  const terms=norm(state.q).split(/\s+/).filter(Boolean);
+  let roots=CODES.filter(c=>isModule(c)&&!INCLUDED.has(c.code)&&secOK(c));
+  if(terms.length)roots=roots.filter(r=>subtreeMatches(r.code,terms,new Set()));
+  roots.sort((a,b)=>b.relaciones.incluye.length-a.relaciones.incluye.length||a.code.localeCompare(b.code));
+  const totalMods=CODES.filter(isModule).length;
+  el('count').innerHTML=`<b>${roots.length.toLocaleString('es-AR')}</b> módulo${roots.length!==1?'s':''} de facturación de primer nivel`;
+  const intro=`<div class="tree-intro"><b>Árbol de módulos.</b> Un <b>módulo</b> agrupa prácticas que <b>no deben facturarse por separado</b>: ya están comprendidas en el código padre. Expandí cada nodo (▸) para ver qué incluye; si un hijo es a su vez un módulo, se puede seguir abriendo. Click en el código o el nombre para abrir la ficha completa. <span style="color:var(--faint)">Total de módulos en el NBU: ${totalMods}.</span></div>`;
+  if(!roots.length){el('tree').innerHTML=intro+`<div class="empty"><b>Sin módulos</b>Ajustá la búsqueda o la sección.</div>`;return;}
+  el('tree').innerHTML=intro+roots.map(r=>treeNodeHTML(r.code,new Set([r.code]))).join('');
+}
+document.querySelectorAll('.vtab').forEach(v=>v.addEventListener('click',()=>{state.view=v.dataset.view;render();}));
+el('tree').addEventListener('click',e=>{
+  const car=e.target.closest('.tcaret');
+  if(car){car.closest('.tnode').classList.toggle('open');return;}
+  const g=e.target.closest('[data-code]');
+  if(g)openCode(g.dataset.code);
+});
 
 /* ---------- drawer / detail ---------- */
 function codechip(code,cls){
