@@ -47,13 +47,9 @@ SECCION_LABEL = {
 # ---------- 2024 revalorization overlay (from the Enero-2024 anexo) ----------
 def load_overlay():
     ov = {}
-    txt = None
-    for path in ("nbu_reval.txt", "data/nbu_anexo2024.txt", "nbu_anexo2024.txt"):
-        try:
-            txt = open(path, encoding="utf-8").read(); break
-        except FileNotFoundError:
-            continue
-    if txt is None:
+    try:
+        txt = open("nbu_reval.txt").read()
+    except FileNotFoundError:
         return ov
     for line in txt.splitlines():
         m = re.match(r"\s*(66\d{4})\s+.*?\s+(\d+(?:,\d+)?)\s+(PMO|PE)\s*$", line)
@@ -171,6 +167,97 @@ for code, rec in records.items():
     merged = sorted(set(rec["relaciones"]["incluido_en"] + calc))
     rec["relaciones"]["incluido_en"] = merged
 
+# every NBU record is tagged with its nomenclador
+for rec in records.values():
+    rec["nomenclador"] = "NBU"
+
+# ---------- integrate PMO 'Catálogo de Prestaciones' (medical/surgical nomenclador) ----------
+PMO_CAP = {
+    "01": "Sistema nervioso (cirugía)", "02": "Aparato de la visión (cirugía)",
+    "03": "Otorrinolaringología (cirugía)", "04": "Sistema endócrino (cirugía)",
+    "05": "Tórax (cirugía)", "06": "Mama (cirugía)", "07": "Sistema cardiovascular (cirugía)",
+    "08": "Aparato digestivo y abdomen (cirugía)", "09": "Vasos y ganglios linfáticos (cirugía)",
+    "10": "Aparato urinario y genital masculino (cirugía)",
+    "11": "Aparato genital femenino y obstétricas (cirugía)",
+    "12": "Huesos y articulaciones (traumatología)", "13": "Piel y tejido celular subcutáneo (cirugía)",
+    "14": "Alergia e inmunología", "15": "Anatomía patológica", "16": "Anestesiología",
+    "17": "Cardiología", "18": "Ecodiagnóstico y hemodinamia", "19": "Endocrinología y nutrición",
+    "20": "Gastroenterología", "21": "Genética humana", "22": "Ginecología y obstetricia",
+    "24": "Hemoterapia", "25": "Rehabilitación y kinesiología", "26": "Medicina nuclear",
+    "28": "Neumonología", "29": "Neurología", "30": "Oftalmología", "31": "Otorrinolaringología",
+    "32": "Pediatría", "33": "Salud mental", "34": "Radiología / Diagnóstico por imágenes",
+    "35": "Radioterapia", "36": "Urología", "38": "Tratamientos especiales",
+    "66": "Análisis clínicos (laboratorio)",
+}
+_TITLE = (r"Operaciones?(?: en (?:el|la|los|las))?[^,.]*?(?:nervioso|visión|Endocrino|Mama|"
+          r"Tórax|Cardiovascular|Digestivo y Abdomen|linfáticos|urinario y genital|Genital "
+          r"Femenino[^,.]*|huesos y articulaciones|piel y tejido)|Anatomía patológica|"
+          r"Endocrinología y nutrición(?: metabolismo)?|Gastroenterología|Genética humana|"
+          r"Ginecología y obstetricia|Hemoterapia|Rehabilitación médica|Medicina nuclear|"
+          r"Neurología|Oftalmología|Otorrinolaringología|Pediatría|Salud mental|Radiología|"
+          r"Urología|Tratamientos Especiales|Cardiología|Alergia|Análisis clínicos")
+TITLE_STRIP = re.compile(r"^(?:Práctica|Normativa|" + _TITLE + r")\b[\s:]*", re.I)
+NAME_FIX = {"010101": "tratamiento quirúrgico del encefalomeningocele"}
+
+def clean_pmo_name(nm):
+    nm = re.sub(r"\s+", " ", nm or "").strip()
+    prev = None
+    while prev != nm:
+        prev = nm
+        nm = TITLE_STRIP.sub("", nm).strip(" :-")
+    return nm
+
+pmo_added = pmo_linked = pmo_missing = 0
+try:
+    pmo = json.load(open("pmo_catalog.json", encoding="utf-8"))
+except FileNotFoundError:
+    pmo = None
+if pmo:
+    for code in pmo["order"]:
+        r = pmo["records"][code]
+        pref = code[:2]
+        cap = PMO_CAP.get(pref, "Otras prestaciones PMO")
+        nombre = NAME_FIX.get(code) or clean_pmo_name(r["nombre"]) or r["nombre"]
+        if pref == "66":  # lab practice
+            if code in records:  # already in NBU -> cross-link, don't duplicate
+                records[code]["en_catalogo_pmo"] = True
+                pmo_linked += 1
+            else:  # in PMO catalog but not in this NBU version -> add as lab entry
+                records[code] = {
+                    "code": code, "nomenclador": "PMO",
+                    "nomenclador_full": "Catálogo de Prestaciones del PMO (Res. 201/2002) — práctica de laboratorio",
+                    "seccion": "PMO_MED", "seccion_label": "Catálogo PMO — laboratorio",
+                    "grupo": "Análisis clínicos (laboratorio)", "nombre": nombre,
+                    "sinonimos": [], "abreviaturas": [],
+                    "valor": {"ub": None, "unidad": "—", "arancel": "Práctica de laboratorio del Catálogo PMO no presente en el NBU 2012/2016 cargado."},
+                    "flags": {"urgencia": False, "requiere_norma": False, "desuso": False, "pcr": False},
+                    "referencias": [], "norma": None, "frecuencia": [],
+                    "relaciones": {"incluye": [], "no_incluye": [], "incluido_en": []},
+                    "en_catalogo_pmo": True,
+                    "auditoria": ["Práctica de laboratorio incluida en el Catálogo PMO; sin valor de U.B. en el NBU 2012/2016 cargado."],
+                }
+                pmo_missing += 1
+            continue
+        if code in records:
+            continue
+        records[code] = {
+            "code": code, "nomenclador": "PMO",
+            "nomenclador_full": "Catálogo de Prestaciones del PMO — Programa Médico Obligatorio (Resolución 201/2002, S.S. Salud)",
+            "seccion": "PMO_MED", "seccion_label": "Catálogo PMO — prestaciones médicas",
+            "grupo": cap, "nombre": nombre, "sinonimos": [], "abreviaturas": [],
+            "valor": {"ub": None, "unidad": "—",
+                      "arancel": "Prestación del Catálogo del PMO (cobertura obligatoria). El arancel surge del nomenclador/convenio aplicable, no del NBU."},
+            "flags": {"urgencia": False, "requiere_norma": False, "desuso": False, "pcr": False},
+            "referencias": [], "norma": None, "frecuencia": [],
+            "relaciones": {"incluye": [], "no_incluye": [], "incluido_en": []},
+            "auditoria": [
+                "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
+                "Capítulo / especialidad: " + cap + ".",
+            ],
+        }
+        pmo_added += 1
+print(f"PMO: agregados {pmo_added} · cruzados con NBU (66xxxx) {pmo_linked} · sin match {pmo_missing}", file=sys.stderr)
+
 # ---------- glossary / metadata ----------
 glossary = {
     "U": "Urgencia: práctica clasificada para casos de urgencia. Al incluirse en una prescripción, se debe adicionar el código 661200.",
@@ -203,18 +290,25 @@ leyes = [
 
 # grupo stats
 grupos_stats = defaultdict(int)
+nomen_stats = defaultdict(int)
 for rec in records.values():
     grupos_stats[rec["grupo"]] += 1
+    nomen_stats[rec["nomenclador"]] += 1
 
 db = {
     "meta": {
         "titulo": "Manual Inteligente Unificado de Códigos Médicos",
-        "fuente": "NBU — Nomenclador Bioquímico Único · Versión 2012 · Actualización 2016 (CUBRA)",
+        "fuente": "NBU — Nomenclador Bioquímico Único v2012/2016 (CUBRA) + Catálogo de Prestaciones del PMO (Res. 201/2002, S.S. Salud)",
         "overlay": "Anexo Enero 2024 (U.B. actualizadas) aplicado como valor_actualizado_2024 donde corresponde.",
         "total_codigos": len(records),
         "secciones": SECCION_LABEL,
+        "nomencladores": {
+            "NBU": "NBU — Nomenclador Bioquímico Único (bioquímica / laboratorio)",
+            "PMO": "Catálogo de Prestaciones del PMO (prestaciones médicas y quirúrgicas)",
+        },
+        "nomenclador_counts": dict(nomen_stats),
         "grupos": dict(sorted(grupos_stats.items(), key=lambda x: -x[1])),
-        "nota_grupos": "El 'grupo/especialidad' es una clasificación orientativa para facilitar la navegación; el NBU es alfabético. La sección (PMO/PE/Gestión) es la clasificación oficial.",
+        "nota_grupos": "El 'grupo/especialidad' es orientativo para navegar. En el NBU la clasificación oficial es la sección (PMO/PE/Gestión); en el Catálogo PMO, el capítulo/especialidad proviene del código.",
     },
     "glosario": glossary,
     "leyes": leyes,

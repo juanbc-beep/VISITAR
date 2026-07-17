@@ -3,13 +3,20 @@
 Herramienta para consultar, interpretar y **facturar correctamente** los códigos de los
 nomencladores médicos argentinos, con relaciones entre códigos y reglas de auditoría por práctica.
 
-Estado actual: cargado el **NBU — Nomenclador Bioquímico Único** (Versión 2012 · Actualización 2016, CUBRA),
-con el **Anexo Enero 2024** de U.B. revalorizadas aplicado como overlay. El **Nomenclador Nacional de
-Prestaciones Médicas** se incorporará en una próxima carga (el modelo de datos ya lo contempla vía el campo `nomenclador`).
+Estado actual: cargados **dos nomencladores relacionados** en una sola base (**2.611 códigos**):
+
+- **NBU — Nomenclador Bioquímico Único** (Versión 2012 · Actualización 2016, CUBRA) — 1.377 códigos, con el
+  **Anexo Enero 2024** de U.B. revalorizadas aplicado como overlay.
+- **Catálogo de Prestaciones del PMO** (Resolución 201/2002, S.S. Salud) — 1.234 prestaciones médicas y
+  quirúrgicas por especialidad.
+
+Ambos se cruzan: **315 códigos de laboratorio (66xxxx)** aparecen en los dos nomencladores y quedan
+enlazados (en la ficha del NBU se marca "También en Catálogo PMO").
 
 ## Qué incluye
 
-- **1.377 prácticas** del NBU, divididas en su clasificación oficial:
+### NBU (bioquímica) — 1.377 prácticas
+- Clasificación oficial:
   - **PMO** (Programa Médico Obligatorio) — 370
   - **Prácticas Especiales (P.E.)** — 1.005
   - **Gestión Administrativa** — 2
@@ -22,8 +29,16 @@ Prestaciones Médicas** se incorporará en una próxima carga (el modelo de dato
   - **Normas de auditoría / facturación** generadas por código (qué no facturar por separado, cuándo adicionar 661200, etc.).
   - **U.B. actualizada 2024** donde el anexo la revaloriza (50 códigos).
 - **Glosario** de referencias y flags + **marco normativo** (12 leyes vigentes).
-- Clasificación **orientativa** por grupo/especialidad (15 grupos) para facilitar la navegación
+- Clasificación **orientativa** por grupo/especialidad para facilitar la navegación
   (el NBU es alfabético; la clasificación oficial es la sección PMO/PE/Gestión).
+
+### Catálogo PMO (prestaciones médicas) — 1.234 códigos
+- Prestaciones médicas y quirúrgicas por **capítulo/especialidad** (código de 6 dígitos):
+  cirugía (sistema nervioso, cardiovascular, digestivo, traumatología, etc.), diagnóstico por imágenes,
+  cardiología, neurología, hemoterapia, medicina nuclear, radioterapia, laboratorio, y más (~36 capítulos).
+- Son prestaciones de **cobertura obligatoria** del PMO; el arancel surge del nomenclador/convenio aplicable
+  (el catálogo lista qué se cubre, no valores monetarios).
+- La app permite filtrar por **Nomenclador** (NBU / PMO) y navegar por especialidad.
 
 ## Uso
 
@@ -48,9 +63,10 @@ data/
   nbu_catalog_raw.json  # Catálogo crudo parseado (intermedio)
   nbu_intel_raw.json    # Sinonimias / abreviaturas / normas crudas (intermedio)
 scripts/
-  parse_catalog.py      # Parser del catálogo (coordenadas) -> catalog.json
-  parse_intel.py        # Parser de sinonimias, abreviaturas y normas (tablas) -> intel.json
-  assemble.py           # Une todo, clasifica grupos, genera reglas -> nbu_db.json
+  parse_catalog.py      # Parser del catálogo NBU (coordenadas) -> catalog.json
+  parse_intel.py        # Parser de sinonimias, abreviaturas y normas NBU (tablas) -> intel.json
+  parse_pmo.py          # Parser del Catálogo PMO (2 columnas) -> pmo_catalog.json
+  assemble.py           # Une NBU + PMO, clasifica, cruza 66xxxx, genera reglas -> nbu_db.json
 web/
   index.html            # Aplicación web autocontenida (base embebida)
 ```
