@@ -268,6 +268,55 @@ ul{margin:0;padding:0}
 .tub{font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-size:12.5px;color:var(--muted);flex-shrink:0;min-width:56px;text-align:right}
 .tsec{font-size:10.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;padding:2px 6px;border-radius:5px;flex-shrink:0}
 @media (max-width:560px){.tub,.tsec{display:none}.tname{white-space:normal}}
+/* ---------- validator ---------- */
+.validator{display:flex;flex-direction:column;gap:16px}
+.vinput{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px}
+.vinput label{font-size:12px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);font-weight:700;display:block;margin-bottom:8px}
+.vinput textarea{width:100%;min-height:96px;resize:vertical;border:1px solid var(--line-2);border-radius:10px;background:var(--surface-2);
+  color:var(--ink);font-family:var(--font-mono);font-size:14px;padding:12px 14px;outline:none;line-height:1.7}
+.vinput textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);background:var(--surface)}
+.vrow{display:flex;gap:14px;align-items:flex-end;flex-wrap:wrap;margin-top:14px}
+.vfield{display:flex;flex-direction:column;gap:7px}
+.vfield label{margin:0}
+.vfield input{width:150px;padding:9px 12px;border:1px solid var(--line-2);border-radius:9px;background:var(--surface-2);
+  color:var(--ink);font-family:var(--font-mono);font-size:14px;outline:none}
+.vfield input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.vbtn{margin-left:auto;padding:11px 24px;border:none;border-radius:10px;background:linear-gradient(150deg,var(--accent),var(--accent-ink));
+  color:#fff;font-weight:700;font-size:14.5px;box-shadow:0 2px 10px color-mix(in srgb,var(--accent) 38%,transparent);transition:.13s}
+.vbtn:hover{transform:translateY(-1px)}
+.vbtn.ghost{background:none;color:var(--muted);box-shadow:none;border:1px solid var(--line-2);margin-left:0}
+.vbtn.ghost:hover{background:var(--surface-2);color:var(--ink);transform:none}
+.vhint{font-size:12.5px;color:var(--faint);margin-top:10px}
+.vsummary{display:flex;gap:12px;flex-wrap:wrap}
+.vstat{flex:1;min-width:130px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow)}
+.vstat .vn{font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-size:26px;font-weight:800;line-height:1}
+.vstat .vl{font-size:11.5px;color:var(--muted);margin-top:5px;letter-spacing:.2px}
+.vstat.ok{border-color:color-mix(in srgb,var(--inc) 40%,var(--line))}.vstat.ok .vn{color:var(--inc)}
+.vstat.warn .vn{color:var(--urg)}
+.vstat.err{border-color:color-mix(in srgb,var(--exc) 45%,var(--line))}.vstat.err .vn{color:var(--exc)}
+.vstat.money .vn{color:var(--accent-ink)}
+.findings{display:flex;flex-direction:column;gap:9px}
+.finding{display:flex;gap:12px;padding:13px 16px;border-radius:var(--radius);border:1px solid var(--line);background:var(--surface);align-items:flex-start}
+.finding .ficon{width:24px;height:24px;border-radius:7px;flex-shrink:0;display:grid;place-items:center;font-weight:800;font-size:13px;color:#fff}
+.finding .fbody{font-size:13.5px;color:var(--ink-2);line-height:1.5}
+.finding.rechazo{border-left:4px solid var(--exc)}.finding.rechazo .ficon{background:var(--exc)}
+.finding.advertencia{border-left:4px solid var(--urg)}.finding.advertencia .ficon{background:var(--urg)}
+.finding.info{border-left:4px solid var(--norma)}.finding.info .ficon{background:var(--norma)}
+.finding.ok{border-left:4px solid var(--inc)}.finding.ok .ficon{background:var(--inc)}
+.finding .mono{color:var(--accent-ink);font-weight:700;cursor:pointer;text-decoration:underline;text-decoration-style:dotted}
+.vtable{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.vtrow{display:grid;grid-template-columns:76px 1fr auto auto;gap:14px;align-items:center;padding:11px 16px;border-top:1px solid var(--line);font-size:13.5px}
+.vtrow:first-child{border-top:none}
+.vtrow .vc{font-family:var(--font-mono);font-weight:700;color:var(--accent-ink);cursor:pointer}
+.vtrow .vnm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink)}
+.vtrow .vub{font-family:var(--font-mono);font-variant-numeric:tabular-nums;color:var(--muted);text-align:right;min-width:60px}
+.vstatus{font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.st-ok{background:var(--inc-soft);color:var(--inc)}
+.st-inc{background:var(--exc-soft);color:var(--exc)}
+.st-desuso{background:var(--desuso-soft);color:var(--desuso)}
+.st-dup{background:var(--norma-soft);color:var(--norma)}
+.vtrow.dim{opacity:.6}
+@media (max-width:560px){.vtrow{grid-template-columns:64px 1fr auto;gap:8px}.vtrow .vub{display:none}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -323,6 +372,8 @@ ul{margin:0;padding:0}
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>Listado</button>
       <button class="vtab" data-view="tree" role="tab">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5h7v5H3zM14 3h7v5h-7zM14 16h7v5h-7zM10 7h4M17 8v8M10 18h4"/></svg>Árbol de módulos</button>
+      <button class="vtab" data-view="validator" role="tab">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Validador de facturación</button>
     </div>
     <div class="resbar">
       <div class="count" id="count"></div>
@@ -331,6 +382,7 @@ ul{margin:0;padding:0}
     <div class="list" id="list"></div>
     <button class="more" id="moreBtn" hidden>Ver más resultados</button>
     <div class="tree" id="tree" hidden></div>
+    <div class="validator" id="validator" hidden></div>
   </main>
 </div>
 
@@ -44998,12 +45050,14 @@ function renderChips(){
 }
 function render(){
   renderChips();
-  const treeMode=state.view==='tree';
-  el('list').hidden=treeMode; el('tree').hidden=!treeMode;
-  el('moreBtn').style.display=treeMode?'none':'';
-  document.querySelectorAll('.vtab').forEach(v=>v.classList.toggle('on',v.dataset.view===state.view));
-  document.querySelector('.opt[data-f="grupo"]')?.closest('.panel')?.style.setProperty('opacity',treeMode?'.5':'1');
-  if(treeMode){renderTree();return;}
+  const v=state.view;
+  el('list').hidden=v!=='list';
+  el('tree').hidden=v!=='tree';
+  el('validator').hidden=v!=='validator';
+  el('moreBtn').style.display=v==='list'?'':'none';
+  document.querySelectorAll('.vtab').forEach(t=>t.classList.toggle('on',t.dataset.view===v));
+  if(v==='tree'){renderTree();return;}
+  if(v==='validator'){el('count').textContent='';initValidator();return;}
   const res=filtered();
   el('count').innerHTML=`<b>${res.length.toLocaleString('es-AR')}</b> práctica${res.length!==1?'s':''}`;
   if(!res.length){el('list').innerHTML=`<div class="empty"><b>Sin resultados</b>Probá con otro término o limpiá los filtros.</div>`;el('moreBtn').hidden=true;return;}
@@ -45064,6 +45118,104 @@ el('tree').addEventListener('click',e=>{
   const g=e.target.closest('[data-code]');
   if(g)openCode(g.dataset.code);
 });
+
+/* ---------- validador de facturación ---------- */
+let validatorInit=false;
+function initValidator(){
+  if(validatorInit)return; validatorInit=true;
+  el('validator').innerHTML=`
+    <div class="vinput">
+      <label for="vcodes">Códigos facturados en la orden / prescripción</label>
+      <textarea id="vcodes" spellcheck="false" placeholder="Pegá los códigos separados por espacio, coma o salto de línea.  Ej:  660475  660470  660357  660873  660874  660005"></textarea>
+      <div class="vrow">
+        <div class="vfield"><label for="vub">Valor de la U.B. ($) — opcional</label><input id="vub" type="number" min="0" step="0.01" placeholder="ej: 850"></div>
+        <button class="vbtn ghost" id="vclear">Limpiar</button>
+        <button class="vbtn" id="vrun">Validar facturación</button>
+      </div>
+      <div class="vhint">Detecta doble facturación por inclusión en módulos, urgencias sin código 661200, Acto Bioquímico faltante, prácticas en desuso y códigos inexistentes. Reglas según el Anexo de Normas del NBU.</div>
+    </div>
+    <div id="vresults"></div>`;
+  el('vrun').addEventListener('click',runValidator);
+  el('vclear').addEventListener('click',()=>{el('vcodes').value='';el('vub').value='';el('vresults').innerHTML='';});
+  el('vcodes').addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter')runValidator();});
+  el('vresults').addEventListener('click',e=>{const g=e.target.closest('[data-code]');if(g&&BYCODE[g.dataset.code])openCode(g.dataset.code);});
+}
+function runValidator(){
+  const raw=el('vcodes').value;
+  const tokens=(raw.match(/\d{6}/g)||[]);
+  const ubVal=parseFloat(el('vub').value)||0;
+  if(!tokens.length){el('vresults').innerHTML=`<div class="finding info"><div class="ficon">i</div><div class="fbody">Ingresá al menos un código de 6 dígitos para validar.</div></div>`;return;}
+  const counts={}; tokens.forEach(c=>counts[c]=(counts[c]||0)+1);
+  const uniq=[...new Set(tokens)];
+  const billed=new Set(uniq.filter(c=>BYCODE[c]));
+  const unknown=uniq.filter(c=>!BYCODE[c]);
+  const findings=[];
+  const nm=c=>BYCODE[c]?BYCODE[c].nombre:'';
+  const link=c=>`<span class="mono" data-code="${c}">${c}</span>`;
+  // 1. doble facturación por inclusión
+  const redundant=new Set();
+  billed.forEach(c=>{
+    (BYCODE[c].relaciones.incluido_en||[]).forEach(par=>{
+      if(billed.has(par)){
+        redundant.add(c);
+        findings.push({sev:'rechazo',msg:`${link(c)} <b>${esc(nm(c))}</b> ya está incluido en el módulo ${link(par)} <b>${esc(nm(par))}</b>. No debe facturarse por separado.`});
+      }
+    });
+  });
+  // 2. urgencia sin 661200
+  const urg=[...billed].filter(c=>BYCODE[c].flags.urgencia);
+  if(urg.length&&!billed.has('661200'))
+    findings.push({sev:'advertencia',msg:`Hay ${urg.length} práctica(s) de urgencia (${urg.map(link).join(', ')}) pero falta el código ${link('661200')} <b>Urgencias</b>, que debe adicionarse a la prescripción.`});
+  // 3. acto bioquímico
+  const hasAB=['660001','661001','662001'].some(c=>billed.has(c));
+  const anyLab=[...billed].some(c=>c!=='660001'&&['PMO','PE'].includes(BYCODE[c].seccion));
+  if(anyLab&&!hasAB)
+    findings.push({sev:'advertencia',msg:`No se incluyó el Acto Bioquímico ${link('660001')}, que se factura 1 vez por prescripción (o ${link('661001')} ABI si es internación).`});
+  // 4. desuso
+  [...billed].filter(c=>BYCODE[c].flags.desuso).forEach(c=>
+    findings.push({sev:'advertencia',msg:`${link(c)} <b>${esc(nm(c))}</b> está en desuso / por presupuesto (#): sin U.B. de referencia.`}));
+  // 5. inexistentes
+  unknown.forEach(u=>findings.push({sev:'rechazo',msg:`El código <span class="mono">${esc(u)}</span> no existe en el NBU cargado. Verificá el número.`}));
+  // 6. duplicados
+  Object.entries(counts).forEach(([c,n])=>{if(n>1&&BYCODE[c])findings.push({sev:'info',msg:`${link(c)} aparece ${n} veces en la lista.`});});
+  if(!findings.length)findings.push({sev:'ok',msg:`Sin observaciones: los ${billed.size} códigos son válidos y no presentan conflictos de inclusión.`});
+
+  // totals
+  let totalUB=0; billed.forEach(c=>{if(!redundant.has(c)&&BYCODE[c].valor.ub!=null)totalUB+=BYCODE[c].valor.ub;});
+  const rechazos=findings.filter(f=>f.sev==='rechazo').length;
+  const adverts=findings.filter(f=>f.sev==='advertencia').length;
+  const order={rechazo:0,advertencia:1,info:2,ok:3};
+  findings.sort((a,b)=>order[a.sev]-order[b.sev]);
+  const ICON={rechazo:'✕',advertencia:'!',info:'i',ok:'✓'};
+
+  // summary
+  const money=ubVal>0?`<div class="vstat money"><div class="vn">$${(totalUB*ubVal).toLocaleString('es-AR',{maximumFractionDigits:2})}</div><div class="vl">Arancel estimado (U.B. × $${ubVal})</div></div>`:'';
+  const sumClass=rechazos?'err':adverts?'warn':'ok';
+  const summary=`<div class="vsummary">
+    <div class="vstat"><div class="vn">${billed.size}</div><div class="vl">Códigos válidos</div></div>
+    <div class="vstat ${rechazos?'err':''}"><div class="vn">${rechazos}</div><div class="vl">Rechazos</div></div>
+    <div class="vstat ${adverts?'warn':''}"><div class="vn">${adverts}</div><div class="vl">Advertencias</div></div>
+    <div class="vstat ${sumClass==='ok'?'ok':''}"><div class="vn">${totalUB.toLocaleString('es-AR',{maximumFractionDigits:1})}</div><div class="vl">U.B. facturables${redundant.size?' (netas)':''}</div></div>
+    ${money}
+  </div>`;
+
+  // per-code table
+  const rows=uniq.map(c=>{
+    if(!BYCODE[c])return `<div class="vtrow dim"><span class="vc">${esc(c)}</span><span class="vnm" style="color:var(--exc)">No encontrado en el NBU</span><span></span><span class="vstatus st-inc">rechazo</span></div>`;
+    const r=BYCODE[c];let st='<span class="vstatus st-ok">correcto</span>';
+    if(redundant.has(c))st='<span class="vstatus st-inc">incluido en módulo</span>';
+    else if(r.flags.desuso)st='<span class="vstatus st-desuso"># desuso</span>';
+    else if(counts[c]>1)st='<span class="vstatus st-dup">duplicado</span>';
+    const ub=r.valor.ub!=null?r.valor.ub+' UB':'—';
+    return `<div class="vtrow${redundant.has(c)?' dim':''}"><span class="vc" data-code="${c}">${c}</span><span class="vnm">${esc(r.nombre)}</span><span class="vub">${ub}</span>${st}</div>`;
+  }).join('');
+
+  el('vresults').innerHTML=summary+
+    `<div class="sec" style="margin-top:16px"><div class="slabel" style="font-size:11px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);font-weight:700;margin-bottom:9px">Hallazgos</div><div class="findings">`+
+    findings.map(f=>`<div class="finding ${f.sev}"><div class="ficon">${ICON[f.sev]}</div><div class="fbody">${f.msg}</div></div>`).join('')+
+    `</div></div>`+
+    `<div class="sec" style="margin-top:16px"><div class="slabel" style="font-size:11px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);font-weight:700;margin-bottom:9px">Detalle por código (${uniq.length})</div><div class="vtable">${rows}</div></div>`;
+}
 
 /* ---------- drawer / detail ---------- */
 function codechip(code,cls){
