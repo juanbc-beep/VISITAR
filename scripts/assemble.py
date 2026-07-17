@@ -359,6 +359,65 @@ for code, r in NNV.items():
         nn_added += 1
 print(f"NN valores: enriquecidos {nn_enriched} · nuevos {nn_added}", file=sys.stderr)
 
+# ---------- integrate dental (odontología) codes from part 3 ----------
+ODO_CAP = {
+    "01": "Consultas", "02": "Operatoria dental", "03": "Endodoncia", "04": "Prótesis",
+    "05": "Odontología preventiva", "06": "Ortodoncia y ortopedia funcional",
+    "07": "Odontopediatría", "08": "Periodoncia", "09": "Radiología odontológica",
+    "10": "Cirugía y traumatología bucal",
+}
+def clean_odo_name(nm):
+    nm = re.sub(r"\s+", " ", nm or "").strip()
+    nm = re.split(r"CONSULTAS|OPERATORIA DENTAL|ENDODONCIA|PROTESIS|ODONTOLOG[IÍ]A PREVENTIVA|"
+                  r"ORTODONCIA|ODONTOPEDIATR|PERIODONCIA|RADIOLOG|CIRUG[IÍ]A BUCAL|"
+                  r"texto retirado|extbre|edoretr|P\.M\.O\.DE", nm, flags=re.I)[-1]
+    return re.sub(r"^[^A-ZÁÉÍÓÚÑa-z]*", "", nm).strip(" .:-")[:70]
+
+odo_added = 0
+try:
+    ODO = json.load(open("nn_odo.json", encoding="utf-8"))["records"]
+except FileNotFoundError:
+    ODO = {}
+for cid, r in ODO.items():
+    if r["capitulo_num"] not in ODO_CAP or r["tipo"] != "priced":
+        continue
+    hon, gas = r["honorarios"], r["gastos"]
+    if hon["p"] is None and r["valor_practica"] is None:
+        continue
+    rid = "ODO" + cid
+    cap = ODO_CAP[r["capitulo_num"]]
+    valores = {
+        "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+        "validado": r["checksum_ok"] is True, "tipo": "odontologia",
+        "galeno": {"honorarios": hon["u"], "gastos": gas["u"]},
+        "pesos_2002": {"honorarios": hon["p"], "gastos": gas["p"], "valor_practica": r["valor_practica"]},
+        "valor_practica_2002": r["valor_practica"], "coseguro_pct": r["coseguro"],
+    }
+    asoc = []
+    if hon["u"] is not None:
+        asoc.append(f"Honorario odontológico: {hon['u']:g} galenos (G.Od.).")
+    if gas["u"] is not None:
+        asoc.append(f"Gasto: {gas['u']:g} galenos.")
+    if r["coseguro"] is not None:
+        asoc.append(f"Coseguro máximo a cobrar: hasta {r['coseguro']:g}%.")
+    records[rid] = {
+        "code": r["dotted"], "nomenclador": "ODO",
+        "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+        "seccion": "ODO", "seccion_label": "Odontología — " + cap,
+        "grupo": cap, "nombre": clean_odo_name(r["nombre_ocr"]) or r["dotted"],
+        "sinonimos": [], "abreviaturas": [],
+        "valor": {"ub": None, "unidad": "galenos odontológicos",
+                  "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."},
+        "flags": {"urgencia": False, "requiere_norma": False, "desuso": False, "pcr": False},
+        "referencias": [], "norma": None, "frecuencia": [],
+        "relaciones": {"incluye": [], "no_incluye": [], "incluido_en": []},
+        "valores": valores, "asociaciones_especificas": asoc,
+        "auditoria": ["Práctica odontológica del Nomenclador Nacional (Res. 201/02)."] +
+                     ([f"Coseguro máximo: {r['coseguro']:g}%."] if r["coseguro"] is not None else []),
+    }
+    odo_added += 1
+print(f"ODO (dental): agregados {odo_added}", file=sys.stderr)
+
 # ---------- glossary / metadata ----------
 glossary = {
     "U": "Urgencia: práctica clasificada para casos de urgencia. Al incluirse en una prescripción, se debe adicionar el código 661200.",
@@ -406,6 +465,7 @@ db = {
         "nomencladores": {
             "NBU": "NBU — Nomenclador Bioquímico Único (bioquímica / laboratorio)",
             "PMO": "Catálogo de Prestaciones del PMO (prestaciones médicas y quirúrgicas)",
+            "ODO": "Nomenclador Nacional — Prácticas Odontológicas",
         },
         "nomenclador_counts": dict(nomen_stats),
         "pmo_capitulos": PMO_CAP,

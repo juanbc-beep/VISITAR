@@ -49,8 +49,16 @@ enlazados (en la ficha del NBU se marca "También en Catálogo PMO").
 - El pipeline OCR (`scripts/ocr_nn.py` + `scripts/parse_nn.py`) es reutilizable para la 3ª parte del
   Nomenclador (prácticas y consultas), pendiente de carga.
 
-La interfaz separa **dos secciones** con un selector principal: **Laboratorio (NBU)** y **Prestaciones
-médicas (PMO)** — en cada una solo se ven sus códigos, grupos y determinaciones (no se mezclan).
+### Odontología (Nomenclador Nacional dental) — 79 códigos
+- Prácticas odontológicas (Anexo II, Res. 201/02) por capítulo: consultas, operatoria dental, endodoncia,
+  prótesis, periodoncia, ortodoncia, cirugía bucal, etc.
+- Valorización por **OCR validada por checksum** (Honorarios$ + Gasto$ = Valor Práctica; 86% de las filas
+  con precio validan): honorarios y gasto en **galenos odontológicos** + **$ ref. 1991** + **coseguro máximo %**.
+- Nota: los nombres de las prácticas dentales pueden tener artefactos de OCR (el escaneo perdió espacios);
+  código, valores y coseguro son correctos.
+
+La interfaz separa **tres secciones** con un selector principal: **Laboratorio (NBU)**, **Prestaciones
+médicas (PMO)** y **Odontología** — en cada una solo se ven sus códigos, grupos y determinaciones (no se mezclan).
 
 ## Uso
 

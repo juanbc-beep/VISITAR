@@ -3,7 +3,7 @@
   "titulo": "Manual Inteligente Unificado de Códigos Médicos",
   "fuente": "NBU — Nomenclador Bioquímico Único v2012/2016 (CUBRA) + Catálogo de Prestaciones del PMO (Res. 201/2002, S.S. Salud)",
   "overlay": "Anexo Enero 2024 (U.B. actualizadas) aplicado como valor_actualizado_2024 donde corresponde.",
-  "total_codigos": 2656,
+  "total_codigos": 2735,
   "secciones": {
    "PMO": "PMO — Programa Médico Obligatorio",
    "PE": "Prácticas Especiales (P.E.)",
@@ -11,11 +11,13 @@
   },
   "nomencladores": {
    "NBU": "NBU — Nomenclador Bioquímico Único (bioquímica / laboratorio)",
-   "PMO": "Catálogo de Prestaciones del PMO (prestaciones médicas y quirúrgicas)"
+   "PMO": "Catálogo de Prestaciones del PMO (prestaciones médicas y quirúrgicas)",
+   "ODO": "Nomenclador Nacional — Prácticas Odontológicas"
   },
   "nomenclador_counts": {
    "NBU": 1377,
-   "PMO": 1279
+   "PMO": 1279,
+   "ODO": 79
   },
   "pmo_capitulos": {
    "01": "Sistema nervioso (cirugía)",
@@ -398,6 +400,7 @@
    "Aparato genital femenino y obstétricas (cirugía)": 49,
    "Orina y materia fecal": 36,
    "Fertilidad y andrología": 33,
+   "Prótesis": 32,
    "Piel y tejido celular subcutáneo (cirugía)": 30,
    "Gastroenterología": 25,
    "Tórax (cirugía)": 23,
@@ -409,6 +412,7 @@
    "Marcadores tumorales": 17,
    "Genética humana": 14,
    "Neurología": 14,
+   "Cirugía y traumatología bucal": 14,
    "Ginecología y obstetricia": 13,
    "Salud mental": 13,
    "Mama (cirugía)": 12,
@@ -418,9 +422,16 @@
    "Radioterapia": 9,
    "Vasos y ganglios linfáticos (cirugía)": 8,
    "Urología": 8,
+   "Operatoria dental": 7,
    "Rehabilitación y kinesiología": 6,
+   "Odontopediatría": 6,
    "Anestesiología": 5,
+   "Periodoncia": 5,
+   "Endodoncia": 4,
+   "Odontología preventiva": 4,
+   "Ortodoncia y ortopedia funcional": 4,
    "Endocrinología y nutrición": 3,
+   "Consultas": 3,
    "Gestión administrativa": 2,
    "Alergia e inmunología": 1,
    "Neumonología": 1,
@@ -106359,6 +106370,4337 @@
    ],
    "auditoria": [
     "Prestación del Nomenclador Nacional (Res. 201/02) con valorización en galenos."
+   ]
+  },
+  "ODO0101": {
+   "code": "01.01",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Consultas",
+   "grupo": "Consultas",
+   "nombre": "CONSULTA,DIAGNOSTICO,FICHADOYPLANDETRATAMENTO",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 21.25,
+     "gastos": null
+    },
+    "pesos_2002": {
+     "honorarios": 2.39,
+     "gastos": null,
+     "valor_practica": 2.39
+    },
+    "valor_practica_2002": 2.39,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 21.25 galenos (G.Od.).",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO0103": {
+   "code": "01.03",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Consultas",
+   "grupo": "Consultas",
+   "nombre": "ODONTOLOGICA Visita-Consus-a domicilio- Texloretrado por el PMO",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 25.5,
+     "gastos": null
+    },
+    "pesos_2002": {
+     "honorarios": 2.86,
+     "gastos": null,
+     "valor_practica": 2.86
+    },
+    "valor_practica_2002": 2.86,
+    "coseguro_pct": null
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 25.5 galenos (G.Od.)."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02)."
+   ]
+  },
+  "ODO0104": {
+   "code": "01.04",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Consultas",
+   "grupo": "Consultas",
+   "nombre": "CONSULTADEURGENCIA ectorelradoporePMOPrestacionquenoconstituyepasointe",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 21.25,
+     "gastos": null
+    },
+    "pesos_2002": {
+     "honorarios": 2.39,
+     "gastos": null,
+     "valor_practica": 2.39
+    },
+    "valor_practica_2002": 2.39,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 21.25 galenos (G.Od.).",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO0201": {
+   "code": "02.01",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Operatoria dental",
+   "grupo": "Operatoria dental",
+   "nombre": "OPERATORIADENTAL OBTURACION CON DEAMALGAMA.CAVIDAD SIMPLE. exi retrado",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 12.0,
+     "gastos": 18.0
+    },
+    "pesos_2002": {
+     "honorarios": 1.35,
+     "gastos": 3.09,
+     "valor_practica": 4.43
+    },
+    "valor_practica_2002": 4.43,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 12 galenos (G.Od.).",
+    "Gasto: 18 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO0202": {
+   "code": "02.02",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Operatoria dental",
+   "grupo": "Operatoria dental",
+   "nombre": "EradoporelPMOCoinDEAMALGAMA.CAVIDADCOMPUESTAOCOMPLEJA etoretrado poreP",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 24.0,
+     "gastos": 30.0
+    },
+    "pesos_2002": {
+     "honorarios": 2.7,
+     "gastos": 5.15,
+     "valor_practica": 7.84
+    },
+    "valor_practica_2002": 7.84,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 24 galenos (G.Od.).",
+    "Gasto: 30 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO0204": {
+   "code": "02.04",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Operatoria dental",
+   "grupo": "Operatoria dental",
+   "nombre": "PRACTICASODONTOLOGICAS CONNOMENCLADORNACIONALYCOSEGUROS OBTURACION eo ",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 24.0,
+     "gastos": 32.0
+    },
+    "pesos_2002": {
+     "honorarios": 2.7,
+     "gastos": 5.49,
+     "valor_practica": 8.18
+    },
+    "valor_practica_2002": 8.18,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 24 galenos (G.Od.).",
+    "Gasto: 32 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO0205": {
+   "code": "02.05",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Operatoria dental",
+   "grupo": "Operatoria dental",
+   "nombre": "NARIA SEAMAYORALOSDOSTERCIOSDELADISTANCIANTERCUSPIDEALLAOBTURACIONDEFI",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 12.0,
+     "gastos": 19.0
+    },
+    "pesos_2002": {
+     "honorarios": 1.35,
+     "gastos": 3.26,
+     "valor_practica": 4.61
+    },
+    "valor_practica_2002": 4.61,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 12 galenos (G.Od.).",
+    "Gasto: 19 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO0206": {
+   "code": "02.06",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Operatoria dental",
+   "grupo": "Operatoria dental",
+   "nombre": "exto retrado por el PMO]Se reconocera siempre que se respete lo establ",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 19.0,
+     "gastos": 29.0
+    },
+    "pesos_2002": {
+     "honorarios": 2.13,
+     "gastos": 4.97,
+     "valor_practica": 7.11
+    },
+    "valor_practica_2002": 7.11,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 19 galenos (G.Od.).",
+    "Gasto: 29 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO0208": {
+   "code": "02.08",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Operatoria dental",
+   "grupo": "Operatoria dental",
+   "nombre": "Sereconocera siempre que se respete loestablecido paraelcodigo 02.02 T",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 24.0,
+     "gastos": 34.0
+    },
+    "pesos_2002": {
+     "honorarios": 2.7,
+     "gastos": 5.83,
+     "valor_practica": 8.53
+    },
+    "valor_practica_2002": 8.53,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 24 galenos (G.Od.).",
+    "Gasto: 34 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO0209": {
+   "code": "02.09",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Operatoria dental",
+   "grupo": "Operatoria dental",
+   "nombre": "COMPRENDELARESTAURACIONDELASPIEZASANTERIORESYVESTIBULARDEPRIMEROSPREMO",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 29.0,
+     "gastos": 42.0
+    },
+    "pesos_2002": {
+     "honorarios": 3.26,
+     "gastos": 7.2,
+     "valor_practica": 10.46
+    },
+    "valor_practica_2002": 10.46,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 29 galenos (G.Od.).",
+    "Gasto: 42 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO0301": {
+   "code": "03.01",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Endodoncia",
+   "grupo": "Endodoncia",
+   "nombre": "ado pore PMO]De conducto en dentes ENDODONTICO ENUNIRRADICULARES",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 33.0,
+     "gastos": 88.0
+    },
+    "pesos_2002": {
+     "honorarios": 3.71,
+     "gastos": 15.09,
+     "valor_practica": 18.8
+    },
+    "valor_practica_2002": 18.8,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 33 galenos (G.Od.).",
+    "Gasto: 88 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO0302": {
+   "code": "03.02",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Endodoncia",
+   "grupo": "Endodoncia",
+   "nombre": "TRATAMIENTO TedorefiradoporelPMODe conducto en dfentesENDODONTICO ENMU",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 43.0,
+     "gastos": 134.0
+    },
+    "pesos_2002": {
+     "honorarios": 4.83,
+     "gastos": 22.98,
+     "valor_practica": 27.81
+    },
+    "valor_practica_2002": 27.81,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 43 galenos (G.Od.).",
+    "Gasto: 134 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO0305": {
+   "code": "03.05",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Endodoncia",
+   "grupo": "Endodoncia",
+   "nombre": "ysucorrespondiente restauracion coronaria hasta um TexioretiradoporelP",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 22.0,
+     "gastos": 35.0
+    },
+    "pesos_2002": {
+     "honorarios": 2.47,
+     "gastos": 6.0,
+     "valor_practica": 8.47
+    },
+    "valor_practica_2002": 8.47,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 22 galenos (G.Od.).",
+    "Gasto: 35 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO0306": {
+   "code": "03.06",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Endodoncia",
+   "grupo": "Endodoncia",
+   "nombre": "ao despues de efectuada la misma,si esrealizado por elmismo profesionu",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 12.0,
+     "gastos": 31.0
+    },
+    "pesos_2002": {
+     "honorarios": 1.35,
+     "gastos": 5.32,
+     "valor_practica": 6.66
+    },
+    "valor_practica_2002": 6.66,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 12 galenos (G.Od.).",
+    "Gasto: 31 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO0401": {
+   "code": "04.01",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Prótesis",
+   "grupo": "Prótesis",
+   "nombre": "FUA",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": false,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 100.0,
+     "gastos": 401.03
+    },
+    "pesos_2002": {
+     "honorarios": null,
+     "gastos": null,
+     "valor_practica": 20.0
+    },
+    "valor_practica_2002": 20.0,
+    "coseguro_pct": null
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 100 galenos (G.Od.).",
+    "Gasto: 401.03 galenos."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02)."
+   ]
+  },
+  "ODO040101": {
+   "code": "04.0101",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Prótesis",
+   "grupo": "Prótesis",
+   "nombre": "Incrustaciones:Cavidad simple",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 36.0,
+     "gastos": 53.0
+    },
+    "pesos_2002": {
+     "honorarios": 4.04,
+     "gastos": 13.5,
+     "valor_practica": 17.54
+    },
+    "valor_practica_2002": 17.54,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 36 galenos (G.Od.).",
+    "Gasto: 53 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO040102": {
+   "code": "04.0102",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Prótesis",
+   "grupo": "Prótesis",
+   "nombre": "Incrustaciones: Cavidad compleja o compuesta",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 48.0,
+     "gastos": 55.0
+    },
+    "pesos_2002": {
+     "honorarios": 5.39,
+     "gastos": 14.01,
+     "valor_practica": 19.4
+    },
+    "valor_practica_2002": 19.4,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 48 galenos (G.Od.).",
+    "Gasto: 55 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO040103": {
+   "code": "04.0103",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Prótesis",
+   "grupo": "Prótesis",
+   "nombre": "Corona forjada",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 19.0,
+     "gastos": 53.0
+    },
+    "pesos_2002": {
+     "honorarios": 2.13,
+     "gastos": 13.5,
+     "valor_practica": 15.64
+    },
+    "valor_practica_2002": 15.64,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 19 galenos (G.Od.).",
+    "Gasto: 53 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO040104": {
+   "code": "04.0104",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Prótesis",
+   "grupo": "Prótesis",
+   "nombre": "Corona colada",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 48.0,
+     "gastos": 104.0
+    },
+    "pesos_2002": {
+     "honorarios": 5.39,
+     "gastos": 26.5,
+     "valor_practica": 31.89
+    },
+    "valor_practica_2002": 31.89,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 48 galenos (G.Od.).",
+    "Gasto: 104 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO040105": {
+   "code": "04.0105",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Prótesis",
+   "grupo": "Prótesis",
+   "nombre": "Cororia colada con frente estetico",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 58.0,
+     "gastos": 121.0
+    },
+    "pesos_2002": {
+     "honorarios": 6.51,
+     "gastos": 30.83,
+     "valor_practica": 37.34
+    },
+    "valor_practica_2002": 37.34,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 58 galenos (G.Od.).",
+    "Gasto: 121 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO040106": {
+   "code": "04.0106",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Prótesis",
+   "grupo": "Prótesis",
+   "nombre": "PRACTICASODONTOLOGICASCONNOMENCLADORNACIONALYCOSEGUROS Corona espiga",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 58.0,
+     "gastos": 87.0
+    },
+    "pesos_2002": {
+     "honorarios": 6.51,
+     "gastos": 22.17,
+     "valor_practica": 28.68
+    },
+    "valor_practica_2002": 28.68,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 58 galenos (G.Od.).",
+    "Gasto: 87 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO040107": {
+   "code": "04.0107",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Prótesis",
+   "grupo": "Prótesis",
+   "nombre": "Corona colada revestida deacrilico,",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 58.0,
+     "gastos": 121.0
+    },
+    "pesos_2002": {
+     "honorarios": 6.51,
+     "gastos": 30.83,
+     "valor_practica": 37.34
+    },
+    "valor_practica_2002": 37.34,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 58 galenos (G.Od.).",
+    "Gasto: 121 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO040108": {
+   "code": "04.0108",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Prótesis",
+   "grupo": "Prótesis",
+   "nombre": "Perno murion simple",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": false,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 35.0,
+     "gastos": 65.0
+    },
+    "pesos_2002": {
+     "honorarios": 3.93,
+     "gastos": 16.56,
+     "valor_practica": 2049.0
+    },
+    "valor_practica_2002": 2049.0,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 35 galenos (G.Od.).",
+    "Gasto: 65 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO040109": {
+   "code": "04.0109",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Prótesis",
+   "grupo": "Prótesis",
+   "nombre": "Perro munon seccionado",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 40.0,
+     "gastos": 73.0
+    },
+    "pesos_2002": {
+     "honorarios": 4.49,
+     "gastos": 18.6,
+     "valor_practica": 23.09
+    },
+    "valor_practica_2002": 23.09,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 40 galenos (G.Od.).",
+    "Gasto: 73 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO040110": {
+   "code": "04.0110",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Prótesis",
+   "grupo": "Prótesis",
+   "nombre": "Tramo de puente colado",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 46.0,
+     "gastos": 70.0
+    },
+    "pesos_2002": {
+     "honorarios": 5.17,
+     "gastos": 17.84,
+     "valor_practica": 23.0
+    },
+    "valor_practica_2002": 23.0,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 46 galenos (G.Od.).",
+    "Gasto: 70 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO040111": {
+   "code": "04.0111",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Prótesis",
+   "grupo": "Prótesis",
+   "nombre": "Corora de acrilico",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 58.0,
+     "gastos": 60.0
+    },
+    "pesos_2002": {
+     "honorarios": 6.51,
+     "gastos": 15.29,
+     "valor_practica": 21.8
+    },
+    "valor_practica_2002": 21.8,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 58 galenos (G.Od.).",
+    "Gasto: 60 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO040112": {
+   "code": "04.0112",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Prótesis",
+   "grupo": "Prótesis",
+   "nombre": "Elemento provisorio. Par unidad",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": false,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 14.0,
+     "gastos": 45.0
+    },
+    "pesos_2002": {
+     "honorarios": 1.57,
+     "gastos": 11.47,
+     "valor_practica": 1304.0
+    },
+    "valor_practica_2002": 1304.0,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 14 galenos (G.Od.).",
+    "Gasto: 45 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO040201": {
+   "code": "04.0201",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Prótesis",
+   "grupo": "Prótesis",
+   "nombre": "Deacrilico.Hasta cuatro dientes",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": false,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 87.0,
+     "gastos": 91.0
+    },
+    "pesos_2002": {
+     "honorarios": 9.77,
+     "gastos": 23.19,
+     "valor_practica": 3296.0
+    },
+    "valor_practica_2002": 3296.0,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 87 galenos (G.Od.).",
+    "Gasto: 91 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO040202": {
+   "code": "04.0202",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Prótesis",
+   "grupo": "Prótesis",
+   "nombre": "Deacrilico.De cinco omas dientes",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 87.0,
+     "gastos": 120.0
+    },
+    "pesos_2002": {
+     "honorarios": 9.77,
+     "gastos": 30.58,
+     "valor_practica": 40.35
+    },
+    "valor_practica_2002": 40.35,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 87 galenos (G.Od.).",
+    "Gasto: 120 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO040203": {
+   "code": "04.0203",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Prótesis",
+   "grupo": "Prótesis",
+   "nombre": "Coladosencromo cobalto.hastu cuatro dientes",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 132.0,
+     "gastos": 219.0
+    },
+    "pesos_2002": {
+     "honorarios": 14.82,
+     "gastos": 55.8,
+     "valor_practica": 70.62
+    },
+    "valor_practica_2002": 70.62,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 132 galenos (G.Od.).",
+    "Gasto: 219 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO040204": {
+   "code": "04.0204",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Prótesis",
+   "grupo": "Prótesis",
+   "nombre": "Coladosen cromocobalto decincoomas dientes",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 132.0,
+     "gastos": 275.0
+    },
+    "pesos_2002": {
+     "honorarios": 14.82,
+     "gastos": 70.07,
+     "valor_practica": 84.89
+    },
+    "valor_practica_2002": 84.89,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 132 galenos (G.Od.).",
+    "Gasto: 275 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO040205": {
+   "code": "04.0205",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Prótesis",
+   "grupo": "Prótesis",
+   "nombre": "parcial inmediata",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 29.0,
+     "gastos": 120.0
+    },
+    "pesos_2002": {
+     "honorarios": 3.26,
+     "gastos": 30.58,
+     "valor_practica": 33.83
+    },
+    "valor_practica_2002": 33.83,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 29 galenos (G.Od.).",
+    "Gasto: 120 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO040403": {
+   "code": "04.0403",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Prótesis",
+   "grupo": "Prótesis",
+   "nombre": "Comiposturacon un agregado de un retenedor",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 19.0,
+     "gastos": 27.0
+    },
+    "pesos_2002": {
+     "honorarios": 2.13,
+     "gastos": 6.88,
+     "valor_practica": 9.01
+    },
+    "valor_practica_2002": 9.01,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 19 galenos (G.Od.).",
+    "Gasto: 27 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO040405": {
+   "code": "04.0405",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Prótesis",
+   "grupo": "Prótesis",
+   "nombre": "Diente subsigunente clu",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": false,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": null,
+     "gastos": 13.0
+    },
+    "pesos_2002": {
+     "honorarios": null,
+     "gastos": 3.31,
+     "valor_practica": 331.0
+    },
+    "valor_practica_2002": 331.0,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Gasto: 13 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO040303": {
+   "code": "04.0303",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Prótesis",
+   "grupo": "Prótesis",
+   "nombre": "compteta inmediata",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 52.0,
+     "gastos": 146.0
+    },
+    "pesos_2002": {
+     "honorarios": 5.84,
+     "gastos": 37.2,
+     "valor_practica": 43.04
+    },
+    "valor_practica_2002": 43.04,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 52 galenos (G.Od.).",
+    "Gasto: 146 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO040304": {
+   "code": "04.0304",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Prótesis",
+   "grupo": "Prótesis",
+   "nombre": "compfeto",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 10.0,
+     "gastos": 144.0
+    },
+    "pesos_2002": {
+     "honorarios": 0.12,
+     "gastos": 36.69,
+     "valor_practica": 37.81
+    },
+    "valor_practica_2002": 37.81,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 10 galenos (G.Od.).",
+    "Gasto: 144 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO040401": {
+   "code": "04.0401",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Prótesis",
+   "grupo": "Prótesis",
+   "nombre": "Compostura simple",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 19.0,
+     "gastos": 15.0
+    },
+    "pesos_2002": {
+     "honorarios": 2.13,
+     "gastos": 3.82,
+     "valor_practica": 5.96
+    },
+    "valor_practica_2002": 5.96,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 19 galenos (G.Od.).",
+    "Gasto: 15 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO040402": {
+   "code": "04.0402",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Prótesis",
+   "grupo": "Prótesis",
+   "nombre": "Compastura con ogregado de un diente",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 19.0,
+     "gastos": 29.0
+    },
+    "pesos_2002": {
+     "honorarios": 2.13,
+     "gastos": 7.39,
+     "valor_practica": 9.52
+    },
+    "valor_practica_2002": 9.52,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 19 galenos (G.Od.).",
+    "Gasto: 29 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO040404": {
+   "code": "04.0404",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Prótesis",
+   "grupo": "Prótesis",
+   "nombre": "Comipostura con ogregodo de un dienteyun retenedor",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 19.0,
+     "gastos": 31.0
+    },
+    "pesos_2002": {
+     "honorarios": 2.13,
+     "gastos": 7.9,
+     "valor_practica": 10.03
+    },
+    "valor_practica_2002": 10.03,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 19 galenos (G.Od.).",
+    "Gasto: 31 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO040406": {
+   "code": "04.0406",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Prótesis",
+   "grupo": "Prótesis",
+   "nombre": "Retenedor sibsigufente c/u",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": false,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": null,
+     "gastos": 15.0
+    },
+    "pesos_2002": {
+     "honorarios": null,
+     "gastos": 3.82,
+     "valor_practica": 382.0
+    },
+    "valor_practica_2002": 382.0,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Gasto: 15 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO040407": {
+   "code": "04.0407",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Prótesis",
+   "grupo": "Prótesis",
+   "nombre": "Soldado de retencian en aparatos de cromo-cobalto con ogregado de-un d",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 19.0,
+     "gastos": 45.0
+    },
+    "pesos_2002": {
+     "honorarios": 2.13,
+     "gastos": 11.47,
+     "valor_practica": 13.6
+    },
+    "valor_practica_2002": 13.6,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 19 galenos (G.Od.).",
+    "Gasto: 45 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO040408": {
+   "code": "04.0408",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Prótesis",
+   "grupo": "Prótesis",
+   "nombre": "Retencian subsiguiente",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": null,
+     "gastos": 18.0
+    },
+    "pesos_2002": {
+     "honorarios": null,
+     "gastos": 4.59,
+     "valor_practica": 4.59
+    },
+    "valor_practica_2002": 4.59,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Gasto: 18 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO040409": {
+   "code": "04.0409",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Prótesis",
+   "grupo": "Prótesis",
+   "nombre": "Carilla de ocrilico",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 19.0,
+     "gastos": 25.0
+    },
+    "pesos_2002": {
+     "honorarios": 2.13,
+     "gastos": 6.37,
+     "valor_practica": 8.5
+    },
+    "valor_practica_2002": 8.5,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 19 galenos (G.Od.).",
+    "Gasto: 25 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO040410": {
+   "code": "04.0410",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Prótesis",
+   "grupo": "Prótesis",
+   "nombre": "c/u",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 24.0,
+     "gastos": 43.0
+    },
+    "pesos_2002": {
+     "honorarios": 2.7,
+     "gastos": 10.96,
+     "valor_practica": 13.65
+    },
+    "valor_practica_2002": 13.65,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 24 galenos (G.Od.).",
+    "Gasto: 43 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO040411": {
+   "code": "04.0411",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Prótesis",
+   "grupo": "Prótesis",
+   "nombre": "Cubeta individugl",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 10.0,
+     "gastos": 29.0
+    },
+    "pesos_2002": {
+     "honorarios": 1.12,
+     "gastos": 7.39,
+     "valor_practica": 8.51
+    },
+    "valor_practica_2002": 8.51,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 10 galenos (G.Od.).",
+    "Gasto: 29 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO040412": {
+   "code": "04.0412",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Prótesis",
+   "grupo": "Prótesis",
+   "nombre": "Levante de articulacion, en acrifico translucido y retenedores forjado",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 85.0,
+     "gastos": 90.0
+    },
+    "pesos_2002": {
+     "honorarios": 9.55,
+     "gastos": 22.93,
+     "valor_practica": 32.48
+    },
+    "valor_practica_2002": 32.48,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 85 galenos (G.Od.).",
+    "Gasto: 90 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO0501": {
+   "code": "05.01",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Odontología preventiva",
+   "grupo": "Odontología preventiva",
+   "nombre": "ODONTOLOGIAPREVENTIVA TARTRECTOMIAYCEPELLADOMECANICO",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 21.0,
+     "gastos": 8.0
+    },
+    "pesos_2002": {
+     "honorarios": 2.36,
+     "gastos": 1.37,
+     "valor_practica": 3.73
+    },
+    "valor_practica_2002": 3.73,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 21 galenos (G.Od.).",
+    "Gasto: 8 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO0502": {
+   "code": "05.02",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Odontología preventiva",
+   "grupo": "Odontología preventiva",
+   "nombre": "PRACTICASODONTOLOGICASCONNOMENCLADORNACIONALYCOSEGUROS ESTAPRACTICANO ",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 33.0,
+     "gastos": 15.0
+    },
+    "pesos_2002": {
+     "honorarios": 3.71,
+     "gastos": 2.57,
+     "valor_practica": 6.28
+    },
+    "valor_practica_2002": 6.28,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 33 galenos (G.Od.).",
+    "Gasto: 15 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO0504": {
+   "code": "05.04",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Odontología preventiva",
+   "grupo": "Odontología preventiva",
+   "nombre": "INCLUYE:TARTRECTOMLAY CEPILLADOMECANICO,DETECCIONY CONTROLDELAPLACABAC",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 36.0,
+     "gastos": null
+    },
+    "pesos_2002": {
+     "honorarios": 4.04,
+     "gastos": null,
+     "valor_practica": 4.04
+    },
+    "valor_practica_2002": 4.04,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 36 galenos (G.Od.).",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO0505": {
+   "code": "05.05",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Odontología preventiva",
+   "grupo": "Odontología preventiva",
+   "nombre": "MONITOREO ANUAL. SELLADORESDE SURCOS,FOSASYFISURAS eoreirado parePMOpu",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 21.0,
+     "gastos": 9.0
+    },
+    "pesos_2002": {
+     "honorarios": 2.36,
+     "gastos": 1.54,
+     "valor_practica": 3.9
+    },
+    "valor_practica_2002": 3.9,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 21 galenos (G.Od.).",
+    "Gasto: 9 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO0601": {
+   "code": "06.01",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Ortodoncia y ortopedia funcional",
+   "grupo": "Ortodoncia y ortopedia funcional",
+   "nombre": "de estudio",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 13.0,
+     "gastos": 39.0
+    },
+    "pesos_2002": {
+     "honorarios": 1.46,
+     "gastos": 9.94,
+     "valor_practica": 11.4
+    },
+    "valor_practica_2002": 11.4,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 13 galenos (G.Od.).",
+    "Gasto: 39 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO0602": {
+   "code": "06.02",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Ortodoncia y ortopedia funcional",
+   "grupo": "Ortodoncia y ortopedia funcional",
+   "nombre": "interceptiva.Tratamiento de la denticion primarid o mixta",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": false,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 557.0,
+     "gastos": 442.0
+    },
+    "pesos_2002": {
+     "honorarios": 6255.0,
+     "gastos": 112.62,
+     "valor_practica": 175.17
+    },
+    "valor_practica_2002": 175.17,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 557 galenos (G.Od.).",
+    "Gasto: 442 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO0603": {
+   "code": "06.03",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Ortodoncia y ortopedia funcional",
+   "grupo": "Ortodoncia y ortopedia funcional",
+   "nombre": "Tratamiento de la denticion permanente",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 743.0,
+     "gastos": 590.0
+    },
+    "pesos_2002": {
+     "honorarios": 83.44,
+     "gastos": 150.33,
+     "valor_practica": 233.77
+    },
+    "valor_practica_2002": 233.77,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 743 galenos (G.Od.).",
+    "Gasto: 590 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO0604": {
+   "code": "06.04",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Ortodoncia y ortopedia funcional",
+   "grupo": "Ortodoncia y ortopedia funcional",
+   "nombre": "Correccion de maiposiciones simples con espacio",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 98.0,
+     "gastos": 95.0
+    },
+    "pesos_2002": {
+     "honorarios": 11.01,
+     "gastos": 24.21,
+     "valor_practica": 35.21
+    },
+    "valor_practica_2002": 35.21,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 98 galenos (G.Od.).",
+    "Gasto: 95 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO0701": {
+   "code": "07.01",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Odontopediatría",
+   "grupo": "Odontopediatría",
+   "nombre": "DE MOTINACION. et retrado porel PMOen menoresde 13 atos",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 29.0,
+     "gastos": null
+    },
+    "pesos_2002": {
+     "honorarios": 3.26,
+     "gastos": null,
+     "valor_practica": 3.26
+    },
+    "valor_practica_2002": 3.26,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 29 galenos (G.Od.).",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO0702": {
+   "code": "07.02",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Odontopediatría",
+   "grupo": "Odontopediatría",
+   "nombre": "VISTASALCONSULTORIO. MANTENEDOR DEESPACIO. Texto rerado porel PMOfijo.",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 17.0,
+     "gastos": 38.0
+    },
+    "pesos_2002": {
+     "honorarios": 1.91,
+     "gastos": 9.68,
+     "valor_practica": 11.59
+    },
+    "valor_practica_2002": 11.59,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 17 galenos (G.Od.).",
+    "Gasto: 38 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO0704": {
+   "code": "07.04",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Odontopediatría",
+   "grupo": "Odontopediatría",
+   "nombre": "TRATAMIENTO DEDIENTESTEMPORARIOS eodo retirado porel PMO prImGriOSCONF",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 22.0,
+     "gastos": 25.0
+    },
+    "pesos_2002": {
+     "honorarios": 2.47,
+     "gastos": 4.29,
+     "valor_practica": 6.76
+    },
+    "valor_practica_2002": 6.76,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 22 galenos (G.Od.).",
+    "Gasto: 25 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO0705": {
+   "code": "07.05",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Odontopediatría",
+   "grupo": "Odontopediatría",
+   "nombre": "CORONA Textorefirado porelPMO] metalicaDEACEROPROVISORIA Teotorelradap",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 29.0,
+     "gastos": 35.0
+    },
+    "pesos_2002": {
+     "honorarios": 3.26,
+     "gastos": 8.92,
+     "valor_practica": 12.17
+    },
+    "valor_practica_2002": 12.17,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 29 galenos (G.Od.).",
+    "Gasto: 35 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO070601": {
+   "code": "07.0601",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Odontopediatría",
+   "grupo": "Odontopediatría",
+   "nombre": "Reduccion de luxacion con inmovilizacion dentarla. Luxucion totaf (rei",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": false,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 14.0,
+     "gastos": 8.0
+    },
+    "pesos_2002": {
+     "honorarios": 1.57,
+     "gastos": 1.37,
+     "valor_practica": 294.0
+    },
+    "valor_practica_2002": 294.0,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 14 galenos (G.Od.).",
+    "Gasto: 8 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO070604": {
+   "code": "07.0604",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Odontopediatría",
+   "grupo": "Odontopediatría",
+   "nombre": "Fructura amelodentinaria.Proteccion pulpar coronas provisorias",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": false,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 1.91,
+     "gastos": 1.72
+    },
+    "pesos_2002": {
+     "honorarios": 1.91,
+     "gastos": 10.19,
+     "valor_practica": 3.62
+    },
+    "valor_practica_2002": 3.62,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 1.91 galenos (G.Od.).",
+    "Gasto: 1.72 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO0801": {
+   "code": "08.01",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Periodoncia",
+   "grupo": "Periodoncia",
+   "nombre": "CONSULTADEESTUDIO edo deNomNac.TetradoporelPMCperiodoncio-SONDAJE,FICH",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 29.0,
+     "gastos": 13.0
+    },
+    "pesos_2002": {
+     "honorarios": 3.26,
+     "gastos": 2.23,
+     "valor_practica": 5.49
+    },
+    "valor_practica_2002": 5.49,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 29 galenos (G.Od.).",
+    "Gasto: 13 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO0802": {
+   "code": "08.02",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Periodoncia",
+   "grupo": "Periodoncia",
+   "nombre": "edo de Nom.Nac.eirado pore PMoincluye lo confeccion de laficha periodo",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 29.0,
+     "gastos": 15.0
+    },
+    "pesos_2002": {
+     "honorarios": 3.26,
+     "gastos": 2.57,
+     "valor_practica": 5.83
+    },
+    "valor_practica_2002": 5.83,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 29 galenos (G.Od.).",
+    "Gasto: 15 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO0803": {
+   "code": "08.03",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Periodoncia",
+   "grupo": "Periodoncia",
+   "nombre": "PRACTICASODONTOLOGICASCONNOMENCLADORNACIONALYCOSEGUROS TRATAMIENTODEEN",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 50.0,
+     "gastos": 20.0
+    },
+    "pesos_2002": {
+     "honorarios": 5.62,
+     "gastos": 3.43,
+     "valor_practica": 9.05
+    },
+    "valor_practica_2002": 9.05,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 50 galenos (G.Od.).",
+    "Gasto: 20 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO0805": {
+   "code": "08.05",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Periodoncia",
+   "grupo": "Periodoncia",
+   "nombre": "edo del NomNac.Tetirado por e PMC Desgaste selectivooarmonizacian oclu",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 14.0,
+     "gastos": 8.0
+    },
+    "pesos_2002": {
+     "honorarios": 1.57,
+     "gastos": 1.37,
+     "valor_practica": 2.94
+    },
+    "valor_practica_2002": 2.94,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 14 galenos (G.Od.).",
+    "Gasto: 8 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO0806": {
+   "code": "08.06",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Periodoncia",
+   "grupo": "Periodoncia",
+   "nombre": "exc de NomNac.retrado porsPMgPlacas oclusales (temporarias） de acrific",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": false,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 85.0,
+     "gastos": 90.0
+    },
+    "pesos_2002": {
+     "honorarios": 9.55,
+     "gastos": 22.93,
+     "valor_practica": 3248.0
+    },
+    "valor_practica_2002": 3248.0,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 85 galenos (G.Od.).",
+    "Gasto: 90 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO1001": {
+   "code": "10.01",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Cirugía y traumatología bucal",
+   "grupo": "Cirugía y traumatología bucal",
+   "nombre": "CIRUGIABUCAL EXTRACCIONDENTARIA",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 18.0,
+     "gastos": 10.0
+    },
+    "pesos_2002": {
+     "honorarios": 2.02,
+     "gastos": 1.72,
+     "valor_practica": 3.74
+    },
+    "valor_practica_2002": 3.74,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 18 galenos (G.Od.).",
+    "Gasto: 10 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO1002": {
+   "code": "10.02",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Cirugía y traumatología bucal",
+   "grupo": "Cirugía y traumatología bucal",
+   "nombre": "PRACTICASODONTOLOGICASCONNOMENCLADORNACIONALYCOSEGUROS PLASTICA DECOMU",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 19.0,
+     "gastos": 32.0
+    },
+    "pesos_2002": {
+     "honorarios": 2.13,
+     "gastos": 5.49,
+     "valor_practica": 7.62
+    },
+    "valor_practica_2002": 7.62,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 19 galenos (G.Od.).",
+    "Gasto: 32 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO1003": {
+   "code": "10.03",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Cirugía y traumatología bucal",
+   "grupo": "Cirugía y traumatología bucal",
+   "nombre": "BIOPSIA PORPUNCION O ASPIRACION OESCICION eodeNomNac.elrado pore PMCNo",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 12.0,
+     "gastos": 4.0
+    },
+    "pesos_2002": {
+     "honorarios": 1.35,
+     "gastos": 0.69,
+     "valor_practica": 2.03
+    },
+    "valor_practica_2002": 2.03,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 12 galenos (G.Od.).",
+    "Gasto: 4 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO1004": {
+   "code": "10.04",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Cirugía y traumatología bucal",
+   "grupo": "Cirugía y traumatología bucal",
+   "nombre": "ALVEOLECTOMIAESTABILIZADORA. eo de NomNac.efrado parePMO6zonasj.Por zo",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 24.0,
+     "gastos": 12.0
+    },
+    "pesos_2002": {
+     "honorarios": 2.7,
+     "gastos": 2.06,
+     "valor_practica": 4.75
+    },
+    "valor_practica_2002": 4.75,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 24 galenos (G.Od.).",
+    "Gasto: 12 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO1005": {
+   "code": "10.05",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Cirugía y traumatología bucal",
+   "grupo": "Cirugía y traumatología bucal",
+   "nombre": "exio del Nom.Nac. relirado por el PMC] Podra requerirse autorizacion p",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 29.0,
+     "gastos": 13.0
+    },
+    "pesos_2002": {
+     "honorarios": 3.26,
+     "gastos": 2.23,
+     "valor_practica": 5.49
+    },
+    "valor_practica_2002": 5.49,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 29 galenos (G.Od.).",
+    "Gasto: 13 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO1006": {
+   "code": "10.06",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Cirugía y traumatología bucal",
+   "grupo": "Cirugía y traumatología bucal",
+   "nombre": "INCISIONYDRENAJEDEABCESOS Texto del Nom Nac reErado pot PMO por via in",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 12.0,
+     "gastos": 28.0
+    },
+    "pesos_2002": {
+     "honorarios": 1.35,
+     "gastos": 4.8,
+     "valor_practica": 6.15
+    },
+    "valor_practica_2002": 6.15,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 12 galenos (G.Od.).",
+    "Gasto: 28 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO1007": {
+   "code": "10.07",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Cirugía y traumatología bucal",
+   "grupo": "Cirugía y traumatología bucal",
+   "nombre": "Texo de Nom Nac.refirado par e PMC Biopsla por escision",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 22.0,
+     "gastos": 39.0
+    },
+    "pesos_2002": {
+     "honorarios": 2.47,
+     "gastos": 6.69,
+     "valor_practica": 9.16
+    },
+    "valor_practica_2002": 9.16,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 22 galenos (G.Od.).",
+    "Gasto: 39 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO1009": {
+   "code": "10.09",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Cirugía y traumatología bucal",
+   "grupo": "Cirugía y traumatología bucal",
+   "nombre": "EXTRACCIONDEDIENTESCON RETENCIONOSEA Teo de NomNac.relirado por PMO om",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 72.0,
+     "gastos": 35.0
+    },
+    "pesos_2002": {
+     "honorarios": 8.09,
+     "gastos": 6.0,
+     "valor_practica": 14.09
+    },
+    "valor_practica_2002": 14.09,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 72 galenos (G.Od.).",
+    "Gasto: 35 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO1010": {
+   "code": "10.10",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Cirugía y traumatología bucal",
+   "grupo": "Cirugía y traumatología bucal",
+   "nombre": "GERMECTOMA. exic de NomNac.retradopor e PMPodrg requerirse autorizacio",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 87.0,
+     "gastos": 192.0
+    },
+    "pesos_2002": {
+     "honorarios": 9.77,
+     "gastos": 32.93,
+     "valor_practica": 42.7
+    },
+    "valor_practica_2002": 42.7,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 87 galenos (G.Od.).",
+    "Gasto: 192 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO1011": {
+   "code": "10.11",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Cirugía y traumatología bucal",
+   "grupo": "Cirugía y traumatología bucal",
+   "nombre": "LIBERACIONDEDIENTES RETENIDOS exo del Nom Nac.retrado pore PMCPodrareq",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 55.0,
+     "gastos": 26.0
+    },
+    "pesos_2002": {
+     "honorarios": 6.18,
+     "gastos": 4.46,
+     "valor_practica": 10.64
+    },
+    "valor_practica_2002": 10.64,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 55 galenos (G.Od.).",
+    "Gasto: 26 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO1012": {
+   "code": "10.12",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Cirugía y traumatología bucal",
+   "grupo": "Cirugía y traumatología bucal",
+   "nombre": "eto del NomNac.retiradoporePMApecectonid",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": false,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 62.0,
+     "gastos": 30.0
+    },
+    "pesos_2002": {
+     "honorarios": 6.96,
+     "gastos": 5.15,
+     "valor_practica": 1211.0
+    },
+    "valor_practica_2002": 1211.0,
+    "coseguro_pct": null
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 62 galenos (G.Od.).",
+    "Gasto: 30 galenos."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02)."
+   ]
+  },
+  "ODO1013": {
+   "code": "10.13",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Cirugía y traumatología bucal",
+   "grupo": "Cirugía y traumatología bucal",
+   "nombre": "TRATAMENTODELAOSTEOMELITIS",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 91.0,
+     "gastos": 35.0
+    },
+    "pesos_2002": {
+     "honorarios": 10.22,
+     "gastos": 6.0,
+     "valor_practica": 16.22
+    },
+    "valor_practica_2002": 16.22,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 91 galenos (G.Od.).",
+    "Gasto: 35 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO1014": {
+   "code": "10.14",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Cirugía y traumatología bucal",
+   "grupo": "Cirugía y traumatología bucal",
+   "nombre": "EXTRACCIONDE CUERPD EXTRANO",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 58.0,
+     "gastos": 35.0
+    },
+    "pesos_2002": {
+     "honorarios": 6.51,
+     "gastos": 6.0,
+     "valor_practica": 12.52
+    },
+    "valor_practica_2002": 12.52,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 58 galenos (G.Od.).",
+    "Gasto: 35 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
+   ]
+  },
+  "ODO1015": {
+   "code": "10.15",
+   "nomenclador": "ODO",
+   "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
+   "seccion": "ODO",
+   "seccion_label": "Odontología — Cirugía y traumatología bucal",
+   "grupo": "Cirugía y traumatología bucal",
+   "nombre": "PRACTICASODONTOLOGICAS CONNOMENCLADORNACIONALYCOSEGUROS ALVEOLECTOMIAC",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "galenos odontológicos",
+    "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "valores": {
+    "fuente": "Nomenclador Nacional — Prácticas Odontológicas (Anexo II, Res. 201/02; valores a marzo 1991)",
+    "validado": true,
+    "tipo": "odontologia",
+    "galeno": {
+     "honorarios": 14.0,
+     "gastos": 10.0
+    },
+    "pesos_2002": {
+     "honorarios": 1.57,
+     "gastos": 1.72,
+     "valor_practica": 3.29
+    },
+    "valor_practica_2002": 3.29,
+    "coseguro_pct": 100.0
+   },
+   "asociaciones_especificas": [
+    "Honorario odontológico: 14 galenos (G.Od.).",
+    "Gasto: 10 galenos.",
+    "Coseguro máximo a cobrar: hasta 100%."
+   ],
+   "auditoria": [
+    "Práctica odontológica del Nomenclador Nacional (Res. 201/02).",
+    "Coseguro máximo: 100%."
    ]
   }
  }

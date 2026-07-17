@@ -5,13 +5,16 @@ import pypdfium2 as pdfium
 from rapidocr_onnxruntime import RapidOCR
 
 pdf_path, out_path = sys.argv[1], sys.argv[2]
+ROT = int(sys.argv[3]) if len(sys.argv) > 3 else -90
 ocr = RapidOCR()
 pdf = pdfium.PdfDocument(pdf_path)
 n = len(pdf)
 pages = []
 t0 = time.time()
 for i in range(n):
-    img = pdf[i].render(scale=3.0).to_pil().rotate(-90, expand=True)
+    img = pdf[i].render(scale=3.0).to_pil()
+    if ROT:
+        img = img.rotate(ROT, expand=True)
     res, _ = ocr(img)
     toks = []
     if res:
