@@ -65,6 +65,21 @@
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html,body{margin:0;padding:0}
+/* --- selector de sección principal (modo) --- */
+.modeswitch{display:flex;gap:10px;max-width:1500px;margin:0 auto;padding:0 20px 12px}
+.modebtn{flex:1;display:flex;align-items:center;gap:11px;padding:11px 16px;border-radius:12px;border:1.5px solid var(--line-2);
+  background:var(--surface-2);color:var(--muted);transition:.14s;text-align:left}
+.modebtn svg{flex-shrink:0;opacity:.8}
+.modebtn span{display:flex;flex-direction:column;line-height:1.2}
+.modebtn b{font-size:14.5px;font-weight:700;color:var(--ink-2)}
+.modebtn small{font-size:11.5px;color:var(--faint);letter-spacing:.2px}
+.modebtn:hover{border-color:var(--line-2);background:var(--surface-3)}
+.modebtn.on[data-mode="NBU"]{border-color:var(--pmo);background:var(--accent-soft)}
+.modebtn.on[data-mode="PMO"]{border-color:var(--med);background:color-mix(in srgb,var(--med) 12%,transparent)}
+.modebtn.on b{color:var(--ink)} .modebtn.on svg{opacity:1}
+.modebtn.on[data-mode="NBU"] svg,.modebtn.on[data-mode="NBU"] small{color:var(--accent-ink)}
+.modebtn.on[data-mode="PMO"] svg,.modebtn.on[data-mode="PMO"] small{color:var(--med)}
+@media (max-width:560px){.modebtn small{display:none}.modebtn{padding:9px 12px}}
 /* --- nomenclador PMO médico color --- */
 :root{--med:#0369a1}
 @media (prefers-color-scheme:dark){:root{--med:#38bdf8}}
@@ -392,21 +407,25 @@ ul{margin:0;padding:0}
       </button>
     </div>
   </div>
+  <div class="modeswitch" id="modeSwitch" role="tablist" aria-label="Sección del manual">
+    <button class="modebtn" data-mode="NBU" role="tab">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M9 3v6l-5.5 9.5A2 2 0 0 0 5.2 21h13.6a2 2 0 0 0 1.7-2.5L15 9V3M8 3h8M10 14h4"/></svg>
+      <span><b>Laboratorio</b><small>NBU · bioquímica</small></span></button>
+    <button class="modebtn" data-mode="PMO" role="tab">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M8 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-3M9 3v4h6V3M12 11v6M9 14h6"/></svg>
+      <span><b>Prestaciones médicas</b><small>Catálogo PMO</small></span></button>
+  </div>
   <div class="stats" id="stats"></div>
 </header>
 
 <div class="wrap">
   <aside id="rail">
-    <div class="panel">
-      <h2>Nomenclador</h2>
-      <div class="fgroup" id="fNomen"></div>
-    </div>
-    <div class="panel">
+    <div class="panel" id="secPanel">
       <h2>Sección NBU</h2>
       <div class="fgroup" id="fSeccion"></div>
     </div>
     <div class="panel">
-      <h2>Grupo · especialidad</h2>
+      <h2 id="grupoTitle">Grupo · especialidad</h2>
       <div class="fgroup" id="fGrupo"></div>
     </div>
     <div class="panel">
@@ -88729,7 +88748,8 @@ const SEC_CLASS={PMO:'b-pmo',PE:'b-pe',GESTION:'b-gestion',PMO_MED:'b-med'};
 const SEC_COLORVAR={PMO:'var(--pmo)',PE:'var(--pe)',GESTION:'var(--gestion)',PMO_MED:'var(--med)'};
 const NOMEN_LABEL={NBU:'NBU · bioquímica',PMO:'PMO · prestaciones médicas'};
 
-const state={q:'',nomenclador:new Set(),seccion:new Set(),grupo:new Set(),flags:new Set(),limit:80,view:'list'};
+let savedMode='NBU';try{savedMode=localStorage.getItem('nbu-mode')||'NBU';}catch(e){}
+const state={q:'',mode:savedMode,seccion:new Set(),grupo:new Set(),flags:new Set(),limit:80,view:'list'};
 const el=id=>document.getElementById(id);
 
 /* ---------- ajustes globales: valor U.B. + favoritos ---------- */
@@ -88764,26 +88784,50 @@ function refreshStats(){
 refreshStats();
 
 /* ---------- filters build ---------- */
-function countBy(fn){const m={};CODES.forEach(c=>{const k=fn(c);if(k)m[k]=(m[k]||0)+1});return m;}
-const nomenCounts=countBy(c=>c.nomenclador);
-el('fNomen').innerHTML=['NBU','PMO'].map(nc=>
-  `<button class="opt" data-f="nomenclador" data-v="${nc}"><span class="optrow"><span class="seccol" style="background:${nc==='NBU'?'var(--pmo)':'var(--med)'}"></span><span class="lbl">${NOMEN_LABEL[nc]}</span></span><span class="n">${(nomenCounts[nc]||0).toLocaleString('es-AR')}</span></button>`).join('');
+function countBy(fn,pred){const m={};CODES.forEach(c=>{if(pred&&!pred(c))return;const k=fn(c);if(k)m[k]=(m[k]||0)+1});return m;}
 const secCounts=countBy(c=>c.seccion);
 el('fSeccion').innerHTML=['PMO','PE','GESTION'].map(s=>
   `<button class="opt" data-f="seccion" data-v="${s}"><span class="optrow"><span class="seccol" style="background:${SEC_COLORVAR[s]}"></span><span class="lbl">${SEC_LABEL[s]}</span></span><span class="n">${secCounts[s]||0}</span></button>`).join('');
-const grupos=Object.entries(DB.meta.grupos);
-el('fGrupo').innerHTML=grupos.map(([g,n])=>
-  `<button class="opt" data-f="grupo" data-v="${g.replace(/"/g,'&quot;')}"><span class="optrow"><span class="lbl">${g}</span></span><span class="n">${n}</span></button>`).join('');
+// grupos por modo (para no mezclar bioquímica con especialidades médicas)
+function buildGroups(){
+  const counts=countBy(c=>c.grupo,c=>c.nomenclador===state.mode);
+  const grupos=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  el('fGrupo').innerHTML=grupos.map(([g,n])=>
+    `<button class="opt${state.grupo.has(g)?' on':''}" data-f="grupo" data-v="${g.replace(/"/g,'&quot;')}"><span class="optrow"><span class="lbl">${g}</span></span><span class="n">${n}</span></button>`).join('');
+  el('fGrupo').querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>toggleOpt(b)));
+}
 const FLAGS=[['fav','★ Favoritos'],['urgencia','Urgencia (U)'],['requiere_norma','Requiere norma (N)'],['con_rel','Con relaciones'],['seriado','Con frecuencia/seriado'],['desuso','En desuso (#)'],['pcr','Metodología PCR'],['new2024','Actualizado 2024']];
 el('fFlags').innerHTML=FLAGS.map(([k,l])=>`<button class="opt" data-f="flags" data-v="${k}"><span class="optrow"><span class="lbl">${l}</span></span></button>`).join('');
 
-document.querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>{
+function toggleOpt(b){
   const f=b.dataset.f,v=b.dataset.v,set=state[f];
   if(set.has(v)){set.delete(v);b.classList.remove('on');}else{set.add(v);b.classList.add('on');}
   state.limit=80; render();
-}));
+}
+document.querySelectorAll('#fSeccion .opt, #fFlags .opt').forEach(b=>b.addEventListener('click',()=>toggleOpt(b)));
+
+/* ---------- selector de sección principal (modo) ---------- */
+function setMode(m){
+  if(m===state.mode)return;
+  state.mode=m; state.seccion.clear(); state.grupo.clear(); state.limit=80;
+  try{localStorage.setItem('nbu-mode',m);}catch(e){}
+  applyMode();
+  render();
+}
+function applyMode(){
+  document.querySelectorAll('.modebtn').forEach(b=>b.classList.toggle('on',b.dataset.mode===state.mode));
+  el('secPanel').hidden = state.mode!=='NBU';        // "Sección NBU" solo aplica a laboratorio
+  el('grupoTitle').textContent = state.mode==='NBU' ? 'Grupo · área bioquímica' : 'Capítulo · especialidad';
+  document.querySelector('.vtab[data-view="tree"]').hidden = state.mode!=='NBU'; // el árbol de módulos es del NBU
+  if(state.mode!=='NBU'&&state.view==='tree')state.view='list';
+  // limpiar chips de sección/grupo que no correspondan al modo
+  document.querySelectorAll('#fSeccion .opt.on').forEach(o=>{if(state.mode!=='NBU'){state.seccion.delete(o.dataset.v);o.classList.remove('on');}});
+  buildGroups();
+}
+document.querySelectorAll('.modebtn').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
+
 el('clearFilters').addEventListener('click',()=>{
-  state.nomenclador.clear();state.seccion.clear();state.grupo.clear();state.flags.clear();state.q='';el('q').value='';
+  state.seccion.clear();state.grupo.clear();state.flags.clear();state.q='';el('q').value='';
   document.querySelectorAll('.opt.on').forEach(o=>o.classList.remove('on'));state.limit=80;render();
 });
 
@@ -88809,7 +88853,7 @@ function filtered(){
   const q=norm(state.q);
   const terms=q.split(/\s+/).filter(Boolean);
   return CODES.filter(c=>{
-    if(state.nomenclador.size&&!state.nomenclador.has(c.nomenclador))return false;
+    if(c.nomenclador!==state.mode)return false;
     if(state.seccion.size&&!state.seccion.has(c.seccion))return false;
     if(state.grupo.size&&!state.grupo.has(c.grupo))return false;
     if(state.flags.size&&!passFlags(c))return false;
@@ -88849,7 +88893,6 @@ function esc(s){return (s||'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>'
 
 function renderChips(){
   const chips=[];
-  state.nomenclador.forEach(nc=>chips.push(chip('nomenclador',nc,NOMEN_LABEL[nc])));
   state.seccion.forEach(s=>chips.push(chip('seccion',s,SEC_LABEL[s])));
   state.grupo.forEach(g=>chips.push(chip('grupo',g,g)));
   state.flags.forEach(f=>chips.push(chip('flags',f,(FLAGS.find(x=>x[0]===f)||[f,f])[1])));
@@ -88874,7 +88917,14 @@ function render(){
   lastResults=res;
   el('listExport').style.display=res.length?'flex':'none';
   el('count').innerHTML=`<b>${res.length.toLocaleString('es-AR')}</b> práctica${res.length!==1?'s':''}`;
-  if(!res.length){el('list').innerHTML=`<div class="empty"><b>Sin resultados</b>Probá con otro término o limpiá los filtros.</div>`;el('moreBtn').hidden=true;el('listExport').style.display='none';return;}
+  if(!res.length){
+    const other=state.mode==='NBU'?'PMO':'NBU';
+    const terms2=norm(state.q).split(/\s+/).filter(Boolean);
+    const otherN=state.q?CODES.filter(c=>c.nomenclador===other&&terms2.every(t=>c._h.includes(t))).length:0;
+    const hint=otherN?`<button class="more" id="switchHint" style="margin-top:14px">Ver ${otherN} coincidencia${otherN!==1?'s':''} en ${other==='NBU'?'Laboratorio (NBU)':'Prestaciones médicas (PMO)'}</button>`:'';
+    el('list').innerHTML=`<div class="empty"><b>Sin resultados en ${state.mode==='NBU'?'Laboratorio':'Prestaciones médicas'}</b>Probá con otro término o limpiá los filtros.${hint}</div>`;
+    if(otherN)el('switchHint').addEventListener('click',()=>setMode(other));
+    el('moreBtn').hidden=true;el('listExport').style.display='none';return;}
   const shown=res.slice(0,state.limit);
   el('list').innerHTML=shown.map(rowHTML).join('');
   el('list').querySelectorAll('.row').forEach(r=>r.addEventListener('click',e=>{
@@ -89244,9 +89294,10 @@ el('filterToggle').addEventListener('click',()=>el('rail').classList.toggle('on'
 /* ---------- deep link ---------- */
 window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(h&&BYCODE[h])openCode(h);});
 
+applyMode();
 render();
 const initial=location.hash.slice(1);
-if(initial&&BYCODE[initial])openCode(initial);
+if(initial&&BYCODE[initial]){state.mode=BYCODE[initial].nomenclador;applyMode();render();openCode(initial);}
 </script>
 </body>
 </html>
