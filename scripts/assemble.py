@@ -300,6 +300,65 @@ if pmo:
         pmo_added += 1
 print(f"PMO: agregados {pmo_added} · cruzados con NBU (66xxxx) {pmo_linked} · sin match {pmo_missing}", file=sys.stderr)
 
+# ---------- integrate Nomenclador Nacional values (OCR, checksum-validated) ----------
+def clean_nn_name(nm):
+    nm = re.sub(r"\s+", " ", nm or "").strip()
+    # drop boilerplate that leaks into first-on-page rows
+    nm = re.split(r"OPERACIONES EN|texto retirado|extoreirado|Texto retirado", nm, flags=re.I)[-1]
+    nm = re.sub(r"^[^A-ZÁÉÍÓÚÑ]*", "", nm)
+    return nm.strip(" .:-")[:80] or nm[:80]
+
+nn_added = nn_enriched = 0
+try:
+    NNV = json.load(open("nn_values.json", encoding="utf-8"))
+except FileNotFoundError:
+    NNV = {}
+for code, r in NNV.items():
+    if r.get("checksum_ok") is not True:
+        continue
+    esp, ayu, anes, gas = r["esp"], r["ayu"], r["anes"], r["gasto"]
+    valores = {
+        "fuente": "Nomenclador Nacional de Prestaciones Médicas (Anexo II, Res. 201/02 MS)",
+        "validado": True,
+        "galeno": {"especialista": esp["u"], "ayudantes_n": ayu["n"], "ayudante_c_u": ayu["u"],
+                   "anestesista": anes["u"], "gasto": gas["u"]},
+        "pesos_2002": {"especialista": esp["p"], "ayudantes": ayu["p"], "anestesista": anes["p"],
+                       "gasto": gas["p"], "total": r["total_p"]},
+        "total_2002": r["total_p"],
+    }
+    # concrete per-code associations (qué cargar)
+    asoc = []
+    if esp["u"] is not None:
+        asoc.append(f"Honorario del especialista: {esp['u']:g} galenos.")
+    if ayu["n"]:
+        asoc.append(f"Admite {ayu['n']} ayudante(s)" + (f" ({ayu['u']:g} galenos c/u)." if ayu['u'] is not None else "."))
+    if anes["u"] is not None:
+        asoc.append(f"Lleva anestesia: {anes['u']:g} galenos — se factura por separado (cap. 16).")
+    if gas["u"] is not None:
+        asoc.append(f"Gasto quirúrgico: {gas['u']:g} galenos.")
+    if code in records and records[code]["nomenclador"] == "PMO":
+        records[code]["valores"] = valores
+        records[code]["asociaciones_especificas"] = asoc
+        nn_enriched += 1
+    elif code not in records:
+        pref = code[:2]
+        records[code] = {
+            "code": code, "nomenclador": "PMO",
+            "nomenclador_full": "Nomenclador Nacional de Prestaciones Médicas (Anexo II, Res. 201/02 MS)",
+            "seccion": "PMO_MED", "seccion_label": "Nomenclador Nacional — prestaciones médicas",
+            "grupo": PMO_CAP.get(pref, "Otras prestaciones PMO"),
+            "nombre": clean_nn_name(r["nombre_ocr"]), "sinonimos": [], "abreviaturas": [],
+            "valor": {"ub": None, "unidad": "galenos",
+                      "arancel": "Valorización en galenos del Nomenclador Nacional (ver honorarios y gasto)."},
+            "flags": {"urgencia": False, "requiere_norma": False, "desuso": False, "pcr": False},
+            "referencias": [], "norma": None, "frecuencia": [],
+            "relaciones": {"incluye": [], "no_incluye": [], "incluido_en": []},
+            "valores": valores, "asociaciones_especificas": asoc,
+            "auditoria": ["Prestación del Nomenclador Nacional (Res. 201/02) con valorización en galenos."],
+        }
+        nn_added += 1
+print(f"NN valores: enriquecidos {nn_enriched} · nuevos {nn_added}", file=sys.stderr)
+
 # ---------- glossary / metadata ----------
 glossary = {
     "U": "Urgencia: práctica clasificada para casos de urgencia. Al incluirse en una prescripción, se debe adicionar el código 661200.",

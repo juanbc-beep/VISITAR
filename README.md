@@ -38,10 +38,16 @@ enlazados (en la ficha del NBU se marca "También en Catálogo PMO").
   cardiología, neurología, hemoterapia, medicina nuclear, radioterapia, laboratorio, y más (~36 capítulos).
 - Son prestaciones de **cobertura obligatoria** del PMO; el arancel surge del nomenclador/convenio aplicable
   (el catálogo lista qué se cubre, no valores monetarios).
-- Cada ficha médica incluye **"Asociación de códigos · qué cargar"**: normas generales de facturación por
-  capítulo (cirujano + ayudantes + gastos + anestesia por separado cap. 16 + anatomía patológica cap. 15, etc.).
-  Son **orientativas** (marcadas para verificar) y hay un marco (`meta.pmo_asociaciones`) para cargar reglas
-  específicas por código cuando se disponga de las Normas del Nomenclador.
+- **Valores del Nomenclador Nacional** (Anexo II, Res. 201/02) para **674 códigos quirúrgicos**, extraídos por
+  **OCR** de los PDF escaneados y **validados por checksum** (los 4 valores en $ suman el Total; 95% de las
+  filas con precio pasan la validación). Cada código trae, en **galenos** y en **$ de referencia 2002**:
+  honorarios de **especialista**, **ayudantes** (con Nº que admite), **anestesista**, **gasto** y **total**.
+- Cada ficha médica incluye **"Asociación de códigos · qué cargar"**: para los códigos con valores, las
+  asociaciones son **específicas** (cuántos ayudantes admite, si lleva anestesia y sus galenos, gasto);
+  para el resto, **normas generales por capítulo** (cirujano + ayudantes + gastos + anestesia cap. 16 +
+  anatomía patológica cap. 15). Marcadas como **orientativas** (verificar contra la norma aplicable).
+- El pipeline OCR (`scripts/ocr_nn.py` + `scripts/parse_nn.py`) es reutilizable para la 3ª parte del
+  Nomenclador (prácticas y consultas), pendiente de carga.
 
 La interfaz separa **dos secciones** con un selector principal: **Laboratorio (NBU)** y **Prestaciones
 médicas (PMO)** — en cada una solo se ven sus códigos, grupos y determinaciones (no se mezclan).
