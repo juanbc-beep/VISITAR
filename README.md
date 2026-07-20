@@ -90,11 +90,23 @@ mismo equipo/instalación pero cada persona conserve **sus propios favoritos**:
 2. **Perfiles individuales**: dentro del acceso de empresa, cada administrativo crea su **perfil con nombre
    y contraseña propios**. Al iniciar sesión con su perfil se cargan **sus favoritos** y su **valor de U.B.**.
 
+Los **perfiles administrador no se listan** en el selector “¿Quién sos?” que ven los administrativos: el admin
+entra por un acceso aparte (**“Acceso administrador”** → nombre + contraseña), de modo que el personal no ve ni
+puede elegir el perfil de administración.
+
+**Primer uso:** un **onboarding** guiado (tutorial de bienvenida) explica las secciones, la búsqueda, favoritos,
+arancel y el validador; se puede reabrir desde *Glosario → Ver tutorial de uso*.
+
+**Seguridad:** contraseñas con **PBKDF2/SHA-256 (310.000 iteraciones)** y salt por registro; **bloqueo temporal
+tras 5 intentos fallidos** y **cierre de sesión automático por inactividad** (25 min, vuelve a pedir la contraseña
+del perfil).
+
 ### Perfil administrador
 Los perfiles marcados como **administrador** pueden:
 - **Gestionar perfiles**: crear, eliminar, restablecer contraseñas y promover/quitar admin (siempre queda al menos un admin).
 - **Editar el contenido de la página**:
-  - **Textos generales** (título y subtítulo) desde *Administración → Textos*.
+  - **Textos generales** (título y subtítulo) y el **logo de la empresa** (subir imagen PNG/JPG/SVG que reemplaza
+    la marca en la barra superior y las pantallas de acceso) desde *Administración → Textos*.
   - **Contenido por código** (nombre, norma de trabajo/interpretación, normas de auditoría y una nota de
     asociación interna): con el **modo edición** activado (botón ✎ en la barra), cada ficha muestra
     **“✎ Editar ficha”**. El original queda respaldado y se puede **restaurar**. Los códigos con contenido

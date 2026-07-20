@@ -146,10 +146,15 @@ header{
 }
 .hbar{display:flex;align-items:center;gap:16px;padding:12px 20px;max-width:1500px;margin:0 auto}
 .brand{display:flex;align-items:center;gap:11px;flex-shrink:0}
-.logo{width:38px;height:38px;border-radius:10px;flex-shrink:0;
+.logo{min-width:38px;height:38px;border-radius:10px;flex-shrink:0;padding:0 12px;white-space:nowrap;
   background:linear-gradient(150deg,var(--accent),var(--accent-ink));
-  display:grid;place-items:center;color:#fff;font-weight:800;font-size:15px;letter-spacing:-.5px;
+  display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:12.5px;letter-spacing:.6px;
   box-shadow:0 2px 8px color-mix(in srgb,var(--accent) 40%,transparent)}
+.logo.hasimg{padding:2px;background:#fff;width:auto}
+.logo.hasimg img{height:34px;width:auto;max-width:160px;object-fit:contain;display:block}
+.gcard .glogo.brand{width:auto;padding:0 16px;font-size:16px;letter-spacing:.8px}
+.gcard .glogo.brand.hasimg{background:#fff;padding:6px}
+.gcard .glogo.brand img{height:38px;width:auto;max-width:190px;object-fit:contain;display:block}
 .brand h1{font-size:15px;font-weight:700;margin:0;letter-spacing:-.2px;line-height:1.15}
 .brand p{font-size:11.5px;margin:0;color:var(--muted);letter-spacing:.2px}
 .search{position:relative;flex:1;max-width:620px;margin:0 auto}
@@ -451,15 +456,31 @@ ul{margin:0;padding:0}
 .ovr-badge{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--new);background:var(--new-soft);padding:2px 6px;border-radius:12px;margin-left:6px;vertical-align:middle}
 .dedit{margin-top:6px}
 .dedit .minibtn{width:100%;padding:8px}
+/* onboarding */
+#onboard{position:fixed;inset:0;z-index:1100;background:rgba(19,32,41,.55);display:none;align-items:center;justify-content:center;padding:22px}
+#onboard.on{display:flex}
+.obcard{width:100%;max-width:440px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px;text-align:center;position:relative}
+.obicon{width:64px;height:64px;border-radius:16px;background:var(--accent-soft);color:var(--accent-ink);display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.obicon svg{width:32px;height:32px}
+.obcard h3{font-size:20px;margin:0 0 8px;color:var(--ink)}
+.obcard p{font-size:14px;line-height:1.55;color:var(--ink-2);margin:0 auto;max-width:340px}
+.obdots{display:flex;gap:7px;justify-content:center;margin:20px 0 18px}
+.obdots i{width:8px;height:8px;border-radius:50%;background:var(--line-2);transition:.2s}
+.obdots i.on{background:var(--accent);width:22px;border-radius:6px}
+.obnav{display:flex;gap:10px;align-items:center;justify-content:space-between}
+.obnav .gbtn{margin-top:0;flex:1}
+.obskip{background:none;border:none;color:var(--muted);font:inherit;font-size:13px;cursor:pointer;padding:8px}
+.obskip:hover{color:var(--ink)}
 </style>
 </head>
 <body>
 <div id="gate" hidden></div>
 <div id="adminModal"><div class="adminbox" id="adminBox"></div></div>
+<div id="onboard"><div class="obcard" id="onboardCard"></div></div>
 <header>
   <div class="hbar">
     <div class="brand">
-      <div class="logo">NBU</div>
+      <div class="logo" id="brandLogo">VISITAR</div>
       <div>
         <h1>Manual Inteligente NBU</h1>
         <p>Laboratorio (NBU) · Prestaciones médicas (PMO) · Odontología</p>
@@ -126033,9 +126054,11 @@ el('infoBtn').addEventListener('click',()=>{
     <div class="gtable">${gl}</div>
     <div class="slabel" style="font-size:11px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);font-weight:700;margin-bottom:8px">Leyes · Resoluciones · Decretos vigentes</div>
     <div class="leyes">${ley}</div>
-    <p style="font-size:12px;color:var(--muted);margin-top:18px;line-height:1.5">${esc(DB.meta.nota_grupos)}</p>`;
+    <p style="font-size:12px;color:var(--muted);margin-top:18px;line-height:1.5">${esc(DB.meta.nota_grupos)}</p>
+    <button class="minibtn" id="tourBtn" style="margin-top:14px">▶ Ver tutorial de uso</button>`;
   el('modal').classList.add('on');
   el('closeModal').addEventListener('click',()=>el('modal').classList.remove('on'));
+  el('tourBtn').addEventListener('click',()=>{el('modal').classList.remove('on');if(window.NBUProfile)NBUProfile.tour();});
   el('modalBox').querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>{el('modal').classList.remove('on');openCode(b.dataset.goto);}));
 });
 el('modal').addEventListener('click',e=>{if(e.target===el('modal'))el('modal').classList.remove('on');});
@@ -126080,15 +126103,27 @@ if(initial&&BYCODE[initial]){state.mode=BYCODE[initial].nomenclador;applyMode();
   const DEF={title:H1?H1.textContent:'',subtitle:SUB?SUB.textContent:''};
 
   /* ---- crypto (PBKDF2/SHA-256) ---- */
+  const ITER=310000; // OWASP-recommended minimum for PBKDF2-HMAC-SHA256
   const bb=b=>btoa(String.fromCharCode.apply(null,new Uint8Array(b)));
   const ub=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
-  async function mkHash(pw,saltB64){
+  async function mkHash(pw,saltB64,iter){
+    const it=iter||ITER;
     const salt=saltB64?ub(saltB64):crypto.getRandomValues(new Uint8Array(16));
     const k=await crypto.subtle.importKey('raw',enc.encode(pw),{name:'PBKDF2'},false,['deriveBits']);
-    const bits=await crypto.subtle.deriveBits({name:'PBKDF2',salt,iterations:120000,hash:'SHA-256'},k,256);
-    return {hash:bb(bits),salt:saltB64||bb(salt)};
+    const bits=await crypto.subtle.deriveBits({name:'PBKDF2',salt,iterations:it,hash:'SHA-256'},k,256);
+    return {hash:bb(bits),salt:saltB64||bb(salt),it};
   }
-  async function check(pw,rec){if(!rec)return false;const r=await mkHash(pw,rec.salt);return r.hash===rec.hash;}
+  async function check(pw,rec){if(!rec)return false;const r=await mkHash(pw,rec.salt,rec.it||120000);return r.hash===rec.hash;}
+  // brute-force throttling (soft, client-side) + auto-logout por inactividad
+  const LOCK={};let idleT=null;const IDLE_MS=25*60*1000;
+  function lockKey(id){return id||'_company';}
+  function lockedFor(id){const l=LOCK[lockKey(id)];if(!l)return 0;const rem=Math.ceil((l.until-Date.now())/1000);return rem>0?rem:0;}
+  function noteFail(id){const k=lockKey(id);const l=LOCK[k]||{n:0,until:0};l.n++;if(l.n>=5){l.until=Date.now()+30000;l.n=0;}LOCK[k]=l;}
+  function noteOk(id){delete LOCK[lockKey(id)];}
+  function resetIdle(){if(!current)return;clearTimeout(idleT);idleT=setTimeout(()=>{if(current){current=null;editMode=false;document.body.classList.remove('editmode-on');toast('Sesión cerrada por inactividad');renderGate('profiles');gate.hidden=false;}},IDLE_MS);}
+  ['mousemove','keydown','click','touchstart'].forEach(ev=>document.addEventListener(ev,()=>{if(current)resetIdle();},{passive:true}));
+
+  function logoInner(){return CONTENT.page.logo?`<img src="${CONTENT.page.logo}" alt="VISITAR SRL">`:'VISITAR';}
 
   function persistAuth(){AUTH.updated=Date.now();save(KEY.auth,AUTH);queuePush('auth',AUTH);}
   function persistContent(){CONTENT.updated=Date.now();save(KEY.content,CONTENT);queuePush('content',CONTENT);}
@@ -126117,6 +126152,7 @@ if(initial&&BYCODE[initial]){state.mode=BYCODE[initial].nomenclador;applyMode();
     Object.keys(CONTENT.codes).forEach(applyCode);
     if(H1)H1.textContent=CONTENT.page.title||DEF.title;
     if(SUB)SUB.textContent=CONTENT.page.subtitle||DEF.subtitle;
+    const bl=el('brandLogo');if(bl){bl.classList.toggle('hasimg',!!CONTENT.page.logo);bl.innerHTML=logoInner();}
   }
 
   /* ---- Supabase sync (REST + polling) ---- */
@@ -126184,7 +126220,7 @@ if(initial&&BYCODE[initial]){state.mode=BYCODE[initial].nomenclador;applyMode();
     let html='';
     if(v==='setup'){
       html=`<div class="gcard">
-        <div class="glogo">NBU</div>
+        <div class="glogo brand${CONTENT.page.logo?' hasimg':''}">${logoInner()}</div>
         <h2>Configurar el acceso</h2>
         <div class="gsub">Primera vez en este equipo. Creá el <b>acceso de la empresa</b> (usuario compartido) y tu <b>perfil administrador</b>.</div>
         <div style="font-weight:800;font-size:11px;letter-spacing:.7px;text-transform:uppercase;color:var(--accent-ink);margin-top:6px">Acceso de la empresa</div>
@@ -126199,7 +126235,7 @@ if(initial&&BYCODE[initial]){state.mode=BYCODE[initial].nomenclador;applyMode();
       </div>`;
     } else if(v==='join'){
       html=`<div class="gcard">
-        <div class="glogo">NBU</div>
+        <div class="glogo brand${CONTENT.page.logo?' hasimg':''}">${logoInner()}</div>
         <h2>Conectar a la nube</h2>
         <div class="gsub">Pegá los datos de Supabase de tu empresa para descargar los perfiles ya creados.</div>
         ${field('jUrl','URL del proyecto (https://xxx.supabase.co)')}
@@ -126210,7 +126246,7 @@ if(initial&&BYCODE[initial]){state.mode=BYCODE[initial].nomenclador;applyMode();
       </div>`;
     } else if(v==='company'){
       html=`<div class="gcard">
-        <div class="glogo">NBU</div>
+        <div class="glogo brand${CONTENT.page.logo?' hasimg':''}">${logoInner()}</div>
         <h2>Acceso de la empresa</h2>
         <div class="gsub">Ingresá el usuario y la contraseña que comparte el equipo.</div>
         ${field('cUser','Usuario')}
@@ -126220,19 +126256,33 @@ if(initial&&BYCODE[initial]){state.mode=BYCODE[initial].nomenclador;applyMode();
         ${SYNC.enabled?'':`<button class="gback" id="cJoin">Conectar a la nube (otro equipo)</button>`}
       </div>`;
     } else if(v==='profiles'){
-      const list=AUTH.profiles.length?AUTH.profiles.map(p=>`
+      const visibles=AUTH.profiles.filter(p=>p.role!=='admin');
+      const list=visibles.length?visibles.map(p=>`
         <button class="pchip" data-pid="${p.id}">
           <span class="pav">${E((p.name||'?').slice(0,1).toUpperCase())}</span>
-          <span><span class="pnm">${E(p.name)}</span><span class="prole">${p.role==='admin'?'Administrador':'Administrativo'}</span></span>
-          ${p.role==='admin'?'<span class="adminbadge">admin</span>':''}
-        </button>`).join(''):`<div class="gsub" style="text-align:center;padding:8px 0">Todavía no hay perfiles. Creá el primero.</div>`;
+          <span><span class="pnm">${E(p.name)}</span><span class="prole">Administrativo</span></span>
+        </button>`).join(''):`<div class="gsub" style="text-align:center;padding:8px 0">Todavía no hay perfiles. Creá el tuyo.</div>`;
       html=`<div class="gcard">
-        <div class="glogo">NBU</div>
+        <div class="glogo brand${CONTENT.page.logo?' hasimg':''}">${logoInner()}</div>
         <h2>¿Quién sos?</h2>
         <div class="gsub">Elegí tu perfil para cargar tus favoritos, o creá uno nuevo.</div>
         <div class="gprofiles">${list}</div>
         <button class="gbtn sec" id="pNew" style="margin-top:12px">+ Crear mi perfil</button>
-        <button class="gback" id="pLogout">Cerrar sesión de la empresa</button>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
+          <button class="gback" id="pLogout">Cerrar sesión de la empresa</button>
+          <button class="gback" id="pAdmin" style="color:var(--faint)">Acceso administrador</button>
+        </div>
+      </div>`;
+    } else if(v==='adminlogin'){
+      html=`<div class="gcard">
+        <div class="glogo brand${CONTENT.page.logo?' hasimg':''}">${logoInner()}</div>
+        <h2>Acceso administrador</h2>
+        <div class="gsub">Ingresá tu nombre de administrador y tu contraseña.</div>
+        ${field('alName','Nombre de administrador')}
+        ${field('alPass','Contraseña','password')}
+        <div class="gerr" id="gErr"></div>
+        <button class="gbtn" id="alGo">Entrar</button>
+        <button class="gback" id="alBack">← Volver</button>
       </div>`;
     } else if(v==='pwd'){
       const p=AUTH.profiles.find(x=>x.id===gate._pid);
@@ -126272,8 +126322,8 @@ if(initial&&BYCODE[initial]){state.mode=BYCODE[initial].nomenclador;applyMode();
         if(!nm||!pp)return gerr('Completá tu nombre y contraseña personal.');
         if(cp.length<4||pp.length<4)return gerr('Las contraseñas deben tener al menos 4 caracteres.');
         const ch=await mkHash(cp),ph=await mkHash(pp);
-        AUTH.company={user:cu,hash:ch.hash,salt:ch.salt};
-        const prof={id:uid(),name:nm,role:'admin',hash:ph.hash,salt:ph.salt,favs:[],ub:null,created:Date.now(),updated:Date.now()};
+        AUTH.company={user:cu,hash:ch.hash,salt:ch.salt,it:ch.it};
+        const prof={id:uid(),name:nm,role:'admin',hash:ph.hash,salt:ph.salt,it:ph.it,favs:[],ub:null,created:Date.now(),updated:Date.now()};
         AUTH.profiles=[prof];persistAuth();companyAuthed=true;enterProfile(prof);
       };
       el('suGo').addEventListener('click',go);onEnter(go);
@@ -126290,8 +126340,9 @@ if(initial&&BYCODE[initial]){state.mode=BYCODE[initial].nomenclador;applyMode();
       el('jBack').addEventListener('click',()=>renderGate(AUTH.company?'company':'setup'));
     } else if(v==='company'){
       const go=async()=>{
-        if(gv('cUser')!==AUTH.company.user||!(await check(gv('cPass'),AUTH.company)))return gerr('Usuario o contraseña incorrectos.');
-        companyAuthed=true;renderGate('profiles');
+        const w=lockedFor('_company');if(w)return gerr(`Demasiados intentos. Esperá ${w}s.`);
+        if(gv('cUser')!==AUTH.company.user||!(await check(gv('cPass'),AUTH.company))){noteFail('_company');return gerr('Usuario o contraseña incorrectos.');}
+        noteOk('_company');companyAuthed=true;renderGate('profiles');
       };
       el('cGo').addEventListener('click',go);onEnter(go);
       if(el('cJoin'))el('cJoin').addEventListener('click',()=>renderGate('join'));
@@ -126299,9 +126350,24 @@ if(initial&&BYCODE[initial]){state.mode=BYCODE[initial].nomenclador;applyMode();
       gate.querySelectorAll('.pchip').forEach(b=>b.addEventListener('click',()=>{gate._pid=b.dataset.pid;renderGate('pwd');}));
       el('pNew').addEventListener('click',()=>renderGate('newprofile'));
       el('pLogout').addEventListener('click',()=>{companyAuthed=false;current=null;renderGate('company');});
+      el('pAdmin').addEventListener('click',()=>renderGate('adminlogin'));
+    } else if(v==='adminlogin'){
+      const go=async()=>{
+        const w=lockedFor('_admin');if(w)return gerr(`Demasiados intentos. Esperá ${w}s.`);
+        const nm=gv('alName').toLowerCase();
+        const p=AUTH.profiles.find(x=>x.role==='admin'&&x.name.toLowerCase()===nm);
+        if(!p||!(await check(gv('alPass'),p))){noteFail('_admin');return gerr('Datos incorrectos.');}
+        noteOk('_admin');enterProfile(p);
+      };
+      el('alGo').addEventListener('click',go);onEnter(go);
+      el('alBack').addEventListener('click',()=>renderGate('profiles'));
     } else if(v==='pwd'){
       const p=AUTH.profiles.find(x=>x.id===gate._pid);
-      const go=async()=>{if(!(await check(gv('lPass'),p)))return gerr('Contraseña incorrecta.');enterProfile(p);};
+      const go=async()=>{
+        const w=lockedFor(p.id);if(w)return gerr(`Demasiados intentos. Esperá ${w}s.`);
+        if(!(await check(gv('lPass'),p))){noteFail(p.id);return gerr('Contraseña incorrecta.');}
+        noteOk(p.id);enterProfile(p);
+      };
       el('lGo').addEventListener('click',go);onEnter(go);
       el('lBack').addEventListener('click',()=>renderGate('profiles'));
     } else if(v==='newprofile'){
@@ -126312,7 +126378,7 @@ if(initial&&BYCODE[initial]){state.mode=BYCODE[initial].nomenclador;applyMode();
         if(p1.length<4)return gerr('La contraseña debe tener al menos 4 caracteres.');
         if(p1!==p2)return gerr('Las contraseñas no coinciden.');
         const ph=await mkHash(p1);
-        const prof={id:uid(),name:nm,role:'user',hash:ph.hash,salt:ph.salt,favs:[],ub:null,created:Date.now(),updated:Date.now()};
+        const prof={id:uid(),name:nm,role:'user',hash:ph.hash,salt:ph.salt,it:ph.it,favs:[],ub:null,created:Date.now(),updated:Date.now()};
         AUTH.profiles.push(prof);persistAuth();enterProfile(prof);
       };
       el('npGo').addEventListener('click',go);onEnter(go);
@@ -126328,6 +126394,8 @@ if(initial&&BYCODE[initial]){state.mode=BYCODE[initial].nomenclador;applyMode();
     const adm=p.role==='admin';el('adminBtn').hidden=!adm;el('editModeBtn').hidden=!adm;
     applyContent();refreshStats();applyMode();render();hideGate();
     if(SYNC.enabled)startPolling();
+    resetIdle();
+    maybeOnboard();
   }
 
   /* ============ ADMIN PANEL ============ */
@@ -126365,7 +126433,7 @@ if(initial&&BYCODE[initial]){state.mode=BYCODE[initial].nomenclador;applyMode();
         const nm=prompt('Nombre del nuevo perfil:');if(!nm)return;
         if(AUTH.profiles.some(x=>x.name.toLowerCase()===nm.trim().toLowerCase()))return toast('Ya existe ese nombre',true);
         const pw=prompt('Contraseña inicial (mín. 4):');if(!pw||pw.length<4)return toast('Contraseña muy corta',true);
-        const ph=await mkHash(pw);AUTH.profiles.push({id:uid(),name:nm.trim(),role:'user',hash:ph.hash,salt:ph.salt,favs:[],ub:null,created:Date.now(),updated:Date.now()});persistAuth();renderPane();toast('Perfil creado');
+        const ph=await mkHash(pw);AUTH.profiles.push({id:uid(),name:nm.trim(),role:'user',hash:ph.hash,salt:ph.salt,it:ph.it,favs:[],ub:null,created:Date.now(),updated:Date.now()});persistAuth();renderPane();toast('Perfil creado');
       });
     } else if(aTab==='empresa'){
       p.innerHTML=`<label>Usuario de la empresa</label><input id="eUser" type="text" value="${E(AUTH.company?AUTH.company.user:'')}">
@@ -126375,11 +126443,18 @@ if(initial&&BYCODE[initial]){state.mode=BYCODE[initial].nomenclador;applyMode();
       el('eSave').addEventListener('click',async()=>{
         const u=gv('eUser');if(!u)return toast('El usuario no puede quedar vacío',true);
         AUTH.company.user=u;const np=gv('ePass');
-        if(np){if(np.length<4)return toast('Contraseña muy corta',true);const h=await mkHash(np);AUTH.company.hash=h.hash;AUTH.company.salt=h.salt;}
+        if(np){if(np.length<4)return toast('Contraseña muy corta',true);const h=await mkHash(np);AUTH.company.hash=h.hash;AUTH.company.salt=h.salt;AUTH.company.it=h.it;}
         persistAuth();toast('Acceso de la empresa actualizado');el('ePass').value='';
       });
     } else if(aTab==='contenido'){
       p.innerHTML=`<div class="ahint">Editá los textos generales de la página. El contenido de cada código (nombre, normas, auditoría, asociaciones) se edita desde su ficha con el botón <b>✎ Editar ficha</b> (activá el <b>modo edición</b> en la barra superior).</div>
+        <label>Logo de la empresa (PNG/JPG/SVG)</label>
+        <div style="display:flex;align-items:center;gap:12px;margin-top:4px">
+          <div class="logo${CONTENT.page.logo?' hasimg':''}" style="height:44px">${logoInner()}</div>
+          <input id="pgLogo" type="file" accept="image/*" style="border:none;padding:0;background:none;flex:1">
+          ${CONTENT.page.logo?'<button class="minibtn danger" id="pgLogoDel">Quitar</button>':''}
+        </div>
+        <div class="ahint">Se muestra en la barra superior y en las pantallas de acceso. Recomendado: fondo transparente, alto ~80px.</div>
         <label>Título</label><input id="pgTitle" type="text" value="${E(CONTENT.page.title||DEF.title)}">
         <label>Subtítulo</label><input id="pgSub" type="text" value="${E(CONTENT.page.subtitle||DEF.subtitle)}">
         <button class="minibtn" id="pgSave" style="margin-top:14px">Guardar textos</button>
@@ -126387,7 +126462,13 @@ if(initial&&BYCODE[initial]){state.mode=BYCODE[initial].nomenclador;applyMode();
         <div style="margin-top:16px"><div class="pmeta" style="font-weight:700;color:var(--ink)">Fichas con contenido editado: ${Object.keys(CONTENT.codes).length}</div>
         ${Object.keys(CONTENT.codes).length?`<div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:5px">${Object.keys(CONTENT.codes).map(c=>`<button class="minibtn" data-goto2="${c}">${c}</button>`).join('')}</div>`:''}</div>`;
       el('pgSave').addEventListener('click',()=>{CONTENT.page.title=gv('pgTitle');CONTENT.page.subtitle=gv('pgSub');persistContent();applyContent();toast('Textos guardados');});
-      el('pgReset').addEventListener('click',()=>{CONTENT.page={};persistContent();applyContent();renderPane();toast('Textos restaurados');});
+      el('pgReset').addEventListener('click',()=>{const lg=CONTENT.page.logo;CONTENT.page={};if(lg)CONTENT.page.logo=lg;persistContent();applyContent();renderPane();toast('Textos restaurados');});
+      el('pgLogo').addEventListener('change',e=>{
+        const f=e.target.files[0];if(!f)return;
+        if(f.size>400000)return toast('Imagen muy grande (máx. 400 KB)',true);
+        const rd=new FileReader();rd.onload=()=>{CONTENT.page.logo=rd.result;persistContent();applyContent();renderPane();toast('Logo actualizado');};rd.readAsDataURL(f);
+      });
+      if(el('pgLogoDel'))el('pgLogoDel').addEventListener('click',()=>{delete CONTENT.page.logo;persistContent();applyContent();renderPane();toast('Logo quitado');});
       p.querySelectorAll('[data-goto2]').forEach(b=>b.addEventListener('click',()=>{closeAdmin();openCode(b.dataset.goto2);}));
     } else if(aTab==='nube'){
       const project=(SYNC.url||'').replace(/^https?:\/\//,'').split('.')[0];
@@ -126453,7 +126534,7 @@ create policy "kv_all" on kv for all
       renderPane();
     } else if(act==='reset'){
       const np=prompt('Nueva contraseña para '+pr.name+' (mín. 4):');if(!np)return;if(np.length<4)return toast('Muy corta',true);
-      mkHash(np).then(h=>{pr.hash=h.hash;pr.salt=h.salt;pr.updated=Date.now();persistAuth();toast('Contraseña actualizada');});
+      mkHash(np).then(h=>{pr.hash=h.hash;pr.salt=h.salt;pr.it=h.it;pr.updated=Date.now();persistAuth();toast('Contraseña actualizada');});
     } else if(act==='del'){
       if(current&&current.id===id)return toast('No podés eliminar tu propio perfil en uso',true);
       if(pr.role==='admin'&&AUTH.profiles.filter(x=>x.role==='admin').length<=1)return toast('Debe quedar al menos un administrador',true);
@@ -126495,6 +126576,47 @@ create policy "kv_all" on kv for all
     amodal.classList.add('on');
   }
 
+  /* ============ ONBOARDING (primer uso) ============ */
+  const ICN={
+    search:'<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>',
+    tabs:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 4v5"/>',
+    star:'<path d="M12 3l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 18l-5.9 3 1.2-6.5L2.5 9.9 9.1 9z"/>',
+    money:'<circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5c0-1.1 1.1-2 2.5-2s2.5.7 2.5 1.8-1 1.6-2.5 1.9-2.5.8-2.5 2 1.1 1.8 2.5 1.8 2.5-.9 2.5-2"/>',
+    check:'<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',
+    edit:'<path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>'
+  };
+  function obSteps(){
+    const s=[
+      {i:'tabs',t:'Tres nomencladores en uno',d:'Cambiá entre <b>Laboratorio (NBU)</b>, <b>Prestaciones médicas (PMO)</b> y <b>Odontología</b> con el selector de arriba. Cada sección muestra solo sus códigos.'},
+      {i:'search',t:'Buscá al instante',d:'Escribí un <b>código, práctica, sinónimo o abreviatura</b>. Tocá cualquier resultado para ver la ficha completa con normas, relaciones y valores.'},
+      {i:'star',t:'Tus favoritos',d:'Marcá con la <b>estrella</b> los códigos que más usás. Quedan guardados en <b>tu perfil</b>: al iniciar sesión los tenés a mano y podés filtrarlos.'},
+      {i:'money',t:'Arancel automático',d:'Cargá el <b>valor de la U.B.</b> arriba y la app calcula el <b>arancel en $</b> en el listado, la ficha y el validador. Usa la U.B. vigente actualizada.'},
+      {i:'check',t:'Validador de facturación',d:'Pegá una lista de códigos y detectá <b>doble facturación</b>, urgencias sin 661200, seriados excedidos y más. Ideal para auditar antes de presentar.'}
+    ];
+    if(current&&current.role==='admin')s.push({i:'edit',t:'Sos administrador',d:'Con el botón <b>✎</b> activás el <b>modo edición</b> para corregir el contenido de cada ficha, y con el <b>engranaje</b> gestionás perfiles, el logo y la sincronización.'});
+    return s;
+  }
+  let obIdx=0,obList=[];
+  function maybeOnboard(){try{if(localStorage.getItem('nbu-onboarded'))return;}catch(e){}startOnboard();}
+  function startOnboard(){obList=obSteps();obIdx=0;el('onboard').classList.add('on');renderOb();}
+  function endOnboard(){el('onboard').classList.remove('on');try{localStorage.setItem('nbu-onboarded','1');}catch(e){}}
+  function renderOb(){
+    const s=obList[obIdx],last=obIdx===obList.length-1;
+    el('onboardCard').innerHTML=`
+      <button class="obskip" id="obX" style="position:absolute;top:10px;right:10px">Saltar</button>
+      <div class="obicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICN[s.i]}</svg></div>
+      <h3>${s.t}</h3><p>${s.d}</p>
+      <div class="obdots">${obList.map((_,k)=>`<i class="${k===obIdx?'on':''}"></i>`).join('')}</div>
+      <div class="obnav">
+        ${obIdx>0?'<button class="obskip" id="obPrev">← Atrás</button>':'<span style="flex:1"></span>'}
+        <button class="gbtn" id="obNext">${last?'Empezar a usar':'Siguiente'}</button>
+      </div>`;
+    el('obX').addEventListener('click',endOnboard);
+    el('obNext').addEventListener('click',()=>{if(last)endOnboard();else{obIdx++;renderOb();}});
+    if(el('obPrev'))el('obPrev').addEventListener('click',()=>{obIdx--;renderOb();});
+  }
+  el('onboard').addEventListener('click',e=>{if(e.target===el('onboard'))endOnboard();});
+
   /* ============ header wiring ============ */
   el('acctChip').addEventListener('click',()=>{if(companyAuthed)renderGate('profiles'),gate.hidden=false;});
   el('adminBtn').addEventListener('click',()=>openAdmin());
@@ -126510,7 +126632,8 @@ create policy "kv_all" on kv for all
     canEdit:()=>!!(current&&current.role==='admin'&&editMode),
     saveFavs:(arr)=>{if(current){current.favs=arr.slice();current.updated=Date.now();persistAuth();}},
     saveUB:(val)=>{if(current){current.ub=val;current.updated=Date.now();persistAuth();}},
-    editFicha:editFicha
+    editFicha:editFicha,
+    tour:startOnboard
   };
 
   /* ============ init ============ */
