@@ -480,6 +480,24 @@
    "sancion": "16/08/1990"
   },
   {
+   "ley": "24901",
+   "titulo": "Sistema de prestaciones básicas para personas con discapacidad",
+   "sancion": "05/11/1997",
+   "resumen": "Instituye un sistema de prestaciones básicas de atención integral (prevención, asistencia, promoción y protección) a favor de las personas con discapacidad.",
+   "cobertura": "Cobertura total y obligatoria por las obras sociales de las prestaciones básicas que necesiten las personas con discapacidad afiliadas: prestaciones preventivas, de rehabilitación, terapéutico-educativas, asistenciales y de transporte, entre otras.",
+   "articulos": [
+    "Art. 1° — Instituye el sistema de prestaciones básicas de atención integral a favor de las personas con discapacidad.",
+    "Art. 2° — Las obras sociales (ley 23.660) tienen a su cargo, con carácter obligatorio, la cobertura total de las prestaciones básicas.",
+    "Art. 6° y ss. — Prestaciones: preventivas, de rehabilitación, terapéutico-educativas, asistenciales y de apoyo (incluye transporte)."
+   ],
+   "temas": [
+    "discapacidad",
+    "rehabilitación",
+    "certificado único de discapacidad"
+   ],
+   "codigos": []
+  },
+  {
    "ley": "25326",
    "titulo": "Protección de Datos Personales",
    "sancion": "04/10/2000"
@@ -511,18 +529,102 @@
   },
   {
    "ley": "26588",
-   "titulo": "Celiaquía",
-   "sancion": "02/12/2009"
+   "titulo": "Enfermedad Celíaca",
+   "sancion": "02/12/2009",
+   "resumen": "Declara de interés nacional la atención, investigación, detección temprana, diagnóstico y tratamiento de la enfermedad celíaca, su difusión y el acceso a alimentos libres de gluten. Modificada por la Ley 27.196 y reglamentada por el Decreto 218/2023.",
+   "cobertura": "Las obras sociales y prepagas deben cubrir la determinación de anticuerpos para el diagnóstico y seguimiento, y el costo de harinas y premezclas libres de gluten (monto actualizado por el Ministerio de Salud). Incluida en el PMO.",
+   "articulos": [
+    "Art. 1° — Interés nacional en la detección temprana, diagnóstico, tratamiento y difusión de la enfermedad celíaca.",
+    "Art. 9° — Cobertura asistencial por obras sociales y prepagas (estudios de diagnóstico y control).",
+    "Reglamentación: Decreto 218/2023 (deroga el Decreto 528/2011)."
+   ],
+   "temas": [
+    "celiaquía",
+    "gluten",
+    "enfermedad celíaca",
+    "TACC"
+   ],
+   "codigos": [
+    "669622",
+    "669631",
+    "664632",
+    "664640",
+    "665572",
+    "665580",
+    "665576",
+    "665583",
+    "666445"
+   ]
   },
   {
    "ley": "26862",
-   "titulo": "Fertilización Asistida",
-   "sancion": "05/06/2013"
+   "titulo": "Fertilización Humana Asistida",
+   "sancion": "05/06/2013",
+   "resumen": "Regula el acceso integral de las personas a las Técnicas de Reproducción Humana Asistida, de baja y alta complejidad, con o sin donación de gametos y/o embriones.",
+   "cobertura": "Cobertura obligatoria e integral en el PMO (sector público, obras sociales y prepagas): diagnóstico, medicamentos y procedimientos y técnicas de reproducción médicamente asistida. Toda persona mayor de edad, con consentimiento informado.",
+   "articulos": [
+    "Art. 1° — De orden público; regula la utilización y el acceso a las Técnicas de Reproducción Humana Asistida.",
+    "Art. 2° — Toda persona capaz, mayor de edad, puede acceder con consentimiento informado (Ley 26.529).",
+    "Art. 8° — Cobertura obligatoria e integral; queda incluida en el Programa Médico Obligatorio (PMO)."
+   ],
+   "temas": [
+    "fertilidad",
+    "infertilidad",
+    "reproducción asistida",
+    "FIV",
+    "ICSI"
+   ],
+   "codigos": [
+    "660370",
+    "660612",
+    "660300",
+    "660758",
+    "660759",
+    "660863",
+    "660298"
+   ]
   },
   {
    "ley": "27232",
    "titulo": "Ley NBU (aplicación obligatoria nacional)",
    "sancion": "26/11/2015"
+  },
+  {
+   "ley": "27305",
+   "titulo": "Leche Medicamentosa",
+   "sancion": "26/10/2016",
+   "resumen": "Incorpora al PMO la cobertura integral de leche medicamentosa para personas con alergia a la proteína de la leche vacuna (APLV) y con desórdenes, enfermedades o trastornos gastrointestinales y enfermedades metabólicas.",
+   "cobertura": "Cobertura integral (100%) de la leche medicamentosa, sin límite de edad, con la prescripción del médico especialista. Obligatoria para obras sociales (leyes 23.660/23.661), prepagas y demás agentes de salud. Incluida en el PMO.",
+   "articulos": [
+    "Art. 1° — Incorpora como prestación obligatoria del PMO la cobertura integral de leche medicamentosa (APLV, trastornos gastrointestinales y enfermedades metabólicas).",
+    "Art. 2° — Beneficiario: cualquier paciente, sin límite de edad, con prescripción del médico especialista.",
+    "Art. 3° — La autoridad de aplicación determina las características de la leche medicamentosa cubierta."
+   ],
+   "temas": [
+    "APLV",
+    "leche medicamentosa",
+    "alergia proteína leche vacuna",
+    "enfermedades metabólicas"
+   ],
+   "codigos": []
+  },
+  {
+   "ley": "27696",
+   "titulo": "Abordaje integral de víctimas de violencia de género (PMO)",
+   "sancion": "26/10/2022",
+   "resumen": "Incorpora al Programa Médico Obligatorio de las Obras Sociales Nacionales un protocolo para el abordaje integral de las personas víctimas de violencia de género.",
+   "cobertura": "Cobertura total e integral de las prácticas preventivas y terapéuticas: terapias médicas, psicológicas, psiquiátricas, farmacológicas, quirúrgicas y toda otra atención necesaria o pertinente.",
+   "articulos": [
+    "Art. 1° — Incorpora al PMO un protocolo para el abordaje integral de víctimas de violencia de género, con cobertura total e integral de prácticas preventivas y terapéuticas.",
+    "Art. 2° — Las obras sociales y prestadores deben articular con las instancias nacionales, provinciales y locales de atención de la violencia de género.",
+    "Art. 3° — Cobertura como prestación obligatoria (incluye salud mental y farmacológica)."
+   ],
+   "temas": [
+    "violencia de género",
+    "salud mental",
+    "abordaje integral"
+   ],
+   "codigos": []
   }
  ],
  "codigos": {

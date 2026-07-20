@@ -38,7 +38,9 @@ enlazados (en la ficha del NBU se marca "También en Catálogo PMO").
     se toma como **valor efectivo** para el arancel en el listado, la ficha, el árbol y el validador. Se aplicó a
     1.687 códigos (la planilla trae la *terminación* del código y su U.B. vigente; se mapea a los 66xxxx del NBU).
     La ficha conserva el histórico (base v2016 · Anexo 2024 · vigente) sin pisarlo.
-- **Glosario** de referencias y flags + **marco normativo** (12 leyes vigentes).
+- **Glosario** de referencias y flags + **marco normativo** (**15 leyes vigentes**; 5 con ficha ampliada —
+  resumen, qué cubre, artículos clave y **prácticas del NBU relacionadas** clickeables): discapacidad (24.901),
+  celiaquía (26.588), fertilización asistida (26.862), leche medicamentosa (27.305) y violencia de género/PMO (27.696).
 - Clasificación **orientativa** por grupo/especialidad para facilitar la navegación
   (el NBU es alfabético; la clasificación oficial es la sección PMO/PE/Gestión).
 

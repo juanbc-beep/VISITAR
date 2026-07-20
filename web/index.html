@@ -300,9 +300,23 @@ ul{margin:0;padding:0}
 .grow .gk{font-family:var(--font-mono);font-weight:700;color:var(--accent-ink)}
 .grow .gv{color:var(--ink-2)}
 .leyes{display:flex;flex-direction:column;gap:6px}
-.ley{display:grid;grid-template-columns:64px 1fr auto;gap:12px;font-size:13px;padding:8px 0;border-bottom:1px solid var(--line)}
+.ley{display:grid;grid-template-columns:64px 1fr auto;gap:12px;font-size:13px;padding:8px 0;border-bottom:1px solid var(--line);align-items:baseline}
 .ley .ln{font-family:var(--font-mono);font-weight:700;color:var(--accent-ink)}
 .ley .ld{color:var(--faint);font-size:12px;font-family:var(--font-mono)}
+.ley.hasdet{cursor:pointer}
+.ley.hasdet .lt::after{content:'▾';color:var(--faint);margin-left:7px;font-size:11px;display:inline-block;transition:transform .15s}
+.ley.hasdet.open .lt::after{transform:rotate(180deg)}
+.ley-det{grid-column:1 / -1;display:none;margin:6px 0 4px;padding:12px 14px;background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius-sm);font-size:12.8px;line-height:1.55;color:var(--ink-2)}
+.ley.open .ley-det{display:block}
+.ley-det .ld-cob{background:var(--accent-soft);border-radius:6px;padding:8px 10px;margin:8px 0;color:var(--accent-ink)}
+.ley-det ul{margin:6px 0 0;padding-left:18px}
+.ley-det li{margin-bottom:4px}
+.ley-det .ld-lbl{font-weight:800;font-size:10.5px;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);display:block;margin:10px 0 3px}
+.ley-det .ld-codes{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
+.ley-det .ld-code{font-family:var(--font-mono);font-weight:700;font-size:12px;background:var(--surface-3);border:1px solid var(--line-2);border-radius:6px;padding:3px 8px;cursor:pointer;color:var(--accent-ink)}
+.ley-det .ld-code:hover{border-color:var(--accent);background:var(--accent-soft)}
+.ley-det .ld-temas{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
+.ley-det .ld-tema{font-size:11px;background:var(--surface-3);border-radius:20px;padding:2px 9px;color:var(--muted)}
 .modal .close-x{float:right}
 
 /* ---------- mobile ---------- */
@@ -1078,6 +1092,24 @@ mark.hl{background:var(--accent-soft);color:var(--accent-ink);border-radius:3px;
    "sancion": "16/08/1990"
   },
   {
+   "ley": "24901",
+   "titulo": "Sistema de prestaciones básicas para personas con discapacidad",
+   "sancion": "05/11/1997",
+   "resumen": "Instituye un sistema de prestaciones básicas de atención integral (prevención, asistencia, promoción y protección) a favor de las personas con discapacidad.",
+   "cobertura": "Cobertura total y obligatoria por las obras sociales de las prestaciones básicas que necesiten las personas con discapacidad afiliadas: prestaciones preventivas, de rehabilitación, terapéutico-educativas, asistenciales y de transporte, entre otras.",
+   "articulos": [
+    "Art. 1° — Instituye el sistema de prestaciones básicas de atención integral a favor de las personas con discapacidad.",
+    "Art. 2° — Las obras sociales (ley 23.660) tienen a su cargo, con carácter obligatorio, la cobertura total de las prestaciones básicas.",
+    "Art. 6° y ss. — Prestaciones: preventivas, de rehabilitación, terapéutico-educativas, asistenciales y de apoyo (incluye transporte)."
+   ],
+   "temas": [
+    "discapacidad",
+    "rehabilitación",
+    "certificado único de discapacidad"
+   ],
+   "codigos": []
+  },
+  {
    "ley": "25326",
    "titulo": "Protección de Datos Personales",
    "sancion": "04/10/2000"
@@ -1109,18 +1141,102 @@ mark.hl{background:var(--accent-soft);color:var(--accent-ink);border-radius:3px;
   },
   {
    "ley": "26588",
-   "titulo": "Celiaquía",
-   "sancion": "02/12/2009"
+   "titulo": "Enfermedad Celíaca",
+   "sancion": "02/12/2009",
+   "resumen": "Declara de interés nacional la atención, investigación, detección temprana, diagnóstico y tratamiento de la enfermedad celíaca, su difusión y el acceso a alimentos libres de gluten. Modificada por la Ley 27.196 y reglamentada por el Decreto 218/2023.",
+   "cobertura": "Las obras sociales y prepagas deben cubrir la determinación de anticuerpos para el diagnóstico y seguimiento, y el costo de harinas y premezclas libres de gluten (monto actualizado por el Ministerio de Salud). Incluida en el PMO.",
+   "articulos": [
+    "Art. 1° — Interés nacional en la detección temprana, diagnóstico, tratamiento y difusión de la enfermedad celíaca.",
+    "Art. 9° — Cobertura asistencial por obras sociales y prepagas (estudios de diagnóstico y control).",
+    "Reglamentación: Decreto 218/2023 (deroga el Decreto 528/2011)."
+   ],
+   "temas": [
+    "celiaquía",
+    "gluten",
+    "enfermedad celíaca",
+    "TACC"
+   ],
+   "codigos": [
+    "669622",
+    "669631",
+    "664632",
+    "664640",
+    "665572",
+    "665580",
+    "665576",
+    "665583",
+    "666445"
+   ]
   },
   {
    "ley": "26862",
-   "titulo": "Fertilización Asistida",
-   "sancion": "05/06/2013"
+   "titulo": "Fertilización Humana Asistida",
+   "sancion": "05/06/2013",
+   "resumen": "Regula el acceso integral de las personas a las Técnicas de Reproducción Humana Asistida, de baja y alta complejidad, con o sin donación de gametos y/o embriones.",
+   "cobertura": "Cobertura obligatoria e integral en el PMO (sector público, obras sociales y prepagas): diagnóstico, medicamentos y procedimientos y técnicas de reproducción médicamente asistida. Toda persona mayor de edad, con consentimiento informado.",
+   "articulos": [
+    "Art. 1° — De orden público; regula la utilización y el acceso a las Técnicas de Reproducción Humana Asistida.",
+    "Art. 2° — Toda persona capaz, mayor de edad, puede acceder con consentimiento informado (Ley 26.529).",
+    "Art. 8° — Cobertura obligatoria e integral; queda incluida en el Programa Médico Obligatorio (PMO)."
+   ],
+   "temas": [
+    "fertilidad",
+    "infertilidad",
+    "reproducción asistida",
+    "FIV",
+    "ICSI"
+   ],
+   "codigos": [
+    "660370",
+    "660612",
+    "660300",
+    "660758",
+    "660759",
+    "660863",
+    "660298"
+   ]
   },
   {
    "ley": "27232",
    "titulo": "Ley NBU (aplicación obligatoria nacional)",
    "sancion": "26/11/2015"
+  },
+  {
+   "ley": "27305",
+   "titulo": "Leche Medicamentosa",
+   "sancion": "26/10/2016",
+   "resumen": "Incorpora al PMO la cobertura integral de leche medicamentosa para personas con alergia a la proteína de la leche vacuna (APLV) y con desórdenes, enfermedades o trastornos gastrointestinales y enfermedades metabólicas.",
+   "cobertura": "Cobertura integral (100%) de la leche medicamentosa, sin límite de edad, con la prescripción del médico especialista. Obligatoria para obras sociales (leyes 23.660/23.661), prepagas y demás agentes de salud. Incluida en el PMO.",
+   "articulos": [
+    "Art. 1° — Incorpora como prestación obligatoria del PMO la cobertura integral de leche medicamentosa (APLV, trastornos gastrointestinales y enfermedades metabólicas).",
+    "Art. 2° — Beneficiario: cualquier paciente, sin límite de edad, con prescripción del médico especialista.",
+    "Art. 3° — La autoridad de aplicación determina las características de la leche medicamentosa cubierta."
+   ],
+   "temas": [
+    "APLV",
+    "leche medicamentosa",
+    "alergia proteína leche vacuna",
+    "enfermedades metabólicas"
+   ],
+   "codigos": []
+  },
+  {
+   "ley": "27696",
+   "titulo": "Abordaje integral de víctimas de violencia de género (PMO)",
+   "sancion": "26/10/2022",
+   "resumen": "Incorpora al Programa Médico Obligatorio de las Obras Sociales Nacionales un protocolo para el abordaje integral de las personas víctimas de violencia de género.",
+   "cobertura": "Cobertura total e integral de las prácticas preventivas y terapéuticas: terapias médicas, psicológicas, psiquiátricas, farmacológicas, quirúrgicas y toda otra atención necesaria o pertinente.",
+   "articulos": [
+    "Art. 1° — Incorpora al PMO un protocolo para el abordaje integral de víctimas de violencia de género, con cobertura total e integral de prácticas preventivas y terapéuticas.",
+    "Art. 2° — Las obras sociales y prestadores deben articular con las instancias nacionales, provinciales y locales de atención de la violencia de género.",
+    "Art. 3° — Cobertura como prestación obligatoria (incluye salud mental y farmacológica)."
+   ],
+   "temas": [
+    "violencia de género",
+    "salud mental",
+    "abordaje integral"
+   ],
+   "codigos": []
   }
  ],
  "codigos": {
@@ -307112,7 +307228,16 @@ document.addEventListener('keydown',e=>{
 el('infoBtn').addEventListener('click',()=>{
   const g=DB.glosario;
   const gl=Object.entries(g).map(([k,v])=>`<div class="grow"><span class="gk">${esc(k)}</span><span class="gv">${linkCodes(esc(v))}</span></div>`).join('');
-  const ley=DB.leyes.map(l=>`<div class="ley"><span class="ln">Ley ${esc(l.ley)}</span><span>${esc(l.titulo)}</span><span class="ld">${esc(l.sancion)}</span></div>`).join('');
+  const ley=DB.leyes.map(l=>{
+    const det=l.resumen?`<div class="ley-det">
+      <div>${esc(l.resumen)}</div>
+      ${l.cobertura?`<div class="ld-cob"><b>Qué cubre:</b> ${esc(l.cobertura)}</div>`:''}
+      ${(l.articulos&&l.articulos.length)?`<span class="ld-lbl">Artículos clave</span><ul>${l.articulos.map(a=>`<li>${esc(a)}</li>`).join('')}</ul>`:''}
+      ${(l.codigos&&l.codigos.length)?`<span class="ld-lbl">Prácticas del NBU relacionadas</span><div class="ld-codes">${l.codigos.map(c=>BYCODE[c]?`<span class="ld-code" data-goto="${c}" title="${esc(BYCODE[c].nombre)}">${c}</span>`:'').join('')}</div>`:''}
+      ${(l.temas&&l.temas.length)?`<div class="ld-temas">${l.temas.map(t=>`<span class="ld-tema">${esc(t)}</span>`).join('')}</div>`:''}
+    </div>`:'';
+    return `<div class="ley${l.resumen?' hasdet':''}"><span class="ln">Ley ${esc(l.ley)}</span><span class="lt">${esc(l.titulo)}</span><span class="ld">${esc(l.sancion)}</span>${det}</div>`;
+  }).join('');
   el('modalBox').innerHTML=`
     <button class="icon-btn close-x" id="closeModal" aria-label="Cerrar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
     <h3>Glosario y marco normativo</h3>
@@ -307126,7 +307251,11 @@ el('infoBtn').addEventListener('click',()=>{
   el('modal').classList.add('on');
   el('closeModal').addEventListener('click',()=>el('modal').classList.remove('on'));
   el('tourBtn').addEventListener('click',()=>{el('modal').classList.remove('on');if(window.NBUProfile)NBUProfile.tour();});
-  el('modalBox').querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>{el('modal').classList.remove('on');openCode(b.dataset.goto);}));
+  el('modalBox').querySelectorAll('.ley.hasdet').forEach(row=>row.addEventListener('click',e=>{
+    if(e.target.closest('[data-goto]'))return;
+    row.classList.toggle('open');
+  }));
+  el('modalBox').querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();el('modal').classList.remove('on');openCode(b.dataset.goto);}));
 });
 el('modal').addEventListener('click',e=>{if(e.target===el('modal'))el('modal').classList.remove('on');});
 
