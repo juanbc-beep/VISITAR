@@ -521,6 +521,68 @@ for cid, r in ODO.items():
     odo_added += 1
 print(f"ODO (dental): agregados {odo_added}", file=sys.stderr)
 
+# ---------- Nomenclador ÚNICO (VISITAR) + equivalencias con Prestaciones Médicas ----------
+UNICO_CAP = dict(PMO_CAP)
+UNICO_CAP.update({
+    "40": "Internación y prácticas especiales", "41": "Aranceles globales",
+    "42": "Consultas", "43": "Internación / hotelería", "50": "Módulos y trasplantes",
+    "71": "Materiales", "88": "Módulos NCG (cirugía)", "90": "Cápita / atención médica",
+    "99": "Medicamentos y descartables",
+})
+try:
+    UNICO = json.load(open("data/unico_equivalencias.json", encoding="utf-8"))
+except FileNotFoundError:
+    try:
+        UNICO = json.load(open("unico_equivalencias.json", encoding="utf-8"))
+    except FileNotFoundError:
+        UNICO = []
+
+unico_added = sin_equiv = pmo_annot = 0
+for r in UNICO:
+    code = r["unico"]
+    cap = UNICO_CAP.get(code[:2], "Otros / general")
+    eq = r.get("eq")
+    tiene_eq = bool(eq)
+    score = r.get("score")
+    equivalencia = None
+    if tiene_eq:
+        pmo_key = eq if (eq in records and records[eq].get("nomenclador") == "PMO") else None
+        equivalencia = {
+            "pmo_code": eq,
+            "pmo_desc": r.get("eq_desc") or (records[eq]["nombre"] if pmo_key else ""),
+            "pmo_key": pmo_key,
+            "score": score,
+        }
+        if pmo_key:
+            lst = records[pmo_key].setdefault("equivalencia_unico", [])
+            if not any(x["unico_code"] == code for x in lst):
+                lst.append({"unico_code": code, "unico_key": "U" + code,
+                            "unico_desc": r["unico_desc"], "score": score})
+            pmo_annot += 1
+    else:
+        sin_equiv += 1
+    if tiene_eq:
+        pct = f" (similitud {round(score * 100)}%)." if score is not None else "."
+        audit = "Equivale a la práctica " + eq + " del Nomenclador de Prestaciones Médicas" + pct
+    else:
+        audit = "Sin equivalencia hallada en Prestaciones Médicas — pendiente de mapeo manual."
+    records["U" + code] = {
+        "code": code, "nomenclador": "UNICO",
+        "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — en elaboración",
+        "seccion": "UNICO", "seccion_label": "Único — " + cap,
+        "grupo": cap, "nombre": r["unico_desc"] or code,
+        "sinonimos": [], "abreviaturas": [],
+        "valor": {"ub": None, "unidad": "—",
+                  "arancel": "Nomenclador ÚNICO en elaboración (sin valorización cargada)."},
+        "flags": {"urgencia": False, "requiere_norma": False, "desuso": False, "pcr": False},
+        "referencias": [], "norma": None, "frecuencia": [],
+        "relaciones": {"incluye": [], "no_incluye": [], "incluido_en": []},
+        "equivalencia": equivalencia, "sin_equivalencia": (not tiene_eq),
+        "auditoria": [audit],
+    }
+    unico_added += 1
+print(f"UNICO: agregados {unico_added} · con equiv {unico_added - sin_equiv} · sin equiv {sin_equiv} · PMO anotados {pmo_annot}", file=sys.stderr)
+
 # ---------- glossary / metadata ----------
 glossary = {
     "U": "Urgencia: práctica clasificada para casos de urgencia. Al incluirse en una prescripción, se debe adicionar el código 661200.",
@@ -569,8 +631,10 @@ db = {
             "NBU": "NBU — Nomenclador Bioquímico Único (bioquímica / laboratorio)",
             "PMO": "Catálogo de Prestaciones del PMO (prestaciones médicas y quirúrgicas)",
             "ODO": "Nomenclador Nacional — Prácticas Odontológicas",
+            "UNICO": "Nomenclador ÚNICO (VISITAR SRL) — en elaboración, con equivalencias a Prestaciones Médicas",
         },
         "nomenclador_counts": dict(nomen_stats),
+        "unico_sin_equivalencia": sin_equiv,
         "pmo_capitulos": PMO_CAP,
         "pmo_normas_capitulo": CHAPTER_NORMS,
         "pmo_normas_nota": "Normas generales orientativas de facturación por capítulo. Verificar siempre contra la norma/convenio aplicable. No reemplazan al texto oficial del nomenclador.",

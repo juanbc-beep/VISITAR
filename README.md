@@ -3,13 +3,16 @@
 Herramienta para consultar, interpretar y **facturar correctamente** los códigos de los
 nomencladores médicos argentinos, con relaciones entre códigos y reglas de auditoría por práctica.
 
-Estado actual: cargados **tres nomencladores relacionados** en una sola base (**3.113 códigos**):
+Estado actual: cargados **cuatro nomencladores relacionados** en una sola base (**4.615 códigos**):
 
 - **NBU — Nomenclador Bioquímico Único** (Versión 2012 · Actualización 2016, CUBRA) — 1.815 códigos, con el
   **Anexo Enero 2024** y la **U.B. vigente** (planilla oficial actualizada al día) aplicados como overlay.
 - **Catálogo de Prestaciones del PMO** (Resolución 201/2002, S.S. Salud) — 1.219 prestaciones médicas y
   quirúrgicas por especialidad.
 - **Nomenclador Nacional — Odontología** (Anexo II, Res. 201/02) — 79 prácticas dentales valorizadas.
+- **Nomenclador ÚNICO (VISITAR SRL)** — 1.502 prestaciones del nomenclador único que la empresa está
+  construyendo, con **equivalencias a Prestaciones Médicas** (1.425 mapeadas y **77 sin equivalencia**
+  agrupadas aparte para mapeo manual).
 
 Ambos se cruzan: **315 códigos de laboratorio (66xxxx)** aparecen en los dos nomencladores y quedan
 enlazados (en la ficha del NBU se marca "También en Catálogo PMO").
@@ -63,8 +66,19 @@ enlazados (en la ficha del NBU se marca "También en Catálogo PMO").
   cada código muestra su denominación limpia (p. ej. *Obturación de amalgama. Cavidad simple*, *Perno muñón simple*,
   *Germectomía*). Código, valores y coseguro se mantienen.
 
-La interfaz separa **tres secciones** con un selector principal: **Laboratorio (NBU)**, **Prestaciones
-médicas (PMO)** y **Odontología** — en cada una solo se ven sus códigos, grupos y determinaciones (no se mezclan).
+### Nomenclador ÚNICO (VISITAR SRL) — 1.502 prestaciones
+- Nomenclador **propio de la empresa, en elaboración**, cargado desde la planilla de **equivalencias**
+  (Prestaciones Médicas ↔ Único) con puntaje de similitud.
+- Cada código del Único muestra su **equivalencia en Prestaciones Médicas** (código + descripción + % de
+  similitud, **clickeable** para abrir la ficha del otro nomenclador). Recíprocamente, cada prestación médica
+  con equivalencia muestra **"También en Nomenclador Único"** — la referencia de que el código está en **ambos**.
+- Los **77 códigos sin equivalencia** quedan **separados y agrupados** (filtro **"Sin equivalencia"** y etiqueta
+  en el listado) para revisarlos y mapearlos manualmente.
+- El Único todavía **no trae valorización** (se completará más adelante).
+
+La interfaz separa **cuatro secciones** con un selector principal: **Laboratorio (NBU)**, **Prestaciones
+médicas (PMO)**, **Odontología** y **Único (VISITAR)** — en cada una solo se ven sus códigos, grupos y
+determinaciones (no se mezclan).
 
 ## Uso
 
