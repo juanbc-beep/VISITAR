@@ -456,6 +456,14 @@ ul{margin:0;padding:0}
 .ovr-badge{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--new);background:var(--new-soft);padding:2px 6px;border-radius:12px;margin-left:6px;vertical-align:middle}
 .dedit{margin-top:6px}
 .dedit .minibtn{width:100%;padding:8px}
+mark.hl{background:var(--accent-soft);color:var(--accent-ink);border-radius:3px;padding:0 1px;font-weight:700}
+.row.kbfocus{outline:2px solid var(--accent);outline-offset:-2px;border-radius:var(--radius-sm)}
+.dactions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.dactions .minibtn{flex:0 0 auto}
+.dnote{margin-top:6px}
+.dnote textarea{width:100%;min-height:56px;resize:vertical;border:1px solid var(--line-2);border-radius:var(--radius-sm);background:var(--surface-2);color:var(--ink);font:inherit;font-size:13px;padding:8px 10px;line-height:1.5}
+.dnote textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.kbd{display:inline-block;min-width:16px;text-align:center;font-family:var(--font-mono);font-size:11px;background:var(--surface-3);border:1px solid var(--line-2);border-bottom-width:2px;border-radius:5px;padding:1px 5px;color:var(--ink-2)}
 /* onboarding */
 #onboard{position:fixed;inset:0;z-index:1100;background:rgba(19,32,41,.55);display:none;align-items:center;justify-content:center;padding:22px}
 #onboard.on{display:flex}
@@ -125509,7 +125517,7 @@ function buildGroups(){
     `<button class="opt${state.grupo.has(g)?' on':''}" data-f="grupo" data-v="${g.replace(/"/g,'&quot;')}"><span class="optrow"><span class="lbl">${g}</span></span><span class="n">${n}</span></button>`).join('');
   el('fGrupo').querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>toggleOpt(b)));
 }
-const FLAGS=[['fav','★ Favoritos'],['valores','Con valores validados'],['urgencia','Urgencia (U)'],['requiere_norma','Requiere norma (N)'],['con_rel','Con relaciones'],['seriado','Con frecuencia/seriado'],['desuso','En desuso (#)'],['pcr','Metodología PCR'],['new2024','Actualizado 2024']];
+const FLAGS=[['fav','★ Favoritos'],['recientes','Vistos recientemente'],['nota','Con nota personal'],['valores','Con valores validados'],['urgencia','Urgencia (U)'],['requiere_norma','Requiere norma (N)'],['con_rel','Con relaciones'],['seriado','Con frecuencia/seriado'],['desuso','En desuso (#)'],['pcr','Metodología PCR'],['new2024','Actualizado 2024']];
 el('fFlags').innerHTML=FLAGS.map(([k,l])=>`<button class="opt" data-f="flags" data-v="${k}"><span class="optrow"><span class="lbl">${l}</span></span></button>`).join('');
 
 function toggleOpt(b){
@@ -125558,6 +125566,8 @@ function passFlags(c){
     if(f==='con_rel'&&!hasRel(c))return false;
     if(f==='new2024'&&c.valor.ub_actualizado_2024==null)return false;
     if(f==='fav'&&!FAVS.has(c.code))return false;
+    if(f==='recientes'&&!(window.NBUProfile&&NBUProfile.recent&&NBUProfile.recent().includes(c._key)))return false;
+    if(f==='nota'&&!(window.NBUProfile&&NBUProfile.getNote&&NBUProfile.getNote(c._key)))return false;
     if(f==='seriado'&&!((c.frecuencia&&c.frecuencia.length)||c.seriado))return false;
     if(f==='valores'&&!c.valores)return false;
   }
@@ -125602,9 +125612,9 @@ function rowHTML(c){
   if(c.valores)tags.push('<span class="tag t-med">valores ✓</span>');
   return `<button class="row" data-code="${c._key}">
     ${starBtn(c._key)}
-    <div class="rcode">${c.code}</div>
+    <div class="rcode">${hlList(c.code)}</div>
     <div class="rmid">
-      <div class="rname">${esc(c.nombre)}</div>
+      <div class="rname">${hlList(c.nombre)}</div>
       <div class="rmeta"><span class="badge ${SEC_CLASS[c.seccion]}">${SEC_LABEL[c.seccion]}</span>
       <span class="rgrupo">${esc(c.grupo)}</span>${tags.join('')}</div>
     </div>
@@ -125612,6 +125622,12 @@ function rowHTML(c){
   </button>`;
 }
 function esc(s){return (s||'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));}
+function hlList(s){
+  let out=esc(s);
+  const terms=(state.q||'').trim().split(/\s+/).filter(t=>t.length>=2);
+  terms.forEach(t=>{const re=new RegExp('('+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');out=out.replace(re,'<mark class="hl">$1</mark>');});
+  return out;
+}
 
 function renderChips(){
   const chips=[];
@@ -125648,7 +125664,7 @@ function render(){
     if(otherN)el('switchHint').addEventListener('click',()=>setMode(other));
     el('moreBtn').hidden=true;el('listExport').style.display='none';return;}
   const shown=res.slice(0,state.limit);
-  el('list').innerHTML=shown.map(rowHTML).join('');
+  el('list').innerHTML=shown.map(rowHTML).join('');kbIdx=-1;
   el('list').querySelectorAll('.row').forEach(r=>r.addEventListener('click',e=>{
     const s=e.target.closest('.star');
     if(s){e.stopPropagation();toggleFav(s.dataset.fav);s.classList.toggle('on');s.textContent=s.classList.contains('on')?'★':'☆';refreshStats();if(state.flags.has('fav'))render();return;}
@@ -125885,6 +125901,7 @@ function openCode(code){
   const c=BYCODE[code];
   if(!c)return;
   currentCode=code;
+  if(window.NBUProfile&&NBUProfile.pushRecent)NBUProfile.pushRecent(code);
   location.hash=code;
   const f=c.flags;
   const nomBadge={NBU:['b-pmo','NBU'],PMO:['b-med','PMO'],ODO:['b-odo','ODO']}[c.nomenclador]||['b-pmo','NBU'];
@@ -125904,12 +125921,18 @@ function openCode(code){
     <button class="icon-btn x" id="closeDrawer" aria-label="Cerrar">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
     </button>
-  </div>
-  <div class="dbody">
+  </div>`;
+  const note=(window.NBUProfile&&NBUProfile.getNote)?(NBUProfile.getNote(code)||''):'';
+  html+=`<div class="dbody">
     <div>
       <div class="dname">${esc(c.nombre)}${(c._orig&&c._orig.nombre!==c.nombre)?'<span class="ovr-badge">editado</span>':''}</div>
       <div class="dbadges">${dbadges.join('')}</div>
+      <div class="dactions">
+        ${c.nomenclador==='NBU'?`<button class="minibtn" id="dAddVal">➕ Al validador</button>`:''}
+        <button class="minibtn" id="dCopy">⧉ Copiar código</button>
+      </div>
       ${(window.NBUProfile&&NBUProfile.canEdit())?`<div class="dedit"><button class="minibtn" id="editFichaBtn">✎ Editar ficha</button></div>`:''}
+      ${(window.NBUProfile&&NBUProfile.active())?`<div class="dnote"><textarea id="dNote" placeholder="Tu nota personal para este código (privada de tu perfil)…">${esc(note)}</textarea></div>`:''}
     </div>`;
 
   // valor
@@ -126033,6 +126056,18 @@ function openCode(code){
   });
   d.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>openCode(b.dataset.goto)));
   const ef=el('editFichaBtn');if(ef)ef.addEventListener('click',()=>window.NBUProfile&&NBUProfile.editFicha(code));
+  const av=el('dAddVal');if(av)av.addEventListener('click',()=>addToValidator(c.code));
+  const cp=el('dCopy');if(cp)cp.addEventListener('click',()=>{const t=c.code;try{navigator.clipboard&&navigator.clipboard.writeText(t);}catch(e){}cp.textContent='Copiado ✓';setTimeout(()=>{cp.textContent='⧉ Copiar código';},1400);});
+  const nt=el('dNote');if(nt)nt.addEventListener('input',()=>{if(window.NBUProfile&&NBUProfile.setNote)NBUProfile.setNote(code,nt.value);});
+}
+function addToValidator(code){
+  state.view='validator';render();
+  const ta=el('vcodes');if(!ta)return;
+  const cur=ta.value.trim();
+  if(!new RegExp('\\b'+code+'\\b').test(cur))ta.value=(cur?cur+'  ':'')+code;
+  runValidator();
+  closeDrawer();
+  ta.scrollIntoView({behavior:'smooth',block:'center'});
 }
 function linkCodes(s){return s.replace(/\b(66\d{4})\b/g,(m)=>BYCODE[m]?`<span class="mono" data-goto="${m}" style="cursor:pointer;text-decoration:underline;text-decoration-style:dotted">${m}</span>`:m);}
 function closeDrawer(){el('drawer').classList.remove('on');el('scrim').classList.remove('on');if(location.hash)history.replaceState(null,'',location.pathname+location.search);}
@@ -126040,6 +126075,20 @@ el('scrim').addEventListener('click',()=>{closeDrawer();el('rail').classList.rem
 // delegated goto for inline code links inside audit/norma text
 el('drawer').addEventListener('click',e=>{const g=e.target.closest('[data-goto]');if(g)openCode(g.dataset.goto);});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDrawer();el('modal').classList.remove('on');el('rail').classList.remove('on');}});
+/* ---------- atajos de teclado ---------- */
+let kbIdx=-1;
+function kbRows(){return [...el('list').querySelectorAll('.row')];}
+function kbSet(i){const rows=kbRows();rows.forEach(r=>r.classList.remove('kbfocus'));if(i<0||i>=rows.length){kbIdx=-1;return;}kbIdx=i;rows[i].classList.add('kbfocus');rows[i].scrollIntoView({block:'nearest'});}
+document.addEventListener('keydown',e=>{
+  const g=el('gate');if(g&&!g.hidden)return;
+  const t=e.target,typing=t&&(/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)||t.isContentEditable);
+  if(e.key==='/'&&!typing){e.preventDefault();el('q').focus();el('q').select();return;}
+  if(state.view!=='list'||el('drawer').classList.contains('on')||el('modal').classList.contains('on'))return;
+  if(typing&&t.id!=='q')return;
+  if(e.key==='ArrowDown'){e.preventDefault();kbSet(Math.min((kbIdx<0?-1:kbIdx)+1,kbRows().length-1));}
+  else if(e.key==='ArrowUp'){e.preventDefault();kbSet(Math.max(kbIdx-1,0));}
+  else if(e.key==='Enter'&&kbIdx>=0){const r=kbRows()[kbIdx];if(r){e.preventDefault();openCode(r.dataset.code);}}
+});
 
 /* ---------- info modal ---------- */
 el('infoBtn').addEventListener('click',()=>{
@@ -126125,6 +126174,30 @@ if(initial&&BYCODE[initial]){state.mode=BYCODE[initial].nomenclador;applyMode();
 
   function logoInner(){return CONTENT.page.logo?`<img src="${CONTENT.page.logo}" alt="VISITAR SRL">`:'VISITAR';}
 
+  /* ---- cifrado opcional de la sincronización (AES-GCM) ---- */
+  const ENC_SALT=enc.encode('visitar-nbu-sync-v1');
+  let encKey=null;
+  async function deriveEncKey(pass){
+    const k=await crypto.subtle.importKey('raw',enc.encode(pass),{name:'PBKDF2'},false,['deriveKey']);
+    return crypto.subtle.deriveKey({name:'PBKDF2',salt:ENC_SALT,iterations:150000,hash:'SHA-256'},k,{name:'AES-GCM',length:256},false,['encrypt','decrypt']);
+  }
+  async function encPayload(obj){
+    if(!encKey)return obj;
+    const iv=crypto.getRandomValues(new Uint8Array(12));
+    const ct=await crypto.subtle.encrypt({name:'AES-GCM',iv},encKey,enc.encode(JSON.stringify(obj)));
+    return {enc:1,iv:bb(iv),ct:bb(ct)};
+  }
+  async function decPayload(val){
+    if(!val||!val.enc)return val;
+    if(!encKey)throw new Error('falta clave de cifrado');
+    const pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:ub(val.iv)},encKey,ub(val.ct));
+    return JSON.parse(new TextDecoder().decode(pt));
+  }
+  async function initEnc(){try{encKey=SYNC.encPass?await deriveEncKey(SYNC.encPass):null;}catch(e){encKey=null;}}
+
+  /* ---- registro de auditoría de ediciones ---- */
+  function logEdit(action,code){CONTENT.log=CONTENT.log||[];CONTENT.log.unshift({t:Date.now(),who:current?current.name:'',action,code:code||''});if(CONTENT.log.length>200)CONTENT.log.length=200;}
+
   function persistAuth(){AUTH.updated=Date.now();save(KEY.auth,AUTH);queuePush('auth',AUTH);}
   function persistContent(){CONTENT.updated=Date.now();save(KEY.content,CONTENT);queuePush('content',CONTENT);}
 
@@ -126167,8 +126240,9 @@ if(initial&&BYCODE[initial]){state.mode=BYCODE[initial].nomenclador;applyMode();
   function queuePush(k,obj){if(!SYNC.enabled)return;pushQ[k]=obj;clearTimeout(pushT);pushT=setTimeout(flushPush,700);}
   async function flushPush(){
     if(!SYNC.enabled)return;
-    const items=Object.keys(pushQ).map(k=>({key:k,value:pushQ[k],updated_at:new Date().toISOString()}));pushQ={};
-    if(!items.length)return;
+    const snap=pushQ;pushQ={};const keys=Object.keys(snap);
+    if(!keys.length)return;
+    const items=[];for(const k of keys){items.push({key:k,value:await encPayload(snap[k]),updated_at:new Date().toISOString()});}
     try{const r=await fetch(base()+'/rest/v1/kv',{method:'POST',headers:Object.assign({'Prefer':'resolution=merge-duplicates,return=minimal'},hdr()),body:JSON.stringify(items)});
       setSync(r.ok?true:false,r.ok?'Sincronizado':'Error al subir ('+r.status+')');}catch(e){setSync(false,'Sin conexión');}
   }
@@ -126187,11 +126261,13 @@ if(initial&&BYCODE[initial]){state.mode=BYCODE[initial].nomenclador;applyMode();
     try{
       const r=await fetch(base()+'/rest/v1/kv?select=key,value,updated_at',{headers:hdr()});
       if(!r.ok){setSync(false,'Error al leer ('+r.status+')');return;}
-      const rows=await r.json();let cChg=false,aChg=false;
-      rows.forEach(row=>{
-        if(row.key==='auth'&&row.value&&mergeAuth(row.value))aChg=true;
-        if(row.key==='content'&&row.value&&(row.value.updated||0)>(CONTENT.updated||0)){CONTENT=row.value;save(KEY.content,CONTENT);cChg=true;}
-      });
+      const rows=await r.json();let cChg=false,aChg=false,decErr=false;
+      for(const row of rows){
+        let val;try{val=await decPayload(row.value);}catch(e){decErr=true;continue;}
+        if(row.key==='auth'&&val&&mergeAuth(val))aChg=true;
+        if(row.key==='content'&&val&&(val.updated||0)>(CONTENT.updated||0)){CONTENT=val;save(KEY.content,CONTENT);cChg=true;}
+      }
+      if(decErr){setSync(false,'Clave de cifrado incorrecta');return;}
       if(aChg){save(KEY.auth,AUTH);
         if(current){const cp=AUTH.profiles.find(p=>p.id===current.id);if(cp){current=cp;FAVS.clear();(cp.favs||[]).forEach(x=>FAVS.add(x));if(cp.ub!=null)ubValue=cp.ub;refreshStats();}}
         if(gView==='profiles')renderGate('profiles');
@@ -126240,6 +126316,7 @@ if(initial&&BYCODE[initial]){state.mode=BYCODE[initial].nomenclador;applyMode();
         <div class="gsub">Pegá los datos de Supabase de tu empresa para descargar los perfiles ya creados.</div>
         ${field('jUrl','URL del proyecto (https://xxx.supabase.co)')}
         ${field('jKey','Clave pública (anon key)','password')}
+        ${field('jEnc','Clave de cifrado (si la empresa la usa)','password')}
         <div class="gerr" id="gErr"></div>
         <button class="gbtn" id="jGo">Conectar y descargar</button>
         <button class="gback" id="jBack">← Volver</button>
@@ -126331,8 +126408,8 @@ if(initial&&BYCODE[initial]){state.mode=BYCODE[initial].nomenclador;applyMode();
     } else if(v==='join'){
       el('jGo').addEventListener('click',async()=>{
         const u=gv('jUrl'),k=gv('jKey');if(!u||!k)return gerr('Completá URL y clave.');
-        SYNC.url=u;SYNC.key=k;
-        try{await testConn();SYNC.enabled=true;save(KEY.sync,SYNC);await pull();startPolling();
+        SYNC.url=u;SYNC.key=k;SYNC.encPass=gv('jEnc')||'';
+        try{await testConn();await initEnc();SYNC.enabled=true;save(KEY.sync,SYNC);await pull();startPolling();
           if(AUTH.company)renderGate('company');else gerr('Conectado, pero la nube no tiene un acceso configurado todavía. Creá el acceso.');
           if(!AUTH.company)renderGate('setup');
         }catch(e){SYNC.enabled=false;gerr('No se pudo conectar: '+e.message);}
@@ -126405,7 +126482,7 @@ if(initial&&BYCODE[initial]){state.mode=BYCODE[initial].nomenclador;applyMode();
   let aTab='perfiles';
   function openAdmin(t){aTab=t||aTab;renderAdmin();amodal.classList.add('on');}
   function renderAdmin(){
-    const tabs=[['perfiles','Perfiles'],['empresa','Empresa'],['contenido','Textos'],['nube','Nube'],['respaldo','Respaldo']];
+    const tabs=[['perfiles','Perfiles'],['empresa','Empresa'],['contenido','Textos'],['nube','Nube'],['registro','Registro'],['respaldo','Respaldo']];
     abox.innerHTML=`
       <button class="icon-btn close-x" id="aClose" style="position:absolute;top:16px;right:16px" aria-label="Cerrar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
       <h3>Administración</h3>
@@ -126461,12 +126538,12 @@ if(initial&&BYCODE[initial]){state.mode=BYCODE[initial].nomenclador;applyMode();
         <button class="minibtn" id="pgReset" style="margin-top:14px;margin-left:6px">Restaurar por defecto</button>
         <div style="margin-top:16px"><div class="pmeta" style="font-weight:700;color:var(--ink)">Fichas con contenido editado: ${Object.keys(CONTENT.codes).length}</div>
         ${Object.keys(CONTENT.codes).length?`<div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:5px">${Object.keys(CONTENT.codes).map(c=>`<button class="minibtn" data-goto2="${c}">${c}</button>`).join('')}</div>`:''}</div>`;
-      el('pgSave').addEventListener('click',()=>{CONTENT.page.title=gv('pgTitle');CONTENT.page.subtitle=gv('pgSub');persistContent();applyContent();toast('Textos guardados');});
+      el('pgSave').addEventListener('click',()=>{CONTENT.page.title=gv('pgTitle');CONTENT.page.subtitle=gv('pgSub');logEdit('editó textos generales');persistContent();applyContent();toast('Textos guardados');});
       el('pgReset').addEventListener('click',()=>{const lg=CONTENT.page.logo;CONTENT.page={};if(lg)CONTENT.page.logo=lg;persistContent();applyContent();renderPane();toast('Textos restaurados');});
       el('pgLogo').addEventListener('change',e=>{
         const f=e.target.files[0];if(!f)return;
         if(f.size>400000)return toast('Imagen muy grande (máx. 400 KB)',true);
-        const rd=new FileReader();rd.onload=()=>{CONTENT.page.logo=rd.result;persistContent();applyContent();renderPane();toast('Logo actualizado');};rd.readAsDataURL(f);
+        const rd=new FileReader();rd.onload=()=>{CONTENT.page.logo=rd.result;logEdit('cambió el logo');persistContent();applyContent();renderPane();toast('Logo actualizado');};rd.readAsDataURL(f);
       });
       if(el('pgLogoDel'))el('pgLogoDel').addEventListener('click',()=>{delete CONTENT.page.logo;persistContent();applyContent();renderPane();toast('Logo quitado');});
       p.querySelectorAll('[data-goto2]').forEach(b=>b.addEventListener('click',()=>{closeAdmin();openCode(b.dataset.goto2);}));
@@ -126476,6 +126553,8 @@ if(initial&&BYCODE[initial]){state.mode=BYCODE[initial].nomenclador;applyMode();
         <div class="syncdot" id="syncDot" style="margin:10px 0"></div>
         <label>URL del proyecto</label><input id="syUrl" type="text" placeholder="https://xxxxx.supabase.co" value="${E(SYNC.url)}">
         <label>Clave pública (anon key)</label><input id="syKey" type="password" placeholder="eyJhbGciOi..." value="${E(SYNC.key)}">
+        <label>Clave de cifrado <span style="color:var(--inc)">(recomendada)</span></label><input id="syEnc" type="password" placeholder="frase secreta de la empresa" value="${E(SYNC.encPass||'')}">
+        <div class="ahint">Si la cargás, los datos se <b>cifran (AES-256)</b> antes de subir a la nube: ni siquiera con la clave pública se pueden leer sin esta frase. Usá la <b>misma</b> en todas las computadoras. Si la perdés, no se pueden recuperar los datos cifrados.</div>
         <div style="margin-top:14px;display:flex;gap:6px;flex-wrap:wrap">
           <button class="minibtn" id="syTest">Probar conexión</button>
           <button class="minibtn" id="syEnable">${SYNC.enabled?'Desactivar nube':'Activar y sincronizar'}</button>
@@ -126501,12 +126580,19 @@ create policy "kv_all" on kv for all
       el('syTest').addEventListener('click',async()=>{SYNC.url=gv('syUrl');SYNC.key=gv('syKey');el('syMsg').innerHTML='Probando…';try{await testConn();el('syMsg').innerHTML='<span class="aok">✓ Conexión correcta</span>';}catch(e){el('syMsg').innerHTML='<span class="aerrt">✕ '+E(e.message)+'</span>';}});
       el('syEnable').addEventListener('click',async()=>{
         if(SYNC.enabled){SYNC.enabled=false;save(KEY.sync,SYNC);stopPolling();renderPane();toast('Nube desactivada');return;}
-        SYNC.url=gv('syUrl');SYNC.key=gv('syKey');if(!SYNC.url||!SYNC.key)return toast('Completá URL y clave',true);
+        SYNC.url=gv('syUrl');SYNC.key=gv('syKey');SYNC.encPass=gv('syEnc')||'';if(!SYNC.url||!SYNC.key)return toast('Completá URL y clave',true);
         el('syMsg').innerHTML='Conectando…';
-        try{await testConn();SYNC.enabled=true;save(KEY.sync,SYNC);await flushPushAll();await pull();startPolling();renderPane();toast('Nube activada · sincronizando');}
+        try{await testConn();await initEnc();SYNC.enabled=true;save(KEY.sync,SYNC);await pull();await flushPushAll();startPolling();renderPane();toast('Nube activada · sincronizando');}
         catch(e){SYNC.enabled=false;el('syMsg').innerHTML='<span class="aerrt">✕ '+E(e.message)+'</span>';}
       });
       if(el('syNow'))el('syNow').addEventListener('click',async()=>{await flushPushAll();await pull();toast('Sincronizado');});
+    } else if(aTab==='registro'){
+      const log=CONTENT.log||[];
+      const fmt=t=>{const d=new Date(t);return d.toLocaleDateString('es-AR')+' '+d.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});};
+      p.innerHTML=`<div class="ahint">Registro de ediciones de contenido (quién cambió qué y cuándo). Se comparte y respalda junto con el resto.</div>
+        ${log.length?log.map(e=>`<div class="arow"><div class="grow2"><div class="pnm">${E(e.who||'—')} · <span style="font-weight:500;color:var(--ink-2)">${E(e.action)}</span>${e.code?` <span class="mono" style="color:var(--accent-ink)">${E(e.code)}</span>`:''}</div><div class="pmeta">${fmt(e.t)}</div></div></div>`).join(''):'<div class="ahint">Todavía no hay cambios registrados.</div>'}
+        ${log.length?'<button class="minibtn danger" id="logClear" style="margin-top:10px">Vaciar registro</button>':''}`;
+      if(el('logClear'))el('logClear').addEventListener('click',()=>{if(confirm('¿Vaciar el registro de cambios?')){CONTENT.log=[];persistContent();renderPane();}});
     } else if(aTab==='respaldo'){
       p.innerHTML=`<div class="ahint">Descargá un respaldo con perfiles y ediciones, o restauralo en otra computadora. (Con la nube activada esto es automático; el respaldo sirve igual como copia de seguridad.)</div>
         <button class="minibtn" id="bkExp" style="margin-top:10px">⬇ Descargar respaldo (.json)</button>
@@ -126565,12 +126651,12 @@ create policy "kv_all" on kv for all
       const trab=el('efTrab').value.trim(),intp=el('efInt').value.trim();
       const aud=el('efAud').value.split('\n').map(s=>s.trim()).filter(Boolean);
       const ov={nombre:el('efNom').value.trim(),norma:(trab||intp)?{trabajo:trab,interpretacion:intp}:null,auditoria:aud,asoc_extra:el('efAsoc').value.trim()||null};
-      CONTENT.codes[code]=ov;persistContent();applyCode(code);
+      CONTENT.codes[code]=ov;logEdit('editó ficha',code);persistContent();applyCode(code);
       if(state.view==='list')render();closeAdmin();openCode(code);toast('Ficha actualizada');
     });
     el('efReset').addEventListener('click',()=>{
       if(!confirm('¿Restaurar el contenido original de este código?'))return;
-      delete CONTENT.codes[code];persistContent();applyCode(code);
+      delete CONTENT.codes[code];logEdit('restauró ficha',code);persistContent();applyCode(code);
       if(state.view==='list')render();closeAdmin();openCode(code);toast('Contenido restaurado');
     });
     amodal.classList.add('on');
@@ -126627,20 +126713,26 @@ create policy "kv_all" on kv for all
   });
 
   /* ============ API pública para el resto de la app ============ */
+  let paT=null;
+  function persistAuthSoon(){save(KEY.auth,AUTH);clearTimeout(paT);paT=setTimeout(persistAuth,1200);}
   window.NBUProfile={
     active:()=>current,
     canEdit:()=>!!(current&&current.role==='admin'&&editMode),
     saveFavs:(arr)=>{if(current){current.favs=arr.slice();current.updated=Date.now();persistAuth();}},
     saveUB:(val)=>{if(current){current.ub=val;current.updated=Date.now();persistAuth();}},
     editFicha:editFicha,
-    tour:startOnboard
+    tour:startOnboard,
+    recent:()=>current&&current.recent?current.recent:[],
+    pushRecent:(code)=>{if(!current)return;const r=current.recent=current.recent||[];const i=r.indexOf(code);if(i>=0)r.splice(i,1);r.unshift(code);if(r.length>30)r.length=30;current.updated=Date.now();persistAuthSoon();},
+    getNote:(code)=>current&&current.notes?(current.notes[code]||''):'',
+    setNote:(code,txt)=>{if(!current)return;current.notes=current.notes||{};if(txt&&txt.trim())current.notes[code]=txt.trim();else delete current.notes[code];current.updated=Date.now();persistAuthSoon();}
   };
 
   /* ============ init ============ */
   applyContent();
   if(!AUTH.company){showGate('setup');}
   else{showGate('company');}
-  if(SYNC.enabled){startPolling();pull();}
+  if(SYNC.enabled){initEnc().then(()=>{startPolling();pull();});}
 })();
 </script>
 </body>

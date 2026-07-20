@@ -75,6 +75,17 @@ Tres vistas (pestañas):
 - **Árbol de módulos** — jerarquía expandible de los módulos de facturación (qué incluye cada código y no debe facturarse por separado).
 - **Validador de facturación** — pegás una lista de códigos (con cantidades `×N`) y detecta doble facturación por inclusión, urgencias sin 661200, Acto Bioquímico faltante, seriados excedidos, desuso e inexistentes; calcula U.B. netas y arancel.
 
+Productividad y atajos:
+- **Atajos de teclado**: `/` enfoca la búsqueda; `↑`/`↓` recorren los resultados y `Enter` abre el resaltado.
+- **Resaltado** del término buscado en código y nombre.
+- **➕ Al validador** y **⧉ Copiar código** desde cada ficha (para armar la validación sin tipear).
+- **Nota personal por código** (privada de tu perfil) y filtros **“Vistos recientemente”** y **“Con nota personal”**.
+
+Seguridad y auditoría (admin):
+- **Cifrado de la sincronización** (opcional, AES-256): con una *clave de cifrado* de empresa, los datos se cifran
+  antes de subir a Supabase — ni con la clave pública se pueden leer sin esa frase.
+- **Registro de cambios**: quién editó qué ficha/texto y cuándo (*Administración → Registro*), compartido y respaldado.
+
 Funciones operativas:
 - **Valor de la U.B.** (arriba): al cargarlo, se muestra el **arancel** ($) en el listado, la ficha y el validador. Se guarda en el navegador.
 - **Favoritos** (★): marcá códigos frecuentes; se guardan y se filtran con “★ Favoritos”.
