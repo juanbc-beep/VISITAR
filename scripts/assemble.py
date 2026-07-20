@@ -537,6 +537,12 @@ except FileNotFoundError:
     except FileNotFoundError:
         UNICO = []
 
+def annot_unico(target_key, code, desc, score, tipo):
+    lst = records[target_key].setdefault("equivalencia_unico", [])
+    if not any(x["unico_code"] == code for x in lst):
+        lst.append({"unico_code": code, "unico_key": "U" + code,
+                    "unico_desc": desc, "score": score, "tipo": tipo})
+
 unico_added = sin_equiv = pmo_annot = 0
 for r in UNICO:
     code = r["unico"]
@@ -548,27 +554,22 @@ for r in UNICO:
     if tiene_eq:
         pmo_key = eq if (eq in records and records[eq].get("nomenclador") == "PMO") else None
         equivalencia = {
-            "pmo_code": eq,
-            "pmo_desc": r.get("eq_desc") or (records[eq]["nombre"] if pmo_key else ""),
-            "pmo_key": pmo_key,
+            "target_nom": "PMO", "target_label": "Prestaciones Médicas",
+            "code": eq, "key": pmo_key,
+            "desc": r.get("eq_desc") or (records[eq]["nombre"] if pmo_key else ""),
             "score": score,
         }
         if pmo_key:
-            lst = records[pmo_key].setdefault("equivalencia_unico", [])
-            if not any(x["unico_code"] == code for x in lst):
-                lst.append({"unico_code": code, "unico_key": "U" + code,
-                            "unico_desc": r["unico_desc"], "score": score})
+            annot_unico(pmo_key, code, r["unico_desc"], score, "med")
             pmo_annot += 1
-    else:
-        sin_equiv += 1
-    if tiene_eq:
         pct = f" (similitud {round(score * 100)}%)." if score is not None else "."
         audit = "Equivale a la práctica " + eq + " del Nomenclador de Prestaciones Médicas" + pct
     else:
+        sin_equiv += 1
         audit = "Sin equivalencia hallada en Prestaciones Médicas — pendiente de mapeo manual."
     records["U" + code] = {
-        "code": code, "nomenclador": "UNICO",
-        "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — en elaboración",
+        "code": code, "nomenclador": "UNICO", "unico_tipo": "med",
+        "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — prestaciones médicas · en elaboración",
         "seccion": "UNICO", "seccion_label": "Único — " + cap,
         "grupo": cap, "nombre": r["unico_desc"] or code,
         "sinonimos": [], "abreviaturas": [],
@@ -581,7 +582,54 @@ for r in UNICO:
         "auditoria": [audit],
     }
     unico_added += 1
-print(f"UNICO: agregados {unico_added} · con equiv {unico_added - sin_equiv} · sin equiv {sin_equiv} · PMO anotados {pmo_annot}", file=sys.stderr)
+print(f"UNICO médico: agregados {unico_added} · con equiv {unico_added - sin_equiv} · sin equiv {sin_equiv} · PMO anotados {pmo_annot}", file=sys.stderr)
+
+# ---------- Nomenclador ÚNICO — Laboratorio (VISITAR) : prefijo(2) + código NBU(6) ----------
+try:
+    UNICO_LAB = json.load(open("data/unico_lab.json", encoding="utf-8"))
+except FileNotFoundError:
+    try:
+        UNICO_LAB = json.load(open("unico_lab.json", encoding="utf-8"))
+    except FileNotFoundError:
+        UNICO_LAB = []
+
+lab_added = lab_annot = lab_nofit = 0
+for r in UNICO_LAB:
+    code = r["unico"]
+    nbu = r["nbu"]
+    ub = r.get("ub")
+    nbu_key = nbu if (nbu in records and records[nbu].get("nomenclador") == "NBU") else None
+    if nbu_key:
+        grupo = records[nbu_key].get("grupo") or "Laboratorio"
+        annot_unico(nbu_key, code, r["nombre"], None, "lab")
+        lab_annot += 1
+    else:
+        grupo = classify(r["nombre"], [])
+        lab_nofit += 1
+    equivalencia = {
+        "target_nom": "NBU", "target_label": "Laboratorio (NBU)",
+        "code": nbu, "key": nbu_key,
+        "desc": records[nbu]["nombre"] if nbu_key else "",
+        "score": None,
+    }
+    records["U" + code] = {
+        "code": code, "nomenclador": "UNICO", "unico_tipo": "lab",
+        "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — laboratorio (equivalente al NBU)",
+        "seccion": "UNICO", "seccion_label": "Único — Laboratorio · " + grupo,
+        "grupo": grupo, "nombre": r["nombre"],
+        "sinonimos": [], "abreviaturas": [],
+        "valor": {"ub": ub, "unidad": "U.B. (Unidad Bioquímica)",
+                  "arancel": "Arancel = U.B. × valor monetario de la Unidad Bioquímica (según convenio)."},
+        "flags": {"urgencia": False, "requiere_norma": False, "desuso": False, "pcr": False},
+        "referencias": [], "norma": None, "frecuencia": [],
+        "relaciones": {"incluye": [], "no_incluye": [], "incluido_en": []},
+        "equivalencia": equivalencia, "sin_equivalencia": False,
+        "auditoria": ["Práctica de laboratorio del Nomenclador Único. Equivale al código NBU " + nbu +
+                      (" (sin ficha propia cargada)." if not nbu_key else ".")],
+    }
+    unico_added += 1
+    lab_added += 1
+print(f"UNICO lab: agregados {lab_added} · NBU anotados {lab_annot} · sin ficha NBU {lab_nofit}", file=sys.stderr)
 
 # ---------- glossary / metadata ----------
 glossary = {

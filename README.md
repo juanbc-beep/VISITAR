@@ -3,16 +3,18 @@
 Herramienta para consultar, interpretar y **facturar correctamente** los códigos de los
 nomencladores médicos argentinos, con relaciones entre códigos y reglas de auditoría por práctica.
 
-Estado actual: cargados **cuatro nomencladores relacionados** en una sola base (**4.615 códigos**):
+Estado actual: cargados **cuatro nomencladores relacionados** en una sola base (**6.334 códigos**):
 
 - **NBU — Nomenclador Bioquímico Único** (Versión 2012 · Actualización 2016, CUBRA) — 1.815 códigos, con el
   **Anexo Enero 2024** y la **U.B. vigente** (planilla oficial actualizada al día) aplicados como overlay.
 - **Catálogo de Prestaciones del PMO** (Resolución 201/2002, S.S. Salud) — 1.219 prestaciones médicas y
   quirúrgicas por especialidad.
 - **Nomenclador Nacional — Odontología** (Anexo II, Res. 201/02) — 79 prácticas dentales valorizadas.
-- **Nomenclador ÚNICO (VISITAR SRL)** — 1.502 prestaciones del nomenclador único que la empresa está
-  construyendo, con **equivalencias a Prestaciones Médicas** (1.425 mapeadas y **77 sin equivalencia**
-  agrupadas aparte para mapeo manual).
+- **Nomenclador ÚNICO (VISITAR SRL)** — **3.221 prestaciones** del nomenclador único que la empresa está
+  construyendo, en dos partes con equivalencias:
+  - **Médicas** (1.502): equivalencias a Prestaciones Médicas (1.425 mapeadas y **77 sin equivalencia**).
+  - **Laboratorio** (1.719): el código único = **2 dígitos de prefijo + el código NBU**; cada práctica trae su
+    **U.B.** y su **equivalencia con el NBU** (1.678 con ficha NBU; 41 con código NBU no cargado como ficha).
 
 Ambos se cruzan: **315 códigos de laboratorio (66xxxx)** aparecen en los dos nomencladores y quedan
 enlazados (en la ficha del NBU se marca "También en Catálogo PMO").
@@ -66,15 +68,18 @@ enlazados (en la ficha del NBU se marca "También en Catálogo PMO").
   cada código muestra su denominación limpia (p. ej. *Obturación de amalgama. Cavidad simple*, *Perno muñón simple*,
   *Germectomía*). Código, valores y coseguro se mantienen.
 
-### Nomenclador ÚNICO (VISITAR SRL) — 1.502 prestaciones
-- Nomenclador **propio de la empresa, en elaboración**, cargado desde la planilla de **equivalencias**
-  (Prestaciones Médicas ↔ Único) con puntaje de similitud.
-- Cada código del Único muestra su **equivalencia en Prestaciones Médicas** (código + descripción + % de
-  similitud, **clickeable** para abrir la ficha del otro nomenclador). Recíprocamente, cada prestación médica
-  con equivalencia muestra **"También en Nomenclador Único"** — la referencia de que el código está en **ambos**.
-- Los **77 códigos sin equivalencia** quedan **separados y agrupados** (filtro **"Sin equivalencia"** y etiqueta
-  en el listado) para revisarlos y mapearlos manualmente.
-- El Único todavía **no trae valorización** (se completará más adelante).
+### Nomenclador ÚNICO (VISITAR SRL) — 3.221 prestaciones
+- Nomenclador **propio de la empresa, en elaboración**, en dos partes:
+  - **Prestaciones médicas** (1.502): cargado desde la planilla de equivalencias (Prestaciones Médicas ↔ Único)
+    con puntaje de similitud. Sin valorización todavía.
+  - **Laboratorio** (1.719): el código único se forma con **2 dígitos de prefijo + el código real del NBU**;
+    trae la **U.B.** (arancel calculable con el valor de U.B.) y su equivalente NBU es exacto.
+- Cada código del Único muestra su **equivalencia** (a **Prestaciones Médicas** o a **Laboratorio (NBU)** según
+  corresponda): código + descripción + % de similitud, **clickeable** para abrir la ficha del otro nomenclador.
+  Recíprocamente, cada prestación médica **o práctica NBU** con equivalencia muestra **"También en Nomenclador
+  Único"** — la referencia de que el código está en **ambos**.
+- Los **77 códigos médicos sin equivalencia** quedan **separados y agrupados** (filtro **"Sin equivalencia"** y
+  etiqueta en el listado) para revisarlos y mapearlos manualmente.
 
 La interfaz separa **cuatro secciones** con un selector principal: **Laboratorio (NBU)**, **Prestaciones
 médicas (PMO)**, **Odontología** y **Único (VISITAR)** — en cada una solo se ven sus códigos, grupos y
