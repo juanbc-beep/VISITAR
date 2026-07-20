@@ -92,8 +92,9 @@ enlazados (en la ficha del NBU se marca "También en Catálogo PMO").
   Nacional** (galenos).
 
 ### Diagnósticos — CIE-10 (relación diagnóstico ↔ práctica)
-- **2.024 categorías** de la Clasificación Internacional de Enfermedades (CIE-10, 3 caracteres), organizadas por
-  los **21 capítulos** y buscables por código o texto.
+- **2.833 diagnósticos**: 2.024 **categorías** (3 caracteres) + **788 subcategorías** detalladas (4+ caracteres,
+  p. ej. `E11.9`, `K95.89`) tomadas del manual **CIE-10-ES**, organizados por los **21 capítulos** y buscables por
+  código o texto. Cada subcategoría enlaza a su **categoría padre** y hereda de ella las prácticas relacionadas.
 - Cada diagnóstico muestra las **prácticas relacionadas**: un **seed curado** (45 diagnósticos frecuentes de
   laboratorio: diabetes, tiroides, dislipidemia, anemias, hepatitis, HIV, celiaquía, infertilidad, IRC, etc.) más
   **sugerencias automáticas por coincidencia de texto**. Los estudios son **clickeables** y saltan a la ficha del

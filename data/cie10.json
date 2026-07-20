@@ -12143,6 +12143,6436 @@
    "desc": "Dependencia de maquina y dispositivo capacitante, no clasificada en otra parte",
    "cap": "XXI",
    "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)"
+  },
+  "B10": {
+   "code": "B10",
+   "desc": "Otros herpesvirus humanos",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias"
+  },
+  "O60.2": {
+   "code": "O60.2",
+   "desc": "Parto a término con trabajo de parto prematuro",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O60",
+   "sub": true
+  },
+  "O60.20": {
+   "code": "O60.20",
+   "desc": "Parto a término con trabajo de parto prematuro, trimestre no especificado",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O60",
+   "sub": true
+  },
+  "O60.22": {
+   "code": "O60.22",
+   "desc": "Parto a término con trabajo de parto prematuro, segundo trimestre,",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O60",
+   "sub": true
+  },
+  "O60.23": {
+   "code": "O60.23",
+   "desc": "Parto a término con trabajo de parto",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O60",
+   "sub": true
+  },
+  "O00.8": {
+   "code": "O00.8",
+   "desc": "Otro embarazo ectópico",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O00",
+   "sub": true
+  },
+  "N13.9": {
+   "code": "N13.9",
+   "desc": "Uropatía obstructiva y por reflujo, no especificada",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N13",
+   "sub": true
+  },
+  "J39.3": {
+   "code": "J39.3",
+   "desc": "Reacción de hipersensibilidad del tracto respiratorio superior, localización no especificada",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J39",
+   "sub": true
+  },
+  "F06.4": {
+   "code": "F06.4",
+   "desc": "Trastorno de ansiedad debido a afección fisiológica conocida",
+   "cap": "V",
+   "cap_nombre": "Trastornos mentales y del comportamiento",
+   "parent": "F06",
+   "sub": true
+  },
+  "J85.1": {
+   "code": "J85.1",
+   "desc": "Absceso pulmonar con neumonía",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J85",
+   "sub": true
+  },
+  "N83.1": {
+   "code": "N83.1",
+   "desc": "Quiste de cuerpo lúteo hemorrágico",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N83",
+   "sub": true
+  },
+  "I88.0": {
+   "code": "I88.0",
+   "desc": "Adenitis mesentérica",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I88",
+   "sub": true
+  },
+  "P00.2": {
+   "code": "P00.2",
+   "desc": "Recién nacido (con sospecha de estar) afectado por enfermedades infecciosas y",
+   "cap": "XVI",
+   "cap_nombre": "Afecciones originadas en el período perinatal",
+   "parent": "P00",
+   "sub": true
+  },
+  "R73.09": {
+   "code": "R73.09",
+   "desc": "Prediabetes",
+   "cap": "XVIII",
+   "cap_nombre": "Síntomas, signos y hallazgos anormales (clínicos y de laboratorio)",
+   "parent": "R73",
+   "sub": true
+  },
+  "O03.9": {
+   "code": "O03.9",
+   "desc": "Aborto espontáneo completo o no especificado sin complicación",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O03",
+   "sub": true
+  },
+  "O20.0": {
+   "code": "O20.0",
+   "desc": "Amenaza de aborto.",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O20",
+   "sub": true
+  },
+  "J18.9": {
+   "code": "J18.9",
+   "desc": "Neumonía, microorganismo no especificado",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J18",
+   "sub": true
+  },
+  "K31.84": {
+   "code": "K31.84",
+   "desc": "Gastroparesia",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K31",
+   "sub": true
+  },
+  "I50.23": {
+   "code": "I50.23",
+   "desc": "Insuficiencia cardiaca sistólica (congestiva), aguda sobre crónica",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I50",
+   "sub": true
+  },
+  "K72.01": {
+   "code": "K72.01",
+   "desc": "Insuficiencia hepática aguda y subaguda con coma",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K72",
+   "sub": true
+  },
+  "H04.133": {
+   "code": "H04.133",
+   "desc": "Quiste lacrimal, bilateral",
+   "cap": "VII",
+   "cap_nombre": "Enf. del ojo y sus anexos",
+   "parent": "H04",
+   "sub": true
+  },
+  "M21.531": {
+   "code": "M21.531",
+   "desc": "Pie en garra adquirido, derecho",
+   "cap": "XIII",
+   "cap_nombre": "Enf. del sistema osteomuscular y tejido conjuntivo",
+   "parent": "M21",
+   "sub": true
+  },
+  "M21.532": {
+   "code": "M21.532",
+   "desc": "Pie en garra adquirido, izquierdo",
+   "cap": "XIII",
+   "cap_nombre": "Enf. del sistema osteomuscular y tejido conjuntivo",
+   "parent": "M21",
+   "sub": true
+  },
+  "I50.9": {
+   "code": "I50.9",
+   "desc": "Insuficiencia cardiaca, no especificada",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I50",
+   "sub": true
+  },
+  "J96.00": {
+   "code": "J96.00",
+   "desc": "Insuficiencia respiratoria aguda no especificada sin con hipoxia o con hipercapnia",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J96",
+   "sub": true
+  },
+  "C34.11": {
+   "code": "C34.11",
+   "desc": "Neoplasia maligna de lóbulo superior, bronquio o pulmón derecho",
+   "cap": "II",
+   "cap_nombre": "Tumores (neoplasias)",
+   "parent": "C34",
+   "sub": true
+  },
+  "I25.2": {
+   "code": "I25.2",
+   "desc": "Infarto de miocardio antiguo",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I25",
+   "sub": true
+  },
+  "O09": {
+   "code": "O09",
+   "desc": "Supervisión de embarazo de alto riesgo",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio"
+  },
+  "O66.5": {
+   "code": "O66.5",
+   "desc": "Intento de utilización de ventosa y fórceps",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O66",
+   "sub": true
+  },
+  "O94": {
+   "code": "O94",
+   "desc": "Secuelas de complicaciones de embarazo, parto y puerperio",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio"
+  },
+  "W17.0": {
+   "code": "W17.0",
+   "desc": "Caída en pozo",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "W17",
+   "sub": true
+  },
+  "W17.1": {
+   "code": "W17.1",
+   "desc": "Caída en desagüe o alcantarilla pluvial",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "W17",
+   "sub": true
+  },
+  "W18.01": {
+   "code": "W18.01",
+   "desc": "Golpe contra equipamiento de deporte con caída posterior",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "W18",
+   "sub": true
+  },
+  "W61": {
+   "code": "W61",
+   "desc": "Contacto con aves (domésticas) (salvaje)",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad"
+  },
+  "W62": {
+   "code": "W62",
+   "desc": "Contacto con los anfibios no venenosos",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad"
+  },
+  "Y08.8": {
+   "code": "Y08.8",
+   "desc": "Agresión por golpe con equipamiento deportivo",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y08",
+   "sub": true
+  },
+  "Y37": {
+   "code": "Y37",
+   "desc": "Operaciones militares",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad"
+  },
+  "Y92": {
+   "code": "Y92",
+   "desc": "Lugar de acontecimiento de causa externa",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad"
+  },
+  "Y93": {
+   "code": "Y93",
+   "desc": "Código de actividad",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad"
+  },
+  "Y99": {
+   "code": "Y99",
+   "desc": "Estado causa externa",
+   "cap": "?",
+   "cap_nombre": "Sin clasificar"
+  },
+  "Z14": {
+   "code": "Z14",
+   "desc": "Portador genético",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)"
+  },
+  "Z15": {
+   "code": "Z15",
+   "desc": "Susceptibilidad genética a la enfermedad",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)"
+  },
+  "Z17": {
+   "code": "Z17",
+   "desc": "Estado del receptor de estrógenos",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)"
+  },
+  "Z18": {
+   "code": "Z18",
+   "desc": "Retención de fragmentos de cuerpo extraño",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)"
+  },
+  "Z47.8": {
+   "code": "Z47.8",
+   "desc": "Contacto para otros cuidados ortopédicos posteriores",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z47",
+   "sub": true
+  },
+  "Z67": {
+   "code": "Z67",
+   "desc": "Grupo sanguíneo",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)"
+  },
+  "Z68": {
+   "code": "Z68",
+   "desc": "Índice de masa corporal (IMC)",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)"
+  },
+  "Z74.01": {
+   "code": "Z74.01",
+   "desc": "Situación de confinamiento en cama",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z74",
+   "sub": true
+  },
+  "Z78": {
+   "code": "Z78",
+   "desc": "Otros estados de salud especificados",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)"
+  },
+  "Z79": {
+   "code": "Z79",
+   "desc": "Tratamiento farmacológico prolongado (actual)",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)"
+  },
+  "Z90.710": {
+   "code": "Z90.710",
+   "desc": "Ausencia adquirida de cuello uterino y útero",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z90",
+   "sub": true
+  },
+  "A02.21": {
+   "code": "A02.21",
+   "desc": "Meningitis por Salmonella",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "A02",
+   "sub": true
+  },
+  "K29.70": {
+   "code": "K29.70",
+   "desc": "Gastritis, no especificada, sin hemorragia",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K29",
+   "sub": true
+  },
+  "B96.81": {
+   "code": "B96.81",
+   "desc": "Helicobacter pylori [H. pylori] como causa de enfermedades clasificadas bajo otro concepto",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "B96",
+   "sub": true
+  },
+  "B34.9": {
+   "code": "B34.9",
+   "desc": "Infección viral no especificada",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "B34",
+   "sub": true
+  },
+  "L03.019": {
+   "code": "L03.019",
+   "desc": "Celulitis de dedo de mano no especificada",
+   "cap": "XII",
+   "cap_nombre": "Enf. de la piel y del tejido subcutáneo",
+   "parent": "L03",
+   "sub": true
+  },
+  "B95.62": {
+   "code": "B95.62",
+   "desc": "Infección por Staphylococcus aureus resistente a meticilina como causa de enfermedades",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "B95",
+   "sub": true
+  },
+  "B96.1": {
+   "code": "B96.1",
+   "desc": "Klebsiella pneumoniae [K. pneumoniae] como causa de enfermedades clasificadas bajo otro",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "B96",
+   "sub": true
+  },
+  "Z16.10": {
+   "code": "Z16.10",
+   "desc": "Resistencia a antibióticos beta lactámicos no especificados",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z16",
+   "sub": true
+  },
+  "P39.1": {
+   "code": "P39.1",
+   "desc": "Conjuntivitis y dacriocistitis neonatal",
+   "cap": "XVI",
+   "cap_nombre": "Afecciones originadas en el período perinatal",
+   "parent": "P39",
+   "sub": true
+  },
+  "B96.89": {
+   "code": "B96.89",
+   "desc": "Otros agentes bacterianos como causa de enfermedades clasificadas bajo otro concepto",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "B96",
+   "sub": true
+  },
+  "O98.811": {
+   "code": "O98.811",
+   "desc": "Otras enfermedades infecciosas y parasitarias maternas que complican el embarazo, primer",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O98",
+   "sub": true
+  },
+  "A02.0": {
+   "code": "A02.0",
+   "desc": "Enteritis debida a Salmonella",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "A02",
+   "sub": true
+  },
+  "R09.1": {
+   "code": "R09.1",
+   "desc": "Pleuritis",
+   "cap": "XVIII",
+   "cap_nombre": "Síntomas, signos y hallazgos anormales (clínicos y de laboratorio)",
+   "parent": "R09",
+   "sub": true
+  },
+  "B90.9": {
+   "code": "B90.9",
+   "desc": "Secuelas de tuberculosis respiratoria y de tuberculosis no especificada",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "B90",
+   "sub": true
+  },
+  "B94.1": {
+   "code": "B94.1",
+   "desc": "Secuelas de encefalitis viral",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "B94",
+   "sub": true
+  },
+  "K74.5": {
+   "code": "K74.5",
+   "desc": "Cirrosis biliar, no especificada",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K74",
+   "sub": true
+  },
+  "Z22.52": {
+   "code": "Z22.52",
+   "desc": "Portador del virus de hepatitis C",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z22",
+   "sub": true
+  },
+  "J15.212": {
+   "code": "J15.212",
+   "desc": "Neumonía debida a Staphylococcus aureus resistente a meticilina",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J15",
+   "sub": true
+  },
+  "Z22.322": {
+   "code": "Z22.322",
+   "desc": "Portador o sospecha de portador de Staphylococcus Aureus resistente a meticilina",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z22",
+   "sub": true
+  },
+  "K85.9": {
+   "code": "K85.9",
+   "desc": "Pancreatitis aguda, no especificada",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K85",
+   "sub": true
+  },
+  "R65.10": {
+   "code": "R65.10",
+   "desc": "Síndrome de respuesta inflamatoria sistémica (SIRS), de origen no infeccioso, sin disfunción",
+   "cap": "XVIII",
+   "cap_nombre": "Síntomas, signos y hallazgos anormales (clínicos y de laboratorio)",
+   "parent": "R65",
+   "sub": true
+  },
+  "A41.50": {
+   "code": "A41.50",
+   "desc": "Sepsis por gram-negativos, no especificados",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "A41",
+   "sub": true
+  },
+  "N39.0": {
+   "code": "N39.0",
+   "desc": "Infección de tracto urinario, localización no especificada",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N39",
+   "sub": true
+  },
+  "A41.52": {
+   "code": "A41.52",
+   "desc": "Sepsis por Pseudomonas",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "A41",
+   "sub": true
+  },
+  "R65.20": {
+   "code": "R65.20",
+   "desc": "Sepsis grave sin Shock séptico",
+   "cap": "XVIII",
+   "cap_nombre": "Síntomas, signos y hallazgos anormales (clínicos y de laboratorio)",
+   "parent": "R65",
+   "sub": true
+  },
+  "J15.1": {
+   "code": "J15.1",
+   "desc": "Neumonía por Pseudomonas",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J15",
+   "sub": true
+  },
+  "R65.21": {
+   "code": "R65.21",
+   "desc": "Sepsis grave con shock séptico",
+   "cap": "XVIII",
+   "cap_nombre": "Síntomas, signos y hallazgos anormales (clínicos y de laboratorio)",
+   "parent": "R65",
+   "sub": true
+  },
+  "T21.31XA": {
+   "code": "T21.31XA",
+   "desc": "Quemadura de tercer grado pared torácica contacto inicial",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T21",
+   "sub": true
+  },
+  "T31.76": {
+   "code": "T31.76",
+   "desc": "Quemaduras con afectación de 70-79% de superficie corporal con 60-69% de",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T31",
+   "sub": true
+  },
+  "A41.9": {
+   "code": "A41.9",
+   "desc": "Sepsis, no especificada",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "A41",
+   "sub": true
+  },
+  "G62.81": {
+   "code": "G62.81",
+   "desc": "Polineuropatía del paciente crítico.",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G62",
+   "sub": true
+  },
+  "X11.1XXA": {
+   "code": "X11.1XXA",
+   "desc": "Contacto con agua caliente, contacto inicial",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "X11",
+   "sub": true
+  },
+  "R76.12": {
+   "code": "R76.12",
+   "desc": "Medida de la reacción inmunitaria no específica mediada por células del antígeno",
+   "cap": "XVIII",
+   "cap_nombre": "Síntomas, signos y hallazgos anormales (clínicos y de laboratorio)",
+   "parent": "R76",
+   "sub": true
+  },
+  "B37.81": {
+   "code": "B37.81",
+   "desc": "Esofagitis por cándidas",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "B37",
+   "sub": true
+  },
+  "K50.919": {
+   "code": "K50.919",
+   "desc": "Enfermedad de Crohn, no especificada con complicación no especificada",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K50",
+   "sub": true
+  },
+  "O98.713": {
+   "code": "O98.713",
+   "desc": "Enfermedad por virus de la inmunodeficiencia humana [VIH] que complica el embarazo,",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O98",
+   "sub": true
+  },
+  "B37.0": {
+   "code": "B37.0",
+   "desc": "Estomatitis candidiásica",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "B37",
+   "sub": true
+  },
+  "B97.35": {
+   "code": "B97.35",
+   "desc": "Virus de inmunodeficiencia humana tipo 2 [VIH-2] como causa de enfermedades",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "B97",
+   "sub": true
+  },
+  "Z71.7": {
+   "code": "Z71.7",
+   "desc": "Asesoramiento por virus de inmunodeficiencia humana [VIH] si además de la prueba",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z71",
+   "sub": true
+  },
+  "Z20.6": {
+   "code": "Z20.6",
+   "desc": "Contacto y (sospecha",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z20",
+   "sub": true
+  },
+  "Z11.4": {
+   "code": "Z11.4",
+   "desc": "Contacto para cribado",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z11",
+   "sub": true
+  },
+  "D49": {
+   "code": "D49",
+   "desc": "Comportamiento no especificado",
+   "cap": "?",
+   "cap_nombre": "Sin clasificar"
+  },
+  "C18.2": {
+   "code": "C18.2",
+   "desc": "8490/3",
+   "cap": "II",
+   "cap_nombre": "Tumores (neoplasias)",
+   "parent": "C18",
+   "sub": true
+  },
+  "C86": {
+   "code": "C86",
+   "desc": "Otros tipos especificados de linfoma de células T/NK",
+   "cap": "II",
+   "cap_nombre": "Tumores (neoplasias)"
+  },
+  "C80.2": {
+   "code": "C80.2",
+   "desc": "Neoplasia maligna asociada con órgano trasplantado. Además se debe asignar un",
+   "cap": "II",
+   "cap_nombre": "Tumores (neoplasias)",
+   "parent": "C80",
+   "sub": true
+  },
+  "Z85.51": {
+   "code": "Z85.51",
+   "desc": "Historia personal de neoplasia maligna de vejiga",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z85",
+   "sub": true
+  },
+  "Z40.01": {
+   "code": "Z40.01",
+   "desc": "Contacto para extracción profiláctica de mama",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z40",
+   "sub": true
+  },
+  "Z80.3": {
+   "code": "Z80.3",
+   "desc": "Historia familiar de neoplasia maligna de mama",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z80",
+   "sub": true
+  },
+  "Z15.01": {
+   "code": "Z15.01",
+   "desc": "Susceptibilidad genética a neoplasia maligna de mama",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z15",
+   "sub": true
+  },
+  "D50.0": {
+   "code": "D50.0",
+   "desc": "Anemia ferropénica secundaria a pérdida de sangre crónica",
+   "cap": "III",
+   "cap_nombre": "Enf. de la sangre y de los órganos hematopoyéticos",
+   "parent": "D50",
+   "sub": true
+  },
+  "K25.4": {
+   "code": "K25.4",
+   "desc": "Úlcera gástrica crónica o no especificada con hemorragia.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K25",
+   "sub": true
+  },
+  "N18.4": {
+   "code": "N18.4",
+   "desc": "Enfermedad renal crónica, estadio 4 (grave)",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N18",
+   "sub": true
+  },
+  "D63.1": {
+   "code": "D63.1",
+   "desc": "Anemia en enfermedad renal crónica",
+   "cap": "III",
+   "cap_nombre": "Enf. de la sangre y de los órganos hematopoyéticos",
+   "parent": "D63",
+   "sub": true
+  },
+  "T52.1X1A": {
+   "code": "T52.1X1A",
+   "desc": "Intoxicación accidental por benceno (encuentro inicial)",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T52",
+   "sub": true
+  },
+  "D61.2": {
+   "code": "D61.2",
+   "desc": "Anemia aplásica debida a otros agentes externos",
+   "cap": "III",
+   "cap_nombre": "Enf. de la sangre y de los órganos hematopoyéticos",
+   "parent": "D61",
+   "sub": true
+  },
+  "D61.811": {
+   "code": "D61.811",
+   "desc": "Pancitopenia debida a otros fármacos",
+   "cap": "III",
+   "cap_nombre": "Enf. de la sangre y de los órganos hematopoyéticos",
+   "parent": "D61",
+   "sub": true
+  },
+  "T38.0X5A": {
+   "code": "T38.0X5A",
+   "desc": "Efecto adverso de glucocorticoides y análogos sintéticos, contacto inicial",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T38",
+   "sub": true
+  },
+  "D32.9": {
+   "code": "D32.9",
+   "desc": "Lupus eritematoso sistémico no especificado",
+   "cap": "II",
+   "cap_nombre": "Tumores (neoplasias)",
+   "parent": "D32",
+   "sub": true
+  },
+  "D61.818": {
+   "code": "D61.818",
+   "desc": "Otra pancitopenia",
+   "cap": "III",
+   "cap_nombre": "Enf. de la sangre y de los órganos hematopoyéticos",
+   "parent": "D61",
+   "sub": true
+  },
+  "D61.9": {
+   "code": "D61.9",
+   "desc": "Anemia aplásica, no especificada",
+   "cap": "III",
+   "cap_nombre": "Enf. de la sangre y de los órganos hematopoyéticos",
+   "parent": "D61",
+   "sub": true
+  },
+  "R50.81": {
+   "code": "R50.81",
+   "desc": "Fiebre asociada a afecciones clasificadas bajo otro concepto, y el código adicional",
+   "cap": "XVIII",
+   "cap_nombre": "Síntomas, signos y hallazgos anormales (clínicos y de laboratorio)",
+   "parent": "R50",
+   "sub": true
+  },
+  "D70.1": {
+   "code": "D70.1",
+   "desc": "Agranulocitosis secundaria a quimioterapia antineoplásica",
+   "cap": "III",
+   "cap_nombre": "Enf. de la sangre y de los órganos hematopoyéticos",
+   "parent": "D70",
+   "sub": true
+  },
+  "T45.1X5A": {
+   "code": "T45.1X5A",
+   "desc": "Efecto adverso de fármacos antineoplásicos e inmunosupresores, contacto inicial.",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T45",
+   "sub": true
+  },
+  "R79.89": {
+   "code": "R79.89",
+   "desc": "Otros hallazgos anormales especificados en la bioquímica sanguínea",
+   "cap": "XVIII",
+   "cap_nombre": "Síntomas, signos y hallazgos anormales (clínicos y de laboratorio)",
+   "parent": "R79",
+   "sub": true
+  },
+  "M06.9": {
+   "code": "M06.9",
+   "desc": "Artritis reumatoide no especificada",
+   "cap": "XIII",
+   "cap_nombre": "Enf. del sistema osteomuscular y tejido conjuntivo",
+   "parent": "M06",
+   "sub": true
+  },
+  "T45.511A": {
+   "code": "T45.511A",
+   "desc": "Envenenamiento por anticoagulantes, accidental (no intencionado), contacto inicial",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T45",
+   "sub": true
+  },
+  "D75.82": {
+   "code": "D75.82",
+   "desc": "Trombocitopenia inducida por heparina (TIH)",
+   "cap": "III",
+   "cap_nombre": "Enf. de la sangre y de los órganos hematopoyéticos",
+   "parent": "D75",
+   "sub": true
+  },
+  "D69.59": {
+   "code": "D69.59",
+   "desc": "Otras trombocitopenias secundarias.",
+   "cap": "III",
+   "cap_nombre": "Enf. de la sangre y de los órganos hematopoyéticos",
+   "parent": "D69",
+   "sub": true
+  },
+  "T36.1X5A": {
+   "code": "T36.1X5A",
+   "desc": "Efecto adverso a las cefalosporinas, encuentro inicial",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T36",
+   "sub": true
+  },
+  "D69.42": {
+   "code": "D69.42",
+   "desc": "Púrpura trombocitopénica congénita y hereditaria.",
+   "cap": "III",
+   "cap_nombre": "Enf. de la sangre y de los órganos hematopoyéticos",
+   "parent": "D69",
+   "sub": true
+  },
+  "D69.51": {
+   "code": "D69.51",
+   "desc": "Púrpura postransfusional",
+   "cap": "III",
+   "cap_nombre": "Enf. de la sangre y de los órganos hematopoyéticos",
+   "parent": "D69",
+   "sub": true
+  },
+  "M31.1": {
+   "code": "M31.1",
+   "desc": "Microangiopatía trombótica",
+   "cap": "XIII",
+   "cap_nombre": "Enf. del sistema osteomuscular y tejido conjuntivo",
+   "parent": "M31",
+   "sub": true
+  },
+  "D86.2": {
+   "code": "D86.2",
+   "desc": "Sarcoidosis pulmonar con sarcoidosis de los ganglios linfáticos",
+   "cap": "III",
+   "cap_nombre": "Enf. de la sangre y de los órganos hematopoyéticos",
+   "parent": "D86",
+   "sub": true
+  },
+  "E10.649": {
+   "code": "E10.649",
+   "desc": "Diabetes mellitus tipo 1 con hipoglucemia sin coma",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E10",
+   "sub": true
+  },
+  "E11.321": {
+   "code": "E11.321",
+   "desc": "Diabetes mellitus tipo 2 con retinopatía diabética no proliferativa leve con edema macular",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E11",
+   "sub": true
+  },
+  "E11.36": {
+   "code": "E11.36",
+   "desc": "Diabetes mellitus tipo 2 con catarata diabética",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E11",
+   "sub": true
+  },
+  "Z79.4": {
+   "code": "Z79.4",
+   "desc": "Uso (actual) prolongado de insulina, no se debe asignar junto con los códigos de la",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z79",
+   "sub": true
+  },
+  "O32.8XX0": {
+   "code": "O32.8XX0",
+   "desc": "Atención materna por otra presentación anómala del feto",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O32",
+   "sub": true
+  },
+  "O24.32": {
+   "code": "O24.32",
+   "desc": "Diabetes mellitus preexistente no especificada en el parto",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O24",
+   "sub": true
+  },
+  "Z37.0": {
+   "code": "Z37.0",
+   "desc": "Recién nacido único vivo",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z37",
+   "sub": true
+  },
+  "O09.522": {
+   "code": "O09.522",
+   "desc": "Supervisión multípara añosa, segundo trimestre",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O09",
+   "sub": true
+  },
+  "K86.1": {
+   "code": "K86.1",
+   "desc": "Otros tipos de pancreatitis crónica",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K86",
+   "sub": true
+  },
+  "E08.65": {
+   "code": "E08.65",
+   "desc": "Diabetes mellitus debida a afección subyacente con hiperglucemia",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E08",
+   "sub": true
+  },
+  "E84.8": {
+   "code": "E84.8",
+   "desc": "Fibrosis quística con otras manifestaciones",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E84",
+   "sub": true
+  },
+  "E08.319": {
+   "code": "E08.319",
+   "desc": "Diabetes mellitus debida a afección subyacente con retinopatía diabética no especificada sin",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E08",
+   "sub": true
+  },
+  "E09.42": {
+   "code": "E09.42",
+   "desc": "Diabetes mellitus inducida por fármaco o sustancia química con complicaciones neurológicas,",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E09",
+   "sub": true
+  },
+  "T45.1X5S": {
+   "code": "T45.1X5S",
+   "desc": "Efecto adverso de fármacos antineoplásicos e inmunosupresores, secuela (ver instrucción de",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T45",
+   "sub": true
+  },
+  "E09.65": {
+   "code": "E09.65",
+   "desc": "Diabetes mellitus inducida por fármaco o sustancia química con hiperglucemia",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E09",
+   "sub": true
+  },
+  "T38.0X5D": {
+   "code": "T38.0X5D",
+   "desc": "Efecto adverso de glucocorticoides y análogos sintéticos, contacto sucesivo",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T38",
+   "sub": true
+  },
+  "J45.909": {
+   "code": "J45.909",
+   "desc": "Asma no especificada, sin complicaciones. Asma NEOM",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J45",
+   "sub": true
+  },
+  "Z79.51": {
+   "code": "Z79.51",
+   "desc": "Uso (actual) prolongado de esteroides inhalados",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z79",
+   "sub": true
+  },
+  "T44.7X1A": {
+   "code": "T44.7X1A",
+   "desc": "Envenenamiento por antagonistas beta-adrenérgicos, accidental (no intencionado),",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T44",
+   "sub": true
+  },
+  "E09.01": {
+   "code": "E09.01",
+   "desc": "Diabetes mellitus inducida por fármaco o sustancia química con hiperosmolaridad con coma",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E09",
+   "sub": true
+  },
+  "E89.1": {
+   "code": "E89.1",
+   "desc": "Hipoinsulinemia posprocedimiento",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E89",
+   "sub": true
+  },
+  "E13.9": {
+   "code": "E13.9",
+   "desc": "Otra diabetes mellitus especificada sin complicaciones",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E13",
+   "sub": true
+  },
+  "Z90.410": {
+   "code": "Z90.410",
+   "desc": "Ausencia adquirida total de páncreas",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z90",
+   "sub": true
+  },
+  "E11.69": {
+   "code": "E11.69",
+   "desc": "Diabetes mellitus tipo 2 con otra complicación especificada",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E11",
+   "sub": true
+  },
+  "E87.2": {
+   "code": "E87.2",
+   "desc": "Acidosis (ignorar el excluye 1 de la categoría E87.2)",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E87",
+   "sub": true
+  },
+  "E11.21": {
+   "code": "E11.21",
+   "desc": "Diabetes mellitus tipo 2 con nefropatía diabética",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E11",
+   "sub": true
+  },
+  "N05.8": {
+   "code": "N05.8",
+   "desc": "Síndrome nefrítico no especificado con otros cambios morfológicos",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N05",
+   "sub": true
+  },
+  "E11.319": {
+   "code": "E11.319",
+   "desc": "Diabetes mellitus tipo 2 con retinopatía diabética no especificada sin edema macular",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E11",
+   "sub": true
+  },
+  "H25.9": {
+   "code": "H25.9",
+   "desc": "Catarata senil, no especificada",
+   "cap": "VII",
+   "cap_nombre": "Enf. del ojo y sus anexos",
+   "parent": "H25",
+   "sub": true
+  },
+  "E11.41": {
+   "code": "E11.41",
+   "desc": "Diabetes mellitus tipo 2 con mononeuropatía diabética",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E11",
+   "sub": true
+  },
+  "E11.52": {
+   "code": "E11.52",
+   "desc": "Diabetes Mellitus tipo 2 con angiopatía periférica diabética con gangrena.",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E11",
+   "sub": true
+  },
+  "E10.621": {
+   "code": "E10.621",
+   "desc": "Diabetes mellitus tipo 1 con úlcera en pie",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E10",
+   "sub": true
+  },
+  "L97.529": {
+   "code": "L97.529",
+   "desc": "Úlcera crónica no debida a presión de otra parte de pie izquierdo, de gravedad no",
+   "cap": "XII",
+   "cap_nombre": "Enf. de la piel y del tejido subcutáneo",
+   "parent": "L97",
+   "sub": true
+  },
+  "E10.51": {
+   "code": "E10.51",
+   "desc": "Diabetes mellitus tipo 1 con angiopatía periférica diabética sin gangrena",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E10",
+   "sub": true
+  },
+  "E10.22": {
+   "code": "E10.22",
+   "desc": "Diabetes mellitus tipo 1 con nefropatía diabética crónica",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E10",
+   "sub": true
+  },
+  "N18.2": {
+   "code": "N18.2",
+   "desc": "Enfermedad renal crónica, estadio 2 (leve)",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N18",
+   "sub": true
+  },
+  "N52.1": {
+   "code": "N52.1",
+   "desc": "Disfunción eréctil debida a otras enfermedades clasificadas bajo otro concepto",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N52",
+   "sub": true
+  },
+  "E10.9": {
+   "code": "E10.9",
+   "desc": "Diabetes mellitus tipo 1 sin complicaciones",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E10",
+   "sub": true
+  },
+  "E11.65": {
+   "code": "E11.65",
+   "desc": "Diabetes mellitus tipo 2 con hiperglucemia",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E11",
+   "sub": true
+  },
+  "E36.12": {
+   "code": "E36.12",
+   "desc": "Punción y desgarro accidental de órgano o estructura del sistema endocrino durante otro",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E36",
+   "sub": true
+  },
+  "E36.01": {
+   "code": "E36.01",
+   "desc": "Hemorragia y hematoma intraoperatorios de órgano o estructura del sistema endocrino que",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E36",
+   "sub": true
+  },
+  "E89.40": {
+   "code": "E89.40",
+   "desc": "Insuficiencia ovárica asintomática posprocedimiento",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E89",
+   "sub": true
+  },
+  "Z90.722": {
+   "code": "Z90.722",
+   "desc": "Ausencia adquirida de ovarios, bilateral",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z90",
+   "sub": true
+  },
+  "G40.909": {
+   "code": "G40.909",
+   "desc": "Epilepsia, no especificada, no intratable, sin estado de mal epiléptico.",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G40",
+   "sub": true
+  },
+  "F07.9": {
+   "code": "F07.9",
+   "desc": "Trastorno de personalidad y del comportamiento no especificado debidos a afección",
+   "cap": "V",
+   "cap_nombre": "Trastornos mentales y del comportamiento",
+   "parent": "F07",
+   "sub": true
+  },
+  "G31.83": {
+   "code": "G31.83",
+   "desc": "Demencia por cuerpos de Lewy",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G31",
+   "sub": true
+  },
+  "F02.80": {
+   "code": "F02.80",
+   "desc": "Demencia en otras enfermedades clasificadas bajo otro concepto, sin alteraciones del",
+   "cap": "V",
+   "cap_nombre": "Trastornos mentales y del comportamiento",
+   "parent": "F02",
+   "sub": true
+  },
+  "Q04.9": {
+   "code": "Q04.9",
+   "desc": "Malformación congénita del cerebro, no especificada",
+   "cap": "XVII",
+   "cap_nombre": "Malformaciones congénitas y anomalías cromosómicas",
+   "parent": "Q04",
+   "sub": true
+  },
+  "F06.31": {
+   "code": "F06.31",
+   "desc": "Trastorno del estado de ánimo debido a afección fisiológica conocida con características",
+   "cap": "V",
+   "cap_nombre": "Trastornos mentales y del comportamiento",
+   "parent": "F06",
+   "sub": true
+  },
+  "F10": {
+   "code": "F10",
+   "desc": "Trastornos relacionados con alcohol, F11 Trastornos relacionados con opiáceos, etc.",
+   "cap": "V",
+   "cap_nombre": "Trastornos mentales y del comportamiento"
+  },
+  "F10.1": {
+   "code": "F10.1",
+   "desc": "Abuso de alcohol",
+   "cap": "V",
+   "cap_nombre": "Trastornos mentales y del comportamiento",
+   "parent": "F10",
+   "sub": true
+  },
+  "F10.2": {
+   "code": "F10.2",
+   "desc": "Dependencia de alcohol",
+   "cap": "V",
+   "cap_nombre": "Trastornos mentales y del comportamiento",
+   "parent": "F10",
+   "sub": true
+  },
+  "F10.9": {
+   "code": "F10.9",
+   "desc": "Consumo de alcohol no especificado",
+   "cap": "V",
+   "cap_nombre": "Trastornos mentales y del comportamiento",
+   "parent": "F10",
+   "sub": true
+  },
+  "F13.10": {
+   "code": "F13.10",
+   "desc": "Abuso de sedantes, hipnóticos o ansiolíticos sin complicaciones",
+   "cap": "V",
+   "cap_nombre": "Trastornos mentales y del comportamiento",
+   "parent": "F13",
+   "sub": true
+  },
+  "E22.2": {
+   "code": "E22.2",
+   "desc": "Síndrome de secreción inadecuada de hormona antidiurética",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E22",
+   "sub": true
+  },
+  "F10.20": {
+   "code": "F10.20",
+   "desc": "Dependencia de alcohol, sin complicaciones.",
+   "cap": "V",
+   "cap_nombre": "Trastornos mentales y del comportamiento",
+   "parent": "F10",
+   "sub": true
+  },
+  "F11.20": {
+   "code": "F11.20",
+   "desc": "Dependencia de opiáceos, sin complicaciones",
+   "cap": "V",
+   "cap_nombre": "Trastornos mentales y del comportamiento",
+   "parent": "F11",
+   "sub": true
+  },
+  "F14.20": {
+   "code": "F14.20",
+   "desc": "Dependencia de cocaína, sin complicaciones",
+   "cap": "V",
+   "cap_nombre": "Trastornos mentales y del comportamiento",
+   "parent": "F14",
+   "sub": true
+  },
+  "F11.23": {
+   "code": "F11.23",
+   "desc": "Dependencia de opiáceos, con abstinencia",
+   "cap": "V",
+   "cap_nombre": "Trastornos mentales y del comportamiento",
+   "parent": "F11",
+   "sub": true
+  },
+  "Z79.891": {
+   "code": "Z79.891",
+   "desc": "Uso (actual) prolongado de analgésicos opiáceos",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z79",
+   "sub": true
+  },
+  "G89.29": {
+   "code": "G89.29",
+   "desc": "Otro dolor crónico",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G89",
+   "sub": true
+  },
+  "T40.7X1A": {
+   "code": "T40.7X1A",
+   "desc": "Envenenamiento por cannabis accidental, contacto inicial",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T40",
+   "sub": true
+  },
+  "T51.0X1A": {
+   "code": "T51.0X1A",
+   "desc": "Intoxicación accidental por alcohol, contacto inicial",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T51",
+   "sub": true
+  },
+  "T42.4X1A": {
+   "code": "T42.4X1A",
+   "desc": "Intoxicación accidental por benzodiacepinas, contacto inicial",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T42",
+   "sub": true
+  },
+  "R40.0": {
+   "code": "R40.0",
+   "desc": "Somnolencia",
+   "cap": "XVIII",
+   "cap_nombre": "Síntomas, signos y hallazgos anormales (clínicos y de laboratorio)",
+   "parent": "R40",
+   "sub": true
+  },
+  "F10.129": {
+   "code": "F10.129",
+   "desc": "Abuso de alcohol con intoxicación, no especificada (Embriaguez)",
+   "cap": "V",
+   "cap_nombre": "Trastornos mentales y del comportamiento",
+   "parent": "F10",
+   "sub": true
+  },
+  "F10.229": {
+   "code": "F10.229",
+   "desc": "Dependencia de alcohol con",
+   "cap": "V",
+   "cap_nombre": "Trastornos mentales y del comportamiento",
+   "parent": "F10",
+   "sub": true
+  },
+  "R40.20": {
+   "code": "R40.20",
+   "desc": "Coma no especificado",
+   "cap": "XVIII",
+   "cap_nombre": "Síntomas, signos y hallazgos anormales (clínicos y de laboratorio)",
+   "parent": "R40",
+   "sub": true
+  },
+  "Z87.891": {
+   "code": "Z87.891",
+   "desc": "Historia personal de dependencia a",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z87",
+   "sub": true
+  },
+  "Z77.22": {
+   "code": "Z77.22",
+   "desc": "Contacto y (sospecha de) exposición al",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z77",
+   "sub": true
+  },
+  "P96.81": {
+   "code": "P96.81",
+   "desc": "Exposición perinatal al humo del tabaco.",
+   "cap": "XVI",
+   "cap_nombre": "Afecciones originadas en el período perinatal",
+   "parent": "P96",
+   "sub": true
+  },
+  "Z57.31": {
+   "code": "Z57.31",
+   "desc": "Exposición ocupacional al humo del tabaco",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z57",
+   "sub": true
+  },
+  "Z72.0": {
+   "code": "Z72.0",
+   "desc": "Consumo de tabaco (eventual, no",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z72",
+   "sub": true
+  },
+  "F20.0": {
+   "code": "F20.0",
+   "desc": "Esquizofrenia paranoide",
+   "cap": "V",
+   "cap_nombre": "Trastornos mentales y del comportamiento",
+   "parent": "F20",
+   "sub": true
+  },
+  "F32.3": {
+   "code": "F32.3",
+   "desc": "Trastorno depresivo mayor, episodio único, grave con síntomas psicóticos.",
+   "cap": "V",
+   "cap_nombre": "Trastornos mentales y del comportamiento",
+   "parent": "F32",
+   "sub": true
+  },
+  "F33.3": {
+   "code": "F33.3",
+   "desc": "Trastorno depresivo mayor, recurrente grave con síntomas psicóticos.",
+   "cap": "V",
+   "cap_nombre": "Trastornos mentales y del comportamiento",
+   "parent": "F33",
+   "sub": true
+  },
+  "F32.9": {
+   "code": "F32.9",
+   "desc": "Trastorno depresivo mayor, episodio único, no especificado.",
+   "cap": "V",
+   "cap_nombre": "Trastornos mentales y del comportamiento",
+   "parent": "F32",
+   "sub": true
+  },
+  "F45.8": {
+   "code": "F45.8",
+   "desc": "Otros trastornos somatomorfos",
+   "cap": "V",
+   "cap_nombre": "Trastornos mentales y del comportamiento",
+   "parent": "F45",
+   "sub": true
+  },
+  "F45.41": {
+   "code": "F45.41",
+   "desc": "Trastorno doloroso exclusivamente relacionado con factores psicológicos",
+   "cap": "V",
+   "cap_nombre": "Trastornos mentales y del comportamiento",
+   "parent": "F45",
+   "sub": true
+  },
+  "S22.41XA": {
+   "code": "S22.41XA",
+   "desc": "Fracturas múltiples de costillas del lado derecho, contacto inicial por fractura cerrada",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "S22",
+   "sub": true
+  },
+  "X80.XXXA": {
+   "code": "X80.XXXA",
+   "desc": "Lesiones autoinflingidas intencionadamente al saltar desde un lugar alto",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "X80",
+   "sub": true
+  },
+  "Y92.009": {
+   "code": "Y92.009",
+   "desc": "Lugar no especificado de residencia no institucional (privada) no especificada, como lugar",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y92",
+   "sub": true
+  },
+  "G00.3": {
+   "code": "G00.3",
+   "desc": "Meningitis estafilocócica",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G00",
+   "sub": true
+  },
+  "A80.9": {
+   "code": "A80.9",
+   "desc": "Poliomielitis aguda no especificada",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "A80",
+   "sub": true
+  },
+  "G05.3": {
+   "code": "G05.3",
+   "desc": "Encefalitis y encefalomielitis en enfermedades clasificadas bajo otro concepto",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G05",
+   "sub": true
+  },
+  "G06.2": {
+   "code": "G06.2",
+   "desc": "Absceso extradural y subdural, no especificado",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G06",
+   "sub": true
+  },
+  "B96.20": {
+   "code": "B96.20",
+   "desc": "Escherichia coli [E. coli] no especificado como causa de enfermedades clasificadas bajo",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "B96",
+   "sub": true
+  },
+  "G12.21": {
+   "code": "G12.21",
+   "desc": "Esclerosis lateral amiotrófica",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G12",
+   "sub": true
+  },
+  "R13.10": {
+   "code": "R13.10",
+   "desc": "Disfagia, no especificada",
+   "cap": "XVIII",
+   "cap_nombre": "Síntomas, signos y hallazgos anormales (clínicos y de laboratorio)",
+   "parent": "R13",
+   "sub": true
+  },
+  "G21.11": {
+   "code": "G21.11",
+   "desc": "Parkinsonismo inducido por neurolépticos",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G21",
+   "sub": true
+  },
+  "T43.3X5A": {
+   "code": "T43.3X5A",
+   "desc": "Efecto adverso de antipsicóticos y neurolépticos a base de fenotiacinas, contacto inicial",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T43",
+   "sub": true
+  },
+  "G30.9": {
+   "code": "G30.9",
+   "desc": "Enfermedad de Alzheimer, no especificada",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G30",
+   "sub": true
+  },
+  "G30.1": {
+   "code": "G30.1",
+   "desc": "Enfermedad de Alzheimer de comienzo tardío",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G30",
+   "sub": true
+  },
+  "F02.81": {
+   "code": "F02.81",
+   "desc": "Demencia en otras enfermedades clasificadas bajo otro concepto, con alteración del",
+   "cap": "V",
+   "cap_nombre": "Trastornos mentales y del comportamiento",
+   "parent": "F02",
+   "sub": true
+  },
+  "G40.8": {
+   "code": "G40.8",
+   "desc": "Otros tipos de epilepsia y crisis recurrentes, no sigue esta pauta y asigna un código",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G40",
+   "sub": true
+  },
+  "G40.401": {
+   "code": "G40.401",
+   "desc": "Epilepsia y otros síndromes epilépticos generalizados, no intratables, con estado de mal",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G40",
+   "sub": true
+  },
+  "E11.9": {
+   "code": "E11.9",
+   "desc": "Diabetes mellitus tipo 2 sin complicaciones.",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E11",
+   "sub": true
+  },
+  "O99.351": {
+   "code": "O99.351",
+   "desc": "Enfermedades del sistema nervioso que complican el embarazo, primer trimestre",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O99",
+   "sub": true
+  },
+  "G40.211": {
+   "code": "G40.211",
+   "desc": "Epilepsia (focal) (parcial) sintomática relacionada con la localización y síndromes",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G40",
+   "sub": true
+  },
+  "I63.59": {
+   "code": "I63.59",
+   "desc": "Infarto cerebral debido a oclusión o estenosis no especificada de otra arteria cerebral",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I63",
+   "sub": true
+  },
+  "G46.5": {
+   "code": "G46.5",
+   "desc": "Síndrome lacunar motor puro",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G46",
+   "sub": true
+  },
+  "G47.33": {
+   "code": "G47.33",
+   "desc": "Apnea obstructiva del sueño (del adulto) (pediátrica)",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G47",
+   "sub": true
+  },
+  "E66.01": {
+   "code": "E66.01",
+   "desc": "Obesidad mórbida (severa) por exceso de calorías.",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E66",
+   "sub": true
+  },
+  "Z68.38": {
+   "code": "Z68.38",
+   "desc": "Índice de masa corporal (IMC) 38,0 a 38,9, adulto",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z68",
+   "sub": true
+  },
+  "B02.22": {
+   "code": "B02.22",
+   "desc": "Neuralgia del trigémino posherpética",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "B02",
+   "sub": true
+  },
+  "C72.31": {
+   "code": "C72.31",
+   "desc": "Neoplasia maligna de nervio óptico derecho",
+   "cap": "II",
+   "cap_nombre": "Tumores (neoplasias)",
+   "parent": "C72",
+   "sub": true
+  },
+  "G57.22": {
+   "code": "G57.22",
+   "desc": "Lesión de nervio femoral, extremidad inferior izquierda",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G57",
+   "sub": true
+  },
+  "G70.01": {
+   "code": "G70.01",
+   "desc": "Miastenia gravis con exacerbación (aguda)",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G70",
+   "sub": true
+  },
+  "T60.0X4S": {
+   "code": "T60.0X4S",
+   "desc": "Efecto tóxico de insecticidas organofosforados y carbamatos, intencionalidad sin",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T60",
+   "sub": true
+  },
+  "G72.1": {
+   "code": "G72.1",
+   "desc": "Miopatía alcohólica",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G72",
+   "sub": true
+  },
+  "F10.988": {
+   "code": "F10.988",
+   "desc": "Consumo de alcohol, no especificado, con otro trastorno inducido por alcohol",
+   "cap": "V",
+   "cap_nombre": "Trastornos mentales y del comportamiento",
+   "parent": "F10",
+   "sub": true
+  },
+  "I63.311": {
+   "code": "I63.311",
+   "desc": "Infarto cerebral debido a trombosis de arteria cerebral anterior derecha",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I63",
+   "sub": true
+  },
+  "G81.92": {
+   "code": "G81.92",
+   "desc": "Hemiplejia no especificada que afecta a lado izquierdo dominante",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G81",
+   "sub": true
+  },
+  "M51.16": {
+   "code": "M51.16",
+   "desc": "Trastornos de disco intervertebral con radiculopatía, región lumbar",
+   "cap": "XIII",
+   "cap_nombre": "Enf. del sistema osteomuscular y tejido conjuntivo",
+   "parent": "M51",
+   "sub": true
+  },
+  "M51.26": {
+   "code": "M51.26",
+   "desc": "Otros desplazamientos de disco intervertebral, región lumbar",
+   "cap": "XIII",
+   "cap_nombre": "Enf. del sistema osteomuscular y tejido conjuntivo",
+   "parent": "M51",
+   "sub": true
+  },
+  "G89.11": {
+   "code": "G89.11",
+   "desc": "Dolor agudo debido a traumatismo",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G89",
+   "sub": true
+  },
+  "M54.2": {
+   "code": "M54.2",
+   "desc": "Cervicalgia",
+   "cap": "XIII",
+   "cap_nombre": "Enf. del sistema osteomuscular y tejido conjuntivo",
+   "parent": "M54",
+   "sub": true
+  },
+  "T85.84XA": {
+   "code": "T85.84XA",
+   "desc": "Dolor por (debido a) prótesis, implantes e injertos internos, no clasificados bajo otro",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T85",
+   "sub": true
+  },
+  "G89.28": {
+   "code": "G89.28",
+   "desc": "Otros tipos de dolor crónico posprocedimiento",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G89",
+   "sub": true
+  },
+  "Z96.651": {
+   "code": "Z96.651",
+   "desc": "Presencia de articulación de rodilla derecha artificial",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z96",
+   "sub": true
+  },
+  "Y83.1": {
+   "code": "Y83.1",
+   "desc": "Cirugía con implante de dispositivo interno artificial como causa de reacción anormal del",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y83",
+   "sub": true
+  },
+  "T85.320A": {
+   "code": "T85.320A",
+   "desc": "Desplazamiento de prótesis de órbita del ojo derecho, contacto inicial",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T85",
+   "sub": true
+  },
+  "G89.18": {
+   "code": "G89.18",
+   "desc": "Otros tipos de dolor agudo posprocedimiento",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G89",
+   "sub": true
+  },
+  "H57.11": {
+   "code": "H57.11",
+   "desc": "Dolor ocular, ojo derecho",
+   "cap": "VII",
+   "cap_nombre": "Enf. del ojo y sus anexos",
+   "parent": "H57",
+   "sub": true
+  },
+  "G89.3": {
+   "code": "G89.3",
+   "desc": "Dolor (agudo) (crónico) relacionado con neoplasia",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G89",
+   "sub": true
+  },
+  "C40.21": {
+   "code": "C40.21",
+   "desc": "Neoplasia maligna de huesos largos de extremidad inferior derecha",
+   "cap": "II",
+   "cap_nombre": "Tumores (neoplasias)",
+   "parent": "C40",
+   "sub": true
+  },
+  "G90.4": {
+   "code": "G90.4",
+   "desc": "Disreflexia autonómica",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G90",
+   "sub": true
+  },
+  "G82.50": {
+   "code": "G82.50",
+   "desc": "Tetraplejia, no especificada",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G82",
+   "sub": true
+  },
+  "A39.2": {
+   "code": "A39.2",
+   "desc": "Meningococemia aguda",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "A39",
+   "sub": true
+  },
+  "G93.41": {
+   "code": "G93.41",
+   "desc": "Encefalopatía metabólica",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G93",
+   "sub": true
+  },
+  "H02.423": {
+   "code": "H02.423",
+   "desc": "Ptosis miógena de parpado, bilateral",
+   "cap": "VII",
+   "cap_nombre": "Enf. del ojo y sus anexos",
+   "parent": "H02",
+   "sub": true
+  },
+  "G70.00": {
+   "code": "G70.00",
+   "desc": "Miastenia Gravis sin exacerbación (aguda)",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G70",
+   "sub": true
+  },
+  "H11.062": {
+   "code": "H11.062",
+   "desc": "Pterigión ocular recurrente ojo izquierdo",
+   "cap": "VII",
+   "cap_nombre": "Enf. del ojo y sus anexos",
+   "parent": "H11",
+   "sub": true
+  },
+  "H26.0": {
+   "code": "H26.0",
+   "desc": "Catarata Infantil y juvenil",
+   "cap": "VII",
+   "cap_nombre": "Enf. del ojo y sus anexos",
+   "parent": "H26",
+   "sub": true
+  },
+  "H26.1": {
+   "code": "H26.1",
+   "desc": "Catarata traumática, utilice código adicional para identificar causa externa",
+   "cap": "VII",
+   "cap_nombre": "Enf. del ojo y sus anexos",
+   "parent": "H26",
+   "sub": true
+  },
+  "H26.2": {
+   "code": "H26.2",
+   "desc": "Catarata complicada, se seguirán las instrucciones de la Lista Tabular",
+   "cap": "VII",
+   "cap_nombre": "Enf. del ojo y sus anexos",
+   "parent": "H26",
+   "sub": true
+  },
+  "H26.3": {
+   "code": "H26.3",
+   "desc": "Catarata inducida por fármacos, utilizar código adicional de efecto adverso",
+   "cap": "VII",
+   "cap_nombre": "Enf. del ojo y sus anexos",
+   "parent": "H26",
+   "sub": true
+  },
+  "H26.4": {
+   "code": "H26.4",
+   "desc": "Catarata secundaria",
+   "cap": "VII",
+   "cap_nombre": "Enf. del ojo y sus anexos",
+   "parent": "H26",
+   "sub": true
+  },
+  "H26.9": {
+   "code": "H26.9",
+   "desc": "Catarata no especificada",
+   "cap": "VII",
+   "cap_nombre": "Enf. del ojo y sus anexos",
+   "parent": "H26",
+   "sub": true
+  },
+  "H33.001": {
+   "code": "H33.001",
+   "desc": "Desprendimiento de retina, no especificado, con rotura retiniana ojo",
+   "cap": "VII",
+   "cap_nombre": "Enf. del ojo y sus anexos",
+   "parent": "H33",
+   "sub": true
+  },
+  "H33.042": {
+   "code": "H33.042",
+   "desc": "Desprendimiento de retina con diálisis retiniana, ojo izquierdo",
+   "cap": "VII",
+   "cap_nombre": "Enf. del ojo y sus anexos",
+   "parent": "H33",
+   "sub": true
+  },
+  "H35.30": {
+   "code": "H35.30",
+   "desc": "Degeneración macular no especificada",
+   "cap": "VII",
+   "cap_nombre": "Enf. del ojo y sus anexos",
+   "parent": "H35",
+   "sub": true
+  },
+  "H35.31": {
+   "code": "H35.31",
+   "desc": "Degeneración macular no exudativa relacionada con la edad",
+   "cap": "VII",
+   "cap_nombre": "Enf. del ojo y sus anexos",
+   "parent": "H35",
+   "sub": true
+  },
+  "H35.32": {
+   "code": "H35.32",
+   "desc": "Degeneración macular exudativa relacionada con la edad",
+   "cap": "VII",
+   "cap_nombre": "Enf. del ojo y sus anexos",
+   "parent": "H35",
+   "sub": true
+  },
+  "H40.1222": {
+   "code": "H40.1222",
+   "desc": "Glaucoma de baja tensión, ojo izquierdo moderado",
+   "cap": "VII",
+   "cap_nombre": "Enf. del ojo y sus anexos",
+   "parent": "H40",
+   "sub": true
+  },
+  "H40.61X3": {
+   "code": "H40.61X3",
+   "desc": "Glaucoma secundario a fármacos, ojo derecho estadio grave",
+   "cap": "VII",
+   "cap_nombre": "Enf. del ojo y sus anexos",
+   "parent": "H40",
+   "sub": true
+  },
+  "H44.711": {
+   "code": "H44.711",
+   "desc": "Cuerpo extraño intraocular (antiguo) (no magnético) retenido, ojo derecho",
+   "cap": "VII",
+   "cap_nombre": "Enf. del ojo y sus anexos",
+   "parent": "H44",
+   "sub": true
+  },
+  "Z18.83": {
+   "code": "Z18.83",
+   "desc": "Fragmento cristalino o de piedra retenido",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z18",
+   "sub": true
+  },
+  "H59.311": {
+   "code": "H59.311",
+   "desc": "Hemorragia y hematoma posprocedimieto de ojo derecho y sus anexos después de un",
+   "cap": "VII",
+   "cap_nombre": "Enf. del ojo y sus anexos",
+   "parent": "H59",
+   "sub": true
+  },
+  "H59.039": {
+   "code": "H59.039",
+   "desc": "Edema macular quístico tras cirugía de cataratas, ojo no especificado",
+   "cap": "VII",
+   "cap_nombre": "Enf. del ojo y sus anexos",
+   "parent": "H59",
+   "sub": true
+  },
+  "H60.501": {
+   "code": "H60.501",
+   "desc": "Otitis externa aguda no infecciosa no especificada, oído derecho",
+   "cap": "VIII",
+   "cap_nombre": "Enf. del oído y de la apófisis mastoides",
+   "parent": "H60",
+   "sub": true
+  },
+  "H66.3X1": {
+   "code": "H66.3X1",
+   "desc": "Otros tipos de otitis media supurativa crónica, oído derecho",
+   "cap": "VIII",
+   "cap_nombre": "Enf. del oído y de la apófisis mastoides",
+   "parent": "H66",
+   "sub": true
+  },
+  "H72.01": {
+   "code": "H72.01",
+   "desc": "Perforación central de la membrana timpánica, oído derecho",
+   "cap": "VIII",
+   "cap_nombre": "Enf. del oído y de la apófisis mastoides",
+   "parent": "H72",
+   "sub": true
+  },
+  "F17.210": {
+   "code": "F17.210",
+   "desc": "Dependencia de nicotina, cigarrillos, sin complicaciones",
+   "cap": "V",
+   "cap_nombre": "Trastornos mentales y del comportamiento",
+   "parent": "F17",
+   "sub": true
+  },
+  "H66.012": {
+   "code": "H66.012",
+   "desc": "Otitis media supurativa aguda con rotura espontánea de tímpano, oído izquierdo",
+   "cap": "VIII",
+   "cap_nombre": "Enf. del oído y de la apófisis mastoides",
+   "parent": "H66",
+   "sub": true
+  },
+  "H95.01": {
+   "code": "H95.01",
+   "desc": "Colesteatoma recurrente de cavidad postmastoidectomía, oído derecho",
+   "cap": "VIII",
+   "cap_nombre": "Enf. del oído y de la apófisis mastoides",
+   "parent": "H95",
+   "sub": true
+  },
+  "H80.23": {
+   "code": "H80.23",
+   "desc": "Otoesclerosis coclear, bilateral",
+   "cap": "VIII",
+   "cap_nombre": "Enf. del oído y de la apófisis mastoides",
+   "parent": "H80",
+   "sub": true
+  },
+  "H91.09": {
+   "code": "H91.09",
+   "desc": "Pérdida de audición por ototoxicidad, oído no especificado",
+   "cap": "VIII",
+   "cap_nombre": "Enf. del oído y de la apófisis mastoides",
+   "parent": "H91",
+   "sub": true
+  },
+  "T36.5X2S": {
+   "code": "T36.5X2S",
+   "desc": "Envenenamiento por aminoglucósidos, autolesión intencionada, secuela",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T36",
+   "sub": true
+  },
+  "H95.132": {
+   "code": "H95.132",
+   "desc": "Quiste mucoso de cavidad postmastoidectomía, oído izquierdo",
+   "cap": "VIII",
+   "cap_nombre": "Enf. del oído y de la apófisis mastoides",
+   "parent": "H95",
+   "sub": true
+  },
+  "I08.2": {
+   "code": "I08.2",
+   "desc": "Trastorno reumáticos tanto de la válvula aórtica como de la tricúspide",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I08",
+   "sub": true
+  },
+  "I35.2": {
+   "code": "I35.2",
+   "desc": "Estenosis con insuficiencia (de la válvula aórtica) no reumática",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I35",
+   "sub": true
+  },
+  "I11.0": {
+   "code": "I11.0",
+   "desc": "Enfermedad cardiaca hipertensiva con insuficiencia cardiaca",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I11",
+   "sub": true
+  },
+  "I50.21": {
+   "code": "I50.21",
+   "desc": "Insuficiencia cardiaca sistólica (congestiva) aguda",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I50",
+   "sub": true
+  },
+  "I12.9": {
+   "code": "I12.9",
+   "desc": "Enfermedad renal crónica hipertensiva con enfermedad renal crónica en estadio 1 a 4 o con",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I12",
+   "sub": true
+  },
+  "N18.3": {
+   "code": "N18.3",
+   "desc": "Enfermedad renal crónica, estadio 3 (moderada)",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N18",
+   "sub": true
+  },
+  "E11.22": {
+   "code": "E11.22",
+   "desc": "Diabetes mellitus tipo 2 con nefropatía diabética crónica",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E11",
+   "sub": true
+  },
+  "I97.3": {
+   "code": "I97.3",
+   "desc": "Hipertensión posprocedimiento.",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I97",
+   "sub": true
+  },
+  "I50.2": {
+   "code": "I50.2",
+   "desc": "Insuficiencia cardiaca sistólica (congestiva)",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I50",
+   "sub": true
+  },
+  "I50.3": {
+   "code": "I50.3",
+   "desc": "Insuficiencia cardiaca diastólica (congestiva)",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I50",
+   "sub": true
+  },
+  "I50.4": {
+   "code": "I50.4",
+   "desc": "Insuficiencia cardiaca combinada sistólica y diastólica (congestiva)",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I50",
+   "sub": true
+  },
+  "I50.41": {
+   "code": "I50.41",
+   "desc": "Insuficiencia cardiaca combinada sistólica y diastólica (congestiva), aguda",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I50",
+   "sub": true
+  },
+  "I50.1": {
+   "code": "I50.1",
+   "desc": "Insuficiencia cardiaca izquierda",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I50",
+   "sub": true
+  },
+  "I05.0": {
+   "code": "I05.0",
+   "desc": "Estenosis mitral",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I05",
+   "sub": true
+  },
+  "I09.81": {
+   "code": "I09.81",
+   "desc": "Insuficiencia cardiaca reumática",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I09",
+   "sub": true
+  },
+  "I50.20": {
+   "code": "I50.20",
+   "desc": "Insuficiencia cardiaca sistólica (congestiva) no especificada",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I50",
+   "sub": true
+  },
+  "T82.03XA": {
+   "code": "T82.03XA",
+   "desc": "Fuga de prótesis valvular cardiaca, contacto inicial",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T82",
+   "sub": true
+  },
+  "I97.130": {
+   "code": "I97.130",
+   "desc": "Insuficiencia cardiaca posprocedimiento después de cirugía cardiaca",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I97",
+   "sub": true
+  },
+  "I21.4": {
+   "code": "I21.4",
+   "desc": "Infarto agudo de miocardio sin elevación de ST (IAMSEST) (IMNEST) (NSTEMI)",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I21",
+   "sub": true
+  },
+  "I22.2": {
+   "code": "I22.2",
+   "desc": "Infarto agudo de miocardio subsiguiente sin elevación de ST (IMSEST) (IMNEST) (NSTEMI)",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I22",
+   "sub": true
+  },
+  "I21.09": {
+   "code": "I21.09",
+   "desc": "Infarto agudo de miocardio con elevación de ST (IAMCEST) (IMEST) (STEMI) con implicación",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I21",
+   "sub": true
+  },
+  "I21.02": {
+   "code": "I21.02",
+   "desc": "Infarto agudo de miocardio con elevación de ST (IAMCEST) (IMEST) (STEMI) con",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I21",
+   "sub": true
+  },
+  "I21.19": {
+   "code": "I21.19",
+   "desc": "Infarto agudo de miocardio con elevación de ST (IAMCEST) (IMEST) (STEMI) con",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I21",
+   "sub": true
+  },
+  "I25.10": {
+   "code": "I25.10",
+   "desc": "Enfermedad cardiaca aterosclerótica de arteria coronaria nativa sin angina de pecho",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I25",
+   "sub": true
+  },
+  "I25.110": {
+   "code": "I25.110",
+   "desc": "Enfermedad cardiaca aterosclerótica de arteria coronaria nativa con angina de pecho",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I25",
+   "sub": true
+  },
+  "I23.7": {
+   "code": "I23.7",
+   "desc": "Angina posinfarto",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I23",
+   "sub": true
+  },
+  "I25.118": {
+   "code": "I25.118",
+   "desc": "Enfermedad cardiaca aterosclerótica de arteria coronaria nativa con otras formas de angina",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I25",
+   "sub": true
+  },
+  "I49.01": {
+   "code": "I49.01",
+   "desc": "Fibrilación ventricular",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I49",
+   "sub": true
+  },
+  "I46.2": {
+   "code": "I46.2",
+   "desc": "Paro cardiaco debido a enfermedad cardiaca subyacente",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I46",
+   "sub": true
+  },
+  "I97.710": {
+   "code": "I97.710",
+   "desc": "Parada cardiaca intraoperatoria durante cirugía cardiaca o bien I97.711 Parada",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I97",
+   "sub": true
+  },
+  "Z95.0": {
+   "code": "Z95.0",
+   "desc": "Presencia de marcapaso cardiaco",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z95",
+   "sub": true
+  },
+  "Z95.1": {
+   "code": "Z95.1",
+   "desc": "Presencia de injerto derivación aortocoronaria",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z95",
+   "sub": true
+  },
+  "Z95.2": {
+   "code": "Z95.2",
+   "desc": "Presencia de válvula cardiaca protésica",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z95",
+   "sub": true
+  },
+  "Z95.3": {
+   "code": "Z95.3",
+   "desc": "Presencia de válvula cardiaca xenogénica",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z95",
+   "sub": true
+  },
+  "Z95.4": {
+   "code": "Z95.4",
+   "desc": "Presencia de otra sustitución de válvula cardiaca",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z95",
+   "sub": true
+  },
+  "Z95.5": {
+   "code": "Z95.5",
+   "desc": "Presencia de angioplastia, injertos y prótesis coronarios",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z95",
+   "sub": true
+  },
+  "Z95.810": {
+   "code": "Z95.810",
+   "desc": "Presencia de desfibrilador cardiaco automático (implantable)",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z95",
+   "sub": true
+  },
+  "Z95.811": {
+   "code": "Z95.811",
+   "desc": "Presencia de dispositivo de asistencia cardiaca",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z95",
+   "sub": true
+  },
+  "Z95.812": {
+   "code": "Z95.812",
+   "desc": "Presencia de corazón artificial totalmente implantable",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z95",
+   "sub": true
+  },
+  "Z95.818": {
+   "code": "Z95.818",
+   "desc": "Presencia de otros implantes e injertos cardiacos",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z95",
+   "sub": true
+  },
+  "Z95.9": {
+   "code": "Z95.9",
+   "desc": "Presencia de implante e injerto cardiaco y vascular no especificado",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z95",
+   "sub": true
+  },
+  "I63.9": {
+   "code": "I63.9",
+   "desc": "Infarto cerebral, no especificado.",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I63",
+   "sub": true
+  },
+  "I61.1": {
+   "code": "I61.1",
+   "desc": "Hemorragia intracerebral no traumática en hemisferio, cortical",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I61",
+   "sub": true
+  },
+  "G81.00": {
+   "code": "G81.00",
+   "desc": "Hemiplejia flácida que afecta a lado no especificado",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G81",
+   "sub": true
+  },
+  "I65.21": {
+   "code": "I65.21",
+   "desc": "Oclusión y estenosis de arteria carótida derecha",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I65",
+   "sub": true
+  },
+  "I69.154": {
+   "code": "I69.154",
+   "desc": "Hemiplejia y hemiparesia tras hemorragia intracerebral no traumática con afectación de",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I69",
+   "sub": true
+  },
+  "I69.898": {
+   "code": "I69.898",
+   "desc": "Otras secuelas de enfermedad cerebrovascular",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I69",
+   "sub": true
+  },
+  "J10.08": {
+   "code": "J10.08",
+   "desc": "Gripe debida a otros tipos de virus de la gripe identificados con otro tipo de neumonía",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J10",
+   "sub": true
+  },
+  "A01.03": {
+   "code": "A01.03",
+   "desc": "Neumonía tifoidea",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "A01",
+   "sub": true
+  },
+  "J15.211": {
+   "code": "J15.211",
+   "desc": "Neumonía debida a Staphylococcus aureus sensible a meticilina",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J15",
+   "sub": true
+  },
+  "B65.9": {
+   "code": "B65.9",
+   "desc": "Esquistosomiasis, no especificada",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "B65",
+   "sub": true
+  },
+  "J15.6": {
+   "code": "J15.6",
+   "desc": "Neumonía por otras bacterias Gram-negativas aerobias",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J15",
+   "sub": true
+  },
+  "B96.4": {
+   "code": "B96.4",
+   "desc": "Proteus (mirabilis) (morganii) como causa de enfermedades clasificadas bajo otro",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "B96",
+   "sub": true
+  },
+  "J15.0": {
+   "code": "J15.0",
+   "desc": "Neumonía por Klebsiella Pneumoniae",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J15",
+   "sub": true
+  },
+  "J69.0": {
+   "code": "J69.0",
+   "desc": "Neumonitis debida a inhalación de alimentos y vómito",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J69",
+   "sub": true
+  },
+  "T17.918A": {
+   "code": "T17.918A",
+   "desc": "Contenido gástrico en vías respiratorias, parte no especificada, que produce otras",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T17",
+   "sub": true
+  },
+  "J10.1": {
+   "code": "J10.1",
+   "desc": "Gripe debida a otros tipos de virus de la gripe identificados con otras manifestaciones",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J10",
+   "sub": true
+  },
+  "R11.10": {
+   "code": "R11.10",
+   "desc": "Vómitos, no especificados",
+   "cap": "XVIII",
+   "cap_nombre": "Síntomas, signos y hallazgos anormales (clínicos y de laboratorio)",
+   "parent": "R11",
+   "sub": true
+  },
+  "T17.910A": {
+   "code": "T17.910A",
+   "desc": "Contenido gástrico en vías respiratorias, parte no especificada, que produce asfixia,",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T17",
+   "sub": true
+  },
+  "A06.5": {
+   "code": "A06.5",
+   "desc": "Absceso amebiano del pulmón",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "A06",
+   "sub": true
+  },
+  "J44.1": {
+   "code": "J44.1",
+   "desc": "Enfermedad pulmonar obstructiva crónica con exacerbación (aguda)",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J44",
+   "sub": true
+  },
+  "J98.8": {
+   "code": "J98.8",
+   "desc": "Otros trastornos respiratorios especificados",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J98",
+   "sub": true
+  },
+  "J44.0": {
+   "code": "J44.0",
+   "desc": "Enfermedad pulmonar obstructiva crónica con infección aguda de las vías respiratorias",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J44",
+   "sub": true
+  },
+  "J20.1": {
+   "code": "J20.1",
+   "desc": "Bronquitis aguda por Haemóphilus influenzae",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J20",
+   "sub": true
+  },
+  "J43.9": {
+   "code": "J43.9",
+   "desc": "Enfisema no especificado debe utilizarse cuando el diagnóstico sea solo enfisema o",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J43",
+   "sub": true
+  },
+  "J43.2": {
+   "code": "J43.2",
+   "desc": "Enfisema centrolobulillar",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J43",
+   "sub": true
+  },
+  "J45.902": {
+   "code": "J45.902",
+   "desc": "Asma no especificada con estado asmático",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J45",
+   "sub": true
+  },
+  "J44.9": {
+   "code": "J44.9",
+   "desc": "+ J45.909 J44.1 + J45.901 J44.0 + J22 + J45.901 J44.1 + J45.901 + J98.8 J44.0 + J22 + J44.1+ J45.901",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J44",
+   "sub": true
+  },
+  "J45.901": {
+   "code": "J45.901",
+   "desc": "Asma no especificada, con exacerbación (aguda)",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J45",
+   "sub": true
+  },
+  "J20.9": {
+   "code": "J20.9",
+   "desc": "Bronquitis aguda, no especificada",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J20",
+   "sub": true
+  },
+  "J47.0": {
+   "code": "J47.0",
+   "desc": "Bronquiectasias con infección aguda de vías respiratorias bajas",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J47",
+   "sub": true
+  },
+  "J47.1": {
+   "code": "J47.1",
+   "desc": "Bronquiectasias con exacerbación (aguda)",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J47",
+   "sub": true
+  },
+  "J47.9": {
+   "code": "J47.9",
+   "desc": "J47.1 J47.0 + J22 J47.1 + J98.8 J47.0 + J22 + J47.1",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J47",
+   "sub": true
+  },
+  "J96.01": {
+   "code": "J96.01",
+   "desc": "Insuficiencia respiratoria aguda con hipoxia",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J96",
+   "sub": true
+  },
+  "J96.02": {
+   "code": "J96.02",
+   "desc": "Insuficiencia respiratoria aguda con hipercapnia",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J96",
+   "sub": true
+  },
+  "K45.3": {
+   "code": "K45.3",
+   "desc": "Apendicitis aguda con peritonitis localizada",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K45",
+   "sub": true
+  },
+  "J95.2": {
+   "code": "J95.2",
+   "desc": "Insuficiencia respiratoria aguda después de cirugía no torácica",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J95",
+   "sub": true
+  },
+  "I27.2": {
+   "code": "I27.2",
+   "desc": "Otra hipertensión pulmonar secundaria",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I27",
+   "sub": true
+  },
+  "I27.81": {
+   "code": "I27.81",
+   "desc": "Cor pulmonale (crónico)",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I27",
+   "sub": true
+  },
+  "I48.91": {
+   "code": "I48.91",
+   "desc": "Fibrilación auricular no especificada",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I48",
+   "sub": true
+  },
+  "J70.0": {
+   "code": "J70.0",
+   "desc": "+ Código Causa Externa (W88-",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J70",
+   "sub": true
+  },
+  "T40.1X1A": {
+   "code": "T40.1X1A",
+   "desc": "Envenenamiento por heroína, no intencionado, contacto inicial",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T40",
+   "sub": true
+  },
+  "J81.0": {
+   "code": "J81.0",
+   "desc": "Edema agudo de pulmón",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J81",
+   "sub": true
+  },
+  "A15.7": {
+   "code": "A15.7",
+   "desc": "Pleuritis tuberculosa.",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "A15",
+   "sub": true
+  },
+  "A15.6": {
+   "code": "A15.6",
+   "desc": "Tuberculosis respiratoria primaria",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "A15",
+   "sub": true
+  },
+  "J91.0": {
+   "code": "J91.0",
+   "desc": "Derrame pleural maligno. Se debe codificar primero la neoplasia",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J91",
+   "sub": true
+  },
+  "C78.2": {
+   "code": "C78.2",
+   "desc": "Neoplasia maligna secundaria de pleura",
+   "cap": "II",
+   "cap_nombre": "Tumores (neoplasias)",
+   "parent": "C78",
+   "sub": true
+  },
+  "C34.9": {
+   "code": "C34.9",
+   "desc": "Neoplasia maligna de bronquios y pulmón, parte no especificada",
+   "cap": "II",
+   "cap_nombre": "Tumores (neoplasias)",
+   "parent": "C34",
+   "sub": true
+  },
+  "J91.8": {
+   "code": "J91.8",
+   "desc": "Derrame pleural en otras afecciones clasificadas bajo otro concepto.",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J91",
+   "sub": true
+  },
+  "J11.1": {
+   "code": "J11.1",
+   "desc": "Gripe debida a virus de la gripe no identificado con otro tipo de manifestaciones",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J11",
+   "sub": true
+  },
+  "S27.60": {
+   "code": "S27.60",
+   "desc": "traumatismo no especificado de pleura, S27.63 desgarro de pleura ó S27.69 otro",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "S27",
+   "sub": true
+  },
+  "Z99.11": {
+   "code": "Z99.11",
+   "desc": "Estado de dependencia de respirador [ventilador]. Es siempre un código",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z99",
+   "sub": true
+  },
+  "Z99.12": {
+   "code": "Z99.12",
+   "desc": "Contacto por dependencia de respirador [ventilador] durante falta de",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z99",
+   "sub": true
+  },
+  "J95.850": {
+   "code": "J95.850",
+   "desc": "Complicación mecánica de respirador [ventilador]. Se usa para los ingresos de",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J95",
+   "sub": true
+  },
+  "J96.10": {
+   "code": "J96.10",
+   "desc": "Insuficiencia respiratoria crónica no especificada si con hipoxia o con hipercapnia",
+   "cap": "X",
+   "cap_nombre": "Enf. del sistema respiratorio",
+   "parent": "J96",
+   "sub": true
+  },
+  "Z99.81": {
+   "code": "Z99.81",
+   "desc": "Dependencia de oxígeno suplementario",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z99",
+   "sub": true
+  },
+  "Z99.89": {
+   "code": "Z99.89",
+   "desc": "Dependencia de otras máquinas y dispositivos de apoyo",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z99",
+   "sub": true
+  },
+  "K11.21": {
+   "code": "K11.21",
+   "desc": "Sialoadenitis aguda.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K11",
+   "sub": true
+  },
+  "B95.61": {
+   "code": "B95.61",
+   "desc": "Infección por Staphylococcus aureus sensible a meticilina como causa de enfermedades",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "B95",
+   "sub": true
+  },
+  "K12.31": {
+   "code": "K12.31",
+   "desc": "Mucositis oral (ulcerosa) debida a terapia antineoplásica.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K12",
+   "sub": true
+  },
+  "C67.9": {
+   "code": "C67.9",
+   "desc": "Neoplasia maligna de vejiga, no especificada",
+   "cap": "II",
+   "cap_nombre": "Tumores (neoplasias)",
+   "parent": "C67",
+   "sub": true
+  },
+  "Y84.2": {
+   "code": "Y84.2",
+   "desc": "Procedimiento radiológico y de radioterapia como causa de reacción anormal del",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y84",
+   "sub": true
+  },
+  "C32.0": {
+   "code": "C32.0",
+   "desc": "Neoplasia maligna de glotis.",
+   "cap": "II",
+   "cap_nombre": "Tumores (neoplasias)",
+   "parent": "C32",
+   "sub": true
+  },
+  "K12.33": {
+   "code": "K12.33",
+   "desc": "Mucositis oral (ulcerosa) debida a radiación.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K12",
+   "sub": true
+  },
+  "W88.0XXD": {
+   "code": "W88.0XXD",
+   "desc": "Exposición a rayos X, contacto sucesivo.",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "W88",
+   "sub": true
+  },
+  "K20.9": {
+   "code": "K20.9",
+   "desc": "Esofagitis, no especificada.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K20",
+   "sub": true
+  },
+  "T36.4X5A": {
+   "code": "T36.4X5A",
+   "desc": "Efecto adverso de tetraciclinas, contacto inicial.",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T36",
+   "sub": true
+  },
+  "K22.10": {
+   "code": "K22.10",
+   "desc": "Úlcera de esófago sin hemorragia.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K22",
+   "sub": true
+  },
+  "K22.3": {
+   "code": "K22.3",
+   "desc": "Perforación de esófago",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K22",
+   "sub": true
+  },
+  "T39.015A": {
+   "code": "T39.015A",
+   "desc": "Efecto adverso de aspirina, contacto inicial.",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T39",
+   "sub": true
+  },
+  "Z79.82": {
+   "code": "Z79.82",
+   "desc": "Uso (actual) prolongado de aspirina",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z79",
+   "sub": true
+  },
+  "K22.11": {
+   "code": "K22.11",
+   "desc": "Úlcera de esófago con hemorragia.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K22",
+   "sub": true
+  },
+  "K22.2": {
+   "code": "K22.2",
+   "desc": "Obstrucción de esófago",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K22",
+   "sub": true
+  },
+  "F10.10": {
+   "code": "F10.10",
+   "desc": "Abuso de alcohol, sin complicaciones.",
+   "cap": "V",
+   "cap_nombre": "Trastornos mentales y del comportamiento",
+   "parent": "F10",
+   "sub": true
+  },
+  "K26.1": {
+   "code": "K26.1",
+   "desc": "Úlcera duodenal aguda con perforación.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K26",
+   "sub": true
+  },
+  "K31.5": {
+   "code": "K31.5",
+   "desc": "Obstrucción de duodeno.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K31",
+   "sub": true
+  },
+  "K28.9": {
+   "code": "K28.9",
+   "desc": "Úlcera gastroyeyunal, no especificada como aguda ni como crónica, sin",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K28",
+   "sub": true
+  },
+  "K29.3": {
+   "code": "K29.3",
+   "desc": "Gastritis crónica superficial",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K29",
+   "sub": true
+  },
+  "K29.30": {
+   "code": "K29.30",
+   "desc": "Gastritis crónica superficial sin hemorragia",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K29",
+   "sub": true
+  },
+  "K29.31": {
+   "code": "K29.31",
+   "desc": "Gastritis crónica superficial con hemorragia",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K29",
+   "sub": true
+  },
+  "K29.4": {
+   "code": "K29.4",
+   "desc": "Gastritis crónica atrófica (incluye la atrofia gástrica)",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K29",
+   "sub": true
+  },
+  "K29.40": {
+   "code": "K29.40",
+   "desc": "Gastritis crónica atrófica sin hemorragia",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K29",
+   "sub": true
+  },
+  "K29.41": {
+   "code": "K29.41",
+   "desc": "Gastritis crónica atrófica con hemorragia",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K29",
+   "sub": true
+  },
+  "K29.5": {
+   "code": "K29.5",
+   "desc": "Gastritis crónica no especificada (Gastritis crónica antral, Gastritis crónica de",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K29",
+   "sub": true
+  },
+  "K29.50": {
+   "code": "K29.50",
+   "desc": "Gastritis crónica no especificada sin hemorragia",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K29",
+   "sub": true
+  },
+  "K29.51": {
+   "code": "K29.51",
+   "desc": "Gastritis crónica no especificada con hemorragia",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K29",
+   "sub": true
+  },
+  "K40.30": {
+   "code": "K40.30",
+   "desc": "Hernia inguinal unilateral, con obstrucción, sin gangrena, no especificada como recidivada.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K40",
+   "sub": true
+  },
+  "K41.41": {
+   "code": "K41.41",
+   "desc": "Hernia femoral unilateral con gangrena, recidivada.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K41",
+   "sub": true
+  },
+  "K63.5": {
+   "code": "K63.5",
+   "desc": "Pólipo de colon.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K63",
+   "sub": true
+  },
+  "K51.411": {
+   "code": "K51.411",
+   "desc": "Pólipos inflamatorios de colon con rectorragia.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K51",
+   "sub": true
+  },
+  "K51.318": {
+   "code": "K51.318",
+   "desc": "Rectosigmoiditis ulcerosa con otra complicación.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K51",
+   "sub": true
+  },
+  "K51.313": {
+   "code": "K51.313",
+   "desc": "Rectosigmoiditis ulcerosa con fístula.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K51",
+   "sub": true
+  },
+  "K50.011": {
+   "code": "K50.011",
+   "desc": "Enfermedad de Crohn de intestino delgado con hemorragia rectal.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K50",
+   "sub": true
+  },
+  "K50.012": {
+   "code": "K50.012",
+   "desc": "Enfermedad de Crohn de intestino delgado con obstrucción intestinal.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K50",
+   "sub": true
+  },
+  "K56.2": {
+   "code": "K56.2",
+   "desc": "Vólvulo.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K56",
+   "sub": true
+  },
+  "K56.7": {
+   "code": "K56.7",
+   "desc": "Íleo no especificado.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K56",
+   "sub": true
+  },
+  "K56.69": {
+   "code": "K56.69",
+   "desc": "Otros tipos de obstrucción intestinal.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K56",
+   "sub": true
+  },
+  "K91.89": {
+   "code": "K91.89",
+   "desc": "Otras complicaciones y trastornos de aparato digestivo posprocedimiento.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K91",
+   "sub": true
+  },
+  "K56.0": {
+   "code": "K56.0",
+   "desc": "Íleo paralítico.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K56",
+   "sub": true
+  },
+  "Y83.4": {
+   "code": "Y83.4",
+   "desc": "Otra cirugía reconstructiva como causa de reacción anormal del paciente o de",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y83",
+   "sub": true
+  },
+  "K64.8": {
+   "code": "K64.8",
+   "desc": "Otras hemorroides.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K64",
+   "sub": true
+  },
+  "K64.3": {
+   "code": "K64.3",
+   "desc": "Hemorroides de cuarto grado.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K64",
+   "sub": true
+  },
+  "K64.9": {
+   "code": "K64.9",
+   "desc": "Hemorroides no especificadas.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K64",
+   "sub": true
+  },
+  "K92.2": {
+   "code": "K92.2",
+   "desc": "Hemorragia gastrointestinal, no especificada.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K92",
+   "sub": true
+  },
+  "K60.1": {
+   "code": "K60.1",
+   "desc": "Fisura anal crónica.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K60",
+   "sub": true
+  },
+  "K62.5": {
+   "code": "K62.5",
+   "desc": "Hemorragia de ano y recto.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K62",
+   "sub": true
+  },
+  "K92.0": {
+   "code": "K92.0",
+   "desc": "Hematemesis",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K92",
+   "sub": true
+  },
+  "K92.1": {
+   "code": "K92.1",
+   "desc": "Melena.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K92",
+   "sub": true
+  },
+  "B17.11": {
+   "code": "B17.11",
+   "desc": "Hepatitis aguda tipo C con coma hepático.",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "B17",
+   "sub": true
+  },
+  "B18.1": {
+   "code": "B18.1",
+   "desc": "Hepatitis viral tipo B crónica, sin agente delta.",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "B18",
+   "sub": true
+  },
+  "K74.69": {
+   "code": "K74.69",
+   "desc": "Otras cirrosis de hígado.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K74",
+   "sub": true
+  },
+  "K70.11": {
+   "code": "K70.11",
+   "desc": "Hepatitis alcohólica con ascitis.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K70",
+   "sub": true
+  },
+  "K70.0": {
+   "code": "K70.0",
+   "desc": "Hígado graso alcohólico.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K70",
+   "sub": true
+  },
+  "T39.1X2A": {
+   "code": "T39.1X2A",
+   "desc": "Envenenamiento por derivados de 4-aminofenol, autolesión intencionada, contacto",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T39",
+   "sub": true
+  },
+  "K71.11": {
+   "code": "K71.11",
+   "desc": "Hepatopatía tóxica con necrosis hepática, con coma.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K71",
+   "sub": true
+  },
+  "F31.9": {
+   "code": "F31.9",
+   "desc": "Trastorno bipolar, no especificado",
+   "cap": "V",
+   "cap_nombre": "Trastornos mentales y del comportamiento",
+   "parent": "F31",
+   "sub": true
+  },
+  "K71.0": {
+   "code": "K71.0",
+   "desc": "Hepatopatía tóxica con colestasis",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K71",
+   "sub": true
+  },
+  "T36.3X5A": {
+   "code": "T36.3X5A",
+   "desc": "Efecto adverso de macrólidos, contacto inicial",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T36",
+   "sub": true
+  },
+  "T62.0X1A": {
+   "code": "T62.0X1A",
+   "desc": "Efecto tóxico de setas ingeridas, accidental (no intencionado), contacto inicial.",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T62",
+   "sub": true
+  },
+  "K71.2": {
+   "code": "K71.2",
+   "desc": "Hepatopatía tóxica con hepatitis aguda.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K71",
+   "sub": true
+  },
+  "K72.00": {
+   "code": "K72.00",
+   "desc": "Insuficiencia hepática aguda y subaguda sin coma.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K72",
+   "sub": true
+  },
+  "B18.2": {
+   "code": "B18.2",
+   "desc": "Hepatitis viral tipo C crónica.",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "B18",
+   "sub": true
+  },
+  "B19.11": {
+   "code": "B19.11",
+   "desc": "Hepatitis vírica B no especificada, con coma hepático.",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "B19",
+   "sub": true
+  },
+  "K70.4": {
+   "code": "K70.4",
+   "desc": "Insuficiencia hepática alcohólica y K71.1 Hepatopatía tóxica con necrosis hepática. En",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K70",
+   "sub": true
+  },
+  "K70.40": {
+   "code": "K70.40",
+   "desc": "Insuficiencia hepática alcohólica sin coma.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K70",
+   "sub": true
+  },
+  "T53.0X1A": {
+   "code": "T53.0X1A",
+   "desc": "Efecto tóxico de tetracloruro de carbono, accidental, contacto inicial",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T53",
+   "sub": true
+  },
+  "F10.21": {
+   "code": "F10.21",
+   "desc": "Dependencia de alcohol, en remisión.",
+   "cap": "V",
+   "cap_nombre": "Trastornos mentales y del comportamiento",
+   "parent": "F10",
+   "sub": true
+  },
+  "Y92.63": {
+   "code": "Y92.63",
+   "desc": "Fábrica como lugar del acontecimiento de la causa externa.",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y92",
+   "sub": true
+  },
+  "O26.612": {
+   "code": "O26.612",
+   "desc": "Trastornos hepáticos y del tracto biliar en el embarazo, segundo trimestre.",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O26",
+   "sub": true
+  },
+  "K72.91": {
+   "code": "K72.91",
+   "desc": "Insuficiencia hepática, no especificada, con coma.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K72",
+   "sub": true
+  },
+  "K76.6": {
+   "code": "K76.6",
+   "desc": "Hipertensión portal.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K76",
+   "sub": true
+  },
+  "K70.31": {
+   "code": "K70.31",
+   "desc": "Cirrosis alcohólica de hígado con ascitis.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K70",
+   "sub": true
+  },
+  "I85.11": {
+   "code": "I85.11",
+   "desc": "Varices esofágicas secundarias con sangrado.",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I85",
+   "sub": true
+  },
+  "K74.3": {
+   "code": "K74.3",
+   "desc": "Cirrosis biliar primaria.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K74",
+   "sub": true
+  },
+  "K76.7": {
+   "code": "K76.7",
+   "desc": "Síndrome hepatorrenal.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K76",
+   "sub": true
+  },
+  "K81.2": {
+   "code": "K81.2",
+   "desc": "Colecistitis aguda con colecistitis crónica.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K81",
+   "sub": true
+  },
+  "A41.51": {
+   "code": "A41.51",
+   "desc": "Sepsis por Escherichia coli [E. coli].",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "A41",
+   "sub": true
+  },
+  "K83.0": {
+   "code": "K83.0",
+   "desc": "Colangitis.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K83",
+   "sub": true
+  },
+  "K82.0": {
+   "code": "K82.0",
+   "desc": "Obstrucción de vesícula biliar.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K82",
+   "sub": true
+  },
+  "K80.43": {
+   "code": "K80.43",
+   "desc": "Cálculo de conducto biliar con colecistitis aguda, con obstrucción.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K80",
+   "sub": true
+  },
+  "K80.70": {
+   "code": "K80.70",
+   "desc": "Cálculo de vesícula y conducto biliar sin colecistitis sin obstrucción.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K80",
+   "sub": true
+  },
+  "K80.12": {
+   "code": "K80.12",
+   "desc": "Cálculo de vesícula biliar con colecistitis aguda y crónica sin obstrucción.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K80",
+   "sub": true
+  },
+  "K85.2": {
+   "code": "K85.2",
+   "desc": "Pancreatitis aguda inducida por alcohol.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K85",
+   "sub": true
+  },
+  "K86.0": {
+   "code": "K86.0",
+   "desc": "Pancreatitis crónica inducida por alcohol.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K86",
+   "sub": true
+  },
+  "F10.121": {
+   "code": "F10.121",
+   "desc": "Abuso de alcohol con delirio por intoxicación.",
+   "cap": "V",
+   "cap_nombre": "Trastornos mentales y del comportamiento",
+   "parent": "F10",
+   "sub": true
+  },
+  "K91.7": {
+   "code": "K91.7",
+   "desc": "la punción y desgarro de un órgano o estructura del aparato digestivo durante la",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K91",
+   "sub": true
+  },
+  "K51.513": {
+   "code": "K51.513",
+   "desc": "Colitis izquierda con fístula.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K51",
+   "sub": true
+  },
+  "K91.81": {
+   "code": "K91.81",
+   "desc": "Otras complicaciones intraoperatorias de aparato digestivo.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K91",
+   "sub": true
+  },
+  "Y65.4": {
+   "code": "Y65.4",
+   "desc": "Fallo en introducir o retirar otro tubo o instrumento.",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y65",
+   "sub": true
+  },
+  "K80.20": {
+   "code": "K80.20",
+   "desc": "Cálculo de vesícula biliar sin colecistitis sin obstrucción.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K80",
+   "sub": true
+  },
+  "K91.71": {
+   "code": "K91.71",
+   "desc": "Punción y desgarro accidental de un órgano o estructura de aparato digestivo durante un",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K91",
+   "sub": true
+  },
+  "Y73.3": {
+   "code": "Y73.3",
+   "desc": "Instrumentos quirúrgicos, materiales y dispositivos de gastroenterología y urología",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y73",
+   "sub": true
+  },
+  "N21.0": {
+   "code": "N21.0",
+   "desc": "Cálculo en vejiga.",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N21",
+   "sub": true
+  },
+  "K91.62": {
+   "code": "K91.62",
+   "desc": "Hemorragia y hematoma intraoperatorio de un órgano o estructura de aparato digestivo,",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K91",
+   "sub": true
+  },
+  "K66.1": {
+   "code": "K66.1",
+   "desc": "Hemoperitoneo",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K66",
+   "sub": true
+  },
+  "K35.80": {
+   "code": "K35.80",
+   "desc": "Apendicitis aguda no especificada.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K35",
+   "sub": true
+  },
+  "K91.840": {
+   "code": "K91.840",
+   "desc": "Hemorragia y hematoma posprocedimiento de un órgano o estructura de aparato",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K91",
+   "sub": true
+  },
+  "Y83.6": {
+   "code": "Y83.6",
+   "desc": "Extirpación de otro órgano (parcial) (total) como causa de reacción anormal del paciente o",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y83",
+   "sub": true
+  },
+  "K91.86": {
+   "code": "K91.86",
+   "desc": "Colelitiasis retenida después de colecistectomía.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K91",
+   "sub": true
+  },
+  "K94.02": {
+   "code": "K94.02",
+   "desc": "Infección de colostomía.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K94",
+   "sub": true
+  },
+  "L03.311": {
+   "code": "L03.311",
+   "desc": "Celulitis de pared abdominal.",
+   "cap": "XII",
+   "cap_nombre": "Enf. de la piel y del tejido subcutáneo",
+   "parent": "L03",
+   "sub": true
+  },
+  "B95.8": {
+   "code": "B95.8",
+   "desc": "Estafilococo no especificado, como causa de enfermedades clasificadas bajo otro",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "B95",
+   "sub": true
+  },
+  "K94.13": {
+   "code": "K94.13",
+   "desc": "Mal funcionamiento de enterostomía.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K94",
+   "sub": true
+  },
+  "K50.90": {
+   "code": "K50.90",
+   "desc": "Enfermedad de Crohn, no especificada, sin complicaciones",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K50",
+   "sub": true
+  },
+  "K95.89": {
+   "code": "K95.89",
+   "desc": "Otras complicaciones de otro procedimiento bariátrico.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K95",
+   "sub": true
+  },
+  "K31.6": {
+   "code": "K31.6",
+   "desc": "Fístula de estómago y de duodeno.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K31",
+   "sub": true
+  },
+  "E66.2": {
+   "code": "E66.2",
+   "desc": "Obesidad mórbida (severa) con hipoventilación alveolar.",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E66",
+   "sub": true
+  },
+  "Z68.34": {
+   "code": "Z68.34",
+   "desc": "Índice de masa corporal (IMC) 34,0-34,9, adulto.",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z68",
+   "sub": true
+  },
+  "K95.09": {
+   "code": "K95.09",
+   "desc": "Otras complicaciones del procedimiento de banda gástrica.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K95",
+   "sub": true
+  },
+  "Z68.41": {
+   "code": "Z68.41",
+   "desc": "Índice de masa corporal (IMC) 40,0 a 44,9, adulto.",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z68",
+   "sub": true
+  },
+  "K91.82": {
+   "code": "K91.82",
+   "desc": "Fallo hepático posprocedimiento.",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K91",
+   "sub": true
+  },
+  "Y83.2": {
+   "code": "Y83.2",
+   "desc": "Cirugía con anastomosis, derivación o injerto como causa de reacción anormal del",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y83",
+   "sub": true
+  },
+  "L76.22": {
+   "code": "L76.22",
+   "desc": "Hemorragia y hematoma posprocedimiento de la piel y tejido subcutáneo después de",
+   "cap": "XII",
+   "cap_nombre": "Enf. de la piel y del tejido subcutáneo",
+   "parent": "L76",
+   "sub": true
+  },
+  "T81.4XXA": {
+   "code": "T81.4XXA",
+   "desc": "Infección después de un procedimiento (contacto inicial)",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T81",
+   "sub": true
+  },
+  "L02.211": {
+   "code": "L02.211",
+   "desc": "Absceso cutáneo en pared abdominal",
+   "cap": "XII",
+   "cap_nombre": "Enf. de la piel y del tejido subcutáneo",
+   "parent": "L02",
+   "sub": true
+  },
+  "Y83.9": {
+   "code": "Y83.9",
+   "desc": "Procedimiento quirúrgico sin especificar causa de reacción anormal del paciente o",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y83",
+   "sub": true
+  },
+  "L76.82": {
+   "code": "L76.82",
+   "desc": "Otras complicaciones posprocedimientos de la piel y del tejido subcutáneo",
+   "cap": "XII",
+   "cap_nombre": "Enf. de la piel y del tejido subcutáneo",
+   "parent": "L76",
+   "sub": true
+  },
+  "L24.9": {
+   "code": "L24.9",
+   "desc": "Dermatitis de contacto irritativa, de causa no específica",
+   "cap": "XII",
+   "cap_nombre": "Enf. de la piel y del tejido subcutáneo",
+   "parent": "L24",
+   "sub": true
+  },
+  "L89.321": {
+   "code": "L89.321",
+   "desc": "Úlcera por presión en nalga izquierda, estadio I",
+   "cap": "XII",
+   "cap_nombre": "Enf. de la piel y del tejido subcutáneo",
+   "parent": "L89",
+   "sub": true
+  },
+  "L98.411": {
+   "code": "L98.411",
+   "desc": "Úlcera crónica no debida a presión en nalga, limitada a pérdida de sustancia cutánea",
+   "cap": "XII",
+   "cap_nombre": "Enf. de la piel y del tejido subcutáneo",
+   "parent": "L98",
+   "sub": true
+  },
+  "L89.610": {
+   "code": "L89.610",
+   "desc": "Úlcera por presión en talón derecho, no estadiable",
+   "cap": "XII",
+   "cap_nombre": "Enf. de la piel y del tejido subcutáneo",
+   "parent": "L89",
+   "sub": true
+  },
+  "L89.313": {
+   "code": "L89.313",
+   "desc": "Úlcera por presión en nalga derecha, estadio III",
+   "cap": "XII",
+   "cap_nombre": "Enf. de la piel y del tejido subcutáneo",
+   "parent": "L89",
+   "sub": true
+  },
+  "L97.219": {
+   "code": "L97.219",
+   "desc": "Úlcera crónica no debida a presión de pantorrilla derecha, de gravedad no especificada.",
+   "cap": "XII",
+   "cap_nombre": "Enf. de la piel y del tejido subcutáneo",
+   "parent": "L97",
+   "sub": true
+  },
+  "I87.2": {
+   "code": "I87.2",
+   "desc": "Insuficiencia venosa (crónica) (periférica)",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I87",
+   "sub": true
+  },
+  "I70.233": {
+   "code": "I70.233",
+   "desc": "Aterosclerosis de arterias nativas de pierna derecha con ulceración de tobillo",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I70",
+   "sub": true
+  },
+  "L97.319": {
+   "code": "L97.319",
+   "desc": "Úlcera crónica no debida a presión de tobillo derecho, de gravedad no especificada",
+   "cap": "XII",
+   "cap_nombre": "Enf. de la piel y del tejido subcutáneo",
+   "parent": "L97",
+   "sub": true
+  },
+  "I73.9": {
+   "code": "I73.9",
+   "desc": "Enfermedad vascular periférica, no especificada; suele usarse indistintamente",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I73",
+   "sub": true
+  },
+  "I77.9": {
+   "code": "I77.9",
+   "desc": "Trastorno de arterias y arteriolas, no especificado (para arteriopatía)",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I77",
+   "sub": true
+  },
+  "I99.9": {
+   "code": "I99.9",
+   "desc": "Trastorno de aparato circulatorio no especificado (para identificar la causa",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I99",
+   "sub": true
+  },
+  "E11.622": {
+   "code": "E11.622",
+   "desc": "Diabetes mellitus tipo 2 con úlcera cutánea de otras localizaciones",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E11",
+   "sub": true
+  },
+  "L91.0": {
+   "code": "L91.0",
+   "desc": "Cicatriz hipertrófica",
+   "cap": "XII",
+   "cap_nombre": "Enf. de la piel y del tejido subcutáneo",
+   "parent": "L91",
+   "sub": true
+  },
+  "T22.031S": {
+   "code": "T22.031S",
+   "desc": "Quemadura de grado no especificado de parte superior del brazo derecho, secuela",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T22",
+   "sub": true
+  },
+  "X19.XXXS": {
+   "code": "X19.XXXS",
+   "desc": "Contacto con calor y sustancias calientes, secuela",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "X19",
+   "sub": true
+  },
+  "M86.171": {
+   "code": "M86.171",
+   "desc": "Otro tipo de osteomielitis aguda, tobillo y pie derecho",
+   "cap": "XIII",
+   "cap_nombre": "Enf. del sistema osteomuscular y tejido conjuntivo",
+   "parent": "M86",
+   "sub": true
+  },
+  "M89.771": {
+   "code": "M89.771",
+   "desc": "Defecto óseo mayor, tobillo y pie derechos",
+   "cap": "XIII",
+   "cap_nombre": "Enf. del sistema osteomuscular y tejido conjuntivo",
+   "parent": "M89",
+   "sub": true
+  },
+  "M00.211": {
+   "code": "M00.211",
+   "desc": "Otras artritis estreptocócicas, hombro derecho",
+   "cap": "XIII",
+   "cap_nombre": "Enf. del sistema osteomuscular y tejido conjuntivo",
+   "parent": "M00",
+   "sub": true
+  },
+  "B95.1": {
+   "code": "B95.1",
+   "desc": "Estreptococo, grupo B, como causa de enfermedades clasificadas bajo otro concepto",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "B95",
+   "sub": true
+  },
+  "M32.11": {
+   "code": "M32.11",
+   "desc": "Endocarditis en lupus eritematoso sistémico",
+   "cap": "XIII",
+   "cap_nombre": "Enf. del sistema osteomuscular y tejido conjuntivo",
+   "parent": "M32",
+   "sub": true
+  },
+  "M65.271": {
+   "code": "M65.271",
+   "desc": "Tendinitis calcificante, tobillo y pie derecho",
+   "cap": "XIII",
+   "cap_nombre": "Enf. del sistema osteomuscular y tejido conjuntivo",
+   "parent": "M65",
+   "sub": true
+  },
+  "L51.9": {
+   "code": "L51.9",
+   "desc": "Eritema multiforme, no especificado",
+   "cap": "XII",
+   "cap_nombre": "Enf. de la piel y del tejido subcutáneo",
+   "parent": "L51",
+   "sub": true
+  },
+  "M14.89": {
+   "code": "M14.89",
+   "desc": "Artropatías en otras enfermedades especificadas clasificadas bajo otro concepto,",
+   "cap": "XIII",
+   "cap_nombre": "Enf. del sistema osteomuscular y tejido conjuntivo",
+   "parent": "M14",
+   "sub": true
+  },
+  "M20.032": {
+   "code": "M20.032",
+   "desc": "Deformidad en cuello de cisne, dedo(s) de mano izquierda",
+   "cap": "XIII",
+   "cap_nombre": "Enf. del sistema osteomuscular y tejido conjuntivo",
+   "parent": "M20",
+   "sub": true
+  },
+  "M87.051": {
+   "code": "M87.051",
+   "desc": "Necrosis aséptica idiopática de hueso, fémur derecho",
+   "cap": "XIII",
+   "cap_nombre": "Enf. del sistema osteomuscular y tejido conjuntivo",
+   "parent": "M87",
+   "sub": true
+  },
+  "M12.521": {
+   "code": "M12.521",
+   "desc": "Artropatía traumática, codo derecho",
+   "cap": "XIII",
+   "cap_nombre": "Enf. del sistema osteomuscular y tejido conjuntivo",
+   "parent": "M12",
+   "sub": true
+  },
+  "M11.812": {
+   "code": "M11.812",
+   "desc": "Otras artropatías por cristales especificadas, hombro izquierdo",
+   "cap": "XIII",
+   "cap_nombre": "Enf. del sistema osteomuscular y tejido conjuntivo",
+   "parent": "M11",
+   "sub": true
+  },
+  "E85.4": {
+   "code": "E85.4",
+   "desc": "Amiloidosis limitada a un órgano",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E85",
+   "sub": true
+  },
+  "M14.812": {
+   "code": "M14.812",
+   "desc": "Artropatías en otras enfermedades especificadas clasificadas bajo otro concepto,",
+   "cap": "XIII",
+   "cap_nombre": "Enf. del sistema osteomuscular y tejido conjuntivo",
+   "parent": "M14",
+   "sub": true
+  },
+  "M10.032": {
+   "code": "M10.032",
+   "desc": "Gota idiopática, muñeca izquierda",
+   "cap": "XIII",
+   "cap_nombre": "Enf. del sistema osteomuscular y tejido conjuntivo",
+   "parent": "M10",
+   "sub": true
+  },
+  "M80.061A": {
+   "code": "M80.061A",
+   "desc": "Osteoporosis relacionada con la edad con fractura patológica actual, parte",
+   "cap": "XIII",
+   "cap_nombre": "Enf. del sistema osteomuscular y tejido conjuntivo",
+   "parent": "M80",
+   "sub": true
+  },
+  "M89.761": {
+   "code": "M89.761",
+   "desc": "Defecto óseo mayor, parte inferior de pierna derecha",
+   "cap": "XIII",
+   "cap_nombre": "Enf. del sistema osteomuscular y tejido conjuntivo",
+   "parent": "M89",
+   "sub": true
+  },
+  "M84.552D": {
+   "code": "M84.552D",
+   "desc": "Fractura patológica en enfermedad neoplásica, fémur izquierdo ; contacto",
+   "cap": "XIII",
+   "cap_nombre": "Enf. del sistema osteomuscular y tejido conjuntivo",
+   "parent": "M84",
+   "sub": true
+  },
+  "C79.51": {
+   "code": "C79.51",
+   "desc": "Neoplasia maligna secundaria de hueso",
+   "cap": "II",
+   "cap_nombre": "Tumores (neoplasias)",
+   "parent": "C79",
+   "sub": true
+  },
+  "Z85.43": {
+   "code": "Z85.43",
+   "desc": "Historia personal de neoplasia maligna de ovario",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z85",
+   "sub": true
+  },
+  "M80.051A": {
+   "code": "M80.051A",
+   "desc": "Osteoporosis relacionada con la edad con fractura patológica actual, fémur derecho,",
+   "cap": "XIII",
+   "cap_nombre": "Enf. del sistema osteomuscular y tejido conjuntivo",
+   "parent": "M80",
+   "sub": true
+  },
+  "M81.0": {
+   "code": "M81.0",
+   "desc": "Osteoporosis relacionada con la edad, sin fractura patológica actual",
+   "cap": "XIII",
+   "cap_nombre": "Enf. del sistema osteomuscular y tejido conjuntivo",
+   "parent": "M81",
+   "sub": true
+  },
+  "M96.0": {
+   "code": "M96.0",
+   "desc": "Seudoartrosis después de fusión o artrodesis",
+   "cap": "XIII",
+   "cap_nombre": "Enf. del sistema osteomuscular y tejido conjuntivo",
+   "parent": "M96",
+   "sub": true
+  },
+  "M96.1": {
+   "code": "M96.1",
+   "desc": "Síndrome poslaminectomía, no clasificado bajo otro concepto",
+   "cap": "XIII",
+   "cap_nombre": "Enf. del sistema osteomuscular y tejido conjuntivo",
+   "parent": "M96",
+   "sub": true
+  },
+  "M96.2": {
+   "code": "M96.2",
+   "desc": "Cifosis posradiación",
+   "cap": "XIII",
+   "cap_nombre": "Enf. del sistema osteomuscular y tejido conjuntivo",
+   "parent": "M96",
+   "sub": true
+  },
+  "M96.3": {
+   "code": "M96.3",
+   "desc": "Cifosis poslaminectomía",
+   "cap": "XIII",
+   "cap_nombre": "Enf. del sistema osteomuscular y tejido conjuntivo",
+   "parent": "M96",
+   "sub": true
+  },
+  "M96.4": {
+   "code": "M96.4",
+   "desc": "Lordosis posquirúrgica",
+   "cap": "XIII",
+   "cap_nombre": "Enf. del sistema osteomuscular y tejido conjuntivo",
+   "parent": "M96",
+   "sub": true
+  },
+  "M96.5": {
+   "code": "M96.5",
+   "desc": "Escoliosis posradiación",
+   "cap": "XIII",
+   "cap_nombre": "Enf. del sistema osteomuscular y tejido conjuntivo",
+   "parent": "M96",
+   "sub": true
+  },
+  "A59.03": {
+   "code": "A59.03",
+   "desc": "Cistitis y uretritis por tricomonas",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "A59",
+   "sub": true
+  },
+  "B37.49": {
+   "code": "B37.49",
+   "desc": "Otra candidiasis urogenital",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "B37",
+   "sub": true
+  },
+  "N30.00": {
+   "code": "N30.00",
+   "desc": "Cistitis aguda sin hematuria",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N30",
+   "sub": true
+  },
+  "N11.9": {
+   "code": "N11.9",
+   "desc": "Nefritis túbulo-intersticial crónica, no especificada",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N11",
+   "sub": true
+  },
+  "N99.89": {
+   "code": "N99.89",
+   "desc": "Otras complicaciones y trastornos posprocedimiento del aparato genitourinario",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N99",
+   "sub": true
+  },
+  "N30.01": {
+   "code": "N30.01",
+   "desc": "Cistitis aguda con hematuria",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N30",
+   "sub": true
+  },
+  "Y83.8": {
+   "code": "Y83.8",
+   "desc": "Otros procedimientos quirúrgicos como causa de reacción anormal del paciente o de",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y83",
+   "sub": true
+  },
+  "T83.51XA": {
+   "code": "T83.51XA",
+   "desc": "Infección y reacción inflamatoria por (debida a) catéter urinario permanente,",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T83",
+   "sub": true
+  },
+  "N40.0": {
+   "code": "N40.0",
+   "desc": "Hipertrofia de próstata sin síntomas de tracto urinario inferior",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N40",
+   "sub": true
+  },
+  "Y84.6": {
+   "code": "Y84.6",
+   "desc": "Cateterismo urinario como causa de reacción anormal del paciente o de complicación",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y84",
+   "sub": true
+  },
+  "N20.0": {
+   "code": "N20.0",
+   "desc": "Cálculos en riñón",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N20",
+   "sub": true
+  },
+  "N30.21": {
+   "code": "N30.21",
+   "desc": "Otros tipos de cistitis crónica con hematuria",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N30",
+   "sub": true
+  },
+  "N32.3": {
+   "code": "N32.3",
+   "desc": "Divertículo de vejiga",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N32",
+   "sub": true
+  },
+  "R31.0": {
+   "code": "R31.0",
+   "desc": "Hematuria macroscópica",
+   "cap": "XVIII",
+   "cap_nombre": "Síntomas, signos y hallazgos anormales (clínicos y de laboratorio)",
+   "parent": "R31",
+   "sub": true
+  },
+  "R31.2": {
+   "code": "R31.2",
+   "desc": "Otros tipos de hematuria",
+   "cap": "XVIII",
+   "cap_nombre": "Síntomas, signos y hallazgos anormales (clínicos y de laboratorio)",
+   "parent": "R31",
+   "sub": true
+  },
+  "N99.61": {
+   "code": "N99.61",
+   "desc": "Hemorragia y hematoma",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N99",
+   "sub": true
+  },
+  "N99.820": {
+   "code": "N99.820",
+   "desc": "Hemorragia y hematoma",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N99",
+   "sub": true
+  },
+  "N99.821": {
+   "code": "N99.821",
+   "desc": "Hemorragia y hematoma",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N99",
+   "sub": true
+  },
+  "N39.3": {
+   "code": "N39.3",
+   "desc": "Incontinencia de esfuerzo (femenina) (masculina).",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N39",
+   "sub": true
+  },
+  "N81.10": {
+   "code": "N81.10",
+   "desc": "Cistocele, no especificado",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N81",
+   "sub": true
+  },
+  "N39.41": {
+   "code": "N39.41",
+   "desc": "Incontinencia de urgencia",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N39",
+   "sub": true
+  },
+  "M32.14": {
+   "code": "M32.14",
+   "desc": "Enfermedad glomerular en Lupus Eritematoso Sistémico",
+   "cap": "XIII",
+   "cap_nombre": "Enf. del sistema osteomuscular y tejido conjuntivo",
+   "parent": "M32",
+   "sub": true
+  },
+  "N18.1": {
+   "code": "N18.1",
+   "desc": "Enfermedad",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N18",
+   "sub": true
+  },
+  "N18.5": {
+   "code": "N18.5",
+   "desc": "Enfermedad renal crónica, estadio fase 5",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N18",
+   "sub": true
+  },
+  "N18.6": {
+   "code": "N18.6",
+   "desc": "de Enfermedad renal crónica terminal, por la nota Excluye 1 existente en el código",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N18",
+   "sub": true
+  },
+  "Z99.2": {
+   "code": "Z99.2",
+   "desc": "Dependencia de diálisis renal",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z99",
+   "sub": true
+  },
+  "T86.10": {
+   "code": "T86.10",
+   "desc": "Complicación no especificada de trasplante de riñón",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T86",
+   "sub": true
+  },
+  "T86.11": {
+   "code": "T86.11",
+   "desc": "Rechazo de trasplante renal",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T86",
+   "sub": true
+  },
+  "T86.12": {
+   "code": "T86.12",
+   "desc": "Fracaso de trasplante renal",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T86",
+   "sub": true
+  },
+  "T86.13": {
+   "code": "T86.13",
+   "desc": "Infección de riñón trasplantado. (Utilice código adicional para identificar",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T86",
+   "sub": true
+  },
+  "T86.19": {
+   "code": "T86.19",
+   "desc": "Otra complicación de trasplante de riñón",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T86",
+   "sub": true
+  },
+  "Z49.01": {
+   "code": "Z49.01",
+   "desc": "Contacto para ajuste y mantenimiento de catéter de diálisis extracorpórea",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z49",
+   "sub": true
+  },
+  "N41.0": {
+   "code": "N41.0",
+   "desc": "Prostatitis aguda",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N41",
+   "sub": true
+  },
+  "T82.49": {
+   "code": "T82.49",
+   "desc": "Otra complicación de catéter de diálisis vascular.",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T82",
+   "sub": true
+  },
+  "N18.9": {
+   "code": "N18.9",
+   "desc": "Enfermedad renal crónica, no especificada",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N18",
+   "sub": true
+  },
+  "I12.0": {
+   "code": "I12.0",
+   "desc": "Enfermedad renal crónica hipertensiva con enfermedad renal",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I12",
+   "sub": true
+  },
+  "I13.0": {
+   "code": "I13.0",
+   "desc": "Enfermedad cardiaca y renal crónica hipertensiva con",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I13",
+   "sub": true
+  },
+  "I13.10": {
+   "code": "I13.10",
+   "desc": "Enfermedad cardiaca y renal crónica hipertensiva sin insuficiencia cardiaca, con enfermedad",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I13",
+   "sub": true
+  },
+  "I13.11": {
+   "code": "I13.11",
+   "desc": "Enfermedad cardiaca y renal crónica hipertensiva sin",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I13",
+   "sub": true
+  },
+  "I13.2": {
+   "code": "I13.2",
+   "desc": "Enfermedad cardiaca y renal crónica hipertensiva con insuficiencia cardiaca y con",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I13",
+   "sub": true
+  },
+  "N17.9": {
+   "code": "N17.9",
+   "desc": "Fallo renal agudo, no especificado",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N17",
+   "sub": true
+  },
+  "N17.0": {
+   "code": "N17.0",
+   "desc": "Fallo renal agudo con necrosis tubular",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N17",
+   "sub": true
+  },
+  "N35.9": {
+   "code": "N35.9",
+   "desc": "Estenosis uretral, no especificada",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N35",
+   "sub": true
+  },
+  "N40.1": {
+   "code": "N40.1",
+   "desc": "Hipertrofia de próstata con síntomas de tracto urinario inferior",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N40",
+   "sub": true
+  },
+  "N35.8": {
+   "code": "N35.8",
+   "desc": "Otros tipos de estenosis uretral",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N35",
+   "sub": true
+  },
+  "R33.8": {
+   "code": "R33.8",
+   "desc": "Otro tipo de retención urinaria",
+   "cap": "XVIII",
+   "cap_nombre": "Síntomas, signos y hallazgos anormales (clínicos y de laboratorio)",
+   "parent": "R33",
+   "sub": true
+  },
+  "N80.1": {
+   "code": "N80.1",
+   "desc": "Endometriosis del ovario",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N80",
+   "sub": true
+  },
+  "N80.2": {
+   "code": "N80.2",
+   "desc": "Endometriosis de trompa de Falopio",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N80",
+   "sub": true
+  },
+  "N80.5": {
+   "code": "N80.5",
+   "desc": "Endometriosis del colon",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N80",
+   "sub": true
+  },
+  "N85.00": {
+   "code": "N85.00",
+   "desc": "Hiperplasia endometrial, no especificada",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N85",
+   "sub": true
+  },
+  "N85.01": {
+   "code": "N85.01",
+   "desc": "Hiperplasia endometrial benigna",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N85",
+   "sub": true
+  },
+  "N85.02": {
+   "code": "N85.02",
+   "desc": "Neoplasia endometrial intraepitelial [EIN]",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N85",
+   "sub": true
+  },
+  "N99.3": {
+   "code": "N99.3",
+   "desc": "Prolapso de cúpula vaginal",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N99",
+   "sub": true
+  },
+  "N81.5": {
+   "code": "N81.5",
+   "desc": "Enterocele vaginal",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N81",
+   "sub": true
+  },
+  "N81.4": {
+   "code": "N81.4",
+   "desc": "Prolapso uterovaginal, no",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N81",
+   "sub": true
+  },
+  "N81.2": {
+   "code": "N81.2",
+   "desc": "Prolapso uterovaginal incompleto",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N81",
+   "sub": true
+  },
+  "N81.3": {
+   "code": "N81.3",
+   "desc": "Prolapso uterovaginal completo",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N81",
+   "sub": true
+  },
+  "N81.85": {
+   "code": "N81.85",
+   "desc": "Prolapso de muñón",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N81",
+   "sub": true
+  },
+  "O34.52": {
+   "code": "O34.52",
+   "desc": "Atención materna por",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O34",
+   "sub": true
+  },
+  "D07.2": {
+   "code": "D07.2",
+   "desc": "Carcinoma in situ de",
+   "cap": "II",
+   "cap_nombre": "Tumores (neoplasias)",
+   "parent": "D07",
+   "sub": true
+  },
+  "R87.613": {
+   "code": "R87.613",
+   "desc": "Lesión escamosa intraepitelial de alto grado (HGSIL) en frotis de cuello uterino",
+   "cap": "XVIII",
+   "cap_nombre": "Síntomas, signos y hallazgos anormales (clínicos y de laboratorio)",
+   "parent": "R87",
+   "sub": true
+  },
+  "N87.1": {
+   "code": "N87.1",
+   "desc": "Displasia cervical moderada",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N87",
+   "sub": true
+  },
+  "O26.839": {
+   "code": "O26.839",
+   "desc": "Enfermedad renal relacionada con el embarazo, trimestre no especificado",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O26",
+   "sub": true
+  },
+  "N13.2": {
+   "code": "N13.2",
+   "desc": "Hidronefrosis con obstrucción litiásica renal y ureteral",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N13",
+   "sub": true
+  },
+  "O48.0": {
+   "code": "O48.0",
+   "desc": "Embarazo postérmino",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O48",
+   "sub": true
+  },
+  "O23.01": {
+   "code": "O23.01",
+   "desc": "Infecciones renales en el embarazo, primer trimestre",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O23",
+   "sub": true
+  },
+  "O23.02": {
+   "code": "O23.02",
+   "desc": "Infecciones renales en el embarazo, segundo trimestre",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O23",
+   "sub": true
+  },
+  "O23.03": {
+   "code": "O23.03",
+   "desc": "Infecciones renales en el embarazo, tercer trimestre",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O23",
+   "sub": true
+  },
+  "O26.823": {
+   "code": "O26.823",
+   "desc": "Neuritis periférica relacionada con el embarazo, tercer trimestre",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O26",
+   "sub": true
+  },
+  "O13.2": {
+   "code": "O13.2",
+   "desc": "Hipertensión gestacional [inducida por el embarazo] sin proteinuria significativa,",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O13",
+   "sub": true
+  },
+  "O30.003": {
+   "code": "O30.003",
+   "desc": "Embarazo gemelar, no especificado el número de placentas ni de sacos amnióticos,",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O30",
+   "sub": true
+  },
+  "O69.81X2": {
+   "code": "O69.81X2",
+   "desc": "Trabajo de parto y parto complicados por cordón alrededor del cuello, sin",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O69",
+   "sub": true
+  },
+  "Z37.2": {
+   "code": "Z37.2",
+   "desc": "Gemelos, ambos nacidos vivos",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z37",
+   "sub": true
+  },
+  "O24.912": {
+   "code": "O24.912",
+   "desc": "Diabetes mellitus no especificada en el embarazo, segundo trimestre",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O24",
+   "sub": true
+  },
+  "O42.92": {
+   "code": "O42.92",
+   "desc": "Rotura prematura de membranas a término, no especificado el tiempo entre la",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O42",
+   "sub": true
+  },
+  "O41.03X0": {
+   "code": "O41.03X0",
+   "desc": "Oligohidramnios, tercer trimestre",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O41",
+   "sub": true
+  },
+  "O24": {
+   "code": "O24",
+   "desc": "Diabetes mellitus en el embarazo, parto y puerperio seguido de los códigos",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio"
+  },
+  "O24.012": {
+   "code": "O24.012",
+   "desc": "Diabetes mellitus preexistente, tipo 1, en el embarazo, segundo trimestre",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O24",
+   "sub": true
+  },
+  "O24.113": {
+   "code": "O24.113",
+   "desc": "Diabetes mellitus preexistente, tipo 2, en el embarazo, tercer trimestre",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O24",
+   "sub": true
+  },
+  "E11.649": {
+   "code": "E11.649",
+   "desc": "Diabetes mellitus tipo 2 con hipoglucemia sin coma",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E11",
+   "sub": true
+  },
+  "O24.424": {
+   "code": "O24.424",
+   "desc": "Diabetes mellitus gestacional en el parto, con control con insulina",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O24",
+   "sub": true
+  },
+  "O99.81": {
+   "code": "O99.81",
+   "desc": "Glucemia anormal que complica embarazo, parto y puerperio.",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O99",
+   "sub": true
+  },
+  "O98.712": {
+   "code": "O98.712",
+   "desc": "Enfermedad por virus de la inmunodeficiencia humana [VIH] que complica el",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O98",
+   "sub": true
+  },
+  "O99.820": {
+   "code": "O99.820",
+   "desc": "Estado de portadora de estreptococo B que complica el embarazo",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O99",
+   "sub": true
+  },
+  "O99.824": {
+   "code": "O99.824",
+   "desc": "Estado de portadora de estreptococo B que complica el parto",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O99",
+   "sub": true
+  },
+  "O99.825": {
+   "code": "O99.825",
+   "desc": "Estado de portadora de estreptococo B que complica el puerperio",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O99",
+   "sub": true
+  },
+  "Z33.2": {
+   "code": "Z33.2",
+   "desc": "Contacto para interrupción voluntaria del embarazo",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z33",
+   "sub": true
+  },
+  "O36.22X0": {
+   "code": "O36.22X0",
+   "desc": "Atención materna por hidropesía fetal segundo trimestre",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O36",
+   "sub": true
+  },
+  "O64.8XX1": {
+   "code": "O64.8XX1",
+   "desc": "Trabajo de parto obstruido debido a mala posición y mala presentación, feto 1",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O64",
+   "sub": true
+  },
+  "O86.0": {
+   "code": "O86.0",
+   "desc": "Infección de herida quirúrgica obstétrica",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O86",
+   "sub": true
+  },
+  "O35.1XX0": {
+   "code": "O35.1XX0",
+   "desc": "Atención materna por (sospecha de) anomalía cromosómica del feto",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O35",
+   "sub": true
+  },
+  "O04.6": {
+   "code": "O04.6",
+   "desc": "Hemorragia tardía o excesiva después de interrupción (inducida) del embarazo",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O04",
+   "sub": true
+  },
+  "O03.0": {
+   "code": "O03.0",
+   "desc": "Infección pélvica y del tracto genital después de un aborto espontáneo incompleto",
+   "cap": "XV",
+   "cap_nombre": "Embarazo, parto y puerperio",
+   "parent": "O03",
+   "sub": true
+  },
+  "P96.0": {
+   "code": "P96.0",
+   "desc": "Insuficiencia renal congénita",
+   "cap": "XVI",
+   "cap_nombre": "Afecciones originadas en el período perinatal",
+   "parent": "P96",
+   "sub": true
+  },
+  "P78.89": {
+   "code": "P78.89",
+   "desc": "Otros trastornos perinatales especificados de aparato digestivo",
+   "cap": "XVI",
+   "cap_nombre": "Afecciones originadas en el período perinatal",
+   "parent": "P78",
+   "sub": true
+  },
+  "K80.50": {
+   "code": "K80.50",
+   "desc": "Cálculo de conducto biliar sin colangitis ni colecistitis, sin obstrucción",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K80",
+   "sub": true
+  },
+  "P96.89": {
+   "code": "P96.89",
+   "desc": "Otros problemas especificados perinatales",
+   "cap": "XVI",
+   "cap_nombre": "Afecciones originadas en el período perinatal",
+   "parent": "P96",
+   "sub": true
+  },
+  "R57.9": {
+   "code": "R57.9",
+   "desc": "Shock no especificado",
+   "cap": "XVIII",
+   "cap_nombre": "Síntomas, signos y hallazgos anormales (clínicos y de laboratorio)",
+   "parent": "R57",
+   "sub": true
+  },
+  "R18.8": {
+   "code": "R18.8",
+   "desc": "Otros tipos de ascitis",
+   "cap": "XVIII",
+   "cap_nombre": "Síntomas, signos y hallazgos anormales (clínicos y de laboratorio)",
+   "parent": "R18",
+   "sub": true
+  },
+  "L70.4": {
+   "code": "L70.4",
+   "desc": "Acné infantil",
+   "cap": "XII",
+   "cap_nombre": "Enf. de la piel y del tejido subcutáneo",
+   "parent": "L70",
+   "sub": true
+  },
+  "S02.91XA": {
+   "code": "S02.91XA",
+   "desc": "Fractura no especificada de cráneo, contacto inicial por fractura cerrada",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "S02",
+   "sub": true
+  },
+  "W04.XXXA": {
+   "code": "W04.XXXA",
+   "desc": "Caída al ser llevado o cargado por otras personas, contacto inicial",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "W04",
+   "sub": true
+  },
+  "A08.0": {
+   "code": "A08.0",
+   "desc": "Enteritis debida a rotavirus",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "A08",
+   "sub": true
+  },
+  "P12.81": {
+   "code": "P12.81",
+   "desc": "Caput succedaneum",
+   "cap": "XVI",
+   "cap_nombre": "Afecciones originadas en el período perinatal",
+   "parent": "P12",
+   "sub": true
+  },
+  "P03.2": {
+   "code": "P03.2",
+   "desc": "Recién nacido (con sospecha de estar) afectado por parto con fórceps",
+   "cap": "XVI",
+   "cap_nombre": "Afecciones originadas en el período perinatal",
+   "parent": "P03",
+   "sub": true
+  },
+  "P27.1": {
+   "code": "P27.1",
+   "desc": "Displasia broncopulmonar originada en el período perinatal",
+   "cap": "XVI",
+   "cap_nombre": "Afecciones originadas en el período perinatal",
+   "parent": "P27",
+   "sub": true
+  },
+  "P00.3": {
+   "code": "P00.3",
+   "desc": "Recién nacido (con sospecha de estar) afectado por otras enfermedades circulatorias y",
+   "cap": "XVI",
+   "cap_nombre": "Afecciones originadas en el período perinatal",
+   "parent": "P00",
+   "sub": true
+  },
+  "P22.0": {
+   "code": "P22.0",
+   "desc": "Síndrome del distrés respiratorio del recién nacido",
+   "cap": "XVI",
+   "cap_nombre": "Afecciones originadas en el período perinatal",
+   "parent": "P22",
+   "sub": true
+  },
+  "Q65.1": {
+   "code": "Q65.1",
+   "desc": "Luxación congénita de la cadera bilateral",
+   "cap": "XVII",
+   "cap_nombre": "Malformaciones congénitas y anomalías cromosómicas",
+   "parent": "Q65",
+   "sub": true
+  },
+  "P13.4": {
+   "code": "P13.4",
+   "desc": "Fractura de clavícula debida a traumatismo del nacimiento",
+   "cap": "XVI",
+   "cap_nombre": "Afecciones originadas en el período perinatal",
+   "parent": "P13",
+   "sub": true
+  },
+  "P07.0": {
+   "code": "P07.0",
+   "desc": "y P07.1).",
+   "cap": "XVI",
+   "cap_nombre": "Afecciones originadas en el período perinatal",
+   "parent": "P07",
+   "sub": true
+  },
+  "P05.06": {
+   "code": "P05.06",
+   "desc": "Recién nacido de bajo peso para la edad gestacional, 1500-1749 gramos",
+   "cap": "XVI",
+   "cap_nombre": "Afecciones originadas en el período perinatal",
+   "parent": "P05",
+   "sub": true
+  },
+  "P07.38": {
+   "code": "P07.38",
+   "desc": "Recién nacido pretérmino, edad gestacional de 35 semanas completas",
+   "cap": "XVI",
+   "cap_nombre": "Afecciones originadas en el período perinatal",
+   "parent": "P07",
+   "sub": true
+  },
+  "P19.1": {
+   "code": "P19.1",
+   "desc": "Acidemia metabólica en el recién nacido detectada por primera vez durante el parto",
+   "cap": "XVI",
+   "cap_nombre": "Afecciones originadas en el período perinatal",
+   "parent": "P19",
+   "sub": true
+  },
+  "P02.5": {
+   "code": "P02.5",
+   "desc": "Recién nacido (con sospecha de estar) afectado por otros tipos de compresión del cordón",
+   "cap": "XVI",
+   "cap_nombre": "Afecciones originadas en el período perinatal",
+   "parent": "P02",
+   "sub": true
+  },
+  "Q99.2": {
+   "code": "Q99.2",
+   "desc": "Cromosoma X frágil",
+   "cap": "XVII",
+   "cap_nombre": "Malformaciones congénitas y anomalías cromosómicas",
+   "parent": "Q99",
+   "sub": true
+  },
+  "Q87.1": {
+   "code": "Q87.1",
+   "desc": "Síndromes malformativos congénitos asociados principalmente con estatura baja",
+   "cap": "XVII",
+   "cap_nombre": "Malformaciones congénitas y anomalías cromosómicas",
+   "parent": "Q87",
+   "sub": true
+  },
+  "Q92.8": {
+   "code": "Q92.8",
+   "desc": "Otras trisomías y trisomías parciales especificadas de autosomas",
+   "cap": "XVII",
+   "cap_nombre": "Malformaciones congénitas y anomalías cromosómicas",
+   "parent": "Q92",
+   "sub": true
+  },
+  "Q25.3": {
+   "code": "Q25.3",
+   "desc": "Estenosis aórtica supravalvular",
+   "cap": "XVII",
+   "cap_nombre": "Malformaciones congénitas y anomalías cromosómicas",
+   "parent": "Q25",
+   "sub": true
+  },
+  "Q24.5": {
+   "code": "Q24.5",
+   "desc": "Malformación de los vasos coronarios",
+   "cap": "XVII",
+   "cap_nombre": "Malformaciones congénitas y anomalías cromosómicas",
+   "parent": "Q24",
+   "sub": true
+  },
+  "Q25.71": {
+   "code": "Q25.71",
+   "desc": "Coartación de arteria pulmonar",
+   "cap": "XVII",
+   "cap_nombre": "Malformaciones congénitas y anomalías cromosómicas",
+   "parent": "Q25",
+   "sub": true
+  },
+  "E83.52": {
+   "code": "E83.52",
+   "desc": "Hipercalcemia (si aparece)",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E83",
+   "sub": true
+  },
+  "K29.00": {
+   "code": "K29.00",
+   "desc": "Gastritis aguda sin hemorragia",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K29",
+   "sub": true
+  },
+  "R10.13": {
+   "code": "R10.13",
+   "desc": "Dolor epigástrico",
+   "cap": "XVIII",
+   "cap_nombre": "Síntomas, signos y hallazgos anormales (clínicos y de laboratorio)",
+   "parent": "R10",
+   "sub": true
+  },
+  "K74.60": {
+   "code": "K74.60",
+   "desc": "Cirrosis de hígado no especificada",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K74",
+   "sub": true
+  },
+  "K29.01": {
+   "code": "K29.01",
+   "desc": "Gastritis aguda con hemorragia",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K29",
+   "sub": true
+  },
+  "R00.0": {
+   "code": "R00.0",
+   "desc": "Taquicardia, no especificada",
+   "cap": "XVIII",
+   "cap_nombre": "Síntomas, signos y hallazgos anormales (clínicos y de laboratorio)",
+   "parent": "R00",
+   "sub": true
+  },
+  "R47.9": {
+   "code": "R47.9",
+   "desc": "Trastornos del habla no especificados",
+   "cap": "XVIII",
+   "cap_nombre": "Síntomas, signos y hallazgos anormales (clínicos y de laboratorio)",
+   "parent": "R47",
+   "sub": true
+  },
+  "G40.109": {
+   "code": "G40.109",
+   "desc": "Epilepsia (focal) (parcial) sintomática relacionada con la localización y síndromes",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G40",
+   "sub": true
+  },
+  "G45.9": {
+   "code": "G45.9",
+   "desc": "Accidente isquémico cerebral transitorio, no especificado",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G45",
+   "sub": true
+  },
+  "K85.1": {
+   "code": "K85.1",
+   "desc": "Pancreatitis biliar aguda",
+   "cap": "XI",
+   "cap_nombre": "Enf. del sistema digestivo",
+   "parent": "K85",
+   "sub": true
+  },
+  "R11.2": {
+   "code": "R11.2",
+   "desc": "Náuseas con vómitos, no especificados",
+   "cap": "XVIII",
+   "cap_nombre": "Síntomas, signos y hallazgos anormales (clínicos y de laboratorio)",
+   "parent": "R11",
+   "sub": true
+  },
+  "T46.0X5A": {
+   "code": "T46.0X5A",
+   "desc": "Efecto adverso de glucósidos y otros fármacos estimulantes cardiacos de acción",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T46",
+   "sub": true
+  },
+  "R56.00": {
+   "code": "R56.00",
+   "desc": "Convulsiones febriles simples",
+   "cap": "XVIII",
+   "cap_nombre": "Síntomas, signos y hallazgos anormales (clínicos y de laboratorio)",
+   "parent": "R56",
+   "sub": true
+  },
+  "H66.91": {
+   "code": "H66.91",
+   "desc": "Otitis media, no especificada, oído derecho",
+   "cap": "VIII",
+   "cap_nombre": "Enf. del oído y de la apófisis mastoides",
+   "parent": "H66",
+   "sub": true
+  },
+  "R16.0": {
+   "code": "R16.0",
+   "desc": "Hepatomegalia, no clasificada bajo otro concepto",
+   "cap": "XVIII",
+   "cap_nombre": "Síntomas, signos y hallazgos anormales (clínicos y de laboratorio)",
+   "parent": "R16",
+   "sub": true
+  },
+  "R74.0": {
+   "code": "R74.0",
+   "desc": "Elevación inespecífica de niveles de transaminasas y lactatodeshidrogenasa [LDH]",
+   "cap": "XVIII",
+   "cap_nombre": "Síntomas, signos y hallazgos anormales (clínicos y de laboratorio)",
+   "parent": "R74",
+   "sub": true
+  },
+  "S82.201A": {
+   "code": "S82.201A",
+   "desc": "Fractura no especificada de diáfisis de tibia derecha, contacto inicial por",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "S82",
+   "sub": true
+  },
+  "X58.XXXA": {
+   "code": "X58.XXXA",
+   "desc": "Exposición a otros factores especificados, contacto inicial",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "X58",
+   "sub": true
+  },
+  "R91.1": {
+   "code": "R91.1",
+   "desc": "Nódulo pulmonar solitario",
+   "cap": "XVIII",
+   "cap_nombre": "Síntomas, signos y hallazgos anormales (clínicos y de laboratorio)",
+   "parent": "R91",
+   "sub": true
+  },
+  "I63.30": {
+   "code": "I63.30",
+   "desc": "Infarto cerebral debido a trombosis de arteria cerebral no especificada",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I63",
+   "sub": true
+  },
+  "R40.2123": {
+   "code": "R40.2123",
+   "desc": "Escala de coma, apertura ocular, al dolor, al ingreso hospitalario",
+   "cap": "XVIII",
+   "cap_nombre": "Síntomas, signos y hallazgos anormales (clínicos y de laboratorio)",
+   "parent": "R40",
+   "sub": true
+  },
+  "R40.2213": {
+   "code": "R40.2213",
+   "desc": "Escala de coma, mejor respuesta verbal, ninguna, al ingreso hospitalario",
+   "cap": "XVIII",
+   "cap_nombre": "Síntomas, signos y hallazgos anormales (clínicos y de laboratorio)",
+   "parent": "R40",
+   "sub": true
+  },
+  "R40.2353": {
+   "code": "R40.2353",
+   "desc": "Escala de coma, mejor respuesta motora, localiza dolor, al ingreso hospitalario",
+   "cap": "XVIII",
+   "cap_nombre": "Síntomas, signos y hallazgos anormales (clínicos y de laboratorio)",
+   "parent": "R40",
+   "sub": true
+  },
+  "R40.243": {
+   "code": "R40.243",
+   "desc": "Puntuación 3-8 de la escala de coma de Glasgow",
+   "cap": "XVIII",
+   "cap_nombre": "Síntomas, signos y hallazgos anormales (clínicos y de laboratorio)",
+   "parent": "R40",
+   "sub": true
+  },
+  "S82.841A": {
+   "code": "S82.841A",
+   "desc": "Fractura bimaleolar desplazada de pierna derecha, contacto inicial por fractura",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "S82",
+   "sub": true
+  },
+  "S82.52XD": {
+   "code": "S82.52XD",
+   "desc": "Fractura desplazada de maléolo medial de tibia izquierda, contacto sucesivo por fractura",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "S82",
+   "sub": true
+  },
+  "X58.XXXD": {
+   "code": "X58.XXXD",
+   "desc": "Exposición a otros factores específicos, contacto sucesivo",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "X58",
+   "sub": true
+  },
+  "S01.21XS": {
+   "code": "S01.21XS",
+   "desc": "Desgarro sin cuerpo extraño de nariz, secuela",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "S01",
+   "sub": true
+  },
+  "X58.XXXS": {
+   "code": "X58.XXXS",
+   "desc": "Exposición a otros factores especificados, secuela",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "X58",
+   "sub": true
+  },
+  "S31.109A": {
+   "code": "S31.109A",
+   "desc": "Herida abierta no especificada de pared abdominal, cuadrante no especificado, sin",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "S31",
+   "sub": true
+  },
+  "L08.9": {
+   "code": "L08.9",
+   "desc": "Infección local de la piel y del tejido subcutáneo, no especificado",
+   "cap": "XII",
+   "cap_nombre": "Enf. de la piel y del tejido subcutáneo",
+   "parent": "L08",
+   "sub": true
+  },
+  "W55.22XA": {
+   "code": "W55.22XA",
+   "desc": "Golpeado por vaca, contacto inicial",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "W55",
+   "sub": true
+  },
+  "Y92.410": {
+   "code": "Y92.410",
+   "desc": "Calles y carreteras no especificadas como lugar del acontecimientos de la causa externa",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y92",
+   "sub": true
+  },
+  "S35.00XA": {
+   "code": "S35.00XA",
+   "desc": "Traumatismo no especificado de la aorta abdominal, contacto inicial",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "S35",
+   "sub": true
+  },
+  "V29.9XXA": {
+   "code": "V29.9XXA",
+   "desc": "Motociclista (conductor) (pasajero) lesionado en accidente de tráfico no especificado,",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "V29",
+   "sub": true
+  },
+  "S02.61XA": {
+   "code": "S02.61XA",
+   "desc": "Fractura de apófisis condílea de mandíbula, contacto inicial por fractura cerrada",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "S02",
+   "sub": true
+  },
+  "Y04.0XXA": {
+   "code": "Y04.0XXA",
+   "desc": "Agresión por pelea o lucha sin armas, contacto inicial",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y04",
+   "sub": true
+  },
+  "Y92.252": {
+   "code": "Y92.252",
+   "desc": "Recinto musical como lugar de acontecimiento de la causa externa",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y92",
+   "sub": true
+  },
+  "S42.0": {
+   "code": "S42.0",
+   "desc": "Fractura de clavícula",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "S42",
+   "sub": true
+  },
+  "S42.01": {
+   "code": "S42.01",
+   "desc": "Fractura de extremo esternal de clavícula",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "S42",
+   "sub": true
+  },
+  "S42.017": {
+   "code": "S42.017",
+   "desc": "Fractura sin desplazamiento de extremo esternal de clavícula derecha",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "S42",
+   "sub": true
+  },
+  "S42.017B": {
+   "code": "S42.017B",
+   "desc": "Fractura sin desplazamiento de extremo esternal de clavícula derecha,",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "S42",
+   "sub": true
+  },
+  "S52.301A": {
+   "code": "S52.301A",
+   "desc": "Fractura no especificada de diáfisis de radio derecho, contacto inicial por fractura",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "S52",
+   "sub": true
+  },
+  "W19.XXXA": {
+   "code": "W19.XXXA",
+   "desc": "Caída no especificada, contacto inicial",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "W19",
+   "sub": true
+  },
+  "S82.302G": {
+   "code": "S82.302G",
+   "desc": "Fractura no especificada de extremo inferior de tibia izquierda, contacto sucesivo por",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "S82",
+   "sub": true
+  },
+  "W10.0XXD": {
+   "code": "W10.0XXD",
+   "desc": "Caída (en) (de) las escaleras mecánicas, contacto sucesivo",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "W10",
+   "sub": true
+  },
+  "Y92.59": {
+   "code": "Y92.59",
+   "desc": "Otras áreas de comercio como lugar del acontecimiento de la causa externa",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y92",
+   "sub": true
+  },
+  "S06.5X9A": {
+   "code": "S06.5X9A",
+   "desc": "Hemorragia subdural traumática con pérdida de conciencia de duración no",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "S06",
+   "sub": true
+  },
+  "W13.9XXA": {
+   "code": "W13.9XXA",
+   "desc": "Caída desde, fuera de o por edifício, no especificado de otro modo, contacto",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "W13",
+   "sub": true
+  },
+  "Y92.61": {
+   "code": "Y92.61",
+   "desc": "Edificio [cualquiera] en construcción como lugar de acontecimiento de la causa",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y92",
+   "sub": true
+  },
+  "Y93.H3": {
+   "code": "Y93.H3",
+   "desc": "Edificación y construcción",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y93",
+   "sub": true
+  },
+  "S06.311A": {
+   "code": "S06.311A",
+   "desc": "Contusión y desgarro de hemisferio cerebral derecho, con pérdida de conciencia de 30",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "S06",
+   "sub": true
+  },
+  "V87.7XX7": {
+   "code": "V87.7XX7",
+   "desc": "Persona lesionada en colisión entre otros vehículos motorizados especificados",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "V87",
+   "sub": true
+  },
+  "S34.101A": {
+   "code": "S34.101A",
+   "desc": "Traumatismo no especificado a nivel L1 de médula espinal lumbar, contacto inicial",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "S34",
+   "sub": true
+  },
+  "S32.019A": {
+   "code": "S32.019A",
+   "desc": "Fractura no especificada de primera vértebra lumbar, contacto inicial por fractura cerrada",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "S32",
+   "sub": true
+  },
+  "W18.2XXA": {
+   "code": "W18.2XXA",
+   "desc": "Caída en (dentro de) ducha o bañera vacía, contacto inicial",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "W18",
+   "sub": true
+  },
+  "Y92.002": {
+   "code": "Y92.002",
+   "desc": "Cuarto de baño de residencia no institucional (privada) no especificada, como lugar del",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y92",
+   "sub": true
+  },
+  "S32.601A": {
+   "code": "S32.601A",
+   "desc": "Fractura no especificada de isquión derecho, contacto inicial por fractura cerrada",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "S32",
+   "sub": true
+  },
+  "S32.501A": {
+   "code": "S32.501A",
+   "desc": "Fractura de púbis derecha, contacto inicial por fractura cerrada",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "S32",
+   "sub": true
+  },
+  "Y92.129": {
+   "code": "Y92.129",
+   "desc": "Lugar no especificado en residencia de ancianos como lugar de acontecimiento de",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y92",
+   "sub": true
+  },
+  "S43.011A": {
+   "code": "S43.011A",
+   "desc": "Subluxación anterior de húmero derecho, contacto inicial",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "S43",
+   "sub": true
+  },
+  "V19.9XXA": {
+   "code": "V19.9XXA",
+   "desc": "Ciclista (conductor) (pasajero) lesionado en accidente de tráfico no especificado,",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "V19",
+   "sub": true
+  },
+  "G56.22": {
+   "code": "G56.22",
+   "desc": "Lesión de nervio cubital, extremidad superior izquierda.",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G56",
+   "sub": true
+  },
+  "S64.02XS": {
+   "code": "S64.02XS",
+   "desc": "Traumatismo de nervio cubital a nivel de la muñeca y mano, brazo izquierdo, secuela",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "S64",
+   "sub": true
+  },
+  "T23.231A": {
+   "code": "T23.231A",
+   "desc": "Quemadura de segundo grado de múltiples dedos de la mano derecha (uñas), sin",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T23",
+   "sub": true
+  },
+  "T23.112A": {
+   "code": "T23.112A",
+   "desc": "Quemadura de primer grado de pulgar izquierdo (uña), contacto inicial",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T23",
+   "sub": true
+  },
+  "T31.0": {
+   "code": "T31.0",
+   "desc": "Quemaduras con afectación de menos del 10% de superficie corporal",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T31",
+   "sub": true
+  },
+  "X16.XXXA": {
+   "code": "X16.XXXA",
+   "desc": "Contacto con aparatos de calefacción, radiadores y tuberías calientes",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "X16",
+   "sub": true
+  },
+  "T23.251A": {
+   "code": "T23.251A",
+   "desc": "Quemadura de segundo grado de palma de la mano derecha, contacto inicial",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T23",
+   "sub": true
+  },
+  "T31.10": {
+   "code": "T31.10",
+   "desc": "Quemaduras con afectación de 10-19% de superficie corporal con 0-9% de quemaduras",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T31",
+   "sub": true
+  },
+  "L08.89": {
+   "code": "L08.89",
+   "desc": "Otros tipos de infecciones locales especificadas de la piel y del tejido subcutáneo",
+   "cap": "XII",
+   "cap_nombre": "Enf. de la piel y del tejido subcutáneo",
+   "parent": "L08",
+   "sub": true
+  },
+  "X15.3XXA": {
+   "code": "X15.3XXA",
+   "desc": "Contacto con una olla o sartén caliente, contacto inicial",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "X15",
+   "sub": true
+  },
+  "Y92.000": {
+   "code": "Y92.000",
+   "desc": "Cocina de residencia no institucional (privada), no especificada como lugar del",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y92",
+   "sub": true
+  },
+  "T25.322A": {
+   "code": "T25.322A",
+   "desc": "Quemadura de tercer grado del pie izquierdo, contacto inicial",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T25",
+   "sub": true
+  },
+  "T24.101A": {
+   "code": "T24.101A",
+   "desc": "Quemadura de primer grado de localización no especificada de extremidad inferior",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T24",
+   "sub": true
+  },
+  "T31.20": {
+   "code": "T31.20",
+   "desc": "Quemaduras con afectación de 20-29% de superficie corporal con 0-9% de quemaduras",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T31",
+   "sub": true
+  },
+  "T31.31": {
+   "code": "T31.31",
+   "desc": "Quemaduras con afectación de 30-39% de superficie corporal con 10-19% de",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T31",
+   "sub": true
+  },
+  "X01.8XXA": {
+   "code": "X01.8XXA",
+   "desc": "Otras exposiciones a fuego sin control, no en edificio o estructura, contacto inicial",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "X01",
+   "sub": true
+  },
+  "Y99.0": {
+   "code": "Y99.0",
+   "desc": "Actividad civil realizada a cambio de retribución o pago",
+   "cap": "?",
+   "cap_nombre": "Sin clasificar",
+   "parent": "Y99",
+   "sub": true
+  },
+  "Y92.821": {
+   "code": "Y92.821",
+   "desc": "Bosque como lugar del acontecimiento de la causa externa",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y92",
+   "sub": true
+  },
+  "T25.221A": {
+   "code": "T25.221A",
+   "desc": "Quemadura de segundo grado de pie derecho, contacto inicial",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T25",
+   "sub": true
+  },
+  "W39.XXXA": {
+   "code": "W39.XXXA",
+   "desc": "Explosión de fuegos artificiales, contacto inicial",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "W39",
+   "sub": true
+  },
+  "T36.0X": {
+   "code": "T36.0X",
+   "desc": "Envenenamiento por efecto adverso e infradosificación de penicilinas",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T36",
+   "sub": true
+  },
+  "T36.0X1": {
+   "code": "T36.0X1",
+   "desc": "Envenenamiento por penicilinas, accidental (no intencionado)",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T36",
+   "sub": true
+  },
+  "T36.0X2": {
+   "code": "T36.0X2",
+   "desc": "Envenenamiento por penicilinas, autolesión intencionada",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T36",
+   "sub": true
+  },
+  "T36.0X3": {
+   "code": "T36.0X3",
+   "desc": "Envenenamiento por penicilinas, agresión",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T36",
+   "sub": true
+  },
+  "T36.0X4": {
+   "code": "T36.0X4",
+   "desc": "Envenenamiento por penicilinas, intencionalidad sin determinar",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T36",
+   "sub": true
+  },
+  "T36.0X5": {
+   "code": "T36.0X5",
+   "desc": "Efecto adverso de penicilinas",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T36",
+   "sub": true
+  },
+  "T36.0X6": {
+   "code": "T36.0X6",
+   "desc": "Infradosificación de penicilinas",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T36",
+   "sub": true
+  },
+  "T88.6XXA": {
+   "code": "T88.6XXA",
+   "desc": "Reacción anafiláctica por (debida a) efecto adverso de fármaco o medicamento",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T88",
+   "sub": true
+  },
+  "T43.205A": {
+   "code": "T43.205A",
+   "desc": "Efecto adverso de antidepresivos no especificados, contacto inicial",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T43",
+   "sub": true
+  },
+  "R31.9": {
+   "code": "R31.9",
+   "desc": "Hematuria no, especificada",
+   "cap": "XVIII",
+   "cap_nombre": "Síntomas, signos y hallazgos anormales (clínicos y de laboratorio)",
+   "parent": "R31",
+   "sub": true
+  },
+  "T45.515A": {
+   "code": "T45.515A",
+   "desc": "Efecto adverso de anticoagulantes, contacto inicial",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T45",
+   "sub": true
+  },
+  "Z79.01": {
+   "code": "Z79.01",
+   "desc": "Uso prolongado de anticoagulantes (actual)",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z79",
+   "sub": true
+  },
+  "T42.6X1A": {
+   "code": "T42.6X1A",
+   "desc": "Envenenamiento por otros fármacos antiepilépticos e hipnóticos-sedantes,",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T42",
+   "sub": true
+  },
+  "T46.5X6A": {
+   "code": "T46.5X6A",
+   "desc": "Infradosificación de otros fármacos antihipertensivos, contacto inicial",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T46",
+   "sub": true
+  },
+  "Z91.120": {
+   "code": "Z91.120",
+   "desc": "Infradosificación intencionada del paciente de la prescripción médica debida a",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z91",
+   "sub": true
+  },
+  "T57.2X1A": {
+   "code": "T57.2X1A",
+   "desc": "Efecto tóxico de manganeso y sus compuestos, accidental (no intencionado), contacto",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T57",
+   "sub": true
+  },
+  "R25.2": {
+   "code": "R25.2",
+   "desc": "Calambres y espasmos",
+   "cap": "XVIII",
+   "cap_nombre": "Síntomas, signos y hallazgos anormales (clínicos y de laboratorio)",
+   "parent": "R25",
+   "sub": true
+  },
+  "G93.9": {
+   "code": "G93.9",
+   "desc": "Trastorno de cerebro, no especificado",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G93",
+   "sub": true
+  },
+  "T36.0X5S": {
+   "code": "T36.0X5S",
+   "desc": "Efecto adverso de penicilinas, secuela",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T36",
+   "sub": true
+  },
+  "G93.1": {
+   "code": "G93.1",
+   "desc": "Lesión cerebral anóxica, no clasificada bajo otro concepto",
+   "cap": "VI",
+   "cap_nombre": "Enf. del sistema nervioso",
+   "parent": "G93",
+   "sub": true
+  },
+  "T42.3X1S": {
+   "code": "T42.3X1S",
+   "desc": "Envenenamiento por antipsicóticos y neurolépticos a base de fenotiazinas, accidental",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T42",
+   "sub": true
+  },
+  "E09.9": {
+   "code": "E09.9",
+   "desc": "Diabetes mellitas inducida por fármaco o sustancia química sin complicaciones",
+   "cap": "IV",
+   "cap_nombre": "Enf. endocrinas, nutricionales y metabólicas",
+   "parent": "E09",
+   "sub": true
+  },
+  "T38.0X5S": {
+   "code": "T38.0X5S",
+   "desc": "Efecto adverso de glucocorticoides y análogos sintéticos, secuela",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T38",
+   "sub": true
+  },
+  "Z04.41": {
+   "code": "Z04.41",
+   "desc": "Contacto para reconocimiento médico y observación después de presunta violación",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z04",
+   "sub": true
+  },
+  "T74.92XA": {
+   "code": "T74.92XA",
+   "desc": "Maltrato infantil no especificado, confirmado, contacto inicial",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T74",
+   "sub": true
+  },
+  "S01.81XA": {
+   "code": "S01.81XA",
+   "desc": "Laceración sin cuerpo extraño de otra parte de la cabeza, contacto inicial",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "S01",
+   "sub": true
+  },
+  "Y08.02XA": {
+   "code": "Y08.02XA",
+   "desc": "Agresión por golpe con bate de béisbol, contacto inicial",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y08",
+   "sub": true
+  },
+  "Y07.11": {
+   "code": "Y07.11",
+   "desc": "Padre biológico, autor de maltrato y negligencia",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y07",
+   "sub": true
+  },
+  "I97.51": {
+   "code": "I97.51",
+   "desc": "Punción y desgarros accidentales de órgano o estructura del aparato circulatorio",
+   "cap": "IX",
+   "cap_nombre": "Enf. del sistema circulatorio",
+   "parent": "I97",
+   "sub": true
+  },
+  "Y65.8": {
+   "code": "Y65.8",
+   "desc": "Otros eventos adversos especificados durante la atención quirúrgica y médica",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y65",
+   "sub": true
+  },
+  "Y92.239": {
+   "code": "Y92.239",
+   "desc": "Lugar no especificado en hospital como lugar de acontecimiento",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y92",
+   "sub": true
+  },
+  "T81.83XA": {
+   "code": "T81.83XA",
+   "desc": "Fístula posprocedimiento persistente, contacto inicial",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T81",
+   "sub": true
+  },
+  "N82.8": {
+   "code": "N82.8",
+   "desc": "Otras fístulas de tracto genital femenino",
+   "cap": "XIV",
+   "cap_nombre": "Enf. del sistema genitourinario",
+   "parent": "N82",
+   "sub": true
+  },
+  "T84.020A": {
+   "code": "T84.020A",
+   "desc": "Luxación de prótesis interna de cadera derecha, contacto inicial",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T84",
+   "sub": true
+  },
+  "T82.7XXA": {
+   "code": "T82.7XXA",
+   "desc": "Infección y reacción inflamatoria por (debida a) otros dispositivos, implantes e",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T82",
+   "sub": true
+  },
+  "T86.812": {
+   "code": "T86.812",
+   "desc": "Infección de trasplante pulmonar",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T86",
+   "sub": true
+  },
+  "B25.9": {
+   "code": "B25.9",
+   "desc": "Enfermedad por citomegalovirus, no especificada",
+   "cap": "I",
+   "cap_nombre": "Ciertas enfermedades infecciosas y parasitarias",
+   "parent": "B25",
+   "sub": true
+  },
+  "T86.09": {
+   "code": "T86.09",
+   "desc": "Otras complicaciones de trasplante de medula ósea",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T86",
+   "sub": true
+  },
+  "D89.810": {
+   "code": "D89.810",
+   "desc": "Enfermedad de injerto contra huésped aguda",
+   "cap": "III",
+   "cap_nombre": "Enf. de la sangre y de los órganos hematopoyéticos",
+   "parent": "D89",
+   "sub": true
+  },
+  "C64.9": {
+   "code": "C64.9",
+   "desc": "Neoplasia maligna de riñón no especificado, excepto pelvis renal",
+   "cap": "II",
+   "cap_nombre": "Tumores (neoplasias)",
+   "parent": "C64",
+   "sub": true
+  },
+  "T86.858": {
+   "code": "T86.858",
+   "desc": "Otras complicaciones de trasplante intestinal",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "T86",
+   "sub": true
+  },
+  "D47.Z1": {
+   "code": "D47.Z1",
+   "desc": "Trastorno linfoproliferativo postrasplante (TLPT)",
+   "cap": "II",
+   "cap_nombre": "Tumores (neoplasias)",
+   "parent": "D47",
+   "sub": true
+  },
+  "Y83.0": {
+   "code": "Y83.0",
+   "desc": "Cirugía con trasplante de órgano entero como causa de reacción anormal del paciente, o",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y83",
+   "sub": true
+  },
+  "Z94.2": {
+   "code": "Z94.2",
+   "desc": "Estado de trasplante de pulmón",
+   "cap": "XXI",
+   "cap_nombre": "Factores que influyen en el estado de salud (contacto con servicios)",
+   "parent": "Z94",
+   "sub": true
+  },
+  "C22.8": {
+   "code": "C22.8",
+   "desc": "Carcinoma hepatocelular",
+   "cap": "II",
+   "cap_nombre": "Tumores (neoplasias)",
+   "parent": "C22",
+   "sub": true
+  },
+  "Y64.0": {
+   "code": "Y64.0",
+   "desc": "Sustancia médica o biológica contaminada, transfundida o infundida",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y64",
+   "sub": true
+  },
+  "S71.152A": {
+   "code": "S71.152A",
+   "desc": "Mordedura abierta de muslo izquierdo, contacto inicial",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "S71",
+   "sub": true
+  },
+  "W54.0XXA": {
+   "code": "W54.0XXA",
+   "desc": "Mordido por perro, contacto inicial",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "W54",
+   "sub": true
+  },
+  "Y92.017": {
+   "code": "Y92.017",
+   "desc": "Jardín o patio de casa unifamiliar no institucional (privada) como lugar del",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y92",
+   "sub": true
+  },
+  "Y93.K9": {
+   "code": "Y93.K9",
+   "desc": "Actividad, otra que implique cuidado de animales",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y93",
+   "sub": true
+  },
+  "Y99.8": {
+   "code": "Y99.8",
+   "desc": "Otra situación de causa externa",
+   "cap": "?",
+   "cap_nombre": "Sin clasificar",
+   "parent": "Y99",
+   "sub": true
+  },
+  "S01.00XA": {
+   "code": "S01.00XA",
+   "desc": "Herida abierta no especificada de cuero cabelludo, contacto inicial",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "S01",
+   "sub": true
+  },
+  "V47.52XA": {
+   "code": "V47.52XA",
+   "desc": "Conductor de otro tipo de coche lesionado por colisión con objeto fijo o estacionado",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "V47",
+   "sub": true
+  },
+  "W25.XXXA": {
+   "code": "W25.XXXA",
+   "desc": "Contacto con vidrio afilado, contacto inicial",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "W25",
+   "sub": true
+  },
+  "S93.401A": {
+   "code": "S93.401A",
+   "desc": "Esguince de ligamento no especificado tobillo derecho, contacto inicial",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "S93",
+   "sub": true
+  },
+  "Y92.39": {
+   "code": "Y92.39",
+   "desc": "Otros deportes y áreas de atletismo como lugar del acontecimiento de causa",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y92",
+   "sub": true
+  },
+  "Y93.A3": {
+   "code": "Y93.A3",
+   "desc": "Actividad, actividad aeróbica y step",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y93",
+   "sub": true
+  },
+  "S63.652A": {
+   "code": "S63.652A",
+   "desc": "Esguince de la articulación metacarpofalangica de dedo medio derecho, contacto inicial",
+   "cap": "XIX",
+   "cap_nombre": "Traumatismos, envenenamientos y causas externas",
+   "parent": "S63",
+   "sub": true
+  },
+  "W21.05XA": {
+   "code": "W21.05XA",
+   "desc": "Golpeado por pelota de baloncesto, contacto inicial",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "W21",
+   "sub": true
+  },
+  "Y92.310": {
+   "code": "Y92.310",
+   "desc": "Pista de baloncesto como lugar del acontecimiento de causa externa",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y92",
+   "sub": true
+  },
+  "Y93.67": {
+   "code": "Y93.67",
+   "desc": "Actividad, baloncesto",
+   "cap": "XX",
+   "cap_nombre": "Causas externas de morbilidad y mortalidad",
+   "parent": "Y93",
+   "sub": true
   }
  },
  "capitulos": [
