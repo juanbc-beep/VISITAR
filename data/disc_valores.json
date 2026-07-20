@@ -1,0 +1,119 @@
+{
+ "periodo": "Junio 2026",
+ "categoria": "Categoría A",
+ "nota": "Nomenclador de prestaciones básicas para personas con discapacidad (Ley 24.901). Valores mensuales, Categoría A, actualización Junio 2026 (IPC mayo 2,10%).",
+ "modalidades": [
+  [
+   "Centro de Día Jornada Doble",
+   "1.058.791"
+  ],
+  [
+   "Centro de Día Jornada Simple",
+   "563.272"
+  ],
+  [
+   "Centro Educativo Terapeutico Jornada Doble",
+   "1.189.351"
+  ],
+  [
+   "Centro Educativo Terapeutico Jornada Simple",
+   "649.532"
+  ],
+  [
+   "Formación Laboral Jornada Doble",
+   "1.039.199"
+  ],
+  [
+   "Formación Laboral Jornada Simple",
+   "565.101"
+  ],
+  [
+   "Aprestamiento Laboral Jornada Doble",
+   "1.039.199"
+  ],
+  [
+   "Aprestamiento Laboral Jornada Simple",
+   "565.101"
+  ],
+  [
+   "Escolaridad Pre Primaria Jornada Doble",
+   "1.059.662"
+  ],
+  [
+   "Escolaridad Pre Primaria Jornada Simple",
+   "564.081"
+  ],
+  [
+   "Escolaridad Primaria Jornada Doble",
+   "1.115.332"
+  ],
+  [
+   "Escolaridad Primaria Jornada Simple",
+   "564.081"
+  ],
+  [
+   "Hogar Permanente",
+   "1.991.557"
+  ],
+  [
+   "Hogar Lunes a Viernes",
+   "1.542.054"
+  ],
+  [
+   "Hogar con CD Lunes a Viernes",
+   "2.647.410"
+  ],
+  [
+   "Hogar con CET Lunes a Viernes",
+   "2.783.712"
+  ],
+  [
+   "Hogar Lunes a Viernes con Formación Laboral",
+   "1.636.909"
+  ],
+  [
+   "Hogar Lunes a Viernes con Pre Primaria",
+   "1.639.552"
+  ],
+  [
+   "Hogar Lunes a Viernes con Primaria",
+   "1.688.251"
+  ],
+  [
+   "Hogar con CD Permanente",
+   "3.096.913"
+  ],
+  [
+   "Hogar con CET Permanente",
+   "3.233.214"
+  ],
+  [
+   "Hogar Permanente con Formación Laboral",
+   "2.072.042"
+  ],
+  [
+   "Hogar Permanente con Pre Primaria",
+   "2.072.016"
+  ],
+  [
+   "Hogar Permanente con Primaria",
+   "2.124.781"
+  ],
+  [
+   "Pequeño Hogar Lunes a Viernes",
+   "1.183.308"
+  ],
+  [
+   "Pequeño Hogar Permanente",
+   "1.507.188"
+  ],
+  [
+   "Residencia Lunes a Viernes",
+   "1.057.584"
+  ],
+  [
+   "Residencia Permanente",
+   "1.297.114"
+  ]
+ ]
+}

@@ -38,9 +38,11 @@ enlazados (en la ficha del NBU se marca "También en Catálogo PMO").
     se toma como **valor efectivo** para el arancel en el listado, la ficha, el árbol y el validador. Se aplicó a
     1.687 códigos (la planilla trae la *terminación* del código y su U.B. vigente; se mapea a los 66xxxx del NBU).
     La ficha conserva el histórico (base v2016 · Anexo 2024 · vigente) sin pisarlo.
-- **Glosario** de referencias y flags + **marco normativo** (**15 leyes vigentes**; 5 con ficha ampliada —
-  resumen, qué cubre, artículos clave y **prácticas del NBU relacionadas** clickeables): discapacidad (24.901),
-  celiaquía (26.588), fertilización asistida (26.862), leche medicamentosa (27.305) y violencia de género/PMO (27.696).
+- **Glosario** de referencias y flags + **marco normativo** (**17 normas vigentes**; 7 con ficha ampliada —
+  resumen, qué cubre, artículos clave y **prácticas del NBU relacionadas** clickeables): discapacidad (24.901, con
+  **tabla de valores** de las prestaciones básicas actualizada), celiaquía (26.588), fertilización asistida (26.862),
+  leche medicamentosa (27.305), violencia de género/PMO (27.696), **Res. 310/2004** (PMOE) y **Anexo II · HPGD**
+  (normas de facturación de Hospitales Públicos de Gestión Descentralizada).
 - Clasificación **orientativa** por grupo/especialidad para facilitar la navegación
   (el NBU es alfabético; la clasificación oficial es la sección PMO/PE/Gestión).
 
@@ -89,9 +91,17 @@ enlazados (en la ficha del NBU se marca "También en Catálogo PMO").
   médica equivalente las **asociaciones "qué cargar"** y —cuando corresponde— los **valores del Nomenclador
   Nacional** (galenos).
 
-La interfaz separa **cuatro secciones** con un selector principal: **Laboratorio (NBU)**, **Prestaciones
-médicas (PMO)**, **Odontología** y **Único (VISITAR)** — en cada una solo se ven sus códigos, grupos y
-determinaciones (no se mezclan).
+### Diagnósticos — CIE-10 (relación diagnóstico ↔ práctica)
+- **2.024 categorías** de la Clasificación Internacional de Enfermedades (CIE-10, 3 caracteres), organizadas por
+  los **21 capítulos** y buscables por código o texto.
+- Cada diagnóstico muestra las **prácticas relacionadas**: un **seed curado** (45 diagnósticos frecuentes de
+  laboratorio: diabetes, tiroides, dislipidemia, anemias, hepatitis, HIV, celiaquía, infertilidad, IRC, etc.) más
+  **sugerencias automáticas por coincidencia de texto**. Los estudios son **clickeables** y saltan a la ficha del
+  nomenclador correspondiente. Marcado como **orientativo** (verificar según el caso clínico y la cobertura).
+
+La interfaz separa **cinco secciones** con un selector principal: **Laboratorio (NBU)**, **Prestaciones
+médicas (PMO)**, **Odontología**, **Único (VISITAR)** y **Diagnósticos (CIE-10)** — en cada una solo se ven sus
+códigos/diagnósticos y agrupaciones (no se mezclan).
 
 ## Uso
 

@@ -752,7 +752,47 @@ leyes = [
         "Art. 3° — Cobertura como prestación obligatoria (incluye salud mental y farmacológica).",
      ],
      "temas": ["violencia de género", "salud mental", "abordaje integral"], "codigos": []},
+    {"ley": "310/2004", "etiqueta": "Res. 310/2004", "titulo": "Modificación del PMO — Programa Médico Obligatorio de Emergencia (PMOE)", "sancion": "15/04/2004",
+     "resumen": "Modifica la Resolución 201/2002: aprueba el Programa Médico Obligatorio de Emergencia (PMOE), conjunto de prestaciones básicas esenciales garantizadas por los Agentes del Seguro de Salud.",
+     "cobertura": "Define las prestaciones básicas del PMOE y la cobertura de medicamentos; disminuye el coseguro a cargo de los beneficiarios para tratamientos con fármacos de uso permanente y/o recurrente (patologías crónicas de alto impacto sanitario y socioeconómico).",
+     "articulos": [
+        "Aprueba el PMOE integrado por el conjunto de prestaciones básicas esenciales.",
+        "Reduce coseguros para tratamientos crónicos con medicación permanente/recurrente.",
+        "Modifica y complementa la Resolución 201/2002 (PMO).",
+     ],
+     "temas": ["PMO", "PMOE", "coseguro", "medicamentos"], "codigos": []},
+    {"ley": "HPGD", "etiqueta": "Anexo II · HPGD", "titulo": "Normas de facturación — Hospitales Públicos de Gestión Descentralizada", "sancion": "",
+     "resumen": "Normas de facturación del régimen de Hospitales Públicos de Gestión Descentralizada (HPGD): reglas de los módulos clínico-quirúrgicos, permanencia, horarios y adicionales.",
+     "cobertura": "Los módulos clínico-quirúrgicos comprenden todos los servicios para el diagnóstico y tratamiento del paciente durante la internación; sólo se adicionan otras prestaciones en casos expresamente indicados o con acuerdo de partes.",
+     "articulos": [
+        "1) Los módulos comprenden todos los servicios de diagnóstico y tratamiento durante la internación.",
+        "2) Si el paciente con egreso no es retirado dentro de las 24 h, se factura un módulo clínico por día de permanencia.",
+        "3) Las prestaciones en horario nocturno y/o feriado no modifican los aranceles.",
+     ],
+     "temas": ["hospital público", "HPGD", "módulos", "facturación", "internación"], "codigos": []},
 ]
+
+# valores del nomenclador de discapacidad (Ley 24.901) — actualización vigente
+try:
+    _disc = json.load(open("data/disc_valores.json", encoding="utf-8"))
+except FileNotFoundError:
+    try:
+        _disc = json.load(open("disc_valores.json", encoding="utf-8"))
+    except FileNotFoundError:
+        _disc = None
+if _disc:
+    for _l in leyes:
+        if _l["ley"] == "24901":
+            _l["valores"] = _disc
+
+# CIE-10 (diagnósticos) + relaciones diagnóstico -> prácticas
+try:
+    CIE10 = json.load(open("data/cie10.json", encoding="utf-8"))
+except FileNotFoundError:
+    try:
+        CIE10 = json.load(open("cie10.json", encoding="utf-8"))
+    except FileNotFoundError:
+        CIE10 = {"codigos": {}, "capitulos": [], "relaciones": {}}
 
 # grupo stats
 grupos_stats = defaultdict(int)
@@ -785,9 +825,11 @@ db = {
     },
     "glosario": glossary,
     "leyes": leyes,
+    "cie10": CIE10,
     "codigos": records,
 }
 json.dump(db, open("nbu_db.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+print(f"CIE-10: {len(CIE10.get('codigos', {}))} diagnósticos · {len(CIE10.get('relaciones', {}))} con prácticas relacionadas", file=sys.stderr)
 
 # report
 print(f"codigos: {len(records)}", file=sys.stderr)
