@@ -80,6 +80,12 @@ enlazados (en la ficha del NBU se marca "También en Catálogo PMO").
   Único"** — la referencia de que el código está en **ambos**.
 - Los **77 códigos médicos sin equivalencia** quedan **separados y agrupados** (filtro **"Sin equivalencia"** y
   etiqueta en el listado) para revisarlos y mapearlos manualmente.
+- **Generalidades heredadas** (como en el NBU): la parte de **laboratorio** del Único trae, tomadas de su código
+  NBU equivalente, las **relaciones/parentesco entre códigos** (incluye / no incluye / incluido en), las **normas
+  de auditoría**, la **norma e interpretación** y las reglas de **seriado**; además tiene su propio **árbol de
+  módulos** (pestaña disponible en la sección Único). En la parte **médica**, cada código hereda de su prestación
+  médica equivalente las **asociaciones "qué cargar"** y —cuando corresponde— los **valores del Nomenclador
+  Nacional** (galenos).
 
 La interfaz separa **cuatro secciones** con un selector principal: **Laboratorio (NBU)**, **Prestaciones
 médicas (PMO)**, **Odontología** y **Único (VISITAR)** — en cada una solo se ven sus códigos, grupos y

@@ -581,6 +581,14 @@ for r in UNICO:
         "equivalencia": equivalencia, "sin_equivalencia": (not tiene_eq),
         "auditoria": [audit],
     }
+    # heredar de la prestación médica equivalente las asociaciones específicas y flags
+    if pmo_key:
+        src = records[pmo_key]
+        if src.get("asociaciones_especificas"):
+            records["U" + code]["asociaciones_especificas"] = list(src["asociaciones_especificas"])
+        if src.get("valores"):
+            records["U" + code]["valores"] = src["valores"]
+        records["U" + code]["flags"] = dict(src.get("flags", records["U" + code]["flags"]))
     unico_added += 1
 print(f"UNICO médico: agregados {unico_added} · con equiv {unico_added - sin_equiv} · sin equiv {sin_equiv} · PMO anotados {pmo_annot}", file=sys.stderr)
 
@@ -594,14 +602,17 @@ except FileNotFoundError:
         UNICO_LAB = []
 
 lab_added = lab_annot = lab_nofit = 0
+nbu_to_ulab = {}   # NBU code -> ÚNICO-lab _key (para traducir relaciones/parentesco)
 for r in UNICO_LAB:
     code = r["unico"]
     nbu = r["nbu"]
     ub = r.get("ub")
+    ukey = "U" + code
     nbu_key = nbu if (nbu in records and records[nbu].get("nomenclador") == "NBU") else None
     if nbu_key:
         grupo = records[nbu_key].get("grupo") or "Laboratorio"
         annot_unico(nbu_key, code, r["nombre"], None, "lab")
+        nbu_to_ulab[nbu] = ukey
         lab_annot += 1
     else:
         grupo = classify(r["nombre"], [])
@@ -612,7 +623,7 @@ for r in UNICO_LAB:
         "desc": records[nbu]["nombre"] if nbu_key else "",
         "score": None,
     }
-    records["U" + code] = {
+    records[ukey] = {
         "code": code, "nomenclador": "UNICO", "unico_tipo": "lab",
         "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — laboratorio (equivalente al NBU)",
         "seccion": "UNICO", "seccion_label": "Único — Laboratorio · " + grupo,
@@ -624,12 +635,49 @@ for r in UNICO_LAB:
         "referencias": [], "norma": None, "frecuencia": [],
         "relaciones": {"incluye": [], "no_incluye": [], "incluido_en": []},
         "equivalencia": equivalencia, "sin_equivalencia": False,
-        "auditoria": ["Práctica de laboratorio del Nomenclador Único. Equivale al código NBU " + nbu +
-                      (" (sin ficha propia cargada)." if not nbu_key else ".")],
+        "_nbu_src": nbu_key,
+        "auditoria": [],
     }
     unico_added += 1
     lab_added += 1
+
+# Propagar la inteligencia del NBU a la parte de laboratorio del Único
+# (relaciones/parentesco, módulos, norma, seriado, flags, auditoría).
+def _xlate(codes):
+    """Traduce códigos NBU referidos a su equivalente ÚNICO-lab (si existe); si no, deja el código NBU."""
+    return [nbu_to_ulab.get(x, x) for x in codes]
+
+prop_rel = prop_norm = prop_seri = 0
+for r in UNICO_LAB:
+    ukey = "U" + r["unico"]
+    rec = records[ukey]
+    src = rec.pop("_nbu_src", None)
+    base_audit = ["Práctica de laboratorio del Nomenclador Único. Equivale al código NBU " + r["nbu"] +
+                  ("." if src else " (sin ficha propia cargada en el NBU).")]
+    if not src:
+        rec["auditoria"] = base_audit
+        continue
+    s = records[src]
+    rec["flags"] = dict(s.get("flags", rec["flags"]))
+    rec["norma"] = s.get("norma")
+    if s.get("norma"):
+        prop_norm += 1
+    rec["frecuencia"] = list(s.get("frecuencia", []))
+    if s.get("seriado"):
+        rec["seriado"] = s["seriado"]
+        prop_seri += 1
+    rel = s.get("relaciones", {})
+    rec["relaciones"] = {
+        "incluye": _xlate(rel.get("incluye", [])),
+        "no_incluye": _xlate(rel.get("no_incluye", [])),
+        "incluido_en": _xlate(rel.get("incluido_en", [])),
+    }
+    if any(rec["relaciones"].values()):
+        prop_rel += 1
+    # auditoría: nota de equivalencia + las normas heredadas del NBU
+    rec["auditoria"] = base_audit + list(s.get("auditoria", []))
 print(f"UNICO lab: agregados {lab_added} · NBU anotados {lab_annot} · sin ficha NBU {lab_nofit}", file=sys.stderr)
+print(f"UNICO lab propagado del NBU: relaciones {prop_rel} · normas {prop_norm} · seriados {prop_seri}", file=sys.stderr)
 
 # ---------- glossary / metadata ----------
 glossary = {
