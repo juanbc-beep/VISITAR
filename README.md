@@ -38,7 +38,7 @@ enlazados (en la ficha del NBU se marca "También en Catálogo PMO").
     se toma como **valor efectivo** para el arancel en el listado, la ficha, el árbol y el validador. Se aplicó a
     1.687 códigos (la planilla trae la *terminación* del código y su U.B. vigente; se mapea a los 66xxxx del NBU).
     La ficha conserva el histórico (base v2016 · Anexo 2024 · vigente) sin pisarlo.
-- **Glosario** de referencias y flags + **marco normativo** (**17 normas vigentes**; 7 con ficha ampliada —
+- **Glosario** de referencias y flags + **marco normativo** (**22 normas vigentes**; 13 con ficha ampliada —
   resumen, qué cubre, artículos clave y **prácticas del NBU relacionadas** clickeables): discapacidad (24.901, con
   **tabla de valores** de las prestaciones básicas actualizada), celiaquía (26.588), fertilización asistida (26.862),
   leche medicamentosa (27.305), violencia de género/PMO (27.696), **Res. 310/2004** (PMOE) y **Anexo II · HPGD**
@@ -105,7 +105,10 @@ códigos/diagnósticos y agrupaciones (no se mezclan).
 
 ## Uso
 
-Abrí **`web/index.html`** en cualquier navegador (no requiere servidor ni conexión — la base va embebida).
+Abrí **`web/index.html`** en cualquier navegador (no requiere servidor ni conexión — la base va embebida
+**comprimida en gzip+base64** y se descomprime en el navegador al abrir; el archivo pesa ~0,8 MB en vez de ~9 MB
+y arranca en menos de medio segundo). Requiere un navegador moderno (Chrome/Edge/Firefox/Safari recientes, que
+soportan `DecompressionStream`).
 
 Tres vistas (pestañas):
 - **Listado** — buscá por código, práctica, sinónimo o abreviatura; filtrá por sección, grupo o reglas/estados. Detalle con **códigos relacionados clickeables** que navegan entre sí. Enlace directo por hash: `index.html#660475`.
@@ -229,7 +232,14 @@ python3 scripts/parse_intel.py     # -> intel.json
 python3 scripts/assemble.py        # -> nbu_db.json   (usa nbu_reval.txt para el overlay 2024, opcional)
 ```
 
-Luego se embebe `nbu_db.json` dentro de `web/index.html` (bloque `<script id="nbu-db">`).
+Luego se embebe la base **comprimida** dentro de `web/index.html`:
+
+```bash
+python3 scripts/inject_db.py   # gzip + base64 de data/nbu_db.json -> bloque <script id="nbu-db-gz">
+```
+
+El navegador la descomprime al abrir (`DecompressionStream`), manteniendo el archivo único y offline pero
+~11× más liviano.
 
 ## Notas y alcance
 
