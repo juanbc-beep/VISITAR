@@ -81,6 +81,40 @@ Funciones operativas:
 - **Exportar**: descargá a **CSV** (listado y validación) o **Imprimí/PDF** desde el navegador.
 - **Frecuencia/seriado**: los códigos con reglas de seriado (p. ej. `660102`, `660468`) las muestran en la ficha y el validador las controla.
 
+## Acceso, perfiles y administración
+
+La app tiene un **control de acceso en dos niveles**, pensado para que todo el personal comparta un
+mismo equipo/instalación pero cada persona conserve **sus propios favoritos**:
+
+1. **Acceso de la empresa** (usuario compartido): una sola credencial que usa todo el equipo para entrar.
+2. **Perfiles individuales**: dentro del acceso de empresa, cada administrativo crea su **perfil con nombre
+   y contraseña propios**. Al iniciar sesión con su perfil se cargan **sus favoritos** y su **valor de U.B.**.
+
+### Perfil administrador
+Los perfiles marcados como **administrador** pueden:
+- **Gestionar perfiles**: crear, eliminar, restablecer contraseñas y promover/quitar admin (siempre queda al menos un admin).
+- **Editar el contenido de la página**:
+  - **Textos generales** (título y subtítulo) desde *Administración → Textos*.
+  - **Contenido por código** (nombre, norma de trabajo/interpretación, normas de auditoría y una nota de
+    asociación interna): con el **modo edición** activado (botón ✎ en la barra), cada ficha muestra
+    **“✎ Editar ficha”**. El original queda respaldado y se puede **restaurar**. Los códigos con contenido
+    modificado muestran una etiqueta **“editado”**.
+- **Cambiar el acceso de la empresa** y **respaldar/restaurar** todo (perfiles + ediciones) a un archivo `.json`.
+
+### Sincronización entre computadoras (Supabase)
+Al ser un archivo sin servidor, los datos viven en el navegador de cada equipo. Para **compartirlos en tiempo
+real** entre máquinas se puede conectar un proyecto **Supabase** (gratis) desde *Administración → Nube*:
+- El admin pega **URL del proyecto** + **clave pública (anon key)**; la app sincroniza perfiles, favoritos y
+  ediciones por *polling* (últ. escritura gana, con merge de perfiles por id).
+- El panel incluye el **SQL** para crear la tabla y el **paso a paso**. En otros equipos, en la pantalla de
+  acceso se elige **“conectar a la nube”** y se pegan los mismos datos.
+- La sincronización **no opera dentro del Artefacto de Claude** (bloquea conexiones externas por seguridad);
+  funciona con el archivo `web/index.html` abierto directamente o alojado en la web. La clave pública queda
+  visible en el archivo: es un espacio **interno**, no cargar datos sensibles de pacientes.
+
+> Nota: el login es una **barrera organizativa** (separa perfiles y favoritos), no una seguridad criptográfica
+> de servidor. Las contraseñas se guardan **hasheadas** (PBKDF2/SHA-256), nunca en texto plano.
+
 ## Estructura del repositorio
 
 ```
