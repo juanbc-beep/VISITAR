@@ -495,7 +495,13 @@
     "rehabilitación",
     "certificado único de discapacidad"
    ],
-   "codigos": [],
+   "codigos": [
+    "250102",
+    "250104",
+    "250106",
+    "330101",
+    "170117"
+   ],
    "valores": {
     "periodo": "Junio 2026",
     "categoria": "Categoría A",
@@ -743,7 +749,11 @@
     "salud mental",
     "abordaje integral"
    ],
-   "codigos": []
+   "codigos": [
+    "330101",
+    "330102",
+    "330103"
+   ]
   },
   {
    "ley": "310/2004",
@@ -13702,6 +13712,10 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E27",
+    "E24"
    ]
   },
   "660007": {
@@ -14068,6 +14082,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E27"
    ]
   },
   "660020": {
@@ -14666,6 +14683,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "M32"
    ]
   },
   "660042": {
@@ -14755,6 +14775,10 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E05",
+    "E06"
    ]
   },
   "660049": {
@@ -14969,6 +14993,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "M32"
    ]
   },
   "660057": {
@@ -15185,6 +15212,11 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "B20",
+    "B24",
+    "Z21"
    ]
   },
   "660101": {
@@ -15716,6 +15748,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "M32"
    ]
   },
   "660121": {
@@ -15757,6 +15792,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "M32"
    ]
   },
   "660130": {
@@ -15974,6 +16012,12 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "M81",
+    "M80",
+    "E55",
+    "D86"
    ]
   },
   "660136": {
@@ -16020,6 +16064,12 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "M81",
+    "M80",
+    "E55",
+    "D86"
    ]
   },
   "660137": {
@@ -16789,6 +16839,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "D68"
    ]
   },
   "660172": {
@@ -16922,6 +16975,12 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E78",
+    "E88",
+    "E66",
+    "I10"
    ]
   },
   "660176": {
@@ -17099,6 +17158,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "M32"
    ]
   },
   "660181": {
@@ -17423,6 +17485,10 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E27",
+    "E24"
    ]
   },
   "660190": {
@@ -17515,6 +17581,11 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "N18",
+    "N17",
+    "I10"
    ]
   },
   "660192": {
@@ -17564,6 +17635,11 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "N18",
+    "N17",
+    "I10"
    ]
   },
   "660193": {
@@ -17615,6 +17691,11 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "N18",
+    "N17",
+    "I10"
    ]
   },
   "660194": {
@@ -18334,6 +18415,10 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "M05",
+    "M06"
    ]
   },
   "660298": {
@@ -18392,6 +18477,12 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "N46"
+   ],
+   "leyes_rel": [
+    "26862"
    ]
   },
   "660299": {
@@ -18480,6 +18571,13 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "N97"
+   ],
+   "leyes_rel": [
+    "26862",
+    "3437/2021"
    ]
   },
   "660301": {
@@ -19241,6 +19339,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "D50"
    ]
   },
   "660344": {
@@ -19285,6 +19386,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "D68"
    ]
   },
   "660345": {
@@ -19329,6 +19433,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "D68"
    ]
   },
   "660349": {
@@ -19963,6 +20070,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E55"
    ]
   },
   "660370": {
@@ -20007,6 +20117,15 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "N97",
+    "N46",
+    "E28"
+   ],
+   "leyes_rel": [
+    "26862",
+    "3437/2021"
    ]
   },
   "660371": {
@@ -20471,6 +20590,17 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E10",
+    "E11",
+    "E14",
+    "O24",
+    "E66",
+    "R73"
+   ],
+   "leyes_rel": [
+    "2820/2022"
    ]
   },
   "660413": {
@@ -20520,6 +20650,17 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E10",
+    "E11",
+    "E14",
+    "O24",
+    "E66",
+    "R73"
+   ],
+   "leyes_rel": [
+    "2820/2022"
    ]
   },
   "660416": {
@@ -20564,6 +20705,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "R77"
    ]
   },
   "660417": {
@@ -20845,6 +20989,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "leyes_rel": [
+    "27610"
    ]
   },
   "660463": {
@@ -21269,6 +21416,15 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "D50",
+    "D51",
+    "D52",
+    "D64"
+   ],
+   "leyes_rel": [
+    "27610"
    ]
   },
   "660479": {
@@ -21408,6 +21564,12 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "B18",
+    "B16",
+    "B17",
+    "B19"
    ]
   },
   "660483": {
@@ -22115,6 +22277,14 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E10",
+    "E11",
+    "E66"
+   ],
+   "leyes_rel": [
+    "2820/2022"
    ]
   },
   "660546": {
@@ -22166,6 +22336,11 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "N18",
+    "N17",
+    "I10"
    ]
   },
   "660547": {
@@ -22217,6 +22392,10 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "N17",
+    "I10"
    ]
   },
   "660548": {
@@ -22567,6 +22746,10 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "M05",
+    "M06"
    ]
   },
   "660600": {
@@ -22865,6 +23048,15 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "N97",
+    "N46",
+    "E28"
+   ],
+   "leyes_rel": [
+    "26862",
+    "3437/2021"
    ]
   },
   "660613": {
@@ -24114,6 +24306,11 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "I10",
+    "N39",
+    "N30"
    ]
   },
   "660714": {
@@ -24514,6 +24711,10 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "M81",
+    "M80"
    ]
   },
   "660740": {
@@ -25188,6 +25389,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "leyes_rel": [
+    "26862"
    ]
   },
   "660759": {
@@ -25232,6 +25436,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "leyes_rel": [
+    "26862"
    ]
   },
   "660761": {
@@ -25278,6 +25485,10 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "M05",
+    "M06"
    ]
   },
   "660763": {
@@ -25374,6 +25585,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "R77"
    ]
   },
   "660765": {
@@ -25406,7 +25620,10 @@
     "incluido_en": []
    },
    "frecuencia": [],
-   "auditoria": []
+   "auditoria": [],
+   "cie_rel": [
+    "R77"
+   ]
   },
   "660766": {
    "code": "660766",
@@ -26108,6 +26325,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "D64"
    ]
   },
   "660820": {
@@ -26379,6 +26599,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "D50"
    ]
   },
   "660838": {
@@ -26704,6 +26927,13 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E28"
+   ],
+   "leyes_rel": [
+    "26862",
+    "3437/2021"
    ]
   },
   "660864": {
@@ -26797,6 +27027,13 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E03",
+    "E02",
+    "E05",
+    "E66",
+    "E05.9"
    ]
   },
   "660866": {
@@ -26841,6 +27078,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E03"
    ]
   },
   "660867": {
@@ -26886,6 +27126,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E03"
    ]
   },
   "660870": {
@@ -27126,6 +27369,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "D50"
    ]
   },
   "660876": {
@@ -27172,6 +27418,11 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E78",
+    "E88",
+    "E66"
    ]
   },
   "660878": {
@@ -27216,6 +27467,10 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E03",
+    "E05"
    ]
   },
   "660879": {
@@ -27352,6 +27607,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "D68"
    ]
   },
   "660901": {
@@ -27394,6 +27652,10 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "N18",
+    "N17"
    ]
   },
   "660902": {
@@ -27438,6 +27700,10 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "N18",
+    "N17"
    ]
   },
   "660903": {
@@ -27680,6 +27946,10 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "N39",
+    "N30"
    ]
   },
   "660923": {
@@ -28042,6 +28312,10 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "D51",
+    "D52"
    ]
   },
   "660939": {
@@ -28306,6 +28580,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "C61"
    ]
   },
   "661001": {
@@ -28402,6 +28679,11 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "B20",
+    "B24",
+    "Z21"
    ]
   },
   "661015": {
@@ -28623,6 +28905,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E78"
    ]
   },
   "661040": {
@@ -28669,6 +28954,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E78"
    ]
   },
   "661045": {
@@ -28901,6 +29189,10 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E10",
+    "E11"
    ]
   },
   "661070": {
@@ -28946,6 +29238,16 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E10",
+    "E11",
+    "E14",
+    "O24",
+    "R73"
+   ],
+   "leyes_rel": [
+    "2820/2022"
    ]
   },
   "661075": {
@@ -28990,6 +29292,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "B17"
    ]
   },
   "661080": {
@@ -29036,6 +29341,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "B16"
    ]
   },
   "661085": {
@@ -29080,6 +29388,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "B16"
    ]
   },
   "661086": {
@@ -29125,6 +29436,10 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "B18",
+    "B16"
    ]
   },
   "661090": {
@@ -29215,6 +29530,10 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "B18",
+    "B17"
    ]
   },
   "661100": {
@@ -29301,6 +29620,11 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "B20",
+    "B24",
+    "Z21"
    ]
   },
   "661110": {
@@ -29531,6 +29855,10 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E10",
+    "E11"
    ]
   },
   "661135": {
@@ -29998,6 +30326,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "leyes_rel": [
+    "27610"
    ]
   },
   "661175": {
@@ -30048,6 +30379,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "leyes_rel": [
+    "27610"
    ]
   },
   "661180": {
@@ -30141,6 +30475,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E28"
    ]
   },
   "661196": {
@@ -30199,6 +30536,12 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E03",
+    "E02",
+    "E05",
+    "E05.9"
    ]
   },
   "661200": {
@@ -31109,6 +31452,10 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "D51",
+    "D52"
    ]
   },
   "662162": {
@@ -32854,7 +33201,12 @@
     "incluido_en": []
    },
    "frecuencia": [],
-   "auditoria": []
+   "auditoria": [],
+   "cie_rel": [
+    "B20",
+    "B24",
+    "Z21"
+   ]
   },
   "662452": {
    "code": "662452",
@@ -32936,6 +33288,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E27"
    ]
   },
   "662469": {
@@ -34387,6 +34742,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "C61"
    ]
   },
   "662734": {
@@ -34473,6 +34831,10 @@
    "frecuencia": [],
    "auditoria": [
     "Tiene Norma e Interpretación específica (ver detalle)."
+   ],
+   "cie_rel": [
+    "N18",
+    "N17"
    ]
   },
   "662743": {
@@ -41249,6 +41611,10 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E27",
+    "E24"
    ]
   },
   "664012": {
@@ -41290,6 +41656,10 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E27",
+    "E24"
    ]
   },
   "664033": {
@@ -41803,6 +42173,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "D68"
    ]
   },
   "664125": {
@@ -44538,6 +44911,12 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "K90"
+   ],
+   "leyes_rel": [
+    "26588"
    ]
   },
   "664640": {
@@ -44582,6 +44961,12 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "K90"
+   ],
+   "leyes_rel": [
+    "26588"
    ]
   },
   "664648": {
@@ -45028,6 +45413,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "D86"
    ]
   },
   "664709": {
@@ -46254,6 +46642,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "N97"
    ]
   },
   "665033": {
@@ -46722,6 +47113,10 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "M05",
+    "M06"
    ]
   },
   "665102": {
@@ -47192,6 +47587,10 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "D50",
+    "D64"
    ]
   },
   "665238": {
@@ -48506,6 +48905,11 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "N97",
+    "N46",
+    "E28"
    ]
   },
   "665494": {
@@ -49065,6 +49469,12 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "K90"
+   ],
+   "leyes_rel": [
+    "26588"
    ]
   },
   "665583": {
@@ -49110,6 +49520,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "leyes_rel": [
+    "26588"
    ]
   },
   "665589": {
@@ -49392,7 +49805,10 @@
     "incluido_en": []
    },
    "frecuencia": [],
-   "auditoria": []
+   "auditoria": [],
+   "cie_rel": [
+    "E03"
+   ]
   },
   "665649": {
    "code": "665649",
@@ -50714,6 +51130,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "B17"
    ]
   },
   "665896": {
@@ -50929,6 +51348,10 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "B18",
+    "B17"
    ]
   },
   "665945": {
@@ -50960,7 +51383,11 @@
     "incluido_en": []
    },
    "frecuencia": [],
-   "auditoria": []
+   "auditoria": [],
+   "cie_rel": [
+    "B18",
+    "B17"
+   ]
   },
   "665956": {
    "code": "665956",
@@ -53529,7 +53956,13 @@
     "incluido_en": []
    },
    "frecuencia": [],
-   "auditoria": []
+   "auditoria": [],
+   "cie_rel": [
+    "K90"
+   ],
+   "leyes_rel": [
+    "26588"
+   ]
   },
   "666452": {
    "code": "666452",
@@ -55728,6 +56161,11 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E10",
+    "E11",
+    "E66"
    ]
   },
   "666871": {
@@ -55892,6 +56330,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "I10"
    ]
   },
   "666898": {
@@ -57541,7 +57982,12 @@
     "incluido_en": []
    },
    "frecuencia": [],
-   "auditoria": []
+   "auditoria": [],
+   "cie_rel": [
+    "N97",
+    "N46",
+    "E28"
+   ]
   },
   "667271": {
    "code": "667271",
@@ -57665,7 +58111,11 @@
     "incluido_en": []
    },
    "frecuencia": [],
-   "auditoria": []
+   "auditoria": [],
+   "cie_rel": [
+    "N97",
+    "E28"
+   ]
   },
   "667278": {
    "code": "667278",
@@ -62303,6 +62753,10 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "M81",
+    "M80"
    ]
   },
   "668170": {
@@ -63121,6 +63575,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E06"
    ]
   },
   "668327": {
@@ -64676,6 +65133,11 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E10",
+    "E11",
+    "E66"
    ]
   },
   "668580": {
@@ -64989,6 +65451,10 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "M05",
+    "M06"
    ]
   },
   "668627": {
@@ -65551,7 +66017,12 @@
     "incluido_en": []
    },
    "frecuencia": [],
-   "auditoria": []
+   "auditoria": [],
+   "cie_rel": [
+    "N97",
+    "N46",
+    "E28"
+   ]
   },
   "668802": {
    "code": "668802",
@@ -65680,6 +66151,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "D50"
    ]
   },
   "668819": {
@@ -69307,6 +69781,10 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E05",
+    "E06"
    ]
   },
   "669464": {
@@ -70024,6 +70502,12 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "K90"
+   ],
+   "leyes_rel": [
+    "26588"
    ]
   },
   "669631": {
@@ -70067,6 +70551,12 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "K90"
+   ],
+   "leyes_rel": [
+    "26588"
    ]
   },
   "669637": {
@@ -71593,6 +72083,11 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "M81",
+    "M80",
+    "E55"
    ]
   },
   "669909": {
@@ -71627,7 +72122,12 @@
     "incluido_en": []
    },
    "frecuencia": [],
-   "auditoria": []
+   "auditoria": [],
+   "cie_rel": [
+    "M81",
+    "M80",
+    "E55"
+   ]
   },
   "669913": {
    "code": "669913",
@@ -71672,6 +72172,11 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "M81",
+    "M80",
+    "E55"
    ]
   },
   "669930": {
@@ -72216,6 +72721,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "M32"
    ]
   },
   "660044": {
@@ -72479,6 +72987,11 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "B20",
+    "B24",
+    "Z21"
    ]
   },
   "660135": {
@@ -72523,6 +73036,12 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "M81",
+    "M80",
+    "E55",
+    "D86"
    ]
   },
   "660143": {
@@ -72655,6 +73174,10 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E27",
+    "E24"
    ]
   },
   "660159": {
@@ -72787,6 +73310,10 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E27",
+    "E24"
    ]
   },
   "660163": {
@@ -73444,6 +73971,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E55"
    ]
   },
   "660368": {
@@ -74718,6 +75248,10 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "M05",
+    "M06"
    ]
   },
   "660845": {
@@ -74937,6 +75471,10 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E03",
+    "E05"
    ]
   },
   "660934": {
@@ -75156,6 +75694,12 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E03",
+    "E02",
+    "E05",
+    "E05.9"
    ]
   },
   "662042": {
@@ -76188,6 +76732,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "C61"
    ]
   },
   "662752": {
@@ -78028,6 +78575,11 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "B20",
+    "B24",
+    "Z21"
    ]
   },
   "663709": {
@@ -80006,6 +80558,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "N46"
    ]
   },
   "664751": {
@@ -80049,6 +80604,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "N46"
    ]
   },
   "664760": {
@@ -82113,6 +82671,12 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "K90"
+   ],
+   "leyes_rel": [
+    "26588"
    ]
   },
   "665580": {
@@ -82156,6 +82720,12 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "K90"
+   ],
+   "leyes_rel": [
+    "26588"
    ]
   },
   "665614": {
@@ -84607,6 +85177,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "R77"
    ]
   },
   "666913": {
@@ -89251,6 +89824,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E05"
    ]
   },
   "669272": {
@@ -89638,6 +90214,9 @@
      "score": null,
      "tipo": "lab"
     }
+   ],
+   "cie_rel": [
+    "E06"
    ]
   },
   "669460": {
@@ -139836,6 +140415,9 @@
      "score": 0.8644,
      "tipo": "med"
     }
+   ],
+   "leyes_rel": [
+    "24901"
    ]
   },
   "170118": {
@@ -144156,6 +144738,9 @@
      "score": 0.8627,
      "tipo": "med"
     }
+   ],
+   "leyes_rel": [
+    "24901"
    ]
   },
   "250103": {
@@ -144242,6 +144827,9 @@
      "score": 0.9485,
      "tipo": "med"
     }
+   ],
+   "leyes_rel": [
+    "24901"
    ]
   },
   "250105": {
@@ -144328,6 +144916,9 @@
      "score": 0.9247,
      "tipo": "med"
     }
+   ],
+   "leyes_rel": [
+    "24901"
    ]
   },
   "260101": {
@@ -144878,6 +145469,9 @@
      "score": 0.9625,
      "tipo": "med"
     }
+   ],
+   "cie_rel": [
+    "N18"
    ]
   },
   "260114": {
@@ -145616,6 +146210,10 @@
      "score": 0.8722,
      "tipo": "med"
     }
+   ],
+   "cie_rel": [
+    "D51",
+    "D52"
    ]
   },
   "260131": {
@@ -149636,6 +150234,10 @@
      "score": 0.9218,
      "tipo": "med"
     }
+   ],
+   "leyes_rel": [
+    "24901",
+    "27696"
    ]
   },
   "330102": {
@@ -149679,6 +150281,9 @@
      "score": 0.9122,
      "tipo": "med"
     }
+   ],
+   "leyes_rel": [
+    "27696"
    ]
   },
   "330103": {
@@ -149722,6 +150327,9 @@
      "score": 0.9119,
      "tipo": "med"
     }
+   ],
+   "leyes_rel": [
+    "27696"
    ]
   },
   "330104": {
@@ -216930,6 +217538,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 170117 del Nomenclador de Prestaciones Médicas (similitud 86%)."
+   ],
+   "leyes_rel": [
+    "24901"
    ]
   },
   "U170118": {
@@ -221998,6 +222609,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 250102 del Nomenclador de Prestaciones Médicas (similitud 86%)."
+   ],
+   "leyes_rel": [
+    "24901"
    ]
   },
   "U250103": {
@@ -222084,6 +222698,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 250104 del Nomenclador de Prestaciones Médicas (similitud 95%)."
+   ],
+   "leyes_rel": [
+    "24901"
    ]
   },
   "U250105": {
@@ -222170,6 +222787,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 250106 del Nomenclador de Prestaciones Médicas (similitud 92%)."
+   ],
+   "leyes_rel": [
+    "24901"
    ]
   },
   "U260101": {
@@ -222729,6 +223349,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 260113 del Nomenclador de Prestaciones Médicas (similitud 96%)."
+   ],
+   "cie_rel": [
+    "N18"
    ]
   },
   "U260114": {
@@ -223460,6 +224083,10 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 260130 del Nomenclador de Prestaciones Médicas (similitud 87%)."
+   ],
+   "cie_rel": [
+    "D51",
+    "D52"
    ]
   },
   "U260131": {
@@ -229738,6 +230365,10 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 330101 del Nomenclador de Prestaciones Médicas (similitud 92%)."
+   ],
+   "leyes_rel": [
+    "24901",
+    "27696"
    ]
   },
   "U330102": {
@@ -229781,6 +230412,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 330102 del Nomenclador de Prestaciones Médicas (similitud 91%)."
+   ],
+   "leyes_rel": [
+    "27696"
    ]
   },
   "U330103": {
@@ -229824,6 +230458,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 330103 del Nomenclador de Prestaciones Médicas (similitud 91%)."
+   ],
+   "leyes_rel": [
+    "27696"
    ]
   },
   "U330104": {
@@ -243336,6 +243973,10 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660006."
+   ],
+   "cie_rel": [
+    "E27",
+    "E24"
    ]
   },
   "U60660007": {
@@ -243688,6 +244329,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660019."
+   ],
+   "cie_rel": [
+    "E27"
    ]
   },
   "U60660020": {
@@ -244388,6 +245032,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660041."
+   ],
+   "cie_rel": [
+    "M32"
    ]
   },
   "U60660042": {
@@ -244475,6 +245122,9 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660043.",
     "Práctica del NBU con U.B. vigente (actualización a la fecha)."
+   ],
+   "cie_rel": [
+    "M32"
    ]
   },
   "U64660044": {
@@ -244562,6 +245212,10 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660046."
+   ],
+   "cie_rel": [
+    "E05",
+    "E06"
    ]
   },
   "U60660049": {
@@ -244866,6 +245520,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660056."
+   ],
+   "cie_rel": [
+    "M32"
    ]
   },
   "U60660057": {
@@ -245125,6 +245782,11 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660063."
+   ],
+   "cie_rel": [
+    "B20",
+    "B24",
+    "Z21"
    ]
   },
   "U64660064": {
@@ -245169,6 +245831,11 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660064.",
     "Práctica del NBU con U.B. vigente (actualización a la fecha)."
+   ],
+   "cie_rel": [
+    "B20",
+    "B24",
+    "Z21"
    ]
   },
   "U60660101": {
@@ -245698,6 +246365,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660120."
+   ],
+   "cie_rel": [
+    "M32"
    ]
   },
   "U64660121": {
@@ -245741,6 +246411,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660121."
+   ],
+   "cie_rel": [
+    "M32"
    ]
   },
   "U64660130": {
@@ -245957,6 +246630,12 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660134."
+   ],
+   "cie_rel": [
+    "M81",
+    "M80",
+    "E55",
+    "D86"
    ]
   },
   "U64660135": {
@@ -246001,6 +246680,12 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660135.",
     "Práctica del NBU con U.B. vigente (actualización a la fecha)."
+   ],
+   "cie_rel": [
+    "M81",
+    "M80",
+    "E55",
+    "D86"
    ]
   },
   "U60660136": {
@@ -246046,6 +246731,12 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660136."
+   ],
+   "cie_rel": [
+    "M81",
+    "M80",
+    "E55",
+    "D86"
    ]
   },
   "U61660137": {
@@ -246662,6 +247353,10 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660158.",
     "Práctica del NBU con U.B. vigente (actualización a la fecha)."
+   ],
+   "cie_rel": [
+    "E27",
+    "E24"
    ]
   },
   "U64660159": {
@@ -246794,6 +247489,10 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660161.",
     "Práctica del NBU con U.B. vigente (actualización a la fecha)."
+   ],
+   "cie_rel": [
+    "E27",
+    "E24"
    ]
   },
   "U64660163": {
@@ -247170,6 +247869,9 @@
     "Urgencia (U): si se solicita de urgencia, adicionar el código 661200 en la misma prescripción.",
     "INCLUYE (módulo): comprende 660169, 660746, 660771, 660887. No facturar esos códigos por separado: ya están incluidos.",
     "NO incluye: 668977. Si se realizan, se facturan por separado."
+   ],
+   "cie_rel": [
+    "D68"
    ]
   },
   "U61660172": {
@@ -247302,6 +248004,12 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660174."
+   ],
+   "cie_rel": [
+    "E78",
+    "E88",
+    "E66",
+    "I10"
    ]
   },
   "U60660176": {
@@ -247480,6 +248188,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660179."
+   ],
+   "cie_rel": [
+    "M32"
    ]
   },
   "U64660180": {
@@ -247898,6 +248609,10 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660189."
+   ],
+   "cie_rel": [
+    "E27",
+    "E24"
    ]
   },
   "U60660190": {
@@ -247989,6 +248704,11 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660191."
+   ],
+   "cie_rel": [
+    "N18",
+    "N17",
+    "I10"
    ]
   },
   "U60660192": {
@@ -248036,6 +248756,11 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660192.",
     "Urgencia (U): si se solicita de urgencia, adicionar el código 661200 en la misma prescripción."
+   ],
+   "cie_rel": [
+    "N18",
+    "N17",
+    "I10"
    ]
   },
   "U60660193": {
@@ -248085,6 +248810,11 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660193.",
     "INCLUYE (módulo): comprende 660192. No facturar esos códigos por separado: ya están incluidos."
+   ],
+   "cie_rel": [
+    "N18",
+    "N17",
+    "I10"
    ]
   },
   "U60660194": {
@@ -249076,6 +249806,10 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660297.",
     "Urgencia (U): si se solicita de urgencia, adicionar el código 661200 en la misma prescripción."
+   ],
+   "cie_rel": [
+    "M05",
+    "M06"
    ]
   },
   "U61660298": {
@@ -249134,6 +249868,12 @@
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660298.",
     "INCLUYE (módulo): comprende 664868, 664775. No facturar esos códigos por separado: ya están incluidos.",
     "NO incluye: 660167, 660355, 665478. Si se realizan, se facturan por separado."
+   ],
+   "cie_rel": [
+    "N46"
+   ],
+   "leyes_rel": [
+    "26862"
    ]
   },
   "U60660299": {
@@ -249221,6 +249961,13 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660300."
+   ],
+   "cie_rel": [
+    "N97"
+   ],
+   "leyes_rel": [
+    "26862",
+    "3437/2021"
    ]
   },
   "U60660301": {
@@ -250017,6 +250764,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660343."
+   ],
+   "cie_rel": [
+    "D50"
    ]
   },
   "U61660344": {
@@ -250060,6 +250810,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660344."
+   ],
+   "cie_rel": [
+    "D68"
    ]
   },
   "U60660345": {
@@ -250104,6 +250857,9 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660345.",
     "Urgencia (U): si se solicita de urgencia, adicionar el código 661200 en la misma prescripción."
+   ],
+   "cie_rel": [
+    "D68"
    ]
   },
   "U60660349": {
@@ -250910,6 +251666,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660366."
+   ],
+   "cie_rel": [
+    "E55"
    ]
   },
   "U64660367": {
@@ -250954,6 +251713,9 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660367.",
     "Práctica del NBU con U.B. vigente (actualización a la fecha)."
+   ],
+   "cie_rel": [
+    "E55"
    ]
   },
   "U64660368": {
@@ -251084,6 +251846,15 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660370."
+   ],
+   "cie_rel": [
+    "N97",
+    "N46",
+    "E28"
+   ],
+   "leyes_rel": [
+    "26862",
+    "3437/2021"
    ]
   },
   "U60660371": {
@@ -251632,6 +252403,17 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660412.",
     "Urgencia (U): si se solicita de urgencia, adicionar el código 661200 en la misma prescripción."
+   ],
+   "cie_rel": [
+    "E10",
+    "E11",
+    "E14",
+    "O24",
+    "E66",
+    "R73"
+   ],
+   "leyes_rel": [
+    "2820/2022"
    ]
   },
   "U60660413": {
@@ -251681,6 +252463,17 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660413.",
     "Tiene Norma e Interpretación específica (ver detalle)."
+   ],
+   "cie_rel": [
+    "E10",
+    "E11",
+    "E14",
+    "O24",
+    "E66",
+    "R73"
+   ],
+   "leyes_rel": [
+    "2820/2022"
    ]
   },
   "U64660415": {
@@ -251769,6 +252562,9 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660416.",
     "Práctica en desuso / por presupuesto (#): no tiene valor de U.B. de referencia; se cotiza por presupuesto."
+   ],
+   "cie_rel": [
+    "R77"
    ]
   },
   "U60660417": {
@@ -252217,6 +253013,9 @@
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660433.",
     "Urgencia (U): si se solicita de urgencia, adicionar el código 661200 en la misma prescripción.",
     "INCLUYE (módulo): comprende 660813. No facturar esos códigos por separado: ya están incluidos."
+   ],
+   "leyes_rel": [
+    "27610"
    ]
   },
   "U60660463": {
@@ -252726,6 +253525,15 @@
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660475.",
     "Urgencia (U): si se solicita de urgencia, adicionar el código 661200 en la misma prescripción.",
     "INCLUYE (módulo): comprende 660354, 660409, 660410, 660466, 660470. No facturar esos códigos por separado: ya están incluidos."
+   ],
+   "cie_rel": [
+    "D50",
+    "D51",
+    "D52",
+    "D64"
+   ],
+   "leyes_rel": [
+    "27610"
    ]
   },
   "U64660476": {
@@ -252997,6 +253805,12 @@
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660481.",
     "Urgencia (U): si se solicita de urgencia, adicionar el código 661200 en la misma prescripción.",
     "INCLUYE (módulo): comprende 660110, 660357, 660873, 660874. No facturar esos códigos por separado: ya están incluidos."
+   ],
+   "cie_rel": [
+    "B18",
+    "B16",
+    "B17",
+    "B19"
    ]
   },
   "U60660483": {
@@ -254009,6 +254823,14 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660543."
+   ],
+   "cie_rel": [
+    "E10",
+    "E11",
+    "E66"
+   ],
+   "leyes_rel": [
+    "2820/2022"
    ]
   },
   "U60660546": {
@@ -254060,6 +254882,11 @@
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660546.",
     "Urgencia (U): si se solicita de urgencia, adicionar el código 661200 en la misma prescripción.",
     "INCLUYE (módulo): comprende 660753, 660839. No facturar esos códigos por separado: ya están incluidos."
+   ],
+   "cie_rel": [
+    "N18",
+    "N17",
+    "I10"
    ]
   },
   "U60660547": {
@@ -254111,6 +254938,10 @@
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660547.",
     "Urgencia (U): si se solicita de urgencia, adicionar el código 661200 en la misma prescripción.",
     "INCLUYE (módulo): comprende 660754, 660839. No facturar esos códigos por separado: ya están incluidos."
+   ],
+   "cie_rel": [
+    "N17",
+    "I10"
    ]
   },
   "U60660548": {
@@ -254458,6 +255289,10 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660598."
+   ],
+   "cie_rel": [
+    "M05",
+    "M06"
    ]
   },
   "U64660599": {
@@ -254933,6 +255768,15 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660612."
+   ],
+   "cie_rel": [
+    "N97",
+    "N46",
+    "E28"
+   ],
+   "leyes_rel": [
+    "26862",
+    "3437/2021"
    ]
   },
   "U60660613": {
@@ -256378,6 +257222,11 @@
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660711.",
     "Urgencia (U): si se solicita de urgencia, adicionar el código 661200 en la misma prescripción.",
     "Tiene Norma e Interpretación específica (ver detalle)."
+   ],
+   "cie_rel": [
+    "I10",
+    "N39",
+    "N30"
    ]
   },
   "U64660713": {
@@ -256823,6 +257672,10 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660739."
+   ],
+   "cie_rel": [
+    "M81",
+    "M80"
    ]
   },
   "U60660740": {
@@ -257585,6 +258438,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660758."
+   ],
+   "leyes_rel": [
+    "26862"
    ]
   },
   "U60660759": {
@@ -257628,6 +258484,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660759."
+   ],
+   "leyes_rel": [
+    "26862"
    ]
   },
   "U64660760": {
@@ -257716,6 +258575,10 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660761.",
     "Urgencia (U): si se solicita de urgencia, adicionar el código 661200 en la misma prescripción."
+   ],
+   "cie_rel": [
+    "M05",
+    "M06"
    ]
   },
   "U64660762": {
@@ -257760,6 +258623,10 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660762.",
     "Práctica del NBU con U.B. vigente (actualización a la fecha)."
+   ],
+   "cie_rel": [
+    "M05",
+    "M06"
    ]
   },
   "U60660763": {
@@ -257852,6 +258719,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660764."
+   ],
+   "cie_rel": [
+    "R77"
    ]
   },
   "U60660766": {
@@ -258548,6 +259418,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660818."
+   ],
+   "cie_rel": [
+    "D64"
    ]
   },
   "U60660820": {
@@ -258861,6 +259734,9 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660837.",
     "INCLUYE (módulo): comprende 660343, 660875. No facturar esos códigos por separado: ya están incluidos."
+   ],
+   "cie_rel": [
+    "D50"
    ]
   },
   "U61660838": {
@@ -259265,6 +260141,13 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660863."
+   ],
+   "cie_rel": [
+    "E28"
+   ],
+   "leyes_rel": [
+    "26862",
+    "3437/2021"
    ]
   },
   "U60660864": {
@@ -259356,6 +260239,13 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660865.",
     "Tiene Norma e Interpretación específica (ver detalle)."
+   ],
+   "cie_rel": [
+    "E03",
+    "E02",
+    "E05",
+    "E66",
+    "E05.9"
    ]
   },
   "U60660866": {
@@ -259399,6 +260289,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660866."
+   ],
+   "cie_rel": [
+    "E03"
    ]
   },
   "U60660867": {
@@ -259442,6 +260335,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660867."
+   ],
+   "cie_rel": [
+    "E03"
    ]
   },
   "U64660868": {
@@ -259804,6 +260700,9 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660875.",
     "NO incluye: 660343, 660837. Si se realizan, se facturan por separado."
+   ],
+   "cie_rel": [
+    "D50"
    ]
   },
   "U60660876": {
@@ -259849,6 +260748,11 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660876."
+   ],
+   "cie_rel": [
+    "E78",
+    "E88",
+    "E66"
    ]
   },
   "U64660877": {
@@ -259893,6 +260797,10 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660877.",
     "Práctica del NBU con U.B. vigente (actualización a la fecha)."
+   ],
+   "cie_rel": [
+    "E03",
+    "E05"
    ]
   },
   "U60660878": {
@@ -259936,6 +260844,10 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660878."
+   ],
+   "cie_rel": [
+    "E03",
+    "E05"
    ]
   },
   "U60660879": {
@@ -260070,6 +260982,9 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660887.",
     "Urgencia (U): si se solicita de urgencia, adicionar el código 661200 en la misma prescripción."
+   ],
+   "cie_rel": [
+    "D68"
    ]
   },
   "U60660901": {
@@ -260113,6 +261028,10 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660901."
+   ],
+   "cie_rel": [
+    "N18",
+    "N17"
    ]
   },
   "U60660902": {
@@ -260157,6 +261076,10 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660902.",
     "Urgencia (U): si se solicita de urgencia, adicionar el código 661200 en la misma prescripción."
+   ],
+   "cie_rel": [
+    "N18",
+    "N17"
    ]
   },
   "U60660903": {
@@ -260396,6 +261319,10 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660911.",
     "INCLUYE (módulo): comprende 660105, 660176, 660035, 660711. No facturar esos códigos por separado: ya están incluidos."
+   ],
+   "cie_rel": [
+    "N39",
+    "N30"
    ]
   },
   "U61660931": {
@@ -260760,6 +261687,10 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 660938."
+   ],
+   "cie_rel": [
+    "D51",
+    "D52"
    ]
   },
   "U64660939": {
@@ -261065,6 +261996,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 661000."
+   ],
+   "cie_rel": [
+    "C61"
    ]
   },
   "U62661001": {
@@ -261248,6 +262182,11 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 661011."
+   ],
+   "cie_rel": [
+    "B20",
+    "B24",
+    "Z21"
    ]
   },
   "U61661015": {
@@ -261468,6 +262407,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 661035."
+   ],
+   "cie_rel": [
+    "E78"
    ]
   },
   "U60661040": {
@@ -261513,6 +262455,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 661040."
+   ],
+   "cie_rel": [
+    "E78"
    ]
   },
   "U60661045": {
@@ -261734,6 +262679,10 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 661065."
+   ],
+   "cie_rel": [
+    "E10",
+    "E11"
    ]
   },
   "U61661070": {
@@ -261777,6 +262726,16 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 661070."
+   ],
+   "cie_rel": [
+    "E10",
+    "E11",
+    "E14",
+    "O24",
+    "R73"
+   ],
+   "leyes_rel": [
+    "2820/2022"
    ]
   },
   "U61661075": {
@@ -261820,6 +262779,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 661075."
+   ],
+   "cie_rel": [
+    "B17"
    ]
   },
   "U61661080": {
@@ -261865,6 +262827,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 661080."
+   ],
+   "cie_rel": [
+    "B16"
    ]
   },
   "U61661085": {
@@ -261908,6 +262873,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 661085."
+   ],
+   "cie_rel": [
+    "B16"
    ]
   },
   "U62661086": {
@@ -261953,6 +262921,10 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 661086."
+   ],
+   "cie_rel": [
+    "B18",
+    "B16"
    ]
   },
   "U61661090": {
@@ -262041,6 +263013,10 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 661095."
+   ],
+   "cie_rel": [
+    "B18",
+    "B17"
    ]
   },
   "U61661100": {
@@ -262127,6 +263103,11 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 661105."
+   ],
+   "cie_rel": [
+    "B20",
+    "B24",
+    "Z21"
    ]
   },
   "U61661110": {
@@ -262344,6 +263325,10 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 661130."
+   ],
+   "cie_rel": [
+    "E10",
+    "E11"
    ]
   },
   "U64661134": {
@@ -262915,6 +263900,9 @@
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 661170.",
     "Urgencia (U): si se solicita de urgencia, adicionar el código 661200 en la misma prescripción.",
     "NO incluye: 661175. Si se realizan, se facturan por separado."
+   ],
+   "leyes_rel": [
+    "27610"
    ]
   },
   "U62661175": {
@@ -262961,6 +263949,9 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 661175.",
     "Urgencia (U): si se solicita de urgencia, adicionar el código 661200 en la misma prescripción."
+   ],
+   "leyes_rel": [
+    "27610"
    ]
   },
   "U62661180": {
@@ -263054,6 +264045,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 661185."
+   ],
+   "cie_rel": [
+    "E28"
    ]
   },
   "U64661190": {
@@ -263142,6 +264136,12 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 661195.",
     "Práctica del NBU con U.B. vigente (actualización a la fecha)."
+   ],
+   "cie_rel": [
+    "E03",
+    "E02",
+    "E05",
+    "E05.9"
    ]
   },
   "U63661196": {
@@ -263200,6 +264200,12 @@
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 661196.",
     "INCLUIDO EN: esta práctica ya está comprendida en 660338, 667777, 667785, 667768, 667759, 667751. No facturar en simultáneo con ese/esos código(s).",
     "NO incluye: 660245, 660933. Si se realizan, se facturan por separado."
+   ],
+   "cie_rel": [
+    "E03",
+    "E02",
+    "E05",
+    "E05.9"
    ]
   },
   "U62661200": {
@@ -264162,6 +265168,10 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 662153."
+   ],
+   "cie_rel": [
+    "D51",
+    "D52"
    ]
   },
   "U64662162": {
@@ -266278,6 +267288,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 662461."
+   ],
+   "cie_rel": [
+    "E27"
    ]
   },
   "U64662469": {
@@ -268293,6 +269306,9 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 662726.",
     "Práctica del NBU con U.B. vigente (actualización a la fecha)."
+   ],
+   "cie_rel": [
+    "C61"
    ]
   },
   "U64662730": {
@@ -268336,6 +269352,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 662730."
+   ],
+   "cie_rel": [
+    "C61"
    ]
   },
   "U63662734": {
@@ -275221,6 +276240,11 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 663700.",
     "Práctica del NBU con U.B. vigente (actualización a la fecha)."
+   ],
+   "cie_rel": [
+    "B20",
+    "B24",
+    "Z21"
    ]
   },
   "U64663709": {
@@ -277617,6 +278641,10 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 664008."
+   ],
+   "cie_rel": [
+    "E27",
+    "E24"
    ]
   },
   "U64664012": {
@@ -277660,6 +278688,10 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 664012."
+   ],
+   "cie_rel": [
+    "E27",
+    "E24"
    ]
   },
   "U64664016": {
@@ -278265,6 +279297,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 664119."
+   ],
+   "cie_rel": [
+    "D68"
    ]
   },
   "U64664127": {
@@ -282019,6 +283054,12 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 664632."
+   ],
+   "cie_rel": [
+    "K90"
+   ],
+   "leyes_rel": [
+    "26588"
    ]
   },
   "U62664640": {
@@ -282062,6 +283103,12 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 664640."
+   ],
+   "cie_rel": [
+    "K90"
+   ],
+   "leyes_rel": [
+    "26588"
    ]
   },
   "U64664648": {
@@ -282552,6 +283599,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 664700."
+   ],
+   "cie_rel": [
+    "D86"
    ]
   },
   "U64664709": {
@@ -282768,6 +283818,9 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 664743.",
     "Práctica del NBU con U.B. vigente (actualización a la fecha)."
+   ],
+   "cie_rel": [
+    "N46"
    ]
   },
   "U64664751": {
@@ -282812,6 +283865,9 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 664751.",
     "Práctica del NBU con U.B. vigente (actualización a la fecha)."
+   ],
+   "cie_rel": [
+    "N46"
    ]
   },
   "U64664760": {
@@ -284312,6 +285368,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 665016."
+   ],
+   "cie_rel": [
+    "N97"
    ]
   },
   "U64665025": {
@@ -284878,6 +285937,10 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 665093."
+   ],
+   "cie_rel": [
+    "M05",
+    "M06"
    ]
   },
   "U63665102": {
@@ -285669,6 +286732,10 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 665230."
+   ],
+   "cie_rel": [
+    "D50",
+    "D64"
    ]
   },
   "U64665238": {
@@ -287319,6 +288386,11 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 665486.",
     "Práctica en desuso / por presupuesto (#): no tiene valor de U.B. de referencia; se cotiza por presupuesto."
+   ],
+   "cie_rel": [
+    "N97",
+    "N46",
+    "E28"
    ]
   },
   "U64665494": {
@@ -287927,6 +288999,12 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 665572.",
     "Práctica del NBU con U.B. vigente (actualización a la fecha)."
+   ],
+   "cie_rel": [
+    "K90"
+   ],
+   "leyes_rel": [
+    "26588"
    ]
   },
   "U63665576": {
@@ -287970,6 +289048,12 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 665576."
+   ],
+   "cie_rel": [
+    "K90"
+   ],
+   "leyes_rel": [
+    "26588"
    ]
   },
   "U64665580": {
@@ -288014,6 +289098,12 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 665580.",
     "Práctica del NBU con U.B. vigente (actualización a la fecha)."
+   ],
+   "cie_rel": [
+    "K90"
+   ],
+   "leyes_rel": [
+    "26588"
    ]
   },
   "U63665583": {
@@ -288057,6 +289147,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 665583."
+   ],
+   "leyes_rel": [
+    "26588"
    ]
   },
   "U64665589": {
@@ -289966,6 +291059,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 665888."
+   ],
+   "cie_rel": [
+    "B17"
    ]
   },
   "U62665896": {
@@ -290225,6 +291321,10 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 665939."
+   ],
+   "cie_rel": [
+    "B18",
+    "B17"
    ]
   },
   "U64665948": {
@@ -296633,6 +297733,9 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 666854.",
     "Práctica del NBU con U.B. vigente (actualización a la fecha)."
+   ],
+   "cie_rel": [
+    "R77"
    ]
   },
   "U64666856": {
@@ -296720,6 +297823,11 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 666862."
+   ],
+   "cie_rel": [
+    "E10",
+    "E11",
+    "E66"
    ]
   },
   "U64666871": {
@@ -296892,6 +298000,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 666896."
+   ],
+   "cie_rel": [
+    "I10"
    ]
   },
   "U62666898": {
@@ -305744,6 +306855,10 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 668161."
+   ],
+   "cie_rel": [
+    "M81",
+    "M80"
    ]
   },
   "U64668170": {
@@ -306579,6 +307694,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 668315."
+   ],
+   "cie_rel": [
+    "E06"
    ]
   },
   "U64668323": {
@@ -308462,6 +309580,11 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 668571.",
     "Práctica en desuso / por presupuesto (#): no tiene valor de U.B. de referencia; se cotiza por presupuesto."
+   ],
+   "cie_rel": [
+    "E10",
+    "E11",
+    "E66"
    ]
   },
   "U62668580": {
@@ -308812,6 +309935,10 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 668623."
+   ],
+   "cie_rel": [
+    "M05",
+    "M06"
    ]
   },
   "U64668627": {
@@ -309987,6 +311114,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 668816."
+   ],
+   "cie_rel": [
+    "D50"
    ]
   },
   "U64668819": {
@@ -313296,6 +314426,9 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 669264.",
     "Práctica del NBU con U.B. vigente (actualización a la fecha)."
+   ],
+   "cie_rel": [
+    "E05"
    ]
   },
   "U64669272": {
@@ -314391,6 +315524,10 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 669443."
+   ],
+   "cie_rel": [
+    "E05",
+    "E06"
    ]
   },
   "U64669452": {
@@ -314435,6 +315572,9 @@
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 669452.",
     "Práctica del NBU con U.B. vigente (actualización a la fecha)."
+   ],
+   "cie_rel": [
+    "E06"
    ]
   },
   "U64669460": {
@@ -315658,6 +316798,12 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 669622."
+   ],
+   "cie_rel": [
+    "K90"
+   ],
+   "leyes_rel": [
+    "26588"
    ]
   },
   "U63669631": {
@@ -315701,6 +316847,12 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 669631."
+   ],
+   "cie_rel": [
+    "K90"
+   ],
+   "leyes_rel": [
+    "26588"
    ]
   },
   "U64669633": {
@@ -318170,6 +319322,11 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 669905."
+   ],
+   "cie_rel": [
+    "M81",
+    "M80",
+    "E55"
    ]
   },
   "U63669913": {
@@ -318213,6 +319370,11 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 669913."
+   ],
+   "cie_rel": [
+    "M81",
+    "M80",
+    "E55"
    ]
   },
   "U64669918": {

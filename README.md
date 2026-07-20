@@ -99,6 +99,12 @@ enlazados (en la ficha del NBU se marca "También en Catálogo PMO").
   **sugerencias automáticas por coincidencia de texto**. Los estudios son **clickeables** y saltan a la ficha del
   nomenclador correspondiente. Marcado como **orientativo** (verificar según el caso clínico y la cobertura).
 
+**Relación bidireccional CIE-10 ↔ prácticas y normativa por código (en todos los nomencladores):** además de la
+pantalla de diagnósticos, **cada ficha de código** (NBU, PMO, Odontología o Único) muestra —cuando corresponde—
+sus **Diagnósticos CIE-10 relacionados** (clickeables, abren el diagnóstico) y la **Normativa relacionada** (leyes
+y normas de cobertura vinculadas, clickeables, abren su detalle). Las relaciones se **propagan por equivalencia**,
+así un mismo estudio muestra los mismos diagnósticos y normas se lo mire desde el NBU o desde el Único.
+
 La interfaz separa **cinco secciones** con un selector principal: **Laboratorio (NBU)**, **Prestaciones
 médicas (PMO)**, **Odontología**, **Único (VISITAR)** y **Diagnósticos (CIE-10)** — en cada una solo se ven sus
 códigos/diagnósticos y agrupaciones (no se mezclan).

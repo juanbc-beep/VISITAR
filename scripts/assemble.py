@@ -706,7 +706,8 @@ leyes = [
         "Art. 2° — Las obras sociales (ley 23.660) tienen a su cargo, con carácter obligatorio, la cobertura total de las prestaciones básicas.",
         "Art. 6° y ss. — Prestaciones: preventivas, de rehabilitación, terapéutico-educativas, asistenciales y de apoyo (incluye transporte).",
      ],
-     "temas": ["discapacidad", "rehabilitación", "certificado único de discapacidad"], "codigos": []},
+     "temas": ["discapacidad", "rehabilitación", "certificado único de discapacidad"],
+     "codigos": ["250102", "250104", "250106", "330101", "170117"]},
     {"ley": "25326", "titulo": "Protección de Datos Personales", "sancion": "04/10/2000"},
     {"ley": "25543", "titulo": "Test HIV obligatorio a embarazadas", "sancion": "27/11/2001"},
     {"ley": "26279", "titulo": "Pesquisa Neonatal", "sancion": "08/08/2007"},
@@ -751,7 +752,8 @@ leyes = [
         "Art. 2° — Las obras sociales y prestadores deben articular con las instancias nacionales, provinciales y locales de atención de la violencia de género.",
         "Art. 3° — Cobertura como prestación obligatoria (incluye salud mental y farmacológica).",
      ],
-     "temas": ["violencia de género", "salud mental", "abordaje integral"], "codigos": []},
+     "temas": ["violencia de género", "salud mental", "abordaje integral"],
+     "codigos": ["330101", "330102", "330103"]},
     {"ley": "310/2004", "etiqueta": "Res. 310/2004", "titulo": "Modificación del PMO — Programa Médico Obligatorio de Emergencia (PMOE)", "sancion": "15/04/2004",
      "resumen": "Modifica la Resolución 201/2002: aprueba el Programa Médico Obligatorio de Emergencia (PMOE), conjunto de prestaciones básicas esenciales garantizadas por los Agentes del Seguro de Salud.",
      "cobertura": "Define las prestaciones básicas del PMOE y la cobertura de medicamentos; disminuye el coseguro a cargo de los beneficiarios para tratamientos con fármacos de uso permanente y/o recurrente (patologías crónicas de alto impacto sanitario y socioeconómico).",
@@ -837,6 +839,36 @@ except FileNotFoundError:
         CIE10 = json.load(open("cie10.json", encoding="utf-8"))
     except FileNotFoundError:
         CIE10 = {"codigos": {}, "capitulos": [], "relaciones": {}}
+
+# ---------- relaciones inversas por código: CIE-10 y normativa (en TODOS los nomencladores) ----------
+code2cie = defaultdict(list)
+for _cie, _keys in CIE10.get("relaciones", {}).items():
+    for _k in _keys:
+        if _cie not in code2cie[_k]:
+            code2cie[_k].append(_cie)
+code2ley = defaultdict(list)
+for _l in leyes:
+    for _c in _l.get("codigos", []):
+        if _l["ley"] not in code2ley[_c]:
+            code2ley[_c].append(_l["ley"])
+# propagar por equivalencia: el código del Único hereda las relaciones de su equivalente (NBU/PMO)
+for _k, _r in list(records.items()):
+    if _r.get("nomenclador") == "UNICO":
+        _tgt = (_r.get("equivalencia") or {}).get("key")
+        if _tgt:
+            for _c in code2cie.get(_tgt, []):
+                if _c not in code2cie[_k]:
+                    code2cie[_k].append(_c)
+            for _c in code2ley.get(_tgt, []):
+                if _c not in code2ley[_k]:
+                    code2ley[_k].append(_c)
+_cie_n = _ley_n = 0
+for _k, _r in records.items():
+    if code2cie.get(_k):
+        _r["cie_rel"] = code2cie[_k][:12]; _cie_n += 1
+    if code2ley.get(_k):
+        _r["leyes_rel"] = code2ley[_k]; _ley_n += 1
+print(f"relaciones inversas: {_cie_n} códigos con CIE-10 · {_ley_n} códigos con normativa", file=sys.stderr)
 
 # grupo stats
 grupos_stats = defaultdict(int)
