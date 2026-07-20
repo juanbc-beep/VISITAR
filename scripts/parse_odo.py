@@ -62,7 +62,8 @@ def parse_page(pg):
             col = col_of((x0+x1)/2, w)
             if col:
                 cols[col].append((y0, t))
-        nt = sorted(cols.get("name", []), key=lambda z: (round(z[0]/12), z[0]))
+        # practice name lives on the code's line; norms sit below -> keep only tokens near cy
+        nt = sorted([z for z in cols.get("name", []) if cy-20 <= z[0] <= cy+26], key=lambda z: (round(z[0]/12), z[0]))
         name = re.sub(r"\s+", " ", " ".join(z[1] for z in nt)).strip()
         def uv(col):
             vals = [(y, to_num(t)) for y, t in cols.get(col, []) if to_num(t) is not None]

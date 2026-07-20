@@ -156,6 +156,43 @@ for r in catalog:
         rec["auditoria"].append("Seriado / frecuencia: " + rec["seriado"]["nota"])
     records[code] = rec
 
+# ---------- U.B. vigente (XLS actualizado a la fecha) ----------
+def seccion_por_codigo(code):
+    n = int(code)
+    if 660001 <= n <= 661999:
+        return ("PMO", SECCION_LABEL["PMO"])
+    return ("PE", SECCION_LABEL["PE"])
+ub_vig_upd = ub_vig_new = 0
+try:
+    XLSUB = json.load(open("data/nbu_ub_vigente.json", encoding="utf-8"))
+except FileNotFoundError:
+    try:
+        XLSUB = json.load(open("xls_ub.json", encoding="utf-8"))
+    except FileNotFoundError:
+        XLSUB = []
+for full, nom, ubv in XLSUB:
+    if ubv is None:
+        continue
+    if full in records:
+        records[full]["valor"]["ub_vigente"] = ubv
+        ub_vig_upd += 1
+    else:
+        sec, seclbl = seccion_por_codigo(full)
+        records[full] = {
+            "code": full, "nomenclador": "NBU",
+            "nomenclador_full": "Nomenclador Bioquímico Único (NBU) — U.B. vigente (actualización a la fecha)",
+            "seccion": sec, "seccion_label": seclbl, "grupo": classify(nom, []),
+            "nombre": nom, "sinonimos": [], "abreviaturas": [],
+            "valor": {"ub": None, "ub_vigente": ubv, "unidad": "U.B. (Unidad Bioquímica)",
+                      "arancel": "Arancel = U.B. × valor monetario de la Unidad Bioquímica (según convenio)."},
+            "flags": {"urgencia": False, "requiere_norma": False, "desuso": False, "pcr": False},
+            "referencias": [], "norma": None, "frecuencia": [],
+            "relaciones": {"incluye": [], "no_incluye": [], "incluido_en": []},
+            "auditoria": ["Práctica del NBU con U.B. vigente (actualización a la fecha)."],
+        }
+        ub_vig_new += 1
+print(f"U.B. vigente: actualizados {ub_vig_upd} · nuevos {ub_vig_new}", file=sys.stderr)
+
 # ---------- reverse relationships (bidirectional graph) ----------
 for code, rec in records.items():
     for tgt in rec["relaciones"]["incluye"]:
@@ -366,6 +403,72 @@ ODO_CAP = {
     "07": "Odontopediatría", "08": "Periodoncia", "09": "Radiología odontológica",
     "10": "Cirugía y traumatología bucal",
 }
+ODO_NAMES = {
+    "0101": "Consulta, diagnóstico, fichado y plan de tratamiento",
+    "0103": "Visita / consulta a domicilio", "0104": "Consulta de urgencia",
+    "0201": "Obturación de amalgama. Cavidad simple",
+    "0202": "Obturación de amalgama. Cavidad compuesta o compleja",
+    "0204": "Obturación con amalgama: reconstrucciones con tornillo en conducto",
+    "0205": "Obturación resina autocurado. Cavidad simple",
+    "0206": "Obturación resina autocurado. Cavidad compuesta o compleja",
+    "0208": "Obturación resina fotocurado. Sector anterior",
+    "0209": "Reconstrucción de ángulo en dientes anteriores",
+    "0301": "Tratamiento endodóntico en unirradiculares",
+    "0302": "Tratamiento endodóntico en multirradiculares",
+    "0305": "Biopulpectomía parcial", "0306": "Necropulpectomía parcial o momificación",
+    "0401": "Prótesis fija",
+    "040101": "Incrustaciones: cavidad simple", "040102": "Incrustaciones: cavidad compleja o compuesta",
+    "040103": "Corona forjada", "040104": "Corona colada", "040105": "Corona colada con frente estético",
+    "040106": "Corona espiga", "040107": "Corona colada revestida de acrílico",
+    "040108": "Perno muñón simple", "040109": "Perno muñón seccionado",
+    "040110": "Tramo de puente colado", "040111": "Corona de acrílico",
+    "040112": "Elemento provisorio. Por unidad",
+    "040201": "Prótesis parcial removible de acrílico. Hasta cuatro dientes",
+    "040202": "Prótesis parcial removible de acrílico. De cinco o más dientes",
+    "040203": "Colados en cromo cobalto hasta cuatro dientes",
+    "040204": "Colados en cromo cobalto de cinco o más dientes",
+    "040205": "Prótesis parcial inmediata", "040303": "Prótesis completa inmediata",
+    "040304": "Base colada para prótesis completa", "040401": "Compostura simple",
+    "040402": "Compostura con agregado de un diente",
+    "040403": "Compostura con agregado de un retenedor",
+    "040404": "Compostura con agregado de un diente y un retenedor",
+    "040405": "Diente subsiguiente c/u", "040406": "Retenedor subsiguiente c/u",
+    "040407": "Soldado de retención en aparatos de cromo-cobalto con agregado de un diente",
+    "040408": "Retención subsiguiente", "040409": "Carilla de acrílico",
+    "040410": "Rebasado de prótesis, c/u", "040411": "Cubeta individual",
+    "040412": "Levante de articulación, en acrílico translúcido y retenedores forjados en acero",
+    "0501": "Tartrectomía y cepillado mecánico", "0502": "Consulta preventiva. Terapias fluoradas",
+    "0504": "Consulta preventiva. Detección, control de placa bacteriana y enseñanza de técnicas de higiene bucal",
+    "0505": "Selladores de surcos, fosas y fisuras",
+    "0601": "Consulta especializada en ortodoncia de estudio",
+    "0602": "Ortodoncia interceptiva. Tratamiento de la dentición primaria o mixta",
+    "0603": "Tratamiento de la dentición permanente",
+    "0604": "Corrección de malposiciones simples con espacio",
+    "0701": "Consultas de motivación", "0702": "Mantenedor de espacio",
+    "0704": "Tratamiento de dientes temporarios con formocresol",
+    "0705": "Corona metálica de acero provisoria por destrucción coronaria",
+    "070601": "Reducción de luxación con inmovilización dentaria",
+    "070604": "Fractura amelodentinaria. Protección pulpar. Coronas provisorias",
+    "0801": "Consulta de estudio. Sondaje, fichado, diagnóstico y pronóstico",
+    "0802": "Tratamiento de gingivitis", "0803": "Tratamiento de enfermedad periodontal",
+    "0805": "Desgaste selectivo o armonización oclusal",
+    "0806": "Placas oclusales (temporarias) de acrílico removibles. Cualquier tipo",
+    "1001": "Extracción dentaria", "1002": "Plástica de comunicación buco-sinusal",
+    "1003": "Biopsia por punción, aspiración o escisión", "1004": "Alveolectomía estabilizadora",
+    "1005": "Reimplante dentario inmediato al traumatismo con inmovilización",
+    "1006": "Incisión y drenaje de abscesos", "1007": "Biopsia por escisión",
+    "1009": "Extracción de dientes con retención ósea", "1010": "Germectomía",
+    "1011": "Liberación de dientes retenidos", "1012": "Apicectomía",
+    "1013": "Tratamiento de la osteomielitis", "1014": "Extracción de cuerpo extraño",
+    "1015": "Alveolectomía correctiva",
+}
+def cid_to_dotted(cid):
+    m = re.match(r"^(\d\d)(\d\d)(\d\d)?([A-Z])?$", cid)
+    if not m:
+        return cid
+    parts = [m.group(1), m.group(2)] + ([m.group(3)] if m.group(3) else [])
+    d = ".".join(parts)
+    return d + ("." + m.group(4) if m.group(4) else "")
 def clean_odo_name(nm):
     nm = re.sub(r"\s+", " ", nm or "").strip()
     nm = re.split(r"CONSULTAS|OPERATORIA DENTAL|ENDODONCIA|PROTESIS|ODONTOLOG[IÍ]A PREVENTIVA|"
@@ -401,10 +504,10 @@ for cid, r in ODO.items():
     if r["coseguro"] is not None:
         asoc.append(f"Coseguro máximo a cobrar: hasta {r['coseguro']:g}%.")
     records[rid] = {
-        "code": r["dotted"], "nomenclador": "ODO",
+        "code": cid_to_dotted(cid), "nomenclador": "ODO",
         "nomenclador_full": "Nomenclador Nacional de Prácticas Odontológicas (Anexo II, Res. 201/02 MS)",
         "seccion": "ODO", "seccion_label": "Odontología — " + cap,
-        "grupo": cap, "nombre": clean_odo_name(r["nombre_ocr"]) or r["dotted"],
+        "grupo": cap, "nombre": ODO_NAMES.get(cid) or clean_odo_name(r["nombre_ocr"]) or r["dotted"],
         "sinonimos": [], "abreviaturas": [],
         "valor": {"ub": None, "unidad": "galenos odontológicos",
                   "arancel": "Valorización en galenos odontológicos del Nomenclador Nacional."},

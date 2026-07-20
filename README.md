@@ -3,12 +3,13 @@
 Herramienta para consultar, interpretar y **facturar correctamente** los códigos de los
 nomencladores médicos argentinos, con relaciones entre códigos y reglas de auditoría por práctica.
 
-Estado actual: cargados **dos nomencladores relacionados** en una sola base (**2.611 códigos**):
+Estado actual: cargados **tres nomencladores relacionados** en una sola base (**3.113 códigos**):
 
-- **NBU — Nomenclador Bioquímico Único** (Versión 2012 · Actualización 2016, CUBRA) — 1.377 códigos, con el
-  **Anexo Enero 2024** de U.B. revalorizadas aplicado como overlay.
-- **Catálogo de Prestaciones del PMO** (Resolución 201/2002, S.S. Salud) — 1.234 prestaciones médicas y
+- **NBU — Nomenclador Bioquímico Único** (Versión 2012 · Actualización 2016, CUBRA) — 1.815 códigos, con el
+  **Anexo Enero 2024** y la **U.B. vigente** (planilla oficial actualizada al día) aplicados como overlay.
+- **Catálogo de Prestaciones del PMO** (Resolución 201/2002, S.S. Salud) — 1.219 prestaciones médicas y
   quirúrgicas por especialidad.
+- **Nomenclador Nacional — Odontología** (Anexo II, Res. 201/02) — 79 prácticas dentales valorizadas.
 
 Ambos se cruzan: **315 códigos de laboratorio (66xxxx)** aparecen en los dos nomencladores y quedan
 enlazados (en la ficha del NBU se marca "También en Catálogo PMO").
@@ -28,6 +29,10 @@ enlazados (en la ficha del NBU se marca "También en Catálogo PMO").
   - **Relaciones entre códigos** (197 códigos): *incluye* / *no incluye* / *incluido en*.
   - **Normas de auditoría / facturación** generadas por código (qué no facturar por separado, cuándo adicionar 661200, etc.).
   - **U.B. actualizada 2024** donde el anexo la revaloriza (50 códigos).
+  - **U.B. vigente** (actualización al día, planilla oficial XLS): valor de U.B. revalorizado por práctica que
+    se toma como **valor efectivo** para el arancel en el listado, la ficha, el árbol y el validador. Se aplicó a
+    1.687 códigos (la planilla trae la *terminación* del código y su U.B. vigente; se mapea a los 66xxxx del NBU).
+    La ficha conserva el histórico (base v2016 · Anexo 2024 · vigente) sin pisarlo.
 - **Glosario** de referencias y flags + **marco normativo** (12 leyes vigentes).
 - Clasificación **orientativa** por grupo/especialidad para facilitar la navegación
   (el NBU es alfabético; la clasificación oficial es la sección PMO/PE/Gestión).
@@ -54,8 +59,9 @@ enlazados (en la ficha del NBU se marca "También en Catálogo PMO").
   prótesis, periodoncia, ortodoncia, cirugía bucal, etc.
 - Valorización por **OCR validada por checksum** (Honorarios$ + Gasto$ = Valor Práctica; 86% de las filas
   con precio validan): honorarios y gasto en **galenos odontológicos** + **$ ref. 1991** + **coseguro máximo %**.
-- Nota: los nombres de las prácticas dentales pueden tener artefactos de OCR (el escaneo perdió espacios);
-  código, valores y coseguro son correctos.
+- Los **nombres de las prácticas dentales fueron pulidos** (se corrigieron los artefactos de OCR del escaneo):
+  cada código muestra su denominación limpia (p. ej. *Obturación de amalgama. Cavidad simple*, *Perno muñón simple*,
+  *Germectomía*). Código, valores y coseguro se mantienen.
 
 La interfaz separa **tres secciones** con un selector principal: **Laboratorio (NBU)**, **Prestaciones
 médicas (PMO)** y **Odontología** — en cada una solo se ven sus códigos, grupos y determinaciones (no se mezclan).
