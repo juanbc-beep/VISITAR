@@ -93,12 +93,21 @@ html,body{margin:0;padding:0}
   .modebtn b{white-space:normal}
 }
 @media (max-width:380px){.modeswitch{grid-template-columns:1fr}}
-.consultarow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:8px}
-.consultalbl{font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--faint)}
-.cbtn{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border:1px dashed var(--line-2);border-radius:20px;background:var(--surface-2);color:var(--ink-2);font:inherit;font-size:12.5px;font-weight:600;cursor:pointer}
-.cbtn:hover{border-color:var(--cie);color:var(--ink)}
-.cbtn.on{border-style:solid;border-color:var(--cie);background:color-mix(in srgb,var(--cie) 12%,transparent);color:var(--cie)}
-.cbtn svg{opacity:.8}
+.consultarow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;max-width:1500px;margin:2px auto 0;padding:14px 20px 12px;
+  border-top:1px solid var(--line)}
+.consulta-head{display:flex;flex-direction:column;gap:2px;margin-right:2px}
+.consultalbl{font-size:11px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:var(--cie)}
+.consulta-sub{font-size:11.5px;color:var(--faint)}
+.cbtn{display:inline-flex;align-items:center;gap:11px;padding:8px 15px 8px 8px;border:1.5px solid var(--line-2);border-radius:12px;
+  background:var(--surface-2);color:var(--ink-2);font:inherit;cursor:pointer;transition:.14s;text-align:left}
+.cbtn .cbicon{display:grid;place-items:center;width:32px;height:32px;border-radius:9px;flex-shrink:0;
+  background:color-mix(in srgb,var(--cie) 12%,transparent);color:var(--cie)}
+.cbtn .cbtxt{display:flex;flex-direction:column;line-height:1.2}
+.cbtn b{font-size:13.5px;font-weight:700;color:var(--ink-2)}
+.cbtn small{font-size:11px;color:var(--faint);letter-spacing:.2px}
+.cbtn:hover{border-color:color-mix(in srgb,var(--cie) 45%,transparent);background:var(--surface-3)}
+.cbtn.on{border-color:var(--cie);background:color-mix(in srgb,var(--cie) 10%,transparent)}
+.cbtn.on b{color:var(--cie)} .cbtn.on .cbicon{background:var(--cie);color:#fff}
 /* --- nomenclador PMO médico color --- */
 :root{--med:#0369a1}
 @media (prefers-color-scheme:dark){:root{--med:#38bdf8}}
@@ -374,7 +383,9 @@ ul{margin:0;padding:0}
   .exportbtns{flex-wrap:wrap}
   .hbtns{gap:6px}
   .icon-btn{width:42px;height:42px}         /* objetivos táctiles ≥42px */
-  .cbtn{padding:9px 13px}
+  .consultarow{gap:8px;padding:12px 14px}
+  .consulta-head{flex-basis:100%;margin-bottom:2px}
+  .cbtn{flex:1 1 0;justify-content:flex-start}
   .vtab{padding:9px 14px}
   .dhead,.dbody{padding-left:16px;padding-right:16px}
 }
@@ -600,10 +611,17 @@ mark.hl{background:var(--accent-soft);color:var(--accent-ink);border-radius:3px;
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 7V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2M9 20h6M12 4v16M7 11l2 2 2-2M13 11l2 2 2-2"/></svg>
       <span><b>Único</b><small>VISITAR · equivalencias</small></span></button>
   </div>
-  <div class="consultarow">
-    <span class="consultalbl">Consulta rápida</span>
-    <button class="cbtn" data-mode="CIE"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 2h6a1 1 0 0 1 1 1v2h2a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2V3a1 1 0 0 1 1-1zM10 13h4M12 11v4"/></svg> Diagnóstico (CIE-10)</button>
-    <button class="cbtn" data-mode="ABR"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7V5h16v2M9 20h6M12 5v15"/></svg> Abreviaturas médicas</button>
+  <div class="consultarow" role="tablist" aria-label="Consulta rápida">
+    <div class="consulta-head">
+      <span class="consultalbl">Consulta rápida</span>
+      <span class="consulta-sub">Para interpretar la orden médica</span>
+    </div>
+    <button class="cbtn" data-mode="CIE" role="tab" aria-label="Diagnósticos CIE-10">
+      <span class="cbicon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M9 2h6a1 1 0 0 1 1 1v2h2a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2V3a1 1 0 0 1 1-1zM10 13h4M12 11v4"/></svg></span>
+      <span class="cbtxt"><b>Diagnósticos</b><small>CIE-10</small></span></button>
+    <button class="cbtn" data-mode="ABR" role="tab" aria-label="Abreviaturas médicas">
+      <span class="cbicon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 7V5h16v2M9 20h6M12 5v15"/></svg></span>
+      <span class="cbtxt"><b>Abreviaturas</b><small>Siglas médicas</small></span></button>
   </div>
   <div class="stats" id="stats"></div>
 </header>
@@ -738,9 +756,7 @@ function starBtn(code){return `<span class="star${FAVS.has(code)?' on':''}" data
 
 /* ---------- stats + control de valor U.B. ---------- */
 function refreshStats(){
-  const nc=DB.meta.nomenclador_counts||{};
   const pills=[
-    ['Códigos',CODES.length],['NBU',nc.NBU||0],['PMO méd.',nc.PMO||0],['Odont.',nc.ODO||0],['Único',nc.UNICO||0],['CIE-10',CIE_LIST.length],['Abrev.',ABREV_UNIQ.length],
     ['★ Fav.',FAVS.size]
   ].map(([k,v])=>`<span class="stat">${k} <b>${v.toLocaleString('es-AR')}</b></span>`).join('');
   el('stats').innerHTML=
