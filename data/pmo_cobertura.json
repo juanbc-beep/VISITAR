@@ -6199,39 +6199,1163 @@
  },
  "generalidades": [
   {
+   "num": "1.1",
+   "titulo": "Atención Primaria de la Salud",
+   "texto": "Se reafirma el principio de que este Programa Médico Obligatorio está basado en los principios de la atención primaria de la salud, entendiendo a la misma no sólo como la cobertura para el primer nivel de atención, sino y fundamentalmente como una estrategia de organización de los servicios sanitarios. Por tanto se sostienen los principios de privilegiar la preservación de la salud antes que las acciones curativas, y por tanto reforzar los programas de prevención. Brindar una cobertura integral, es decir un abordaje biopsicosocial de los problemas de salud. Asegurar un mecanismo integrado de atención en los distintos niveles de prevención primaria, secundaria y terciaria. Proveer de cuidados continuos a los beneficiarios, privilegiando la atención a partir de un médico de familia que sea el responsable de los cuidados de los beneficiarios, y donde los mismos tengan el derecho a conocer el nombre de su médico, así como los demás proveedores de servicios obligándose a conocer y acompañar en forma integral a los pacientes en el cuidado de su salud la recuperación de la misma y la rehabilitación. Programas de Prevención Primaria y Secundaria: Se deberán acordar en colaboración con la autoridad jurisdiccional. En todos los casos será obligación de los Agentes del Seguro la entrega del listado de personas bajo programa, el cual deberá ser elevado en forma trimestral a la Superintendencia de Servicios de Salud en conjunto con la información requerida en la Resolución 650/97 ANSSAL y modificatorias. En todos los casos para que un programa de prevención sea reconocido como tal los A",
+   "fuente": "Anexo I"
+  },
+  {
+   "num": "1.1.1",
+   "titulo": "Plan Materno Infantil",
+   "texto": "Se dará cobertura durante el embarazo y el parto a partir del momento del diagnóstico y hasta el primer mes luego del nacimiento. 1.1.2. Atención del recién nacido hasta cumplir un año de edad. Todo con cobertura al 100% tanto en internación como en ambulatorio y exceptuado del pago de todo tipo de coseguros para las atenciones y medicaciones específicas. Esta cobertura comprende: a) Embarazo y parto: consultas, estudios de diagnóstico exclusivamente relacionados con el embarazo, el parto y puerperio, ya que otro tipo de estudios tendrá la cobertura que rige al resto de este PMO; psicoprofilaxis obstétrica, medicamentos exclusivamente relacionados con el embarazo y el parto con cobertura al 100%. b) Infantil: Será obligatoria la realización perinatológica de los estudios para detección de la fenilcetonuria, del hipotiroidismo congénito y enfermedad fibroquística en el recién nacido. Deberán cubrirse las consultas de seguimiento y control, inmunizaciones del período, cobertura del 100% de la medicación requerida para el primer año de vida siempre que ésta figure en el listado de medicamentos esenciales. c) A fin de estimular la lactancia materna no se cubrirán las leches 2 maternizadas o de otro tipo, salvo expresa indicación médica, con evaluación de la auditoría médica.",
+   "fuente": "Anexo I"
+  },
+  {
+   "num": "1.1.3",
+   "titulo": "Programas de prevención de cánceres femeninos",
+   "texto": "en especial de cáncer de mama y cuello uterino, diagnóstico y tratamiento de todas las afecciones malignas. Siempre con la cobertura de las medicaciones que figuren en los protocolos del Programa Nacional de Garantía de Calidad de la Atención Médica. Se excluyen de la cobertura todo tipo de tratamientos y/o protocolos de carácter experimental o en fase de prueba.",
+   "fuente": "Anexo I"
+  },
+  {
+   "num": "1.1.4",
+   "titulo": "Odontología preventiva",
+   "texto": "campos de prevención, fluoración y campañas de educación para la salud bucal.",
+   "fuente": "Anexo I"
+  },
+  {
    "num": "2",
    "titulo": "Atención Secundaria",
-   "texto": "Los Agentes del Seguro de Salud se encuentran obligados a brindar exclusivamente las especialidades reconocidas por la autoridad sanitaria nacional. 2.1. Especialidades: • Anatomía Patológica • Diagnóstico por imágenes: Radiología, tomografía computada, resonancia magnética • Anestesiología • Cardiología y ecografía. • Cirugía cardiovascular • Endocrinología • Cirugía de cabeza y cuello • Infectología • Cirugía general • Fisiatría (medicina física y rehabilitación) • Cirugía infantil • Cirugía plástica reparadora • Gastroenterología • Cirugía de tórax • Geriatría • Clínica médica • Ginecología • Dermatología • Hematología • Hemoterapia • Oftalmología • Medicina familiar y General • Oncología • Medicina nuclear: diagnóstico y tratamiento • Ortopedia y traumatología • Nefrología • Otorrinolaringología • Neonatología • Pediatría • Neumonología • Psiquiatría • Neurología • Reumatología • Nutrición • Terapia intensiva • Obstetricia • Urología 2.2. Las prestaciones a brindar son: Se asegura la consulta en consultorio e internación. Se asegura la consulta de urgencia y emergencia en domicilio. En los mayores de 65 años que no puedan movilizarse, se asegura la consulta programada en domicilio con un coseguro de $10 por cada visita. En todo otro grupo etario donde sea el paciente esté imposibilitado de desplazarse quedará a discreción de la auditoría del Agente del Seguro la provisión d"
+   "texto": "Los Agentes del Seguro de Salud se encuentran obligados a brindar exclusivamente las especialidades reconocidas por la autoridad sanitaria nacional.",
+   "fuente": "Anexo I"
+  },
+  {
+   "num": "2.1",
+   "titulo": "Especialidades",
+   "texto": "• Anatomía Patológica • Diagnóstico por imágenes: Radiología, tomografía computada, resonancia magnética • Anestesiología • Cardiología y ecografía. • Cirugía cardiovascular • Endocrinología • Cirugía de cabeza y cuello • Infectología • Cirugía general • Fisiatría (medicina física y rehabilitación) • Cirugía infantil • Cirugía plástica reparadora • Gastroenterología • Cirugía de tórax • Geriatría • Clínica médica • Ginecología • Dermatología • Hematología • Hemoterapia • Oftalmología • Medicina familiar y General • Oncología • Medicina nuclear: diagnóstico y tratamiento • Ortopedia y traumatología • Nefrología • Otorrinolaringología • Neonatología • Pediatría • Neumonología • Psiquiatría • Neurología • Reumatología • Nutrición • Terapia intensiva • Obstetricia • Urología",
+   "fuente": "Anexo I"
+  },
+  {
+   "num": "2.2",
+   "titulo": "Las prestaciones a brindar son",
+   "texto": "Se asegura la consulta en consultorio e internación. Se asegura la consulta de urgencia y emergencia en domicilio. En los mayores de 65 años que no puedan movilizarse, se asegura la consulta programada en domicilio con un coseguro de $10 por cada visita. En todo otro grupo etario donde sea el paciente esté imposibilitado de desplazarse quedará a discreción de la auditoría del Agente del Seguro la provisión de Atención programada en domicilio. 2.3. Prácticas y estudios complementarios ambulatorios, diagnósticos y terapéuticos: todas las prácticas diagnósticas y terapéuticas detalladas en el anexo II de la presente Resolución, con iderando el material descartable y los medios de contraste como Actualización Normativa Nº 1/2002 - S.S.SALUD parte de la prestación que se realiza.",
+   "fuente": "Anexo I"
   },
   {
    "num": "3",
    "titulo": "Internación",
-   "texto": "Se asegura el 100% de cobertura en la internación en cualquiera de sus modalidades (institucional, hospital de día o domiciliaria). Todas las prestaciones y prácticas que se detallan en el anexo II se encuentran incluidas dentro de la cobertura. La cobertura se extiende sin límite de tiempo, a excepción de lo contemplado en el capítulo que corresponde a salud mental."
+   "texto": "Se asegura el 100% de cobertura en la internación en cualquiera de sus modalidades (institucional, hospital de día o domiciliaria). Todas las prestaciones y prácticas que se detallan en el anexo II se encuentran incluidas dentro de la cobertura. La cobertura se extiende sin límite de tiempo, a excepción de lo contemplado en el capítulo que corresponde a salud mental.",
+   "fuente": "Anexo I"
   },
   {
    "num": "4",
    "titulo": "Salud mental",
-   "texto": "4.1. Se incluyen todas aquellas actividades de fortalecimiento y desarrollo de comportamientos y hábitos de vida saludables como forma de promoción de la salud en general y de la salud mental en particular. 4.2. Actividades específicas que tienden a prevenir comportamientos que puedan generar trastornos y malestares psíquicos en temas específicos como la depresión, suicidio, adicciones, violencia, violencia familiar, maltrato infantil. Los agentes del seguro propiciarán las prácticas de promoción de salud mental mediante el desarrollo de actividades acordes a las modalidades que consideren pertinentes para su población beneficiaria. 4.3. Prestaciones cubiertas: atención ambulatoria hasta 30 visitas por año calendario, no pudiendo exceder la cantidad de 4 consultas mensuales. Esto incluye las modalidades de entrevista psiquiátrica, psicológica, psicopedagogía, psicoterapia individual, psicoterapia grupal, psicoterapia de familia y de pareja, psicodiagnóstico. 4.4. Internación: se cubrirán patologías agudas en las modalidades institucional u hospital de día. Hasta 30 días por año calendario."
+   "texto": "4.1. Se incluyen todas aquellas actividades de fortalecimiento y desarrollo de comportamientos y hábitos de vida saludables como forma de promoción de la salud en general y de la salud mental en particular. 4.2. Actividades específicas que tienden a prevenir comportamientos que puedan generar trastornos y malestares psíquicos en temas específicos como la depresión, suicidio, adicciones, violencia, violencia familiar, maltrato infantil. Los agentes del seguro propiciarán las prácticas de promoción de salud mental mediante el desarrollo de actividades acordes a las modalidades que consideren pertinentes para su población beneficiaria.",
+   "fuente": "Anexo I"
+  },
+  {
+   "num": "4.3",
+   "titulo": "Prestaciones cubiertas",
+   "texto": "atención ambulatoria hasta 30 visitas por año calendario, no pudiendo exceder la cantidad de 4 consultas mensuales. Esto incluye las modalidades de entrevista psiquiátrica, psicológica, psicopedagogía, psicoterapia individual, psicoterapia grupal, psicoterapia de familia y de pareja, psicodiagnóstico.",
+   "fuente": "Anexo I"
+  },
+  {
+   "num": "4.4",
+   "titulo": "Internación",
+   "texto": "se cubrirán patologías agudas en las modalidades institucional u hospital de día. Hasta 30 días por año calendario.",
+   "fuente": "Anexo I"
   },
   {
    "num": "5",
    "titulo": "Rehabilitación",
-   "texto": "Se incluyen todas las prácticas kinesiológicas y fonoaudiológicas que se detallan en el Anexo II de la presente Resolución. Los Agentes del Seguro de Salud darán cobertura ambulatoria para rehabilitación motriz, psicomotriz, readaptación ortopédica y rehabilitación sensorial. Kinesioterapia: hasta 25 sesiones por beneficiario por año calendario Fonoaudiología: hasta 25 sesiones por beneficiario por año calendario Estimulación temprana: en los términos que se define en el Anexo II de la presente Resolución"
+   "texto": "Se incluyen todas las prácticas kinesiológicas y fonoaudiológicas que se detallan en el Anexo II de la presente Resolución. Los Agentes del Seguro de Salud darán cobertura ambulatoria para rehabilitación motriz, psicomotriz, readaptación ortopédica y rehabilitación sensorial. Kinesioterapia: hasta 25 sesiones por beneficiario por año calendario Fonoaudiología: hasta 25 sesiones por beneficiario por año calendario Estimulación temprana: en los términos que se define en el Anexo II de la presente Resolución",
+   "fuente": "Anexo I"
   },
   {
    "num": "6",
    "titulo": "Odontología",
-   "texto": "6.1. Se asegura la cobertura por parte de los Agentes del Seguro de Salud, de las siguientes prácticas: 1.01 Consulta. Diagnóstico. Fichado y plan de tratamiento. Este código incluye examen, diagnóstico y plan de tratamiento. Se considera como primera consulta y comprende la confección de la ficha odontológica. 1.04 Consulta de urgencia. Se considera consulta de urgencia a toda consulta sin turno previo, que resuelva la demanda espontánea. El beneficiario una vez resuelta la urgencia podrá consultar a su odontólogo general para iniciar el tratamiento definitivo de la patología que lo afecte. No se contempla dentro de esa consulta la realización de prácticas no cubiertas, a excepción del cementado de puentes y coronas que no requieran de restauración protética. 2.01 Obturación de amalgama. Cavidad simple. 2.02 Obturación de amalgama. Cavidad compuesta o compleja. 2.04 Obturación con tornillo en conducto. Comprende el tratamiento de los tejidos duros del diente para resolver los daños provocados por la caries dental cuando la destrucción coronaria sea mayor que los dos tercios de la distancia intercuspídea. La obturación definitiva debe incluir, en menores de 18 años, el sellado de todas las superficies no tratadas. Será reconocida una única vez por pieza tratada. 2.05 Obturación resina autocurado. Cavidad simple. 3 2.06 Obturación resina autocurado. Cavidad compuesta o compleja."
+   "texto": "6.1. Se asegura la cobertura por parte de los Agentes del Seguro de Salud, de las siguientes prácticas: 1.01 Consulta. Diagnóstico. Fichado y plan de tratamiento. Este código incluye examen, diagnóstico y plan de tratamiento. Se considera como primera consulta y comprende la confección de la ficha odontológica. 1.04 Consulta de urgencia. Se considera consulta de urgencia a toda consulta sin turno previo, que resuelva la demanda espontánea. El beneficiario una vez resuelta la urgencia podrá consultar a su odontólogo general para iniciar el tratamiento definitivo de la patología que lo afecte. No se contempla dentro de esa consulta la realización de prácticas no cubiertas, a excepción del cementado de puentes y coronas que no requieran de restauración protética. 2.01 Obturación de amalgama. Cavidad simple. 2.02 Obturación de amalgama. Cavidad compuesta o compleja. 2.04 Obturación con tornillo en conducto. Comprende el tratamiento de los tejidos duros del diente para resolver los daños provocados por la caries dental cuando la destrucción coronaria sea mayor que los dos tercios de la distancia intercuspídea. La obturación definitiva debe incluir, en menores de 18 años, el sellado de todas las superficies no tratadas. Será reconocida una única vez por pieza tratada. 2.05 Obturación resina autocurado. Cavidad simple. 3 2.06 Obturación resina autocurado. Cavidad compuesta o compleja. 2.08 Obturación resina fotocurado sector anterior. Comprende la restauración de las piezas anteriores y vestibular de primeros premolares. 2.09 Reconstrucción de ángulo en dientes anteriores. 3.01 Tr",
+   "fuente": "Anexo I"
+  },
+  {
+   "num": "III",
+   "titulo": "Formulario Terapéutico — reglas",
+   "texto": "ANEXO III Formulario Terapéutico Las características que reúne este formulario son las siguientes: Los principios activos incluidos atienden el 95% de los proble- mas de salud que se presentan en la consulta ambulatoria. No se incluyen los medicamentos financiados a través del Fondo Solidario de Redistribución por resoluciones de la Administra- ción de Programas Especiales y leyes de protección de grupos vulnerables. No se incluyen medicamentos de venta libre, ni específicos para patologías oncológicas. La cobertura de los medicamentos específicos para la terapéutica de la Diabetes (Resolución 301/99 MsyAS)se especifica en el Anexo I, por lo que no está incluida en este formulario. La cobertura de los medicamentos específicos para la terapéutica de la Miastenia Gravis (Resolución 791/99 MsyAS) se especifi- ca en el Anexo I, por lo que no está incluida en este formulario. Los medicamentos incluidos en el listado tienen cobertura obliga- toria por los Agentes del Seguro de Salud al 40% del valor de referencia según Anexo IV de la presente Resolución Los Agentes del Seguro de Salud podrán ampliar la cobertura e incluir otros medicamentos de acuerdo a las necesidades de sus beneficiarios y financiamiento. Se incluyeron los principios activos que demostraron tener efec- tividad clínica comprobada, y ser la mejor alternativa en relación al resto de otros principios activos dentro de la banda terapéutica en las que fueron evaluados, los estudios disponibles de costo- efectividad correspondientes. La selección de principios activos fue realizada sobre la base de los criterios que s",
+   "fuente": "Anexo III"
   }
  ],
  "topes": [
-  "Prestaciones cubiertas: atención ambulatoria hasta 30 visitas por año calendario, no pudiendo exceder la cantidad de 4 consultas mensuales",
-  "Kinesioterapia: hasta 25 sesiones por beneficiario por año calendario Fonoaudiología: hasta 25 sesiones por beneficiario por año calendario Est",
-  "Se cubrirá hasta los 18 años y hasta dos veces por año",
-  "Esta práctica se reconoce hasta los 15 años en premolares y molares permanentes",
-  "Se cubrirá hasta los 15 años de edad e incluye la consulta diagnóst",
-  "Se cubrirá por única vez por pieza dentaria y en pacientes de hasta 8 años inclusive",
-  "En primeros molares permanentes hasta los 15 años de edad",
-  "El monto de coseguros a pagar será de hasta $ 4 para niños de hasta 15 años, y para mayores de 65 años"
+  "Este anexo determina la cobertura básica que brindarán los Agentes del Seguro de Salud 1.",
+  "Todo con cobertura al 100% tanto en internación como en ambulatorio y exceptuado del pago de todo tipo de coseguros para las atenciones y medicaciones específicas.",
+  "c) A fin de estimular la lactancia materna no se cubrirán las leches 2 maternizadas o de otro tipo, salvo expresa indicación médica, con evaluación de la auditoría médica.",
+  "En los mayores de 65 años que no puedan movilizarse, se asegura la consulta programada en domicilio con un coseguro de $10 por cada visita.",
+  "Internación: Se asegura el 100% de cobertura en la internación en cualquiera de sus modalidades (institucional, hospital de día o domiciliaria).",
+  "Prestaciones cubiertas: atención ambulatoria hasta 30 visitas por año calendario, no pudiendo exceder la cantidad de 4 consultas mensuales.",
+  "Hasta 30 días por año calendario.",
+  "Se asegura la cobertura por parte de los Agentes del Seguro de Salud, de las siguientes prácticas: 1.01 Consulta.",
+  "La obturación definitiva debe incluir, en menores de 18 años, el sellado de todas las superficies no tratadas.",
+  "En pacientes mayores de 18 se cubrirá una vez por año.",
+  "Se cubrirá hasta los 18 años y hasta dos veces por año.",
+  "Esta práctica se reconoce hasta los 15 años en premolares y molares permanentes.",
+  "7.01 Consultas de motivación.",
+  "Se cubrirá hasta los 15 años de edad e incluye la consulta diagnóstica, examen y plan de tratamiento.",
+  "Se cubrirá por única vez por pieza dentaria y en pacientes de hasta 8 años inclusive.",
+  "En primeros molares permanentes hasta los 15 años de edad.",
+  "8.03 Tratamiento de enfermedad periodontal.",
+  "10.14 Extracción de cuerpo extraño.",
+  "El monto de coseguros a pagar será de hasta $ 4 para niños de hasta 15 años, y para mayores de 65 años.",
+  "Co-seguro de hasta $ 7 para aquellos beneficiarios que tienen entre 16 y 64 años.",
+  "La cobertura será del 100% en internados.",
+  "Tendrán cobertura al 100% por parte del Agente del Seguro: Eritropoyetina en el tratamiento de la Insuficiencia Renal Crónica.",
+  "Cobertura de insulina (100%), antidiabéticos orales (70%) y tirillas reactivas (400 anuales).",
+  "Cobertura del 100% del mestinón 60 mg.",
+  "Otras coberturas 8.1.",
+  "La cobertura estará dada en función del marco general que marca el PMO, es decir que los Agentes del 4"
+ ],
+ "medicamentos": [
+  {
+   "atc": "A02AD",
+   "nombre": "Combinaciones de Al, Ca y Mg",
+   "grupo": "Aparato digestivo y metabolismo"
+  },
+  {
+   "atc": "A02BA02",
+   "nombre": "Ranitidina",
+   "grupo": "Aparato digestivo y metabolismo"
+  },
+  {
+   "atc": "A02BC",
+   "nombre": "Omeprazol",
+   "grupo": "Aparato digestivo y metabolismo"
+  },
+  {
+   "atc": "A03BB",
+   "nombre": "Metilbromuro de homatropina",
+   "grupo": "Aparato digestivo y metabolismo"
+  },
+  {
+   "atc": "A03FA",
+   "nombre": "Metoclopramida",
+   "grupo": "Aparato digestivo y metabolismo"
+  },
+  {
+   "atc": "A07CA",
+   "nombre": "Sales para rehidratación oral",
+   "grupo": "Aparato digestivo y metabolismo"
+  },
+  {
+   "atc": "A07DA03",
+   "nombre": "Loperamida",
+   "grupo": "Aparato digestivo y metabolismo"
+  },
+  {
+   "atc": "A07EC01",
+   "nombre": "Sulfasalazina",
+   "grupo": "Aparato digestivo y metabolismo"
+  },
+  {
+   "atc": "A07EC02",
+   "nombre": "Mesalazina",
+   "grupo": "Aparato digestivo y metabolismo"
+  },
+  {
+   "atc": "A10BA02",
+   "nombre": "Metformina",
+   "grupo": "Aparato digestivo y metabolismo"
+  },
+  {
+   "atc": "A10BB01",
+   "nombre": "Glibenclamida",
+   "grupo": "Aparato digestivo y metabolismo"
+  },
+  {
+   "atc": "A10BB07",
+   "nombre": "Glipizida",
+   "grupo": "Aparato digestivo y metabolismo"
+  },
+  {
+   "atc": "A11CB",
+   "nombre": "Combinación de vitaminas A y D (o asociaciones con- teniendo vitaminas A+D+C o A+D+C+flúor)",
+   "grupo": "Aparato digestivo y metabolismo"
+  },
+  {
+   "atc": "A11CC04",
+   "nombre": "Vitamina D3 - calcitriol-",
+   "grupo": "Aparato digestivo y metabolismo"
+  },
+  {
+   "atc": "A11DA01",
+   "nombre": "Vitamina B1 (tiamina) (o asociaciones fijas conte- niendo vitamina B1 + B6)",
+   "grupo": "Aparato digestivo y metabolismo"
+  },
+  {
+   "atc": "A11DA03",
+   "nombre": "Vitamina B6 (piridoxina) ( o asociaciones fijas conteniendo vitamina B1 + B6)",
+   "grupo": "Aparato digestivo y metabolismo"
+  },
+  {
+   "atc": "B01AA03",
+   "nombre": "Warfarina",
+   "grupo": "Sangre Y Hematopoyesis"
+  },
+  {
+   "atc": "B01AA07",
+   "nombre": "Acenocumarol",
+   "grupo": "Sangre Y Hematopoyesis"
+  },
+  {
+   "atc": "B01AB01",
+   "nombre": "Enoxaparina",
+   "grupo": "Sangre Y Hematopoyesis"
+  },
+  {
+   "atc": "B01AC05",
+   "nombre": "Ticlopidina",
+   "grupo": "Sangre Y Hematopoyesis"
+  },
+  {
+   "atc": "B01AC04",
+   "nombre": "Clopidogrel",
+   "grupo": "Sangre Y Hematopoyesis"
+  },
+  {
+   "atc": "B01AC06",
+   "nombre": "Acido acetilsalicílico",
+   "grupo": "Sangre Y Hematopoyesis"
+  },
+  {
+   "atc": "B02BA",
+   "nombre": "Vitamina K",
+   "grupo": "Sangre Y Hematopoyesis"
+  },
+  {
+   "atc": "B03AA07",
+   "nombre": "Sulfato ferroso",
+   "grupo": "Sangre Y Hematopoyesis"
+  },
+  {
+   "atc": "B03BA01",
+   "nombre": "Cianocobalamina (vitamina B12)",
+   "grupo": "Sangre Y Hematopoyesis"
+  },
+  {
+   "atc": "B03BB01",
+   "nombre": "Acido fólico",
+   "grupo": "Sangre Y Hematopoyesis"
+  },
+  {
+   "atc": "C01AA05",
+   "nombre": "Digoxina",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C01BA01",
+   "nombre": "Quinidina",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C01BB02",
+   "nombre": "Mexiletina",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C01BC03",
+   "nombre": "Propafenona",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C01BC04",
+   "nombre": "Flecainida",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C01BD01",
+   "nombre": "Amiodarona",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C01DA08",
+   "nombre": "Dinitrato de isosorbide",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C01DA14",
+   "nombre": "Mononitrato de isosorbide",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C02AB",
+   "nombre": "Metildopa",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C02CA01",
+   "nombre": "Prazosin",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C03AA03",
+   "nombre": "Hidroclorotiazida",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C03BA04",
+   "nombre": "Clortalidona",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C03BA11",
+   "nombre": "Indapamida",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C03CA01",
+   "nombre": "Furosemida",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C03DA01",
+   "nombre": "Espironolactona",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C03EA",
+   "nombre": "Hidroclorotiazida + amiloride",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C07AA",
+   "nombre": "Bloqueantes betadrenérgicos no cardioselectivos, solos",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C07AA05",
+   "nombre": "Propranolol",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C07AB",
+   "nombre": "Bloqueantes betadrenérgicos cardioselectivos, solos",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C07AB03",
+   "nombre": "Atenolol",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C07AG",
+   "nombre": "Bloqueantes alfa/betadrenérgicos",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C07AG02",
+   "nombre": "Carvedilol",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C08CA",
+   "nombre": "Derivados de dihidropiridina",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C08CA01",
+   "nombre": "Amlodipina",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C08DA",
+   "nombre": "Derivados de fenilalquilamina",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C08DA01",
+   "nombre": "Verapamilo",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C08DB",
+   "nombre": "Derivados de benzotiazepina",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C08DB01",
+   "nombre": "Diltiazem",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C09AA",
+   "nombre": "Inhibidores de la Enzima Convertidora de",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C09AA02",
+   "nombre": "Enalapril",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C09C",
+   "nombre": "Antagonistas de Angiotensina II",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C09CA01",
+   "nombre": "Losartán",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C10AA",
+   "nombre": "Inhibidores de HMG CoA reductasa",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C10AA01",
+   "nombre": "Simvastatina",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C10AA01",
+   "nombre": "Atorvastatin",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C10AB",
+   "nombre": "Fibratos",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C10AB02",
+   "nombre": "Bezafibrato",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C10AB04",
+   "nombre": "Gemfibrozilo",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C10AC",
+   "nombre": "Secuestrantes de sales biliares",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "C10AC01",
+   "nombre": "Colestiramina",
+   "grupo": "Aparato Cardiovascular"
+  },
+  {
+   "atc": "D01AC",
+   "nombre": "ketoconazol",
+   "grupo": "Terapia Dermatologica"
+  },
+  {
+   "atc": "D01BA02",
+   "nombre": "Terbinafina ORAL",
+   "grupo": "Terapia Dermatologica"
+  },
+  {
+   "atc": "D05BB02",
+   "nombre": "Acitretina",
+   "grupo": "Terapia Dermatologica"
+  },
+  {
+   "atc": "D06A",
+   "nombre": "Gentamicina",
+   "grupo": "Terapia Dermatologica"
+  },
+  {
+   "atc": "D06AX",
+   "nombre": "Mupirocina",
+   "grupo": "Terapia Dermatologica"
+  },
+  {
+   "atc": "D07AB01",
+   "nombre": "Clobetasol",
+   "grupo": "Terapia Dermatologica"
+  },
+  {
+   "atc": "D07AB09",
+   "nombre": "Triamcinolona",
+   "grupo": "Terapia Dermatologica"
+  },
+  {
+   "atc": "D07AC01",
+   "nombre": "Betametasona",
+   "grupo": "Terapia Dermatologica"
+  },
+  {
+   "atc": "D10AE51",
+   "nombre": "Peróxido de benzoílo",
+   "grupo": "Terapia Dermatologica"
+  },
+  {
+   "atc": "D10AF02",
+   "nombre": "Eritromicina tópica",
+   "grupo": "Terapia Dermatologica"
+  },
+  {
+   "atc": "D10AF02",
+   "nombre": "Clindamicina tópica",
+   "grupo": "Terapia Dermatologica"
+  },
+  {
+   "atc": "D10BA01",
+   "nombre": "Isotretinoína",
+   "grupo": "Terapia Dermatologica"
+  },
+  {
+   "atc": "G01AF01",
+   "nombre": "Metronidazol",
+   "grupo": "Terapia Dermatologica"
+  },
+  {
+   "atc": "G02CA",
+   "nombre": "Simpaticomiméticos inhibidores del parto",
+   "grupo": "Terapia Dermatologica"
+  },
+  {
+   "atc": "G02CA",
+   "nombre": "Ritodrina",
+   "grupo": "Terapia Dermatologica"
+  },
+  {
+   "atc": "G02CA",
+   "nombre": "Isoxsuprina i• Indicado para la inhibición de parto prematuro en gestaciones no complicadas de entre 24 y 33 semanas de edad gestacional",
+   "grupo": "Terapia Dermatologica"
+  },
+  {
+   "atc": "G03C01",
+   "nombre": "Etinilestradiol",
+   "grupo": "Terapia Dermatologica"
+  },
+  {
+   "atc": "G03C02",
+   "nombre": "Estradiol",
+   "grupo": "Terapia Dermatologica"
+  },
+  {
+   "atc": "G03C04",
+   "nombre": "Estriol",
+   "grupo": "Terapia Dermatologica"
+  },
+  {
+   "atc": "G03C57",
+   "nombre": "Estrógenos conjugados",
+   "grupo": "Terapia Dermatologica"
+  },
+  {
+   "atc": "G03FA",
+   "nombre": "Combinaciones fijas de estrógenos con progestágenos",
+   "grupo": "Terapia Dermatologica"
+  },
+  {
+   "atc": "G04AC01",
+   "nombre": "Nitrofurantoína",
+   "grupo": "Terapia Dermatologica"
+  },
+  {
+   "atc": "G04BD",
+   "nombre": "Antiespasmódicos urinarios",
+   "grupo": "Terapia Dermatologica"
+  },
+  {
+   "atc": "G04BD04",
+   "nombre": "Oxibutinina",
+   "grupo": "Terapia Dermatologica"
+  },
+  {
+   "atc": "G04CA03",
+   "nombre": "Bloqueante alfa adrenérgico con acción selectiva so- bre tracto urinario: terazosina",
+   "grupo": "Terapia Dermatologica"
+  },
+  {
+   "atc": "G04CB01",
+   "nombre": "Finasteride",
+   "grupo": "Terapia Dermatologica"
+  },
+  {
+   "atc": "H01BA02",
+   "nombre": "Desmopresina",
+   "grupo": "Terapia Hormonal"
+  },
+  {
+   "atc": "H02AB",
+   "nombre": "Glucocorticoides",
+   "grupo": "Terapia Hormonal"
+  },
+  {
+   "atc": "H02AB09",
+   "nombre": "Hidrocortisona",
+   "grupo": "Terapia Hormonal"
+  },
+  {
+   "atc": "H02AB01",
+   "nombre": "Betametasona",
+   "grupo": "Terapia Hormonal"
+  },
+  {
+   "atc": "H02AB02",
+   "nombre": "Dexametasona",
+   "grupo": "Terapia Hormonal"
+  },
+  {
+   "atc": "H02AB04",
+   "nombre": "Metilprednisolona",
+   "grupo": "Terapia Hormonal"
+  },
+  {
+   "atc": "H02AB07",
+   "nombre": "Prednisona",
+   "grupo": "Terapia Hormonal"
+  },
+  {
+   "atc": "H03BB01",
+   "nombre": "Metimazol",
+   "grupo": "Terapia Hormonal"
+  },
+  {
+   "atc": "J01AA02",
+   "nombre": "Doxiciclina",
+   "grupo": "Terapia Antiinfecciosa, Uso Sistemico"
+  },
+  {
+   "atc": "J01CA04",
+   "nombre": "Amoxicilina",
+   "grupo": "Terapia Antiinfecciosa, Uso Sistemico"
+  },
+  {
+   "atc": "J01CE02",
+   "nombre": "Fenoximetilpenicilina",
+   "grupo": "Terapia Antiinfecciosa, Uso Sistemico"
+  },
+  {
+   "atc": "J01CE08",
+   "nombre": "Penicilina benzatínica",
+   "grupo": "Terapia Antiinfecciosa, Uso Sistemico"
+  },
+  {
+   "atc": "J01CR",
+   "nombre": "Amoxicilina + clavulanato:",
+   "grupo": "Terapia Antiinfecciosa, Uso Sistemico"
+  },
+  {
+   "atc": "J01DA01",
+   "nombre": "Cefalexina",
+   "grupo": "Terapia Antiinfecciosa, Uso Sistemico"
+  },
+  {
+   "atc": "J01DA06",
+   "nombre": "Cefuroxima",
+   "grupo": "Terapia Antiinfecciosa, Uso Sistemico"
+  },
+  {
+   "atc": "J01DA11",
+   "nombre": "Ceftazidima",
+   "grupo": "Terapia Antiinfecciosa, Uso Sistemico"
+  },
+  {
+   "atc": "J01DA13",
+   "nombre": "Ceftriaxona",
+   "grupo": "Terapia Antiinfecciosa, Uso Sistemico"
+  },
+  {
+   "atc": "J01EE01",
+   "nombre": "Sulfametoxazol y trimetoprima",
+   "grupo": "Terapia Antiinfecciosa, Uso Sistemico"
+  },
+  {
+   "atc": "J01FA01",
+   "nombre": "Eritromicina",
+   "grupo": "Terapia Antiinfecciosa, Uso Sistemico"
+  },
+  {
+   "atc": "J01FA02",
+   "nombre": "Espiramicina",
+   "grupo": "Terapia Antiinfecciosa, Uso Sistemico"
+  },
+  {
+   "atc": "J01FA09",
+   "nombre": "Claritromicina",
+   "grupo": "Terapia Antiinfecciosa, Uso Sistemico"
+  },
+  {
+   "atc": "J01FF01",
+   "nombre": "Clindamicina",
+   "grupo": "Terapia Antiinfecciosa, Uso Sistemico"
+  },
+  {
+   "atc": "J01GB03",
+   "nombre": "Gentamicina",
+   "grupo": "Terapia Antiinfecciosa, Uso Sistemico"
+  },
+  {
+   "atc": "J01MA02",
+   "nombre": "Ciprofloxacina",
+   "grupo": "Terapia Antiinfecciosa, Uso Sistemico"
+  },
+  {
+   "atc": "J01MA06",
+   "nombre": "Norfloxacina",
+   "grupo": "Terapia Antiinfecciosa, Uso Sistemico"
+  },
+  {
+   "atc": "J01XD",
+   "nombre": "Imidazoles",
+   "grupo": "Terapia Antiinfecciosa, Uso Sistemico"
+  },
+  {
+   "atc": "J01XD01",
+   "nombre": "Metronidazol",
+   "grupo": "Terapia Antiinfecciosa, Uso Sistemico"
+  },
+  {
+   "atc": "J02AC0",
+   "nombre": "Fluconazol",
+   "grupo": "Terapia Antiinfecciosa, Uso Sistemico"
+  },
+  {
+   "atc": "J06BA01",
+   "nombre": "Inmunoglobulinas humanas normales para adminis- tración intramuscular",
+   "grupo": "Terapia Antiinfecciosa, Uso Sistemico"
+  },
+  {
+   "atc": "J06BB01",
+   "nombre": "Inmunoglobulina anti-D (Rh)",
+   "grupo": "Terapia Antiinfecciosa, Uso Sistemico"
+  },
+  {
+   "atc": "J06BB04",
+   "nombre": "Inmunoglobulina antihepatitis B",
+   "grupo": "Terapia Antiinfecciosa, Uso Sistemico"
+  },
+  {
+   "atc": "J06BB02",
+   "nombre": "Inmunoglobulina antitetánica",
+   "grupo": "Terapia Antiinfecciosa, Uso Sistemico"
+  },
+  {
+   "atc": "J07AM03",
+   "nombre": "Toxoide tetánico combinado con inmunoglobulina antitetánica",
+   "grupo": "Terapia Antiinfecciosa, Uso Sistemico"
+  },
+  {
+   "atc": "M01AE01",
+   "nombre": "Ibuprofeno",
+   "grupo": "Aparato Locomotor"
+  },
+  {
+   "atc": "M01CB02",
+   "nombre": "Aurotisulfato de sodio",
+   "grupo": "Aparato Locomotor"
+  },
+  {
+   "atc": "M01CC01",
+   "nombre": "Penicilamina",
+   "grupo": "Aparato Locomotor"
+  },
+  {
+   "atc": "L01BA01",
+   "nombre": "Metotrexato",
+   "grupo": "Aparato Locomotor"
+  },
+  {
+   "atc": "N02AA01",
+   "nombre": "Morfina",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N02AA59",
+   "nombre": "Codeína, en combinación con paracetamol o ibuprofeno",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N02BE01",
+   "nombre": "Paracetamol",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N02CC",
+   "nombre": "sumatriptán",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N03AA02",
+   "nombre": "Fenobarbital",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N03AB02",
+   "nombre": "Fenitoína",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N03AD01",
+   "nombre": "Etosuximida",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N03AE01",
+   "nombre": "Clonazepam",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N03AF01",
+   "nombre": "Carbamacepina",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N03AG01",
+   "nombre": "Valproato",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N03AG04",
+   "nombre": "Vigabatrin",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N03AF02",
+   "nombre": "Oxcarbacepina",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N03AX09",
+   "nombre": "Lamotrigina",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N03AX12",
+   "nombre": "Gabapentin",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N04AA01",
+   "nombre": "Trihexifenidilo",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N04AA02",
+   "nombre": "Biperideno",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N04BA02",
+   "nombre": "Levodopa + inhibidor de decarboxilasa (levodopa + carbidopa, levodopoa+benzerasida)",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N04BB01",
+   "nombre": "Amantadina",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N04BC01",
+   "nombre": "Bromocriptina",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N04BC02",
+   "nombre": "Pergolida",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N04BC04",
+   "nombre": "Ropinirol",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N04BC05",
+   "nombre": "Pramipexol",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N02CA07",
+   "nombre": "Lisurida",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N04BX02",
+   "nombre": "Entacapone",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N05AA01",
+   "nombre": "Clorpromazina",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N05AA02",
+   "nombre": "Levomepromazina",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N05AB06",
+   "nombre": "Trifluoperazina",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N05AC02",
+   "nombre": "Tioridazina",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N05AD01",
+   "nombre": "Haloperidol",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N05AH02",
+   "nombre": "Clozapina",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N05AH03",
+   "nombre": "Olanzapina",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N05AN",
+   "nombre": "Litio",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N05AX08",
+   "nombre": "Risperidona",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N05BA01",
+   "nombre": "Diazepam",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N05BA06",
+   "nombre": "Lorazepam",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N05C",
+   "nombre": "Flunitrazepam",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N06AA",
+   "nombre": "Inhibidores no selectivos de la recaptación de monoaminas",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N06AA02",
+   "nombre": "Imipramina",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N06AA04",
+   "nombre": "Clomipramina",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N06AA09",
+   "nombre": "Amitriptilina",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N06AA10",
+   "nombre": "Nortriptilina",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N06AB",
+   "nombre": "Inhibidores selectivos de la recaptación de serotonina",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N06AB03",
+   "nombre": "Fluoxetina",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N06AF",
+   "nombre": "Inhibidores no selectivos de la MAO",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N06AF04",
+   "nombre": "Tranilcipromina",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N06AX",
+   "nombre": "Otros antidepresivos",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N06AX06",
+   "nombre": "Nefazodone",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N06AX16",
+   "nombre": "Venlafaxina",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N06BA04",
+   "nombre": "Metilfenidato",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N07AA01",
+   "nombre": "Neostigmina",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N07AA02",
+   "nombre": "Piridostigmina",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "N07CA10",
+   "nombre": "Dimenhidrinato",
+   "grupo": "Sistema Nervioso"
+  },
+  {
+   "atc": "P01AB01",
+   "nombre": "Metronidazol",
+   "grupo": "Antiparasitarios"
+  },
+  {
+   "atc": "P01BA01",
+   "nombre": "Cloroquina",
+   "grupo": "Antiparasitarios"
+  },
+  {
+   "atc": "P01BA02",
+   "nombre": "Hidroxicloroquina",
+   "grupo": "Antiparasitarios"
+  },
+  {
+   "atc": "P01BD51",
+   "nombre": "Pirimetamina y combinaciones con sulfadiazina",
+   "grupo": "Antiparasitarios"
+  },
+  {
+   "atc": "P02CA01",
+   "nombre": "Mebendazol",
+   "grupo": "Antiparasitarios"
+  },
+  {
+   "atc": "P02DA01",
+   "nombre": "Niclosamida",
+   "grupo": "Antiparasitarios"
+  },
+  {
+   "atc": "R01AA07",
+   "nombre": "Xilometazolina",
+   "grupo": "Aparato Respiratorio"
+  },
+  {
+   "atc": "R01AD",
+   "nombre": "Mometasona",
+   "grupo": "Aparato Respiratorio"
+  },
+  {
+   "atc": "R03AC02",
+   "nombre": "Salbutamol",
+   "grupo": "Aparato Respiratorio"
+  },
+  {
+   "atc": "R03AC",
+   "nombre": "Salmeterol",
+   "grupo": "Aparato Respiratorio"
+  },
+  {
+   "atc": "R03BA",
+   "nombre": "Budesonide",
+   "grupo": "Aparato Respiratorio"
+  },
+  {
+   "atc": "R03BB01",
+   "nombre": "Bromuro de Ipratropio",
+   "grupo": "Aparato Respiratorio"
+  },
+  {
+   "atc": "R03BC01",
+   "nombre": "Cromoglicato disódico",
+   "grupo": "Aparato Respiratorio"
+  },
+  {
+   "atc": "R03BC01",
+   "nombre": "Montelukast",
+   "grupo": "Aparato Respiratorio"
+  },
+  {
+   "atc": "R03DA04",
+   "nombre": "Teofilina",
+   "grupo": "Aparato Respiratorio"
+  },
+  {
+   "atc": "R06AA02",
+   "nombre": "Difenhidramina",
+   "grupo": "Aparato Respiratorio"
+  },
+  {
+   "atc": "R06AX13",
+   "nombre": "Loratadina",
+   "grupo": "Aparato Respiratorio"
+  },
+  {
+   "atc": "S01AA",
+   "nombre": "Un antibacteriano local de bajo costo en forma líqui- da y semisólida (cloranfenicol, eritromicina)",
+   "grupo": "Organos De Los Sentidos"
+  },
+  {
+   "atc": "S01AD03",
+   "nombre": "Aciclovir en forma líquida y semisólida",
+   "grupo": "Organos De Los Sentidos"
+  },
+  {
+   "atc": "S01BA01",
+   "nombre": "Un glucocorticoide de aplicación local oftalmológica",
+   "grupo": "Organos De Los Sentidos"
+  },
+  {
+   "atc": "S01BC03",
+   "nombre": "Un antiinflamatorio no esteroide de aplicación local oftalmológica (flurbiprofeno, diclofenac, ketorolac)",
+   "grupo": "Organos De Los Sentidos"
+  },
+  {
+   "atc": "S01C",
+   "nombre": "Combinaciones de glucocorticoides y antiinfecciosos de uso local ocular",
+   "grupo": "Organos De Los Sentidos"
+  },
+  {
+   "atc": "S01EB01",
+   "nombre": "Pilocarpina",
+   "grupo": "Organos De Los Sentidos"
+  },
+  {
+   "atc": "S01EC01",
+   "nombre": "Acetazolamida",
+   "grupo": "Organos De Los Sentidos"
+  },
+  {
+   "atc": "S01EC03",
+   "nombre": "Un inhibidor de anhidrasa carbónica de aplicación local oftalmológica: dorzolamida",
+   "grupo": "Organos De Los Sentidos"
+  },
+  {
+   "atc": "S01ED01",
+   "nombre": "Timolol",
+   "grupo": "Organos De Los Sentidos"
+  },
+  {
+   "atc": "S01FA04",
+   "nombre": "Ciclopentolato",
+   "grupo": "Organos De Los Sentidos"
+  },
+  {
+   "atc": "S01FA06",
+   "nombre": "Tropicamida",
+   "grupo": "Organos De Los Sentidos"
+  }
  ]
 }

@@ -996,6 +996,7 @@ db = {
     "glosario": glossary,
     "leyes": leyes,
     "cie10": CIE10,
+    "medicamentos": PMOCOB.get("medicamentos", []),
     "codigos": records,
 }
 json.dump(db, open("nbu_db.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
