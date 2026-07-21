@@ -3,7 +3,7 @@
   "titulo": "Manual Inteligente Unificado de Códigos Médicos",
   "fuente": "NBU — Nomenclador Bioquímico Único v2012/2016 (CUBRA) + Catálogo de Prestaciones del PMO (Res. 201/2002, S.S. Salud)",
   "overlay": "Anexo Enero 2024 (U.B. actualizadas) aplicado como valor_actualizado_2024 donde corresponde.",
-  "total_codigos": 6341,
+  "total_codigos": 6344,
   "secciones": {
    "PMO": "PMO — Programa Médico Obligatorio",
    "PE": "Prácticas Especiales (P.E.)",
@@ -19,9 +19,9 @@
    "NBU": 1815,
    "PMO": 1219,
    "ODO": 79,
-   "UNICO": 3228
+   "UNICO": 3231
   },
-  "unico_sin_equivalencia": 77,
+  "unico_sin_equivalencia": 79,
   "pmo_capitulos": {
    "01": "Sistema nervioso (cirugía)",
    "02": "Aparato de la visión (cirugía)",
@@ -380,7 +380,7 @@
   "pmo_normas_nota": "Normas generales orientativas de facturación por capítulo. Verificar siempre contra la norma/convenio aplicable. No reemplazan al texto oficial del nomenclador.",
   "pmo_asociaciones": {},
   "grupos": {
-   "Otros / general": 834,
+   "Otros / general": 835,
    "Serología infecciosa y virología": 615,
    "Química clínica y bioquímica general": 401,
    "Autoinmunidad e inmunología": 387,
@@ -392,7 +392,7 @@
    "Toxicología, drogas y monitoreo de fármacos": 210,
    "Hematología y hemostasia": 207,
    "Endocrinología y hormonas": 199,
-   "Genética y biología molecular": 188,
+   "Genética y biología molecular": 189,
    "Medicina nuclear": 180,
    "Sistema cardiovascular (cirugía)": 153,
    "Errores congénitos y metabolismo": 146,
@@ -412,7 +412,7 @@
    "Anestesiología": 43,
    "Otorrinolaringología": 41,
    "Cardiología": 40,
-   "Oftalmología": 39,
+   "Oftalmología": 40,
    "Prótesis": 32,
    "Ginecología y obstetricia": 28,
    "Neurología": 28,
@@ -250182,7 +250182,7 @@
    "code": "10310110",
    "nomenclador": "UNICO",
    "unico_tipo": "med",
-   "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — prestación agregada con equivalencia a Prestaciones Médicas",
+   "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — prestación agregada",
    "seccion": "UNICO",
    "seccion_label": "Único — Otorrinolaringología",
    "grupo": "Otorrinolaringología",
@@ -250225,7 +250225,7 @@
    "code": "10310109",
    "nomenclador": "UNICO",
    "unico_tipo": "med",
-   "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — prestación agregada con equivalencia a Prestaciones Médicas",
+   "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — prestación agregada",
    "seccion": "UNICO",
    "seccion_label": "Único — Otorrinolaringología",
    "grupo": "Otorrinolaringología",
@@ -250268,7 +250268,7 @@
    "code": "10300210",
    "nomenclador": "UNICO",
    "unico_tipo": "med",
-   "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — prestación agregada con equivalencia a Prestaciones Médicas",
+   "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — prestación agregada",
    "seccion": "UNICO",
    "seccion_label": "Único — Oftalmología",
    "grupo": "Oftalmología",
@@ -250311,7 +250311,7 @@
    "code": "10300211",
    "nomenclador": "UNICO",
    "unico_tipo": "med",
-   "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — prestación agregada con equivalencia a Prestaciones Médicas",
+   "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — prestación agregada",
    "seccion": "UNICO",
    "seccion_label": "Único — Ecodiagnóstico y hemodinamia",
    "grupo": "Ecodiagnóstico y hemodinamia",
@@ -250354,7 +250354,7 @@
    "code": "10300212",
    "nomenclador": "UNICO",
    "unico_tipo": "med",
-   "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — prestación agregada con equivalencia a Prestaciones Médicas",
+   "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — prestación agregada",
    "seccion": "UNICO",
    "seccion_label": "Único — Oftalmología",
    "grupo": "Oftalmología",
@@ -250397,7 +250397,7 @@
    "code": "10342018",
    "nomenclador": "UNICO",
    "unico_tipo": "med",
-   "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — prestación agregada con equivalencia a Prestaciones Médicas",
+   "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — prestación agregada",
    "seccion": "UNICO",
    "seccion_label": "Único — Medicina nuclear",
    "grupo": "Medicina nuclear",
@@ -250440,7 +250440,7 @@
    "code": "10360112",
    "nomenclador": "UNICO",
    "unico_tipo": "med",
-   "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — prestación agregada con equivalencia a Prestaciones Médicas",
+   "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — prestación agregada",
    "seccion": "UNICO",
    "seccion_label": "Único — Urología",
    "grupo": "Urología",
@@ -250477,6 +250477,121 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 360113 del Nomenclador de Prestaciones Médicas (sin ficha propia cargada)."
+   ]
+  },
+  "U10300123": {
+   "code": "10300123",
+   "nomenclador": "UNICO",
+   "unico_tipo": "med",
+   "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — prestación agregada",
+   "seccion": "UNICO",
+   "seccion_label": "Único — Oftalmología",
+   "grupo": "Oftalmología",
+   "nombre": "ESTUDIO DE OJO SECO CON MEIBOGRAFÍA / EVALUACIÓN NO INVASIVA DE GLÁNDULAS DE MEIBOMIO (NO PMO)",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "—",
+    "arancel": "Nomenclador ÚNICO en elaboración (sin valorización cargada)."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "equivalencia": {
+    "target_nom": "PMO",
+    "target_label": "Prestaciones Médicas",
+    "code": "300148",
+    "key": null,
+    "desc": "EXAMEN DE OJO SECO",
+    "score": null
+   },
+   "sin_equivalencia": false,
+   "auditoria": [
+    "Equivale a la práctica 300148 del Nomenclador de Prestaciones Médicas (sin ficha propia cargada)."
+   ]
+  },
+  "U64665230": {
+   "code": "64665230",
+   "nomenclador": "UNICO",
+   "unico_tipo": "med",
+   "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — prestación agregada",
+   "seccion": "UNICO",
+   "seccion_label": "Único — Genética y biología molecular",
+   "grupo": "Genética y biología molecular",
+   "nombre": "ADN FETAL LIBRE EN SANGRE MATERNA (NO PMO BF NC)",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "—",
+    "arancel": "Nomenclador ÚNICO en elaboración (sin valorización cargada)."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "equivalencia": null,
+   "sin_equivalencia": true,
+   "auditoria": [
+    "Sin equivalencia en Prestaciones Médicas — pendiente de mapeo manual."
+   ]
+  },
+  "U10300121": {
+   "code": "10300121",
+   "nomenclador": "UNICO",
+   "unico_tipo": "med",
+   "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — prestación agregada",
+   "seccion": "UNICO",
+   "seccion_label": "Único — Otros / general",
+   "grupo": "Otros / general",
+   "nombre": "TEST DE MIRADA PREFERENCIAL / TMP PARA EVALUACIÓN DE AGUDEZA VISUAL EN PACIENTE PREVERBAL O NO COLAB",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "—",
+    "arancel": "Nomenclador ÚNICO en elaboración (sin valorización cargada)."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "equivalencia": null,
+   "sin_equivalencia": true,
+   "auditoria": [
+    "Sin equivalencia en Prestaciones Médicas — pendiente de mapeo manual."
    ]
   },
   "U60660001": {

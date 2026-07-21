@@ -600,27 +600,36 @@ except FileNotFoundError:
         UNICO_MED_EXTRA = json.load(open("unico_med_extra.json", encoding="utf-8"))
     except FileNotFoundError:
         UNICO_MED_EXTRA = []
-extra_added = extra_annot = 0
+extra_added = extra_annot = extra_sin = 0
 for r in UNICO_MED_EXTRA:
     code = r["unico"]
     ukey = "U" + code
     if ukey in records:
         continue
-    pm = r["pm"]
-    pm_key = pm if (pm in records and records[pm].get("nomenclador") == "PMO") else None
-    cap = UNICO_CAP.get(pm[:2], "Otros / general")
-    equivalencia = {
-        "target_nom": "PMO", "target_label": "Prestaciones Médicas",
-        "code": pm, "key": pm_key,
-        "desc": r.get("pm_desc") or (records[pm]["nombre"] if pm_key else ""),
-        "score": None,
-    }
-    if pm_key:
-        annot_unico(pm_key, code, r["nombre"], None, "med")
-        extra_annot += 1
+    pm = (r.get("pm") or "").strip()
+    tiene_eq = bool(pm)
+    if tiene_eq:
+        pm_key = pm if (pm in records and records[pm].get("nomenclador") == "PMO") else None
+        cap = UNICO_CAP.get(pm[:2], "Otros / general")
+        equivalencia = {
+            "target_nom": "PMO", "target_label": "Prestaciones Médicas",
+            "code": pm, "key": pm_key,
+            "desc": r.get("pm_desc") or (records[pm]["nombre"] if pm_key else ""),
+            "score": None,
+        }
+        if pm_key:
+            annot_unico(pm_key, code, r["nombre"], None, "med")
+            extra_annot += 1
+        audit = ["Equivale a la práctica " + pm + " del Nomenclador de Prestaciones Médicas" +
+                 ("." if pm_key else " (sin ficha propia cargada).")]
+    else:
+        equivalencia = None
+        cap = classify(r["nombre"], [])
+        audit = ["Sin equivalencia en Prestaciones Médicas — pendiente de mapeo manual."]
+        extra_sin += 1
     records[ukey] = {
         "code": code, "nomenclador": "UNICO", "unico_tipo": "med",
-        "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — prestación agregada con equivalencia a Prestaciones Médicas",
+        "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — prestación agregada",
         "seccion": "UNICO", "seccion_label": "Único — " + cap,
         "grupo": cap, "nombre": r["nombre"] or code,
         "sinonimos": [], "abreviaturas": [],
@@ -629,13 +638,12 @@ for r in UNICO_MED_EXTRA:
         "flags": {"urgencia": False, "requiere_norma": False, "desuso": False, "pcr": False},
         "referencias": [], "norma": None, "frecuencia": [],
         "relaciones": {"incluye": [], "no_incluye": [], "incluido_en": []},
-        "equivalencia": equivalencia, "sin_equivalencia": False,
-        "auditoria": ["Equivale a la práctica " + pm + " del Nomenclador de Prestaciones Médicas" +
-                      ("." if pm_key else " (sin ficha propia cargada).")],
+        "equivalencia": equivalencia, "sin_equivalencia": (not tiene_eq),
+        "auditoria": audit,
     }
     unico_added += 1
     extra_added += 1
-print(f"UNICO médico (agregados manuales): {extra_added} · PMO anotados {extra_annot}", file=sys.stderr)
+print(f"UNICO médico (agregados manuales): {extra_added} · PMO anotados {extra_annot} · sin equiv {extra_sin}", file=sys.stderr)
 
 # ---------- Nomenclador ÚNICO — Laboratorio (VISITAR) : prefijo(2) + código NBU(6) ----------
 try:
@@ -936,7 +944,7 @@ db = {
             "UNICO": "Nomenclador ÚNICO (VISITAR SRL) — en elaboración, con equivalencias a Prestaciones Médicas",
         },
         "nomenclador_counts": dict(nomen_stats),
-        "unico_sin_equivalencia": sin_equiv,
+        "unico_sin_equivalencia": sin_equiv + extra_sin,
         "pmo_capitulos": PMO_CAP,
         "pmo_normas_capitulo": CHAPTER_NORMS,
         "pmo_normas_nota": "Normas generales orientativas de facturación por capítulo. Verificar siempre contra la norma/convenio aplicable. No reemplazan al texto oficial del nomenclador.",

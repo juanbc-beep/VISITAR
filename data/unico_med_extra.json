@@ -40,5 +40,23 @@
   "nombre": "Uroflujometría (incluidada en estudio urodinamico completo) SC",
   "pm": "360113",
   "pm_desc": "UROFLUJOMETRIA O URODINAMIA SIMPLE"
+ },
+ {
+  "unico": "10300123",
+  "nombre": "ESTUDIO DE OJO SECO CON MEIBOGRAFÍA / EVALUACIÓN NO INVASIVA DE GLÁNDULAS DE MEIBOMIO (NO PMO)",
+  "pm": "300148",
+  "pm_desc": "EXAMEN DE OJO SECO"
+ },
+ {
+  "unico": "64665230",
+  "nombre": "ADN FETAL LIBRE EN SANGRE MATERNA (NO PMO BF NC)",
+  "pm": "",
+  "pm_desc": ""
+ },
+ {
+  "unico": "10300121",
+  "nombre": "TEST DE MIRADA PREFERENCIAL / TMP PARA EVALUACIÓN DE AGUDEZA VISUAL EN PACIENTE PREVERBAL O NO COLAB",
+  "pm": "",
+  "pm_desc": ""
  }
 ]
