@@ -9,7 +9,7 @@ PDFS = sys.argv[1:]
 
 CAPS = [
     ("I","Ciertas enfermedades infecciosas y parasitarias",[("A",0,99),("B",0,99)]),
-    ("II","Tumores (neoplasias)",[("C",0,99),("D",0,48)]),
+    ("II","Tumores (neoplasias)",[("C",0,99),("D",0,49)]),
     ("III","Enf. de la sangre y de los órganos hematopoyéticos",[("D",50,89)]),
     ("IV","Enf. endocrinas, nutricionales y metabólicas",[("E",0,90)]),
     ("V","Trastornos mentales y del comportamiento",[("F",0,99)]),
@@ -27,7 +27,7 @@ CAPS = [
     ("XVII","Malformaciones congénitas y anomalías cromosómicas",[("Q",0,99)]),
     ("XVIII","Síntomas, signos y hallazgos anormales (clínicos y de laboratorio)",[("R",0,99)]),
     ("XIX","Traumatismos, envenenamientos y causas externas",[("S",0,99),("T",0,98)]),
-    ("XX","Causas externas de morbilidad y mortalidad",[("V",1,99),("W",0,99),("X",0,99),("Y",0,98)]),
+    ("XX","Causas externas de morbilidad y mortalidad",[("V",1,99),("W",0,99),("X",0,99),("Y",0,99)]),
     ("XXI","Factores que influyen en el estado de salud (contacto con servicios)",[("Z",0,99)]),
     ("XXII","Códigos para propósitos especiales",[("U",0,99)]),
 ]
@@ -70,18 +70,34 @@ for f in PDFS:
                 else:
                     i+=1
 
+FRAG=re.compile(r'^(de|la|el|los|las|en|del|al|y|o|con|por|un|una)\s', re.I)
+def is_frag(d):
+    return bool(FRAG.match(d)) or 'Revisión y su publicación' in d
 data=json.load(open(OUT, encoding="utf-8"))
 cod=data["codigos"]
 added=upd=0
 for code,desc in found.items():
     rom,cap=chapter(code)
     if code in cod:
-        # oficial: preferir el título más largo/limpio
-        if len(desc)>len(cod[code].get("desc","")):
-            cod[code]["desc"]=desc; cod[code]["cap"]=rom; cod[code]["cap_nombre"]=cap; upd+=1
+        # oficial: preferir el título más largo/limpio, pero nunca pisar con un fragmento
+        if len(desc)>len(cod[code].get("desc","")) and not is_frag(desc):
+            cod[code]["desc"]=desc; upd+=1
+        cod[code]["cap"]=rom; cod[code]["cap_nombre"]=cap
     else:
         rec={"code":code,"desc":desc,"cap":rom,"cap_nombre":cap}
         if len(code)>3: rec["parent"]=code[:3]; rec["sub"]=True
         cod[code]=rec; added+=1
+# normalización final de capítulo para TODOS los códigos (corrige los que vienen de otros parsers)
+for code, rec in cod.items():
+    rom, cap = chapter(code)
+    rec["cap"] = rom; rec["cap_nombre"] = cap
+# correcciones puntuales de títulos mal capturados
+FIX = {
+    "K91.7": "Punción y desgarro accidentales durante un procedimiento",
+    "N18.6": "Enfermedad renal crónica terminal",
+}
+for k, v in FIX.items():
+    if k in cod:
+        cod[k]["desc"] = v
 json.dump(data, open(OUT,"w",encoding="utf-8"), ensure_ascii=False, indent=1)
 print(f"tabular: parseados {len(found)} · nuevos {added} · actualizados {upd} · total ahora {len(cod)}", file=sys.stderr)

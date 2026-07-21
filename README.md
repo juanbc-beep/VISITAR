@@ -92,7 +92,7 @@ enlazados (en la ficha del NBU se marca "También en Catálogo PMO").
   Nacional** (galenos).
 
 ### Diagnósticos — CIE-10 (relación diagnóstico ↔ práctica)
-- **2.833 diagnósticos**: 2.024 **categorías** (3 caracteres) + **788 subcategorías** detalladas (4+ caracteres,
+- **11.581 diagnósticos: 2.024 categorías (3 caracteres) + ~9.500 subcategorías** detalladas (4+ caracteres,
   p. ej. `E11.9`, `K95.89`) tomadas del manual **CIE-10-ES**, organizados por los **21 capítulos** y buscables por
   código o texto. Cada subcategoría enlaza a su **categoría padre** y hereda de ella las prácticas relacionadas.
 - Cada diagnóstico muestra las **prácticas relacionadas**: un **seed curado** (45 diagnósticos frecuentes de
