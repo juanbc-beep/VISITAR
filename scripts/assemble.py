@@ -893,6 +893,45 @@ except FileNotFoundError:
     except FileNotFoundError:
         CIE10 = {"codigos": {}, "capitulos": [], "relaciones": {}}
 
+# ---------- PMO: cobertura obligatoria, topes y títulos limpios (ANEXO I y II, Res. 201/02) ----------
+try:
+    PMOCOB = json.load(open("data/pmo_cobertura.json", encoding="utf-8"))
+except FileNotFoundError:
+    try:
+        PMOCOB = json.load(open("pmo_cobertura.json", encoding="utf-8"))
+    except FileNotFoundError:
+        PMOCOB = {"codigos": {}, "generalidades": [], "topes": []}
+pmo_fix = pmo_cob = 0
+for _code, _info in PMOCOB.get("codigos", {}).items():
+    _r = records.get(_code)
+    if not _r or _r.get("nomenclador") != "PMO":
+        continue
+    if len(_r["nombre"]) > 90 and _info.get("titulo") and len(_info["titulo"]) < len(_r["nombre"]):
+        _r["nombre"] = _info["titulo"]; pmo_fix += 1
+    if _info.get("cobertura"):
+        _r["cobertura_pmo"] = _info["cobertura"]; pmo_cob += 1
+# topes por capítulo (áreas con límite de cantidad de sesiones/visitas)
+TOPES_CAP = {
+    "33": "Salud mental: atención ambulatoria hasta 30 visitas por año calendario, sin exceder 4 consultas mensuales (Res. 201/02, Anexo I, punto 4).",
+    "25": "Rehabilitación: Kinesioterapia y Fonoaudiología hasta 25 sesiones por beneficiario por año calendario cada una (Res. 201/02, Anexo I, punto 5).",
+}
+for _code, _r in records.items():
+    if _r.get("nomenclador") == "PMO":
+        _t = TOPES_CAP.get(_code[:2])
+        if _t:
+            _r["tope_pmo"] = _t
+# propagar cobertura/tope al Único por equivalencia
+for _k, _r in records.items():
+    if _r.get("nomenclador") == "UNICO":
+        _tgt = (_r.get("equivalencia") or {}).get("key")
+        if _tgt and _tgt in records:
+            _s = records[_tgt]
+            if _s.get("cobertura_pmo") and "cobertura_pmo" not in _r:
+                _r["cobertura_pmo"] = _s["cobertura_pmo"]
+            if _s.get("tope_pmo") and "tope_pmo" not in _r:
+                _r["tope_pmo"] = _s["tope_pmo"]
+print(f"PMO cobertura: títulos corregidos {pmo_fix} · con cobertura {pmo_cob} · generalidades {len(PMOCOB.get('generalidades',[]))} · topes {len(PMOCOB.get('topes',[]))}", file=sys.stderr)
+
 # ---------- relaciones inversas por código: CIE-10 y normativa (en TODOS los nomencladores) ----------
 code2cie = defaultdict(list)
 for _cie, _keys in CIE10.get("relaciones", {}).items():
@@ -948,6 +987,8 @@ db = {
         "pmo_capitulos": PMO_CAP,
         "pmo_normas_capitulo": CHAPTER_NORMS,
         "pmo_normas_nota": "Normas generales orientativas de facturación por capítulo. Verificar siempre contra la norma/convenio aplicable. No reemplazan al texto oficial del nomenclador.",
+        "pmo_generalidades": PMOCOB.get("generalidades", []),
+        "pmo_topes": PMOCOB.get("topes", []),
         "pmo_asociaciones": {},
         "grupos": dict(sorted(grupos_stats.items(), key=lambda x: -x[1])),
         "nota_grupos": "El 'grupo/especialidad' es orientativo para navegar. En el NBU la clasificación oficial es la sección (PMO/PE/Gestión); en el Catálogo PMO, el capítulo/especialidad proviene del código.",

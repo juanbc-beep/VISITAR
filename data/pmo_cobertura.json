@@ -1,0 +1,6237 @@
+{
+ "codigos": {
+  "010101": {
+   "titulo": "tratamiento quirúrgico del encefalomeningocele",
+   "cobertura": ""
+  },
+  "010102": {
+   "titulo": "tratamiento quirúrgico craneostenosis",
+   "cobertura": ""
+  },
+  "010103": {
+   "titulo": "craneoplastias con injerto óseo o protésico",
+   "cobertura": ""
+  },
+  "010104": {
+   "titulo": "reducción abierta de fractura de cráneo",
+   "cobertura": ""
+  },
+  "010105": {
+   "titulo": "escisión de lesión tumoral infecciosa",
+   "cobertura": ""
+  },
+  "010106": {
+   "titulo": "descompresión orbitaria unilateral",
+   "cobertura": ""
+  },
+  "010201": {
+   "titulo": "ventriculocisternostomías",
+   "cobertura": ""
+  },
+  "010202": {
+   "titulo": "derivación ventriculoaurícula derecha",
+   "cobertura": ""
+  },
+  "010203": {
+   "titulo": "revisión de válvulas derivativas o restitución parcial o total",
+   "cobertura": ""
+  },
+  "010204": {
+   "titulo": "lobectomía parcial total por traumatismo o epilepsia",
+   "cobertura": ""
+  },
+  "010205": {
+   "titulo": "tractotomía espinotalámica trigeminal o mesencefálica",
+   "cobertura": ""
+  },
+  "010206": {
+   "titulo": "tratamiento quirúrgico de los aneurismas y malforma- ciones",
+   "cobertura": ""
+  },
+  "010207": {
+   "titulo": "evacuación por punción de colección intercerebral, epidural, subdural y/o subaracnoidea",
+   "cobertura": ""
+  },
+  "010208": {
+   "titulo": "craneotomía exploradora",
+   "cobertura": ""
+  },
+  "010209": {
+   "titulo": "reparación plástica de senos craneales",
+   "cobertura": ""
+  },
+  "010210": {
+   "titulo": "escisión de lesión tumoral intracraneana",
+   "cobertura": ""
+  },
+  "010211": {
+   "titulo": "drenaje ventricular continuo",
+   "cobertura": ""
+  },
+  "010212": {
+   "titulo": "extracción de tubos en operaciones derivativas craneanas",
+   "cobertura": ""
+  },
+  "010213": {
+   "titulo": "cirugía estereotáxica por diversos métodos incluso radiocirugía",
+   "cobertura": ""
+  },
+  "010214": {
+   "titulo": "punción diagnóstica o terapéutica de ventrículo por trepanación",
+   "cobertura": ""
+  },
+  "010215": {
+   "titulo": "punción transfontanelar de ventrículos o subdural",
+   "cobertura": ""
+  },
+  "010216": {
+   "titulo": "colocación de set para monitoreo de presión intracraneana",
+   "cobertura": ""
+  },
+  "010217": {
+   "titulo": "cirugía de la hipertensión congénita endocraneana por fibra óptica",
+   "cobertura": "5 Código Práctica"
+  },
+  "010301": {
+   "titulo": "reparación de defectos congénitos del complejo vertebromeningeomedular",
+   "cobertura": ""
+  },
+  "010302": {
+   "titulo": "tratamiento quirúrgico lesiones adquiridas del comple- jo vertebromeningeomedular",
+   "cobertura": ""
+  },
+  "010303": {
+   "titulo": "extirpación o ligadura de aneurismas o malformaciones arteriovenosas medulares",
+   "cobertura": ""
+  },
+  "010304": {
+   "titulo": "cordotomía espinotalámica, anterior, posterior, mielotomía comisular",
+   "cobertura": ""
+  },
+  "010305": {
+   "titulo": "rizotomía radicotomía posterior",
+   "cobertura": ""
+  },
+  "010306": {
+   "titulo": "sección de ligamentos dentados",
+   "cobertura": ""
+  },
+  "010307": {
+   "titulo": "punción raquídea doble con Pruebas manométricas",
+   "cobertura": ""
+  },
+  "010308": {
+   "titulo": "punción cisternal con o sin manometría",
+   "cobertura": ""
+  },
+  "010309": {
+   "titulo": "punción lumbar con / sin manometría",
+   "cobertura": ""
+  },
+  "010310": {
+   "titulo": "vertebroplastias",
+   "cobertura": ""
+  },
+  "010401": {
+   "titulo": "neurotomía o descompresión retrogaseriana trigeminal",
+   "cobertura": ""
+  },
+  "010402": {
+   "titulo": "neurólisis transoval del trigémino",
+   "cobertura": ""
+  },
+  "010403": {
+   "titulo": "neurotomía del intermediario vestibular o glosofaríngeo",
+   "cobertura": ""
+  },
+  "010404": {
+   "titulo": "intervenciones sobre nervios ópticos",
+   "cobertura": ""
+  },
+  "010405": {
+   "titulo": "neurotomía del supraorbitario, infraorbitario, dentario inferior, suboccipital y temporal superficial",
+   "cobertura": ""
+  },
+  "010406": {
+   "titulo": "neurotomía selectiva del facial o del glosofaríngeo o neumogástrico cervical",
+   "cobertura": ""
+  },
+  "010407": {
+   "titulo": "injerto y/o anastomosis de nervio facial, hipogloso, espinal y similares",
+   "cobertura": ""
+  },
+  "010408": {
+   "titulo": "neurólisis extracraneal alcoholización o similar",
+   "cobertura": ""
+  },
+  "010409": {
+   "titulo": "bloqueo extracraneal antiálgico",
+   "cobertura": ""
+  },
+  "010501": {
+   "titulo": "tratamiento quirúrgico por patología del plexo cervicobraquial",
+   "cobertura": ""
+  },
+  "010502": {
+   "titulo": "tratamiento quirúrgico por patología del plexo lumbosacro",
+   "cobertura": ""
+  },
+  "010503": {
+   "titulo": "neurografía injerto tubulización escisión de lesión tumoral del nervio periférico",
+   "cobertura": ""
+  },
+  "010504": {
+   "titulo": "transposición del cubital",
+   "cobertura": ""
+  },
+  "010505": {
+   "titulo": "descompresión del mediano a nivel del túnel carpiano",
+   "cobertura": ""
+  },
+  "010507": {
+   "titulo": "neurólisis quirúrgica de nervio periférico",
+   "cobertura": ""
+  },
+  "010508": {
+   "titulo": "neurólisis química o bloqueo antiálgico de nervio peri- férico",
+   "cobertura": ""
+  },
+  "010601": {
+   "titulo": "simpatectomía cervical",
+   "cobertura": ""
+  },
+  "010602": {
+   "titulo": "simpatectomía toracica",
+   "cobertura": ""
+  },
+  "010603": {
+   "titulo": "simpatectomía lumbar por lumbotomía",
+   "cobertura": ""
+  },
+  "010604": {
+   "titulo": "resección de plexos hipogástricos superior e inferior",
+   "cobertura": ""
+  },
+  "010605": {
+   "titulo": "simpatectomiaperiarterial carotidea, humeral, femoral o similar",
+   "cobertura": ""
+  },
+  "010606": {
+   "titulo": "inyección paravertebral de troncos y ganglios simpáticos",
+   "cobertura": ""
+  },
+  "010607": {
+   "titulo": "simpaticectomía por videoscopía",
+   "cobertura": ""
+  },
+  "010701": {
+   "titulo": "ventriculografía por inyección de un medio de contraste",
+   "cobertura": ""
+  },
+  "010702": {
+   "titulo": "pan-arteriografía cerebral por cateterismo",
+   "cobertura": ""
+  },
+  "010703": {
+   "titulo": "arteriografía carotidea o vertebral",
+   "cobertura": ""
+  },
+  "010704": {
+   "titulo": "neumoencefaloventriculografía fraccionada",
+   "cobertura": ""
+  },
+  "010705": {
+   "titulo": "mielografía ascendente o descendente, cisternomielografía, radiculografía",
+   "cobertura": ""
+  },
+  "010706": {
+   "titulo": "discografía neurografía epidurografía",
+   "cobertura": ""
+  },
+  "010707": {
+   "titulo": "infusión intratecal o en canal medular de citostáticos",
+   "cobertura": ""
+  },
+  "010708": {
+   "titulo": "tratamiento endovascular de aneurismas craneales con embolizaciones terapéuticas o micrólisis",
+   "cobertura": ""
+  },
+  "010709": {
+   "titulo": "tratamiento endovascular de malformaciones craneales con embolizaciones terapéuticas o micrólisis",
+   "cobertura": ""
+  },
+  "010710": {
+   "titulo": "tratamiento endovascular de tumores craneales con embolizaciones terapéuticas prequirúrgica",
+   "cobertura": ""
+  },
+  "010711": {
+   "titulo": "ablación de nervio craneal por radiofrecuencia",
+   "cobertura": ""
+  },
+  "010801": {
+   "titulo": "biopsia cerebral estereotaxica",
+   "cobertura": "Operaciones en el aparato de la visión"
+  },
+  "020101": {
+   "titulo": "exenteración del contenido orbitario",
+   "cobertura": ""
+  },
+  "020102": {
+   "titulo": "neurotomía del nervio óptico",
+   "cobertura": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
+  },
+  "020103": {
+   "titulo": "orbitotomía con escisión de lesión de órbita, explora- ción, extracción de cuerpo extraño, biopsia, drenaje",
+   "cobertura": ""
+  },
+  "020104": {
+   "titulo": "introducción de sustancias terapéuticas retroglobulares inyectables",
+   "cobertura": ""
+  },
+  "020105": {
+   "titulo": "reparación plástica de la órbita con o sin injerto de piel enucleación o evisceración del globo ocular",
+   "cobertura": ""
+  },
+  "020106": {
+   "titulo": "aspiración, lavado e implante del vítreo",
+   "cobertura": ""
+  },
+  "020107": {
+   "titulo": "vitrectomía",
+   "cobertura": ""
+  },
+  "020108": {
+   "titulo": "tratamiento quirúrgico correctivo del estrabismo",
+   "cobertura": ""
+  },
+  "020109": {
+   "titulo": "operación de Humnelshein suplantamiento del recto externo por el recto superior y",
+   "cobertura": ""
+  },
+  "020110": {
+   "titulo": "recto inferior y variantes",
+   "cobertura": ""
+  },
+  "020111": {
+   "titulo": "excenteración de contenido orbitario y resección total de maxilar superior",
+   "cobertura": ""
+  },
+  "020201": {
+   "titulo": "reconstrucción total del párpado técnica de hugjes o similar",
+   "cobertura": ""
+  },
+  "020202": {
+   "titulo": "blefaroplastia",
+   "cobertura": ""
+  },
+  "020203": {
+   "titulo": "blefarorrafia parcial o total",
+   "cobertura": ""
+  },
+  "020204": {
+   "titulo": "blefarochalasis",
+   "cobertura": ""
+  },
+  "020205": {
+   "titulo": "escisión de lesión de parpados blefarectomía, blefarotomía",
+   "cobertura": ""
+  },
+  "020301": {
+   "titulo": "conjuntivoplastia",
+   "cobertura": ""
+  },
+  "020302": {
+   "titulo": "escisión de lesión conjuntiva",
+   "cobertura": ""
+  },
+  "020303": {
+   "titulo": "introducción de sustancias terapéuticas subconjuntivales",
+   "cobertura": ""
+  },
+  "020304": {
+   "titulo": "peritectomía peritotomía",
+   "cobertura": ""
+  },
+  "020305": {
+   "titulo": "sutura de conjuntiva",
+   "cobertura": ""
+  },
+  "020401": {
+   "titulo": "queratoplastia laminar injerto de córnea",
+   "cobertura": ""
+  },
+  "020402": {
+   "titulo": "queratoprótesis total queratoplastia total",
+   "cobertura": ""
+  },
+  "020403": {
+   "titulo": "sutura de córnea",
+   "cobertura": ""
+  },
+  "020404": {
+   "titulo": "queratocentesis",
+   "cobertura": ""
+  },
+  "020405": {
+   "titulo": "cauterización corneal",
+   "cobertura": ""
+  },
+  "020406": {
+   "titulo": "sutura de herida de córnea con prolapso de iris y/o herida de cristalino, extracción de cuerpo extraño en cámara anterior",
+   "cobertura": ""
+  },
+  "020501": {
+   "titulo": "tratamiento quirúrgico del glaucoma",
+   "cobertura": ""
+  },
+  "020502": {
+   "titulo": "iridotomía coreoplastia iridectomía",
+   "cobertura": ""
+  },
+  "020503": {
+   "titulo": "iridociclectomía o ciclectomía por tumores",
+   "cobertura": ""
+  },
+  "020601": {
+   "titulo": "fotocoagulación convencional",
+   "cobertura": ""
+  },
+  "020602": {
+   "titulo": "fotocoagulación con rayo láser de argón",
+   "cobertura": ""
+  },
+  "020603": {
+   "titulo": "retinopexia con esclerectomía e implante",
+   "cobertura": ""
+  },
+  "020604": {
+   "titulo": "retinopexia y esclerectomía",
+   "cobertura": ""
+  },
+  "020605": {
+   "titulo": "retinopexia (diatermia, crío, etc.)",
+   "cobertura": ""
+  },
+  "020606": {
+   "titulo": "esclerectomía con extracción de cuerpo extraño",
+   "cobertura": ""
+  },
+  "020701": {
+   "titulo": "extracción del cristalino",
+   "cobertura": ""
+  },
+  "020702": {
+   "titulo": "extracción de masas cristalinianas",
+   "cobertura": ""
+  },
+  "020703": {
+   "titulo": "capsulotomía",
+   "cobertura": ""
+  },
+  "020704": {
+   "titulo": "implante de lente intraocular en forma extracapsular",
+   "cobertura": ""
+  },
+  "020705": {
+   "titulo": "implante de membrana amniótica sólo en quemaduras ígneas o químicas",
+   "cobertura": ""
+  },
+  "020801": {
+   "titulo": "dacriocistorrinostomía fistulización de saco lagrimal en cavidad nasal, plombaje",
+   "cobertura": ""
+  },
+  "020802": {
+   "titulo": "escisión de glándula lagrimal",
+   "cobertura": ""
+  },
+  "020803": {
+   "titulo": "drenaje de glándula o saco lagrimal",
+   "cobertura": ""
+  },
+  "020804": {
+   "titulo": "cateterización de conducto lagrimonasal",
+   "cobertura": ""
+  },
+  "020901": {
+   "titulo": "fotocoagulación con yag láser:",
+   "cobertura": "Obligación de cobertura en los siguientes casos: 1. Cuando se realiza luego de los 6 meses posteriores a la cirugía de cataratas, en pacientes con opacificación clínicamente signifi- cativa de la cápsula posterior del ojo operado 2. Cuando se realiza en pacientes con opacificación capsular posterior, independientemente del deterioro funcional, por cual- quiera de los siguientes motivos: — Para proveer mejor visualización del polo ocular posterior en 6 Código Práctica casos de desprendimiento de retina, enfermedad macular, retinopatía diabética — Para realizar diagnóstico de tumores de polo ocular posterior — Para evaluar la porción intraocular del nervio óptico 3. Cuando la presencia de opacidad capsular posterior sea causa de diplopía monocular 4. Cuando se realiza antes de los 6 meses posteriores a la cirugía de cataratas, únicamente si uno o más de los siguientes criterios de necesidad médica están presentes: Criterio 1) El paciente tiene un score corregido de agudeza visual de Snellen de 20/50 o peor sumado a las dos siguientes condicio- nes simultáneamente: — El examen ocular confirma que la opacificación capsular pos- terior está presente — El deterioro de la visión ha interferido con la capacidad del paciente para llevar adelante sus actividades habituales Criterio 2) El paciente tiene una agudeza visual corregida máxima de 20/40 o mejor + las tres siguientes condiciones simultánea- mente: — Agudeza visual fluctuante como resultado de resplandor o disminución del contraste — El examen ocular confirma que la opacificación capsular pos- terior está presente — El deterioro de la visión ha interferido con la capacidad del paciente para llevar adelante sus actividades habituales • Observaciones: Se considera inapropiada 1. Si se realiza de manera concurrente con la cirugía de cataratas 2. Si se realiza de manera profiláctica 3. Si se realiza de manera sistemática luego de las cirugías de cataratas sin tener en cuenta las necesidades específicas de cada paciente"
+  },
+  "020902": {
+   "titulo": "fotocoagulación con láser only green",
+   "cobertura": "Obligación de cobertura en los siguientes casos: Lesiones maculares"
+  },
+  "020904": {
+   "titulo": "fotocirugía con dye láser",
+   "cobertura": "Obligación de cobertura en los siguientes casos: Lesiones maculares"
+  },
+  "020905": {
+   "titulo": "fotocirugía con krypton láser",
+   "cobertura": "Obligación de cobertura en los siguientes casos: Hemorragias de cuerpo vítreo"
+  },
+  "020906": {
+   "titulo": "iridectomía por láser",
+   "cobertura": "Obligación de cobertura en los siguientes casos: 1. Glaucoma agudo de ángulo estrecho 2. Angulo estrecho de un ojo con antecedente de iridectomía en el contralateral (llamada iridectomía preventiva)"
+  },
+  "020907": {
+   "titulo": "trabeculoplastia con láser",
+   "cobertura": "Obligación de cobertura en los siguientes casos: Glaucoma crónico cuando no mejora con tratamiento médico local y general y presente comorbilidad (contraindicación de beta bloqueantes, inhibidores de la anhidrasa carbónica, etc.) y esté formalmente contraindicada la cirugía (trabeculectomía quirúrgica) Operaciones Otorrinolaringológicas"
+  },
+  "030101": {
+   "titulo": "reconstrucción del pabellón auricular con injerto de car- tílago y piel",
+   "cobertura": ""
+  },
+  "030102": {
+   "titulo": "otoplastia o reconstrucción del pabellón ansiforme o defecto similar",
+   "cobertura": ""
+  },
+  "030103": {
+   "titulo": "otoplastia de lóbulo hendido",
+   "cobertura": ""
+  },
+  "030104": {
+   "titulo": "escisión completa o amputación de pabellón",
+   "cobertura": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
+  },
+  "030105": {
+   "titulo": "incisión y drenaje de aurícula. Sutura del pabellón auri- cular",
+   "cobertura": ""
+  },
+  "030106": {
+   "titulo": "cirugía de agenesia de conducto auditivo externo",
+   "cobertura": ""
+  },
+  "030107": {
+   "titulo": "resección de osteoma",
+   "cobertura": ""
+  },
+  "030108": {
+   "titulo": "extirpación de coloboma auris",
+   "cobertura": ""
+  },
+  "030109": {
+   "titulo": "escisión de lesión local de conducto auditivo externo",
+   "cobertura": "Biopsia de oído externo"
+  },
+  "030201": {
+   "titulo": "miringoplastia",
+   "cobertura": ""
+  },
+  "030202": {
+   "titulo": "timpanoplastia",
+   "cobertura": ""
+  },
+  "030203": {
+   "titulo": "miringotomía con o sin colocación de tubo drenaje",
+   "cobertura": ""
+  },
+  "030204": {
+   "titulo": "cirugía plástica por agenesia de oído medio",
+   "cobertura": ""
+  },
+  "030205": {
+   "titulo": "movilización del estribo",
+   "cobertura": ""
+  },
+  "030206": {
+   "titulo": "estapedectomía",
+   "cobertura": ""
+  },
+  "030207": {
+   "titulo": "mastoidectomía simple o radical",
+   "cobertura": ""
+  },
+  "030208": {
+   "titulo": "antrotomía mastoidea cierre de fístula mastoidea",
+   "cobertura": ""
+  },
+  "030209": {
+   "titulo": "punción de antro mastoideo",
+   "cobertura": ""
+  },
+  "030210": {
+   "titulo": "cirugía del glomus yugularis",
+   "cobertura": ""
+  },
+  "030211": {
+   "titulo": "cirugía de 2da. y 3ra. porciones nervio facial",
+   "cobertura": ""
+  },
+  "030301": {
+   "titulo": "laberintectomía",
+   "cobertura": ""
+  },
+  "030302": {
+   "titulo": "fenestración del conducto semicircular externo",
+   "cobertura": ""
+  },
+  "030303": {
+   "titulo": "cirugía del saco endolinfático",
+   "cobertura": ""
+  },
+  "030304": {
+   "titulo": "cirugía del conducto auditivo interno y su contenido",
+   "cobertura": ""
+  },
+  "030305": {
+   "titulo": "tratamiento quirúrgico de fractura del penasco",
+   "cobertura": ""
+  },
+  "030306": {
+   "titulo": "tratamiento quirúrgico de neurinoma del acústico",
+   "cobertura": ""
+  },
+  "030401": {
+   "titulo": "atresia de coanas permeabilización por acceso palatino",
+   "cobertura": ""
+  },
+  "030402": {
+   "titulo": "resección total de nariz",
+   "cobertura": ""
+  },
+  "030403": {
+   "titulo": "reconstrucción diferida de pirámide nasal",
+   "cobertura": ""
+  },
+  "030404": {
+   "titulo": "tratamiento quirúrgico del rinofima",
+   "cobertura": ""
+  },
+  "030405": {
+   "titulo": "escisión de tumores endonasales",
+   "cobertura": ""
+  },
+  "030406": {
+   "titulo": "resección de lesión local endonasal",
+   "cobertura": ""
+  },
+  "030407": {
+   "titulo": "escisión de pólipo retro-coanal",
+   "cobertura": ""
+  },
+  "030408": {
+   "titulo": "rinoplastia con injerto cutáneo pediculado",
+   "cobertura": ""
+  },
+  "030409": {
+   "titulo": "septumplastia por implantación de cartílago autógeno",
+   "cobertura": ""
+  },
+  "030410": {
+   "titulo": "septumplastia por perforación o implantación de acrílico en fosas nasales",
+   "cobertura": ""
+  },
+  "030411": {
+   "titulo": "resección de tabique nasal operación de killian",
+   "cobertura": ""
+  },
+  "030412": {
+   "titulo": "turbinectomía parcial o completa simple",
+   "cobertura": ""
+  },
+  "030413": {
+   "titulo": "sutura de nariz biopsia de nariz",
+   "cobertura": ""
+  },
+  "030501": {
+   "titulo": "cierre de fístula meníngea",
+   "cobertura": ""
+  },
+  "030502": {
+   "titulo": "sinusotomía combinada frontal etmoidal y esfenoidal",
+   "cobertura": ""
+  },
+  "030504": {
+   "titulo": "sinusotomía radical frontal",
+   "cobertura": ""
+  },
+  "030505": {
+   "titulo": "sinusotomía frontal externa simple - trepanopunción",
+   "cobertura": ""
+  },
+  "030506": {
+   "titulo": "sinusotomía esfenoidal",
+   "cobertura": ""
+  },
+  "030507": {
+   "titulo": "punción de seno esfenoidal",
+   "cobertura": ""
+  },
+  "030508": {
+   "titulo": "etmoidectomía interna",
+   "cobertura": ""
+  },
+  "030509": {
+   "titulo": "cirugía de tumores etmoidales",
+   "cobertura": ""
+  },
+  "030510": {
+   "titulo": "antrotomía maxilar radical sinusotomía maxilar radical",
+   "cobertura": ""
+  },
+  "030512": {
+   "titulo": "sinusotomía maxilar simple ventana antral",
+   "cobertura": ""
+  },
+  "030514": {
+   "titulo": "cierre de fístula oral de seno maxilar",
+   "cobertura": ""
+  },
+  "030515": {
+   "titulo": "punción de seno con o sin inserción de sonda. Biopsia de seno paranasal",
+   "cobertura": ""
+  },
+  "030516": {
+   "titulo": "cirugía de la fosa pterigomaxilar explor",
+   "cobertura": ""
+  },
+  "030517": {
+   "titulo": "sinusotomía combinada con fibra óptica y videoscopía",
+   "cobertura": ""
+  },
+  "030518": {
+   "titulo": "sinusotomía radical con fibra óptica y videoscopía",
+   "cobertura": ""
+  },
+  "030519": {
+   "titulo": "cirugía de la fosa pterigomaxilar con videofibroscopía",
+   "cobertura": ""
+  },
+  "030601": {
+   "titulo": "laringuectomía radical con vaciamiento de cuello. Ope- ración comando de laringe",
+   "cobertura": ""
+  },
+  "030602": {
+   "titulo": "laringofaringectomía",
+   "cobertura": ""
+  },
+  "030603": {
+   "titulo": "laringectomía total",
+   "cobertura": ""
+  },
+  "030604": {
+   "titulo": "laringectomía parcial",
+   "cobertura": ""
+  },
+  "030605": {
+   "titulo": "laringoplastia cordopexia aritenoideopexia",
+   "cobertura": ""
+  },
+  "030606": {
+   "titulo": "laringotomía mediana e inferior laringofisura-tirotomia- cricotirotomía-laringorafía",
+   "cobertura": ""
+  },
+  "030607": {
+   "titulo": "incisión y drenaje de laringe abceso, pericondritis",
+   "cobertura": ""
+  },
+  "030608": {
+   "titulo": "microcirugía de laringe",
+   "cobertura": ""
+  },
+  "030609": {
+   "titulo": "microcirugía de laringe con láser",
+   "cobertura": "7 Código Práctica"
+  },
+  "030701": {
+   "titulo": "incisión y drenaje de lesión origen dentario",
+   "cobertura": ""
+  },
+  "030702": {
+   "titulo": "extirpación de germen dentario ameloblastoma",
+   "cobertura": ""
+  },
+  "030703": {
+   "titulo": "gingivectomía parcial tumores",
+   "cobertura": ""
+  },
+  "030704": {
+   "titulo": "gingivectomía total ampliada tumores",
+   "cobertura": ""
+  },
+  "030705": {
+   "titulo": "operación comando de encía o de trígono retromolar, más vaciamiento ganglionar cervical",
+   "cobertura": ""
+  },
+  "030706": {
+   "titulo": "biopsia de encía sutura de encía",
+   "cobertura": ""
+  },
+  "030801": {
+   "titulo": "parotidectomía total",
+   "cobertura": ""
+  },
+  "030802": {
+   "titulo": "operación comando de parótida",
+   "cobertura": ""
+  },
+  "030803": {
+   "titulo": "parotidectomía del lóbulo superficial",
+   "cobertura": ""
+  },
+  "030804": {
+   "titulo": "escisión radical de glándula submaxilar",
+   "cobertura": ""
+  },
+  "030805": {
+   "titulo": "operación comando de glándula submaxilar",
+   "cobertura": ""
+  },
+  "030806": {
+   "titulo": "incisión y drenaje de glándula parótida, submaxilar o sus conductos",
+   "cobertura": ""
+  },
+  "030807": {
+   "titulo": "biopsia de glándula salival extracción incisional de cál- culos salivales",
+   "cobertura": ""
+  },
+  "030808": {
+   "titulo": "extirpación de ránula",
+   "cobertura": ""
+  },
+  "030901": {
+   "titulo": "operación comando piso de boca",
+   "cobertura": ""
+  },
+  "030902": {
+   "titulo": "escisión ampliada de mucosa yugal y reconstrucción",
+   "cobertura": ""
+  },
+  "030903": {
+   "titulo": "estomatoplastia con injerto",
+   "cobertura": ""
+  },
+  "030904": {
+   "titulo": "incisión y drenaje de piso de boca biopsia de mucosa bucal",
+   "cobertura": ""
+  },
+  "030905": {
+   "titulo": "cierre de fístula externa de boca",
+   "cobertura": ""
+  },
+  "031001": {
+   "titulo": "queiloplastia labio leporino",
+   "cobertura": ""
+  },
+  "031003": {
+   "titulo": "queiloplastia con palatoplastia",
+   "cobertura": ""
+  },
+  "031004": {
+   "titulo": "resección de labio. Escisión en cuña",
+   "cobertura": ""
+  },
+  "031005": {
+   "titulo": "queiloplastia de Bernard Borow Abbe Eastlander o si- milar",
+   "cobertura": ""
+  },
+  "031006": {
+   "titulo": "queilpastia con vaciamiento ganglionar suprahioideo",
+   "cobertura": ""
+  },
+  "031007": {
+   "titulo": "escisión local de lesión de labio",
+   "cobertura": ""
+  },
+  "031008": {
+   "titulo": "incisión y drenaje de labio, absceso, sutura, biopsia",
+   "cobertura": ""
+  },
+  "031101": {
+   "titulo": "operación comando de lengua",
+   "cobertura": ""
+  },
+  "031102": {
+   "titulo": "glosectomía subtotal",
+   "cobertura": ""
+  },
+  "031103": {
+   "titulo": "escisión local de lesión de lengua",
+   "cobertura": ""
+  },
+  "031104": {
+   "titulo": "glosoplastia",
+   "cobertura": ""
+  },
+  "031105": {
+   "titulo": "glosotomía con drenaje de abceso, extracción de cuerpo extraño, sección frenillo, sutura, biopsia en la lengua",
+   "cobertura": ""
+  },
+  "031201": {
+   "titulo": "palatoplastia paladar blando o duro",
+   "cobertura": ""
+  },
+  "031202": {
+   "titulo": "resección parcial de paladar",
+   "cobertura": ""
+  },
+  "031203": {
+   "titulo": "resección total de paladar",
+   "cobertura": ""
+  },
+  "031204": {
+   "titulo": "resección total paladar y reconstrucción",
+   "cobertura": ""
+  },
+  "031205": {
+   "titulo": "operación comando de paladar blando",
+   "cobertura": ""
+  },
+  "031206": {
+   "titulo": "incisión y drenaje de paladar absceso, sutura, biopsia de paladar",
+   "cobertura": ""
+  },
+  "031301": {
+   "titulo": "amigdalectomía adenoidectomía",
+   "cobertura": ""
+  },
+  "031302": {
+   "titulo": "escisión o electrocoagulación de amígdala lingual, resto amigdalino o tejido linfóideo faríngeo",
+   "cobertura": ""
+  },
+  "031303": {
+   "titulo": "incisión y drenaje de amígdala o tejidos periamigdalinos",
+   "cobertura": ""
+  },
+  "031304": {
+   "titulo": "operación comando de faringe",
+   "cobertura": ""
+  },
+  "031305": {
+   "titulo": "faringoplastia",
+   "cobertura": ""
+  },
+  "031306": {
+   "titulo": "faringuectomía parcial tumores",
+   "cobertura": ""
+  },
+  "031307": {
+   "titulo": "escisión de divertículo faringoesofágico, o de lesión lo- cal de faringe",
+   "cobertura": ""
+  },
+  "031308": {
+   "titulo": "faringotomía exploración extracción de cuerpo extraño",
+   "cobertura": ""
+  },
+  "031309": {
+   "titulo": "cierre de faringostoma",
+   "cobertura": ""
+  },
+  "031310": {
+   "titulo": "sutura de faringe",
+   "cobertura": ""
+  },
+  "031311": {
+   "titulo": "biopsia de faringe",
+   "cobertura": ""
+  },
+  "031312": {
+   "titulo": "escisión radical de lesión de nasofaringe",
+   "cobertura": ""
+  },
+  "031313": {
+   "titulo": "biopsia de lesión de nasofaringe",
+   "cobertura": "Operaciones en el Sistema Endocrino"
+  },
+  "040101": {
+   "titulo": "tiroidectomía total con vaciamiento ganglionar",
+   "cobertura": ""
+  },
+  "040103": {
+   "titulo": "tiroidectomía total",
+   "cobertura": ""
+  },
+  "040104": {
+   "titulo": "tiroidectomía sub-total hemitiroidectomía",
+   "cobertura": ""
+  },
+  "040105": {
+   "titulo": "extirpación de quiste tirogloso",
+   "cobertura": ""
+  },
+  "040106": {
+   "titulo": "punción biopsia de tiroides",
+   "cobertura": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
+  },
+  "040107": {
+   "titulo": "incisión y drenaje de quiste tirogloso infectado",
+   "cobertura": ""
+  },
+  "040108": {
+   "titulo": "paratiroidectomía",
+   "cobertura": ""
+  },
+  "040201": {
+   "titulo": "adrenalectomía bilateral",
+   "cobertura": ""
+  },
+  "040202": {
+   "titulo": "adrenalectomía unilateral",
+   "cobertura": ""
+  },
+  "040301": {
+   "titulo": "hipofisectomía transeptoesfenoidal",
+   "cobertura": "Operaciones en el Tórax"
+  },
+  "050101": {
+   "titulo": "resección de pleura parietal costillas, músculos",
+   "cobertura": ""
+  },
+  "050102": {
+   "titulo": "operación plástica por tórax en carina o excavado",
+   "cobertura": ""
+  },
+  "050103": {
+   "titulo": "toracoplastia",
+   "cobertura": ""
+  },
+  "050201": {
+   "titulo": "traqueoplastia",
+   "cobertura": ""
+  },
+  "050202": {
+   "titulo": "traqueostomía traqueotomía",
+   "cobertura": ""
+  },
+  "050203": {
+   "titulo": "traqueorrafia, sutura, cierre de traqueostomía o fístula traqueal",
+   "cobertura": ""
+  },
+  "050301": {
+   "titulo": "traqueoplastia, broncoplastia",
+   "cobertura": ""
+  },
+  "050302": {
+   "titulo": "broncotomía broncorrafia por herida o traumatismo",
+   "cobertura": ""
+  },
+  "050303": {
+   "titulo": "cavernostomía",
+   "cobertura": ""
+  },
+  "050304": {
+   "titulo": "cierre de fístula bronco cutánea",
+   "cobertura": ""
+  },
+  "050401": {
+   "titulo": "neumonectomía lobectomía segmentectomía, pleuroneumonectomía, de corticación de pulmón",
+   "cobertura": ""
+  },
+  "050402": {
+   "titulo": "escisión local de lesión pulmonar cuerpo extraño, quistectomía o lesiones de enfisema",
+   "cobertura": ""
+  },
+  "050403": {
+   "titulo": "Operaciones en el mediastino vía torácica o videoscópica",
+   "cobertura": "Obligación de cobertura en los siguientes casos: Estadificación de cáncer de pulmón Tumores del mediastino Heridas torácicas"
+  },
+  "050405": {
+   "titulo": "Mediastinoscopía con o sin videoscopía",
+   "cobertura": "Obligación de cobertura en los siguientes casos: Estadificación de cáncer de pulmón"
+  },
+  "050406": {
+   "titulo": "toracotomía amplia exploradora biopsia de pulmón, pleura o mediastino",
+   "cobertura": ""
+  },
+  "050407": {
+   "titulo": "drenaje de pleura con trocard por toracotomía mínima",
+   "cobertura": ""
+  },
+  "050408": {
+   "titulo": "punción de cavidad pleural para lavaje o instilación de sustancias. Punción pleural o pulmonar",
+   "cobertura": ""
+  },
+  "050409": {
+   "titulo": "punción biopsia de pleura o pulmón con aguja de vimsilverman, coper o similares",
+   "cobertura": ""
+  },
+  "050410": {
+   "titulo": "biopsia de grasa pre-escalénica. Biopsia de daniels",
+   "cobertura": ""
+  },
+  "050411": {
+   "titulo": "neumotórax",
+   "cobertura": ""
+  },
+  "050413": {
+   "titulo": "Toracovideoscopía terapéutica. Para resecciones",
+   "cobertura": "Obligación de cobertura en los siguientes casos: Lesiones periféricas cuya resección sea exclusivamente por esa vía."
+  },
+  "050501": {
+   "titulo": "colocación de stent endobronquial",
+   "cobertura": "Obligación de cobertura en los siguientes casos: 1- El alivio sintomático de pacientes con obstrucción crítica de la vía aérea, principalmente debida a compresión extrínseca con o sin componente endoluminal 2- La resolución de patología benigna obstructiva aérea no opera- ble (p. ej. estenosis post-extubación no operable) o en pacientes no elegibles para cirugía 3- El tratamiento paliativo de enfermedades neoplásicas que de- terminan síntomas obstructivos de la vía aérea, ya sea definitivo o transitorio (en espera de radioterapia o tratamiento antineoplásico). Operaciones en la Mama"
+  },
+  "060101": {
+   "titulo": "mastectomía radical",
+   "cobertura": ""
+  },
+  "060102": {
+   "titulo": "mastectomía subradical",
+   "cobertura": ""
+  },
+  "060103": {
+   "titulo": "mastectomía simple",
+   "cobertura": ""
+  },
+  "060104": {
+   "titulo": "mastectomía subcutánea adenomastectomía",
+   "cobertura": ""
+  },
+  "060105": {
+   "titulo": "mastoplastia",
+   "cobertura": "8 Código Práctica"
+  },
+  "060107": {
+   "titulo": "mamiloplastia",
+   "cobertura": ""
+  },
+  "060108": {
+   "titulo": "escisión local de lesión de mama, de conducto de pezón",
+   "cobertura": ""
+  },
+  "060109": {
+   "titulo": "escisión de cuadrante mamario",
+   "cobertura": ""
+  },
+  "060110": {
+   "titulo": "drenaje de absceso mamario",
+   "cobertura": ""
+  },
+  "060111": {
+   "titulo": "punción quiste mamario punción biopsia de mama",
+   "cobertura": ""
+  },
+  "060112": {
+   "titulo": "cuadrantectomía con vaciamiento axilar",
+   "cobertura": "Operaciones en el Sistema Cardiovascular"
+  },
+  "070101": {
+   "titulo": "septostomía interauricular",
+   "cobertura": ""
+  },
+  "070102": {
+   "titulo": "septostomía con balón de rashbind",
+   "cobertura": ""
+  },
+  "070103": {
+   "titulo": "colocación de marcapaso definitivo con electrodo endocavitario",
+   "cobertura": ""
+  },
+  "070105": {
+   "titulo": "cambio de generador marcapaso definitivo. Recolocación plástica de bolsillo de marcapaso",
+   "cobertura": ""
+  },
+  "070106": {
+   "titulo": "implantación de circulación asistida externa prolongada por contrapulsación",
+   "cobertura": ""
+  },
+  "070108": {
+   "titulo": "cardiorrafia sutura de corazón herida o traumatismo",
+   "cobertura": ""
+  },
+  "070109": {
+   "titulo": "pericardiotomía con exploración con drenaje, descompresión para evacuación de hematoma",
+   "cobertura": ""
+  },
+  "070110": {
+   "titulo": "biopsia de pericardio",
+   "cobertura": ""
+  },
+  "070111": {
+   "titulo": "pericardiocentesis diagnóstica o terapéutica",
+   "cobertura": ""
+  },
+  "070112": {
+   "titulo": "cateterismo de corazón para colocación de marcapaso transitorio",
+   "cobertura": ""
+  },
+  "070113": {
+   "titulo": "biopsia de endocardio por cateterismo cardíaco",
+   "cobertura": ""
+  },
+  "070114": {
+   "titulo": "biopsia de miocardio por cateterismo cardíaco",
+   "cobertura": ""
+  },
+  "070115": {
+   "titulo": "colocación de desfibrilador implantable",
+   "cobertura": "Obligación de cobertura en los siguientes casos: Amplio consenso y evidencia de buena calidad: 1- Prevención secundaria: Pacientes que presenten lo siguiente en ausencia de una causa tratable (a) Paro cardíaco debido a taquicardia ventricular o fibrilación ventricular (b) Taquicardia ventricular (TV) espontánea y sostenida que pro- voca síncope o compromiso hemodinámico significativo (c) TV sostenida sin síncope o paro cardíaco, asociada a una reducción de la fracción de eyección (<35%) en pacientes cuya clase funcional no sea peor que III de la clasificación funcional de insuficiencia cardíaca de la New York Heart Association 2- Prevención primaria: (a) pacientes con historia de infarto agudo de miocardio (IAM) que a su vez tienen todo lo siguiente: TV no sostenida en el holter más Taquicardia Ventricular en estu- dio electrofisiológico sumado a mala función ventricular izquier- da y clase funcional I, II o III de la clasificación funcional de insuficiencia cardíaca de la New York Heart Association (b) condiciones familiares cardíacas con un alto riesgo de muerte súbita, incluyendo a los síndromes de QT prolongado, la cardiomiopatía hipertrófica, el síndrome de Brugada, la displasia ventricular derecha arritmogénica, y luego de la reparación de la tetralogía de Fallot"
+  },
+  "070201": {
+   "titulo": "tratamiento quirúrgico de las cardiopatías congénitas",
+   "cobertura": ""
+  },
+  "070203": {
+   "titulo": "reemplazo de válvula cardíaca por prótesis o injerto",
+   "cobertura": ""
+  },
+  "070204": {
+   "titulo": "doble reemplazo valvular cardíaco",
+   "cobertura": ""
+  },
+  "070206": {
+   "titulo": "cierre defectos septales",
+   "cobertura": ""
+  },
+  "070207": {
+   "titulo": "tratamiento quirúrgico de aneurismas del cayado aórtico",
+   "cobertura": "Aneurisma disecante de aorta"
+  },
+  "070208": {
+   "titulo": "tratamiento quirúrgico de aneurismas de aorta ascen- dente o descendente",
+   "cobertura": ""
+  },
+  "070209": {
+   "titulo": "derivación (by-pass) aorto coronario",
+   "cobertura": ""
+  },
+  "070210": {
+   "titulo": "derivación (by-pass) mamario coronario",
+   "cobertura": ""
+  },
+  "070211": {
+   "titulo": "resección de aneurisma ventricular",
+   "cobertura": ""
+  },
+  "070301": {
+   "titulo": "cirugía en los grandes troncos arteriovenosos de la cavi- dad torácica",
+   "cobertura": ""
+  },
+  "070302": {
+   "titulo": "tratamiento quirúrgico del aneurisma de aorta toraco abdominal",
+   "cobertura": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
+  },
+  "070401": {
+   "titulo": "tratamiento quirúrgico del aneurisma de aorta abdominal",
+   "cobertura": ""
+  },
+  "070402": {
+   "titulo": "cirugía de las ramas viscerales de la aorta abdominal y troncos iliácos",
+   "cobertura": ""
+  },
+  "070403": {
+   "titulo": "derivación aorto o ilíaco femoral uni o bilateral con o sin simpatisectomía",
+   "cobertura": ""
+  },
+  "070405": {
+   "titulo": "derivación aorto ilíaco uni o bilateral",
+   "cobertura": ""
+  },
+  "070406": {
+   "titulo": "otras derivaciones arteriales en cavidad abdominal",
+   "cobertura": ""
+  },
+  "070407": {
+   "titulo": "anastomosis porto-cava o esplenorrenal o mesentérico cava",
+   "cobertura": ""
+  },
+  "070408": {
+   "titulo": "cirugía de la vena cava",
+   "cobertura": ""
+  },
+  "070409": {
+   "titulo": "colocación de filtro Mobin Uddin",
+   "cobertura": ""
+  },
+  "070501": {
+   "titulo": "cirugía de la arteria carótida o de la vertebral tromboendarterectomía embolectomía",
+   "cobertura": ""
+  },
+  "070502": {
+   "titulo": "sutura o ligadura de los vasos profundos del cuello",
+   "cobertura": ""
+  },
+  "070503": {
+   "titulo": "glomectomía tumor de glomus carotídeo",
+   "cobertura": ""
+  },
+  "070601": {
+   "titulo": "embolectomía en arterias periféricas",
+   "cobertura": ""
+  },
+  "070602": {
+   "titulo": "tromboendarterectomía de vasos periféricos",
+   "cobertura": ""
+  },
+  "070603": {
+   "titulo": "derivación by-pass de vasos periféricos con injerto ve- noso o sintético",
+   "cobertura": ""
+  },
+  "070605": {
+   "titulo": "tratamiento del aneurisma o de las fístulas arteriovenosas",
+   "cobertura": ""
+  },
+  "070606": {
+   "titulo": "anastomosis arterial arteriorrafía",
+   "cobertura": ""
+  },
+  "070607": {
+   "titulo": "shunt o fístula arteriovenosa periférica para hemohemodiálisis",
+   "cobertura": ""
+  },
+  "070608": {
+   "titulo": "disección de arterias para perfusión regional",
+   "cobertura": ""
+  },
+  "070609": {
+   "titulo": "punción arterial para inyección medicamentosa",
+   "cobertura": ""
+  },
+  "070610": {
+   "titulo": "ligadura unilateral de troncos venosos profundos",
+   "cobertura": ""
+  },
+  "070611": {
+   "titulo": "trombectomía venosa profunda",
+   "cobertura": ""
+  },
+  "070612": {
+   "titulo": "safenectomía interna y/o externa con ligaduras y/o resecciones ecalonadas",
+   "cobertura": ""
+  },
+  "070614": {
+   "titulo": "operación de linton, gockett o similares",
+   "cobertura": ""
+  },
+  "070615": {
+   "titulo": "flebotomía con colocación de catéter",
+   "cobertura": ""
+  },
+  "070616": {
+   "titulo": "flebectomía segmentaria por várices residuales",
+   "cobertura": ""
+  },
+  "070701": {
+   "titulo": "cateterismo cardíaco derecho",
+   "cobertura": ""
+  },
+  "070703": {
+   "titulo": "coronariografía selectiva",
+   "cobertura": ""
+  },
+  "070704": {
+   "titulo": "aortografía por punción lumbar",
+   "cobertura": ""
+  },
+  "070705": {
+   "titulo": "aortografía por cateterismo con o sin estudio selectivo de cualquiera de sus ramas torácicas o abdominales",
+   "cobertura": ""
+  },
+  "070709": {
+   "titulo": "cavografía abdominal y/o torácica",
+   "cobertura": ""
+  },
+  "070710": {
+   "titulo": "acigografía por punción transósea",
+   "cobertura": ""
+  },
+  "070711": {
+   "titulo": "flebografía del seno petroso bilateral",
+   "cobertura": ""
+  },
+  "070713": {
+   "titulo": "flebografía suprarrenal bilateral",
+   "cobertura": ""
+  },
+  "070714": {
+   "titulo": "arteriografía periférica por punción",
+   "cobertura": ""
+  },
+  "070715": {
+   "titulo": "embolización selectiva terapéutica",
+   "cobertura": ""
+  },
+  "070716": {
+   "titulo": "flebografía de miembro inferior o superior",
+   "cobertura": ""
+  },
+  "070717": {
+   "titulo": "flebotomía transcutánea y colocación de catéter doble lumen como acceso vascular para diálisis",
+   "cobertura": ""
+  },
+  "070718": {
+   "titulo": "flebotomía con colocación de catéter implantable con reservorio",
+   "cobertura": ""
+  },
+  "070801": {
+   "titulo": "angioplastia trasluminal coronaria con o sin colocación de stent",
+   "cobertura": ""
+  },
+  "070803": {
+   "titulo": "angioplastia trasluminal coronaria con Rotablator /",
+   "cobertura": "Simpson • Obligación de cobertura en los siguientes casos: Lesiones calcificadas no dilatables"
+  },
+  "070804": {
+   "titulo": "tratamiento desembolizante con quinasas",
+   "cobertura": "Obligación de cobertura en los siguientes casos: Infarto agudo de miocardio"
+  },
+  "070805": {
+   "titulo": "angioplastia periférica",
+   "cobertura": ""
+  },
+  "070806": {
+   "titulo": "angioplastia periférica con colocación de stent",
+   "cobertura": "Obligación de cobertura en los siguientes casos: 1. Arterial Renal: La cobertura será obligatoria cuando se cum- plen los siguientes criterios:al menos 75% de estenosis de una o 9 Código Práctica ambas arterias y que desarrollen, a pesar de tratamiento médico óptimo (asociación de dosis máximas de 3 o más drogas sinérgicas) al menos alguna de las siguientes condiciones: — Hipertensión no controlada — Edema pulmonar recurrente fugaz — Ingreso a diálisis dependiente únicamente de estenosis ateroesclerótica de la arteria renal, o deterioro de función renal, especialmente con estenosis bilateral o riñón único funcionante. 2. Enfermedad Arterial Periférica de miembros inferiores: La co- bertura será obligatoria cuando se cumplen los siguientes crite- rios: Estenosis u oclusión de la arteria ilíaca con claudicación intermitente o isquemia crítica de la extremidad con empeora- miento clínico y que luego de una extensa evaluación y tratamien- to médico adecuados no mejora ni se estabiliza y requiere de un procedimiento invasivo, ante la presencia de al menos alguna de las siguientes condiciones clínicas: — Dolor vascular limitante para su estilo de vida habitual o permanente en reposo — Ulceras vasculares no cicatrizantes o gangrena focal — Deberá cumplirse en su totalidad con los siguientes criterios anatómicos: — lesiones menores de 10 cm — lesiones localizadas en la ilíaca externa o común,"
+  },
+  "070901": {
+   "titulo": "transplante cardíaco",
+   "cobertura": ""
+  },
+  "070902": {
+   "titulo": "transplante cardiopulmonar",
+   "cobertura": ""
+  },
+  "071001": {
+   "titulo": "valvuloplastia mitral",
+   "cobertura": "Obligación de cobertura en los siguientes casos: 1. Pacientes sintomáticos (NYHAclase II-III-IV) con estenosis mitral moderada o severa (área valvular <1.5cm cuadrados) y en ausencia de trombo auricular, regurgitación moderada a severa, enfermedad valvular aórtica o tricuspidea severas o enfermedad coronaria severa con alguna de las siguientes condiciones: — Morfología valvular favorable (score de 8 o menos en criterios ecocardiográficos) — Válvula calcificada no plegable con alto riesgo quirúrgico — Restenosis mitral después de comisurotomía quirúrgica anterior. — La cirugía está contraindicada — Pacientes en los 2do. y 3er. trimestres de embarazo en los cuales se espera que la VPB alcance la mejora hemodinámica y sintomática con riesgo mínimo para la madre y al feto 2. Pacientes asintomáticos (NYHA clase II-III-IV) con estenosis mitral moderada o severa (área valvular <1.5cm cuadrados) y morfología valvular favorable (score de 8 o menos en criterios ecocardiográficos en ausencia de trombo auricular, regurgitación mitral moderada a severa enfermedad valvular aórtica o tricuspidea severas o enfermedad coronaria severa que requiere revascularización quirúrgica con: hipertensión pulmonar secun- daria (> 50 mmhg)"
+  },
+  "071002": {
+   "titulo": "Valvuloplastia pulmonar",
+   "cobertura": "Obligación de cobertura en los siguientes casos: 1) Pacientes con disnea de esfuerzo, angina, presíncope o síncope 2) Paciente sintomático con gradiente arterial pulmonar pico > de 40 mmhg Operaciones en el Aparato Digestivo y Abdomen"
+  },
+  "080101": {
+   "titulo": "esofaguectomía total",
+   "cobertura": ""
+  },
+  "080102": {
+   "titulo": "esofaguectomía segmentaria",
+   "cobertura": ""
+  },
+  "080104": {
+   "titulo": "reemplazo de esófago",
+   "cobertura": ""
+  },
+  "080105": {
+   "titulo": "esofagogastroplastia esófago-cardioplastia",
+   "cobertura": ""
+  },
+  "080106": {
+   "titulo": "operaciones derivativas paliativas esofagogastro o esofagoyeyunoanastomosis",
+   "cobertura": ""
+  },
+  "080107": {
+   "titulo": "tratamiento atresia esofágica",
+   "cobertura": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
+  },
+  "080108": {
+   "titulo": "esofagotomía exploradora vía torácica o abdominal",
+   "cobertura": ""
+  },
+  "080109": {
+   "titulo": "escisión de divertículo esofágico intratorácico",
+   "cobertura": ""
+  },
+  "080110": {
+   "titulo": "esofagotomía o esofagorafía de esófago cervical",
+   "cobertura": ""
+  },
+  "080111": {
+   "titulo": "escisión de divertículo esofágico cervical",
+   "cobertura": ""
+  },
+  "080112": {
+   "titulo": "intubación de esófago por gastrotomía",
+   "cobertura": ""
+  },
+  "080113": {
+   "titulo": "colocación de prótesis esofágicas",
+   "cobertura": "Obligación de cobertura en los siguientes casos: 1. Tratamiento de la fístula traqueoesofágica 2. Tratamiento paliativo de la disfagia en pacientes con estenosis malignas esofágicas en pacientes con tumores esofágicos irresecables (estadios 3 y 4) o en pacientes con cualquier estadio de la enfermedad que son considerados inoperables por la pre- sencia de situaciones comórbidas que lo contraindican (edad avan- zada, enfermedades concomitantes, etc.)"
+  },
+  "080201": {
+   "titulo": "dermolipectomía abdominal con o sin reconstrucción del ombligo",
+   "cobertura": ""
+  },
+  "080202": {
+   "titulo": "hernioplastia diafragmática o isquiorrectal",
+   "cobertura": ""
+  },
+  "080203": {
+   "titulo": "hernioplastia inguinal, crural, epigástrica, umbilical, obturatriz",
+   "cobertura": ""
+  },
+  "080204": {
+   "titulo": "tratamiento quirúrgico del onfalocele",
+   "cobertura": ""
+  },
+  "080205": {
+   "titulo": "hernioplastia bilateral",
+   "cobertura": ""
+  },
+  "080206": {
+   "titulo": "eventración hernia recidivada",
+   "cobertura": ""
+  },
+  "080207": {
+   "titulo": "cierre de pared abdominal por evisceración",
+   "cobertura": ""
+  },
+  "080208": {
+   "titulo": "laparatomía exploradora",
+   "cobertura": ""
+  },
+  "080209": {
+   "titulo": "enterólisis de bridamiento intestinal",
+   "cobertura": ""
+  },
+  "080211": {
+   "titulo": "laparascopía convencional incluye biopsia dirigida",
+   "cobertura": ""
+  },
+  "080212": {
+   "titulo": "peritoneocentesis evacuadora, diagnóstica o para neumoperitoneo",
+   "cobertura": ""
+  },
+  "080213": {
+   "titulo": "escisión tumor retroperitoneal",
+   "cobertura": ""
+  },
+  "080214": {
+   "titulo": "drenaje absceso subfrénico",
+   "cobertura": ""
+  },
+  "080216": {
+   "titulo": "hernioplastiadiafragmática con fundoplicatura videolaparoscópica",
+   "cobertura": ""
+  },
+  "080217": {
+   "titulo": "videolaparoscopía con biopsia o diagnóstica",
+   "cobertura": ""
+  },
+  "080301": {
+   "titulo": "gastrectomía total",
+   "cobertura": ""
+  },
+  "080302": {
+   "titulo": "gastrectomía subtotal o regastrectomía con o sin",
+   "cobertura": ""
+  },
+  "080303": {
+   "titulo": "gastrotomía exploración extracción cuerpo extraño, es- cisión local de úlcera o tumor benigno",
+   "cobertura": ""
+  },
+  "080304": {
+   "titulo": "gastrotomía",
+   "cobertura": ""
+  },
+  "080305": {
+   "titulo": "gastrorrafia úlcera-gástrica perforada herida, traumatismo",
+   "cobertura": ""
+  },
+  "080306": {
+   "titulo": "gastroduodenostomía gastroyeyunostomía",
+   "cobertura": ""
+  },
+  "080307": {
+   "titulo": "vagotomía con piloroplastia o con",
+   "cobertura": ""
+  },
+  "080308": {
+   "titulo": "piloromiotomia-piloroplastia",
+   "cobertura": ""
+  },
+  "080309": {
+   "titulo": "cierre o eliminación gastroenteroanastomosis",
+   "cobertura": ""
+  },
+  "080310": {
+   "titulo": "cierre de fístula gastrocólica",
+   "cobertura": ""
+  },
+  "080311": {
+   "titulo": "cierre de gastrostomía u otra fístula externa de estómago",
+   "cobertura": ""
+  },
+  "080401": {
+   "titulo": "enterectomía de yeyuno o ileón",
+   "cobertura": ""
+  },
+  "080402": {
+   "titulo": "escisión divertículo de meckel",
+   "cobertura": ""
+  },
+  "080403": {
+   "titulo": "enterotomía esterostomía temporaria",
+   "cobertura": ""
+  },
+  "080404": {
+   "titulo": "derivaciones intestinales internas",
+   "cobertura": ""
+  },
+  "080405": {
+   "titulo": "operación plástica en ileostomía",
+   "cobertura": ""
+  },
+  "080406": {
+   "titulo": "plicatura de intestino delgado operación de Noble",
+   "cobertura": ""
+  },
+  "080407": {
+   "titulo": "gastrostomía por fibroscopía",
+   "cobertura": ""
+  },
+  "080408": {
+   "titulo": "vagotomía con o sin piloroplastia por videoscopía",
+   "cobertura": ""
+  },
+  "080409": {
+   "titulo": "cirugía gástrica de procesos benignos por videoscopía",
+   "cobertura": ""
+  },
+  "080410": {
+   "titulo": "cirugía gástrica de procesos malignos por videoscopía",
+   "cobertura": ""
+  },
+  "080501": {
+   "titulo": "colectomía total sin recto-con restitución del tránsito en un tiempo",
+   "cobertura": ""
+  },
+  "080502": {
+   "titulo": "colectomía total sin recto-con ileostomía temporaria o definitiva",
+   "cobertura": ""
+  },
+  "080503": {
+   "titulo": "hemicolectomía derecha o izquierda",
+   "cobertura": ""
+  },
+  "080504": {
+   "titulo": "colectomía segmentaria resección segmentaria de colon operación de Hartman",
+   "cobertura": ""
+  },
+  "080505": {
+   "titulo": "resección anterior - operación de Dixon o Maunsen",
+   "cobertura": ""
+  },
+  "080506": {
+   "titulo": "operaciones radicales para megacolon",
+   "cobertura": "10 Código Práctica"
+  },
+  "080508": {
+   "titulo": "colon protectomía total incluye ileostomía",
+   "cobertura": ""
+  },
+  "080509": {
+   "titulo": "proctosigmoidectomía abdominoperineal operación de",
+   "cobertura": ""
+  },
+  "080511": {
+   "titulo": "protectomía",
+   "cobertura": ""
+  },
+  "080512": {
+   "titulo": "protectomía con prostatectomía o colpectomía",
+   "cobertura": ""
+  },
+  "080513": {
+   "titulo": "rectotomía sigmoidotomía por vía abdominal",
+   "cobertura": ""
+  },
+  "080514": {
+   "titulo": "proctotomía con descompresión ano imperforado",
+   "cobertura": ""
+  },
+  "080515": {
+   "titulo": "descenso transanal atresia ano rectal",
+   "cobertura": ""
+  },
+  "080516": {
+   "titulo": "operación plástica en malformaciones congénitas anorrectales",
+   "cobertura": ""
+  },
+  "080518": {
+   "titulo": "proctorrafia",
+   "cobertura": ""
+  },
+  "080519": {
+   "titulo": "proctopexia prolapso de recto vía abdominal",
+   "cobertura": ""
+  },
+  "080520": {
+   "titulo": "confección o cierre de fístulas rectovesicales",
+   "cobertura": ""
+  },
+  "080521": {
+   "titulo": "colostomía temporaria o definitiva única intervención",
+   "cobertura": ""
+  },
+  "080522": {
+   "titulo": "operación plástica colostomía",
+   "cobertura": ""
+  },
+  "080523": {
+   "titulo": "drenaje absceso perirrectal de Douglas",
+   "cobertura": ""
+  },
+  "080524": {
+   "titulo": "apendicectomía",
+   "cobertura": ""
+  },
+  "080525": {
+   "titulo": "extracción instrumental de fecalomas inaccesibles",
+   "cobertura": ""
+  },
+  "080526": {
+   "titulo": "extracción manual de fecaloma",
+   "cobertura": ""
+  },
+  "080601": {
+   "titulo": "anoplastia estenosis con o sin esfinterotomía",
+   "cobertura": ""
+  },
+  "080602": {
+   "titulo": "anoplastia por estenosis con deslizamiento de colgajos",
+   "cobertura": ""
+  },
+  "080603": {
+   "titulo": "esfinteroplastia tipo pickrel o similar",
+   "cobertura": ""
+  },
+  "080604": {
+   "titulo": "esfinteroplastia tipo plicatura o similar",
+   "cobertura": ""
+  },
+  "080605": {
+   "titulo": "cerclaje de ano",
+   "cobertura": ""
+  },
+  "080606": {
+   "titulo": "hemorroidectomía con o sin fisura anal",
+   "cobertura": ""
+  },
+  "080607": {
+   "titulo": "trombectomía infartectomía trombosis hemorroidaria",
+   "cobertura": ""
+  },
+  "080608": {
+   "titulo": "tratamiento quirúrgico del prolapso mucoso operación de Whit",
+   "cobertura": ""
+  },
+  "080609": {
+   "titulo": "tratamientohemorroides con ligadura elástica",
+   "cobertura": ""
+  },
+  "080610": {
+   "titulo": "tratamiento esclerosante en hemorroides",
+   "cobertura": ""
+  },
+  "080611": {
+   "titulo": "fistulectomía o fistulotomía fístula del canal anal",
+   "cobertura": ""
+  },
+  "080612": {
+   "titulo": "fisurectomía criptectomía o papilectomía",
+   "cobertura": ""
+  },
+  "080613": {
+   "titulo": "esfinterotomía como única operación",
+   "cobertura": ""
+  },
+  "080614": {
+   "titulo": "escisión de lesión de piel perianal",
+   "cobertura": ""
+  },
+  "080615": {
+   "titulo": "fulguración radical de condilomas acuminados",
+   "cobertura": ""
+  },
+  "080616": {
+   "titulo": "incisión drenaje de absceso perianal",
+   "cobertura": ""
+  },
+  "080617": {
+   "titulo": "tratamiento radical del abscesoperianal con resección de cripta de origen",
+   "cobertura": ""
+  },
+  "080618": {
+   "titulo": "tratamiento de las lesiones rectoanales con ultrasonido (leep o similares)",
+   "cobertura": ""
+  },
+  "080701": {
+   "titulo": "lobectomía hepática",
+   "cobertura": ""
+  },
+  "080702": {
+   "titulo": "segmentectomía hepática",
+   "cobertura": ""
+  },
+  "080703": {
+   "titulo": "hepatectomía parcial escisión radical lesión de hígado, quiste, tumor, etcétera",
+   "cobertura": ""
+  },
+  "080704": {
+   "titulo": "hepatostomía marsupialización de quistes",
+   "cobertura": ""
+  },
+  "080705": {
+   "titulo": "sutura de hígado por traumatismo herida",
+   "cobertura": ""
+  },
+  "080706": {
+   "titulo": "biopsia de hígado por laparatomía",
+   "cobertura": ""
+  },
+  "080707": {
+   "titulo": "punción de hígado percutánea",
+   "cobertura": ""
+  },
+  "080708": {
+   "titulo": "colecistostomía",
+   "cobertura": ""
+  },
+  "080710": {
+   "titulo": "sección de ampolla de Vater transduodenal",
+   "cobertura": ""
+  },
+  "080711": {
+   "titulo": "coledocotomía único tratamiento",
+   "cobertura": ""
+  },
+  "080712": {
+   "titulo": "anastomosis biliodigestivas simples",
+   "cobertura": ""
+  },
+  "080713": {
+   "titulo": "anastomosis biliodigestivas complejas",
+   "cobertura": ""
+  },
+  "080714": {
+   "titulo": "operaciones reparadoras de la vía biliar",
+   "cobertura": ""
+  },
+  "080715": {
+   "titulo": "extracción instrumental completa de cálculos",
+   "cobertura": ""
+  },
+  "080716": {
+   "titulo": "colecistectomía con o sin coledocotomía",
+   "cobertura": ""
+  },
+  "080717": {
+   "titulo": "coledocotomía único tratamiento por la paroscopía",
+   "cobertura": ""
+  },
+  "080718": {
+   "titulo": "biopsia de hígado por videolaparoscopía",
+   "cobertura": ""
+  },
+  "080720": {
+   "titulo": "dilatación de vía biliar percutánea",
+   "cobertura": ""
+  },
+  "080722": {
+   "titulo": "colangiopancreatografía retrógrada endoscópica",
+   "cobertura": ""
+  },
+  "080723": {
+   "titulo": "papilotomía y esfinterotomía endoscópica con extrac- ción de litos y/o biopsia",
+   "cobertura": ""
+  },
+  "080801": {
+   "titulo": "duodenopancreatectomía",
+   "cobertura": ""
+  },
+  "080802": {
+   "titulo": "anastomosis pancreaticodigestivas",
+   "cobertura": ""
+  },
+  "080803": {
+   "titulo": "escisión local lesión páncreas adenoma",
+   "cobertura": ""
+  },
+  "080804": {
+   "titulo": "escisión corporocaudal esplenopancreatectomía",
+   "cobertura": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
+  },
+  "080805": {
+   "titulo": "sutura de páncreas herida traumatismo biopsia",
+   "cobertura": ""
+  },
+  "080901": {
+   "titulo": "esplenectomía única intervención",
+   "cobertura": ""
+  },
+  "080902": {
+   "titulo": "punción esplénica percutánea esplenoportografia",
+   "cobertura": ""
+  },
+  "081001": {
+   "titulo": "trasplante hepático (parcial) de donante vivo",
+   "cobertura": ""
+  },
+  "081002": {
+   "titulo": "trasplante hepático (parcial) de donante cadavérico",
+   "cobertura": ""
+  },
+  "081003": {
+   "titulo": "trasplante hepático total",
+   "cobertura": "Operaciones en los vasos y ganglios linfáticos"
+  },
+  "090101": {
+   "titulo": "linfadenectomía cervical axilar o inguinal unilateral",
+   "cobertura": ""
+  },
+  "090102": {
+   "titulo": "linfadenectomía cervical axilar inguinal radical bilateral",
+   "cobertura": ""
+  },
+  "090103": {
+   "titulo": "escisión de lesión de conductos linfáticos linfangioma higroma",
+   "cobertura": ""
+  },
+  "090104": {
+   "titulo": "drenaje de seno linfático derivación",
+   "cobertura": ""
+  },
+  "090105": {
+   "titulo": "linfadenectomía biopsia de ganglio linfático",
+   "cobertura": ""
+  },
+  "090106": {
+   "titulo": "linfadenotomía",
+   "cobertura": ""
+  },
+  "090107": {
+   "titulo": "biopsia de ganglio linfático por punción",
+   "cobertura": ""
+  },
+  "090108": {
+   "titulo": "disección quirúrgica para linfoadenografía",
+   "cobertura": "Operaciones en el aparato urinario y genital masculino"
+  },
+  "100101": {
+   "titulo": "nefrectomía total cualquier vía utilizada",
+   "cobertura": ""
+  },
+  "100102": {
+   "titulo": "nefrectomía parcial",
+   "cobertura": ""
+  },
+  "100103": {
+   "titulo": "nefroureterectomía total con cistectomía parcial",
+   "cobertura": ""
+  },
+  "100104": {
+   "titulo": "nefrotomía nefrostomía nefropexia",
+   "cobertura": ""
+  },
+  "100105": {
+   "titulo": "cirugía vasculorrenal aneurisma fístula",
+   "cobertura": ""
+  },
+  "100106": {
+   "titulo": "transplante renal",
+   "cobertura": ""
+  },
+  "100107": {
+   "titulo": "lumbotomía exploradora drenaje perirrenal biopsia",
+   "cobertura": ""
+  },
+  "100108": {
+   "titulo": "tratamiento quirúrgico de la fístula lumbar con riñón funcionante",
+   "cobertura": ""
+  },
+  "100109": {
+   "titulo": "biopsia renal percutánea pielografía percutánea",
+   "cobertura": ""
+  },
+  "100110": {
+   "titulo": "plastia unión ureteropiélica",
+   "cobertura": ""
+  },
+  "100111": {
+   "titulo": "derivaciones ureterales a intestino in situ",
+   "cobertura": ""
+  },
+  "100112": {
+   "titulo": "derivaciones ureterales a porciones intestinales aisladas",
+   "cobertura": ""
+  },
+  "100113": {
+   "titulo": "ureterectomía parcial",
+   "cobertura": ""
+  },
+  "100114": {
+   "titulo": "pielotomía pielolitotomía ureterotomía",
+   "cobertura": ""
+  },
+  "100115": {
+   "titulo": "extracción de cálculos ureterales cuerpo extraño",
+   "cobertura": ""
+  },
+  "100116": {
+   "titulo": "tratamiento quirúrgico fístula ureterointestinal",
+   "cobertura": ""
+  },
+  "100117": {
+   "titulo": "nefrostomía percutánea con o sin nefroscopía",
+   "cobertura": ""
+  },
+  "100118": {
+   "titulo": "colocación de Pigtail/ doble J endoscópico",
+   "cobertura": ""
+  },
+  "100119": {
+   "titulo": "retiro de Pigtailo doble J endoscópico",
+   "cobertura": ""
+  },
+  "100120": {
+   "titulo": "retroperitoneoscopía",
+   "cobertura": ""
+  },
+  "100121": {
+   "titulo": "plastia unión ureteropiélica laparoscópica",
+   "cobertura": ""
+  },
+  "100122": {
+   "titulo": "nefrolitotomía percutánea",
+   "cobertura": ""
+  },
+  "100123": {
+   "titulo": "ureterolitotomía laparoscópica con pinza o dormia",
+   "cobertura": ""
+  },
+  "100124": {
+   "titulo": "Ureterorrenoscopia con litotomía litotricia y ectomía por cualquier método",
+   "cobertura": "Obligación de cobertura: Cálculos impactados en cualquier sector del uréter que no res- pondieron al tratamiento con litotricia extracorpórea"
+  },
+  "100125": {
+   "titulo": "Litotricia extracorpórea renal y/o ureteral",
+   "cobertura": "Obligación de cobertura cuando se cumplan los siguientes criterios: 1. Cálculos del riñón o del uréter no menor a 3 mm de diámetro; habitualmente asintomáticos 2. No más de 3 piedras presentes 3. Las piedras provocan dolor, dificultad miccional y/o náuseas y vómitos 4. No es probable un eliminación espontánea sin síntomas signi- ficativos 5. Si hubiera infección relacionada, se encuentra bajo tratamiento 6. Otras obstrucciones (no litiásicas) están corregidas 7. Se visualiza el litio mediante imágenes 8. La anatomía del paciente permite enfocar apropiadamente la onda de choque (puede no ser posible en obesos severos) 9. El riñón tratado es funcionante 10. Ausencia de cualquier signo de calcificación o aneurisma de 11 Código Práctica arteria renal 11. Ausencia de calcificaciones aórticas o ilíacas cercanas al cál- culo uréter."
+  },
+  "100201": {
+   "titulo": "cistectomía total con derivación ureteral a asa delgada o colon, o neovejiga",
+   "cobertura": ""
+  },
+  "100202": {
+   "titulo": "cistectomía total con derivación ureteral a intestino in situ o piel",
+   "cobertura": ""
+  },
+  "100203": {
+   "titulo": "cistectomía parcial diverticulectomía resección de cue- llo vesical",
+   "cobertura": ""
+  },
+  "100204": {
+   "titulo": "cistoplastia con colon o iliocistoplastia",
+   "cobertura": ""
+  },
+  "100205": {
+   "titulo": "cistoplastia para la extrofia vesical",
+   "cobertura": ""
+  },
+  "100206": {
+   "titulo": "tratamiento quirúrgico de la fístula vesicointestinal",
+   "cobertura": ""
+  },
+  "100207": {
+   "titulo": "tratamiento quirúrgico fístula vesicocutánea",
+   "cobertura": ""
+  },
+  "100208": {
+   "titulo": "cistotomía a cielo abierto extracción de cuerpo extraño",
+   "cobertura": ""
+  },
+  "100209": {
+   "titulo": "cistotomía por punción con trocar",
+   "cobertura": ""
+  },
+  "100210": {
+   "titulo": "resección endoscópica cuello vesical tumores",
+   "cobertura": ""
+  },
+  "100211": {
+   "titulo": "tratamiento incontinencia de orina mujer por vía vaginal",
+   "cobertura": ""
+  },
+  "100212": {
+   "titulo": "tratamiento incontinencia de orina vía abdominal en la mujer operación de Marshall Marchetti o similar",
+   "cobertura": ""
+  },
+  "100213": {
+   "titulo": "tratamiento incontinencia de orina mujer por ambas",
+   "cobertura": ""
+  },
+  "100301": {
+   "titulo": "epispadias o hipospadias por tiempo operatorio",
+   "cobertura": ""
+  },
+  "100302": {
+   "titulo": "uretroplastia por traumatismo corrección de fístula uretrorrectal o vaginal estrechez uretral",
+   "cobertura": ""
+  },
+  "100303": {
+   "titulo": "uretrotomía externa derivativa por extracción de cálculo uretrotomía interna",
+   "cobertura": ""
+  },
+  "100304": {
+   "titulo": "uretrorrafia",
+   "cobertura": ""
+  },
+  "100305": {
+   "titulo": "meatotomía",
+   "cobertura": ""
+  },
+  "100306": {
+   "titulo": "electrocoagulación endoscópica de tumores uretrales",
+   "cobertura": ""
+  },
+  "100401": {
+   "titulo": "prostatectomía radical",
+   "cobertura": ""
+  },
+  "100402": {
+   "titulo": "adenomectomía de próstata con o sin vasectomía bila- teral",
+   "cobertura": ""
+  },
+  "100403": {
+   "titulo": "resecciones de fibrosis y cicatrices del cuello vesical",
+   "cobertura": ""
+  },
+  "100404": {
+   "titulo": "resección endoscópica trasuretral próstata",
+   "cobertura": ""
+  },
+  "100405": {
+   "titulo": "vesiculectomía única operación uni o bilateral",
+   "cobertura": ""
+  },
+  "100406": {
+   "titulo": "prostatomía drenaje",
+   "cobertura": ""
+  },
+  "100407": {
+   "titulo": "biopsia prostática por punción",
+   "cobertura": ""
+  },
+  "100501": {
+   "titulo": "orquidectomía unilateral completa con vaciamiento",
+   "cobertura": ""
+  },
+  "100502": {
+   "titulo": "orquidectomía sub-albugínea bilateral",
+   "cobertura": ""
+  },
+  "100503": {
+   "titulo": "orquidectomía unilateral",
+   "cobertura": ""
+  },
+  "100504": {
+   "titulo": "orquidopexia unilateral cualquier técnica con o sin tra- tamiento de hernia concomitante",
+   "cobertura": ""
+  },
+  "100505": {
+   "titulo": "orquidopexia bilateral con o sin tratamiento de hernia concomitante",
+   "cobertura": ""
+  },
+  "100506": {
+   "titulo": "tratamiento quirúrgico hidrocele varicocele torsión",
+   "cobertura": ""
+  },
+  "100507": {
+   "titulo": "biopsia de testículo",
+   "cobertura": ""
+  },
+  "100508": {
+   "titulo": "escrotoplastia",
+   "cobertura": ""
+  },
+  "100509": {
+   "titulo": "drenaje de absceso testicular lesión local de testículo",
+   "cobertura": ""
+  },
+  "100510": {
+   "titulo": "punción derrame escrotal",
+   "cobertura": ""
+  },
+  "100601": {
+   "titulo": "epididimectomía bilateral",
+   "cobertura": ""
+  },
+  "100602": {
+   "titulo": "epididimectomía unilateral",
+   "cobertura": ""
+  },
+  "100603": {
+   "titulo": "epididimovasostomía anastomosis de conducto defe- rente",
+   "cobertura": ""
+  },
+  "100604": {
+   "titulo": "epididimotomía y drenaje",
+   "cobertura": ""
+  },
+  "100605": {
+   "titulo": "anastomosis del conducto deferente",
+   "cobertura": ""
+  },
+  "100606": {
+   "titulo": "biopsia de epididimo",
+   "cobertura": ""
+  },
+  "100701": {
+   "titulo": "amputación radical, parcial de pene con vaciamiento",
+   "cobertura": ""
+  },
+  "100702": {
+   "titulo": "amputación completa o parcial de pene",
+   "cobertura": ""
+  },
+  "100703": {
+   "titulo": "operación plástica del pene por tiempo operatorio",
+   "cobertura": ""
+  },
+  "100704": {
+   "titulo": "escisión total de lesión de pene",
+   "cobertura": ""
+  },
+  "100705": {
+   "titulo": "biopsia de pene",
+   "cobertura": ""
+  },
+  "100706": {
+   "titulo": "cavernostomía punción cuerpos cavernosos",
+   "cobertura": ""
+  },
+  "100707": {
+   "titulo": "resección de esclerosis en cuerpos cavernoso",
+   "cobertura": ""
+  },
+  "100708": {
+   "titulo": "shunt caverno-esponjoso o caverno-safeno",
+   "cobertura": ""
+  },
+  "100709": {
+   "titulo": "postioplastia fimosis - incluye frenulotomía",
+   "cobertura": ""
+  },
+  "100710": {
+   "titulo": "circuncisión",
+   "cobertura": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
+  },
+  "100711": {
+   "titulo": "incisión dorsal o lateral prepucio frenulotomía",
+   "cobertura": ""
+  },
+  "101010": {
+   "titulo": "plastia unión ureteropiélica",
+   "cobertura": ""
+  },
+  "101101": {
+   "titulo": "Colocación de stent uretral",
+   "cobertura": "Obligación de cobertura en los siguientes casos: Disinergia detrusor – esfínter externo"
+  },
+  "101102": {
+   "titulo": "tratamiento endoscópico de lesiones de próstata y veji- ga por medios físicos y químicos",
+   "cobertura": "Obligación de cobertura en los siguientes casos: Remoción de tejido proveniente de la glándula que ocupa la luz uretral causando síntomas u obstrucción al vaciamiento de la vejiga. Operaciones en el Aparato Genital Femenino y Operaciones Obstétricas"
+  },
+  "110101": {
+   "titulo": "cirugía sobre anexos",
+   "cobertura": ""
+  },
+  "110102": {
+   "titulo": "laparoscopía diagnóstica",
+   "cobertura": ""
+  },
+  "110105": {
+   "titulo": "Microcirugía tubaria para tratamiento de esterilidad",
+   "cobertura": "Obligación de cobertura cuando se cumplan los siguientes criterios: 1. Mujeres menores de 35 años 2. Tener como único factor de esterilidad el Factor Tuboperitoneal, leve o moderado (la afección es del tercio distal de la trompa: - secuela de infección pelviana (EPI) hidrosalpinx leve y moderado -salpingitis crónica cicatrizal con adherencias - estenosis ostium tuboabdominal – secuela de adherencia de la endometriosis - tu- mores sólidos o quísticos del ovario o del mesovario que com- prometa la función de la trompa - quistes paratubarios - endosalpingiosis tubaria o diverticulosis tubaria)"
+  },
+  "110201": {
+   "titulo": "histerectomía radical colpoanexohisterectomía total",
+   "cobertura": ""
+  },
+  "110202": {
+   "titulo": "exenteración pelviana operación de Brusgwig",
+   "cobertura": ""
+  },
+  "110203": {
+   "titulo": "histerectomía con o sin anexectomía por vía abdominal o vaginal con o sin colpoperineorrafia",
+   "cobertura": ""
+  },
+  "110204": {
+   "titulo": "miomectomía uterina por vía abdominal",
+   "cobertura": ""
+  },
+  "110205": {
+   "titulo": "miomectomía vaginal mioma-nacens",
+   "cobertura": ""
+  },
+  "110206": {
+   "titulo": "miomectomía vaginal por histerotomía con liberación de vejiga",
+   "cobertura": ""
+  },
+  "110208": {
+   "titulo": "operación correctora de malformaciones uterinas",
+   "cobertura": ""
+  },
+  "110209": {
+   "titulo": "corrección quirúrgica de la inversión uterina por vía ab- dominal, histeropexia",
+   "cobertura": ""
+  },
+  "110210": {
+   "titulo": "raspado uterino terapéutico",
+   "cobertura": ""
+  },
+  "110211": {
+   "titulo": "raspado uterino diagnóstico con o sin biopsia de cuello o aspiración endometrial",
+   "cobertura": ""
+  },
+  "110212": {
+   "titulo": "para citología exfoliativa",
+   "cobertura": ""
+  },
+  "110213": {
+   "titulo": "amputación de cuello traquelectomía, traqueloplastia",
+   "cobertura": ""
+  },
+  "110214": {
+   "titulo": "conización de cuello",
+   "cobertura": ""
+  },
+  "110215": {
+   "titulo": "traquelorrafia fuera del parto cerclaje de cuello uterino",
+   "cobertura": ""
+  },
+  "110216": {
+   "titulo": "escisión local de lesión de cuello, electrocoagulación o cauterización química, biopsia de cuello",
+   "cobertura": ""
+  },
+  "110217": {
+   "titulo": "colocación de aplicadores para radioterapia extra o in- trauterino",
+   "cobertura": ""
+  },
+  "110219": {
+   "titulo": "colocación de dispositivo intrauterino",
+   "cobertura": ""
+  },
+  "110301": {
+   "titulo": "conización de cuello por leep",
+   "cobertura": ""
+  },
+  "110303": {
+   "titulo": "tratamiento quirúrgico de la agenesia vaginal",
+   "cobertura": ""
+  },
+  "110304": {
+   "titulo": "colporrafia anterior y/o posterior con o sin amputación de cuello, incluye tratamiento de la incontinencia de orina",
+   "cobertura": ""
+  },
+  "110305": {
+   "titulo": "colporrafia por herida o desgarro fuera del parto",
+   "cobertura": ""
+  },
+  "110306": {
+   "titulo": "colporrafia posterior con reconstrucción del esfínter del colpopexia por vía abdominal",
+   "cobertura": ""
+  },
+  "110307": {
+   "titulo": "colpopexia combinada por vía abdominal y vaginal",
+   "cobertura": ""
+  },
+  "110308": {
+   "titulo": "colpocleisis",
+   "cobertura": ""
+  },
+  "110309": {
+   "titulo": "colpotomía vaginotomía de drenaje",
+   "cobertura": ""
+  },
+  "110310": {
+   "titulo": "resección de tabique vaginal",
+   "cobertura": ""
+  },
+  "110311": {
+   "titulo": "biopsia de vagina punción de fondo de saco de douglas",
+   "cobertura": "12 Código Práctica"
+  },
+  "110312": {
+   "titulo": "vulvectomía radical",
+   "cobertura": ""
+  },
+  "110313": {
+   "titulo": "vulvectomía simple",
+   "cobertura": ""
+  },
+  "110314": {
+   "titulo": "escisión de labios mayores, menores glándula de",
+   "cobertura": "Bartholino, glándula de Skene"
+  },
+  "110315": {
+   "titulo": "himenotomía",
+   "cobertura": ""
+  },
+  "110318": {
+   "titulo": "ablación de lesiones de vulva y vagina con láser",
+   "cobertura": ""
+  },
+  "110319": {
+   "titulo": "ablación de lesiones de cuello con criocirugía",
+   "cobertura": ""
+  },
+  "110401": {
+   "titulo": "parto",
+   "cobertura": ""
+  },
+  "110402": {
+   "titulo": "evacuación uterina 2º trimestre del embarazo con meca- nismo de parto",
+   "cobertura": ""
+  },
+  "110403": {
+   "titulo": "operación cesárea clásica, extraperitoneal, vaginal",
+   "cobertura": ""
+  },
+  "110404": {
+   "titulo": "atención del alumbramiento o puerperio y/o sus com- plicaciones cuando el parto no fue asistido por médico",
+   "cobertura": ""
+  },
+  "110405": {
+   "titulo": "amniocéntesis",
+   "cobertura": ""
+  },
+  "110501": {
+   "titulo": "cirugía laparoscópica ginecológica",
+   "cobertura": ""
+  },
+  "110502": {
+   "titulo": "videohísteros copia diagnóstica",
+   "cobertura": ""
+  },
+  "110503": {
+   "titulo": "videohísteros copia terapéutica",
+   "cobertura": "Operaciones en el sistema músculo esquelético Operaciones en huesos y articulaciones"
+  },
+  "120301": {
+   "titulo": "reducción osteosíntesis columna cervical dorsal o lumbar",
+   "cobertura": ""
+  },
+  "120302": {
+   "titulo": "reducción osteosíntesis humero pelvis sacro fémur tibia peroné cubito",
+   "cobertura": ""
+  },
+  "120303": {
+   "titulo": "reducción osteosíntesis cubito radio tercio inferior carpo primer metacarpo - tarso maxilares",
+   "cobertura": ""
+  },
+  "120304": {
+   "titulo": "reducción osteosíntesis esternón costilla clavícula es- cápula rótula",
+   "cobertura": ""
+  },
+  "120305": {
+   "titulo": "reducción osteosíntesis metacarpianos excepto el pri- mero, metatarsiano, falanges, malar, propio de la nariz",
+   "cobertura": ""
+  },
+  "120401": {
+   "titulo": "incisión, resección parcial de vértebras laminectomía",
+   "cobertura": ""
+  },
+  "120402": {
+   "titulo": "incisión, resección parcial de coxal fémur húmero",
+   "cobertura": ""
+  },
+  "120403": {
+   "titulo": "incisión, resección parcial de esternón escápula cúbito radio carpo tibia peroné tarso",
+   "cobertura": ""
+  },
+  "120404": {
+   "titulo": "incisión, resección parcial de costilla clavícula metacarpo metatarso falanges",
+   "cobertura": ""
+  },
+  "120405": {
+   "titulo": "punción biopsia de vértebras",
+   "cobertura": ""
+  },
+  "120406": {
+   "titulo": "punción biopsia de cualquier otro hueso",
+   "cobertura": ""
+  },
+  "120501": {
+   "titulo": "resección total de escápula húmero isquión ilión",
+   "cobertura": ""
+  },
+  "120502": {
+   "titulo": "resección total de coxal fémur tibia húmero maxilar su- perior inferior",
+   "cobertura": ""
+  },
+  "120503": {
+   "titulo": "resección total de cúbito radio peroné carpo astragalo calcáneo tarso costillas malar",
+   "cobertura": ""
+  },
+  "120504": {
+   "titulo": "resección total de clavícula rótula metatarsiano o metatarsiano falange de un mismo dedo",
+   "cobertura": ""
+  },
+  "120601": {
+   "titulo": "osteotomías correctivas fémur tibial tibia y peroné",
+   "cobertura": ""
+  },
+  "120602": {
+   "titulo": "osteotomías correctivas húmero cubital y/o radial astragalo y/o calcáneo",
+   "cobertura": ""
+  },
+  "120603": {
+   "titulo": "osteotomía correctiva metacarpiano metatarsiano falanges",
+   "cobertura": ""
+  },
+  "120701": {
+   "titulo": "osteoplastia clavícula",
+   "cobertura": ""
+  },
+  "120702": {
+   "titulo": "osteoplastia húmero",
+   "cobertura": ""
+  },
+  "120703": {
+   "titulo": "osteoplastia cubitoradiocarpo huesos de la cara",
+   "cobertura": ""
+  },
+  "120704": {
+   "titulo": "osteoplastia metacarpiano",
+   "cobertura": ""
+  },
+  "120705": {
+   "titulo": "osteoplastia falanges",
+   "cobertura": ""
+  },
+  "120706": {
+   "titulo": "osteoplastia fémur tibia peroné",
+   "cobertura": ""
+  },
+  "120707": {
+   "titulo": "osteoplastia astragalo calcáneo otros huesos del tarso",
+   "cobertura": ""
+  },
+  "120708": {
+   "titulo": "osteoplastia metatarsiano falanges",
+   "cobertura": ""
+  },
+  "120801": {
+   "titulo": "artrocéntesis diagnóstica terapéutica artrografía",
+   "cobertura": ""
+  },
+  "120901": {
+   "titulo": "artrotomía sacro-ilíaca condro-costal condro-esternal",
+   "cobertura": ""
+  },
+  "120902": {
+   "titulo": "artrotomía hombro cadera rodilla",
+   "cobertura": ""
+  },
+  "120903": {
+   "titulo": "artrotomía metacarpo/metatarso/falángica interfalángica",
+   "cobertura": ""
+  },
+  "121001": {
+   "titulo": "artoplastia cadera",
+   "cobertura": ""
+  },
+  "121002": {
+   "titulo": "artoplastia rodilla",
+   "cobertura": ""
+  },
+  "121003": {
+   "titulo": "artoplastia hombro codo muñeca cuello de pie témporo- mandibular",
+   "cobertura": ""
+  },
+  "121004": {
+   "titulo": "artoplastia esterno-clavicular carpo tarso-metatarsiana",
+   "cobertura": ""
+  },
+  "121005": {
+   "titulo": "artoplastia acromio clavicular metacarpo-falángica",
+   "cobertura": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
+  },
+  "121101": {
+   "titulo": "artrodesis columna cervical dorsal lumbar",
+   "cobertura": ""
+  },
+  "121102": {
+   "titulo": "artrodesis columna cervical dorsal lumbar cadera rodilla",
+   "cobertura": ""
+  },
+  "121103": {
+   "titulo": "artrodesis hombro codo",
+   "cobertura": ""
+  },
+  "121104": {
+   "titulo": "artrodesis esterno clavicular muñeca tarso tibiotarsal tarsometatarsiana sinfisis pubiana",
+   "cobertura": ""
+  },
+  "121105": {
+   "titulo": "doble artrodesis chopart sub astragalina",
+   "cobertura": ""
+  },
+  "121106": {
+   "titulo": "triple artrodesis tibiotarsiana subastragalina",
+   "cobertura": ""
+  },
+  "121107": {
+   "titulo": "metacarpo falángica metatarso falángica interfalángica",
+   "cobertura": ""
+  },
+  "121201": {
+   "titulo": "sutura de cápsula o ligamentos esternoclavicular acromio clavicular codo muñeca carpo",
+   "cobertura": ""
+  },
+  "121202": {
+   "titulo": "sutura de cápsula o ligamentos hombro cadera rodilla témporo maxilar",
+   "cobertura": ""
+  },
+  "121203": {
+   "titulo": "sutura de cápsula o ligamentos metacarpo o metatarso falángica interfalángica",
+   "cobertura": ""
+  },
+  "121204": {
+   "titulo": "escisión o incisión biopsia drenaje o extracción de de- pósitos",
+   "cobertura": ""
+  },
+  "121301": {
+   "titulo": "inmovilización por luxación de columna cervical dorsal o lumbar",
+   "cobertura": ""
+  },
+  "121302": {
+   "titulo": "inmovilización por luxación de cadera rodilla",
+   "cobertura": ""
+  },
+  "121303": {
+   "titulo": "inmovilización por luxación de clavícula hombro codo muñeca metacarpo tobillo",
+   "cobertura": ""
+  },
+  "121304": {
+   "titulo": "inmovilización de metacarpo o metatarso falángica por una o más luxaciones",
+   "cobertura": ""
+  },
+  "121305": {
+   "titulo": "tratamiento quirúrgico e inmovilización por luxación de columna cervical dorsal lumbar",
+   "cobertura": ""
+  },
+  "121306": {
+   "titulo": "tratamiento quirúrgico e inmovilización por luxación de cadera rodilla",
+   "cobertura": ""
+  },
+  "121307": {
+   "titulo": "tratamiento quirúrgico e inmovilización por luxación de clavícula hombro codo muñeca metacarpo tobillo",
+   "cobertura": ""
+  },
+  "121308": {
+   "titulo": "tratamiento quirúrgico e inmovilización por luxación de metacarpo metatarso fálangica temporomaxilar",
+   "cobertura": ""
+  },
+  "121401": {
+   "titulo": "miectomías con vaciamiento de celda muscular",
+   "cobertura": ""
+  },
+  "121402": {
+   "titulo": "incisión de músculos escisión de lesión local biopsia miorrafias",
+   "cobertura": "Operaciones en tendones, vainas tendinosas y fascias"
+  },
+  "121501": {
+   "titulo": "exploración drenaje extracción incisión, biopsia, tenotomía, fasciotomía",
+   "cobertura": ""
+  },
+  "121502": {
+   "titulo": "reparación y sutura tenorrafia de tendón de la muñeca o de dedo de la mano",
+   "cobertura": ""
+  },
+  "121503": {
+   "titulo": "tenoplastia con alargamiento o acortamiento o injerto tendón flexor de la muñeca o dedo",
+   "cobertura": ""
+  },
+  "121504": {
+   "titulo": "reparación o sutura tenorrafia en tendón extensor de la muñeca o dedo",
+   "cobertura": ""
+  },
+  "121505": {
+   "titulo": "tenoplastia con alargamiento o acortamiento o injerto de tendón extensor de la muñeca o dedo",
+   "cobertura": ""
+  },
+  "121506": {
+   "titulo": "reparación sutura tenorrafia de otro tendón",
+   "cobertura": ""
+  },
+  "121507": {
+   "titulo": "tenoplastia con alargamiento o acortamiento o injerto de tendón",
+   "cobertura": ""
+  },
+  "121508": {
+   "titulo": "tratamiento de la secuela por parálisis, poliomielitis",
+   "cobertura": ""
+  },
+  "121509": {
+   "titulo": "escisión ganglio",
+   "cobertura": "Amputaciones y desarticulaciones"
+  },
+  "121601": {
+   "titulo": "interescapulotorácica",
+   "cobertura": ""
+  },
+  "121602": {
+   "titulo": "hombro",
+   "cobertura": ""
+  },
+  "121603": {
+   "titulo": "brazo codo antebrazo muñeca mano",
+   "cobertura": ""
+  },
+  "121604": {
+   "titulo": "interileoabdominal",
+   "cobertura": ""
+  },
+  "121605": {
+   "titulo": "cadera",
+   "cobertura": ""
+  },
+  "121606": {
+   "titulo": "muslo o rodilla",
+   "cobertura": ""
+  },
+  "121607": {
+   "titulo": "pie o pierna",
+   "cobertura": ""
+  },
+  "121608": {
+   "titulo": "dedo de la mano",
+   "cobertura": ""
+  },
+  "121609": {
+   "titulo": "dedo del pie",
+   "cobertura": "Procedimientos combinados"
+  },
+  "121701": {
+   "titulo": "discectomía cervical dorsal o lumbar",
+   "cobertura": ""
+  },
+  "121702": {
+   "titulo": "discectomía cervical dorsal lumbar con artrodesis",
+   "cobertura": "13 Código Práctica"
+  },
+  "121703": {
+   "titulo": "tratamiento quirúrgico elevación congénita de escápula",
+   "cobertura": ""
+  },
+  "121704": {
+   "titulo": "tenotomía y/o fasciotomias únicas o múltiples para el tratamiento de la tortícolis",
+   "cobertura": ""
+  },
+  "121705": {
+   "titulo": "operaciones en el hueco supraclavicular",
+   "cobertura": ""
+  },
+  "121706": {
+   "titulo": "tratamiento quirúrgico de la luxación inveterada y recidivante de hombro",
+   "cobertura": ""
+  },
+  "121707": {
+   "titulo": "aponeurectomía palmar parcial o total con o sin injerto",
+   "cobertura": ""
+  },
+  "121712": {
+   "titulo": "reconstrucción total del pulgar por transposición",
+   "cobertura": ""
+  },
+  "121714": {
+   "titulo": "luxación congénita de cadera reducción incruenta",
+   "cobertura": ""
+  },
+  "121715": {
+   "titulo": "luxación congénita de cadera reducción cruenta",
+   "cobertura": ""
+  },
+  "121717": {
+   "titulo": "epifisiólosis de cadera coxavara del adolescente",
+   "cobertura": ""
+  },
+  "121718": {
+   "titulo": "tratamiento quirúrgico de la luxación traumática invete- rada de cadera",
+   "cobertura": ""
+  },
+  "121719": {
+   "titulo": "cuadricepsplastia operación de judet",
+   "cobertura": ""
+  },
+  "121720": {
+   "titulo": "luxación recidivante de rotula",
+   "cobertura": ""
+  },
+  "121721": {
+   "titulo": "pie zambo varo",
+   "cobertura": ""
+  },
+  "121722": {
+   "titulo": "pie equino tratamiento quirúrgico",
+   "cobertura": ""
+  },
+  "121723": {
+   "titulo": "pie plano o pie cavo tratamiento quirúrgico",
+   "cobertura": ""
+  },
+  "121724": {
+   "titulo": "seudoexostosis de haglund",
+   "cobertura": ""
+  },
+  "121725": {
+   "titulo": "tratamiento quirúrgico del pie hendido",
+   "cobertura": ""
+  },
+  "121726": {
+   "titulo": "tratamiento quirúrgico completo del hallus valgus",
+   "cobertura": ""
+  },
+  "121727": {
+   "titulo": "tratamiento quirúrgico del dedo en garra o en martillo",
+   "cobertura": ""
+  },
+  "121728": {
+   "titulo": "exérisis del neuroma de morton",
+   "cobertura": ""
+  },
+  "121801": {
+   "titulo": "infiltraciones musculares, periarticular",
+   "cobertura": ""
+  },
+  "121802": {
+   "titulo": "movilización forzada de articulaciones bajo-anestesia",
+   "cobertura": "Yesos, vendajes y tracciones continuas"
+  },
+  "121901": {
+   "titulo": "fronda articular para maxilares",
+   "cobertura": ""
+  },
+  "121902": {
+   "titulo": "yeso para nariz",
+   "cobertura": ""
+  },
+  "121903": {
+   "titulo": "minerva",
+   "cobertura": ""
+  },
+  "121904": {
+   "titulo": "collar de Shanz enyesado",
+   "cobertura": ""
+  },
+  "121905": {
+   "titulo": "vendaje de Shanz",
+   "cobertura": ""
+  },
+  "121906": {
+   "titulo": "corset",
+   "cobertura": ""
+  },
+  "121907": {
+   "titulo": "corselete",
+   "cobertura": ""
+  },
+  "121908": {
+   "titulo": "corset de risser o similares",
+   "cobertura": ""
+  },
+  "121909": {
+   "titulo": "lecho de lorenz hasta cadera",
+   "cobertura": ""
+  },
+  "121910": {
+   "titulo": "lecho de lorenz hasta pie",
+   "cobertura": ""
+  },
+  "121911": {
+   "titulo": "vendaje de cingulo para costilla",
+   "cobertura": ""
+  },
+  "121912": {
+   "titulo": "vendaje en ocho enyesado",
+   "cobertura": ""
+  },
+  "121913": {
+   "titulo": "vendaje de Robert Jones-acromio clavicular",
+   "cobertura": ""
+  },
+  "121914": {
+   "titulo": "velpeau de yeso",
+   "cobertura": ""
+  },
+  "121915": {
+   "titulo": "vendaje de velpeau",
+   "cobertura": ""
+  },
+  "121916": {
+   "titulo": "yeso toraco-braquial",
+   "cobertura": ""
+  },
+  "121917": {
+   "titulo": "yeso braquipalmar",
+   "cobertura": ""
+  },
+  "121918": {
+   "titulo": "yeso colgante",
+   "cobertura": ""
+  },
+  "121919": {
+   "titulo": "yeso antebraquipalmar",
+   "cobertura": ""
+  },
+  "121921": {
+   "titulo": "valva larga para miembros",
+   "cobertura": ""
+  },
+  "121922": {
+   "titulo": "valva corta para miembros",
+   "cobertura": ""
+  },
+  "121923": {
+   "titulo": "yeso pelvipédico",
+   "cobertura": ""
+  },
+  "121924": {
+   "titulo": "Ducrocquet",
+   "cobertura": ""
+  },
+  "121925": {
+   "titulo": "calza de yeso yeso-cruro-pédico",
+   "cobertura": ""
+  },
+  "121926": {
+   "titulo": "bota larga de yeso",
+   "cobertura": ""
+  },
+  "121927": {
+   "titulo": "bota corta de yeso",
+   "cobertura": ""
+  },
+  "121928": {
+   "titulo": "botín de yeso",
+   "cobertura": ""
+  },
+  "121932": {
+   "titulo": "tracción continua de partes blandas",
+   "cobertura": ""
+  },
+  "121933": {
+   "titulo": "tracción de cotrel - cefalo pelvico",
+   "cobertura": ""
+  },
+  "121934": {
+   "titulo": "tracción continua esquelética-cefálica",
+   "cobertura": ""
+  },
+  "121935": {
+   "titulo": "tracción continua esquelética cefalopélvica",
+   "cobertura": ""
+  },
+  "121936": {
+   "titulo": "tracción continua esquelética miembro superior/inferior",
+   "cobertura": "Cirugía artroscópica"
+  },
+  "122001": {
+   "titulo": "artroscopia de hombro",
+   "cobertura": ""
+  },
+  "122002": {
+   "titulo": "artroscopia de rodilla",
+   "cobertura": ""
+  },
+  "122003": {
+   "titulo": "artroscopia de rodilla con reparación de ligamento cruzado",
+   "cobertura": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica Operaciones en la piel y tejido celular subcutáneo"
+  },
+  "130101": {
+   "titulo": "escisión de quiste dermoideo sacrocoxígeo",
+   "cobertura": ""
+  },
+  "130102": {
+   "titulo": "escisión amplia de lesión de piel tumor maligno",
+   "cobertura": ""
+  },
+  "130103": {
+   "titulo": "escisión radical de angioma cavernoso mayor",
+   "cobertura": ""
+  },
+  "130104": {
+   "titulo": "escisión local de lesión de piel o glándula",
+   "cobertura": ""
+  },
+  "130105": {
+   "titulo": "incisión y drenaje de absceso superficial hidrosadenitis quiste sebáceo antrax nevus",
+   "cobertura": ""
+  },
+  "130107": {
+   "titulo": "destrucción de lesión de piel verruga",
+   "cobertura": ""
+  },
+  "130108": {
+   "titulo": "biopsia de piel y/o tejido celular subcutáneo",
+   "cobertura": ""
+  },
+  "130109": {
+   "titulo": "escisión de uña lecho o repliegue ungueal",
+   "cobertura": ""
+  },
+  "130110": {
+   "titulo": "suturas de heridas",
+   "cobertura": ""
+  },
+  "130112": {
+   "titulo": "escisión de tumor de tejido celular subcutáneo lipoma",
+   "cobertura": ""
+  },
+  "130113": {
+   "titulo": "escisión lipoma gigante",
+   "cobertura": ""
+  },
+  "130114": {
+   "titulo": "incisión drenaje de absceso profundo subaponeurótico",
+   "cobertura": ""
+  },
+  "130115": {
+   "titulo": "implantación de pellets en tejido subcutáneo",
+   "cobertura": ""
+  },
+  "130201": {
+   "titulo": "injerto libre de grasa dermigrasa o piel",
+   "cobertura": ""
+  },
+  "130202": {
+   "titulo": "preparación de colgajo tubulado",
+   "cobertura": ""
+  },
+  "130203": {
+   "titulo": "adelgazamiento de piel transplante de grasa",
+   "cobertura": ""
+  },
+  "130204": {
+   "titulo": "cierre plástico de herida por colgajo",
+   "cobertura": ""
+  },
+  "130205": {
+   "titulo": "transporte de tubo de injerto",
+   "cobertura": ""
+  },
+  "130206": {
+   "titulo": "operación relajante en *z* zetoplastia",
+   "cobertura": ""
+  },
+  "130207": {
+   "titulo": "toma y colocación de injerto de piel",
+   "cobertura": ""
+  },
+  "130208": {
+   "titulo": "dermoabrasión por tratamiento zonal",
+   "cobertura": ""
+  },
+  "130209": {
+   "titulo": "injerto Pinch",
+   "cobertura": ""
+  },
+  "130210": {
+   "titulo": "injerto diferido del colgajo separación del pedículo",
+   "cobertura": ""
+  },
+  "130211": {
+   "titulo": "preparación del colgajo cierre plástico por rotación",
+   "cobertura": ""
+  },
+  "130212": {
+   "titulo": "colgajos miocutáneos con anastomosis vascular",
+   "cobertura": ""
+  },
+  "130301": {
+   "titulo": "atención del paciente con quemaduras de segundo y ter- cer grado",
+   "cobertura": ""
+  },
+  "130304": {
+   "titulo": "escisión de escaras postquemaduras curación pacientes con quemaduras en quirófano bajo anestesia general",
+   "cobertura": ""
+  },
+  "140103": {
+   "titulo": "testificación por drogas para estudios o tratamientos",
+   "cobertura": "Anatomía patológica"
+  },
+  "150101": {
+   "titulo": "biopsia por incisión o por punción",
+   "cobertura": ""
+  },
+  "150102": {
+   "titulo": "estudio macro y microscópico de pieza operatoria",
+   "cobertura": ""
+  },
+  "150103": {
+   "titulo": "estudio macro y microscópico de pieza de resección",
+   "cobertura": ""
+  },
+  "150104": {
+   "titulo": "biopsia por congelación y estudio diferido",
+   "cobertura": ""
+  },
+  "150105": {
+   "titulo": "estudio biopsico seriado y semiseriado",
+   "cobertura": ""
+  },
+  "150106": {
+   "titulo": "Citología exfoliativa oncológica",
+   "cobertura": "Obligación de cobertura: 1. En toda mujer que haya iniciado relaciones sexuales, o mayo- res de 18 años. 2. La cobertura está indicada en un papanicolaou anual durante tres años, y de ser éstos normales cobertura de un papanicolau cada dos años, en el marco de un programa de rastreo masivo."
+  },
+  "150107": {
+   "titulo": "Citología exfoliativa hormonal",
+   "cobertura": ""
+  },
+  "150108": {
+   "titulo": "necropsia de neonato o lactante",
+   "cobertura": ""
+  },
+  "150110": {
+   "titulo": "citología exfoliativa oncológica bronquial",
+   "cobertura": ""
+  },
+  "150111": {
+   "titulo": "citología exfoliativa oncológica de líquidos lavados trasudados",
+   "cobertura": ""
+  },
+  "150201": {
+   "titulo": "receptores hormonales con técnica inmunohistoquímica para cáncer de mama",
+   "cobertura": "Obligación de cobertura en los siguientes casos: 1. Establecer indicación o no de terapia hormonal (tamoxifeno) y su eventual nivel de respuesta 2. Establecer pronóstico (especialmente en neoplasias con me- tástasis ganglionares"
+  },
+  "150202": {
+   "titulo": "anticuerpos monoclonales con técnica inmunohisto- química para tumores",
+   "cobertura": "14 Código Práctica • Obligación de cobertura en los siguientes casos 1. Imposibilidad histológica o citológica de determinar diagnósti- co de histotipo tumoral 2. Imposibilidad histológica o citológica de determinar origen tumoral 3. Metástasis de origen desconocido 4. Todas las proliferaciones linfoideas en general: para su correc- ta tipificación 5. Tipificaciones de neoplasias indiferenciadas. Anestesiología"
+  },
+  "160101": {
+   "titulo": "anestesia mínima para procedimiento diagnóstico",
+   "cobertura": ""
+  },
+  "160102": {
+   "titulo": "analgesia regional continua",
+   "cobertura": ""
+  },
+  "160103": {
+   "titulo": "analgesia regional por bloqueo subaracnóideo",
+   "cobertura": ""
+  },
+  "160104": {
+   "titulo": "hipotermia controlada y/o neuroleptoanalgesia",
+   "cobertura": ""
+  },
+  "160105": {
+   "titulo": "intubación endotraqueal fuera acto operatorio",
+   "cobertura": "Cardiología"
+  },
+  "170101": {
+   "titulo": "Electrocardiograma en consultorio",
+   "cobertura": ""
+  },
+  "170102": {
+   "titulo": "electrocardiograma en domicilio",
+   "cobertura": ""
+  },
+  "170103": {
+   "titulo": "electrocardiograma del haz de his",
+   "cobertura": ""
+  },
+  "170104": {
+   "titulo": "electrocardiograma de holter -24 hs- 1 canal",
+   "cobertura": ""
+  },
+  "170105": {
+   "titulo": "sobreestimulación cardíaca",
+   "cobertura": ""
+  },
+  "170106": {
+   "titulo": "electrocardiograma con derivación intraesofágica",
+   "cobertura": ""
+  },
+  "170107": {
+   "titulo": "vectocardiograma",
+   "cobertura": ""
+  },
+  "170109": {
+   "titulo": "monitoraje operatorio",
+   "cobertura": ""
+  },
+  "170110": {
+   "titulo": "cardioversión- no enu.t.i.-",
+   "cobertura": ""
+  },
+  "170111": {
+   "titulo": "ergometría",
+   "cobertura": ""
+  },
+  "170112": {
+   "titulo": "curvas de dilución",
+   "cobertura": ""
+  },
+  "170115": {
+   "titulo": "fluxometría doppler",
+   "cobertura": ""
+  },
+  "170116": {
+   "titulo": "termodilución",
+   "cobertura": ""
+  },
+  "170117": {
+   "titulo": "rehabilitación del cardiópata",
+   "cobertura": ""
+  },
+  "170118": {
+   "titulo": "electrocardiograma de holter -24 horas- más de 1 canal",
+   "cobertura": ""
+  },
+  "170119": {
+   "titulo": "Tilt-test",
+   "cobertura": ""
+  },
+  "170120": {
+   "titulo": "monitoreo ambulatorio de tensión arterial (presurometría)",
+   "cobertura": ""
+  },
+  "170201": {
+   "titulo": "estudio electrofisiológico del Haz de Hiss: iguales indi- caciones que el código 170202",
+   "cobertura": ""
+  },
+  "170202": {
+   "titulo": "estudio electrofisiológico completo cardíaco con Prue- bas terapéuticas y de estimulación",
+   "cobertura": "Obligación de cobertura en los siguientes casos: 1. Evaluación de la función del Nódulo Sinusal — Pacientes sintomáticos en los cuales la disfunción del Nódulo Sinusal (DNS) se sospecha como causa de síntomas pero que la relación entre arritmias y síntomas no fue claramente establecida luego de una evaluación apropiada. — Pacientes con DNS documentada en los cuales la evaluación de la conducción AV o VA o la susceptibilidad a arritmias pueden contribuir a la selección más apropiada de la modalidad de marcapaseo. — Pacientes con bradiarritmias documentadas electrocardiográficamente para determinar si esas anormalidades son debidas a enfermedad intrínseca, disfunción autonómica o efectos de drogas que permitan seleccionar entre diferentes op- ciones terapéuticas. — Pacientes sintomáticos con bradiarritmias conocidas para eva- luar otras potenciales arritmias como causante de los síntomas. 2. En pacientes con BAVs adquiridos — Pacientes sintomáticos en los cuales se sospecha un bloqueo His Purkinje como causa de los síntomas y no pudo ser establecido. — Pacientes con BAV de 2 ó 3 tratado con MCP, que permanece sintomático y en quien se sospecha otra arritmia como causa de los síntomas. — Pacientes con BAV de 2 ó 3 en los cuales conocer el sitio del bloqueo o sus mecanismos o su respuesta a fármacos o a otras Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica intervenciones temporarias puedan ayudar a una terapia directa o establecer pronóstico. — Pacientes con BAV de 2 ó 3 — Pacientes sintomáticos en los cuales los síntomas y la presen- cia del BAV tienen correlación electrocardiográfica. — Pacientes asintomáticos con BAV transitorios asociados a bradicardia sinusal (por ejemplo BAV de 2 tipo 1 observada durante el sueño) 3. En pacientes con deterioro crónico de la conducción AV — Pacientes asintomáticos con bloqueo completo de rama en los cuales un tratamiento farmacológico pueda incrementar el dete- rioro de la conducción o producir un BAVC. 4. En pacientes con taquicardias de QRS angosto — Pacientes con episodios frecuentes o mal tolerados de taquicardias que no responden adecuadamente a drogas y para quienes la información del sitio de origen, mecanismo, propieda- des electrofisiológicas de las vías de la taquicardia es esencial para elegir la terapia apropiada (farmacológica, ablación marcapaseo o cirugía) — Pacientes que refieren preferencia por el tratamiento por abla- ción con respecto al farmacológico. — Pacientes con episodios frecuentes de taquicardias que re- quieren tratamiento con drogas y para quienes podría existir efecto pro arrítmico u ocasionar deterioro en la función del nódulo sinusal o deterioro en la conducción AV. 5. En el paciente con taquicardias de QRS ancho — Pacientes en quienes el diagnóstico no está claro luego del aná- lisis del trazado electrocardiográfico disponible y en quien el cono- cimiento del diagnóstico correcto es necesario para su cuidado. 6. En pacientes con síndrome de QT prolongado — Identificación de efectos proarrítmicos de drogas en pacientes que experimentaron TV sostenida o paro cardíaco durante su empleo — Pacientes con síncope o asintomáticos por arritmias en quienes las catecolaminas puedan enmascarar una anormalidad del QT 7. En pacientes con complejos ventriculares prematuros, duplas y TVNS. — Pacientes con otros factores de riesgo de futuros eventos arrítmicos tales como baja FEVI, ECG de señal promediada po- sitivo y TVNS o registros holter en los cuales un EEF pueda ser considerado para evaluación de riesgo y para la guía de la tera- péutica en pacientes con TV inducible. — Pacientes sintomáticos con EV unifocales, duplas y TVNS que son candidatos a ablación por catéter. 8. En pacientes con WOLF-PARKINSON-WHITE — Pacientes que están siendo evaluados para una ablación o cirugía de haz accesorio — Pacientes con preexitación ventricular que sobrevivieron a un paro cardíaco o que padecen síncope inexplicable. — Pacientes sintomáticos en quienes determinar la arritmia o conocer propiedades de la vía accesoria y el sistema de conduc- ción normal ayudarían a determinar el tratamiento apropiado. — Paciente asintomáticos con antecedentes familiares de muerte súbita o con preexitación pero sin arritmias espontáneas, que desarrolla actividades de riesgo y en los cuales se desea conocer propiedades de la vía accesoria o si pueden inducirse taquicardias, ayudaría a dar recomendaciones para sus actividades o bien para seleccionar tratamientos. — Pacientes con preexitación ventricular que van a ser someti- dos a cirugía cardíaca por otras razones. 9. En pacientes con síncope inexplicable — Pacientes con sospecha de enfermedad cardíaca y síncope que permanece inexplicable luego de evaluaciones apropiadas 10. En pacientes sobrevivientes de un paro cardíaco — Sin evidencia de un IAM transmural — Los que los han padecido a más de 48 hs. de haber sufrido un 15 Código Práctica IAM en ausencia de recurrencia de eventos isquémicos. — Sobrevivientes de un paro cardíaco causado por bradiarritmias — Los asociados a trastornos de la repolarización (SQTP) — En quienes los resultados de tests diagnósticos son confusos. 11. Para Guía de tratamiento antiarrítmico — Pacientes con TV sostenida o paro cardíaco especialmente en aquellos con IAM previo. — Pacientes con taquicardia con reentrada ventriculoatrial y vía accesoria o FA asociada con una vía accesoria para quienes se planea un tratamiento crónico. — Pacientes con taquicardia por reentrada en el nódulo sinusal, Fibrilación Auricular y Aleteo Auricular sin preexitación ventricular para quienes se plantea tratamiento crónico."
+  },
+  "170203": {
+   "titulo": "Ablación por radiofrecuencia de arritmias cardíacas",
+   "cobertura": "Obligación de cobertura en los siguientes casos: 1. Procedimientos de ablación por catéter en pacientes con taquicardia supraventricular paroxística sintomática por reentrada a nivel del nodo auriculoventricular, en quienes la farmacoterapia resulte inapropiada para controlar la arritmia. 2. Procedimientos de ablación por catéter en pacientes con taquicardia supraventricular paroxística sintomática por reentrada auriculoventricular a través de vías accesorias (Síndrome de Wolff Parkinson White) en quienes la farmacoterapia resulte inapropiada para controlar la arritmia. 3. Procedimientos de ablación por catéter en pacientes con aleteo auricular en quienes la farmacoterapia resulte inapropiada para controlar la arritmia 4. Procedimientos de ablación del nodo auriculoventricular con colocación de marcapaso definitivo en pacientes con taquiarritmias auriculares sintomáticas en quienes la farmacoterapia resulte inapropiada para controlar la frecuencia ventricular (si la abla- ción primaria de la arritmia auricular no es viable) Ecografía"
+  },
+  "180101": {
+   "titulo": "ecocardiograma completo a m y b",
+   "cobertura": ""
+  },
+  "180104": {
+   "titulo": "ecografía tocoginecológica con o sin trasductor vaginal",
+   "cobertura": ""
+  },
+  "180106": {
+   "titulo": "ecografía mamaria bilateral",
+   "cobertura": ""
+  },
+  "180107": {
+   "titulo": "ecografía cerebral",
+   "cobertura": ""
+  },
+  "180109": {
+   "titulo": "ecografía oftalmológica uni o bilateral",
+   "cobertura": ""
+  },
+  "180110": {
+   "titulo": "ecografía tiroidea",
+   "cobertura": ""
+  },
+  "180111": {
+   "titulo": "ecografía de testículos",
+   "cobertura": ""
+  },
+  "180112": {
+   "titulo": "ecografía completa de abdomen",
+   "cobertura": ""
+  },
+  "180113": {
+   "titulo": "ecografía hepato biliar, esplénica o torácica",
+   "cobertura": ""
+  },
+  "180114": {
+   "titulo": "ecografía de vejiga o próstata con o sin trasductor rectal",
+   "cobertura": ""
+  },
+  "180116": {
+   "titulo": "ecografía renal bilateral",
+   "cobertura": ""
+  },
+  "180117": {
+   "titulo": "ecografía aorta abdominal dinámica y estática",
+   "cobertura": ""
+  },
+  "180118": {
+   "titulo": "ecografía pancreática o suprarrenal",
+   "cobertura": ""
+  },
+  "180201": {
+   "titulo": "ecodoppler periférico blanco y negro",
+   "cobertura": ""
+  },
+  "180202": {
+   "titulo": "ecodoppler periférico color",
+   "cobertura": ""
+  },
+  "180203": {
+   "titulo": "ecodoppler color circulación portal-suprahepático-cava",
+   "cobertura": ""
+  },
+  "180204": {
+   "titulo": "ecodoppler color esplénico-cava",
+   "cobertura": ""
+  },
+  "180301": {
+   "titulo": "ecodoppler cardíaco color",
+   "cobertura": ""
+  },
+  "180302": {
+   "titulo": "ecocardiograma de stress físico y/o farmacológico (c/ imagen digitalizada)",
+   "cobertura": "Obligación de cobertura en los siguientes casos: 1. Diagnóstico diferencial de isquemia miocárdica con ergometría dudosa 2. Diagnóstico diferencial de isquemia miocárdica asociada a en- tidades que alteran la sensibilidad de la ergometría (BCRI, miocardiopatías, WOLF-PARKINSON-WHITE) 3. Seguimiento y control de tratamiento en pacientes con enfer- medad coronaria conocida y postoperatorios 4. Información pronóstica en pacientes con IAM pasibles de cirugía de revascularización y para evaluación de su isquemia. Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
+  },
+  "180501": {
+   "titulo": "ecodoppler cardíaco fetal color",
+   "cobertura": ""
+  },
+  "180502": {
+   "titulo": "ecodoppler transcraneal",
+   "cobertura": "Obligación de cobertura en los siguientes casos: 1. La detección de vasoespasmo en HSA (aumento de la veloci- dad de flujo) 2. La detección no invasiva de ateromatosis intracraneal en el adulto (aumento focal de la velocidad de flujo) o hemoglobinopatías en el niño. 3. Monitoreo intraoperatorio (Detección de microembolos) en cirugía cardiovascular o endarterectomía carótidea. 4. En el diagnóstico de muerte encefálica como método comple- mentario o en las situaciones especiales descriptas."
+  },
+  "186001": {
+   "titulo": "ecografía de partes blandas",
+   "cobertura": "Endocrinología y nutrición"
+  },
+  "190101": {
+   "titulo": "metabolismo basal",
+   "cobertura": ""
+  },
+  "190102": {
+   "titulo": "régimen individual con preparación de menú dietético",
+   "cobertura": ""
+  },
+  "190103": {
+   "titulo": "preparación de dieta parenteral y/o enteral",
+   "cobertura": "Gastroenterología"
+  },
+  "200101": {
+   "titulo": "test de Bernstein Prueba de perfusión esofágica",
+   "cobertura": ""
+  },
+  "200102": {
+   "titulo": "sondeo gástrico fraccionado para test secretorio con drogas",
+   "cobertura": ""
+  },
+  "200104": {
+   "titulo": "sondeo con electodo intragástrico para ph",
+   "cobertura": ""
+  },
+  "200105": {
+   "titulo": "sondeo gástrico para test secretorio con insulina test de hollander",
+   "cobertura": ""
+  },
+  "200107": {
+   "titulo": "sondeo duodenal de doble luz para estimulación pancreática",
+   "cobertura": ""
+  },
+  "200111": {
+   "titulo": "motilidad esofágica manometría",
+   "cobertura": ""
+  },
+  "200112": {
+   "titulo": "determinación del reflujo gastroesofágico",
+   "cobertura": ""
+  },
+  "200113": {
+   "titulo": "lavado gástrico o esofágico en paciente",
+   "cobertura": ""
+  },
+  "200115": {
+   "titulo": "colocación de sonda balón de Sengstaken",
+   "cobertura": ""
+  },
+  "200116": {
+   "titulo": "biopsia peroral esofágica o gástrica (incluye cepillado)",
+   "cobertura": ""
+  },
+  "200120": {
+   "titulo": "esofagofibroscopia",
+   "cobertura": ""
+  },
+  "200122": {
+   "titulo": "esofagogastroduodenofibroscopia",
+   "cobertura": ""
+  },
+  "200123": {
+   "titulo": "canulación endoscópica de ampolla de vater para colangiografía retrógrada",
+   "cobertura": ""
+  },
+  "200124": {
+   "titulo": "colonofibroscopía",
+   "cobertura": ""
+  },
+  "200125": {
+   "titulo": "rectosigmoidoscopía",
+   "cobertura": ""
+  },
+  "200126": {
+   "titulo": "rectosigmoidofibroscopía",
+   "cobertura": ""
+  },
+  "200128": {
+   "titulo": "dilatación esofágica con control endoscópico por cual- quier mecanismo",
+   "cobertura": ""
+  },
+  "200134": {
+   "titulo": "polipectomía endoscópica gástrica",
+   "cobertura": ""
+  },
+  "200135": {
+   "titulo": "polipectomía endoscópica colónica",
+   "cobertura": ""
+  },
+  "200201": {
+   "titulo": "colangiopancreatografía retrógrada endoscópica",
+   "cobertura": ""
+  },
+  "200202": {
+   "titulo": "colangiopancreatografía retrógrada endoscópica con ex- tracción de cálculo",
+   "cobertura": ""
+  },
+  "200301": {
+   "titulo": "estudio dinámico de glándulas salivales",
+   "cobertura": ""
+  },
+  "200401": {
+   "titulo": "ablación de tumores esofágicos por métodos físicos o químicos",
+   "cobertura": ""
+  },
+  "200501": {
+   "titulo": "phmetria esofágica para lactantes",
+   "cobertura": ""
+  },
+  "200601": {
+   "titulo": "búsqueda de hemorragia digestiva con eritromarcadores",
+   "cobertura": "Obligación de cobertura en los siguientes casos: Pacientes con hemorragia gastrointestinal detectada o sospecha- da y no localizada por los procedimientos endoscópicos y/o angiográficos. Genética humana"
+  },
+  "210101": {
+   "titulo": "estudio genético comprende consultas",
+   "cobertura": ""
+  },
+  "210102": {
+   "titulo": "dermatoglifos",
+   "cobertura": ""
+  },
+  "210103": {
+   "titulo": "cromatina sexual en mucosa o sangre",
+   "cobertura": ""
+  },
+  "210104": {
+   "titulo": "análisis cromosómico de cariotipo simple",
+   "cobertura": ""
+  },
+  "210105": {
+   "titulo": "análisis cromosómico de cariotipo con bandas G",
+   "cobertura": "16 Código Práctica"
+  },
+  "210106": {
+   "titulo": "análisis cromosómico de cariotipo con bandas Q",
+   "cobertura": ""
+  },
+  "210107": {
+   "titulo": "análisis cromosómico de cariotipo con bandas G-T y Q",
+   "cobertura": ""
+  },
+  "210201": {
+   "titulo": "estudio completo de histocompatibilidad para transplante de órganos hasta 5 personas",
+   "cobertura": ""
+  },
+  "210202": {
+   "titulo": "estudio completo de histocompatibilidad para transplante de órganos por persona",
+   "cobertura": ""
+  },
+  "210203": {
+   "titulo": "cross-match contra panel de linfocitos en receptor de transplante renal",
+   "cobertura": ""
+  },
+  "210204": {
+   "titulo": "cross-match contra panel de linfocitos en receptor de transplante renal hiperinmunizado",
+   "cobertura": ""
+  },
+  "210205": {
+   "titulo": "cross-match contra donante vivo en linfocitos t y b en receptor de transplante renal 48 hs. previas al transplante",
+   "cobertura": ""
+  },
+  "210206": {
+   "titulo": "determinación de antígenos DR-DQ en receptor o en donante de transplante renal o de medula ósea",
+   "cobertura": ""
+  },
+  "210207": {
+   "titulo": "cultivo mixto de linfocitos, paso final del transplante renal o de medula ósea",
+   "cobertura": "Ginecología y obstetricia"
+  },
+  "220101": {
+   "titulo": "Colposcopía",
+   "cobertura": "Se asegura la cobertura: 1. En pacientes cuyo papanicolaou resultado sea anormal o dudosa"
+  },
+  "220103": {
+   "titulo": "test Sims-Huner",
+   "cobertura": ""
+  },
+  "220104": {
+   "titulo": "estudio moco cervical",
+   "cobertura": ""
+  },
+  "220105": {
+   "titulo": "persuflación con registro quimográfico",
+   "cobertura": ""
+  },
+  "220106": {
+   "titulo": "persuflación hidrotubación",
+   "cobertura": ""
+  },
+  "220107": {
+   "titulo": "instilación de sustancia radiopaca",
+   "cobertura": ""
+  },
+  "220108": {
+   "titulo": "cepillado de epitelio vaginal y cervical para deteccion hpv ca in situ",
+   "cobertura": ""
+  },
+  "220201": {
+   "titulo": "amnioscopia",
+   "cobertura": ""
+  },
+  "220202": {
+   "titulo": "monitoreo fetal",
+   "cobertura": ""
+  },
+  "220203": {
+   "titulo": "psicoprofilaxis del parto, método",
+   "cobertura": ""
+  },
+  "220204": {
+   "titulo": "control obstétrico del trabajo de parto",
+   "cobertura": ""
+  },
+  "220301": {
+   "titulo": "estudio de maduración pulmonar fetal",
+   "cobertura": ""
+  },
+  "220401": {
+   "titulo": "espectofotometría de líquido amniótico",
+   "cobertura": "Hemoterapia"
+  },
+  "240101": {
+   "titulo": "transfusión de sangre hasta 500 cm3",
+   "cobertura": ""
+  },
+  "240102": {
+   "titulo": "transfusión de plasma hasta 300 cm3",
+   "cobertura": ""
+  },
+  "240103": {
+   "titulo": "transfusión de hematíes sedimentados hasta 300 cm3",
+   "cobertura": ""
+  },
+  "240104": {
+   "titulo": "transfusión de glóbulos rojos lavados hasta 300 cm3",
+   "cobertura": ""
+  },
+  "240105": {
+   "titulo": "plasmaféresis o eritroféresis hasta 500 cm3 de sangre total",
+   "cobertura": ""
+  },
+  "240106": {
+   "titulo": "transfusión de sangre sin leucocitos con o sin plaquetas hasta 500 cm3",
+   "cobertura": ""
+  },
+  "240107": {
+   "titulo": "transfusión de plaquetas y/o leucocitos provenientes de",
+   "cobertura": "500 cm3 de sangre o fracción"
+  },
+  "240108": {
+   "titulo": "exanguíneo-transfusión por la primera unidad hasta 500 cm3",
+   "cobertura": ""
+  },
+  "240109": {
+   "titulo": "exanguíneo-transfusión unidades subsiguientes de 500 cm3 o fracción",
+   "cobertura": ""
+  },
+  "240110": {
+   "titulo": "transfusión fetal intra-útero",
+   "cobertura": ""
+  },
+  "240111": {
+   "titulo": "sangría por recolección con equipo al vacío",
+   "cobertura": ""
+  },
+  "240112": {
+   "titulo": "transfusión intraamniótica",
+   "cobertura": ""
+  },
+  "240113": {
+   "titulo": "transfusión de crioprecipitados g a h provenientes de",
+   "cobertura": "500 cc de sangre"
+  },
+  "240201": {
+   "titulo": "autotransfusión",
+   "cobertura": ""
+  },
+  "241005": {
+   "titulo": "plasmaféresis con separador celular tipo haemonetics o similar",
+   "cobertura": ""
+  },
+  "241006": {
+   "titulo": "Aféresis de plaquetas",
+   "cobertura": "Obligación de cobertura en los siguientes casos: Trombocitosis esencial (si el recuento de plaquetas es mayor que 1,000,000/mm3)"
+  },
+  "241101": {
+   "titulo": "ultrafiltración",
+   "cobertura": ""
+  },
+  "241102": {
+   "titulo": "ultrafiltración con filtros de prosorva o similares (complementemia)",
+   "cobertura": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
+  },
+  "241201": {
+   "titulo": "criopreservación",
+   "cobertura": ""
+  },
+  "241202": {
+   "titulo": "trasplante de médula ósea autólogo",
+   "cobertura": ""
+  },
+  "241203": {
+   "titulo": "trasplante de médula ósea alogenéico",
+   "cobertura": "Rehabilitación médica"
+  },
+  "250101": {
+   "titulo": "fisioterapia",
+   "cobertura": ""
+  },
+  "250102": {
+   "titulo": "kinesioterapia",
+   "cobertura": ""
+  },
+  "250103": {
+   "titulo": "terapia ocupacional por sesión",
+   "cobertura": ""
+  },
+  "250104": {
+   "titulo": "rehabilitación del lenguaje (por sesión)",
+   "cobertura": ""
+  },
+  "250105": {
+   "titulo": "pilones para amputados alineación",
+   "cobertura": ""
+  },
+  "250106": {
+   "titulo": "kinesioterapia o fisiatría a domicilio",
+   "cobertura": "Medicina nuclear"
+  },
+  "260101": {
+   "titulo": "curva de captación tiróidea tres determinaciones",
+   "cobertura": ""
+  },
+  "260102": {
+   "titulo": "estudio completo de la función tiróidea con Iodo 131",
+   "cobertura": ""
+  },
+  "260103": {
+   "titulo": "excreción urinaria de Iodo 131",
+   "cobertura": ""
+  },
+  "260104": {
+   "titulo": "Prueba de inhibición test Werner",
+   "cobertura": ""
+  },
+  "260105": {
+   "titulo": "Prueba de estimulación Test de Querido",
+   "cobertura": ""
+  },
+  "260106": {
+   "titulo": "vida media efectiva",
+   "cobertura": ""
+  },
+  "260107": {
+   "titulo": "dosis terapéutica en tirotoxicosis",
+   "cobertura": ""
+  },
+  "260108": {
+   "titulo": "tratamiento de carcinoma de tiroides",
+   "cobertura": ""
+  },
+  "260109": {
+   "titulo": "detección de trombosis con fibrinógeno marcado",
+   "cobertura": ""
+  },
+  "260110": {
+   "titulo": "detección de supuraciones abdominales con fibrinógeno marcado",
+   "cobertura": ""
+  },
+  "260111": {
+   "titulo": "radiorrenograma isotópico simple",
+   "cobertura": ""
+  },
+  "260112": {
+   "titulo": "radiorenograma con clearence renal",
+   "cobertura": ""
+  },
+  "260113": {
+   "titulo": "filtrado glomerular",
+   "cobertura": ""
+  },
+  "260114": {
+   "titulo": "flujo plasmático renal efectivo",
+   "cobertura": ""
+  },
+  "260115": {
+   "titulo": "flujo sanguíneo total renal",
+   "cobertura": ""
+  },
+  "260116": {
+   "titulo": "volumen minuto cardíaco",
+   "cobertura": ""
+  },
+  "260117": {
+   "titulo": "clearence tisular y/o muscular",
+   "cobertura": ""
+  },
+  "260118": {
+   "titulo": "flujo cerebral",
+   "cobertura": ""
+  },
+  "260119": {
+   "titulo": "determinación de agua corporal total",
+   "cobertura": ""
+  },
+  "260120": {
+   "titulo": "determinación de agua extracelular",
+   "cobertura": ""
+  },
+  "260121": {
+   "titulo": "determinación de sodio total intercambiable y espacio de sodio",
+   "cobertura": ""
+  },
+  "260122": {
+   "titulo": "determinación de potasio total intercambiable",
+   "cobertura": ""
+  },
+  "260123": {
+   "titulo": "determinación del volumen sanguíneo total globular plasmático con radioisótopos",
+   "cobertura": ""
+  },
+  "260124": {
+   "titulo": "vida media de hematíes relación hepato-esplénica",
+   "cobertura": ""
+  },
+  "260125": {
+   "titulo": "vida media de hematíes",
+   "cobertura": ""
+  },
+  "260126": {
+   "titulo": "vida media de leucocitos y/o plaquetas",
+   "cobertura": ""
+  },
+  "260127": {
+   "titulo": "tiempo medio plasmática del fe59",
+   "cobertura": ""
+  },
+  "260128": {
+   "titulo": "curva de utilización fe59",
+   "cobertura": ""
+  },
+  "260129": {
+   "titulo": "tiempo medio plasmático y curva de utilización de fe59",
+   "cobertura": ""
+  },
+  "260130": {
+   "titulo": "diagnóstico de anemia perniciosa con vitamina B12",
+   "cobertura": ""
+  },
+  "260131": {
+   "titulo": "dosis terapéutica para tratamiento de policitemia vera",
+   "cobertura": ""
+  },
+  "260132": {
+   "titulo": "estudio de absorción con grasas marcadas con",
+   "cobertura": ""
+  },
+  "260133": {
+   "titulo": "estudio de absorción y excreción de grasas marcadas con radioisótopos",
+   "cobertura": ""
+  },
+  "260134": {
+   "titulo": "relación perfusión ventilación con Xe 133",
+   "cobertura": ""
+  },
+  "260135": {
+   "titulo": "tratamiento intraarticular con P32 u au198 coloidal",
+   "cobertura": ""
+  },
+  "260136": {
+   "titulo": "tratamiento paliativo con P32 de cáncer de mama con metástasis óseas",
+   "cobertura": ""
+  },
+  "260137": {
+   "titulo": "tratamiento con P32 o Au198 por diseminación tumoral en cavidades serosas",
+   "cobertura": ""
+  },
+  "260201": {
+   "titulo": "Centellograma de cerebro",
+   "cobertura": ""
+  },
+  "260203": {
+   "titulo": "centellografía de medula ósea",
+   "cobertura": ""
+  },
+  "260204": {
+   "titulo": "mielografía isotópica",
+   "cobertura": ""
+  },
+  "260205": {
+   "titulo": "cisternografía isotopica",
+   "cobertura": ""
+  },
+  "260206": {
+   "titulo": "fistulografía isotópica del Líquido Cefalo Raquídeo",
+   "cobertura": ""
+  },
+  "260207": {
+   "titulo": "ventriculografía isotópica",
+   "cobertura": ""
+  },
+  "260208": {
+   "titulo": "Centellograma óseo",
+   "cobertura": ""
+  },
+  "260210": {
+   "titulo": "centellografía de articulaciones",
+   "cobertura": ""
+  },
+  "260211": {
+   "titulo": "Centellograma de tiroides",
+   "cobertura": "17 Código Práctica"
+  },
+  "260212": {
+   "titulo": "Centellograma de tiroides y mediastino",
+   "cobertura": ""
+  },
+  "260213": {
+   "titulo": "barrido total para carcinoma de tiroides",
+   "cobertura": ""
+  },
+  "260214": {
+   "titulo": "Centellograma de paratiroides",
+   "cobertura": ""
+  },
+  "260215": {
+   "titulo": "Centellograma de glándulas salivares",
+   "cobertura": ""
+  },
+  "260216": {
+   "titulo": "Centellograma de pulmón",
+   "cobertura": ""
+  },
+  "260217": {
+   "titulo": "Centellograma hepático",
+   "cobertura": ""
+  },
+  "260218": {
+   "titulo": "Centellograma del pool vascular hepático",
+   "cobertura": ""
+  },
+  "260219": {
+   "titulo": "Centellograma de páncreas",
+   "cobertura": ""
+  },
+  "260220": {
+   "titulo": "Centellograma de bazo",
+   "cobertura": ""
+  },
+  "260221": {
+   "titulo": "Centellograma renal bilateral",
+   "cobertura": ""
+  },
+  "260222": {
+   "titulo": "centellografía del pool vascular renal",
+   "cobertura": ""
+  },
+  "260223": {
+   "titulo": "Centellograma de placenta",
+   "cobertura": ""
+  },
+  "260224": {
+   "titulo": "Centellograma de vías linfáticas",
+   "cobertura": ""
+  },
+  "260231": {
+   "titulo": "Spect cardíaco- coronario estudio de perfusión con talio",
+   "cobertura": "201 esfuerzo y redistribución • Obligación de cobertura en los siguientes casos: Organo o tejido reemplazado por transplante (corazón), Organo o tejido reemplazado por transplante (válvula del corazón), Or- gano o tejido reemplazado por otro medio (válvula del corazón), Estenosis mitral Insuficiencia mitral reumática, Estenosis mitral con insuficiencia, Enfermedades de la válvula mitral Estenosis aórtica reumática, Insuficiencia aórtica reumática, Es- tenosis con insuficiencia aórtica reumática. Enfermedades de la válvula aórtica, Aterosclerosis coronaria, Aneurisma del corazón, Enfermedad isquémica del corazón, Fibrosis endomiocárdica, Cardiomiopatía hipertrófica obstructiva, Fibroelastosis endocárdica, Cardiomiopatía, Hemibloqueo de rama izquierda del haz de Hiss, Bloqueo de la rama izquierda, Bloqueo de la rama derecha del haz de Hiss, Taquicardia paroxística supraventricular, Taquicardia paroxística ventricular, Taquicardia paroxística, Paro cardíaco, Disritmia cardíaca Insuficiencia del corazón izquierdo, Insuficiencia cardíaca, Mio- carditis, Degeneración miocárdica Trastornos funcionales consecutivos a cirugía cardiovascular, Rotura de cuerda tendinosa, Rotura de músculo papilar, Compli- cación mecánica de otro dispositivo, prótesis e injerto vasculares."
+  },
+  "260232": {
+   "titulo": "Spect cardiaco-coronario estudio de perfusión con talio",
+   "cobertura": "201 dipiridamol y redistribución: iguales indicaciones que el código 260231"
+  },
+  "260233": {
+   "titulo": "Spect cardíaco-coronario estudio de perfusión con talio",
+   "cobertura": "201 con dobutamina y 4 hs. iguales indicaciones que el código 260231"
+  },
+  "260234": {
+   "titulo": "Estudio función ventricular izquierda y perfusión miocárdica con spect reposo y esfuerzo c/ mibi tc 99m: iguales indicaciones que el código 260231",
+   "cobertura": ""
+  },
+  "260401": {
+   "titulo": "Prueba de estímulo de la secreción de somatotrofina con determinación de STH",
+   "cobertura": ""
+  },
+  "260402": {
+   "titulo": "Prueba de freno de la secreción de somatotrofina con determinación de somatrotofina",
+   "cobertura": ""
+  },
+  "260403": {
+   "titulo": "Prueba de estímulo hipotálamo-hipofisiaria con deter- minación de FSH",
+   "cobertura": ""
+  },
+  "260404": {
+   "titulo": "Prueba de estímulo hipotálamo-hipofisiaria con deter- minación de LH",
+   "cobertura": ""
+  },
+  "260405": {
+   "titulo": "Prueba de estímulo gonadal con hormona gonatropa coriónica HGG con determinación de estrógenos totales",
+   "cobertura": ""
+  },
+  "260406": {
+   "titulo": "Prueba de estímulo gonadal conHGG con determina- ción de testosterona",
+   "cobertura": ""
+  },
+  "260407": {
+   "titulo": "Prueba de estímulo con TRH con determinación de TSH y tiroxina plasmática",
+   "cobertura": ""
+  },
+  "260408": {
+   "titulo": "Prueba de estímulo con TRH con determinación de TSH",
+   "cobertura": ""
+  },
+  "260409": {
+   "titulo": "estímulo hipotálamo hipofisiario con determinación de",
+   "cobertura": "ACTH Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica 260410inhibición hipotalámico-hipofisiaria con determinación de 260411Pruebas de inhibición de muquet o similares con deter- minación de cortisol 260412estudio del ritmo circadiano de cortisol 260413Prueba estímulo hipotalámico-hipofisiaria con determi- nación de prolactina 260414Prueba de inhibición hipotalámico-hipofisiaria con de- terminación de prolactina 260501Centellograma de cerebro 260503Centellograma de medula ósea 260504mielografía isotopica 260505cisternografía isotópica 260506fistulografía isotópica del Líquido Céfalo Raquídeo 260507ventriculografía isotópica 260508Centellograma óseo 260510centellografía de articulaciones 260511Centellograma de tiroides 260512Centellograma de tiroides y mediastino 260513barrido-total para carcinoma de tiroides 260514Centellograma de paratiroides 260515Centellograma de glándulas salivares 260516Centellograma de pulmón 260517Centellograma hepático 260518Centellograma del pool vascular hepático 260519Centellograma de páncreas 260520Centellograma de bazo 260521Centellograma renal bilateral 260522Centellograma del pool vascular renal 260523Centellograma de placenta 260524Centellograma vías linfáticas abdominoinguinales, axilares y/o mediastinales 260525angiografía radioisotópica por área 260526estudio dinámico renal 260527radiocardiograma 260528perfusión sanguínea miocárdica con radioisótopos 260529flebografía radioisotópica por áreas safenas, femorales, ilíacas, humeral 260531dinámica del tránsito esófago gástrico 260532dinámica tránsito intestinal Nefrología 270101hemohemodiálisis con riñón artificial en insuficiencia aguda 270102hemohemodiálisis con riñón artificial en insuficiencia crónica 270103hemodiálisis peritoneal 270104hemodiálisis peritoneal continua ambulatoria 270201evaluación pretrasplante renal en receptor 270202evaluación pretrasplante renal en dador Neumonología 280101espirometría 280102espirometría antes y después de broncodilatadores 280103broncoespirometría 280104traqueoscopía 280105broncoscopía con instrumental rígido 280106broncofibroscopía 280107curva de flujo volumen con o sin espirometría 280108determinación de volúmenes pulmonares 280109estudio de mecánica pulmonar 280110análisis de gases en aire espirado y sangre arteriovenosa 280111capacidad pulmonar total y volumen residual (técnica de dilución por helio) 280201lavado alveolar 280301ablación de lesiones broncopulmonares por vía endoscópica por métodos físicos o químicos 18 Código Práctica"
+  },
+  "280401": {
+   "titulo": "Prueba de provocación bronquial con metacolina",
+   "cobertura": "Neurología"
+  },
+  "290102": {
+   "titulo": "electroencefalografía con activación compleja",
+   "cobertura": ""
+  },
+  "290103": {
+   "titulo": "nistagmografía electrorretinografía",
+   "cobertura": ""
+  },
+  "290104": {
+   "titulo": "electromiografía de miembros superiores o inferiores o facial",
+   "cobertura": ""
+  },
+  "290105": {
+   "titulo": "electromiografía de los cuatro miembros",
+   "cobertura": ""
+  },
+  "290106": {
+   "titulo": "electromiografía con velocidad de conducción",
+   "cobertura": ""
+  },
+  "290107": {
+   "titulo": "reflexograma patelar y/o aquiliano",
+   "cobertura": ""
+  },
+  "290108": {
+   "titulo": "cronaximetría",
+   "cobertura": ""
+  },
+  "290109": {
+   "titulo": "electrodiagnóstico",
+   "cobertura": ""
+  },
+  "290110": {
+   "titulo": "reografía cerebral cardíaca o vascular periférica",
+   "cobertura": ""
+  },
+  "290111": {
+   "titulo": "potenciales evocados de cualquier vía de conducción o sentido",
+   "cobertura": ""
+  },
+  "290112": {
+   "titulo": "Holter electroencefalográfico",
+   "cobertura": "Obligación de cobertura en los siguientes casos: A pacientes en los que se sospecha un trastorno convulsivo que no se logra diagnosticar con estudios convencionales. Un EEG (electroencefalograma) ambulatorio debe ser siempre precedido por un EEG en reposo. La historia clínica del paciente debe apoyar la necesidad médica del procedimiento (por ej, EEG de reposo inconcluyente y necesidad de estudios subsecuentes para definir el diagnóstico."
+  },
+  "290201": {
+   "titulo": "Polisomnografía con oximetría en neonatos",
+   "cobertura": "Obligación de cobertura en los siguientes casos: Apnea del sueño"
+  },
+  "290202": {
+   "titulo": "Polisomnografía con oximetria nocturna en adultos con",
+   "cobertura": "Presión Positiva Continua en la Vía Aérea • Obligación de cobertura si cumple los siguientes criterios: 1. Con alto impacto de los síntomas en la vida diaria 2. Alta sospecha de apnea del sueño 3. Dispuestos a utilizar Presión Positiva Continua en la Vía Aé- rea (PPCVA) 4. Que han intentado otras medidas (deshabituación al tabaquis- mo, tratamiento de la obesidad, evitar medicación predisponente como benzodiacepinas, etc.)"
+  },
+  "290203": {
+   "titulo": "Tratamiento del blefarospasmo con toxina botulínica",
+   "cobertura": "Oftalmología"
+  },
+  "300101": {
+   "titulo": "oftalmodinamometría",
+   "cobertura": ""
+  },
+  "300102": {
+   "titulo": "campo visual campimetría y/o perimetría",
+   "cobertura": ""
+  },
+  "300106": {
+   "titulo": "tonometría en niños con anestesia general",
+   "cobertura": ""
+  },
+  "300108": {
+   "titulo": "gonioscopía",
+   "cobertura": ""
+  },
+  "300109": {
+   "titulo": "curva tensional",
+   "cobertura": ""
+  },
+  "300110": {
+   "titulo": "tonografía con tonógrafo electrónico",
+   "cobertura": ""
+  },
+  "300111": {
+   "titulo": "retinografía",
+   "cobertura": ""
+  },
+  "300113": {
+   "titulo": "retinofluoresceinografía",
+   "cobertura": ""
+  },
+  "300116": {
+   "titulo": "extracción de cuerpo extraño en cornea",
+   "cobertura": ""
+  },
+  "300117": {
+   "titulo": "depilación eléctrica del párpado de todos los elementos afectados",
+   "cobertura": ""
+  },
+  "300118": {
+   "titulo": "dilatación de conducto lacrimonasal intubación, plombaje",
+   "cobertura": ""
+  },
+  "300119": {
+   "titulo": "oftalmoscopía indirecta binocular con esquema de fon- do de ojo",
+   "cobertura": ""
+  },
+  "300120": {
+   "titulo": "estudio de fijación en el estrabismo con visuscopio",
+   "cobertura": ""
+  },
+  "300122": {
+   "titulo": "exoftalmología prescripción de cristales control poste- rior tonometría y fondo de ojo",
+   "cobertura": ""
+  },
+  "300201": {
+   "titulo": "campimetría computarizada",
+   "cobertura": ""
+  },
+  "300202": {
+   "titulo": "Paquimetría computarizada",
+   "cobertura": "Obligación de cobertura en los siguientes casos: Paciente con disminución visual que se presenta con edema corneal Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica en la biomicroscopía. Se realiza seguimiento con recuento endotelital y paquimetría."
+  },
+  "300204": {
+   "titulo": "Topografía corneal",
+   "cobertura": "Obligación de cobertura en los siguientes casos: Diagnóstico de queratocono (mancha roja inferior)"
+  },
+  "300205": {
+   "titulo": "angiografía con indocianina",
+   "cobertura": "Otorrinolaringología"
+  },
+  "310101": {
+   "titulo": "estudio funcional laberíntico",
+   "cobertura": ""
+  },
+  "310102": {
+   "titulo": "audiometría",
+   "cobertura": ""
+  },
+  "310103": {
+   "titulo": "logoaudiometría",
+   "cobertura": ""
+  },
+  "310104": {
+   "titulo": "Pruebas supraliminares",
+   "cobertura": ""
+  },
+  "310105": {
+   "titulo": "selección de otoamplifonos incluye Radstronics",
+   "cobertura": ""
+  },
+  "310107": {
+   "titulo": "técnica de Proestz",
+   "cobertura": ""
+  },
+  "310109": {
+   "titulo": "impedanciometría",
+   "cobertura": ""
+  },
+  "310110": {
+   "titulo": "examen funcional de nariz (rinomanometría)",
+   "cobertura": ""
+  },
+  "310111": {
+   "titulo": "extracción cuerpo extraño oído o tapón cerumen",
+   "cobertura": ""
+  },
+  "310112": {
+   "titulo": "taponamiento nasal anterior",
+   "cobertura": ""
+  },
+  "310113": {
+   "titulo": "taponamiento nasal anteroposterior",
+   "cobertura": ""
+  },
+  "310115": {
+   "titulo": "cauterización nariz",
+   "cobertura": ""
+  },
+  "310118": {
+   "titulo": "laringoscopía directa",
+   "cobertura": ""
+  },
+  "310120": {
+   "titulo": "extracción de cálculo salival sin incisión cateterización, dilatación del conducto salival",
+   "cobertura": ""
+  },
+  "310121": {
+   "titulo": "inyección de sustancia radiopaca para broncografia",
+   "cobertura": ""
+  },
+  "310122": {
+   "titulo": "otomicroscopía",
+   "cobertura": ""
+  },
+  "310123": {
+   "titulo": "rino-sinuso fibroscopía diagnóstica",
+   "cobertura": ""
+  },
+  "310124": {
+   "titulo": "faringo laringo fibroscopía",
+   "cobertura": ""
+  },
+  "310125": {
+   "titulo": "tratamiento de lesiones otorrinolaringológicas por me- dios físicos o químicos",
+   "cobertura": "Pediatría"
+  },
+  "320104": {
+   "titulo": "atención del recién nacido normal o patológico en sala de partos",
+   "cobertura": "Salud mental"
+  },
+  "330101": {
+   "titulo": "psicoterapias individuales niños o adultos",
+   "cobertura": ""
+  },
+  "330102": {
+   "titulo": "psicoterapias grupales o colectivas niños o adultos",
+   "cobertura": ""
+  },
+  "330103": {
+   "titulo": "psicoterapia de pareja o familia",
+   "cobertura": ""
+  },
+  "330104": {
+   "titulo": "electroshock electronarcosis",
+   "cobertura": ""
+  },
+  "330107": {
+   "titulo": "goteo con psicofármacos en enfermos no internados",
+   "cobertura": ""
+  },
+  "330109": {
+   "titulo": "sueño prolongado",
+   "cobertura": ""
+  },
+  "330110": {
+   "titulo": "reflejos condicionados",
+   "cobertura": ""
+  },
+  "330111": {
+   "titulo": "Pruebas psicométricas",
+   "cobertura": ""
+  },
+  "330112": {
+   "titulo": "Pruebas proyectivas perfil de personalidad",
+   "cobertura": ""
+  },
+  "330201": {
+   "titulo": "hospital de día",
+   "cobertura": ""
+  },
+  "330202": {
+   "titulo": "hospital de noche",
+   "cobertura": ""
+  },
+  "330301": {
+   "titulo": "talleres de actividades grupales para prevención prima- ria y secundaria",
+   "cobertura": ""
+  },
+  "330302": {
+   "titulo": "Talleres de estimulación temprana, incluye guardería",
+   "cobertura": "Se asegura la cobertura: En niños de hasta dos años de edad con déficits neurosensorial Radiología"
+  },
+  "340101": {
+   "titulo": "radioscopía simple",
+   "cobertura": ""
+  },
+  "340102": {
+   "titulo": "radioscopía con intensificador de imagen",
+   "cobertura": ""
+  },
+  "340103": {
+   "titulo": "radioscopía con circuito cerrado de televisión",
+   "cobertura": ""
+  },
+  "340201": {
+   "titulo": "radiología del cráneo, cara, senos paranasales o cavum",
+   "cobertura": ""
+  },
+  "340203": {
+   "titulo": "radiología temporal o agujeros ópticos, comparativos",
+   "cobertura": ""
+  },
+  "340204": {
+   "titulo": "radiología articulación temporomandibular",
+   "cobertura": ""
+  },
+  "340205": {
+   "titulo": "ortopantomografía (panorámica de cara o cráneo)",
+   "cobertura": ""
+  },
+  "340207": {
+   "titulo": "telerradiografía de cráneo y/o perfil facial",
+   "cobertura": ""
+  },
+  "340209": {
+   "titulo": "radiología de raquis (columna)",
+   "cobertura": ""
+  },
+  "340211": {
+   "titulo": "radiología hombro, húmero, pelvis, cadera y fémur",
+   "cobertura": ""
+  },
+  "340213": {
+   "titulo": "radiología antebrazo, codo, mano, rodilla, pie, pierna, tobillo y pie",
+   "cobertura": "19 Código Práctica"
+  },
+  "340214": {
+   "titulo": "medición comparativa de miembros inferiores (ortorradiografía)",
+   "cobertura": ""
+  },
+  "340215": {
+   "titulo": "radiología ampliada o macrorradiografía",
+   "cobertura": ""
+  },
+  "340216": {
+   "titulo": "artrografía",
+   "cobertura": ""
+  },
+  "340301": {
+   "titulo": "Radiología tórax",
+   "cobertura": "Observaciones: no existe evidencia científica que avale la solici- tud de esta práctica como rastreo sistemático en la búsqueda de cáncer de pulmón, por tanto no constituye una indicación para el examen periódico de salud en esta condición."
+  },
+  "340303": {
+   "titulo": "broncografía",
+   "cobertura": ""
+  },
+  "340304": {
+   "titulo": "neumomediastino",
+   "cobertura": ""
+  },
+  "340401": {
+   "titulo": "sialografía",
+   "cobertura": ""
+  },
+  "340402": {
+   "titulo": "esófago -estudio seriado-",
+   "cobertura": ""
+  },
+  "340403": {
+   "titulo": "radiología seriada gastroduodenal",
+   "cobertura": ""
+  },
+  "340404": {
+   "titulo": "radiología seriada gastroduodenal, técnica doble contraste",
+   "cobertura": ""
+  },
+  "340405": {
+   "titulo": "radiología seriada esofagogastroduodenal",
+   "cobertura": ""
+  },
+  "340406": {
+   "titulo": "duodenografía hipotónica",
+   "cobertura": ""
+  },
+  "340407": {
+   "titulo": "radiología tránsito intestino delgado o cólon",
+   "cobertura": ""
+  },
+  "340408": {
+   "titulo": "radiología seriada ileocecoapendicular",
+   "cobertura": ""
+  },
+  "340409": {
+   "titulo": "radiología colon por enema y evacuado",
+   "cobertura": ""
+  },
+  "340411": {
+   "titulo": "radiología colon por enema e insuflado",
+   "cobertura": ""
+  },
+  "340412": {
+   "titulo": "radiología colon por enema evacuado y doble contraste",
+   "cobertura": ""
+  },
+  "340413": {
+   "titulo": "colecistografía oral incluye Prueba de evacuación",
+   "cobertura": ""
+  },
+  "340414": {
+   "titulo": "colecistografía endovenosa incluye Prueba de evacuación",
+   "cobertura": ""
+  },
+  "340415": {
+   "titulo": "colangiografía endovenosa",
+   "cobertura": ""
+  },
+  "340416": {
+   "titulo": "colangiografía operatoria",
+   "cobertura": ""
+  },
+  "340418": {
+   "titulo": "fistulocolangiografía colangiografía posoperatoria",
+   "cobertura": ""
+  },
+  "340419": {
+   "titulo": "colangiografía retrógrada por fibroscopía",
+   "cobertura": ""
+  },
+  "340420": {
+   "titulo": "neumoperitoneografía retroneumoperitoneografía",
+   "cobertura": ""
+  },
+  "340421": {
+   "titulo": "radiología simple de abdomen",
+   "cobertura": ""
+  },
+  "340501": {
+   "titulo": "radiología simple de árbol urinario",
+   "cobertura": ""
+  },
+  "340502": {
+   "titulo": "urograma excretor pielografía descendente",
+   "cobertura": ""
+  },
+  "340503": {
+   "titulo": "urograma excretor con estudio vesical pre y posmiccional",
+   "cobertura": ""
+  },
+  "340504": {
+   "titulo": "urograma minutado o por goteo pielografía por perfusión",
+   "cobertura": ""
+  },
+  "340505": {
+   "titulo": "pielografía ascendente",
+   "cobertura": ""
+  },
+  "340507": {
+   "titulo": "cistouretrografía miccional cistouretrografía ascendente",
+   "cobertura": ""
+  },
+  "340508": {
+   "titulo": "cistouretrografía por estudio de incontinencia",
+   "cobertura": ""
+  },
+  "340601": {
+   "titulo": "Mamografía. Senografía",
+   "cobertura": "Observaciones: la misma será comprendida como práctica pre- ventiva cuando se realice de forma anual y periódica en el rastreo sistemático de cáncer de mama. Para ello las beneficiarias deberán tener no menos de 49 años, o bien, a edades menores, tener antecedentes de cáncer de mama familiar o personal, u otros factores de riesgo. Toda otra indicación como la displasia mamaria, o la detección de cáncer mamario en pacientes de alto riesgo será para detección de casos, acorde a las guías que establece el Pro- grama Nacional de Garantía de Calidad de la Atención Médica."
+  },
+  "340602": {
+   "titulo": "mamografía. proyección axilar",
+   "cobertura": ""
+  },
+  "340603": {
+   "titulo": "galactografía",
+   "cobertura": ""
+  },
+  "340604": {
+   "titulo": "histerosalpingografía con Prueba de cotte",
+   "cobertura": ""
+  },
+  "340605": {
+   "titulo": "pelvineumografía",
+   "cobertura": ""
+  },
+  "340606": {
+   "titulo": "ginecografía",
+   "cobertura": ""
+  },
+  "340607": {
+   "titulo": "pelvimetría radiología",
+   "cobertura": ""
+  },
+  "340701": {
+   "titulo": "sinusografía por cateterismo",
+   "cobertura": ""
+  },
+  "340702": {
+   "titulo": "ventriculografía por inyección de medio contraste líqui- do o gaseoso",
+   "cobertura": ""
+  },
+  "340703": {
+   "titulo": "arteriografía cerebral por cateterismo",
+   "cobertura": ""
+  },
+  "340704": {
+   "titulo": "arteriografía carótidea o vertebral",
+   "cobertura": ""
+  },
+  "340705": {
+   "titulo": "neumoencefaloventriculografía fraccionada cisternografía",
+   "cobertura": ""
+  },
+  "340706": {
+   "titulo": "mielografía ascendente o descendente",
+   "cobertura": ""
+  },
+  "340707": {
+   "titulo": "discografía neurografía epidurografía",
+   "cobertura": ""
+  },
+  "340804": {
+   "titulo": "cardiografía o angiocardiografía",
+   "cobertura": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
+  },
+  "340805": {
+   "titulo": "coronariografía incluye ventriculografía",
+   "cobertura": ""
+  },
+  "340806": {
+   "titulo": "investigación de fístulas vasculares pulmonares",
+   "cobertura": ""
+  },
+  "340807": {
+   "titulo": "panarteriografía del cayado aórtico y vasos del cuello por cateterismo",
+   "cobertura": ""
+  },
+  "340808": {
+   "titulo": "aortografía",
+   "cobertura": ""
+  },
+  "340810": {
+   "titulo": "arteriografía de arterias medulares y/o intercostales",
+   "cobertura": ""
+  },
+  "340811": {
+   "titulo": "arteriografía selectiva de ramas de aorta abdominal",
+   "cobertura": ""
+  },
+  "340812": {
+   "titulo": "arteriografía periférica de miembros",
+   "cobertura": ""
+  },
+  "340814": {
+   "titulo": "cavografía",
+   "cobertura": ""
+  },
+  "340816": {
+   "titulo": "esplenoportografía por punción esplénica",
+   "cobertura": ""
+  },
+  "340818": {
+   "titulo": "flebografía selectiva de afluentes abdominales o torácicos de la vena cava",
+   "cobertura": ""
+  },
+  "340820": {
+   "titulo": "flebografía de miembro superior o inferior",
+   "cobertura": ""
+  },
+  "340822": {
+   "titulo": "linfografía por exposición",
+   "cobertura": ""
+  },
+  "340901": {
+   "titulo": "tomografía lineal",
+   "cobertura": ""
+  },
+  "340902": {
+   "titulo": "tomografía hipocicloidal, politomografía",
+   "cobertura": ""
+  },
+  "340903": {
+   "titulo": "fistulografía",
+   "cobertura": ""
+  },
+  "340904": {
+   "titulo": "dacriocistografía",
+   "cobertura": ""
+  },
+  "340905": {
+   "titulo": "radiografía en quirófano o habitación",
+   "cobertura": ""
+  },
+  "340907": {
+   "titulo": "radiografía en quirófano con amplificadores de imágenes",
+   "cobertura": ""
+  },
+  "340908": {
+   "titulo": "radiografía a domicilio",
+   "cobertura": ""
+  },
+  "341001": {
+   "titulo": "Tomografía Axial Computada cerebral",
+   "cobertura": ""
+  },
+  "341002": {
+   "titulo": "Tomografía Axial Computada cerebral reforzada",
+   "cobertura": ""
+  },
+  "341004": {
+   "titulo": "Tomografía Axial Computada oftalmológica",
+   "cobertura": ""
+  },
+  "341005": {
+   "titulo": "Tomografía Axial Computada tiróidea",
+   "cobertura": ""
+  },
+  "341006": {
+   "titulo": "Tomografía Axial Computada mamaria",
+   "cobertura": ""
+  },
+  "341007": {
+   "titulo": "Tomografía Axial Computada ginecológica",
+   "cobertura": ""
+  },
+  "341008": {
+   "titulo": "Tomografía Axial Computada completa de abdomen",
+   "cobertura": ""
+  },
+  "341009": {
+   "titulo": "Tomografía Axial Computada hepatobiliar esplénica pancreática",
+   "cobertura": ""
+  },
+  "341010": {
+   "titulo": "Tomografía Axial Computada torácica",
+   "cobertura": ""
+  },
+  "341011": {
+   "titulo": "Tomografía Axial Computada vejiga y próstata",
+   "cobertura": ""
+  },
+  "341012": {
+   "titulo": "Tomografía Axial Computada otros órganos y regiones",
+   "cobertura": ""
+  },
+  "341013": {
+   "titulo": "Tomografía Axial Computada de columna",
+   "cobertura": ""
+  },
+  "341101": {
+   "titulo": "marcación mamaria prequirúrgica",
+   "cobertura": ""
+  },
+  "341201": {
+   "titulo": "Densitometría ósea",
+   "cobertura": "Obligación de cobertura en los siguientes casos: 1. Diagnóstico de Osteoporosis. En mujeres que cumplan con ambos de los siguientes criterios (a) tengan un puntaje IARO (instrumento de análisis de riesgo de osteoporosis)mayor o igual a nueve sumado a alguno de los fac- tores de riesgo (b) Estén dispuestas a realizar tratamiento específico para la osteoporosis. 2. Seguimiento de Osteoporosis — En mujeres bajo tratamiento de osteoporosis no debe solicitarse una DMO (densitometría ósea) de seguimiento antes de los dos años. — No es necesario solicitar dos sitios diferentes para el diagnós- tico de osteoporosis — En las mujeres jóvenes se puede solicitar DMO columna lumbar y en las mayores de 65 puede solicitarse solamente DMO de cadera. — En las pacientes con DMO normales (T score mayor a –1) el seguimiento no debe realizarse en un intervalo menor de 3 a 5 años. — Las mujeres con DMO por encima de lo normal no requieren seguimiento. — Las mujeres en programa de prevención deben ser seguidas cada 2 años hasta la estabilización de la medición. Luego debe realizarse cada 3 años. • Anexo IARO: Instrumento de Evaluación de Riesgo de Osteoporosis 15 puntos para mayores de 75 años 9 puntos entre 65 y 74 20 Código Práctica 5 puntos entre 55 y 64 años 9 si el peso es menor 60 kg 3 puntos entre 60 y 69.9 kg 2 puntos si no usa actualmente estrógenos"
+  },
+  "342001": {
+   "titulo": "Resonancia magnética nuclear cerebral",
+   "cobertura": ""
+  },
+  "342002": {
+   "titulo": "Resonancia Magnética Nuclear cerebral con gadolinio",
+   "cobertura": ""
+  },
+  "342005": {
+   "titulo": "Resonancia Magnética Nuclear tiróidea",
+   "cobertura": ""
+  },
+  "342008": {
+   "titulo": "Resonancia Magnética Nuclear completa de abdomen",
+   "cobertura": ""
+  },
+  "342009": {
+   "titulo": "Resonancia Magnética Nuclear hepatobiliar esplénica pancreática",
+   "cobertura": ""
+  },
+  "342010": {
+   "titulo": "Resonancia Magnética Nuclear torácica",
+   "cobertura": ""
+  },
+  "342011": {
+   "titulo": "Resonancia Magnética Nuclear vejiga y próstata",
+   "cobertura": ""
+  },
+  "342012": {
+   "titulo": "Resonancia Magnética Nuclear de otras regiones encefálicas",
+   "cobertura": "Obligación de cobertura en los siguientes casos: En caso de lesión orgánica ( tumores cerebrales, malformaciones)"
+  },
+  "342013": {
+   "titulo": "Resonancia Magnética Nuclear de columna",
+   "cobertura": "Obligación de cobertura en los siguientes casos: Postoperatorio de columna. Sospecha de hernia discal recurrente postquirúrgica. Ciática y estenosis del canal lumbar. Radiculopatía Cervical. Mielopatía. Siringomielia. Tumores espinales. Tumo- res de la médula y de la columna. Infección. Anomalías congéni- tas. Complementa a la ecografía en el período neonatal. Trauma. Evaluación de la compresión medular (La tomografía es de elec- ción para el traumatismo de columna)"
+  },
+  "342014": {
+   "titulo": "Resonancia Magnética Nuclear de articulaciones",
+   "cobertura": "Obligación de cobertura en los siguientes casos: Patología de Rodilla: 1. Pacientes con lesión traumática aguda, subaguda o crónica con sospecha de compromiso de menisco o ligamentos. 2. Pacientes con síntomas internos compatibles con lesiones meniscales o ligamentarias sin antecedente de traumatismo pre- vio de por lo menos 2 meses de evolución como paso previo al estudio artroscópico. Terapia radiante"
+  },
+  "350101": {
+   "titulo": "roentgenoterapia superficial o profunda",
+   "cobertura": ""
+  },
+  "350102": {
+   "titulo": "telecobaltoterapia telecesioterapia radioterapia dinámica",
+   "cobertura": ""
+  },
+  "350301": {
+   "titulo": "tratamiento con acelerador lineal incluye simulación, pla- nificación, colimadores y dosimetría",
+   "cobertura": ""
+  },
+  "350310": {
+   "titulo": "braquiterapia, terapia de contacto",
+   "cobertura": ""
+  },
+  "350311": {
+   "titulo": "braquiterapia, terapia intracavitaria",
+   "cobertura": ""
+  },
+  "350312": {
+   "titulo": "braquiterapia, terapia intersticial",
+   "cobertura": ""
+  },
+  "350313": {
+   "titulo": "betaterapia oftálmica",
+   "cobertura": ""
+  },
+  "350314": {
+   "titulo": "betaterapia precavitaria encefálica",
+   "cobertura": ""
+  },
+  "350315": {
+   "titulo": "betaterapia intracavitaria encefálica",
+   "cobertura": ""
+  },
+  "360101": {
+   "titulo": "uretrocistocopía con instrumental rígido",
+   "cobertura": ""
+  },
+  "360102": {
+   "titulo": "uretrocistofibroscopía",
+   "cobertura": ""
+  },
+  "360103": {
+   "titulo": "sondaje vesical",
+   "cobertura": ""
+  },
+  "360105": {
+   "titulo": "cistotonomanometría",
+   "cobertura": ""
+  },
+  "360107": {
+   "titulo": "uretroscopía",
+   "cobertura": ""
+  },
+  "360108": {
+   "titulo": "uretrocistoureterofibroscopía con videoscopía",
+   "cobertura": ""
+  },
+  "360111": {
+   "titulo": "estudio urodinámico completo",
+   "cobertura": ""
+  },
+  "360112": {
+   "titulo": "peneoscopía",
+   "cobertura": "Tratamientos Especiales"
+  },
+  "380101": {
+   "titulo": "puvaterapia",
+   "cobertura": "Obligación de cobertura en los siguientes casos: 1. Vitiligo extendido 2. Psoriasis por falta de respuesta al tratamiento o lesiones profun- Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica das y/o extendidas 3. Otras lesiones descamativas no micológicas/bacterianas de la piel. 380201Cámara Hiperbárica • Obligación de cobertura en los siguientes casos: Enfermedad por descompresión, gangrena gaseosa, y embolia gaseosa o aérea Asistencia en consultorio, domicilio e internación 400101internación en terapia intensiva 420101consulta en consultorio 420201consulta en domicilio 420301atención médica en internación clínica o quirúrgica 420303interconsulta especializada en internación 420501internación domiciliaria Prestaciones sanatoriales y de enfermería 430101Cama en habitación c/baño. 430105atención del recién nacido en habitación y/o nursery 430106cama para acompañante • Obligación de cobertura en los siguientes casos: Internación en menores de 15 años, a fin de asegurar una adecuada contención por parte de un familiar durante un momento crítico como es la internación, y sobre todo en este grupo de personas. 430109observación en guardia o piso hasta 8 horas 430201curaciones 430202curaciones quemados 430401nebulización (incluido oxígeno) 430402nebulización con respirador (incluido oxígeno) 430501incubadora tipo isolette o similar 430601luminoterapia 431103asistencia respiratoria en terapia intensiva 431104asistencia respiratoria en áreas de cuidados especiales 431105asistencia respiratoria en neonatología 431106monitoreo de presión endocraneana 431107oximetría por métodos no invasivos Análisis clínicos 660002acetonuria 660004acidimetría gástrica curva de 660005ácido base, estado 660006ACTH 660007addis, recuento de 660013aglutininas anti rh, medio salino albuminoso. Coombs indirecta 660014aglutininas del sistema abo, medio salino albuminoso. Cuantitativo 660016alcohol dehidrogenasa - ADH 660017alcoholemia 660018aldolasa 660019aldosterona 660020alfa feto proteínas 660022amilasemia 660023amilasuria 660025aminoácidos fraccionados por cromatografía 660027aminoaciduria fraccionada por cromatografía 660028amniótico líquido células naranjas 660029amniótico líquido espectrofotometría test de Lisley 660030amniótico líquido lecitina esfingomielina 660031amonemia 660032AMP cíclico 660033angiotensina 660034anhidrasa carbónica b eritrocitaria 21 Código Práctica"
+  },
+  "660035": {
+   "titulo": "antibiograma",
+   "cobertura": ""
+  },
+  "660036": {
+   "titulo": "antibiograma bacilo de Koch 7 antibióticos",
+   "cobertura": ""
+  },
+  "660040": {
+   "titulo": "anticuerpos antiglomerular inmunofluorescencia",
+   "cobertura": ""
+  },
+  "660041": {
+   "titulo": "anticuerpos antimembrana basal inmunofluorescencia",
+   "cobertura": ""
+  },
+  "660042": {
+   "titulo": "anticuerpos antimúsculo liso inmunofluorescencia",
+   "cobertura": ""
+  },
+  "660043": {
+   "titulo": "anticuerpos contra cepa bacteriana aislada",
+   "cobertura": ""
+  },
+  "660044": {
+   "titulo": "anticuerpos antifracción microsomal de tiroides",
+   "cobertura": ""
+  },
+  "660046": {
+   "titulo": "anticuerpos antitiroglobulina",
+   "cobertura": ""
+  },
+  "660049": {
+   "titulo": "antidesoxirribonucleasa - adneasa",
+   "cobertura": ""
+  },
+  "660050": {
+   "titulo": "antiestafilolisina",
+   "cobertura": ""
+  },
+  "660051": {
+   "titulo": "antiestreptolisinas “O”",
+   "cobertura": ""
+  },
+  "660052": {
+   "titulo": "antiestreptoquinasa",
+   "cobertura": ""
+  },
+  "660054": {
+   "titulo": "antihialuronidasa",
+   "cobertura": ""
+  },
+  "660055": {
+   "titulo": "antimitocondriales. Anticuerpos",
+   "cobertura": ""
+  },
+  "660056": {
+   "titulo": "antinucleares Anticuerpos",
+   "cobertura": ""
+  },
+  "660057": {
+   "titulo": "antitripsina, inmunodifusión cuantitativa",
+   "cobertura": ""
+  },
+  "660058": {
+   "titulo": "antitrombina, titulación",
+   "cobertura": ""
+  },
+  "660059": {
+   "titulo": "arsénico",
+   "cobertura": ""
+  },
+  "660060": {
+   "titulo": "ascórbico, ácido",
+   "cobertura": ""
+  },
+  "660061": {
+   "titulo": "autovacuna",
+   "cobertura": ""
+  },
+  "660063": {
+   "titulo": "anticuerpos anti HIV",
+   "cobertura": ""
+  },
+  "660101": {
+   "titulo": "baciloscopía directa - Ziehl Nielsen",
+   "cobertura": ""
+  },
+  "660102": {
+   "titulo": "baciloscopía directa y cultivo",
+   "cobertura": ""
+  },
+  "660103": {
+   "titulo": "baciloscopía por inmunofluorescencia",
+   "cobertura": ""
+  },
+  "660104": {
+   "titulo": "bacteriología directa Gram",
+   "cobertura": ""
+  },
+  "660105": {
+   "titulo": "bacteriología directa cultivo / identificación del germen",
+   "cobertura": ""
+  },
+  "660107": {
+   "titulo": "barbitúricos en orina",
+   "cobertura": ""
+  },
+  "660108": {
+   "titulo": "Bence-Jones, proteínas de",
+   "cobertura": ""
+  },
+  "660109": {
+   "titulo": "bicarbonato",
+   "cobertura": ""
+  },
+  "660110": {
+   "titulo": "bilirrubinemia total, directa e indirecta",
+   "cobertura": ""
+  },
+  "660111": {
+   "titulo": "bilirrubinuria",
+   "cobertura": ""
+  },
+  "660131": {
+   "titulo": "cadena liviana kappa y lambda",
+   "cobertura": ""
+  },
+  "660132": {
+   "titulo": "cadmio en orina",
+   "cobertura": ""
+  },
+  "660133": {
+   "titulo": "calcemia total",
+   "cobertura": ""
+  },
+  "660134": {
+   "titulo": "calcio iónico",
+   "cobertura": ""
+  },
+  "660135": {
+   "titulo": "calcio Prueba de la sobrecarga",
+   "cobertura": ""
+  },
+  "660136": {
+   "titulo": "calciuria",
+   "cobertura": ""
+  },
+  "660137": {
+   "titulo": "calcitonina plasmática",
+   "cobertura": ""
+  },
+  "660138": {
+   "titulo": "calculo urinario, examen fisicoquímico",
+   "cobertura": ""
+  },
+  "660139": {
+   "titulo": "carbónico anhídrido pc02",
+   "cobertura": ""
+  },
+  "660140": {
+   "titulo": "cariotipo, mapa cromosómico",
+   "cobertura": ""
+  },
+  "660141": {
+   "titulo": "caroteno beta de sangre",
+   "cobertura": ""
+  },
+  "660143": {
+   "titulo": "catecolaminas libres fraccionadas",
+   "cobertura": ""
+  },
+  "660144": {
+   "titulo": "CEA carcinoembriogénico",
+   "cobertura": ""
+  },
+  "660148": {
+   "titulo": "células neoplásicas, líquidos, exudados, trasudados",
+   "cobertura": ""
+  },
+  "660150": {
+   "titulo": "cerebrosidos cromatográfico",
+   "cobertura": ""
+  },
+  "660151": {
+   "titulo": "ceruloplásmina",
+   "cobertura": ""
+  },
+  "660152": {
+   "titulo": "cetogenoesteroides, urinarios",
+   "cobertura": ""
+  },
+  "660154": {
+   "titulo": "cetonemia",
+   "cobertura": ""
+  },
+  "660157": {
+   "titulo": "17 cetoesteroides neutros totales",
+   "cobertura": ""
+  },
+  "660158": {
+   "titulo": "17 cetoesteroides, Prueba o respuesta de los, a la estimulación con ACTH",
+   "cobertura": ""
+  },
+  "660159": {
+   "titulo": "17 cetoesteroides, Prueba o respuesta de los, a la inhibi- ción con dexametasona",
+   "cobertura": ""
+  },
+  "660160": {
+   "titulo": "17 cetoesteroides, Prueba o respuesta de los, a la inhibi- ción con dexametasona y estimulación con gonadotrofinas coriónicas",
+   "cobertura": ""
+  },
+  "660161": {
+   "titulo": "17 cetoesteroides y 17 hidroxicorticoides, Prueba o res- puesta de los, a la estimulación con ACTH",
+   "cobertura": ""
+  },
+  "660164": {
+   "titulo": "citología vaginal hormonal 1 muestra",
+   "cobertura": ""
+  },
+  "660167": {
+   "titulo": "cítrico, ácido",
+   "cobertura": ""
+  },
+  "660168": {
+   "titulo": "cloro plasmático",
+   "cobertura": ""
+  },
+  "660169": {
+   "titulo": "coágulación y sangría tiempo de",
+   "cobertura": ""
+  },
+  "660170": {
+   "titulo": "coágulo retracción del",
+   "cobertura": ""
+  },
+  "660171": {
+   "titulo": "coagulograma básico",
+   "cobertura": ""
+  },
+  "660172": {
+   "titulo": "cobre en sangre",
+   "cobertura": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
+  },
+  "660173": {
+   "titulo": "cocaína",
+   "cobertura": ""
+  },
+  "660174": {
+   "titulo": "colesterol total",
+   "cobertura": ""
+  },
+  "660176": {
+   "titulo": "colonias, recuento de",
+   "cobertura": ""
+  },
+  "660177": {
+   "titulo": "compatibilidad rh o gam sangre materna. incluye deter- minación de Du y Coombs indirecta",
+   "cobertura": ""
+  },
+  "660178": {
+   "titulo": "compatibilidad sanguínea matrimonial, 2 grupos siste- ma ABO y 2 genotipos sistema rh",
+   "cobertura": ""
+  },
+  "660179": {
+   "titulo": "complemento actividad total",
+   "cobertura": ""
+  },
+  "660180": {
+   "titulo": "complemento valoración inmunoquímica, C1q, C15, C3,",
+   "cobertura": "C4, C5, C7, C8"
+  },
+  "660181": {
+   "titulo": "concentración de líquidos biológicos",
+   "cobertura": ""
+  },
+  "660182": {
+   "titulo": "concentración, Prueba de la función renal",
+   "cobertura": ""
+  },
+  "660184": {
+   "titulo": "coombs directa, Prueba",
+   "cobertura": ""
+  },
+  "660185": {
+   "titulo": "coombs indirecta cualitativa",
+   "cobertura": ""
+  },
+  "660186": {
+   "titulo": "coombs indirecta cuantitativa",
+   "cobertura": ""
+  },
+  "660187": {
+   "titulo": "coprocultivo",
+   "cobertura": ""
+  },
+  "660188": {
+   "titulo": "coproporfirinas",
+   "cobertura": ""
+  },
+  "660189": {
+   "titulo": "cortisol",
+   "cobertura": ""
+  },
+  "660190": {
+   "titulo": "creatinquinasa - CPK -",
+   "cobertura": ""
+  },
+  "660191": {
+   "titulo": "creatina orina o sangre",
+   "cobertura": ""
+  },
+  "660192": {
+   "titulo": "creatinina, orina o sangre",
+   "cobertura": ""
+  },
+  "660193": {
+   "titulo": "creatinina clearence de depuración",
+   "cobertura": ""
+  },
+  "660194": {
+   "titulo": "crioaglutinina",
+   "cobertura": ""
+  },
+  "660195": {
+   "titulo": "crioglobulinas",
+   "cobertura": ""
+  },
+  "660196": {
+   "titulo": "cromatina sexual",
+   "cobertura": ""
+  },
+  "660241": {
+   "titulo": "Chagas aglutinación directa",
+   "cobertura": ""
+  },
+  "660242": {
+   "titulo": "Chagas fijación de complemento",
+   "cobertura": ""
+  },
+  "660243": {
+   "titulo": "Chagas inmunofluorescencia",
+   "cobertura": ""
+  },
+  "660244": {
+   "titulo": "Chagas reacción del látex",
+   "cobertura": ""
+  },
+  "660261": {
+   "titulo": "Davidson diferencial Prueba",
+   "cobertura": ""
+  },
+  "660262": {
+   "titulo": "dehidroepiandrosterona",
+   "cobertura": ""
+  },
+  "660263": {
+   "titulo": "dermatofitos intradermorreacción",
+   "cobertura": ""
+  },
+  "660266": {
+   "titulo": "dilución, Prueba de la función renal",
+   "cobertura": ""
+  },
+  "660268": {
+   "titulo": "digoxina",
+   "cobertura": ""
+  },
+  "660269": {
+   "titulo": "disacaridasas",
+   "cobertura": ""
+  },
+  "660293": {
+   "titulo": "embarazo reacción inmunológica para",
+   "cobertura": ""
+  },
+  "660295": {
+   "titulo": "eosinofilos recuento de",
+   "cobertura": ""
+  },
+  "660296": {
+   "titulo": "eritroblastos porcentaje de",
+   "cobertura": ""
+  },
+  "660297": {
+   "titulo": "eritrosedimentación",
+   "cobertura": ""
+  },
+  "660298": {
+   "titulo": "espermograma",
+   "cobertura": ""
+  },
+  "660299": {
+   "titulo": "estricnina, en líquidos biológicos",
+   "cobertura": ""
+  },
+  "660300": {
+   "titulo": "estradiol plasmático",
+   "cobertura": ""
+  },
+  "660301": {
+   "titulo": "estriol urinario",
+   "cobertura": ""
+  },
+  "660302": {
+   "titulo": "estriol plasmático",
+   "cobertura": ""
+  },
+  "660304": {
+   "titulo": "estrógenos totales",
+   "cobertura": ""
+  },
+  "660305": {
+   "titulo": "estrona plasmática",
+   "cobertura": ""
+  },
+  "660307": {
+   "titulo": "etanol tóxico en sangre",
+   "cobertura": ""
+  },
+  "660308": {
+   "titulo": "euglobulinas test de",
+   "cobertura": ""
+  },
+  "660309": {
+   "titulo": "exudado nasofaríngeo investigación de loefler",
+   "cobertura": ""
+  },
+  "660331": {
+   "titulo": "factor de coagulación V",
+   "cobertura": ""
+  },
+  "660332": {
+   "titulo": "factor de coagulación VII",
+   "cobertura": ""
+  },
+  "660333": {
+   "titulo": "factor de coagulación VIII",
+   "cobertura": ""
+  },
+  "660334": {
+   "titulo": "factor de coagulación IX",
+   "cobertura": ""
+  },
+  "660335": {
+   "titulo": "factor de coagulación X",
+   "cobertura": ""
+  },
+  "660336": {
+   "titulo": "factor de migración linfocitaria MIF",
+   "cobertura": ""
+  },
+  "660337": {
+   "titulo": "fenilalanina",
+   "cobertura": ""
+  },
+  "660338": {
+   "titulo": "fenilcetonuria",
+   "cobertura": ""
+  },
+  "660340": {
+   "titulo": "fenilpirúvico ácido cuantitativo en orina",
+   "cobertura": ""
+  },
+  "660342": {
+   "titulo": "fenotiazinas",
+   "cobertura": ""
+  },
+  "660343": {
+   "titulo": "ferremia",
+   "cobertura": ""
+  },
+  "660344": {
+   "titulo": "fibrina productos de degradación - PDF -",
+   "cobertura": ""
+  },
+  "660345": {
+   "titulo": "fibrinogeno en sangre",
+   "cobertura": ""
+  },
+  "660349": {
+   "titulo": "físico químico examen liq. exudados trasudados, incluye",
+   "cobertura": ""
+  },
+  "660350": {
+   "titulo": "fluoremia",
+   "cobertura": ""
+  },
+  "660351": {
+   "titulo": "fluoruria",
+   "cobertura": ""
+  },
+  "660352": {
+   "titulo": "fólico ácido microbiológico",
+   "cobertura": "22 Código Práctica"
+  },
+  "660353": {
+   "titulo": "fondo oscuro",
+   "cobertura": ""
+  },
+  "660354": {
+   "titulo": "fórmula leucocitaria",
+   "cobertura": ""
+  },
+  "660355": {
+   "titulo": "fosfatasa ácida prostática",
+   "cobertura": ""
+  },
+  "660356": {
+   "titulo": "fosfatasa ácida total",
+   "cobertura": ""
+  },
+  "660357": {
+   "titulo": "fosfatasa alcalina",
+   "cobertura": ""
+  },
+  "660358": {
+   "titulo": "fosfatasa alcalina citoquímica gomori",
+   "cobertura": ""
+  },
+  "660359": {
+   "titulo": "fosfatasa alcalina citoquímica Kaplow",
+   "cobertura": ""
+  },
+  "660360": {
+   "titulo": "fosfatasa alcalina termoestable",
+   "cobertura": ""
+  },
+  "660361": {
+   "titulo": "fosfatasa alcalina - isoenzimas",
+   "cobertura": ""
+  },
+  "660362": {
+   "titulo": "fosfatemia",
+   "cobertura": ""
+  },
+  "660363": {
+   "titulo": "fosfaturia",
+   "cobertura": ""
+  },
+  "660364": {
+   "titulo": "fosfo-exosa-isomerasa",
+   "cobertura": ""
+  },
+  "660365": {
+   "titulo": "fosfolípidos",
+   "cobertura": ""
+  },
+  "660366": {
+   "titulo": "fósforo clearence depuración",
+   "cobertura": ""
+  },
+  "660367": {
+   "titulo": "fósforo reabsorción tubular",
+   "cobertura": ""
+  },
+  "660368": {
+   "titulo": "fragmento FAB FC",
+   "cobertura": ""
+  },
+  "660369": {
+   "titulo": "Frei, intradermorreacción de",
+   "cobertura": ""
+  },
+  "660370": {
+   "titulo": "FSH",
+   "cobertura": ""
+  },
+  "660371": {
+   "titulo": "FTA/ABS inmunofluorescencia",
+   "cobertura": ""
+  },
+  "660373": {
+   "titulo": "funcional examen materia fecal",
+   "cobertura": ""
+  },
+  "660401": {
+   "titulo": "galactosa, Prueba de la",
+   "cobertura": ""
+  },
+  "660402": {
+   "titulo": "galactosemia",
+   "cobertura": ""
+  },
+  "660403": {
+   "titulo": "galactosuria",
+   "cobertura": ""
+  },
+  "660404": {
+   "titulo": "gases en sangre pCo2 y pO2",
+   "cobertura": ""
+  },
+  "660405": {
+   "titulo": "gastrina plasmática",
+   "cobertura": ""
+  },
+  "660409": {
+   "titulo": "glóbulos blancos recuento",
+   "cobertura": ""
+  },
+  "660410": {
+   "titulo": "glóbulos rojos recuento",
+   "cobertura": ""
+  },
+  "660411": {
+   "titulo": "glucagon test del",
+   "cobertura": ""
+  },
+  "660412": {
+   "titulo": "glucemia",
+   "cobertura": ""
+  },
+  "660413": {
+   "titulo": "glucemia curva de",
+   "cobertura": ""
+  },
+  "660415": {
+   "titulo": "glucógeno, citoquímico",
+   "cobertura": ""
+  },
+  "660416": {
+   "titulo": "glucoproteinograma",
+   "cobertura": ""
+  },
+  "660417": {
+   "titulo": "glucosa 6-fosfatodehidrogenasa",
+   "cobertura": ""
+  },
+  "660418": {
+   "titulo": "glucosa 6-fosfato",
+   "cobertura": ""
+  },
+  "660419": {
+   "titulo": "glutamato dehidrogenasa",
+   "cobertura": ""
+  },
+  "660420": {
+   "titulo": "glutamil transpeptidasa",
+   "cobertura": ""
+  },
+  "660422": {
+   "titulo": "glutation reductasa",
+   "cobertura": ""
+  },
+  "660428": {
+   "titulo": "gonococos por inmunofluorescencia",
+   "cobertura": ""
+  },
+  "660429": {
+   "titulo": "gota gruesa",
+   "cobertura": ""
+  },
+  "660430": {
+   "titulo": "graham test",
+   "cobertura": ""
+  },
+  "660432": {
+   "titulo": "grasas materia fecal cuantitativo",
+   "cobertura": ""
+  },
+  "660433": {
+   "titulo": "grupo sanguíneo",
+   "cobertura": ""
+  },
+  "660463": {
+   "titulo": "haptoglobina",
+   "cobertura": ""
+  },
+  "660464": {
+   "titulo": "Heins cuerpos de",
+   "cobertura": ""
+  },
+  "660465": {
+   "titulo": "hematies, resistencia globular osmótica",
+   "cobertura": ""
+  },
+  "660466": {
+   "titulo": "hematocrito",
+   "cobertura": ""
+  },
+  "660467": {
+   "titulo": "hemoaglutinógenos a2 c/u",
+   "cobertura": ""
+  },
+  "660468": {
+   "titulo": "hemocultivo aerobios anaerobios c/u",
+   "cobertura": ""
+  },
+  "660470": {
+   "titulo": "hemoglobina dosaje de",
+   "cobertura": ""
+  },
+  "660471": {
+   "titulo": "hemoglobina electroforesis",
+   "cobertura": ""
+  },
+  "660472": {
+   "titulo": "hemoglobina en plasma",
+   "cobertura": ""
+  },
+  "660474": {
+   "titulo": "hemoglobina alcali resistente",
+   "cobertura": ""
+  },
+  "660475": {
+   "titulo": "Hemograma",
+   "cobertura": "En este código quedan incluidos el Recuento de Glóbulos Rojos, Hematocrito, dosaje de hemoglobina, Recuento de Reticulocitos, Recuento de Glóbulos Blancos y fórmula leucocitaria. No existe evidencia de su utilidad como pedido en el examen de salud del paciente asintomático."
+  },
+  "660476": {
+   "titulo": "hemolisinas en caliente",
+   "cobertura": ""
+  },
+  "660477": {
+   "titulo": "hemosilinas en frío",
+   "cobertura": ""
+  },
+  "660478": {
+   "titulo": "hemopexina",
+   "cobertura": ""
+  },
+  "660479": {
+   "titulo": "hemosiderina",
+   "cobertura": ""
+  },
+  "660480": {
+   "titulo": "heparina resistencia",
+   "cobertura": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
+  },
+  "660481": {
+   "titulo": "Hepatograma completo",
+   "cobertura": "Este código incluye GOAT; GPT, Fosfatasa Alcalina, Colesterol Total, triglicéridos y KPTT."
+  },
+  "660483": {
+   "titulo": "hidatidosis hemoaglutinación",
+   "cobertura": ""
+  },
+  "660484": {
+   "titulo": "hidatidosis test del látex",
+   "cobertura": ""
+  },
+  "660485": {
+   "titulo": "hidratos de carbono cromatografía",
+   "cobertura": ""
+  },
+  "660486": {
+   "titulo": "17-hidrocorticoides",
+   "cobertura": ""
+  },
+  "660487": {
+   "titulo": "hidroxindolacético ácido",
+   "cobertura": ""
+  },
+  "660488": {
+   "titulo": "hidroxiprolinuria",
+   "cobertura": ""
+  },
+  "660489": {
+   "titulo": "hiperheparinemia",
+   "cobertura": ""
+  },
+  "660490": {
+   "titulo": "histoplasmina",
+   "cobertura": ""
+  },
+  "660492": {
+   "titulo": "homogentísico ácido orina",
+   "cobertura": ""
+  },
+  "660493": {
+   "titulo": "Hubbner test de",
+   "cobertura": ""
+  },
+  "660494": {
+   "titulo": "Huddlesson reacción de",
+   "cobertura": ""
+  },
+  "660531": {
+   "titulo": "mycobacterium, identificación",
+   "cobertura": ""
+  },
+  "660532": {
+   "titulo": "identificación serológica de gérmenes",
+   "cobertura": ""
+  },
+  "660534": {
+   "titulo": "indoxilemia",
+   "cobertura": ""
+  },
+  "660535": {
+   "titulo": "inmunoelectroforesis",
+   "cobertura": ""
+  },
+  "660536": {
+   "titulo": "inmunoelectroforesis líquido",
+   "cobertura": ""
+  },
+  "660537": {
+   "titulo": "inmunoglobulina A",
+   "cobertura": ""
+  },
+  "660538": {
+   "titulo": "inmunoglobulina D",
+   "cobertura": ""
+  },
+  "660539": {
+   "titulo": "inmunoglobulina E",
+   "cobertura": ""
+  },
+  "660540": {
+   "titulo": "inmunoglobulina G",
+   "cobertura": ""
+  },
+  "660541": {
+   "titulo": "inmunoglobulina M",
+   "cobertura": ""
+  },
+  "660542": {
+   "titulo": "insulina clearence",
+   "cobertura": ""
+  },
+  "660543": {
+   "titulo": "insulina",
+   "cobertura": ""
+  },
+  "660546": {
+   "titulo": "ionograma plasmático",
+   "cobertura": ""
+  },
+  "660547": {
+   "titulo": "ionograma urinario",
+   "cobertura": ""
+  },
+  "660548": {
+   "titulo": "isocítrico dehidrogenasa",
+   "cobertura": ""
+  },
+  "660591": {
+   "titulo": "lactamínico ácido",
+   "cobertura": ""
+  },
+  "660592": {
+   "titulo": "láctico ácido enzimático",
+   "cobertura": ""
+  },
+  "660593": {
+   "titulo": "láctico ácido en materia fecal",
+   "cobertura": ""
+  },
+  "660594": {
+   "titulo": "láctico dehidrogenasa LDH",
+   "cobertura": ""
+  },
+  "660596": {
+   "titulo": "LDH isoenzimas",
+   "cobertura": ""
+  },
+  "660597": {
+   "titulo": "lactógeno placentario / somatomamotrofina",
+   "cobertura": ""
+  },
+  "660598": {
+   "titulo": "látex artritis reumatoide",
+   "cobertura": ""
+  },
+  "660600": {
+   "titulo": "látex leptospiras",
+   "cobertura": ""
+  },
+  "660602": {
+   "titulo": "látex trichinosis",
+   "cobertura": ""
+  },
+  "660603": {
+   "titulo": "lazo Prueba del",
+   "cobertura": ""
+  },
+  "660606": {
+   "titulo": "leucinaminopeptidasa",
+   "cobertura": ""
+  },
+  "660607": {
+   "titulo": "leucoaglutinación inhibición de",
+   "cobertura": ""
+  },
+  "660608": {
+   "titulo": "leucoaglutininas método directo",
+   "cobertura": ""
+  },
+  "660609": {
+   "titulo": "leucoprecipitinas",
+   "cobertura": ""
+  },
+  "660610": {
+   "titulo": "levulínico delta aminoácido",
+   "cobertura": ""
+  },
+  "660611": {
+   "titulo": "levulínico dehidratasa",
+   "cobertura": ""
+  },
+  "660612": {
+   "titulo": "LH",
+   "cobertura": ""
+  },
+  "660613": {
+   "titulo": "lipasa en sangre",
+   "cobertura": ""
+  },
+  "660615": {
+   "titulo": "lipidograma electroforético",
+   "cobertura": ""
+  },
+  "660616": {
+   "titulo": "lípidos cromatografía",
+   "cobertura": ""
+  },
+  "660618": {
+   "titulo": "lipoproteinlipasa",
+   "cobertura": ""
+  },
+  "660619": {
+   "titulo": "Líquido Céfalo Raquídeo",
+   "cobertura": ""
+  },
+  "660620": {
+   "titulo": "Líquido de punción físico",
+   "cobertura": ""
+  },
+  "660621": {
+   "titulo": "lisina vasopresina test",
+   "cobertura": ""
+  },
+  "660622": {
+   "titulo": "listerias",
+   "cobertura": ""
+  },
+  "660623": {
+   "titulo": "litio",
+   "cobertura": ""
+  },
+  "660652": {
+   "titulo": "macroglobulina alfa2, inmunodifusión cuantitativa",
+   "cobertura": ""
+  },
+  "660653": {
+   "titulo": "magnesio en sangre",
+   "cobertura": ""
+  },
+  "660654": {
+   "titulo": "magnesio en orina",
+   "cobertura": ""
+  },
+  "660656": {
+   "titulo": "mantoux intradermo-reacción",
+   "cobertura": ""
+  },
+  "660657": {
+   "titulo": "medulograma",
+   "cobertura": ""
+  },
+  "660658": {
+   "titulo": "melanina en orina",
+   "cobertura": ""
+  },
+  "660660": {
+   "titulo": "mercurio screening",
+   "cobertura": ""
+  },
+  "660662": {
+   "titulo": "metanefrinas",
+   "cobertura": ""
+  },
+  "660663": {
+   "titulo": "metanol en orina",
+   "cobertura": ""
+  },
+  "660664": {
+   "titulo": "micología directo o coloración",
+   "cobertura": "23 Código Práctica"
+  },
+  "660665": {
+   "titulo": "micología cultivo e identificación",
+   "cobertura": ""
+  },
+  "660667": {
+   "titulo": "moco cervical cristalización",
+   "cobertura": ""
+  },
+  "660668": {
+   "titulo": "moco nasal ph citológico",
+   "cobertura": ""
+  },
+  "660669": {
+   "titulo": "mononucleosis test del látex o monotest",
+   "cobertura": ""
+  },
+  "660670": {
+   "titulo": "mononucleosis hemoaglutinación",
+   "cobertura": ""
+  },
+  "660671": {
+   "titulo": "mononucleosis hemolítico-Peterson",
+   "cobertura": ""
+  },
+  "660672": {
+   "titulo": "monóxido de carbono",
+   "cobertura": ""
+  },
+  "660673": {
+   "titulo": "morfina o derivados en líquidos biológicos",
+   "cobertura": ""
+  },
+  "660674": {
+   "titulo": "polisacáridos",
+   "cobertura": ""
+  },
+  "660675": {
+   "titulo": "mucoproteínas",
+   "cobertura": ""
+  },
+  "660702": {
+   "titulo": "5-nucleotidasa",
+   "cobertura": ""
+  },
+  "660711": {
+   "titulo": "orina completa",
+   "cobertura": ""
+  },
+  "660713": {
+   "titulo": "orosomucoide, imunodifusión cuantitativa",
+   "cobertura": ""
+  },
+  "660714": {
+   "titulo": "osmolaridad clearence",
+   "cobertura": ""
+  },
+  "660715": {
+   "titulo": "osmolaridad suero",
+   "cobertura": ""
+  },
+  "660716": {
+   "titulo": "oxígeno sangre po2",
+   "cobertura": ""
+  },
+  "660734": {
+   "titulo": "papanicolau endo y exocervical",
+   "cobertura": ""
+  },
+  "660736": {
+   "titulo": "parasitológico seriado",
+   "cobertura": ""
+  },
+  "660737": {
+   "titulo": "parásitos hemáticos",
+   "cobertura": ""
+  },
+  "660738": {
+   "titulo": "parásitos superiores",
+   "cobertura": ""
+  },
+  "660739": {
+   "titulo": "parathormona",
+   "cobertura": ""
+  },
+  "660740": {
+   "titulo": "peroxidasas",
+   "cobertura": ""
+  },
+  "660741": {
+   "titulo": "pH",
+   "cobertura": ""
+  },
+  "660742": {
+   "titulo": "ph en sangre titulación",
+   "cobertura": ""
+  },
+  "660743": {
+   "titulo": "piruvato-quinasa",
+   "cobertura": ""
+  },
+  "660744": {
+   "titulo": "pirúvico ácido enzimático",
+   "cobertura": ""
+  },
+  "660745": {
+   "titulo": "plaquetarios factores",
+   "cobertura": ""
+  },
+  "660746": {
+   "titulo": "plaquetas recuento de",
+   "cobertura": ""
+  },
+  "660747": {
+   "titulo": "plasma recalcificado",
+   "cobertura": ""
+  },
+  "660748": {
+   "titulo": "plasminógeno",
+   "cobertura": ""
+  },
+  "660749": {
+   "titulo": "plomo en orina",
+   "cobertura": ""
+  },
+  "660751": {
+   "titulo": "porfirinas en orina",
+   "cobertura": ""
+  },
+  "660752": {
+   "titulo": "porfobilinógeno en orina",
+   "cobertura": ""
+  },
+  "660753": {
+   "titulo": "potasemia",
+   "cobertura": ""
+  },
+  "660754": {
+   "titulo": "potasuria",
+   "cobertura": ""
+  },
+  "660755": {
+   "titulo": "pregnanodiol",
+   "cobertura": ""
+  },
+  "660756": {
+   "titulo": "pregnantriol",
+   "cobertura": ""
+  },
+  "660758": {
+   "titulo": "progesterona",
+   "cobertura": ""
+  },
+  "660759": {
+   "titulo": "prolactina",
+   "cobertura": ""
+  },
+  "660760": {
+   "titulo": "proteico clearence",
+   "cobertura": ""
+  },
+  "660761": {
+   "titulo": "proteína c reactiva",
+   "cobertura": ""
+  },
+  "660763": {
+   "titulo": "proteínas totales",
+   "cobertura": ""
+  },
+  "660764": {
+   "titulo": "proteinograma acetato",
+   "cobertura": ""
+  },
+  "660766": {
+   "titulo": "proteinogramas líquidos",
+   "cobertura": ""
+  },
+  "660767": {
+   "titulo": "proteinuria",
+   "cobertura": ""
+  },
+  "660768": {
+   "titulo": "protoporfirinas",
+   "cobertura": ""
+  },
+  "660769": {
+   "titulo": "protrombina consumo de",
+   "cobertura": ""
+  },
+  "660770": {
+   "titulo": "protrombina owren o ducket",
+   "cobertura": ""
+  },
+  "660771": {
+   "titulo": "protrombina tiempo de",
+   "cobertura": ""
+  },
+  "660772": {
+   "titulo": "pseudocolinesterasa",
+   "cobertura": ""
+  },
+  "660801": {
+   "titulo": "quimiotripsina",
+   "cobertura": ""
+  },
+  "660812": {
+   "titulo": "renina-angiotensina",
+   "cobertura": ""
+  },
+  "660813": {
+   "titulo": "factor rh",
+   "cobertura": ""
+  },
+  "660814": {
+   "titulo": "Rh factor c grande",
+   "cobertura": ""
+  },
+  "660815": {
+   "titulo": "Rhfactor c chica",
+   "cobertura": ""
+  },
+  "660816": {
+   "titulo": "Rh factor e grande",
+   "cobertura": ""
+  },
+  "660817": {
+   "titulo": "Rh factor e chica",
+   "cobertura": ""
+  },
+  "660818": {
+   "titulo": "Reticulocitos recuento de",
+   "cobertura": ""
+  },
+  "660820": {
+   "titulo": "Rosse Ragan Prueba",
+   "cobertura": ""
+  },
+  "660831": {
+   "titulo": "salicilatos",
+   "cobertura": ""
+  },
+  "660832": {
+   "titulo": "salmonella anticuerpos inmunofluorescencia",
+   "cobertura": ""
+  },
+  "660833": {
+   "titulo": "Sangre Oculta en Materia Fecal",
+   "cobertura": "Observaciones: se trata de una práctica de carácter preventivo en la cual se realizan tres determinaciones seriadas. Ha mostrado su efec- tividad en disminuir la mortalidad por cáncer de colón en un 30%. Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
+  },
+  "660834": {
+   "titulo": "secretina test de la",
+   "cobertura": ""
+  },
+  "660835": {
+   "titulo": "serotonina",
+   "cobertura": ""
+  },
+  "660837": {
+   "titulo": "siderofilina capacidad",
+   "cobertura": ""
+  },
+  "660838": {
+   "titulo": "sims-hubbener test de",
+   "cobertura": ""
+  },
+  "660839": {
+   "titulo": "sodio sangre u orina cada",
+   "cobertura": ""
+  },
+  "660841": {
+   "titulo": "somatotrofina",
+   "cobertura": ""
+  },
+  "660845": {
+   "titulo": "sorbitol dehidrogenasa",
+   "cobertura": ""
+  },
+  "660846": {
+   "titulo": "subtipo A2 determinación",
+   "cobertura": ""
+  },
+  "660847": {
+   "titulo": "sudor test de",
+   "cobertura": ""
+  },
+  "660848": {
+   "titulo": "sulfas en sangre",
+   "cobertura": ""
+  },
+  "660862": {
+   "titulo": "talio en orina",
+   "cobertura": ""
+  },
+  "660863": {
+   "titulo": "testosterona",
+   "cobertura": ""
+  },
+  "660864": {
+   "titulo": "Thorn Prueba de",
+   "cobertura": ""
+  },
+  "660865": {
+   "titulo": "TSH tirotrofina",
+   "cobertura": ""
+  },
+  "660866": {
+   "titulo": "T4 tiroxina total",
+   "cobertura": ""
+  },
+  "660867": {
+   "titulo": "T4 libre tiroxina efectiva",
+   "cobertura": ""
+  },
+  "660868": {
+   "titulo": "tolbutamida Prueba de",
+   "cobertura": ""
+  },
+  "660870": {
+   "titulo": "toxoplasmosis hemoaglutinación",
+   "cobertura": ""
+  },
+  "660871": {
+   "titulo": "toxoplasmosis IFI",
+   "cobertura": ""
+  },
+  "660872": {
+   "titulo": "toxoplasmosis reacción Sabin Feldman",
+   "cobertura": ""
+  },
+  "660873": {
+   "titulo": "transaminasa glutámico",
+   "cobertura": ""
+  },
+  "660874": {
+   "titulo": "transaminasa pirúvica",
+   "cobertura": ""
+  },
+  "660875": {
+   "titulo": "transferrina",
+   "cobertura": ""
+  },
+  "660876": {
+   "titulo": "triglicéridos",
+   "cobertura": ""
+  },
+  "660877": {
+   "titulo": "T3 triiodotironina uptake",
+   "cobertura": ""
+  },
+  "660878": {
+   "titulo": "triiodotironina total T3",
+   "cobertura": ""
+  },
+  "660879": {
+   "titulo": "trombina Prueba",
+   "cobertura": ""
+  },
+  "660880": {
+   "titulo": "trombina tiempo de",
+   "cobertura": ""
+  },
+  "660887": {
+   "titulo": "TTPC tiempo de tromboplastina KPTT",
+   "cobertura": ""
+  },
+  "660901": {
+   "titulo": "urea clearence",
+   "cobertura": ""
+  },
+  "660902": {
+   "titulo": "Uremia",
+   "cobertura": "Observaciones: no se recomienda la realización de esta práctica en el examen de salud de pacientes asintomáticos ambulatorios."
+  },
+  "660903": {
+   "titulo": "uretral exudado o flujo",
+   "cobertura": ""
+  },
+  "660904": {
+   "titulo": "uricemia",
+   "cobertura": ""
+  },
+  "660905": {
+   "titulo": "úrico ácido en orina",
+   "cobertura": ""
+  },
+  "660907": {
+   "titulo": "urocitograma una muestra",
+   "cobertura": ""
+  },
+  "660931": {
+   "titulo": "vaginal exudado o flujo",
+   "cobertura": ""
+  },
+  "660932": {
+   "titulo": "vainillín mandélico ácido",
+   "cobertura": ""
+  },
+  "660934": {
+   "titulo": "VDRL cuantitativa",
+   "cobertura": ""
+  },
+  "660935": {
+   "titulo": "variante bacteriana",
+   "cobertura": ""
+  },
+  "660936": {
+   "titulo": "veronal Prueba del",
+   "cobertura": ""
+  },
+  "660937": {
+   "titulo": "vitamina A",
+   "cobertura": ""
+  },
+  "660938": {
+   "titulo": "vitamina B12",
+   "cobertura": ""
+  },
+  "660939": {
+   "titulo": "vitamina E",
+   "cobertura": ""
+  },
+  "660940": {
+   "titulo": "volemia radioquímico",
+   "cobertura": ""
+  },
+  "660953": {
+   "titulo": "Widal reacción de",
+   "cobertura": ""
+  },
+  "660971": {
+   "titulo": "xilosa-d Prueba de la",
+   "cobertura": ""
+  },
+  "660981": {
+   "titulo": "zinc eritrocitario",
+   "cobertura": ""
+  },
+  "660982": {
+   "titulo": "zinc sérico",
+   "cobertura": ""
+  },
+  "661000": {
+   "titulo": "antígeno prostático total PSA",
+   "cobertura": "Obligación de cobertura en los siguientes casos: 1. Alta sospecha clínica de cáncer de próstata 2. Cáncer de próstata control terapéutico y de recaída del cáncer de próstata."
+  },
+  "661005": {
+   "titulo": "ß-HCG gonadotrofina coriónica cualitativa",
+   "cobertura": ""
+  },
+  "661010": {
+   "titulo": "ß-HCG gonadotrofina coriónica cuantitativa",
+   "cobertura": ""
+  },
+  "661015": {
+   "titulo": "CD4 x citometría de flujo",
+   "cobertura": ""
+  },
+  "661020": {
+   "titulo": "Chlamidias anticuerpos igg",
+   "cobertura": ""
+  },
+  "661025": {
+   "titulo": "citomegalovirus anticuerpo igG",
+   "cobertura": ""
+  },
+  "661030": {
+   "titulo": "citomegalovirus anticuerpo igM",
+   "cobertura": ""
+  },
+  "661035": {
+   "titulo": "colesterol HDL",
+   "cobertura": "24 Código Práctica"
+  },
+  "661040": {
+   "titulo": "colesterol LDL",
+   "cobertura": ""
+  },
+  "661045": {
+   "titulo": "CPK-MB",
+   "cobertura": ""
+  },
+  "661050": {
+   "titulo": "drogas de abuso screening",
+   "cobertura": ""
+  },
+  "661055": {
+   "titulo": "Epstein Barr anti vca IgG",
+   "cobertura": "Obligación de cobertura en los siguientes casos: Sospecha de Mononucleosis infecciosa cuando los anticuerpos heterófilos son negativos."
+  },
+  "661060": {
+   "titulo": "Epstein Barr anti vca IgM: iguales indicaciones que para el código 661055",
+   "cobertura": ""
+  },
+  "661065": {
+   "titulo": "fructosamina",
+   "cobertura": ""
+  },
+  "661070": {
+   "titulo": "hemoglobina glicosidasa",
+   "cobertura": ""
+  },
+  "661075": {
+   "titulo": "Hepatitis A HAV IgM anticuerpo",
+   "cobertura": "Obligación de cobertura en los siguientes casos: 1. Diagnóstico de hepatitis A aguda. 2. Control de hepatitis A diagnosticada cuando se normalizan las transaminasas. 3. Control de hepatitis A diagnosticada de curso prolongado."
+  },
+  "661080": {
+   "titulo": "Hepatitis B HBCa AC anticuerpo IgG",
+   "cobertura": "Obligación de cobertura en los siguientes casos: Control pre y post vacunación hepatitis B"
+  },
+  "661085": {
+   "titulo": "Hepatitis B HBeAg antígeno",
+   "cobertura": "Obligación de cobertura en los siguientes casos: Control de hepatitis crónica para descartar reactivación."
+  },
+  "661090": {
+   "titulo": "Hepatitis B HBsAC anticuerpo",
+   "cobertura": "Obligación de cobertura Control post vacunación o revacunación Control de hepatitis B de curso frecuente una vez confirmada la seroconversión, aproximadamente los 6 meses de la infección para constatar curación de la enfermedad."
+  },
+  "661095": {
+   "titulo": "Hepatitis C HCV IgG anticuerpo",
+   "cobertura": "Obligación de cobertura en los siguientes casos: 1. Diagnosticar la exposición al virus C 2. Rastreo serológico en hemodonantes y pacientes dializados."
+  },
+  "661100": {
+   "titulo": "hidatidosis-arco 5",
+   "cobertura": ""
+  },
+  "661105": {
+   "titulo": "HIV carga viral",
+   "cobertura": ""
+  },
+  "661110": {
+   "titulo": "HIV Western-Blot",
+   "cobertura": ""
+  },
+  "661115": {
+   "titulo": "marcador ca 125 ovario",
+   "cobertura": "Obligación de cobertura en los siguientes casos: Control terapéutico o de recaída del cáncer de ovario."
+  },
+  "661120": {
+   "titulo": "marcador ca 15.3 mama",
+   "cobertura": "Obligación de cobertura en los siguientes casos: Seguimiento de tratamiento en mujeres con cáncer de mama diag- nosticado"
+  },
+  "661130": {
+   "titulo": "microalbuminuria",
+   "cobertura": ""
+  },
+  "661135": {
+   "titulo": "monitoreo de fármacos para enfermedades crónicas",
+   "cobertura": ""
+  },
+  "661140": {
+   "titulo": "mycoplasma anticuerpoIgG",
+   "cobertura": ""
+  },
+  "661145": {
+   "titulo": "rubeola anticuerpo IgG",
+   "cobertura": "Obligación de cobertura en los siguientes casos: Determinación de Inmunidad Virus rubeola"
+  },
+  "661150": {
+   "titulo": "rubeola anticuerpo IgM: iguales indicaciones que el có- digo 661145",
+   "cobertura": ""
+  },
+  "661155": {
+   "titulo": "test rápido de fauces",
+   "cobertura": ""
+  },
+  "661160": {
+   "titulo": "torch (toxoplasmosis, rubeola, citomegalovirus y herpes)",
+   "cobertura": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
+  },
+  "661165": {
+   "titulo": "estudio de ploidia celular en tejido tumoral por citometria de flujo",
+   "cobertura": ""
+  },
+  "661185": {
+   "titulo": "testosterona biodisponible",
+   "cobertura": ""
+  },
+  "661190": {
+   "titulo": "tirotrofina ultrasensible",
+   "cobertura": ""
+  },
+  "661195": {
+   "titulo": "screening neonatal (incluye: TSH neonatal, dosaje de fenilalanina y tripsina inmunorreactiva",
+   "cobertura": ""
+  }
+ },
+ "generalidades": [
+  {
+   "num": "2",
+   "titulo": "Atención Secundaria",
+   "texto": "Los Agentes del Seguro de Salud se encuentran obligados a brindar exclusivamente las especialidades reconocidas por la autoridad sanitaria nacional. 2.1. Especialidades: • Anatomía Patológica • Diagnóstico por imágenes: Radiología, tomografía computada, resonancia magnética • Anestesiología • Cardiología y ecografía. • Cirugía cardiovascular • Endocrinología • Cirugía de cabeza y cuello • Infectología • Cirugía general • Fisiatría (medicina física y rehabilitación) • Cirugía infantil • Cirugía plástica reparadora • Gastroenterología • Cirugía de tórax • Geriatría • Clínica médica • Ginecología • Dermatología • Hematología • Hemoterapia • Oftalmología • Medicina familiar y General • Oncología • Medicina nuclear: diagnóstico y tratamiento • Ortopedia y traumatología • Nefrología • Otorrinolaringología • Neonatología • Pediatría • Neumonología • Psiquiatría • Neurología • Reumatología • Nutrición • Terapia intensiva • Obstetricia • Urología 2.2. Las prestaciones a brindar son: Se asegura la consulta en consultorio e internación. Se asegura la consulta de urgencia y emergencia en domicilio. En los mayores de 65 años que no puedan movilizarse, se asegura la consulta programada en domicilio con un coseguro de $10 por cada visita. En todo otro grupo etario donde sea el paciente esté imposibilitado de desplazarse quedará a discreción de la auditoría del Agente del Seguro la provisión d"
+  },
+  {
+   "num": "3",
+   "titulo": "Internación",
+   "texto": "Se asegura el 100% de cobertura en la internación en cualquiera de sus modalidades (institucional, hospital de día o domiciliaria). Todas las prestaciones y prácticas que se detallan en el anexo II se encuentran incluidas dentro de la cobertura. La cobertura se extiende sin límite de tiempo, a excepción de lo contemplado en el capítulo que corresponde a salud mental."
+  },
+  {
+   "num": "4",
+   "titulo": "Salud mental",
+   "texto": "4.1. Se incluyen todas aquellas actividades de fortalecimiento y desarrollo de comportamientos y hábitos de vida saludables como forma de promoción de la salud en general y de la salud mental en particular. 4.2. Actividades específicas que tienden a prevenir comportamientos que puedan generar trastornos y malestares psíquicos en temas específicos como la depresión, suicidio, adicciones, violencia, violencia familiar, maltrato infantil. Los agentes del seguro propiciarán las prácticas de promoción de salud mental mediante el desarrollo de actividades acordes a las modalidades que consideren pertinentes para su población beneficiaria. 4.3. Prestaciones cubiertas: atención ambulatoria hasta 30 visitas por año calendario, no pudiendo exceder la cantidad de 4 consultas mensuales. Esto incluye las modalidades de entrevista psiquiátrica, psicológica, psicopedagogía, psicoterapia individual, psicoterapia grupal, psicoterapia de familia y de pareja, psicodiagnóstico. 4.4. Internación: se cubrirán patologías agudas en las modalidades institucional u hospital de día. Hasta 30 días por año calendario."
+  },
+  {
+   "num": "5",
+   "titulo": "Rehabilitación",
+   "texto": "Se incluyen todas las prácticas kinesiológicas y fonoaudiológicas que se detallan en el Anexo II de la presente Resolución. Los Agentes del Seguro de Salud darán cobertura ambulatoria para rehabilitación motriz, psicomotriz, readaptación ortopédica y rehabilitación sensorial. Kinesioterapia: hasta 25 sesiones por beneficiario por año calendario Fonoaudiología: hasta 25 sesiones por beneficiario por año calendario Estimulación temprana: en los términos que se define en el Anexo II de la presente Resolución"
+  },
+  {
+   "num": "6",
+   "titulo": "Odontología",
+   "texto": "6.1. Se asegura la cobertura por parte de los Agentes del Seguro de Salud, de las siguientes prácticas: 1.01 Consulta. Diagnóstico. Fichado y plan de tratamiento. Este código incluye examen, diagnóstico y plan de tratamiento. Se considera como primera consulta y comprende la confección de la ficha odontológica. 1.04 Consulta de urgencia. Se considera consulta de urgencia a toda consulta sin turno previo, que resuelva la demanda espontánea. El beneficiario una vez resuelta la urgencia podrá consultar a su odontólogo general para iniciar el tratamiento definitivo de la patología que lo afecte. No se contempla dentro de esa consulta la realización de prácticas no cubiertas, a excepción del cementado de puentes y coronas que no requieran de restauración protética. 2.01 Obturación de amalgama. Cavidad simple. 2.02 Obturación de amalgama. Cavidad compuesta o compleja. 2.04 Obturación con tornillo en conducto. Comprende el tratamiento de los tejidos duros del diente para resolver los daños provocados por la caries dental cuando la destrucción coronaria sea mayor que los dos tercios de la distancia intercuspídea. La obturación definitiva debe incluir, en menores de 18 años, el sellado de todas las superficies no tratadas. Será reconocida una única vez por pieza tratada. 2.05 Obturación resina autocurado. Cavidad simple. 3 2.06 Obturación resina autocurado. Cavidad compuesta o compleja."
+  }
+ ],
+ "topes": [
+  "Prestaciones cubiertas: atención ambulatoria hasta 30 visitas por año calendario, no pudiendo exceder la cantidad de 4 consultas mensuales",
+  "Kinesioterapia: hasta 25 sesiones por beneficiario por año calendario Fonoaudiología: hasta 25 sesiones por beneficiario por año calendario Est",
+  "Se cubrirá hasta los 18 años y hasta dos veces por año",
+  "Esta práctica se reconoce hasta los 15 años en premolares y molares permanentes",
+  "Se cubrirá hasta los 15 años de edad e incluye la consulta diagnóst",
+  "Se cubrirá por única vez por pieza dentaria y en pacientes de hasta 8 años inclusive",
+  "En primeros molares permanentes hasta los 15 años de edad",
+  "El monto de coseguros a pagar será de hasta $ 4 para niños de hasta 15 años, y para mayores de 65 años"
+ ]
+}

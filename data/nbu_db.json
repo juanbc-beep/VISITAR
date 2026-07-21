@@ -378,6 +378,43 @@
    }
   },
   "pmo_normas_nota": "Normas generales orientativas de facturación por capítulo. Verificar siempre contra la norma/convenio aplicable. No reemplazan al texto oficial del nomenclador.",
+  "pmo_generalidades": [
+   {
+    "num": "2",
+    "titulo": "Atención Secundaria",
+    "texto": "Los Agentes del Seguro de Salud se encuentran obligados a brindar exclusivamente las especialidades reconocidas por la autoridad sanitaria nacional. 2.1. Especialidades: • Anatomía Patológica • Diagnóstico por imágenes: Radiología, tomografía computada, resonancia magnética • Anestesiología • Cardiología y ecografía. • Cirugía cardiovascular • Endocrinología • Cirugía de cabeza y cuello • Infectología • Cirugía general • Fisiatría (medicina física y rehabilitación) • Cirugía infantil • Cirugía plástica reparadora • Gastroenterología • Cirugía de tórax • Geriatría • Clínica médica • Ginecología • Dermatología • Hematología • Hemoterapia • Oftalmología • Medicina familiar y General • Oncología • Medicina nuclear: diagnóstico y tratamiento • Ortopedia y traumatología • Nefrología • Otorrinolaringología • Neonatología • Pediatría • Neumonología • Psiquiatría • Neurología • Reumatología • Nutrición • Terapia intensiva • Obstetricia • Urología 2.2. Las prestaciones a brindar son: Se asegura la consulta en consultorio e internación. Se asegura la consulta de urgencia y emergencia en domicilio. En los mayores de 65 años que no puedan movilizarse, se asegura la consulta programada en domicilio con un coseguro de $10 por cada visita. En todo otro grupo etario donde sea el paciente esté imposibilitado de desplazarse quedará a discreción de la auditoría del Agente del Seguro la provisión d"
+   },
+   {
+    "num": "3",
+    "titulo": "Internación",
+    "texto": "Se asegura el 100% de cobertura en la internación en cualquiera de sus modalidades (institucional, hospital de día o domiciliaria). Todas las prestaciones y prácticas que se detallan en el anexo II se encuentran incluidas dentro de la cobertura. La cobertura se extiende sin límite de tiempo, a excepción de lo contemplado en el capítulo que corresponde a salud mental."
+   },
+   {
+    "num": "4",
+    "titulo": "Salud mental",
+    "texto": "4.1. Se incluyen todas aquellas actividades de fortalecimiento y desarrollo de comportamientos y hábitos de vida saludables como forma de promoción de la salud en general y de la salud mental en particular. 4.2. Actividades específicas que tienden a prevenir comportamientos que puedan generar trastornos y malestares psíquicos en temas específicos como la depresión, suicidio, adicciones, violencia, violencia familiar, maltrato infantil. Los agentes del seguro propiciarán las prácticas de promoción de salud mental mediante el desarrollo de actividades acordes a las modalidades que consideren pertinentes para su población beneficiaria. 4.3. Prestaciones cubiertas: atención ambulatoria hasta 30 visitas por año calendario, no pudiendo exceder la cantidad de 4 consultas mensuales. Esto incluye las modalidades de entrevista psiquiátrica, psicológica, psicopedagogía, psicoterapia individual, psicoterapia grupal, psicoterapia de familia y de pareja, psicodiagnóstico. 4.4. Internación: se cubrirán patologías agudas en las modalidades institucional u hospital de día. Hasta 30 días por año calendario."
+   },
+   {
+    "num": "5",
+    "titulo": "Rehabilitación",
+    "texto": "Se incluyen todas las prácticas kinesiológicas y fonoaudiológicas que se detallan en el Anexo II de la presente Resolución. Los Agentes del Seguro de Salud darán cobertura ambulatoria para rehabilitación motriz, psicomotriz, readaptación ortopédica y rehabilitación sensorial. Kinesioterapia: hasta 25 sesiones por beneficiario por año calendario Fonoaudiología: hasta 25 sesiones por beneficiario por año calendario Estimulación temprana: en los términos que se define en el Anexo II de la presente Resolución"
+   },
+   {
+    "num": "6",
+    "titulo": "Odontología",
+    "texto": "6.1. Se asegura la cobertura por parte de los Agentes del Seguro de Salud, de las siguientes prácticas: 1.01 Consulta. Diagnóstico. Fichado y plan de tratamiento. Este código incluye examen, diagnóstico y plan de tratamiento. Se considera como primera consulta y comprende la confección de la ficha odontológica. 1.04 Consulta de urgencia. Se considera consulta de urgencia a toda consulta sin turno previo, que resuelva la demanda espontánea. El beneficiario una vez resuelta la urgencia podrá consultar a su odontólogo general para iniciar el tratamiento definitivo de la patología que lo afecte. No se contempla dentro de esa consulta la realización de prácticas no cubiertas, a excepción del cementado de puentes y coronas que no requieran de restauración protética. 2.01 Obturación de amalgama. Cavidad simple. 2.02 Obturación de amalgama. Cavidad compuesta o compleja. 2.04 Obturación con tornillo en conducto. Comprende el tratamiento de los tejidos duros del diente para resolver los daños provocados por la caries dental cuando la destrucción coronaria sea mayor que los dos tercios de la distancia intercuspídea. La obturación definitiva debe incluir, en menores de 18 años, el sellado de todas las superficies no tratadas. Será reconocida una única vez por pieza tratada. 2.05 Obturación resina autocurado. Cavidad simple. 3 2.06 Obturación resina autocurado. Cavidad compuesta o compleja."
+   }
+  ],
+  "pmo_topes": [
+   "Prestaciones cubiertas: atención ambulatoria hasta 30 visitas por año calendario, no pudiendo exceder la cantidad de 4 consultas mensuales",
+   "Kinesioterapia: hasta 25 sesiones por beneficiario por año calendario Fonoaudiología: hasta 25 sesiones por beneficiario por año calendario Est",
+   "Se cubrirá hasta los 18 años y hasta dos veces por año",
+   "Esta práctica se reconoce hasta los 15 años en premolares y molares permanentes",
+   "Se cubrirá hasta los 15 años de edad e incluye la consulta diagnóst",
+   "Se cubrirá por única vez por pieza dentaria y en pacientes de hasta 8 años inclusive",
+   "En primeros molares permanentes hasta los 15 años de edad",
+   "El monto de coseguros a pagar será de hasta $ 4 para niños de hasta 15 años, y para mayores de 65 años"
+  ],
   "pmo_asociaciones": {},
   "grupos": {
    "Otros / general": 835,
@@ -169386,7 +169423,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Sistema nervioso (cirugía)."
-   ]
+   ],
+   "cobertura_pmo": "5 Código Práctica"
   },
   "010301": {
    "code": "010301",
@@ -172083,7 +172121,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Sistema nervioso (cirugía)."
-   ]
+   ],
+   "cobertura_pmo": "Operaciones en el aparato de la visión"
   },
   "020101": {
    "code": "020101",
@@ -172217,7 +172256,8 @@
      "score": 0.9429,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
   },
   "020103": {
    "code": "020103",
@@ -172293,7 +172333,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato de la visión (cirugía)",
-   "nombre": "ción, extracción de cuerpo extraño, biopsia, drenaje introducción de sustancias terapéuticas retroglobulares",
+   "nombre": "introducción de sustancias terapéuticas retroglobulares inyectables",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -174935,7 +174975,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato de la visión (cirugía)",
-   "nombre": "fotocoagulación con yag láser: de cobertura en los siguientes casos: se realiza luego de los 6 meses posteriores a la cirugía en pacientes con opacificación clínicamente signifi- la cápsula posterior del ojo operado se realiza en pacientes con opacificación capsular independientemente del deterioro funcional, por cual- los siguientes motivos: proveer mejor visualización del polo ocular posterior en 6",
+   "nombre": "fotocoagulación con yag láser:",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -174969,7 +175009,8 @@
      "score": 0.9795,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: 1. Cuando se realiza luego de los 6 meses posteriores a la cirugía de cataratas, en pacientes con opacificación clínicamente signifi- cativa de la cápsula posterior del ojo operado 2. Cuando se realiza en pacientes con opacificación capsular posterior, independientemente del deterioro funcional, por cual- quiera de los siguientes motivos: — Para proveer mejor visualización del polo ocular posterior en 6 Código Práctica casos de desprendimiento de retina, enfermedad macular, retinopatía diabética — Para realizar diagnóstico de tumores de polo ocular posterior — Para evaluar la porción intraocular del nervio óptico 3. Cuando la presencia de opacidad capsular posterior sea causa de diplopía monocular 4. Cuando se realiza antes de los 6 meses posteriores a la cirugía de cataratas, únicamente si uno o más de los siguientes criterios de necesidad médica están presentes: Criterio 1) El paciente tiene un score corregido de agudeza visual de Snellen de 20/50 o peor sumado a las dos siguientes condicio- nes simultáneamente: — El examen ocular confirma que la opacificación capsular pos- terior está presente — El deterioro de la visión ha interferido con la capacidad del paciente para llevar adelante sus actividades habituales Criterio 2) El paciente tiene una agudeza visual corregida máxima de 20/40 o mejor + las tres siguientes condiciones simultánea- mente: — Agudeza visual fluctuante como resultado de resplandor o disminución del contraste — El examen ocular confirma que la opacificación capsular pos- terior está presente — El deterioro de la visión ha interferido con la capacidad del paciente para llevar adelante sus actividades habituales • Observaciones: Se considera inapropiada 1. Si se realiza de manera concurrente con la cirugía de cataratas 2. Si se realiza de manera profiláctica 3. Si se realiza de manera sistemática luego de las cirugías de cataratas sin tener en cuenta las necesidades específicas de cada paciente"
   },
   "020902": {
    "code": "020902",
@@ -174978,7 +175019,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato de la visión (cirugía)",
-   "nombre": "desprendimiento de retina, enfermedad macular, diabética realizar diagnóstico de tumores de polo ocular posterior evaluar la porción intraocular del nervio óptico la presencia de opacidad capsular posterior sea causa monocular se realiza antes de los 6 meses posteriores a la cirugía únicamente si uno o más de los siguientes criterios médica están presentes: 1) El paciente tiene un score corregido de agudeza visual de 20/50 o peor sumado a las dos siguientes condicio- ocular confirma que la opacificación capsular pos- presente de la visión ha interferido con la capacidad del para llevar adelante sus actividades habituales 2) El paciente tiene una agudeza visual corregida máxima o mejor + las tres siguientes condiciones simultánea- visual fluctuante como resultado de resplandor o del contraste ocular confirma que la opacificación capsular pos- presente de la visión ha interferido con la capacidad del para llevar adelante sus actividades habituales inapropiada de manera concurrente con la cirugía de cataratas de manera profiláctica realiza de manera sistemática luego de las cirugías de sin tener en cuenta las necesidades específicas de cada fotocoagulación con láser only green de cobertura en los siguientes casos",
+   "nombre": "fotocoagulación con láser only green",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -175012,7 +175053,8 @@
      "score": 0.9468,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Lesiones maculares"
   },
   "020904": {
    "code": "020904",
@@ -175055,7 +175097,8 @@
      "score": 0.9392,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Lesiones maculares"
   },
   "020905": {
    "code": "020905",
@@ -175098,7 +175141,8 @@
      "score": 0.9385,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Hemorragias de cuerpo vítreo"
   },
   "020906": {
    "code": "020906",
@@ -175107,7 +175151,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato de la visión (cirugía)",
-   "nombre": "iridectomía por láser de cobertura en los siguientes casos: agudo de ángulo estrecho estrecho de un ojo con antecedente de iridectomía en el",
+   "nombre": "iridectomía por láser",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -175141,7 +175185,8 @@
      "score": 0.9522,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: 1. Glaucoma agudo de ángulo estrecho 2. Angulo estrecho de un ojo con antecedente de iridectomía en el contralateral (llamada iridectomía preventiva)"
   },
   "020907": {
    "code": "020907",
@@ -175150,7 +175195,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato de la visión (cirugía)",
-   "nombre": "(llamada iridectomía trabeculoplastia con láser de cobertura en los siguientes casos: crónico cuando no mejora con tratamiento médico local y presente comorbilidad (contraindicación de beta",
+   "nombre": "trabeculoplastia con láser",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -175184,7 +175229,8 @@
      "score": 0.9499,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Glaucoma crónico cuando no mejora con tratamiento médico local y general y presente comorbilidad (contraindicación de beta bloqueantes, inhibidores de la anhidrasa carbónica, etc.) y esté formalmente contraindicada la cirugía (trabeculectomía quirúrgica) Operaciones Otorrinolaringológicas"
   },
   "030101": {
    "code": "030101",
@@ -175193,7 +175239,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Otorrinolaringología (cirugía)",
-   "nombre": "inhibidores de la anhidrasa carbónica, etc.) y esté contraindicada la cirugía (trabeculectomía quirúrgica) Operaciones Otorrinolaringológicas reconstrucción del pabellón auricular con injerto de car",
+   "nombre": "reconstrucción del pabellón auricular con injerto de car- tílago y piel",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -175428,7 +175474,8 @@
      "score": 0.9343,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
   },
   "030105": {
    "code": "030105",
@@ -175761,7 +175808,8 @@
      "score": 0.8891,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Biopsia de oído externo"
   },
   "030201": {
    "code": "030201",
@@ -179216,7 +179264,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Otorrinolaringología (cirugía)."
-   ]
+   ],
+   "cobertura_pmo": "7 Código Práctica"
   },
   "030701": {
    "code": "030701",
@@ -182378,7 +182427,8 @@
      "score": 0.9687,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Operaciones en el Sistema Endocrino"
   },
   "040101": {
    "code": "040101",
@@ -182715,7 +182765,8 @@
      "score": 0.9712,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
   },
   "040107": {
    "code": "040107",
@@ -183051,7 +183102,8 @@
      "score": 0.9538,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Operaciones en el Tórax"
   },
   "050101": {
    "code": "050101",
@@ -183873,7 +183925,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Tórax (cirugía)",
-   "nombre": "Operaciones en el mediastino vía torácica o videoscópica de cobertura en los siguientes casos: de cáncer de pulmón",
+   "nombre": "Operaciones en el mediastino vía torácica o videoscópica",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -183932,7 +183984,8 @@
      "score": 0.907,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Estadificación de cáncer de pulmón Tumores del mediastino Heridas torácicas"
   },
   "050405": {
    "code": "050405",
@@ -183941,7 +183994,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Tórax (cirugía)",
-   "nombre": "del mediastino torácicas Mediastinoscopía con o sin videoscopía de cobertura en los siguientes casos",
+   "nombre": "Mediastinoscopía con o sin videoscopía",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -183999,7 +184052,8 @@
      "score": 0.9133,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Estadificación de cáncer de pulmón"
   },
   "050406": {
    "code": "050406",
@@ -184395,7 +184449,8 @@
      "score": 0.9511,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Lesiones periféricas cuya resección sea exclusivamente por esa vía."
   },
   "050501": {
    "code": "050501",
@@ -184404,7 +184459,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Tórax (cirugía)",
-   "nombre": "periféricas cuya resección sea exclusivamente por esa vía. colocación de stent endobronquial de cobertura en los siguientes casos: sintomático de pacientes con obstrucción crítica de la principalmente debida a compresión extrínseca con o endoluminal de patología benigna obstructiva aérea no opera- estenosis post-extubación no operable) o en pacientes",
+   "nombre": "colocación de stent endobronquial",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -184438,7 +184493,8 @@
      "score": 0.9485,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: 1- El alivio sintomático de pacientes con obstrucción crítica de la vía aérea, principalmente debida a compresión extrínseca con o sin componente endoluminal 2- La resolución de patología benigna obstructiva aérea no opera- ble (p. ej. estenosis post-extubación no operable) o en pacientes no elegibles para cirugía 3- El tratamiento paliativo de enfermedades neoplásicas que de- terminan síntomas obstructivos de la vía aérea, ya sea definitivo o transitorio (en espera de radioterapia o tratamiento antineoplásico). Operaciones en la Mama"
   },
   "060101": {
    "code": "060101",
@@ -184447,7 +184503,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Mama (cirugía)",
-   "nombre": "para cirugía paliativo de enfermedades neoplásicas que de- síntomas obstructivos de la vía aérea, ya sea definitivo (en espera de radioterapia o tratamiento Operaciones en la Mama mastectomía radical",
+   "nombre": "mastectomía radical",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -184750,7 +184806,8 @@
      "score": 0.9269,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "8 Código Práctica"
   },
   "060107": {
    "code": "060107",
@@ -185117,7 +185174,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Mama (cirugía)."
-   ]
+   ],
+   "cobertura_pmo": "Operaciones en el Sistema Cardiovascular"
   },
   "070101": {
    "code": "070101",
@@ -185875,7 +185933,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Sistema cardiovascular (cirugía)",
-   "nombre": "colocación de desfibrilador implantable de cobertura en los siguientes casos: consenso y evidencia de buena calidad: secundaria: Pacientes que presenten lo siguiente de una causa tratable cardíaco debido a taquicardia ventricular o fibrilación ventricular (TV) espontánea y sostenida que pro- o compromiso hemodinámico significativo sostenida sin síncope o paro cardíaco, asociada a una de la fracción de eyección (<35%) en pacientes cuya no sea peor que III de la clasificación funcional de cardíaca de la New York Heart Association primaria",
+   "nombre": "colocación de desfibrilador implantable",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -185909,7 +185967,8 @@
      "score": 1.0,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Amplio consenso y evidencia de buena calidad: 1- Prevención secundaria: Pacientes que presenten lo siguiente en ausencia de una causa tratable (a) Paro cardíaco debido a taquicardia ventricular o fibrilación ventricular (b) Taquicardia ventricular (TV) espontánea y sostenida que pro- voca síncope o compromiso hemodinámico significativo (c) TV sostenida sin síncope o paro cardíaco, asociada a una reducción de la fracción de eyección (<35%) en pacientes cuya clase funcional no sea peor que III de la clasificación funcional de insuficiencia cardíaca de la New York Heart Association 2- Prevención primaria: (a) pacientes con historia de infarto agudo de miocardio (IAM) que a su vez tienen todo lo siguiente: TV no sostenida en el holter más Taquicardia Ventricular en estu- dio electrofisiológico sumado a mala función ventricular izquier- da y clase funcional I, II o III de la clasificación funcional de insuficiencia cardíaca de la New York Heart Association (b) condiciones familiares cardíacas con un alto riesgo de muerte súbita, incluyendo a los síndromes de QT prolongado, la cardiomiopatía hipertrófica, el síndrome de Brugada, la displasia ventricular derecha arritmogénica, y luego de la reparación de la tetralogía de Fallot"
   },
   "070201": {
    "code": "070201",
@@ -185918,7 +185977,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Sistema cardiovascular (cirugía)",
-   "nombre": "con historia de infarto agudo de miocardio (IAM) vez tienen todo lo siguiente: en el holter más Taquicardia Ventricular en estu- sumado a mala función ventricular izquier- funcional I, II o III de la clasificación funcional de cardíaca de la New York Heart Association familiares cardíacas con un alto riesgo de muerte incluyendo a los síndromes de QT prolongado, la hipertrófica, el síndrome de Brugada, la displasia derecha arritmogénica, y luego de la reparación de la de Fallot tratamiento quirúrgico de las cardiopatías congénitas",
+   "nombre": "tratamiento quirúrgico de las cardiopatías congénitas",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -186249,7 +186308,8 @@
      "score": 0.9104,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Aneurisma disecante de aorta"
   },
   "070208": {
    "code": "070208",
@@ -186605,7 +186665,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Sistema cardiovascular (cirugía)",
-   "nombre": "dad torácica tratamiento quirúrgico del aneurisma de aorta toraco abdominal Normativa Nº 1/2002 - S.S.SALUD",
+   "nombre": "tratamiento quirúrgico del aneurisma de aorta toraco abdominal",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -186664,7 +186724,8 @@
      "score": 0.9404,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
   },
   "070401": {
    "code": "070401",
@@ -189137,7 +189198,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Sistema cardiovascular (cirugía)",
-   "nombre": "angioplastia trasluminal coronaria con Rotablator / Simpson de cobertura en los siguientes casos",
+   "nombre": "angioplastia trasluminal coronaria con Rotablator /",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -189162,7 +189223,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Sistema cardiovascular (cirugía)."
-   ]
+   ],
+   "cobertura_pmo": "Simpson • Obligación de cobertura en los siguientes casos: Lesiones calcificadas no dilatables"
   },
   "070804": {
    "code": "070804",
@@ -189171,7 +189233,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Sistema cardiovascular (cirugía)",
-   "nombre": "calcificadas no dilatables tratamiento desembolizante con quinasas de cobertura en los siguientes casos",
+   "nombre": "tratamiento desembolizante con quinasas",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -189196,7 +189258,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Sistema cardiovascular (cirugía)."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Infarto agudo de miocardio"
   },
   "070805": {
    "code": "070805",
@@ -189239,7 +189302,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Sistema cardiovascular (cirugía)",
-   "nombre": "angioplastia periférica con colocación de stent de cobertura en los siguientes casos: Renal: La cobertura será obligatoria cuando se cum- siguientes criterios:al menos 75% de estenosis de una o 9",
+   "nombre": "angioplastia periférica con colocación de stent",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -189273,7 +189336,8 @@
      "score": 0.8855,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: 1. Arterial Renal: La cobertura será obligatoria cuando se cum- plen los siguientes criterios:al menos 75% de estenosis de una o 9 Código Práctica ambas arterias y que desarrollen, a pesar de tratamiento médico óptimo (asociación de dosis máximas de 3 o más drogas sinérgicas) al menos alguna de las siguientes condiciones: — Hipertensión no controlada — Edema pulmonar recurrente fugaz — Ingreso a diálisis dependiente únicamente de estenosis ateroesclerótica de la arteria renal, o deterioro de función renal, especialmente con estenosis bilateral o riñón único funcionante. 2. Enfermedad Arterial Periférica de miembros inferiores: La co- bertura será obligatoria cuando se cumplen los siguientes crite- rios: Estenosis u oclusión de la arteria ilíaca con claudicación intermitente o isquemia crítica de la extremidad con empeora- miento clínico y que luego de una extensa evaluación y tratamien- to médico adecuados no mejora ni se estabiliza y requiere de un procedimiento invasivo, ante la presencia de al menos alguna de las siguientes condiciones clínicas: — Dolor vascular limitante para su estilo de vida habitual o permanente en reposo — Ulceras vasculares no cicatrizantes o gangrena focal — Deberá cumplirse en su totalidad con los siguientes criterios anatómicos: — lesiones menores de 10 cm — lesiones localizadas en la ilíaca externa o común,"
   },
   "070901": {
    "code": "070901",
@@ -189282,7 +189346,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Sistema cardiovascular (cirugía)",
-   "nombre": "y que desarrollen, a pesar de tratamiento médico de dosis máximas de 3 o más drogas sinérgicas) alguna de las siguientes condiciones: no controlada pulmonar recurrente fugaz a diálisis dependiente únicamente de estenosis de la arteria renal, o deterioro de función renal, con estenosis bilateral o riñón único funcionante. Arterial Periférica de miembros inferiores: La co- será obligatoria cuando se cumplen los siguientes crite- u oclusión de la arteria ilíaca con claudicación o isquemia crítica de la extremidad con empeora- y que luego de una extensa evaluación y tratamien- adecuados no mejora ni se estabiliza y requiere de un invasivo, ante la presencia de al menos alguna de condiciones clínicas: vascular limitante para su estilo de vida habitual o en reposo vasculares no cicatrizantes o gangrena focal cumplirse en su totalidad con los siguientes criterios menores de 10 cm localizadas en la ilíaca externa o común, transplante cardíaco",
+   "nombre": "transplante cardíaco",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -189368,7 +189432,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Sistema cardiovascular (cirugía)",
-   "nombre": "valvuloplastia mitral de cobertura en los siguientes casos: sintomáticos (NYHAclase II-III-IV) con estenosis o severa (área valvular <1.5cm cuadrados) y en de trombo auricular, regurgitación moderada a severa, valvular aórtica o tricuspidea severas o enfermedad severa con alguna de las condiciones: valvular favorable (score de 8 o menos en criterios calcificada no plegable con alto riesgo quirúrgico mitral después de comisurotomía quirúrgica anterior. está contraindicada",
+   "nombre": "valvuloplastia mitral",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -189393,7 +189457,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Sistema cardiovascular (cirugía)."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: 1. Pacientes sintomáticos (NYHAclase II-III-IV) con estenosis mitral moderada o severa (área valvular <1.5cm cuadrados) y en ausencia de trombo auricular, regurgitación moderada a severa, enfermedad valvular aórtica o tricuspidea severas o enfermedad coronaria severa con alguna de las siguientes condiciones: — Morfología valvular favorable (score de 8 o menos en criterios ecocardiográficos) — Válvula calcificada no plegable con alto riesgo quirúrgico — Restenosis mitral después de comisurotomía quirúrgica anterior. — La cirugía está contraindicada — Pacientes en los 2do. y 3er. trimestres de embarazo en los cuales se espera que la VPB alcance la mejora hemodinámica y sintomática con riesgo mínimo para la madre y al feto 2. Pacientes asintomáticos (NYHA clase II-III-IV) con estenosis mitral moderada o severa (área valvular <1.5cm cuadrados) y morfología valvular favorable (score de 8 o menos en criterios ecocardiográficos en ausencia de trombo auricular, regurgitación mitral moderada a severa enfermedad valvular aórtica o tricuspidea severas o enfermedad coronaria severa que requiere revascularización quirúrgica con: hipertensión pulmonar secun- daria (> 50 mmhg)"
   },
   "071002": {
    "code": "071002",
@@ -189402,7 +189467,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Sistema cardiovascular (cirugía)",
-   "nombre": "en los 2do. y 3er. trimestres de embarazo en los espera que la VPB alcance la mejora hemodinámica y con riesgo mínimo para la madre y al feto asintomáticos (NYHA clase II-III-IV) con estenosis o severa (área valvular <1.5cm cuadrados) y valvular favorable (score de 8 o menos en criterios en ausencia de trombo auricular, regurgitación a severa enfermedad valvular aórtica o tricuspidea o enfermedad coronaria severa que requiere quirúrgica con: hipertensión pulmonar secun- 50 mmhg) Valvuloplastia pulmonar de cobertura en los siguientes casos: con disnea de esfuerzo, angina, presíncope o síncope sintomático con gradiente arterial pulmonar pico > de",
+   "nombre": "Valvuloplastia pulmonar",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -189436,7 +189501,8 @@
      "score": 0.8978,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: 1) Pacientes con disnea de esfuerzo, angina, presíncope o síncope 2) Paciente sintomático con gradiente arterial pulmonar pico > de 40 mmhg Operaciones en el Aparato Digestivo y Abdomen"
   },
   "080101": {
    "code": "080101",
@@ -189844,7 +189910,8 @@
      "score": 0.9094,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
   },
   "080108": {
    "code": "080108",
@@ -190192,7 +190259,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato digestivo y abdomen (cirugía)",
-   "nombre": "colocación de prótesis esofágicas de cobertura en los siguientes casos: de la fístula traqueoesofágica paliativo de la disfagia en pacientes con estenosis esofágicas en pacientes con tumores esofágicos",
+   "nombre": "colocación de prótesis esofágicas",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -190250,7 +190317,8 @@
      "score": 0.8981,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: 1. Tratamiento de la fístula traqueoesofágica 2. Tratamiento paliativo de la disfagia en pacientes con estenosis malignas esofágicas en pacientes con tumores esofágicos irresecables (estadios 3 y 4) o en pacientes con cualquier estadio de la enfermedad que son considerados inoperables por la pre- sencia de situaciones comórbidas que lo contraindican (edad avan- zada, enfermedades concomitantes, etc.)"
   },
   "080201": {
    "code": "080201",
@@ -190259,7 +190327,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato digestivo y abdomen (cirugía)",
-   "nombre": "(estadios 3 y 4) o en pacientes con cualquier estadio que son considerados inoperables por la pre- situaciones comórbidas que lo contraindican (edad avan- concomitantes, etc.) dermolipectomía abdominal con o sin reconstrucción del ombligo",
+   "nombre": "dermolipectomía abdominal con o sin reconstrucción del ombligo",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -192922,7 +192990,8 @@
      "score": 0.9238,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "10 Código Práctica"
   },
   "080508": {
    "code": "080508",
@@ -196655,7 +196724,8 @@
      "score": 0.9311,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
   },
   "080805": {
    "code": "080805",
@@ -197000,7 +197070,8 @@
      "score": 0.9853,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Operaciones en los vasos y ganglios linfáticos"
   },
   "090101": {
    "code": "090101",
@@ -197513,7 +197584,8 @@
      "score": 0.9643,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Operaciones en el aparato urinario y genital masculino"
   },
   "100101": {
    "code": "100101",
@@ -198865,7 +198937,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato urinario y genital masculino (cirugía)",
-   "nombre": "Ureterorrenoscopia con litotomía litotricia y ectomía por cualquier método de cobertura: impactados en cualquier sector del uréter que no res",
+   "nombre": "Ureterorrenoscopia con litotomía litotricia y ectomía por cualquier método",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -198890,7 +198962,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Aparato urinario y genital masculino (cirugía)."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura: Cálculos impactados en cualquier sector del uréter que no res- pondieron al tratamiento con litotricia extracorpórea"
   },
   "100125": {
    "code": "100125",
@@ -198899,7 +198972,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato urinario y genital masculino (cirugía)",
-   "nombre": "al tratamiento con litotricia extracorpórea Litotricia extracorpórea renal y/o ureteral de cobertura cuando se cumplan los siguientes criterios: del riñón o del uréter no menor a 3 mm de diámetro; asintomáticos de 3 piedras presentes provocan dolor, dificultad miccional y/o náuseas y probable un eliminación espontánea sin síntomas signi- infección relacionada, se encuentra bajo tratamiento obstrucciones (no litiásicas) están corregidas el litio mediante imágenes del paciente permite enfocar apropiadamente la choque (puede no ser posible en obesos severos) tratado es funcionante de cualquier signo de calcificación o aneurisma de 11",
+   "nombre": "Litotricia extracorpórea renal y/o ureteral",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -198924,7 +198997,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Aparato urinario y genital masculino (cirugía)."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura cuando se cumplan los siguientes criterios: 1. Cálculos del riñón o del uréter no menor a 3 mm de diámetro; habitualmente asintomáticos 2. No más de 3 piedras presentes 3. Las piedras provocan dolor, dificultad miccional y/o náuseas y vómitos 4. No es probable un eliminación espontánea sin síntomas signi- ficativos 5. Si hubiera infección relacionada, se encuentra bajo tratamiento 6. Otras obstrucciones (no litiásicas) están corregidas 7. Se visualiza el litio mediante imágenes 8. La anatomía del paciente permite enfocar apropiadamente la onda de choque (puede no ser posible en obesos severos) 9. El riñón tratado es funcionante 10. Ausencia de cualquier signo de calcificación o aneurisma de 11 Código Práctica arteria renal 11. Ausencia de calcificaciones aórticas o ilíacas cercanas al cál- culo uréter."
   },
   "100201": {
    "code": "100201",
@@ -198933,7 +199007,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato urinario y genital masculino (cirugía)",
-   "nombre": "de calcificaciones aórticas o ilíacas cercanas al cál- cistectomía total con derivación ureteral a asa delgada o colon, o neovejiga",
+   "nombre": "cistectomía total con derivación ureteral a asa delgada o colon, o neovejiga",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -202319,7 +202393,8 @@
      "score": 0.8917,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
   },
   "100711": {
    "code": "100711",
@@ -202471,7 +202546,8 @@
      "score": 0.9377,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Disinergia detrusor – esfínter externo"
   },
   "101102": {
    "code": "101102",
@@ -202480,7 +202556,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato urinario y genital masculino (cirugía)",
-   "nombre": "detrusor – esfínter externo tratamiento endoscópico de lesiones de próstata y veji- físicos y químicos de cobertura en los siguientes casos: de tejido proveniente de la glándula que ocupa la luz síntomas u obstrucción al vaciamiento de la vejiga.",
+   "nombre": "tratamiento endoscópico de lesiones de próstata y veji- ga por medios físicos y químicos",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -202514,7 +202590,8 @@
      "score": 0.9693,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Remoción de tejido proveniente de la glándula que ocupa la luz uretral causando síntomas u obstrucción al vaciamiento de la vejiga. Operaciones en el Aparato Genital Femenino y Operaciones Obstétricas"
   },
   "110101": {
    "code": "110101",
@@ -202647,7 +202724,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato genital femenino y obstétricas (cirugía)",
-   "nombre": "Microcirugía tubaria para tratamiento de esterilidad de cobertura cuando se cumplan los siguientes criterios: menores de 35 años como único factor de esterilidad el Factor Tuboperitoneal, (la afección es del tercio distal de la trompa: - de infección pelviana (EPI) hidrosalpinx leve y moderado",
+   "nombre": "Microcirugía tubaria para tratamiento de esterilidad",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -202705,7 +202782,8 @@
      "score": 0.8649,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura cuando se cumplan los siguientes criterios: 1. Mujeres menores de 35 años 2. Tener como único factor de esterilidad el Factor Tuboperitoneal, leve o moderado (la afección es del tercio distal de la trompa: - secuela de infección pelviana (EPI) hidrosalpinx leve y moderado -salpingitis crónica cicatrizal con adherencias - estenosis ostium tuboabdominal – secuela de adherencia de la endometriosis - tu- mores sólidos o quísticos del ovario o del mesovario que com- prometa la función de la trompa - quistes paratubarios - endosalpingiosis tubaria o diverticulosis tubaria)"
   },
   "110201": {
    "code": "110201",
@@ -202714,7 +202792,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato genital femenino y obstétricas (cirugía)",
-   "nombre": "crónica cicatrizal con adherencias - estenosis ostium – secuela de adherencia de la endometriosis - tu- o quísticos del ovario o del mesovario que com- la función de la trompa - quistes paratubarios - tubaria o diverticulosis tubaria) histerectomía radical colpoanexohisterectomía total",
+   "nombre": "histerectomía radical colpoanexohisterectomía total",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -203696,7 +203774,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato genital femenino y obstétricas (cirugía)",
-   "nombre": "cauterización química, biopsia de cuello colocación de aplicadores para radioterapia extra o in",
+   "nombre": "colocación de aplicadores para radioterapia extra o in- trauterino",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -204436,7 +204514,8 @@
      "score": 0.9029,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "12 Código Práctica"
   },
   "110312": {
    "code": "110312",
@@ -204638,7 +204717,8 @@
      "score": 0.9286,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Bartholino, glándula de Skene"
   },
   "110315": {
    "code": "110315",
@@ -205223,7 +205303,8 @@
      "score": 0.9194,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Operaciones en el sistema músculo esquelético Operaciones en huesos y articulaciones"
   },
   "120301": {
    "code": "120301",
@@ -207562,7 +207643,8 @@
      "score": 0.922,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
   },
   "121101": {
    "code": "121101",
@@ -208925,7 +209007,8 @@
      "score": 0.9052,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Operaciones en tendones, vainas tendinosas y fascias"
   },
   "121501": {
    "code": "121501",
@@ -208934,7 +209017,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Huesos y articulaciones (traumatología)",
-   "nombre": "Operaciones en tendones, vainas tendinosas y fascias exploración drenaje extracción incisión, biopsia, tenotomía, fasciotomía",
+   "nombre": "exploración drenaje extracción incisión, biopsia, tenotomía, fasciotomía",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -209433,7 +209516,8 @@
      "score": 1.0,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Amputaciones y desarticulaciones"
   },
   "121601": {
    "code": "121601",
@@ -209974,7 +210058,8 @@
      "score": 0.8908,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Procedimientos combinados"
   },
   "121701": {
    "code": "121701",
@@ -210110,7 +210195,8 @@
      "score": 0.9019,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "13 Código Práctica"
   },
   "121703": {
    "code": "121703",
@@ -211562,7 +211648,8 @@
      "score": 0.8894,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Yesos, vendajes y tracciones continuas"
   },
   "121901": {
    "code": "121901",
@@ -213651,7 +213738,8 @@
      "score": 0.9236,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Cirugía artroscópica"
   },
   "122001": {
    "code": "122001",
@@ -213780,7 +213868,8 @@
      "score": 0.9185,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica Operaciones en la piel y tejido celular subcutáneo"
   },
   "130101": {
    "code": "130101",
@@ -215480,7 +215569,8 @@
      "score": 0.9244,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Anatomía patológica"
   },
   "150101": {
    "code": "150101",
@@ -215704,7 +215794,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Anatomía patológica",
-   "nombre": "Citología exfoliativa oncológica de cobertura: mujer que haya iniciado relaciones sexuales, o mayo- años.",
+   "nombre": "Citología exfoliativa oncológica",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -215738,7 +215828,8 @@
      "score": 0.9208,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura: 1. En toda mujer que haya iniciado relaciones sexuales, o mayo- res de 18 años. 2. La cobertura está indicada en un papanicolaou anual durante tres años, y de ser éstos normales cobertura de un papanicolau cada dos años, en el marco de un programa de rastreo masivo."
   },
   "150107": {
    "code": "150107",
@@ -215747,7 +215838,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Anatomía patológica",
-   "nombre": "está indicada en un papanicolaou anual durante y de ser éstos normales cobertura de un papanicolau años, en el marco de un programa de rastreo masivo. Citología exfoliativa hormonal.",
+   "nombre": "Citología exfoliativa hormonal",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -215919,7 +216010,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Anatomía patológica",
-   "nombre": "receptores hormonales con técnica inmunohistoquímica de mama de cobertura en los siguientes casos: indicación o no de terapia hormonal (tamoxifeno) y",
+   "nombre": "receptores hormonales con técnica inmunohistoquímica para cáncer de mama",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -215944,7 +216035,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Anatomía patológica."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: 1. Establecer indicación o no de terapia hormonal (tamoxifeno) y su eventual nivel de respuesta 2. Establecer pronóstico (especialmente en neoplasias con me- tástasis ganglionares"
   },
   "150202": {
    "code": "150202",
@@ -215953,7 +216045,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Anatomía patológica",
-   "nombre": "nivel de respuesta pronóstico (especialmente en neoplasias con me- ganglionares anticuerpos monoclonales con técnica inmunohisto- para tumores 14",
+   "nombre": "anticuerpos monoclonales con técnica inmunohisto- química para tumores",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -215978,7 +216070,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Anatomía patológica."
-   ]
+   ],
+   "cobertura_pmo": "14 Código Práctica • Obligación de cobertura en los siguientes casos 1. Imposibilidad histológica o citológica de determinar diagnósti- co de histotipo tumoral 2. Imposibilidad histológica o citológica de determinar origen tumoral 3. Metástasis de origen desconocido 4. Todas las proliferaciones linfoideas en general: para su correc- ta tipificación 5. Tipificaciones de neoplasias indiferenciadas. Anestesiología"
   },
   "160101": {
    "code": "160101",
@@ -215987,7 +216080,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Anestesiología",
-   "nombre": "de cobertura en los siguientes casos histológica o citológica de determinar diagnósti- tumoral histológica o citológica de determinar origen de origen desconocido las proliferaciones linfoideas en general: para su correc- de neoplasias indiferenciadas. Anestesiología anestesia mínima para procedimiento diagnóstico",
+   "nombre": "anestesia mínima para procedimiento diagnóstico",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -216193,7 +216286,8 @@
      "score": 0.9352,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Cardiología"
   },
   "170101": {
    "code": "170101",
@@ -216961,7 +217055,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Cardiología",
-   "nombre": "estudio electrofisiológico completo cardíaco con Prue- bas terapéuticas y de estimulación de cobertura en los siguientes casos: de la función del Nódulo Sinusal sintomáticos en los cuales la disfunción del Nódulo (DNS) se sospecha como causa de síntomas pero que la entre arritmias y síntomas no fue claramente establecida una evaluación apropiada. con DNS documentada en los cuales la evaluación AV o VA o la susceptibilidad a arritmias pueden a la selección más apropiada de la modalidad de con bradiarritmias documentadas para determinar si esas anormalidades a enfermedad intrínseca, disfunción autonómica o de drogas que permitan seleccionar entre diferentes op- sintomáticos con bradiarritmias conocidas para eva- potenciales arritmias como causante de los síntomas. con BAVs adquiridos sintomáticos en los cuales se sospecha un bloqueo His como causa de los síntomas y no pudo ser establecido. con BAV de 2 ó 3 tratado con MCP, que permanece y en quien se sospecha otra arritmia como causa de con BAV de 2 ó 3 en los cuales conocer el sitio del o sus mecanismos o su respuesta a fármacos o a otras Normativa Nº 1/2002 - S.S.SALUD",
+   "nombre": "estudio electrofisiológico completo cardíaco con Prue- bas terapéuticas y de estimulación",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -216986,7 +217080,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Cardiología."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: 1. Evaluación de la función del Nódulo Sinusal — Pacientes sintomáticos en los cuales la disfunción del Nódulo Sinusal (DNS) se sospecha como causa de síntomas pero que la relación entre arritmias y síntomas no fue claramente establecida luego de una evaluación apropiada. — Pacientes con DNS documentada en los cuales la evaluación de la conducción AV o VA o la susceptibilidad a arritmias pueden contribuir a la selección más apropiada de la modalidad de marcapaseo. — Pacientes con bradiarritmias documentadas electrocardiográficamente para determinar si esas anormalidades son debidas a enfermedad intrínseca, disfunción autonómica o efectos de drogas que permitan seleccionar entre diferentes op- ciones terapéuticas. — Pacientes sintomáticos con bradiarritmias conocidas para eva- luar otras potenciales arritmias como causante de los síntomas. 2. En pacientes con BAVs adquiridos — Pacientes sintomáticos en los cuales se sospecha un bloqueo His Purkinje como causa de los síntomas y no pudo ser establecido. — Pacientes con BAV de 2 ó 3 tratado con MCP, que permanece sintomático y en quien se sospecha otra arritmia como causa de los síntomas. — Pacientes con BAV de 2 ó 3 en los cuales conocer el sitio del bloqueo o sus mecanismos o su respuesta a fármacos o a otras Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica intervenciones temporarias puedan ayudar a una terapia directa o establecer pronóstico. — Pacientes con BAV de 2 ó 3 — Pacientes sintomáticos en los cuales los síntomas y la presen- cia del BAV tienen correlación electrocardiográfica. — Pacientes asintomáticos con BAV transitorios asociados a bradicardia sinusal (por ejemplo BAV de 2 tipo 1 observada durante el sueño) 3. En pacientes con deterioro crónico de la conducción AV — Pacientes asintomáticos con bloqueo completo de rama en los cuales un tratamiento farmacológico pueda incrementar el dete- rioro de la conducción o producir un BAVC. 4. En pacientes con taquicardias de QRS angosto — Pacientes con episodios frecuentes o mal tolerados de taquicardias que no responden adecuadamente a drogas y para quienes la información del sitio de origen, mecanismo, propieda- des electrofisiológicas de las vías de la taquicardia es esencial para elegir la terapia apropiada (farmacológica, ablación marcapaseo o cirugía) — Pacientes que refieren preferencia por el tratamiento por abla- ción con respecto al farmacológico. — Pacientes con episodios frecuentes de taquicardias que re- quieren tratamiento con drogas y para quienes podría existir efecto pro arrítmico u ocasionar deterioro en la función del nódulo sinusal o deterioro en la conducción AV. 5. En el paciente con taquicardias de QRS ancho — Pacientes en quienes el diagnóstico no está claro luego del aná- lisis del trazado electrocardiográfico disponible y en quien el cono- cimiento del diagnóstico correcto es necesario para su cuidado. 6. En pacientes con síndrome de QT prolongado — Identificación de efectos proarrítmicos de drogas en pacientes que experimentaron TV sostenida o paro cardíaco durante su empleo — Pacientes con síncope o asintomáticos por arritmias en quienes las catecolaminas puedan enmascarar una anormalidad del QT 7. En pacientes con complejos ventriculares prematuros, duplas y TVNS. — Pacientes con otros factores de riesgo de futuros eventos arrítmicos tales como baja FEVI, ECG de señal promediada po- sitivo y TVNS o registros holter en los cuales un EEF pueda ser considerado para evaluación de riesgo y para la guía de la tera- péutica en pacientes con TV inducible. — Pacientes sintomáticos con EV unifocales, duplas y TVNS que son candidatos a ablación por catéter. 8. En pacientes con WOLF-PARKINSON-WHITE — Pacientes que están siendo evaluados para una ablación o cirugía de haz accesorio — Pacientes con preexitación ventricular que sobrevivieron a un paro cardíaco o que padecen síncope inexplicable. — Pacientes sintomáticos en quienes determinar la arritmia o conocer propiedades de la vía accesoria y el sistema de conduc- ción normal ayudarían a determinar el tratamiento apropiado. — Paciente asintomáticos con antecedentes familiares de muerte súbita o con preexitación pero sin arritmias espontáneas, que desarrolla actividades de riesgo y en los cuales se desea conocer propiedades de la vía accesoria o si pueden inducirse taquicardias, ayudaría a dar recomendaciones para sus actividades o bien para seleccionar tratamientos. — Pacientes con preexitación ventricular que van a ser someti- dos a cirugía cardíaca por otras razones. 9. En pacientes con síncope inexplicable — Pacientes con sospecha de enfermedad cardíaca y síncope que permanece inexplicable luego de evaluaciones apropiadas 10. En pacientes sobrevivientes de un paro cardíaco — Sin evidencia de un IAM transmural — Los que los han padecido a más de 48 hs. de haber sufrido un 15 Código Práctica IAM en ausencia de recurrencia de eventos isquémicos. — Sobrevivientes de un paro cardíaco causado por bradiarritmias — Los asociados a trastornos de la repolarización (SQTP) — En quienes los resultados de tests diagnósticos son confusos. 11. Para Guía de tratamiento antiarrítmico — Pacientes con TV sostenida o paro cardíaco especialmente en aquellos con IAM previo. — Pacientes con taquicardia con reentrada ventriculoatrial y vía accesoria o FA asociada con una vía accesoria para quienes se planea un tratamiento crónico. — Pacientes con taquicardia por reentrada en el nódulo sinusal, Fibrilación Auricular y Aleteo Auricular sin preexitación ventricular para quienes se plantea tratamiento crónico."
   },
   "170203": {
    "code": "170203",
@@ -216995,7 +217090,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Cardiología",
-   "nombre": "ausencia de recurrencia de eventos isquémicos. de un paro cardíaco causado por bradiarritmias a trastornos de la repolarización (SQTP) los resultados de tests diagnósticos son confusos. Guía de tratamiento antiarrítmico con TV sostenida o paro cardíaco especialmente en con IAM previo. con taquicardia con reentrada ventriculoatrial y vía o FA asociada con una vía accesoria para quienes se tratamiento crónico. con taquicardia por reentrada en el nódulo sinusal, Auricular y Aleteo Auricular sin preexitación ventricular se plantea tratamiento crónico. Ablación por radiofrecuencia de arritmias cardíacas de cobertura en los siguientes casos: de ablación por catéter en pacientes con supraventricular paroxística sintomática por reentrada nodo auriculoventricular, en quienes la farmacoterapia para controlar la arritmia. de ablación por catéter en pacientes con supraventricular paroxística sintomática por reentrada a través de vías accesorias (Síndrome de Wolff White) en quienes la farmacoterapia resulte inapropiada la arritmia.",
+   "nombre": "Ablación por radiofrecuencia de arritmias cardíacas",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -217020,7 +217115,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Cardiología."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: 1. Procedimientos de ablación por catéter en pacientes con taquicardia supraventricular paroxística sintomática por reentrada a nivel del nodo auriculoventricular, en quienes la farmacoterapia resulte inapropiada para controlar la arritmia. 2. Procedimientos de ablación por catéter en pacientes con taquicardia supraventricular paroxística sintomática por reentrada auriculoventricular a través de vías accesorias (Síndrome de Wolff Parkinson White) en quienes la farmacoterapia resulte inapropiada para controlar la arritmia. 3. Procedimientos de ablación por catéter en pacientes con aleteo auricular en quienes la farmacoterapia resulte inapropiada para controlar la arritmia 4. Procedimientos de ablación del nodo auriculoventricular con colocación de marcapaso definitivo en pacientes con taquiarritmias auriculares sintomáticas en quienes la farmacoterapia resulte inapropiada para controlar la frecuencia ventricular (si la abla- ción primaria de la arritmia auricular no es viable) Ecografía"
   },
   "180101": {
    "code": "180101",
@@ -217029,7 +217125,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Ecodiagnóstico y hemodinamia",
-   "nombre": "de ablación por catéter en pacientes con aleteo en quienes la farmacoterapia resulte inapropiada para la arritmia de ablación del nodo auriculoventricular con de marcapaso definitivo en pacientes con taquiarritmias sintomáticas en quienes la farmacoterapia resulte para controlar la frecuencia ventricular (si la abla- de la arritmia auricular no es viable) Ecografía ecocardiograma completo a m y b",
+   "nombre": "ecocardiograma completo a m y b",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -217767,7 +217863,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Ecodiagnóstico y hemodinamia",
-   "nombre": "ecocardiograma de stress físico y/o farmacológico (c/ de cobertura en los siguientes casos: diferencial de isquemia miocárdica con ergometría diferencial de isquemia miocárdica asociada a en- que alteran la sensibilidad de la ergometría (BCRI, WOLF-PARKINSON-WHITE) y control de tratamiento en pacientes con enfer- conocida y postoperatorios pronóstica en pacientes con IAM pasibles de revascularización y para evaluación de su isquemia. Normativa Nº 1/2002 - S.S.SALUD",
+   "nombre": "ecocardiograma de stress físico y/o farmacológico (c/ imagen digitalizada)",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -217801,7 +217897,8 @@
      "score": 0.929,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: 1. Diagnóstico diferencial de isquemia miocárdica con ergometría dudosa 2. Diagnóstico diferencial de isquemia miocárdica asociada a en- tidades que alteran la sensibilidad de la ergometría (BCRI, miocardiopatías, WOLF-PARKINSON-WHITE) 3. Seguimiento y control de tratamiento en pacientes con enfer- medad coronaria conocida y postoperatorios 4. Información pronóstica en pacientes con IAM pasibles de cirugía de revascularización y para evaluación de su isquemia. Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
   },
   "180501": {
    "code": "180501",
@@ -217844,7 +217941,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Ecodiagnóstico y hemodinamia",
-   "nombre": "ecodoppler transcraneal de cobertura en los siguientes casos: de vasoespasmo en HSA (aumento de la veloci- no invasiva de ateromatosis intracraneal en el focal de la velocidad de flujo) o hemoglobinopatías",
+   "nombre": "ecodoppler transcraneal",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -217869,7 +217966,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Ecodiagnóstico y hemodinamia."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: 1. La detección de vasoespasmo en HSA (aumento de la veloci- dad de flujo) 2. La detección no invasiva de ateromatosis intracraneal en el adulto (aumento focal de la velocidad de flujo) o hemoglobinopatías en el niño. 3. Monitoreo intraoperatorio (Detección de microembolos) en cirugía cardiovascular o endarterectomía carótidea. 4. En el diagnóstico de muerte encefálica como método comple- mentario o en las situaciones especiales descriptas."
   },
   "186001": {
    "code": "186001",
@@ -217878,7 +217976,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Ecodiagnóstico y hemodinamia",
-   "nombre": "intraoperatorio (Detección de microembolos) en o endarterectomía carótidea. diagnóstico de muerte encefálica como método comple- o en las situaciones especiales descriptas. ecografía de partes blandas",
+   "nombre": "ecografía de partes blandas",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -217903,7 +218001,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Ecodiagnóstico y hemodinamia."
-   ]
+   ],
+   "cobertura_pmo": "Endocrinología y nutrición"
   },
   "190101": {
    "code": "190101",
@@ -218023,7 +218122,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Endocrinología y nutrición."
-   ]
+   ],
+   "cobertura_pmo": "Gastroenterología"
   },
   "200101": {
    "code": "200101",
@@ -218992,7 +219092,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Gastroenterología",
-   "nombre": "búsqueda de hemorragia digestiva con eritromarcadores de cobertura en los siguientes casos: con hemorragia gastrointestinal detectada o sospecha- localizada por los procedimientos endoscópicos y/o",
+   "nombre": "búsqueda de hemorragia digestiva con eritromarcadores",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -219017,7 +219117,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Gastroenterología."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Pacientes con hemorragia gastrointestinal detectada o sospecha- da y no localizada por los procedimientos endoscópicos y/o angiográficos. Genética humana"
   },
   "210101": {
    "code": "210101",
@@ -219232,7 +219333,8 @@
      "score": 0.9174,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "16 Código Práctica"
   },
   "210106": {
    "code": "210106",
@@ -219456,7 +219558,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Genética humana",
-   "nombre": "transplante renal cross-match contra panel de linfocitos en receptor de transplante renal hiperinmunizado",
+   "nombre": "cross-match contra panel de linfocitos en receptor de transplante renal hiperinmunizado",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -219619,7 +219721,8 @@
      "score": 0.9368,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Ginecología y obstetricia"
   },
   "220101": {
    "code": "220101",
@@ -219662,7 +219765,8 @@
      "score": 0.9327,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Se asegura la cobertura: 1. En pacientes cuyo papanicolaou resultado sea anormal o dudosa"
   },
   "220103": {
    "code": "220103",
@@ -220160,7 +220264,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Ginecología y obstetricia."
-   ]
+   ],
+   "cobertura_pmo": "Hemoterapia"
   },
   "240101": {
    "code": "240101",
@@ -220461,7 +220566,8 @@
      "score": 0.9099,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "500 cm3 de sangre o fracción"
   },
   "240108": {
    "code": "240108",
@@ -220719,7 +220825,8 @@
      "score": 0.8901,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "500 cc de sangre"
   },
   "240201": {
    "code": "240201",
@@ -220796,7 +220903,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Hemoterapia",
-   "nombre": "Aféresis de plaquetas de cobertura en los siguientes casos: esencial (si el recuento de plaquetas es mayor que",
+   "nombre": "Aféresis de plaquetas",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -220821,7 +220928,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Hemoterapia."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Trombocitosis esencial (si el recuento de plaquetas es mayor que 1,000,000/mm3)"
   },
   "241101": {
    "code": "241101",
@@ -220873,7 +220981,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Hemoterapia",
-   "nombre": "ultrafiltración con filtros de prosorva o similares (complementemia) Normativa Nº 1/2002 - S.S.SALUD",
+   "nombre": "ultrafiltración con filtros de prosorva o similares (complementemia)",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -220907,7 +221015,8 @@
      "score": 0.8686,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
   },
   "241201": {
    "code": "241201",
@@ -221041,7 +221150,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Hemoterapia."
-   ]
+   ],
+   "cobertura_pmo": "Rehabilitación médica"
   },
   "250101": {
    "code": "250101",
@@ -221084,7 +221194,8 @@
      "score": 0.8549,
      "tipo": "med"
     }
-   ]
+   ],
+   "tope_pmo": "Rehabilitación: Kinesioterapia y Fonoaudiología hasta 25 sesiones por beneficiario por año calendario cada una (Res. 201/02, Anexo I, punto 5)."
   },
   "250102": {
    "code": "250102",
@@ -221128,6 +221239,7 @@
      "tipo": "med"
     }
    ],
+   "tope_pmo": "Rehabilitación: Kinesioterapia y Fonoaudiología hasta 25 sesiones por beneficiario por año calendario cada una (Res. 201/02, Anexo I, punto 5).",
    "leyes_rel": [
     "24901"
    ]
@@ -221173,7 +221285,8 @@
      "score": 0.9111,
      "tipo": "med"
     }
-   ]
+   ],
+   "tope_pmo": "Rehabilitación: Kinesioterapia y Fonoaudiología hasta 25 sesiones por beneficiario por año calendario cada una (Res. 201/02, Anexo I, punto 5)."
   },
   "250104": {
    "code": "250104",
@@ -221217,6 +221330,7 @@
      "tipo": "med"
     }
    ],
+   "tope_pmo": "Rehabilitación: Kinesioterapia y Fonoaudiología hasta 25 sesiones por beneficiario por año calendario cada una (Res. 201/02, Anexo I, punto 5).",
    "leyes_rel": [
     "24901"
    ]
@@ -221262,7 +221376,8 @@
      "score": 0.9098,
      "tipo": "med"
     }
-   ]
+   ],
+   "tope_pmo": "Rehabilitación: Kinesioterapia y Fonoaudiología hasta 25 sesiones por beneficiario por año calendario cada una (Res. 201/02, Anexo I, punto 5)."
   },
   "250106": {
    "code": "250106",
@@ -221306,6 +221421,8 @@
      "tipo": "med"
     }
    ],
+   "cobertura_pmo": "Medicina nuclear",
+   "tope_pmo": "Rehabilitación: Kinesioterapia y Fonoaudiología hasta 25 sesiones por beneficiario por año calendario cada una (Res. 201/02, Anexo I, punto 5).",
    "leyes_rel": [
     "24901"
    ]
@@ -223291,7 +223408,8 @@
      "score": 0.9257,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "17 Código Práctica"
   },
   "260212": {
    "code": "260212",
@@ -223859,7 +223977,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Medicina nuclear",
-   "nombre": "Spect cardíaco- coronario estudio de perfusión con talio 201 esfuerzo y redistribución de cobertura en los siguientes casos: o tejido reemplazado por transplante (corazón), Organo reemplazado por transplante (válvula del corazón), Or- reemplazado por otro medio (válvula del corazón), mitral mitral reumática, Estenosis mitral con insuficiencia, de la válvula mitral aórtica reumática, Insuficiencia aórtica reumática, Es- insuficiencia aórtica reumática. de la válvula aórtica, Aterosclerosis coronaria, del corazón, Enfermedad isquémica del corazón,",
+   "nombre": "Spect cardíaco- coronario estudio de perfusión con talio",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -223893,7 +224011,8 @@
      "score": 0.9625,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "201 esfuerzo y redistribución • Obligación de cobertura en los siguientes casos: Organo o tejido reemplazado por transplante (corazón), Organo o tejido reemplazado por transplante (válvula del corazón), Or- gano o tejido reemplazado por otro medio (válvula del corazón), Estenosis mitral Insuficiencia mitral reumática, Estenosis mitral con insuficiencia, Enfermedades de la válvula mitral Estenosis aórtica reumática, Insuficiencia aórtica reumática, Es- tenosis con insuficiencia aórtica reumática. Enfermedades de la válvula aórtica, Aterosclerosis coronaria, Aneurisma del corazón, Enfermedad isquémica del corazón, Fibrosis endomiocárdica, Cardiomiopatía hipertrófica obstructiva, Fibroelastosis endocárdica, Cardiomiopatía, Hemibloqueo de rama izquierda del haz de Hiss, Bloqueo de la rama izquierda, Bloqueo de la rama derecha del haz de Hiss, Taquicardia paroxística supraventricular, Taquicardia paroxística ventricular, Taquicardia paroxística, Paro cardíaco, Disritmia cardíaca Insuficiencia del corazón izquierdo, Insuficiencia cardíaca, Mio- carditis, Degeneración miocárdica Trastornos funcionales consecutivos a cirugía cardiovascular, Rotura de cuerda tendinosa, Rotura de músculo papilar, Compli- cación mecánica de otro dispositivo, prótesis e injerto vasculares."
   },
   "260232": {
    "code": "260232",
@@ -223902,7 +224021,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Medicina nuclear",
-   "nombre": "endomiocárdica, Cardiomiopatía hipertrófica obstructiva, endocárdica, Cardiomiopatía, Hemibloqueo de del haz de Hiss, Bloqueo de la rama izquierda, de la rama derecha del haz de Hiss, Taquicardia paroxística Taquicardia paroxística ventricular, Taquicardia Paro cardíaco, Disritmia cardíaca del corazón izquierdo, Insuficiencia cardíaca, Mio- Degeneración miocárdica funcionales consecutivos a cirugía cardiovascular, cuerda tendinosa, Rotura de músculo papilar, Compli- de otro dispositivo, prótesis e injerto vasculares. Spect cardiaco-coronario estudio de perfusión con talio 201 dipiridamol y redistribución: iguales indicaciones",
+   "nombre": "Spect cardiaco-coronario estudio de perfusión con talio",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -223936,7 +224055,8 @@
      "score": 0.9372,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "201 dipiridamol y redistribución: iguales indicaciones que el código 260231"
   },
   "260233": {
    "code": "260233",
@@ -223945,7 +224065,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Medicina nuclear",
-   "nombre": "que el código 260231 Spect cardíaco-coronario estudio de perfusión con talio 201 con dobutamina y 4 hs. iguales indicaciones que el",
+   "nombre": "Spect cardíaco-coronario estudio de perfusión con talio",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -223979,7 +224099,8 @@
      "score": 0.9466,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "201 con dobutamina y 4 hs. iguales indicaciones que el código 260231"
   },
   "260234": {
    "code": "260234",
@@ -224031,7 +224152,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Medicina nuclear",
-   "nombre": "iguales indicaciones que el código 260231 Prueba de estímulo de la secreción de somatotrofina con determinación de STH",
+   "nombre": "Prueba de estímulo de la secreción de somatotrofina con determinación de STH",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -224409,7 +224530,8 @@
      "score": 0.913,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "ACTH Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica 260410inhibición hipotalámico-hipofisiaria con determinación de 260411Pruebas de inhibición de muquet o similares con deter- minación de cortisol 260412estudio del ritmo circadiano de cortisol 260413Prueba estímulo hipotalámico-hipofisiaria con determi- nación de prolactina 260414Prueba de inhibición hipotalámico-hipofisiaria con de- terminación de prolactina 260501Centellograma de cerebro 260503Centellograma de medula ósea 260504mielografía isotopica 260505cisternografía isotópica 260506fistulografía isotópica del Líquido Céfalo Raquídeo 260507ventriculografía isotópica 260508Centellograma óseo 260510centellografía de articulaciones 260511Centellograma de tiroides 260512Centellograma de tiroides y mediastino 260513barrido-total para carcinoma de tiroides 260514Centellograma de paratiroides 260515Centellograma de glándulas salivares 260516Centellograma de pulmón 260517Centellograma hepático 260518Centellograma del pool vascular hepático 260519Centellograma de páncreas 260520Centellograma de bazo 260521Centellograma renal bilateral 260522Centellograma del pool vascular renal 260523Centellograma de placenta 260524Centellograma vías linfáticas abdominoinguinales, axilares y/o mediastinales 260525angiografía radioisotópica por área 260526estudio dinámico renal 260527radiocardiograma 260528perfusión sanguínea miocárdica con radioisótopos 260529flebografía radioisotópica por áreas safenas, femorales, ilíacas, humeral 260531dinámica del tránsito esófago gástrico 260532dinámica tránsito intestinal Nefrología 270101hemohemodiálisis con riñón artificial en insuficiencia aguda 270102hemohemodiálisis con riñón artificial en insuficiencia crónica 270103hemodiálisis peritoneal 270104hemodiálisis peritoneal continua ambulatoria 270201evaluación pretrasplante renal en receptor 270202evaluación pretrasplante renal en dador Neumonología 280101espirometría 280102espirometría antes y después de broncodilatadores 280103broncoespirometría 280104traqueoscopía 280105broncoscopía con instrumental rígido 280106broncofibroscopía 280107curva de flujo volumen con o sin espirometría 280108determinación de volúmenes pulmonares 280109estudio de mecánica pulmonar 280110análisis de gases en aire espirado y sangre arteriovenosa 280111capacidad pulmonar total y volumen residual (técnica de dilución por helio) 280201lavado alveolar 280301ablación de lesiones broncopulmonares por vía endoscópica por métodos físicos o químicos 18 Código Práctica"
   },
   "280401": {
    "code": "280401",
@@ -224443,7 +224565,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Neumonología."
-   ]
+   ],
+   "cobertura_pmo": "Neurología"
   },
   "290102": {
    "code": "290102",
@@ -224873,7 +224996,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Neurología",
-   "nombre": "Holter electroencefalográfico de cobertura en los siguientes casos: en los que se sospecha un trastorno convulsivo que diagnosticar con estudios convencionales. Un EEG ambulatorio debe ser siempre precedido",
+   "nombre": "Holter electroencefalográfico",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -224898,7 +225021,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Neurología."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: A pacientes en los que se sospecha un trastorno convulsivo que no se logra diagnosticar con estudios convencionales. Un EEG (electroencefalograma) ambulatorio debe ser siempre precedido por un EEG en reposo. La historia clínica del paciente debe apoyar la necesidad médica del procedimiento (por ej, EEG de reposo inconcluyente y necesidad de estudios subsecuentes para definir el diagnóstico."
   },
   "290201": {
    "code": "290201",
@@ -224907,7 +225031,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Neurología",
-   "nombre": "EEG en reposo. La historia clínica del paciente debe necesidad médica del procedimiento (por ej, EEG de y necesidad de estudios subsecuentes para diagnóstico. Polisomnografía con oximetría en neonatos de cobertura en los siguientes casos",
+   "nombre": "Polisomnografía con oximetría en neonatos",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -224932,7 +225056,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Neurología."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Apnea del sueño"
   },
   "290202": {
    "code": "290202",
@@ -224941,7 +225066,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Neurología",
-   "nombre": "sueño Polisomnografía con oximetria nocturna en adultos con Positiva Continua en la Vía Aérea de cobertura si cumple los siguientes criterios: impacto de los síntomas en la vida diaria de apnea del sueño a utilizar Presión Positiva Continua en la Vía Aé",
+   "nombre": "Polisomnografía con oximetria nocturna en adultos con",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -224975,7 +225100,8 @@
      "score": 0.8882,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Presión Positiva Continua en la Vía Aérea • Obligación de cobertura si cumple los siguientes criterios: 1. Con alto impacto de los síntomas en la vida diaria 2. Alta sospecha de apnea del sueño 3. Dispuestos a utilizar Presión Positiva Continua en la Vía Aé- rea (PPCVA) 4. Que han intentado otras medidas (deshabituación al tabaquis- mo, tratamiento de la obesidad, evitar medicación predisponente como benzodiacepinas, etc.)"
   },
   "290203": {
    "code": "290203",
@@ -224984,7 +225110,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Neurología",
-   "nombre": "intentado otras medidas (deshabituación al tabaquis- de la obesidad, evitar medicación predisponente etc.) Tratamiento del blefarospasmo con toxina botulínica",
+   "nombre": "Tratamiento del blefarospasmo con toxina botulínica",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -225018,7 +225144,8 @@
      "score": 0.912,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Oftalmología"
   },
   "300101": {
    "code": "300101",
@@ -225645,7 +225772,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Oftalmología",
-   "nombre": "Paquimetría computarizada de cobertura en los siguientes casos: con disminución visual que se presenta con edema corneal Normativa Nº 1/2002 - S.S.SALUD",
+   "nombre": "Paquimetría computarizada",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -225670,7 +225797,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Oftalmología."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Paciente con disminución visual que se presenta con edema corneal Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica en la biomicroscopía. Se realiza seguimiento con recuento endotelital y paquimetría."
   },
   "300204": {
    "code": "300204",
@@ -225679,7 +225807,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Oftalmología",
-   "nombre": "Se realiza seguimiento con recuento y paquimetría. Topografía corneal de cobertura en los siguientes casos",
+   "nombre": "Topografía corneal",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -225704,7 +225832,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Oftalmología."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Diagnóstico de queratocono (mancha roja inferior)"
   },
   "300205": {
    "code": "300205",
@@ -225747,7 +225876,8 @@
      "score": 0.8848,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Otorrinolaringología"
   },
   "310101": {
    "code": "310101",
@@ -226537,7 +226667,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Otorrinolaringología."
-   ]
+   ],
+   "cobertura_pmo": "Pediatría"
   },
   "320104": {
    "code": "320104",
@@ -226580,7 +226711,8 @@
      "score": 0.9089,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Salud mental"
   },
   "330101": {
    "code": "330101",
@@ -226624,6 +226756,7 @@
      "tipo": "med"
     }
    ],
+   "tope_pmo": "Salud mental: atención ambulatoria hasta 30 visitas por año calendario, sin exceder 4 consultas mensuales (Res. 201/02, Anexo I, punto 4).",
    "leyes_rel": [
     "24901",
     "27696"
@@ -226671,6 +226804,7 @@
      "tipo": "med"
     }
    ],
+   "tope_pmo": "Salud mental: atención ambulatoria hasta 30 visitas por año calendario, sin exceder 4 consultas mensuales (Res. 201/02, Anexo I, punto 4).",
    "leyes_rel": [
     "27696"
    ]
@@ -226717,6 +226851,7 @@
      "tipo": "med"
     }
    ],
+   "tope_pmo": "Salud mental: atención ambulatoria hasta 30 visitas por año calendario, sin exceder 4 consultas mensuales (Res. 201/02, Anexo I, punto 4).",
    "leyes_rel": [
     "27696"
    ]
@@ -226753,7 +226888,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Salud mental."
-   ]
+   ],
+   "tope_pmo": "Salud mental: atención ambulatoria hasta 30 visitas por año calendario, sin exceder 4 consultas mensuales (Res. 201/02, Anexo I, punto 4)."
   },
   "330107": {
    "code": "330107",
@@ -226796,7 +226932,8 @@
      "score": 0.9627,
      "tipo": "med"
     }
-   ]
+   ],
+   "tope_pmo": "Salud mental: atención ambulatoria hasta 30 visitas por año calendario, sin exceder 4 consultas mensuales (Res. 201/02, Anexo I, punto 4)."
   },
   "330109": {
    "code": "330109",
@@ -226839,7 +226976,8 @@
      "score": 0.8971,
      "tipo": "med"
     }
-   ]
+   ],
+   "tope_pmo": "Salud mental: atención ambulatoria hasta 30 visitas por año calendario, sin exceder 4 consultas mensuales (Res. 201/02, Anexo I, punto 4)."
   },
   "330110": {
    "code": "330110",
@@ -226882,7 +227020,8 @@
      "score": 0.896,
      "tipo": "med"
     }
-   ]
+   ],
+   "tope_pmo": "Salud mental: atención ambulatoria hasta 30 visitas por año calendario, sin exceder 4 consultas mensuales (Res. 201/02, Anexo I, punto 4)."
   },
   "330111": {
    "code": "330111",
@@ -226925,7 +227064,8 @@
      "score": 0.8891,
      "tipo": "med"
     }
-   ]
+   ],
+   "tope_pmo": "Salud mental: atención ambulatoria hasta 30 visitas por año calendario, sin exceder 4 consultas mensuales (Res. 201/02, Anexo I, punto 4)."
   },
   "330112": {
    "code": "330112",
@@ -226968,7 +227108,8 @@
      "score": 0.9317,
      "tipo": "med"
     }
-   ]
+   ],
+   "tope_pmo": "Salud mental: atención ambulatoria hasta 30 visitas por año calendario, sin exceder 4 consultas mensuales (Res. 201/02, Anexo I, punto 4)."
   },
   "330201": {
    "code": "330201",
@@ -227002,7 +227143,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Salud mental."
-   ]
+   ],
+   "tope_pmo": "Salud mental: atención ambulatoria hasta 30 visitas por año calendario, sin exceder 4 consultas mensuales (Res. 201/02, Anexo I, punto 4)."
   },
   "330202": {
    "code": "330202",
@@ -227036,7 +227178,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Salud mental."
-   ]
+   ],
+   "tope_pmo": "Salud mental: atención ambulatoria hasta 30 visitas por año calendario, sin exceder 4 consultas mensuales (Res. 201/02, Anexo I, punto 4)."
   },
   "330301": {
    "code": "330301",
@@ -227070,7 +227213,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Salud mental."
-   ]
+   ],
+   "tope_pmo": "Salud mental: atención ambulatoria hasta 30 visitas por año calendario, sin exceder 4 consultas mensuales (Res. 201/02, Anexo I, punto 4)."
   },
   "330302": {
    "code": "330302",
@@ -227079,7 +227223,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Salud mental",
-   "nombre": "Talleres de estimulación temprana, incluye guardería la cobertura: de hasta dos años de edad con déficits neurosensorial",
+   "nombre": "Talleres de estimulación temprana, incluye guardería",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -227104,7 +227248,9 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Salud mental."
-   ]
+   ],
+   "cobertura_pmo": "Se asegura la cobertura: En niños de hasta dos años de edad con déficits neurosensorial Radiología",
+   "tope_pmo": "Salud mental: atención ambulatoria hasta 30 visitas por año calendario, sin exceder 4 consultas mensuales (Res. 201/02, Anexo I, punto 4)."
   },
   "340101": {
    "code": "340101",
@@ -227584,7 +227730,8 @@
      "score": 0.9225,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "19 Código Práctica"
   },
   "340214": {
    "code": "340214",
@@ -227722,7 +227869,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Radiología / Diagnóstico por imágenes",
-   "nombre": "tórax no existe evidencia científica que avale la solici- práctica como rastreo sistemático en la búsqueda de pulmón, por tanto no constituye una indicación para el",
+   "nombre": "Radiología tórax",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -227756,7 +227903,8 @@
      "score": 0.955,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Observaciones: no existe evidencia científica que avale la solici- tud de esta práctica como rastreo sistemático en la búsqueda de cáncer de pulmón, por tanto no constituye una indicación para el examen periódico de salud en esta condición."
   },
   "340303": {
    "code": "340303",
@@ -228969,7 +229117,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Radiología / Diagnóstico por imágenes",
-   "nombre": "Mamografía. Senografía la misma será comprendida como práctica pre- cuando se realice de forma anual y periódica en el rastreo de cáncer de mama. Para ello las beneficiarias deberán menos de 49 años, o bien, a edades menores, tener de cáncer de mama familiar o personal, u otros",
+   "nombre": "Mamografía. Senografía",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -229003,7 +229151,8 @@
      "score": 0.8785,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Observaciones: la misma será comprendida como práctica pre- ventiva cuando se realice de forma anual y periódica en el rastreo sistemático de cáncer de mama. Para ello las beneficiarias deberán tener no menos de 49 años, o bien, a edades menores, tener antecedentes de cáncer de mama familiar o personal, u otros factores de riesgo. Toda otra indicación como la displasia mamaria, o la detección de cáncer mamario en pacientes de alto riesgo será para detección de casos, acorde a las guías que establece el Pro- grama Nacional de Garantía de Calidad de la Atención Médica."
   },
   "340602": {
    "code": "340602",
@@ -229012,7 +229161,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Radiología / Diagnóstico por imágenes",
-   "nombre": "de riesgo. Toda otra indicación como la displasia mamaria, de cáncer mamario en pacientes de alto riesgo será de casos, acorde a las guías que establece el Pro- de Garantía de Calidad de la Atención Médica. mamografía. proyección axilar",
+   "nombre": "mamografía. proyección axilar",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -229605,7 +229754,8 @@
      "score": 0.8956,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
   },
   "340805": {
    "code": "340805",
@@ -230979,7 +231129,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Radiología / Diagnóstico por imágenes",
-   "nombre": "Densitometría ósea de cobertura en los siguientes casos: de Osteoporosis. En mujeres que cumplan con los siguientes criterios un puntaje IARO (instrumento de análisis de riesgo de o igual a nueve sumado a alguno de los fac- riesgo dispuestas a realizar tratamiento específico para la de Osteoporosis bajo tratamiento de osteoporosis no debe solicitarse (densitometría ósea) de seguimiento antes de los dos necesario solicitar dos sitios diferentes para el diagnós- osteoporosis mujeres jóvenes se puede solicitar DMO columna en las mayores de 65 puede solicitarse solamente DMO pacientes con DMO normales (T score mayor a –1) el no debe realizarse en un intervalo menor de 3 a 5 con DMO por encima de lo normal no requieren en programa de prevención deben ser seguidas hasta la estabilización de la medición. Luego debe cada 3 años. de Evaluación de Riesgo de Osteoporosis para mayores de 75 años entre 65 y 74 20",
+   "nombre": "Densitometría ósea",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -231004,7 +231154,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Radiología / Diagnóstico por imágenes."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: 1. Diagnóstico de Osteoporosis. En mujeres que cumplan con ambos de los siguientes criterios (a) tengan un puntaje IARO (instrumento de análisis de riesgo de osteoporosis)mayor o igual a nueve sumado a alguno de los fac- tores de riesgo (b) Estén dispuestas a realizar tratamiento específico para la osteoporosis. 2. Seguimiento de Osteoporosis — En mujeres bajo tratamiento de osteoporosis no debe solicitarse una DMO (densitometría ósea) de seguimiento antes de los dos años. — No es necesario solicitar dos sitios diferentes para el diagnós- tico de osteoporosis — En las mujeres jóvenes se puede solicitar DMO columna lumbar y en las mayores de 65 puede solicitarse solamente DMO de cadera. — En las pacientes con DMO normales (T score mayor a –1) el seguimiento no debe realizarse en un intervalo menor de 3 a 5 años. — Las mujeres con DMO por encima de lo normal no requieren seguimiento. — Las mujeres en programa de prevención deben ser seguidas cada 2 años hasta la estabilización de la medición. Luego debe realizarse cada 3 años. • Anexo IARO: Instrumento de Evaluación de Riesgo de Osteoporosis 15 puntos para mayores de 75 años 9 puntos entre 65 y 74 20 Código Práctica 5 puntos entre 55 y 64 años 9 si el peso es menor 60 kg 3 puntos entre 60 y 69.9 kg 2 puntos si no usa actualmente estrógenos"
   },
   "342001": {
    "code": "342001",
@@ -231013,7 +231164,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Radiología / Diagnóstico por imágenes",
-   "nombre": "entre 55 y 64 años es menor 60 kg entre 60 y 69.9 kg si no usa actualmente estrógenos Resonancia magnética nuclear cerebral",
+   "nombre": "Resonancia magnética nuclear cerebral",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -231276,7 +231427,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Radiología / Diagnóstico por imágenes."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: En caso de lesión orgánica ( tumores cerebrales, malformaciones)"
   },
   "342013": {
    "code": "342013",
@@ -231285,7 +231437,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Radiología / Diagnóstico por imágenes",
-   "nombre": "de cobertura en los siguientes casos: de lesión orgánica ( tumores cerebrales, malformaciones) Resonancia Magnética Nuclear de columna de cobertura en los siguientes casos: de columna. Sospecha de hernia discal recurrente Ciática y estenosis del canal lumbar. Radiculopatía Mielopatía. Siringomielia. Tumores espinales. Tumo- médula y de la columna. Infección. Anomalías congéni",
+   "nombre": "Resonancia Magnética Nuclear de columna",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -231310,7 +231462,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Radiología / Diagnóstico por imágenes."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Postoperatorio de columna. Sospecha de hernia discal recurrente postquirúrgica. Ciática y estenosis del canal lumbar. Radiculopatía Cervical. Mielopatía. Siringomielia. Tumores espinales. Tumo- res de la médula y de la columna. Infección. Anomalías congéni- tas. Complementa a la ecografía en el período neonatal. Trauma. Evaluación de la compresión medular (La tomografía es de elec- ción para el traumatismo de columna)"
   },
   "342014": {
    "code": "342014",
@@ -231319,7 +231472,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Radiología / Diagnóstico por imágenes",
-   "nombre": "a la ecografía en el período neonatal. Trauma. de la compresión medular (La tomografía es de elec- el traumatismo de columna) Resonancia Magnética Nuclear de articulaciones de cobertura en los siguientes casos: de Rodilla: con lesión traumática aguda, subaguda o crónica con de compromiso de menisco o ligamentos. con síntomas internos compatibles con lesiones",
+   "nombre": "Resonancia Magnética Nuclear de articulaciones",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -231344,7 +231497,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Radiología / Diagnóstico por imágenes."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Patología de Rodilla: 1. Pacientes con lesión traumática aguda, subaguda o crónica con sospecha de compromiso de menisco o ligamentos. 2. Pacientes con síntomas internos compatibles con lesiones meniscales o ligamentarias sin antecedente de traumatismo pre- vio de por lo menos 2 meses de evolución como paso previo al estudio artroscópico. Terapia radiante"
   },
   "350101": {
    "code": "350101",
@@ -231353,7 +231507,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Radioterapia",
-   "nombre": "o ligamentarias sin antecedente de traumatismo pre- lo menos 2 meses de evolución como paso previo al artroscópico. Terapia radiante roentgenoterapia superficial o profunda",
+   "nombre": "roentgenoterapia superficial o profunda",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -231994,7 +232148,8 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Urología."
-   ]
+   ],
+   "cobertura_pmo": "Tratamientos Especiales"
   },
   "380101": {
    "code": "380101",
@@ -232003,7 +232158,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Tratamientos especiales",
-   "nombre": "puvaterapia de cobertura en los siguientes casos: extendido por falta de respuesta al tratamiento o lesiones profun- Normativa Nº 1/2002 - S.S.SALUD",
+   "nombre": "puvaterapia",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -232037,7 +232192,8 @@
      "score": 0.9001,
      "tipo": "med"
     }
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: 1. Vitiligo extendido 2. Psoriasis por falta de respuesta al tratamiento o lesiones profun- Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica das y/o extendidas 3. Otras lesiones descamativas no micológicas/bacterianas de la piel. 380201Cámara Hiperbárica • Obligación de cobertura en los siguientes casos: Enfermedad por descompresión, gangrena gaseosa, y embolia gaseosa o aérea Asistencia en consultorio, domicilio e internación 400101internación en terapia intensiva 420101consulta en consultorio 420201consulta en domicilio 420301atención médica en internación clínica o quirúrgica 420303interconsulta especializada en internación 420501internación domiciliaria Prestaciones sanatoriales y de enfermería 430101Cama en habitación c/baño. 430105atención del recién nacido en habitación y/o nursery 430106cama para acompañante • Obligación de cobertura en los siguientes casos: Internación en menores de 15 años, a fin de asegurar una adecuada contención por parte de un familiar durante un momento crítico como es la internación, y sobre todo en este grupo de personas. 430109observación en guardia o piso hasta 8 horas 430201curaciones 430202curaciones quemados 430401nebulización (incluido oxígeno) 430402nebulización con respirador (incluido oxígeno) 430501incubadora tipo isolette o similar 430601luminoterapia 431103asistencia respiratoria en terapia intensiva 431104asistencia respiratoria en áreas de cuidados especiales 431105asistencia respiratoria en neonatología 431106monitoreo de presión endocraneana 431107oximetría por métodos no invasivos Análisis clínicos 660002acetonuria 660004acidimetría gástrica curva de 660005ácido base, estado 660006ACTH 660007addis, recuento de 660013aglutininas anti rh, medio salino albuminoso. Coombs indirecta 660014aglutininas del sistema abo, medio salino albuminoso. Cuantitativo 660016alcohol dehidrogenasa - ADH 660017alcoholemia 660018aldolasa 660019aldosterona 660020alfa feto proteínas 660022amilasemia 660023amilasuria 660025aminoácidos fraccionados por cromatografía 660027aminoaciduria fraccionada por cromatografía 660028amniótico líquido células naranjas 660029amniótico líquido espectrofotometría test de Lisley 660030amniótico líquido lecitina esfingomielina 660031amonemia 660032AMP cíclico 660033angiotensina 660034anhidrasa carbónica b eritrocitaria 21 Código Práctica"
   },
   "660185": {
    "code": "660185",
@@ -232454,7 +232610,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — laboratorio",
    "grupo": "Análisis clínicos (laboratorio)",
-   "nombre": "de próstata control terapéutico y de recaída del cáncer ß-HCG gonadotrofina coriónica cualitativa",
+   "nombre": "ß-HCG gonadotrofina coriónica cualitativa",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -244146,7 +244302,8 @@
      "total": 178.08
     },
     "total_2002": 178.08
-   }
+   },
+   "cobertura_pmo": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
   },
   "U020103": {
    "code": "020103",
@@ -246894,7 +247051,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 020901 del Nomenclador de Prestaciones Médicas (similitud 98%)."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: 1. Cuando se realiza luego de los 6 meses posteriores a la cirugía de cataratas, en pacientes con opacificación clínicamente signifi- cativa de la cápsula posterior del ojo operado 2. Cuando se realiza en pacientes con opacificación capsular posterior, independientemente del deterioro funcional, por cual- quiera de los siguientes motivos: — Para proveer mejor visualización del polo ocular posterior en 6 Código Práctica casos de desprendimiento de retina, enfermedad macular, retinopatía diabética — Para realizar diagnóstico de tumores de polo ocular posterior — Para evaluar la porción intraocular del nervio óptico 3. Cuando la presencia de opacidad capsular posterior sea causa de diplopía monocular 4. Cuando se realiza antes de los 6 meses posteriores a la cirugía de cataratas, únicamente si uno o más de los siguientes criterios de necesidad médica están presentes: Criterio 1) El paciente tiene un score corregido de agudeza visual de Snellen de 20/50 o peor sumado a las dos siguientes condicio- nes simultáneamente: — El examen ocular confirma que la opacificación capsular pos- terior está presente — El deterioro de la visión ha interferido con la capacidad del paciente para llevar adelante sus actividades habituales Criterio 2) El paciente tiene una agudeza visual corregida máxima de 20/40 o mejor + las tres siguientes condiciones simultánea- mente: — Agudeza visual fluctuante como resultado de resplandor o disminución del contraste — El examen ocular confirma que la opacificación capsular pos- terior está presente — El deterioro de la visión ha interferido con la capacidad del paciente para llevar adelante sus actividades habituales • Observaciones: Se considera inapropiada 1. Si se realiza de manera concurrente con la cirugía de cataratas 2. Si se realiza de manera profiláctica 3. Si se realiza de manera sistemática luego de las cirugías de cataratas sin tener en cuenta las necesidades específicas de cada paciente"
   },
   "U020902": {
    "code": "020902",
@@ -246937,7 +247095,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 020902 del Nomenclador de Prestaciones Médicas (similitud 95%)."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Lesiones maculares"
   },
   "U020904": {
    "code": "020904",
@@ -246980,7 +247139,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 020904 del Nomenclador de Prestaciones Médicas (similitud 94%)."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Lesiones maculares"
   },
   "U020905": {
    "code": "020905",
@@ -247023,7 +247183,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 020905 del Nomenclador de Prestaciones Médicas (similitud 94%)."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Hemorragias de cuerpo vítreo"
   },
   "U020906": {
    "code": "020906",
@@ -247066,7 +247227,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 020906 del Nomenclador de Prestaciones Médicas (similitud 95%)."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: 1. Glaucoma agudo de ángulo estrecho 2. Angulo estrecho de un ojo con antecedente de iridectomía en el contralateral (llamada iridectomía preventiva)"
   },
   "U020907": {
    "code": "020907",
@@ -247109,7 +247271,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 020907 del Nomenclador de Prestaciones Médicas (similitud 95%)."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Glaucoma crónico cuando no mejora con tratamiento médico local y general y presente comorbilidad (contraindicación de beta bloqueantes, inhibidores de la anhidrasa carbónica, etc.) y esté formalmente contraindicada la cirugía (trabeculectomía quirúrgica) Operaciones Otorrinolaringológicas"
   },
   "U030101": {
    "code": "030101",
@@ -247353,7 +247516,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 030104 del Nomenclador de Prestaciones Médicas (similitud 93%)."
-   ]
+   ],
+   "cobertura_pmo": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
   },
   "U030105": {
    "code": "030105",
@@ -247686,7 +247850,8 @@
      "total": 15.78
     },
     "total_2002": 15.78
-   }
+   },
+   "cobertura_pmo": "Biopsia de oído externo"
   },
   "U030201": {
    "code": "030201",
@@ -254339,7 +254504,8 @@
      "total": 31.42
     },
     "total_2002": 31.42
-   }
+   },
+   "cobertura_pmo": "Operaciones en el Sistema Endocrino"
   },
   "U031314": {
    "code": "031314",
@@ -254719,7 +254885,8 @@
      "total": 14.9
     },
     "total_2002": 14.9
-   }
+   },
+   "cobertura_pmo": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
   },
   "U040107": {
    "code": "040107",
@@ -255055,7 +255222,8 @@
      "total": 375.3
     },
     "total_2002": 375.3
-   }
+   },
+   "cobertura_pmo": "Operaciones en el Tórax"
   },
   "U050101": {
    "code": "050101",
@@ -255936,7 +256104,8 @@
      "total": 336.27
     },
     "total_2002": 336.27
-   }
+   },
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Estadificación de cáncer de pulmón Tumores del mediastino Heridas torácicas"
   },
   "U050405": {
    "code": "050405",
@@ -256003,7 +256172,8 @@
      "total": 123.55
     },
     "total_2002": 123.55
-   }
+   },
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Estadificación de cáncer de pulmón"
   },
   "U050406": {
    "code": "050406",
@@ -256399,7 +256569,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 050413 del Nomenclador de Prestaciones Médicas (similitud 95%)."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Lesiones periféricas cuya resección sea exclusivamente por esa vía."
   },
   "U050501": {
    "code": "050501",
@@ -256442,7 +256613,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 050501 del Nomenclador de Prestaciones Médicas (similitud 95%)."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: 1- El alivio sintomático de pacientes con obstrucción crítica de la vía aérea, principalmente debida a compresión extrínseca con o sin componente endoluminal 2- La resolución de patología benigna obstructiva aérea no opera- ble (p. ej. estenosis post-extubación no operable) o en pacientes no elegibles para cirugía 3- El tratamiento paliativo de enfermedades neoplásicas que de- terminan síntomas obstructivos de la vía aérea, ya sea definitivo o transitorio (en espera de radioterapia o tratamiento antineoplásico). Operaciones en la Mama"
   },
   "U060101": {
    "code": "060101",
@@ -256754,7 +256926,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 060105 del Nomenclador de Prestaciones Médicas (similitud 93%)."
-   ]
+   ],
+   "cobertura_pmo": "8 Código Práctica"
   },
   "U060106": {
    "code": "060106",
@@ -257998,7 +258171,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 070115 del Nomenclador de Prestaciones Médicas (similitud 100%)."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Amplio consenso y evidencia de buena calidad: 1- Prevención secundaria: Pacientes que presenten lo siguiente en ausencia de una causa tratable (a) Paro cardíaco debido a taquicardia ventricular o fibrilación ventricular (b) Taquicardia ventricular (TV) espontánea y sostenida que pro- voca síncope o compromiso hemodinámico significativo (c) TV sostenida sin síncope o paro cardíaco, asociada a una reducción de la fracción de eyección (<35%) en pacientes cuya clase funcional no sea peor que III de la clasificación funcional de insuficiencia cardíaca de la New York Heart Association 2- Prevención primaria: (a) pacientes con historia de infarto agudo de miocardio (IAM) que a su vez tienen todo lo siguiente: TV no sostenida en el holter más Taquicardia Ventricular en estu- dio electrofisiológico sumado a mala función ventricular izquier- da y clase funcional I, II o III de la clasificación funcional de insuficiencia cardíaca de la New York Heart Association (b) condiciones familiares cardíacas con un alto riesgo de muerte súbita, incluyendo a los síndromes de QT prolongado, la cardiomiopatía hipertrófica, el síndrome de Brugada, la displasia ventricular derecha arritmogénica, y luego de la reparación de la tetralogía de Fallot"
   },
   "U070201": {
    "code": "070201",
@@ -258338,7 +258512,8 @@
      "total": 1468.93
     },
     "total_2002": 1468.93
-   }
+   },
+   "cobertura_pmo": "Aneurisma disecante de aorta"
   },
   "U070208": {
    "code": "070208",
@@ -258746,7 +258921,8 @@
      "total": 531.29
     },
     "total_2002": 531.29
-   }
+   },
+   "cobertura_pmo": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
   },
   "U070401": {
    "code": "070401",
@@ -261538,7 +261714,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 071002 del Nomenclador de Prestaciones Médicas (similitud 90%)."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: 1) Pacientes con disnea de esfuerzo, angina, presíncope o síncope 2) Paciente sintomático con gradiente arterial pulmonar pico > de 40 mmhg Operaciones en el Aparato Digestivo y Abdomen"
   },
   "U071003": {
    "code": "071003",
@@ -262049,7 +262226,8 @@
      "total": 490.67
     },
     "total_2002": 490.67
-   }
+   },
+   "cobertura_pmo": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
   },
   "U080108": {
    "code": "080108",
@@ -262455,7 +262633,8 @@
      "total": 87.63
     },
     "total_2002": 87.63
-   }
+   },
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: 1. Tratamiento de la fístula traqueoesofágica 2. Tratamiento paliativo de la disfagia en pacientes con estenosis malignas esofágicas en pacientes con tumores esofágicos irresecables (estadios 3 y 4) o en pacientes con cualquier estadio de la enfermedad que son considerados inoperables por la pre- sencia de situaciones comórbidas que lo contraindican (edad avan- zada, enfermedades concomitantes, etc.)"
   },
   "U080201": {
    "code": "080201",
@@ -265122,7 +265301,8 @@
      "total": 399.78
     },
     "total_2002": 399.78
-   }
+   },
+   "cobertura_pmo": "10 Código Práctica"
   },
   "U080508": {
    "code": "080508",
@@ -268897,7 +269077,8 @@
      "total": 309.02
     },
     "total_2002": 309.02
-   }
+   },
+   "cobertura_pmo": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
   },
   "U080805": {
    "code": "080805",
@@ -270921,7 +271102,8 @@
      "total": 65.13
     },
     "total_2002": 65.13
-   }
+   },
+   "cobertura_pmo": "Operaciones en el aparato urinario y genital masculino"
   },
   "U100101": {
    "code": "100101",
@@ -275786,7 +275968,8 @@
      "total": 71.35
     },
     "total_2002": 71.35
-   }
+   },
+   "cobertura_pmo": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
   },
   "U100711": {
    "code": "100711",
@@ -275938,7 +276121,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 101101 del Nomenclador de Prestaciones Médicas (similitud 94%)."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Disinergia detrusor – esfínter externo"
   },
   "U101102": {
    "code": "101102",
@@ -275981,7 +276165,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 101102 del Nomenclador de Prestaciones Médicas (similitud 97%)."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Remoción de tejido proveniente de la glándula que ocupa la luz uretral causando síntomas u obstrucción al vaciamiento de la vejiga. Operaciones en el Aparato Genital Femenino y Operaciones Obstétricas"
   },
   "U110101": {
    "code": "110101",
@@ -276225,7 +276410,8 @@
      "total": 315.18
     },
     "total_2002": 315.18
-   }
+   },
+   "cobertura_pmo": "Obligación de cobertura cuando se cumplan los siguientes criterios: 1. Mujeres menores de 35 años 2. Tener como único factor de esterilidad el Factor Tuboperitoneal, leve o moderado (la afección es del tercio distal de la trompa: - secuela de infección pelviana (EPI) hidrosalpinx leve y moderado -salpingitis crónica cicatrizal con adherencias - estenosis ostium tuboabdominal – secuela de adherencia de la endometriosis - tu- mores sólidos o quísticos del ovario o del mesovario que com- prometa la función de la trompa - quistes paratubarios - endosalpingiosis tubaria o diverticulosis tubaria)"
   },
   "U110201": {
    "code": "110201",
@@ -277967,7 +278153,8 @@
      "total": 15.78
     },
     "total_2002": 15.78
-   }
+   },
+   "cobertura_pmo": "12 Código Práctica"
   },
   "U110312": {
    "code": "110312",
@@ -278169,7 +278356,8 @@
      "total": 70.86
     },
     "total_2002": 70.86
-   }
+   },
+   "cobertura_pmo": "Bartholino, glándula de Skene"
   },
   "U110315": {
    "code": "110315",
@@ -279112,7 +279300,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 110503 del Nomenclador de Prestaciones Médicas (similitud 92%)."
-   ]
+   ],
+   "cobertura_pmo": "Operaciones en el sistema músculo esquelético Operaciones en huesos y articulaciones"
   },
   "U119403": {
    "code": "119403",
@@ -281740,7 +281929,8 @@
      "total": 152.7
     },
     "total_2002": 152.7
-   }
+   },
+   "cobertura_pmo": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
   },
   "U121006": {
    "code": "121006",
@@ -283163,7 +283353,8 @@
      "total": 92.67
     },
     "total_2002": 92.67
-   }
+   },
+   "cobertura_pmo": "Operaciones en tendones, vainas tendinosas y fascias"
   },
   "U121501": {
    "code": "121501",
@@ -283671,7 +283862,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 121509 del Nomenclador de Prestaciones Médicas (similitud 100%)."
-   ]
+   ],
+   "cobertura_pmo": "Amputaciones y desarticulaciones"
   },
   "U121601": {
    "code": "121601",
@@ -284230,7 +284422,8 @@
      "total": 66.92
     },
     "total_2002": 66.92
-   }
+   },
+   "cobertura_pmo": "Procedimientos combinados"
   },
   "U121701": {
    "code": "121701",
@@ -284366,7 +284559,8 @@
      "total": 360.26
     },
     "total_2002": 360.26
-   }
+   },
+   "cobertura_pmo": "13 Código Práctica"
   },
   "U121703": {
    "code": "121703",
@@ -286220,7 +286414,8 @@
      "total": 37.03
     },
     "total_2002": 37.03
-   }
+   },
+   "cobertura_pmo": "Yesos, vendajes y tracciones continuas"
   },
   "U121901": {
    "code": "121901",
@@ -288573,7 +288768,8 @@
      "total": 35.67
     },
     "total_2002": 35.67
-   }
+   },
+   "cobertura_pmo": "Cirugía artroscópica"
   },
   "U121937": {
    "code": "121937",
@@ -288745,7 +288941,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 122003 del Nomenclador de Prestaciones Médicas (similitud 92%)."
-   ]
+   ],
+   "cobertura_pmo": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica Operaciones en la piel y tejido celular subcutáneo"
   },
   "U128101": {
    "code": "128101",
@@ -291089,7 +291286,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 140103 del Nomenclador de Prestaciones Médicas (similitud 92%)."
-   ]
+   ],
+   "cobertura_pmo": "Anatomía patológica"
   },
   "U140104": {
    "code": "140104",
@@ -291390,7 +291588,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 150106 del Nomenclador de Prestaciones Médicas (similitud 92%)."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura: 1. En toda mujer que haya iniciado relaciones sexuales, o mayo- res de 18 años. 2. La cobertura está indicada en un papanicolaou anual durante tres años, y de ser éstos normales cobertura de un papanicolau cada dos años, en el marco de un programa de rastreo masivo."
   },
   "U150107": {
    "code": "150107",
@@ -291906,7 +292105,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 160105 del Nomenclador de Prestaciones Médicas (similitud 94%)."
-   ]
+   ],
+   "cobertura_pmo": "Cardiología"
   },
   "U160202": {
    "code": "160202",
@@ -294876,7 +295076,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 180302 del Nomenclador de Prestaciones Médicas (similitud 93%)."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: 1. Diagnóstico diferencial de isquemia miocárdica con ergometría dudosa 2. Diagnóstico diferencial de isquemia miocárdica asociada a en- tidades que alteran la sensibilidad de la ergometría (BCRI, miocardiopatías, WOLF-PARKINSON-WHITE) 3. Seguimiento y control de tratamiento en pacientes con enfer- medad coronaria conocida y postoperatorios 4. Información pronóstica en pacientes con IAM pasibles de cirugía de revascularización y para evaluación de su isquemia. Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
   },
   "U180203": {
    "code": "180203",
@@ -296725,7 +296926,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 210105 del Nomenclador de Prestaciones Médicas (similitud 92%)."
-   ]
+   ],
+   "cobertura_pmo": "16 Código Práctica"
   },
   "U210106": {
    "code": "210106",
@@ -296897,7 +297099,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 220101 del Nomenclador de Prestaciones Médicas (similitud 93%)."
-   ]
+   ],
+   "cobertura_pmo": "Se asegura la cobertura: 1. En pacientes cuyo papanicolaou resultado sea anormal o dudosa"
   },
   "U220103": {
    "code": "220103",
@@ -297886,7 +298089,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 240107 del Nomenclador de Prestaciones Médicas (similitud 91%)."
-   ]
+   ],
+   "cobertura_pmo": "500 cm3 de sangre o fracción"
   },
   "U240108": {
    "code": "240108",
@@ -298144,7 +298348,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 240113 del Nomenclador de Prestaciones Médicas (similitud 89%)."
-   ]
+   ],
+   "cobertura_pmo": "500 cc de sangre"
   },
   "U240201": {
    "code": "240201",
@@ -298359,7 +298564,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 241102 del Nomenclador de Prestaciones Médicas (similitud 87%)."
-   ]
+   ],
+   "cobertura_pmo": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
   },
   "U241201": {
    "code": "241201",
@@ -298955,7 +299161,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 250101 del Nomenclador de Prestaciones Médicas (similitud 85%)."
-   ]
+   ],
+   "tope_pmo": "Rehabilitación: Kinesioterapia y Fonoaudiología hasta 25 sesiones por beneficiario por año calendario cada una (Res. 201/02, Anexo I, punto 5)."
   },
   "U250102": {
    "code": "250102",
@@ -298999,6 +299206,7 @@
    "auditoria": [
     "Equivale a la práctica 250102 del Nomenclador de Prestaciones Médicas (similitud 86%)."
    ],
+   "tope_pmo": "Rehabilitación: Kinesioterapia y Fonoaudiología hasta 25 sesiones por beneficiario por año calendario cada una (Res. 201/02, Anexo I, punto 5).",
    "leyes_rel": [
     "24901"
    ]
@@ -299044,7 +299252,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 250103 del Nomenclador de Prestaciones Médicas (similitud 91%)."
-   ]
+   ],
+   "tope_pmo": "Rehabilitación: Kinesioterapia y Fonoaudiología hasta 25 sesiones por beneficiario por año calendario cada una (Res. 201/02, Anexo I, punto 5)."
   },
   "U250104": {
    "code": "250104",
@@ -299088,6 +299297,7 @@
    "auditoria": [
     "Equivale a la práctica 250104 del Nomenclador de Prestaciones Médicas (similitud 95%)."
    ],
+   "tope_pmo": "Rehabilitación: Kinesioterapia y Fonoaudiología hasta 25 sesiones por beneficiario por año calendario cada una (Res. 201/02, Anexo I, punto 5).",
    "leyes_rel": [
     "24901"
    ]
@@ -299133,7 +299343,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 250105 del Nomenclador de Prestaciones Médicas (similitud 91%)."
-   ]
+   ],
+   "tope_pmo": "Rehabilitación: Kinesioterapia y Fonoaudiología hasta 25 sesiones por beneficiario por año calendario cada una (Res. 201/02, Anexo I, punto 5)."
   },
   "U250106": {
    "code": "250106",
@@ -299177,6 +299388,8 @@
    "auditoria": [
     "Equivale a la práctica 250106 del Nomenclador de Prestaciones Médicas (similitud 92%)."
    ],
+   "cobertura_pmo": "Medicina nuclear",
+   "tope_pmo": "Rehabilitación: Kinesioterapia y Fonoaudiología hasta 25 sesiones por beneficiario por año calendario cada una (Res. 201/02, Anexo I, punto 5).",
    "leyes_rel": [
     "24901"
    ]
@@ -301207,7 +301420,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 260211 del Nomenclador de Prestaciones Médicas (similitud 93%)."
-   ]
+   ],
+   "cobertura_pmo": "17 Código Práctica"
   },
   "U260212": {
    "code": "260212",
@@ -301809,7 +302023,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 260231 del Nomenclador de Prestaciones Médicas (similitud 96%)."
-   ]
+   ],
+   "cobertura_pmo": "201 esfuerzo y redistribución • Obligación de cobertura en los siguientes casos: Organo o tejido reemplazado por transplante (corazón), Organo o tejido reemplazado por transplante (válvula del corazón), Or- gano o tejido reemplazado por otro medio (válvula del corazón), Estenosis mitral Insuficiencia mitral reumática, Estenosis mitral con insuficiencia, Enfermedades de la válvula mitral Estenosis aórtica reumática, Insuficiencia aórtica reumática, Es- tenosis con insuficiencia aórtica reumática. Enfermedades de la válvula aórtica, Aterosclerosis coronaria, Aneurisma del corazón, Enfermedad isquémica del corazón, Fibrosis endomiocárdica, Cardiomiopatía hipertrófica obstructiva, Fibroelastosis endocárdica, Cardiomiopatía, Hemibloqueo de rama izquierda del haz de Hiss, Bloqueo de la rama izquierda, Bloqueo de la rama derecha del haz de Hiss, Taquicardia paroxística supraventricular, Taquicardia paroxística ventricular, Taquicardia paroxística, Paro cardíaco, Disritmia cardíaca Insuficiencia del corazón izquierdo, Insuficiencia cardíaca, Mio- carditis, Degeneración miocárdica Trastornos funcionales consecutivos a cirugía cardiovascular, Rotura de cuerda tendinosa, Rotura de músculo papilar, Compli- cación mecánica de otro dispositivo, prótesis e injerto vasculares."
   },
   "U260232": {
    "code": "260232",
@@ -301852,7 +302067,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 260232 del Nomenclador de Prestaciones Médicas (similitud 94%)."
-   ]
+   ],
+   "cobertura_pmo": "201 dipiridamol y redistribución: iguales indicaciones que el código 260231"
   },
   "U260233": {
    "code": "260233",
@@ -301895,7 +302111,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 260233 del Nomenclador de Prestaciones Médicas (similitud 95%)."
-   ]
+   ],
+   "cobertura_pmo": "201 con dobutamina y 4 hs. iguales indicaciones que el código 260231"
   },
   "U260234": {
    "code": "260234",
@@ -302325,7 +302542,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 260409 del Nomenclador de Prestaciones Médicas (similitud 91%)."
-   ]
+   ],
+   "cobertura_pmo": "ACTH Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica 260410inhibición hipotalámico-hipofisiaria con determinación de 260411Pruebas de inhibición de muquet o similares con deter- minación de cortisol 260412estudio del ritmo circadiano de cortisol 260413Prueba estímulo hipotalámico-hipofisiaria con determi- nación de prolactina 260414Prueba de inhibición hipotalámico-hipofisiaria con de- terminación de prolactina 260501Centellograma de cerebro 260503Centellograma de medula ósea 260504mielografía isotopica 260505cisternografía isotópica 260506fistulografía isotópica del Líquido Céfalo Raquídeo 260507ventriculografía isotópica 260508Centellograma óseo 260510centellografía de articulaciones 260511Centellograma de tiroides 260512Centellograma de tiroides y mediastino 260513barrido-total para carcinoma de tiroides 260514Centellograma de paratiroides 260515Centellograma de glándulas salivares 260516Centellograma de pulmón 260517Centellograma hepático 260518Centellograma del pool vascular hepático 260519Centellograma de páncreas 260520Centellograma de bazo 260521Centellograma renal bilateral 260522Centellograma del pool vascular renal 260523Centellograma de placenta 260524Centellograma vías linfáticas abdominoinguinales, axilares y/o mediastinales 260525angiografía radioisotópica por área 260526estudio dinámico renal 260527radiocardiograma 260528perfusión sanguínea miocárdica con radioisótopos 260529flebografía radioisotópica por áreas safenas, femorales, ilíacas, humeral 260531dinámica del tránsito esófago gástrico 260532dinámica tránsito intestinal Nefrología 270101hemohemodiálisis con riñón artificial en insuficiencia aguda 270102hemohemodiálisis con riñón artificial en insuficiencia crónica 270103hemodiálisis peritoneal 270104hemodiálisis peritoneal continua ambulatoria 270201evaluación pretrasplante renal en receptor 270202evaluación pretrasplante renal en dador Neumonología 280101espirometría 280102espirometría antes y después de broncodilatadores 280103broncoespirometría 280104traqueoscopía 280105broncoscopía con instrumental rígido 280106broncofibroscopía 280107curva de flujo volumen con o sin espirometría 280108determinación de volúmenes pulmonares 280109estudio de mecánica pulmonar 280110análisis de gases en aire espirado y sangre arteriovenosa 280111capacidad pulmonar total y volumen residual (técnica de dilución por helio) 280201lavado alveolar 280301ablación de lesiones broncopulmonares por vía endoscópica por métodos físicos o químicos 18 Código Práctica"
   },
   "U260410": {
    "code": "260410",
@@ -304905,7 +305123,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 290202 del Nomenclador de Prestaciones Médicas (similitud 89%)."
-   ]
+   ],
+   "cobertura_pmo": "Presión Positiva Continua en la Vía Aérea • Obligación de cobertura si cumple los siguientes criterios: 1. Con alto impacto de los síntomas en la vida diaria 2. Alta sospecha de apnea del sueño 3. Dispuestos a utilizar Presión Positiva Continua en la Vía Aé- rea (PPCVA) 4. Que han intentado otras medidas (deshabituación al tabaquis- mo, tratamiento de la obesidad, evitar medicación predisponente como benzodiacepinas, etc.)"
   },
   "U290202": {
    "code": "290202",
@@ -304948,7 +305167,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 290203 del Nomenclador de Prestaciones Médicas (similitud 91%)."
-   ]
+   ],
+   "cobertura_pmo": "Oftalmología"
   },
   "U290203": {
    "code": "290203",
@@ -305808,7 +306028,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 300205 del Nomenclador de Prestaciones Médicas (similitud 88%)."
-   ]
+   ],
+   "cobertura_pmo": "Otorrinolaringología"
   },
   "U310101": {
    "code": "310101",
@@ -306711,7 +306932,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 320104 del Nomenclador de Prestaciones Médicas (similitud 91%)."
-   ]
+   ],
+   "cobertura_pmo": "Salud mental"
   },
   "U330101": {
    "code": "330101",
@@ -306755,6 +306977,7 @@
    "auditoria": [
     "Equivale a la práctica 330101 del Nomenclador de Prestaciones Médicas (similitud 92%)."
    ],
+   "tope_pmo": "Salud mental: atención ambulatoria hasta 30 visitas por año calendario, sin exceder 4 consultas mensuales (Res. 201/02, Anexo I, punto 4).",
    "leyes_rel": [
     "24901",
     "27696"
@@ -306802,6 +307025,7 @@
    "auditoria": [
     "Equivale a la práctica 330102 del Nomenclador de Prestaciones Médicas (similitud 91%)."
    ],
+   "tope_pmo": "Salud mental: atención ambulatoria hasta 30 visitas por año calendario, sin exceder 4 consultas mensuales (Res. 201/02, Anexo I, punto 4).",
    "leyes_rel": [
     "27696"
    ]
@@ -306848,6 +307072,7 @@
    "auditoria": [
     "Equivale a la práctica 330103 del Nomenclador de Prestaciones Médicas (similitud 91%)."
    ],
+   "tope_pmo": "Salud mental: atención ambulatoria hasta 30 visitas por año calendario, sin exceder 4 consultas mensuales (Res. 201/02, Anexo I, punto 4).",
    "leyes_rel": [
     "27696"
    ]
@@ -306936,7 +307161,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 330107 del Nomenclador de Prestaciones Médicas (similitud 96%)."
-   ]
+   ],
+   "tope_pmo": "Salud mental: atención ambulatoria hasta 30 visitas por año calendario, sin exceder 4 consultas mensuales (Res. 201/02, Anexo I, punto 4)."
   },
   "U330109": {
    "code": "330109",
@@ -306979,7 +307205,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 330109 del Nomenclador de Prestaciones Médicas (similitud 90%)."
-   ]
+   ],
+   "tope_pmo": "Salud mental: atención ambulatoria hasta 30 visitas por año calendario, sin exceder 4 consultas mensuales (Res. 201/02, Anexo I, punto 4)."
   },
   "U330110": {
    "code": "330110",
@@ -307022,7 +307249,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 330110 del Nomenclador de Prestaciones Médicas (similitud 90%)."
-   ]
+   ],
+   "tope_pmo": "Salud mental: atención ambulatoria hasta 30 visitas por año calendario, sin exceder 4 consultas mensuales (Res. 201/02, Anexo I, punto 4)."
   },
   "U330111": {
    "code": "330111",
@@ -307065,7 +307293,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 330111 del Nomenclador de Prestaciones Médicas (similitud 89%)."
-   ]
+   ],
+   "tope_pmo": "Salud mental: atención ambulatoria hasta 30 visitas por año calendario, sin exceder 4 consultas mensuales (Res. 201/02, Anexo I, punto 4)."
   },
   "U330112": {
    "code": "330112",
@@ -307108,7 +307337,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 330112 del Nomenclador de Prestaciones Médicas (similitud 93%)."
-   ]
+   ],
+   "tope_pmo": "Salud mental: atención ambulatoria hasta 30 visitas por año calendario, sin exceder 4 consultas mensuales (Res. 201/02, Anexo I, punto 4)."
   },
   "U330201": {
    "code": "330201",
@@ -308011,7 +308241,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 340213 del Nomenclador de Prestaciones Médicas (similitud 92%)."
-   ]
+   ],
+   "cobertura_pmo": "19 Código Práctica"
   },
   "U340214": {
    "code": "340214",
@@ -308183,7 +308414,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 340301 del Nomenclador de Prestaciones Médicas (similitud 96%)."
-   ]
+   ],
+   "cobertura_pmo": "Observaciones: no existe evidencia científica que avale la solici- tud de esta práctica como rastreo sistemático en la búsqueda de cáncer de pulmón, por tanto no constituye una indicación para el examen periódico de salud en esta condición."
   },
   "U340302": {
    "code": "340302",
@@ -309559,7 +309791,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 340601 del Nomenclador de Prestaciones Médicas (similitud 88%)."
-   ]
+   ],
+   "cobertura_pmo": "Observaciones: la misma será comprendida como práctica pre- ventiva cuando se realice de forma anual y periódica en el rastreo sistemático de cáncer de mama. Para ello las beneficiarias deberán tener no menos de 49 años, o bien, a edades menores, tener antecedentes de cáncer de mama familiar o personal, u otros factores de riesgo. Toda otra indicación como la displasia mamaria, o la detección de cáncer mamario en pacientes de alto riesgo será para detección de casos, acorde a las guías que establece el Pro- grama Nacional de Garantía de Calidad de la Atención Médica."
   },
   "U340602": {
    "code": "340602",
@@ -310161,7 +310394,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 340804 del Nomenclador de Prestaciones Médicas (similitud 90%)."
-   ]
+   ],
+   "cobertura_pmo": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
   },
   "U340805": {
    "code": "340805",
@@ -312956,7 +313190,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 380101 del Nomenclador de Prestaciones Médicas (similitud 90%)."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: 1. Vitiligo extendido 2. Psoriasis por falta de respuesta al tratamiento o lesiones profun- Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica das y/o extendidas 3. Otras lesiones descamativas no micológicas/bacterianas de la piel. 380201Cámara Hiperbárica • Obligación de cobertura en los siguientes casos: Enfermedad por descompresión, gangrena gaseosa, y embolia gaseosa o aérea Asistencia en consultorio, domicilio e internación 400101internación en terapia intensiva 420101consulta en consultorio 420201consulta en domicilio 420301atención médica en internación clínica o quirúrgica 420303interconsulta especializada en internación 420501internación domiciliaria Prestaciones sanatoriales y de enfermería 430101Cama en habitación c/baño. 430105atención del recién nacido en habitación y/o nursery 430106cama para acompañante • Obligación de cobertura en los siguientes casos: Internación en menores de 15 años, a fin de asegurar una adecuada contención por parte de un familiar durante un momento crítico como es la internación, y sobre todo en este grupo de personas. 430109observación en guardia o piso hasta 8 horas 430201curaciones 430202curaciones quemados 430401nebulización (incluido oxígeno) 430402nebulización con respirador (incluido oxígeno) 430501incubadora tipo isolette o similar 430601luminoterapia 431103asistencia respiratoria en terapia intensiva 431104asistencia respiratoria en áreas de cuidados especiales 431105asistencia respiratoria en neonatología 431106monitoreo de presión endocraneana 431107oximetría por métodos no invasivos Análisis clínicos 660002acetonuria 660004acidimetría gástrica curva de 660005ácido base, estado 660006ACTH 660007addis, recuento de 660013aglutininas anti rh, medio salino albuminoso. Coombs indirecta 660014aglutininas del sistema abo, medio salino albuminoso. Cuantitativo 660016alcohol dehidrogenasa - ADH 660017alcoholemia 660018aldolasa 660019aldosterona 660020alfa feto proteínas 660022amilasemia 660023amilasuria 660025aminoácidos fraccionados por cromatografía 660027aminoaciduria fraccionada por cromatografía 660028amniótico líquido células naranjas 660029amniótico líquido espectrofotometría test de Lisley 660030amniótico líquido lecitina esfingomielina 660031amonemia 660032AMP cíclico 660033angiotensina 660034anhidrasa carbónica b eritrocitaria 21 Código Práctica"
   },
   "U380201": {
    "code": "380201",
@@ -316005,7 +316240,8 @@
      "total": 309.02
     },
     "total_2002": 309.02
-   }
+   },
+   "cobertura_pmo": "Actualización Normativa Nº 1/2002 - S.S.SALUD Código Práctica"
   },
   "U10080901": {
    "code": "10080901",
@@ -318208,7 +318444,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 070806 del Nomenclador de Prestaciones Médicas (similitud 89%)."
-   ]
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: 1. Arterial Renal: La cobertura será obligatoria cuando se cum- plen los siguientes criterios:al menos 75% de estenosis de una o 9 Código Práctica ambas arterias y que desarrollen, a pesar de tratamiento médico óptimo (asociación de dosis máximas de 3 o más drogas sinérgicas) al menos alguna de las siguientes condiciones: — Hipertensión no controlada — Edema pulmonar recurrente fugaz — Ingreso a diálisis dependiente únicamente de estenosis ateroesclerótica de la arteria renal, o deterioro de función renal, especialmente con estenosis bilateral o riñón único funcionante. 2. Enfermedad Arterial Periférica de miembros inferiores: La co- bertura será obligatoria cuando se cumplen los siguientes crite- rios: Estenosis u oclusión de la arteria ilíaca con claudicación intermitente o isquemia crítica de la extremidad con empeora- miento clínico y que luego de una extensa evaluación y tratamien- to médico adecuados no mejora ni se estabiliza y requiere de un procedimiento invasivo, ante la presencia de al menos alguna de las siguientes condiciones clínicas: — Dolor vascular limitante para su estilo de vida habitual o permanente en reposo — Ulceras vasculares no cicatrizantes o gangrena focal — Deberá cumplirse en su totalidad con los siguientes criterios anatómicos: — lesiones menores de 10 cm — lesiones localizadas en la ilíaca externa o común,"
   },
   "U40070901": {
    "code": "40070901",
@@ -318624,7 +318861,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 081003 del Nomenclador de Prestaciones Médicas (similitud 99%)."
-   ]
+   ],
+   "cobertura_pmo": "Operaciones en los vasos y ganglios linfáticos"
   },
   "U40209091": {
    "code": "40209091",
@@ -319011,7 +319249,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 210207 del Nomenclador de Prestaciones Médicas (similitud 94%)."
-   ]
+   ],
+   "cobertura_pmo": "Ginecología y obstetricia"
   },
   "U40230234": {
    "code": "40230234",
