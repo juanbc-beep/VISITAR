@@ -1,0 +1,44 @@
+[
+ {
+  "unico": "10310110",
+  "nombre": "Timpanometría (incluída en impedanciometría) SC",
+  "pm": "310144",
+  "pm_desc": "TIMPANOMETRIA"
+ },
+ {
+  "unico": "10310109",
+  "nombre": "Acufenometría (NO PMO SC)",
+  "pm": "310126",
+  "pm_desc": "ACUFONOMETRIA"
+ },
+ {
+  "unico": "10300210",
+  "nombre": "Test de Lotmar (NO PMO SC)",
+  "pm": "300128",
+  "pm_desc": "TEST DE LOTMAR"
+ },
+ {
+  "unico": "10300211",
+  "nombre": "Ultrabiomicroscopía UBM (NO PMO SC)",
+  "pm": "180204",
+  "pm_desc": "ECOGRAFIA OFTALMOLOGICA"
+ },
+ {
+  "unico": "10300212",
+  "nombre": "Test de But (NO PMO SC)",
+  "pm": "300148",
+  "pm_desc": "EXAMEN DE OJO SECO"
+ },
+ {
+  "unico": "10342018",
+  "nombre": "Espectroscopía en resonancia (NO PMO)",
+  "pm": "260656",
+  "pm_desc": "ESPECTROSCOPIA"
+ },
+ {
+  "unico": "10360112",
+  "nombre": "Uroflujometría (incluidada en estudio urodinamico completo) SC",
+  "pm": "360113",
+  "pm_desc": "UROFLUJOMETRIA O URODINAMIA SIMPLE"
+ }
+]

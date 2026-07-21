@@ -3,7 +3,7 @@
   "titulo": "Manual Inteligente Unificado de Códigos Médicos",
   "fuente": "NBU — Nomenclador Bioquímico Único v2012/2016 (CUBRA) + Catálogo de Prestaciones del PMO (Res. 201/2002, S.S. Salud)",
   "overlay": "Anexo Enero 2024 (U.B. actualizadas) aplicado como valor_actualizado_2024 donde corresponde.",
-  "total_codigos": 6334,
+  "total_codigos": 6341,
   "secciones": {
    "PMO": "PMO — Programa Médico Obligatorio",
    "PE": "Prácticas Especiales (P.E.)",
@@ -19,7 +19,7 @@
    "NBU": 1815,
    "PMO": 1219,
    "ODO": 79,
-   "UNICO": 3221
+   "UNICO": 3228
   },
   "unico_sin_equivalencia": 77,
   "pmo_capitulos": {
@@ -393,7 +393,7 @@
    "Hematología y hemostasia": 207,
    "Endocrinología y hormonas": 199,
    "Genética y biología molecular": 188,
-   "Medicina nuclear": 179,
+   "Medicina nuclear": 180,
    "Sistema cardiovascular (cirugía)": 153,
    "Errores congénitos y metabolismo": 146,
    "Sistema nervioso (cirugía)": 140,
@@ -405,14 +405,14 @@
    "Piel y tejido celular subcutáneo (cirugía)": 60,
    "Hemoterapia": 53,
    "Gastroenterología": 51,
-   "Ecodiagnóstico y hemodinamia": 47,
+   "Ecodiagnóstico y hemodinamia": 48,
    "Tórax (cirugía)": 45,
    "Internación y prácticas especiales": 45,
    "Marcadores tumorales": 44,
    "Anestesiología": 43,
+   "Otorrinolaringología": 41,
    "Cardiología": 40,
-   "Otorrinolaringología": 39,
-   "Oftalmología": 37,
+   "Oftalmología": 39,
    "Prótesis": 32,
    "Ginecología y obstetricia": 28,
    "Neurología": 28,
@@ -425,8 +425,8 @@
    "Genética humana": 22,
    "Sistema endócrino (cirugía)": 21,
    "Radioterapia": 19,
+   "Urología": 17,
    "Vasos y ganglios linfáticos (cirugía)": 16,
-   "Urología": 16,
    "Análisis clínicos (laboratorio)": 16,
    "Neumonología": 15,
    "Módulos y trasplantes": 15,
@@ -147765,6 +147765,15 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Ecodiagnóstico y hemodinamia."
+   ],
+   "equivalencia_unico": [
+    {
+     "unico_code": "10300211",
+     "unico_key": "U10300211",
+     "unico_desc": "Ultrabiomicroscopía UBM (NO PMO SC)",
+     "score": null,
+     "tipo": "med"
+    }
    ]
   },
   "180301": {
@@ -250167,6 +250176,307 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 270104 del Nomenclador de Prestaciones Médicas (similitud 91%)."
+   ]
+  },
+  "U10310110": {
+   "code": "10310110",
+   "nomenclador": "UNICO",
+   "unico_tipo": "med",
+   "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — prestación agregada con equivalencia a Prestaciones Médicas",
+   "seccion": "UNICO",
+   "seccion_label": "Único — Otorrinolaringología",
+   "grupo": "Otorrinolaringología",
+   "nombre": "Timpanometría (incluída en impedanciometría) SC",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "—",
+    "arancel": "Nomenclador ÚNICO en elaboración (sin valorización cargada)."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "equivalencia": {
+    "target_nom": "PMO",
+    "target_label": "Prestaciones Médicas",
+    "code": "310144",
+    "key": null,
+    "desc": "TIMPANOMETRIA",
+    "score": null
+   },
+   "sin_equivalencia": false,
+   "auditoria": [
+    "Equivale a la práctica 310144 del Nomenclador de Prestaciones Médicas (sin ficha propia cargada)."
+   ]
+  },
+  "U10310109": {
+   "code": "10310109",
+   "nomenclador": "UNICO",
+   "unico_tipo": "med",
+   "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — prestación agregada con equivalencia a Prestaciones Médicas",
+   "seccion": "UNICO",
+   "seccion_label": "Único — Otorrinolaringología",
+   "grupo": "Otorrinolaringología",
+   "nombre": "Acufenometría (NO PMO SC)",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "—",
+    "arancel": "Nomenclador ÚNICO en elaboración (sin valorización cargada)."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "equivalencia": {
+    "target_nom": "PMO",
+    "target_label": "Prestaciones Médicas",
+    "code": "310126",
+    "key": null,
+    "desc": "ACUFONOMETRIA",
+    "score": null
+   },
+   "sin_equivalencia": false,
+   "auditoria": [
+    "Equivale a la práctica 310126 del Nomenclador de Prestaciones Médicas (sin ficha propia cargada)."
+   ]
+  },
+  "U10300210": {
+   "code": "10300210",
+   "nomenclador": "UNICO",
+   "unico_tipo": "med",
+   "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — prestación agregada con equivalencia a Prestaciones Médicas",
+   "seccion": "UNICO",
+   "seccion_label": "Único — Oftalmología",
+   "grupo": "Oftalmología",
+   "nombre": "Test de Lotmar (NO PMO SC)",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "—",
+    "arancel": "Nomenclador ÚNICO en elaboración (sin valorización cargada)."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "equivalencia": {
+    "target_nom": "PMO",
+    "target_label": "Prestaciones Médicas",
+    "code": "300128",
+    "key": null,
+    "desc": "TEST DE LOTMAR",
+    "score": null
+   },
+   "sin_equivalencia": false,
+   "auditoria": [
+    "Equivale a la práctica 300128 del Nomenclador de Prestaciones Médicas (sin ficha propia cargada)."
+   ]
+  },
+  "U10300211": {
+   "code": "10300211",
+   "nomenclador": "UNICO",
+   "unico_tipo": "med",
+   "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — prestación agregada con equivalencia a Prestaciones Médicas",
+   "seccion": "UNICO",
+   "seccion_label": "Único — Ecodiagnóstico y hemodinamia",
+   "grupo": "Ecodiagnóstico y hemodinamia",
+   "nombre": "Ultrabiomicroscopía UBM (NO PMO SC)",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "—",
+    "arancel": "Nomenclador ÚNICO en elaboración (sin valorización cargada)."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "equivalencia": {
+    "target_nom": "PMO",
+    "target_label": "Prestaciones Médicas",
+    "code": "180204",
+    "key": "180204",
+    "desc": "ECOGRAFIA OFTALMOLOGICA",
+    "score": null
+   },
+   "sin_equivalencia": false,
+   "auditoria": [
+    "Equivale a la práctica 180204 del Nomenclador de Prestaciones Médicas."
+   ]
+  },
+  "U10300212": {
+   "code": "10300212",
+   "nomenclador": "UNICO",
+   "unico_tipo": "med",
+   "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — prestación agregada con equivalencia a Prestaciones Médicas",
+   "seccion": "UNICO",
+   "seccion_label": "Único — Oftalmología",
+   "grupo": "Oftalmología",
+   "nombre": "Test de But (NO PMO SC)",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "—",
+    "arancel": "Nomenclador ÚNICO en elaboración (sin valorización cargada)."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "equivalencia": {
+    "target_nom": "PMO",
+    "target_label": "Prestaciones Médicas",
+    "code": "300148",
+    "key": null,
+    "desc": "EXAMEN DE OJO SECO",
+    "score": null
+   },
+   "sin_equivalencia": false,
+   "auditoria": [
+    "Equivale a la práctica 300148 del Nomenclador de Prestaciones Médicas (sin ficha propia cargada)."
+   ]
+  },
+  "U10342018": {
+   "code": "10342018",
+   "nomenclador": "UNICO",
+   "unico_tipo": "med",
+   "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — prestación agregada con equivalencia a Prestaciones Médicas",
+   "seccion": "UNICO",
+   "seccion_label": "Único — Medicina nuclear",
+   "grupo": "Medicina nuclear",
+   "nombre": "Espectroscopía en resonancia (NO PMO)",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "—",
+    "arancel": "Nomenclador ÚNICO en elaboración (sin valorización cargada)."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "equivalencia": {
+    "target_nom": "PMO",
+    "target_label": "Prestaciones Médicas",
+    "code": "260656",
+    "key": null,
+    "desc": "ESPECTROSCOPIA",
+    "score": null
+   },
+   "sin_equivalencia": false,
+   "auditoria": [
+    "Equivale a la práctica 260656 del Nomenclador de Prestaciones Médicas (sin ficha propia cargada)."
+   ]
+  },
+  "U10360112": {
+   "code": "10360112",
+   "nomenclador": "UNICO",
+   "unico_tipo": "med",
+   "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — prestación agregada con equivalencia a Prestaciones Médicas",
+   "seccion": "UNICO",
+   "seccion_label": "Único — Urología",
+   "grupo": "Urología",
+   "nombre": "Uroflujometría (incluidada en estudio urodinamico completo) SC",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "—",
+    "arancel": "Nomenclador ÚNICO en elaboración (sin valorización cargada)."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "equivalencia": {
+    "target_nom": "PMO",
+    "target_label": "Prestaciones Médicas",
+    "code": "360113",
+    "key": null,
+    "desc": "UROFLUJOMETRIA O URODINAMIA SIMPLE",
+    "score": null
+   },
+   "sin_equivalencia": false,
+   "auditoria": [
+    "Equivale a la práctica 360113 del Nomenclador de Prestaciones Médicas (sin ficha propia cargada)."
    ]
   },
   "U60660001": {
