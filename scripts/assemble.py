@@ -932,6 +932,37 @@ for _k, _r in records.items():
                 _r["tope_pmo"] = _s["tope_pmo"]
 print(f"PMO cobertura: títulos corregidos {pmo_fix} · con cobertura {pmo_cob} · generalidades {len(PMOCOB.get('generalidades',[]))} · topes {len(PMOCOB.get('topes',[]))}", file=sys.stderr)
 
+# ---------- abreviaturas médicas: diccionario + vínculo a prácticas coincidentes ----------
+import unicodedata as _ud
+def _norm(s):
+    return _ud.normalize("NFD", (s or "")).encode("ascii", "ignore").decode().lower()
+try:
+    ABREVS = json.load(open("data/abreviaturas.json", encoding="utf-8"))
+except FileNotFoundError:
+    try:
+        ABREVS = json.load(open("abreviaturas.json", encoding="utf-8"))
+    except FileNotFoundError:
+        ABREVS = []
+_sig_by_word = defaultdict(list)
+for _e in ABREVS:
+    _s = _norm(_e["sig"])
+    if len(_s) < 6:
+        continue
+    _w0 = next((w for w in _s.split() if len(w) >= 4), None)
+    if _w0:
+        _sig_by_word[_w0].append((_s, _e["abrev"]))
+_abr_n = 0
+for _k, _r in records.items():
+    _name = _norm(_r["nombre"])
+    _found = []
+    for _w in set(w for w in _name.split() if len(w) >= 4):
+        for _s, _ab in _sig_by_word.get(_w, []):
+            if _s in _name and _ab not in _found:
+                _found.append(_ab)
+    if _found:
+        _r["abrev_posibles"] = _found[:6]; _abr_n += 1
+print(f"abreviaturas: {len(ABREVS)} · prácticas con abreviatura sugerida {_abr_n}", file=sys.stderr)
+
 # ---------- relaciones inversas por código: CIE-10 y normativa (en TODOS los nomencladores) ----------
 code2cie = defaultdict(list)
 for _cie, _keys in CIE10.get("relaciones", {}).items():
@@ -996,7 +1027,7 @@ db = {
     "glosario": glossary,
     "leyes": leyes,
     "cie10": CIE10,
-    "medicamentos": PMOCOB.get("medicamentos", []),
+    "abreviaturas": ABREVS,
     "codigos": records,
 }
 json.dump(db, open("nbu_db.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)

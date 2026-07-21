@@ -91,7 +91,11 @@ enlazados (en la ficha del NBU se marca "También en Catálogo PMO").
   médica equivalente las **asociaciones "qué cargar"** y —cuando corresponde— los **valores del Nomenclador
   Nacional** (galenos).
 
-### Diagnósticos — CIE-10 (relación diagnóstico ↔ práctica)
+### Consulta rápida — Diagnósticos (CIE-10) y Abreviaturas médicas
+Apartado de consulta para el personal administrativo (no es un nomenclador): dos buscadores para **interpretar la
+orden médica** antes de cargar las prácticas.
+
+**Diagnóstico (CIE-10):**
 - **11.581 diagnósticos: 2.024 categorías (3 caracteres) + ~9.500 subcategorías** detalladas (4+ caracteres,
   p. ej. `E11.9`, `K95.89`) tomadas del manual **CIE-10-ES**, organizados por los **21 capítulos** y buscables por
   código o texto. Cada subcategoría enlaza a su **categoría padre** y hereda de ella las prácticas relacionadas.
@@ -100,15 +104,22 @@ enlazados (en la ficha del NBU se marca "También en Catálogo PMO").
   **sugerencias automáticas por coincidencia de texto**. Los estudios son **clickeables** y saltan a la ficha del
   nomenclador correspondiente. Marcado como **orientativo** (verificar según el caso clínico y la cobertura).
 
+**Abreviaturas médicas:**
+- **1.826 abreviaturas y siglas** (diccionarios del **Hospital Italiano de Bs. As.** + **INSN**) buscables por sigla
+  o por significado, para **descifrar lo que el médico pide en la orden** (p. ej. `RMN` → Resonancia Magnética).
+- Cuando la sigla coincide con una práctica del nomenclador nacional/único, la ficha de la abreviatura enlaza a las
+  **prácticas que pueden pedirse con esa sigla** (clickeables). A la inversa, **1.025 prácticas** llevan en su ficha
+  el apartado **«Puede abreviarse en la orden»** con las siglas con que suelen aparecer escritas.
+
 **Relación bidireccional CIE-10 ↔ prácticas y normativa por código (en todos los nomencladores):** además de la
 pantalla de diagnósticos, **cada ficha de código** (NBU, PMO, Odontología o Único) muestra —cuando corresponde—
 sus **Diagnósticos CIE-10 relacionados** (clickeables, abren el diagnóstico) y la **Normativa relacionada** (leyes
 y normas de cobertura vinculadas, clickeables, abren su detalle). Las relaciones se **propagan por equivalencia**,
 así un mismo estudio muestra los mismos diagnósticos y normas se lo mire desde el NBU o desde el Único.
 
-La interfaz separa **cinco secciones** con un selector principal: **Laboratorio (NBU)**, **Prestaciones
-médicas (PMO)**, **Odontología**, **Único (VISITAR)** y **Diagnósticos (CIE-10)** — en cada una solo se ven sus
-códigos/diagnósticos y agrupaciones (no se mezclan).
+La interfaz separa **cuatro nomencladores** en el selector principal — **Laboratorio (NBU)**, **Prestaciones
+médicas (PMO)**, **Odontología** y **Único (VISITAR)** — más un apartado de **Consulta rápida** (Diagnósticos
+CIE-10 y Abreviaturas médicas). En cada nomenclador solo se ven sus códigos y agrupaciones (no se mezclan).
 
 ## Uso
 
