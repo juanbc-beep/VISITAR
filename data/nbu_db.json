@@ -90082,12 +90082,7 @@
   {
    "abrev": "AAS",
    "sig": "ACIDO ACETILSALICILICO",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "AAS",
-   "sig": "Ácido acetilsalicílico",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "AB",
@@ -90112,12 +90107,7 @@
   {
    "abrev": "ABDI",
    "sig": "ABDOMEN BLANDO DEPRESIBLE E INDOLORO",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "ABDI",
-   "sig": "Abdomen blando depresible indoloro",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "ABO",
@@ -90242,12 +90232,7 @@
   {
    "abrev": "ADN",
    "sig": "ácido desoxirribonucleico",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "ADN",
-   "sig": "Ácido desoxirribonucléico",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "AE",
@@ -90287,12 +90272,7 @@
   {
    "abrev": "AG",
    "sig": "ANTIGENO",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "Ag",
-   "sig": "Antígeno",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "AGA",
@@ -90951,23 +90931,13 @@
   },
   {
    "abrev": "BCRD",
-   "sig": "BLOQUEO COMPLETO RAMA DERECHA",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "BCRD",
    "sig": "Bloqueo completo de rama derecha",
-   "fuente": "INSN"
-  },
-  {
-   "abrev": "BCRI",
-   "sig": "BLOQUEO COMPLETO RAMA IZQUIERDA",
-   "fuente": "HIBA"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "BCRI",
    "sig": "Bloqueo completo de rama izquierda",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "BCT",
@@ -91046,33 +91016,18 @@
   },
   {
    "abrev": "BIRD",
-   "sig": "BLOQUEO INCOMPLETO RAMA DERECHA",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "BIRD",
    "sig": "Bloqueo incompleto de rama derecha",
-   "fuente": "INSN"
-  },
-  {
-   "abrev": "BIRI",
-   "sig": "BLOQUEO INCOMPLETO RAMA IZQUIERDA",
-   "fuente": "HIBA"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "BIRI",
    "sig": "Bloqueo incompleto de rama izquierda",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "BIS",
    "sig": "INDICE BIESPECTRAL",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "BIS",
-   "sig": "Índice biespectral",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "BK",
@@ -91097,12 +91052,7 @@
   {
    "abrev": "BMC",
    "sig": "BIOMICROSCOPIA",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "BMC",
-   "sig": "Biomicroscopía",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "BMI",
@@ -91136,13 +91086,8 @@
   },
   {
    "abrev": "BPEG",
-   "sig": "BAJO PESO PARA EDAD GESTACIONAL",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "BPEG",
    "sig": "Bajo peso para la edad gestacional",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "BPN",
@@ -91272,12 +91217,7 @@
   {
    "abrev": "CAL",
    "sig": "CALORIAS",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "Cal",
-   "sig": "Calorías",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "CAM",
@@ -91317,12 +91257,7 @@
   {
    "abrev": "CBM",
    "sig": "CONCENTRACION BACTERICIDA MINIMA",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "CBM",
-   "sig": "Concentración bactericida mínima",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "CBN",
@@ -91512,12 +91447,7 @@
   {
    "abrev": "CIA",
    "sig": "COMUNICACION INTERAURICULAR",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "CIA",
-   "sig": "Comunicación interauricular",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "CIC",
@@ -91552,12 +91482,7 @@
   {
    "abrev": "CIM",
    "sig": "CONCENTRACION INHIBITORIA MINIMA",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "CIM",
-   "sig": "Concentración inhibitoria mínima",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "CIN",
@@ -91587,12 +91512,7 @@
   {
    "abrev": "CIV",
    "sig": "COMUNICACION INTERVENTRICULAR",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "CIV",
-   "sig": "Comunicación Interventricular",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "CKBB",
@@ -92491,13 +92411,8 @@
   },
   {
    "abrev": "EAP",
-   "sig": "EDEMA AGUDO PULMON",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "EAP",
    "sig": "Edema agudo de pulmón",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "EB",
@@ -92572,7 +92487,7 @@
   {
    "abrev": "ECO",
    "sig": "ECOGRAFIA",
-   "fuente": "HIBA"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "ECO",
@@ -92583,11 +92498,6 @@
    "abrev": "ECO",
    "sig": "TV ECOGRAFÍA TRANSVAGINAL",
    "fuente": "HIBA"
-  },
-  {
-   "abrev": "ECO",
-   "sig": "Ecografía",
-   "fuente": "INSN"
   },
   {
    "abrev": "Ecocardio",
@@ -92827,12 +92737,7 @@
   {
    "abrev": "EPOC",
    "sig": "ENFERMEDAD PULMONAR OBSTRUCTIVA CRONICA",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "EPOC",
-   "sig": "Enfermedad pulmonar obstructiva crónica",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "EPPC",
@@ -92931,13 +92836,8 @@
   },
   {
    "abrev": "ETS",
-   "sig": "ENFERMEDAD TRANSMISION SEXUAL",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "ETS",
    "sig": "Enfermedad de transmisión sexual",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "ETT",
@@ -93327,12 +93227,7 @@
   {
    "abrev": "FQ",
    "sig": "FIBROSIS QUISTICA",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "FQ",
-   "sig": "Fibrosis quística",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "FR",
@@ -93347,12 +93242,7 @@
   {
    "abrev": "FSH",
    "sig": "HORMONA FOLICULO ESTIMULANTE",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "FSH",
-   "sig": "Hormona folículo estimulante",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "FSVD",
@@ -93387,12 +93277,7 @@
   {
    "abrev": "FV",
    "sig": "FIBRILACION VENTRICULAR",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "FV",
-   "sig": "Fibrilación ventricular",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "FV-TV",
@@ -93427,12 +93312,7 @@
   {
    "abrev": "GB",
    "sig": "GLOBULOS BLANCOS",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "GB",
-   "sig": "Glóbulos blancos",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "GBP",
@@ -94122,12 +94002,7 @@
   {
    "abrev": "ICT",
    "sig": "INDICE CARDIOTORACICO",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "ICT",
-   "sig": "Índice cardiotorácico",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "ID",
@@ -94231,13 +94106,8 @@
   },
   {
    "abrev": "IMC",
-   "sig": "INDICE MASA CORPORAL",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "IMC",
    "sig": "Índice de masa corporal",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "Inf",
@@ -94417,12 +94287,7 @@
   {
    "abrev": "IY",
    "sig": "INGURGITACION YUGULAR",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "IY",
-   "sig": "Ingurgitación yugular",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "IZQ",
@@ -94607,12 +94472,7 @@
   {
    "abrev": "LCR",
    "sig": "LIQUIDO CEFALORRAQUIDEO",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "LCR",
-   "sig": "Líquido cefalorraquídeo",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "LDH",
@@ -94637,12 +94497,7 @@
   {
    "abrev": "LES",
    "sig": "LUPUS ERITEMATOSO SISTEMICO",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "LES",
-   "sig": "Lupus eritematoso sistémico",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "LET",
@@ -94872,12 +94727,7 @@
   {
    "abrev": "MAV",
    "sig": "MALFORMACION ARTERIOVENOSA",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "MAV",
-   "sig": "Malformación arteriovenosa",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "MBE",
@@ -95301,13 +95151,8 @@
   },
   {
    "abrev": "NAC",
-   "sig": "NEUMONIA ADQUIRIDA COMUNIDAD",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "NAC",
    "sig": "Neumonía adquirida en la comunidad",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "NADH",
@@ -95662,12 +95507,7 @@
   {
    "abrev": "OMC",
    "sig": "OTITIS MEDIA CRONICA",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "OMC",
-   "sig": "Otitis Media Crónica",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "OME",
@@ -95697,12 +95537,7 @@
   {
    "abrev": "ORL",
    "sig": "OTORRINOLARINGOLOGIA",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "ORL",
-   "sig": "Otorrinolaringología",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "OROF",
@@ -96276,13 +96111,8 @@
   },
   {
    "abrev": "PPC",
-   "sig": "PRESION PERFUSION CEREBRAL",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "PPC",
    "sig": "Presión de perfusión cerebral",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "PPD",
@@ -96317,17 +96147,12 @@
   {
    "abrev": "PPL",
    "sig": "PUÑO PERCUSION LUMBAR",
-   "fuente": "HIBA"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "PPL",
    "sig": "PUÑOPERCUSION LUMBAR NEGATIVA",
    "fuente": "HIBA"
-  },
-  {
-   "abrev": "PPL",
-   "sig": "Puño-percusión lumbar",
-   "fuente": "INSN"
   },
   {
    "abrev": "PPL+",
@@ -96497,12 +96322,7 @@
   {
    "abrev": "PTI",
    "sig": "PURPURA TROMBOCITOPENICA IDIOPATICA",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "PTI",
-   "sig": "Púrpura trombocitopénica idiopática",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "PTL",
@@ -96997,12 +96817,7 @@
   {
    "abrev": "RMN",
    "sig": "RESONANCIA MAGNETICA NUCLEAR",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "RMN",
-   "sig": "Resonancia magnética nuclear",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "RMND",
@@ -97062,22 +96877,12 @@
   {
    "abrev": "RNPT",
    "sig": "RECIEN NACIDO PRETERMINO",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "RNPT",
-   "sig": "Recién nacido pretérmino",
-   "fuente": "INSN"
-  },
-  {
-   "abrev": "RNT",
-   "sig": "RECIEN NACIDO TERMINO",
-   "fuente": "HIBA"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "RNT",
    "sig": "Recién nacido al término",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "ROM",
@@ -97267,12 +97072,7 @@
   {
    "abrev": "RX",
    "sig": "RADIOGRAFIA",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "Rx",
-   "sig": "Radiografía",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "RXABD",
@@ -97322,12 +97122,7 @@
   {
    "abrev": "SAT",
    "sig": "SATURACION",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "Sat",
-   "sig": "Saturación",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "SATO2",
@@ -97587,12 +97382,7 @@
   {
    "abrev": "SNG",
    "sig": "SONDA NASOGASTRICA",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "SNG",
-   "sig": "Sonda nasogástrica",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "SNIFF",
@@ -97617,12 +97407,7 @@
   {
    "abrev": "SOG",
    "sig": "SONDA OROGASTRICA",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "SOG",
-   "sig": "Sonda orogástrica",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "SOH",
@@ -98511,13 +98296,8 @@
   },
   {
    "abrev": "UCIN",
-   "sig": "UNIDAD CUIDADOS INTENSIVOS NEONATALES",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "UCIN",
    "sig": "Unidad de cuidados intensivos neonatales",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "UDA",
@@ -98961,13 +98741,8 @@
   },
   {
    "abrev": "VSG",
-   "sig": "VELOCIDAD SEDIMENTACION GLOBULAR",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "VSG",
    "sig": "Velocidad de sedimentación globular",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "VSL",
@@ -99032,12 +98807,7 @@
   {
    "abrev": "WPW",
    "sig": "WOLFF PARKINSON WHITE",
-   "fuente": "HIBA"
-  },
-  {
-   "abrev": "Wpw",
-   "sig": "Wolff-Parkinson-White",
-   "fuente": "INSN"
+   "fuente": "HIBA + INSN"
   },
   {
    "abrev": "XT",
@@ -101984,8 +101754,7 @@
     }
    ],
    "abrev_posibles": [
-    "AG",
-    "Ag"
+    "AG"
    ]
   },
   "660148": {
@@ -106109,8 +105878,8 @@
     }
    ],
    "abrev_posibles": [
-    "RTO",
-    "GB"
+    "GB",
+    "RTO"
    ]
   },
   "660409": {
@@ -106162,8 +105931,8 @@
     }
    ],
    "abrev_posibles": [
-    "RTO",
-    "GB"
+    "GB",
+    "RTO"
    ]
   },
   "660410": {
@@ -114393,7 +114162,6 @@
    ],
    "abrev_posibles": [
     "AG",
-    "Ag",
     "PSA"
    ],
    "cie_rel": [
@@ -115209,8 +114977,7 @@
     }
    ],
    "abrev_posibles": [
-    "AG",
-    "Ag"
+    "AG"
    ],
    "cie_rel": [
     "B16"
@@ -115261,8 +115028,7 @@
     }
    ],
    "abrev_posibles": [
-    "AG",
-    "Ag"
+    "AG"
    ],
    "cie_rel": [
     "B18",
@@ -120584,7 +120350,6 @@
    ],
    "abrev_posibles": [
     "AG",
-    "Ag",
     "PSA"
    ],
    "cie_rel": [
@@ -120642,7 +120407,6 @@
    ],
    "abrev_posibles": [
     "AG",
-    "Ag",
     "PSA"
    ]
   },
@@ -122575,8 +122339,7 @@
     }
    ],
    "abrev_posibles": [
-    "AG",
-    "Ag"
+    "AG"
    ]
   },
   "663085": {
@@ -137326,8 +137089,7 @@
    "frecuencia": [],
    "auditoria": [],
    "abrev_posibles": [
-    "AG",
-    "Ag"
+    "AG"
    ],
    "cie_rel": [
     "B18",
@@ -141520,8 +141282,7 @@
     }
    ],
    "abrev_posibles": [
-    "AG",
-    "Ag"
+    "AG"
    ]
   },
   "666728": {
@@ -141836,8 +141597,7 @@
     }
    ],
    "abrev_posibles": [
-    "AG",
-    "Ag"
+    "AG"
    ]
   },
   "666788": {
@@ -146619,8 +146379,7 @@
     }
    ],
    "abrev_posibles": [
-    "AG",
-    "Ag"
+    "AG"
    ]
   },
   "667734": {
@@ -153909,8 +153668,7 @@
     }
    ],
    "abrev_posibles": [
-    "AG",
-    "Ag"
+    "AG"
    ]
   },
   "669101": {
@@ -162843,7 +162601,6 @@
    ],
    "abrev_posibles": [
     "AG",
-    "Ag",
     "PSA"
    ],
    "cie_rel": [
@@ -164781,8 +164538,7 @@
     }
    ],
    "abrev_posibles": [
-    "AG",
-    "Ag"
+    "AG"
    ]
   },
   "663743": {
@@ -171055,8 +170811,7 @@
     }
    ],
    "abrev_posibles": [
-    "AG",
-    "Ag"
+    "AG"
    ]
   },
   "666802": {
@@ -177730,8 +177485,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "010102": {
@@ -177802,8 +177557,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "010103": {
@@ -178489,8 +178244,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "010207": {
@@ -182373,8 +182128,8 @@
     "Gasto quirúrgico: 910 galenos."
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "020109": {
@@ -184581,8 +184336,8 @@
     }
    ],
    "abrev_posibles": [
-    "CAV",
-    "DCR"
+    "DCR",
+    "CAV"
    ]
   },
   "020802": {
@@ -184721,8 +184476,8 @@
     }
    ],
    "abrev_posibles": [
-    "DJE",
-    "GL"
+    "GL",
+    "DJE"
    ]
   },
   "020804": {
@@ -186698,9 +186453,9 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
+    "Qx",
     "FX",
-    "Qx"
+    "TTO"
    ]
   },
   "030306": {
@@ -186770,8 +186525,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "030401": {
@@ -187042,8 +186797,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "030405": {
@@ -189035,8 +188790,8 @@
     }
    ],
    "abrev_posibles": [
-    "DJE",
-    "LAR"
+    "LAR",
+    "DJE"
    ]
   },
   "030608": {
@@ -189924,8 +189679,8 @@
     }
    ],
    "abrev_posibles": [
-    "DJE",
-    "GL"
+    "GL",
+    "DJE"
    ]
   },
   "030807": {
@@ -189994,9 +189749,9 @@
     }
    ],
    "abrev_posibles": [
-    "BX",
     "GL",
-    "GLS"
+    "GLS",
+    "BX"
    ]
   },
   "030808": {
@@ -190314,8 +190069,8 @@
     }
    ],
    "abrev_posibles": [
-    "BX",
-    "DJE"
+    "DJE",
+    "BX"
    ]
   },
   "030905": {
@@ -190853,8 +190608,8 @@
     }
    ],
    "abrev_posibles": [
-    "BX",
-    "DJE"
+    "DJE",
+    "BX"
    ]
   },
   "031101": {
@@ -191147,8 +190902,8 @@
     }
    ],
    "abrev_posibles": [
-    "BX",
-    "DJE"
+    "DJE",
+    "BX"
    ]
   },
   "031201": {
@@ -191538,8 +191293,8 @@
     }
    ],
    "abrev_posibles": [
-    "BX",
-    "DJE"
+    "DJE",
+    "BX"
    ]
   },
   "031301": {
@@ -194091,8 +193846,8 @@
     }
    ],
    "abrev_posibles": [
-    "BX",
-    "Ca"
+    "Ca",
+    "BX"
    ]
   },
   "050407": {
@@ -196037,8 +195792,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "070203": {
@@ -200647,8 +200402,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "080205": {
@@ -204759,9 +204514,9 @@
     }
    ],
    "abrev_posibles": [
-    "OP",
     "Qx",
-    "TTO"
+    "TTO",
+    "OP"
    ]
   },
   "080609": {
@@ -208861,8 +208616,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "100117": {
@@ -209589,8 +209344,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "100207": {
@@ -209660,8 +209415,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "100208": {
@@ -209980,8 +209735,8 @@
     }
    ],
    "abrev_posibles": [
-    "OP",
-    "TTO"
+    "TTO",
+    "OP"
    ]
   },
   "100213": {
@@ -213716,8 +213471,8 @@
     }
    ],
    "abrev_posibles": [
-    "BX",
-    "DX"
+    "DX",
+    "BX"
    ]
   },
   "110212": {
@@ -214272,8 +214027,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "110304": {
@@ -216811,8 +216566,8 @@
     }
    ],
    "abrev_posibles": [
-    "MTC",
-    "MTT"
+    "MTT",
+    "MTC"
    ]
   },
   "120701": {
@@ -218652,8 +218407,8 @@
     }
    ],
    "abrev_posibles": [
-    "BX",
-    "DJE"
+    "DJE",
+    "BX"
    ]
   },
   "121301": {
@@ -221474,8 +221229,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "121723": {
@@ -221545,8 +221300,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "121724": {
@@ -221683,8 +221438,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "121726": {
@@ -224681,8 +224436,8 @@
    ],
    "abrev_posibles": [
     "SC",
-    "TCSC",
-    "BX"
+    "BX",
+    "TCSC"
    ]
   },
   "130109": {
@@ -227937,8 +227692,8 @@
     }
    ],
    "abrev_posibles": [
-    "ABD",
-    "ECO"
+    "ECO",
+    "ABD"
    ]
   },
   "180113": {
@@ -233283,8 +233038,8 @@
     }
    ],
    "abrev_posibles": [
-    "VIT",
-    "DX"
+    "DX",
+    "VIT"
    ],
    "cie_rel": [
     "D51",
@@ -233555,8 +233310,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Ca"
+    "Ca",
+    "TTO"
    ]
   },
   "260137": {
@@ -241156,8 +240911,7 @@
     }
    ],
    "abrev_posibles": [
-    "RX",
-    "Rx"
+    "RX"
    ]
   },
   "340907": {
@@ -241203,8 +240957,7 @@
     }
    ],
    "abrev_posibles": [
-    "RX",
-    "Rx"
+    "RX"
    ]
   },
   "340908": {
@@ -241250,8 +241003,7 @@
     }
    ],
    "abrev_posibles": [
-    "RX",
-    "Rx"
+    "RX"
    ]
   },
   "341001": {
@@ -249638,8 +249390,8 @@
     "Coseguro máximo: 100%."
    ],
    "abrev_posibles": [
-    "Px",
-    "DX"
+    "DX",
+    "Px"
    ]
   },
   "ODO0802": {
@@ -250789,8 +250541,8 @@
     "total_2002": 327.27
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U010103": {
@@ -254852,8 +254604,8 @@
     "Equivale a la práctica 010715 del Nomenclador de Prestaciones Médicas (similitud 89%)."
    ],
    "abrev_posibles": [
-    "DJE",
-    "DVP"
+    "DVP",
+    "DJE"
    ]
   },
   "U010801": {
@@ -256815,8 +256567,8 @@
     "total_2002": 237.06
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U020502": {
@@ -257712,9 +257464,9 @@
     "total_2002": 186.28
    },
    "abrev_posibles": [
+    "DCR",
     "OP",
-    "CAV",
-    "DCR"
+    "CAV"
    ]
   },
   "U020802": {
@@ -257853,8 +257605,8 @@
     "total_2002": 15.78
    },
    "abrev_posibles": [
-    "DJE",
-    "GL"
+    "GL",
+    "DJE"
    ]
   },
   "U020804": {
@@ -258776,8 +258528,8 @@
    },
    "cobertura_pmo": "Biopsia de oído externo",
    "abrev_posibles": [
-    "DJE",
-    "CAE"
+    "CAE",
+    "DJE"
    ]
   },
   "U030201": {
@@ -259830,9 +259582,9 @@
     "total_2002": 280.48
    },
    "abrev_posibles": [
-    "TTO",
+    "Qx",
     "FX",
-    "Qx"
+    "TTO"
    ]
   },
   "U030306": {
@@ -259902,8 +259654,8 @@
     "total_2002": 436.34
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U030401": {
@@ -260174,8 +259926,8 @@
     "total_2002": 103.43
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U030405": {
@@ -261783,8 +261535,8 @@
     "total_2002": 378.1
    },
    "abrev_posibles": [
-    "OP",
-    "LAR"
+    "LAR",
+    "OP"
    ]
   },
   "U030602": {
@@ -262198,8 +261950,8 @@
     "total_2002": 27.23
    },
    "abrev_posibles": [
-    "DJE",
-    "LAR"
+    "LAR",
+    "DJE"
    ]
   },
   "U030608": {
@@ -263025,8 +262777,8 @@
     "total_2002": 263.44
    },
    "abrev_posibles": [
-    "OP",
-    "GL"
+    "GL",
+    "OP"
    ]
   },
   "U030806": {
@@ -263095,8 +262847,8 @@
     "total_2002": 27.23
    },
    "abrev_posibles": [
-    "DJE",
-    "GL"
+    "GL",
+    "DJE"
    ]
   },
   "U030807": {
@@ -263165,9 +262917,9 @@
     "total_2002": 22.06
    },
    "abrev_posibles": [
-    "BX",
     "GL",
-    "GLS"
+    "GLS",
+    "BX"
    ]
   },
   "U030808": {
@@ -264030,8 +263782,8 @@
     "total_2002": 15.78
    },
    "abrev_posibles": [
-    "BX",
-    "DJE"
+    "DJE",
+    "BX"
    ]
   },
   "U031101": {
@@ -264714,8 +264466,8 @@
     "Equivale a la práctica 031206 del Nomenclador de Prestaciones Médicas (similitud 93%)."
    ],
    "abrev_posibles": [
-    "BX",
-    "DJE"
+    "DJE",
+    "BX"
    ]
   },
   "U031301": {
@@ -274077,8 +273829,8 @@
     "total_2002": 203.29
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U080205": {
@@ -282787,8 +282539,8 @@
     "total_2002": 164.6
    },
    "abrev_posibles": [
-    "BX",
-    "DJE"
+    "DJE",
+    "BX"
    ]
   },
   "U100108": {
@@ -284276,8 +284028,8 @@
     "total_2002": 188.74
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U100208": {
@@ -289803,8 +289555,8 @@
     "total_2002": 46.82
    },
    "abrev_posibles": [
-    "DJE",
-    "GL"
+    "GL",
+    "DJE"
    ]
   },
   "U110318": {
@@ -291355,8 +291107,8 @@
     "total_2002": 124.2
    },
    "abrev_posibles": [
-    "MTC",
-    "MTT"
+    "MTT",
+    "MTC"
    ]
   },
   "U120401": {
@@ -297355,8 +297107,8 @@
     "total_2002": 128.81
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U121723": {
@@ -297426,8 +297178,8 @@
     "total_2002": 197.62
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U121724": {
@@ -297564,8 +297316,8 @@
     "total_2002": 128.81
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U121726": {
@@ -301305,8 +301057,8 @@
    },
    "abrev_posibles": [
     "SC",
-    "TCSC",
-    "BX"
+    "BX",
+    "TCSC"
    ]
   },
   "U130109": {
@@ -305323,9 +305075,9 @@
     "Equivale a la práctica 170105 del Nomenclador de Prestaciones Médicas (similitud 90%)."
    ],
    "abrev_posibles": [
+    "DX",
     "ECG",
-    "EKG",
-    "DX"
+    "EKG"
    ]
   },
   "U170106": {
@@ -312421,8 +312173,8 @@
     "Equivale a la práctica 260130 del Nomenclador de Prestaciones Médicas (similitud 87%)."
    ],
    "abrev_posibles": [
-    "VIT",
-    "DX"
+    "DX",
+    "VIT"
    ],
    "cie_rel": [
     "D51",
@@ -317593,8 +317345,8 @@
     "Equivale a la práctica 300122 del Nomenclador de Prestaciones Médicas (similitud 87%)."
    ],
    "abrev_posibles": [
-    "CTROL",
-    "FO"
+    "FO",
+    "CTROL"
    ]
   },
   "U300130": {
@@ -320236,8 +319988,7 @@
    ],
    "cobertura_pmo": "Observaciones: no existe evidencia científica que avale la solici- tud de esta práctica como rastreo sistemático en la búsqueda de cáncer de pulmón, por tanto no constituye una indicación para el examen periódico de salud en esta condición.",
    "abrev_posibles": [
-    "RX",
-    "Rx"
+    "RX"
    ]
   },
   "U340302": {
@@ -322705,8 +322456,8 @@
     "Equivale a la práctica 340820 del Nomenclador de Prestaciones Médicas (similitud 95%)."
    ],
    "abrev_posibles": [
-    "MMSS",
-    "Inf"
+    "Inf",
+    "MMSS"
    ]
   },
   "U340822": {
@@ -322970,8 +322721,7 @@
     "Equivale a la práctica 340905 del Nomenclador de Prestaciones Médicas (similitud 91%)."
    ],
    "abrev_posibles": [
-    "RX",
-    "Rx"
+    "RX"
    ]
   },
   "U340907": {
@@ -323017,8 +322767,7 @@
     "Equivale a la práctica 340907 del Nomenclador de Prestaciones Médicas (similitud 93%)."
    ],
    "abrev_posibles": [
-    "RX",
-    "Rx"
+    "RX"
    ]
   },
   "U340908": {
@@ -323064,8 +322813,7 @@
     "Equivale a la práctica 340908 del Nomenclador de Prestaciones Médicas (similitud 94%)."
    ],
    "abrev_posibles": [
-    "RX",
-    "Rx"
+    "RX"
    ]
   },
   "U341001": {
@@ -324470,8 +324218,8 @@
     "Equivale a la práctica 350116 del Nomenclador de Prestaciones Médicas (similitud 92%)."
    ],
    "abrev_posibles": [
-    "RT",
     "TTO",
+    "RT",
     "Ca"
    ]
   },
@@ -332827,8 +332575,8 @@
     "Sin equivalencia en Prestaciones Médicas — pendiente de mapeo manual."
    ],
    "abrev_posibles": [
-    "PTE",
-    "AV"
+    "AV",
+    "PTE"
    ]
   },
   "U60660001": {
@@ -341411,8 +341159,8 @@
     "Urgencia (U): si se solicita de urgencia, adicionar el código 661200 en la misma prescripción."
    ],
    "abrev_posibles": [
-    "RTO",
-    "GB"
+    "GB",
+    "RTO"
    ]
   },
   "U60660409": {
@@ -341464,8 +341212,8 @@
     "Urgencia (U): si se solicita de urgencia, adicionar el código 661200 en la misma prescripción."
    ],
    "abrev_posibles": [
-    "RTO",
-    "GB"
+    "GB",
+    "RTO"
    ]
   },
   "U60660410": {
@@ -351333,8 +351081,7 @@
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 661000."
    ],
    "abrev_posibles": [
-    "AG",
-    "Ag"
+    "AG"
    ],
    "cie_rel": [
     "C61"
@@ -352231,8 +351978,7 @@
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 661085."
    ],
    "abrev_posibles": [
-    "AG",
-    "Ag"
+    "AG"
    ],
    "cie_rel": [
     "B16"
@@ -352283,8 +352029,7 @@
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 661086."
    ],
    "abrev_posibles": [
-    "AG",
-    "Ag"
+    "AG"
    ],
    "cie_rel": [
     "B18",
@@ -358712,7 +358457,6 @@
    ],
    "abrev_posibles": [
     "AG",
-    "Ag",
     "PSA"
    ],
    "cie_rel": [
@@ -358763,7 +358507,6 @@
    ],
    "abrev_posibles": [
     "AG",
-    "Ag",
     "PSA"
    ],
    "cie_rel": [
@@ -358820,7 +358563,6 @@
    ],
    "abrev_posibles": [
     "AG",
-    "Ag",
     "PSA"
    ]
   },
@@ -361496,8 +361238,7 @@
     "Práctica en desuso / por presupuesto (#): no tiene valor de U.B. de referencia; se cotiza por presupuesto."
    ],
    "abrev_posibles": [
-    "AG",
-    "Ag"
+    "AG"
    ]
   },
   "U64663085": {
@@ -365935,8 +365676,7 @@
     "Práctica del NBU con U.B. vigente (actualización a la fecha)."
    ],
    "abrev_posibles": [
-    "AG",
-    "Ag"
+    "AG"
    ]
   },
   "U63663734": {
@@ -386391,8 +386131,7 @@
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 666725."
    ],
    "abrev_posibles": [
-    "AG",
-    "Ag"
+    "AG"
    ]
   },
   "U64666730": {
@@ -386653,8 +386392,7 @@
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 666768."
    ],
    "abrev_posibles": [
-    "AG",
-    "Ag"
+    "AG"
    ]
   },
   "U64666777": {
@@ -386832,8 +386570,7 @@
     "Práctica del NBU con U.B. vigente (actualización a la fecha)."
    ],
    "abrev_posibles": [
-    "AG",
-    "Ag"
+    "AG"
    ]
   },
   "U64666802": {
@@ -393415,8 +393152,7 @@
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 667725."
    ],
    "abrev_posibles": [
-    "AG",
-    "Ag"
+    "AG"
    ]
   },
   "U64667734": {
@@ -396351,8 +396087,7 @@
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 668153."
    ],
    "abrev_posibles": [
-    "AG",
-    "Ag"
+    "AG"
    ]
   },
   "U64668156": {
@@ -398040,8 +397775,7 @@
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 668393."
    ],
    "abrev_posibles": [
-    "AG",
-    "Ag"
+    "AG"
    ]
   },
   "U64668397": {
@@ -402762,8 +402496,7 @@
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 669093."
    ],
    "abrev_posibles": [
-    "AG",
-    "Ag"
+    "AG"
    ]
   },
   "U64669101": {

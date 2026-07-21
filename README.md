@@ -105,8 +105,10 @@ orden médica** antes de cargar las prácticas.
   nomenclador correspondiente. Marcado como **orientativo** (verificar según el caso clínico y la cobertura).
 
 **Abreviaturas médicas:**
-- **1.826 abreviaturas y siglas** (diccionarios del **Hospital Italiano de Bs. As.** + **INSN**) buscables por sigla
-  o por significado, para **descifrar lo que el médico pide en la orden** (p. ej. `RMN` → Resonancia Magnética).
+- **1.413 siglas** (1.780 significados, deduplicados — misma sigla y significado se unifican, p. ej. `ABDI`) de los
+  diccionarios del **Hospital Italiano de Bs. As.** + **INSN**, buscables por sigla o por significado, para
+  **descifrar lo que el médico pide en la orden** (p. ej. `RMN` → Resonancia Magnética). Las siglas con varios
+  significados se muestran en una sola fila y el detalle lista todas sus acepciones.
 - Cuando la sigla coincide con una práctica del nomenclador nacional/único, la ficha de la abreviatura enlaza a las
   **prácticas que pueden pedirse con esa sigla** (clickeables). A la inversa, **1.025 prácticas** llevan en su ficha
   el apartado **«Puede abreviarse en la orden»** con las siglas con que suelen aparecer escritas.

@@ -943,6 +943,31 @@ except FileNotFoundError:
         ABREVS = json.load(open("abreviaturas.json", encoding="utf-8"))
     except FileNotFoundError:
         ABREVS = []
+# dedup: misma sigla + mismo significado (ignorando mayúsculas, acentos y
+# conectores como "e/y/de/la"). Ej.: ABDI "ABDOMEN BLANDO DEPRESIBLE E INDOLORO"
+# (HIBA) y "Abdomen blando depresible indoloro" (INSN) → una sola entrada.
+_STOP = {"e","y","de","del","la","el","los","las","con","a","o","en","al","un","una","the"}
+def _sigkey(s):
+    s = _ud.normalize("NFD", (s or "")).encode("ascii", "ignore").decode().lower()
+    s = re.sub(r"[^a-z0-9 ]", " ", s)
+    return " ".join(t for t in s.split() if t not in _STOP)
+_seen_ab = {}
+_dedup = []
+for _e in ABREVS:
+    _dk = (_e["abrev"].upper(), _sigkey(_e["sig"]))
+    if _dk in _seen_ab:
+        # conservar la variante más descriptiva (más larga) y anexar la fuente
+        _prev = _seen_ab[_dk]
+        if len(_e["sig"]) > len(_prev["sig"]):
+            _prev["sig"] = _e["sig"]
+        _fs = {x.strip() for x in _prev.get("fuente", "").split("+") if x.strip()}
+        _fs.add(_e.get("fuente", ""))
+        _prev["fuente"] = " + ".join(sorted(f for f in _fs if f))
+        continue
+    _seen_ab[_dk] = _e
+    _dedup.append(_e)
+_dups_removed = len(ABREVS) - len(_dedup)
+ABREVS = _dedup
 _sig_by_word = defaultdict(list)
 for _e in ABREVS:
     _s = _norm(_e["sig"])
@@ -961,7 +986,7 @@ for _k, _r in records.items():
                 _found.append(_ab)
     if _found:
         _r["abrev_posibles"] = _found[:6]; _abr_n += 1
-print(f"abreviaturas: {len(ABREVS)} · prácticas con abreviatura sugerida {_abr_n}", file=sys.stderr)
+print(f"abreviaturas: {len(ABREVS)} (dup. eliminados {_dups_removed}) · prácticas con abreviatura sugerida {_abr_n}", file=sys.stderr)
 
 # ---------- relaciones inversas por código: CIE-10 y normativa (en TODOS los nomencladores) ----------
 code2cie = defaultdict(list)
