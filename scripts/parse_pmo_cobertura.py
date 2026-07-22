@@ -41,26 +41,66 @@ def lines_of(anx):
     return out
 
 # ---- ANEXO II ----
-CODE = re.compile(r'^(\d{6})\s+(.+)$')
-def is_cont(l): return l and not CODE.match(l) and (l[0].islower() or l[0] in '(,')
-codigos = {}; L2 = lines_of(2); i=0
-while i < len(L2):
-    ln = L2[i].strip(); m = CODE.match(ln)
-    if m:
-        code=m.group(1); title=m.group(2).strip(); j=i+1
-        while j<len(L2) and is_cont(L2[j].strip()) and not L2[j].strip().startswith('•'):
-            title += ' '+L2[j].strip(); j+=1
-        cob=[]
-        while j<len(L2) and not CODE.match(L2[j].strip()):
+# El código puede venir pegado al título ("380201Cámara") o separado
+# ("380101 puvaterapia"): ambos casos como límite de práctica.
+CODE = re.compile(r'^(\d{6})\s*(.+)$')
+# artefactos de página que se intercalan en el texto (encabezado/pie/nº de página)
+PAGE_ART = re.compile(r'^(Código\s+Práctica|Actualización\s+Normativa.*|ANEXO\s+[IVX]+.*)$', re.I)
+PAGENUM = re.compile(r'^\d{1,3}$')
+CONECT = {'de','del','con','y','o','la','el','los','las','en','a','para','por','e','u','sin','al'}
+def _is_marker(s):
+    return ('Obligación de cobertura' in s) or bool(re.match(r'Observaciones\s*:', s.strip()))
+def _hdr_candidate(s, nxt):
+    # título de sección (p.ej. "Terapia radiante", "Asistencia en consultorio,
+    # domicilio e internación"): empieza en mayúscula (no viñeta ni sigla en
+    # mayúsculas), sin puntuación terminal, y le sigue un código.
+    if not s or CODE.match(s) or _is_marker(s): return False
+    if s[0] in '•—–-' or not s[0].isalpha() or s[0].islower() or s.isupper(): return False
+    if re.search(r'[.:,;)]$', s): return False
+    return bool(nxt and CODE.match(nxt.strip()))
+
+raw2 = lines_of(2)
+L2 = [l for l in raw2 if l.strip() and not PAGE_ART.match(l.strip()) and not PAGENUM.match(l.strip())]
+N = len(L2)
+# pass 1: conjunto de títulos de sección (para no absorberlos como cobertura)
+HEADERS = set()
+for k in range(N):
+    if _hdr_candidate(L2[k].strip(), L2[k+1] if k+1<N else ''):
+        HEADERS.add(L2[k].strip())
+
+codigos = {}; i=0
+while i < N:
+    m = CODE.match(L2[i].strip())
+    if not m:
+        i += 1; continue
+    code=m.group(1); title=m.group(2).strip(); j=i+1
+    # continuación de título (misma práctica)
+    while j < N:
+        s=L2[j].strip()
+        if CODE.match(s) or _is_marker(s) or s in HEADERS: break
+        last=re.sub(r'[.,;:]$','',title.split()[-1]).lower() if title.split() else ''
+        if title.endswith('-'): title=title[:-1]+s; j+=1; continue
+        if s and (s[0].islower() or s[0] in '(,'): title+=' '+s; j+=1; continue
+        if last in CONECT: title+=' '+s; j+=1; continue   # "...determinación de" + "ACTH"
+        break
+    # cobertura: solo si aparece un marcador ("• Obligación de cobertura ...", "Observaciones:")
+    cob=[]
+    if j < N and _is_marker(L2[j]):
+        n_in=0
+        while j < N:
             s=L2[j].strip()
-            if s: cob.append(s)
-            j+=1
-        title=re.sub(r'\s+',' ',title).strip(' .')
-        cobertura=re.sub(r'^•\s*','',re.sub(r'\s+',' ',' '.join(cob)).strip())
-        if code not in codigos or len(title)<len(codigos[code]['titulo']):
-            codigos[code]={"titulo":title,"cobertura":cobertura if len(cobertura)>8 else ""}
-        i=j
-    else: i+=1
+            if CODE.match(s): break                            # próxima práctica
+            if n_in>0 and s in HEADERS: break                  # título de sección (no la 1ª línea)
+            cob.append(s); j+=1; n_in+=1
+    title=re.sub(r'\s+',' ',title).strip(' .')
+    cobertura=''
+    for part in cob:                                           # une guiones de corte de línea
+        if cobertura.endswith('-'): cobertura=cobertura[:-1]+part
+        else: cobertura=(cobertura+' '+part) if cobertura else part
+    cobertura=re.sub(r'^•\s*','',cobertura); cobertura=re.sub(r'\s+',' ',cobertura).strip()
+    if code not in codigos or len(title)<len(codigos[code]['titulo']):
+        codigos[code]={"titulo":title,"cobertura":cobertura if len(cobertura)>8 else ""}
+    i = j if j > i else i+1
 
 def blob_of(anx):
     b="\n".join(lines_of(anx)); b=re.sub(r'-\n','',b); b=re.sub(r'\n',' ',b); return re.sub(r'\s+',' ',b)
