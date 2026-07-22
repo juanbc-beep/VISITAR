@@ -113,6 +113,18 @@ orden médica** antes de cargar las prácticas.
   **prácticas que pueden pedirse con esa sigla** (clickeables). A la inversa, **1.025 prácticas** llevan en su ficha
   el apartado **«Puede abreviarse en la orden»** con las siglas con que suelen aparecer escritas.
 
+**SURGE — Sistema Único de Reintegro por Gestión de Enfermedades (Res. 731/2023, Anexo II):**
+- Apartado propio (en «Consulta rápida») con las **54 patologías** del SURGE agrupadas por **especialidad**
+  (Oncología, Reumatología, Enfermedades lisosomales, Trasplantes, etc.), buscables por patología, **medicación
+  (droga)**, especialidad o código.
+- Cada patología muestra: la **medicación SURGE** que le corresponde, el **requerimiento para autorización que
+  VISITAR solicita al afiliado** (RHC, laboratorios, estudios, dictámenes, etc.), los **códigos del nomenclador
+  relacionados** y los **diagnósticos CIE-10** asociados.
+- Los **38 códigos** del nomenclador marcados **(SUR)/(SURGE)** (trasplantes, neuroestimuladores, TAVI, ECMO,
+  radioterapia, cargas virales, etc.) quedan **cruzados con su patología**: llevan un distintivo **SURGE** en el
+  listado y, en su ficha, la sección **«Sistema Único de Reintegro (SURGE)»** con la patología (clickeable) y el
+  requerimiento de autorización. El cruce se **propaga por equivalencia** NBU↔Único.
+
 **Relación bidireccional CIE-10 ↔ prácticas y normativa por código (en todos los nomencladores):** además de la
 pantalla de diagnósticos, **cada ficha de código** (NBU, PMO, Odontología o Único) muestra —cuando corresponde—
 sus **Diagnósticos CIE-10 relacionados** (clickeables, abren el diagnóstico) y la **Normativa relacionada** (leyes

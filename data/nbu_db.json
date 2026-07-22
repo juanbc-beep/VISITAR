@@ -98875,6 +98875,1385 @@
    "fuente": "INSN"
   }
  ],
+ "surge": {
+  "resolucion": "Resolución 731/2023 (Anexo II) — Sistema Único de Reintegro por Gestión de Enfermedades (SURGE)",
+  "nota": "Reintegro por gestión de enfermedades. La columna «Requerimiento» detalla lo que VISITAR solicita al afiliado para autorizar la cobertura.",
+  "especialidades": [
+   "Oncología",
+   "Oncohematología",
+   "Reumatología",
+   "Enfermedad inflamatoria intestinal",
+   "Enfermedades lisosomales",
+   "Enfermedades poco frecuentes",
+   "Enfermedad fibroquística del páncreas",
+   "Hipertensión arterial pulmonar",
+   "Esclerosis múltiple",
+   "Déficit de hormona de crecimiento",
+   "Trasplante de órganos y precursores hematopoyéticos",
+   "HIV",
+   "Hepatitis crónica por virus C",
+   "Profilaxis preexposición",
+   "Diabetes mellitus",
+   "Drogodependencia",
+   "Fertilidad",
+   "Hemofilia",
+   "Neurología",
+   "Cirugía vascular / Neurocirugía",
+   "Cirugía vascular",
+   "Cardiología",
+   "Cardiología / Terapia intensiva",
+   "Otorrinolaringología"
+  ],
+  "patologias": [
+   {
+    "id": "ca_mama",
+    "nombre": "Cáncer de mama",
+    "especialidad": "Oncología",
+    "medicacion": [
+     "LAPATINIB",
+     "PERTUZUMAB / TRASTUZUMAB",
+     "TRASTUZUMAB",
+     "TRASTUZUMAB EMTANSINA (TDMI - 1)",
+     "ABEMACICLIB",
+     "PALBOCICLIB",
+     "RIBOCICLIB",
+     "EVEROLIMUS",
+     "ALPELISIB",
+     "OLAPARIB",
+     "TALAZOPARIB",
+     "ATEZOLIZUMAB",
+     "PEMBROLIZUMAB",
+     "PERTUZUMAB"
+    ],
+    "requerimiento": [
+     "RHC",
+     "ECOG",
+     "ESTADIO INICIAL",
+     "ESTADIO ACTUAL",
+     "ESQUEMA DE QUIMIOTERAPIA CONCOMITANTE (MONOTERAPIA / OTRO)",
+     "QUIMIOTERAPIA CONCOMITANTE",
+     "ESTRATEGIA TERAPEUTICA",
+     "PROGRESION / RECAIDA",
+     "SITIO DE METASTASIS",
+     "INFORME DE ANATOMIA PATOLOGICA",
+     "ESTUDIOS COMPLEMENTARIOS",
+     "IMAGENES COMPLEMENTARIAS",
+     "MARCADORES TUMORALES (CA MAMA)",
+     "TRATAMIENTOS PREVIOS",
+     "MARCADORES TUMORALES",
+     "ESTRATEGIA ADYUVANCIA"
+    ],
+    "cie": [
+     "C50"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "ca_colon",
+    "nombre": "Cáncer de colon",
+    "especialidad": "Oncología",
+    "medicacion": [
+     "AFLIBERCEPT",
+     "BEVACIZUMAB",
+     "CETUXIMAB",
+     "ENCORAFENIB",
+     "NIVOLUMAB",
+     "PANITUMUMAB",
+     "PEMBROLIZUMAB",
+     "REGORAFENIB",
+     "TRIFLURIDINA / TIPIRACILO"
+    ],
+    "requerimiento": [
+     "RHC",
+     "ECOG",
+     "ESTADIO INICIAL",
+     "ESTADIO ACTUAL",
+     "ESQUEMA DE QUIMIOTERAPIA CONCOMITANTE (MONOTERAPIA",
+     "OTRO)",
+     "ESQUEMA CONCOMITANTE",
+     "ESTRATEGIA TERAPEUTICA",
+     "PROGRESION / RECAIDA",
+     "SITIO DE METASTASIS",
+     "INFORME DE ANATOMIA PATOLOGICA",
+     "ESTUDIOS COMPLEMENTARIOS",
+     "IMAGENES COMPLEMENTARIAS",
+     "MARCADORES TUMORALES (CA COLON)",
+     "TRATAMIENTOS PREVIOS"
+    ],
+    "cie": [
+     "C18",
+     "C19",
+     "C20"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "ca_prostata",
+    "nombre": "Cáncer de próstata",
+    "especialidad": "Oncología",
+    "medicacion": [
+     "OLAPARIB",
+     "ABIRATERONA",
+     "APALUTAMIDA",
+     "CABAZITAXEL",
+     "DAROLUTAMIDA",
+     "DICLORURO DE RADIO 223",
+     "ENZALUTAMIDA"
+    ],
+    "requerimiento": [
+     "RHC",
+     "INFORME DE ANATOMIA PATOLOGICA",
+     "INFORME DE IMAGEN",
+     "TRATAMIENTOS PREVIOS"
+    ],
+    "cie": [
+     "C61"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "ca_pulmon",
+    "nombre": "Cáncer de pulmón",
+    "especialidad": "Oncología",
+    "medicacion": [
+     "BEVACIZUMAB",
+     "BRIGATINIB",
+     "CERITINIB",
+     "CRIZOTINIB",
+     "DACOMITINIB",
+     "ERLOTINIB",
+     "GEFITINIB",
+     "LORLATINIB",
+     "NIVOLUMAB",
+     "OSIMERTINIB",
+     "PEMBROLIZUMAB"
+    ],
+    "requerimiento": [
+     "RHC",
+     "ECOG",
+     "ESTADIO INICIAL",
+     "ESTADIO ACTUAL",
+     "ESQUEMA DE QUIMIOTERAPIA CONCOMITANTE (MONOTERAPIA / OTRO)",
+     "QUIMIOTERAPIA CONCOMITANTE",
+     "ESTRATEGIA TERAPEUTICA",
+     "PROGRESION / RECAIDA",
+     "SITIO DE METASTASIS",
+     "INFORME DE ANATOMIA PATOLOGICA",
+     "ESTUDIOS COMPLEMENTARIOS",
+     "IMAGENES COMPLEMENTARIAS",
+     "MARCADORES TUMORALES (CA PULMON)",
+     "TRATAMIENTOS PREVIOS"
+    ],
+    "cie": [
+     "C34"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "ca_rinon",
+    "nombre": "Cáncer de riñón",
+    "especialidad": "Oncología",
+    "medicacion": [
+     "AVELUMAB",
+     "AXITINIB",
+     "CABOZANTINIB",
+     "EVEROLIMUS",
+     "LENVATINIB",
+     "NIVOLUMAB",
+     "PAZOPANIB",
+     "PEMBROLIZUMAB",
+     "SORAFENIB",
+     "SUNITINIB"
+    ],
+    "requerimiento": [
+     "RHC",
+     "INFORME DE ANATOMIA PATOLOGICA",
+     "INFORME DE IMAGEN",
+     "TRATAMIENTOS PREVIOS"
+    ],
+    "cie": [
+     "C64"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "melanoma",
+    "nombre": "Melanoma",
+    "especialidad": "Oncología",
+    "medicacion": [
+     "BENIMETINIB",
+     "DABRAFENIB + TRAMETINIB",
+     "ENCORAFENIB",
+     "NIVOLUMAB",
+     "PEMBROLIZUMAB",
+     "VEMURAFENIB + COBIMETINIB"
+    ],
+    "requerimiento": [
+     "RHC",
+     "INFORME DE ANATOMIA PATOLOGICA",
+     "TRATAMIENTOS PREVIOS"
+    ],
+    "cie": [
+     "C43"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "radioterapia",
+    "nombre": "Módulo de radioterapia oncológica",
+    "especialidad": "Oncología",
+    "medicacion": [],
+    "requerimiento": [
+     "RHC",
+     "Informe de anatomía patológica",
+     "Estadificación",
+     "Plan de tratamiento radiante"
+    ],
+    "cie": [
+     "Z51.0"
+    ],
+    "codigos": [
+     "U40350115",
+     "U40350120"
+    ]
+   },
+   {
+    "id": "mieloma",
+    "nombre": "Mieloma múltiple",
+    "especialidad": "Oncohematología",
+    "medicacion": [
+     "ISATUXIMAB",
+     "BORTEZOMIB",
+     "CARFILZOMIB",
+     "IXAZOMIB",
+     "DARATUMUMAB",
+     "LENALIDOMIDA",
+     "POMALIDOMIDA",
+     "ELOTUZUMAB"
+    ],
+    "requerimiento": [
+     "RHC",
+     "BIOPSIA",
+     "ESTUDIO CITOGENETICO",
+     "ESTUDIO MOLECULAR (MM)",
+     "LINEA DE TRATAMIENTO (MM)",
+     "LABORATORIO (MM)",
+     "TRATAMIENTOS PREVIOS"
+    ],
+    "cie": [
+     "C90"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "lmc",
+    "nombre": "Leucemia mieloide crónica (LMC)",
+    "especialidad": "Oncohematología",
+    "medicacion": [
+     "BOSUTINIB",
+     "IMATINIB",
+     "NILOTINIB",
+     "PONATINIB",
+     "DASATINIB"
+    ],
+    "requerimiento": [
+     "RHC",
+     "CROMOSOMA DE FILADELFIA",
+     "LABORATORIO (LMC)",
+     "CITOMETRIA DE FLUJO",
+     "MUTACION T315I",
+     "FASE DE LMC AL DIAGNOSTICO",
+     "TRATAMIENTOS PREVIOS"
+    ],
+    "cie": [
+     "C92.1"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "ar",
+    "nombre": "Artritis reumatoidea",
+    "especialidad": "Reumatología",
+    "medicacion": [
+     "TOCILIZUMAB",
+     "TOFACITINIB",
+     "UPADACITINIB",
+     "ABATACEPT",
+     "ADALIMUMAB",
+     "BARICITINIB",
+     "CERTOLIZUMAB PEGOL",
+     "ETANERCEPT",
+     "GOLIMUMAB",
+     "INFLIXIMAB",
+     "RITUXIMAB",
+     "SARILUMAB"
+    ],
+    "requerimiento": [
+     "SCORE DAS 28 (INICIO)",
+     "SCORE DAS 28 (ACTUAL)",
+     "RHC",
+     "TRATAMIENTOS PREVIOS"
+    ],
+    "cie": [
+     "M05",
+     "M06"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "aps",
+    "nombre": "Artritis psoriásica",
+    "especialidad": "Reumatología",
+    "medicacion": [
+     "ETANERCEPT",
+     "GOLIMUMAB",
+     "GUSELKUMAB",
+     "INFLIXIMAB",
+     "IXEKIZUMAB",
+     "TOFACITINIB",
+     "UPADACITINIB",
+     "USTEKINUMAB",
+     "RISANKIZUMAB",
+     "SECUKINUMAB",
+     "ABATACEPT",
+     "ADALIMUMAB",
+     "APREMILAST",
+     "CERTOLIZUMAB PEGOL"
+    ],
+    "requerimiento": [
+     "RHC",
+     "BIOPSIA DE PIEL",
+     "SCORE DAS 28",
+     "TRATAMIENTOS PREVIOS"
+    ],
+    "cie": [
+     "L40.5",
+     "M07"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "psoriasis",
+    "nombre": "Psoriasis en placa",
+    "especialidad": "Reumatología",
+    "medicacion": [
+     "ADALIMUMAB",
+     "APREMILAST",
+     "CERTOLIZUMAB PEGOL",
+     "ETANERCEPT",
+     "GUSELKUMAB",
+     "INFLIXIMAB",
+     "IXEKIZUMAB",
+     "RISANKIZUMAB",
+     "SECUKINUMAB",
+     "USTEKINUMAB",
+     "DEUCRAVACITINIB"
+    ],
+    "requerimiento": [
+     "RHC",
+     "BIOPSIA DE PIEL",
+     "SCORE PASI",
+     "TRATAMIENTOS PREVIOS"
+    ],
+    "cie": [
+     "L40"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "aij",
+    "nombre": "Artritis idiopática juvenil",
+    "especialidad": "Reumatología",
+    "medicacion": [
+     "ABATACEPT",
+     "ADALIMUMAB",
+     "CANAKINUMAB",
+     "ETANERCEPT",
+     "TOCILIZUMAB",
+     "GOLIMUMAB"
+    ],
+    "requerimiento": [
+     "RHC",
+     "SCORE JADAS 27",
+     "TRATAMIENTOS PREVIOS"
+    ],
+    "cie": [
+     "M08"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "espondilitis",
+    "nombre": "Espondilitis anquilosante / axial",
+    "especialidad": "Reumatología",
+    "medicacion": [
+     "ADALIMUMAB",
+     "CERTOLIZUMAB PEGOL",
+     "GOLIMUMAB",
+     "INFLIXIMAB",
+     "ETANERCEPT",
+     "UPADACITINIB",
+     "SECUKINUMAB",
+     "TOFACITINIB",
+     "IXEKIZUMAB"
+    ],
+    "requerimiento": [
+     "RHC",
+     "BADSAI",
+     "LABORATORIO (ERITROSEDIMENTACION)",
+     "RX COLUMNA SACROILIACA",
+     "RMN COLUMNA SACROILIACA",
+     "TRATAMIENTOS PREVIOS"
+    ],
+    "cie": [
+     "M45",
+     "M46"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "crohn",
+    "nombre": "Enfermedad de Crohn",
+    "especialidad": "Enfermedad inflamatoria intestinal",
+    "medicacion": [
+     "VEDOLIZUMAB",
+     "INFLIXIMAB",
+     "ADALIMUMAB",
+     "USTEKINUMAB",
+     "CERTOLIZUMAB PEGOL",
+     "TOFACITINIB",
+     "UPADACITINIB",
+     "RIZANKIZUMAB"
+    ],
+    "requerimiento": [
+     "RHC",
+     "BIOPSIA",
+     "ENDOSCOPIA",
+     "CDAI",
+     "ENTEROTOMOGRAFIA",
+     "ENTERORESONANCIA",
+     "TRATAMIENTOS PREVIOS"
+    ],
+    "cie": [
+     "K50"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "colitis",
+    "nombre": "Colitis ulcerosa",
+    "especialidad": "Enfermedad inflamatoria intestinal",
+    "medicacion": [
+     "ADALIMUMAB",
+     "GOLIMUMAB",
+     "USTEKINUMAB",
+     "INFLIXIMAB",
+     "TOFACITINIB",
+     "VEDOLIZUMAB",
+     "UPADACITINIB"
+    ],
+    "requerimiento": [
+     "RHC",
+     "BIOPSIA",
+     "ENDOSCOPIA",
+     "SCORE DE MAYO",
+     "TRATAMIENTOS PREVIOS"
+    ],
+    "cie": [
+     "K51"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "fabry",
+    "nombre": "Enfermedad de Fabry",
+    "especialidad": "Enfermedades lisosomales",
+    "medicacion": [
+     "AGALSIDASA ALFA",
+     "AGALSIDASA BETA",
+     "MIGALASTAT"
+    ],
+    "requerimiento": [
+     "RHC",
+     "LABORATORIO (ALFA GALACTOSIDASA A)",
+     "ESTUDIO GENETICO GEN GLA",
+     "ESTUDIO GENETICO (MUTACIONES SUCEPTIBLES)",
+     "VALOR DE CREATININA",
+     "VALOR DE PROTEINURIA",
+     "TENSION ARTERIAL (S/D)",
+     "TRATAMIENTOS PREVIOS"
+    ],
+    "cie": [
+     "E75.2"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "gaucher",
+    "nombre": "Enfermedad de Gaucher",
+    "especialidad": "Enfermedades lisosomales",
+    "medicacion": [
+     "ELIGLUSTAT",
+     "VELAGLUCERASA ALFA",
+     "IMIGLUCERASA"
+    ],
+    "requerimiento": [
+     "RHC",
+     "LABORATORIO (BETA GLUCOCEREBROSIDASA)",
+     "COMPLICACIONES DE ENFERMEDAD DE GAUCHER",
+     "TIPO DE TERAPIA (TSE – TRS)",
+     "SUBTIPO",
+     "TRATAMIENTOS PREVIOS"
+    ],
+    "cie": [
+     "E75.2"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "pompe",
+    "nombre": "Enfermedad de Pompe",
+    "especialidad": "Enfermedades lisosomales",
+    "medicacion": [
+     "ALGLUCOSIDASA ALFA"
+    ],
+    "requerimiento": [
+     "RHC",
+     "BIOPSIA",
+     "LABORATORIO (ESTUDIO GENETICO)",
+     "CAPACIDAD VITAL FORZADA",
+     "TRATAMIENTOS PREVIOS"
+    ],
+    "cie": [
+     "E74.0"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "mps1",
+    "nombre": "Mucopolisacaridosis tipo I",
+    "especialidad": "Enfermedades lisosomales",
+    "medicacion": [
+     "LARONIDASA"
+    ],
+    "requerimiento": [
+     "RHC",
+     "LABORATORIO (ALFA L-IDUONIDASA)",
+     "SUBTIPO DE MOCOPOLISACARIDOSIS TIPO I",
+     "COMPROMISO ORGANICO-TRATAMIENTOS PREVIOS"
+    ],
+    "cie": [
+     "E76.0",
+     "E76.1"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "mps2",
+    "nombre": "Mucopolisacaridosis tipo II",
+    "especialidad": "Enfermedades lisosomales",
+    "medicacion": [
+     "IDURSULFASA"
+    ],
+    "requerimiento": [
+     "RHC",
+     "EVALUACION OFTALMOLOGICA",
+     "ECOCARDIOGRAMA",
+     "LABORATORIO (IDURONATO SULFATASA)",
+     "TRATAMIENTOS PREVIOS"
+    ],
+    "cie": [
+     "E76.1"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "mps6",
+    "nombre": "Mucopolisacaridosis tipo VI",
+    "especialidad": "Enfermedades lisosomales",
+    "medicacion": [
+     "GALSULFASA"
+    ],
+    "requerimiento": [
+     "RHC",
+     "ECOCARDIOGRAMA",
+     "CRITERIOS DE TRATAMIENTO MUCOPOLISACARIDOSIS TIPO VI",
+     "TEST DE CAMINATA DE 6 MINUTOS",
+     "LABORATORIO (ARILSULFATASA B)",
+     "TRATAMIENTOS PREVIOS"
+    ],
+    "cie": [
+     "E76.2"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "ame",
+    "nombre": "Atrofia muscular espinal (AME)",
+    "especialidad": "Enfermedades poco frecuentes",
+    "medicacion": [
+     "ONASEMNOGEN ABEPARVOVEC",
+     "NUSINERSEN",
+     "RISDIPLAM"
+    ],
+    "requerimiento": [
+     "RHC",
+     "ESTUDIO GENETICO AME",
+     "DICTAMEN CONAME",
+     "TIPO DE AME ( I II III IV)",
+     "ESCALA CHOP INTEND",
+     "ESCALA HFMSE",
+     "DEGLUCION",
+     "TRAQUEOSTOMIA",
+     "REQUERIMIENTO RESPIRATORIO",
+     "CANTIDAD DE HORAS DE APOYO VENTILATORIO",
+     "ESCALA DE VALORACION FUNCIONAL AME",
+     "TRATAMIENTOS PREVIOS"
+    ],
+    "cie": [
+     "G12.0",
+     "G12.1"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "tirosinemia",
+    "nombre": "Tirosinemia tipo I",
+    "especialidad": "Enfermedades poco frecuentes",
+    "medicacion": [
+     "NITISINONA"
+    ],
+    "requerimiento": [
+     "RHC",
+     "ESTUDIOS BIOQUIMICOS QUE FUNDAMENTEN EL DIAGNOSTICO",
+     "ESTUDIOS GENETICOS",
+     "TRATAMIENTOS PREVIOS"
+    ],
+    "cie": [
+     "E70.2"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "hpn",
+    "nombre": "Hemoglobinuria paroxística nocturna",
+    "especialidad": "Enfermedades poco frecuentes",
+    "medicacion": [
+     "ECULIZUMAB"
+    ],
+    "requerimiento": [
+     "RHC",
+     "LABORATORIO",
+     "CITOMETRIA DE FLUJO",
+     "TRATAMIENTOS PREVIOS"
+    ],
+    "cie": [
+     "D59.5"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "suha",
+    "nombre": "Síndrome urémico hemolítico atípico (SUHa)",
+    "especialidad": "Enfermedades poco frecuentes",
+    "medicacion": [
+     "ECULIZUMAB"
+    ],
+    "requerimiento": [
+     "RHC",
+     "MANIFESTACIONES CLINICAS",
+     "MANIFESTACIONES ISQUEMICAS EN OTROS ORGANOS BLANDOS",
+     "LABORATORIO (PLAQUETAS, HEMOGLOBINA, CREATININA)",
+     "TRATAMIENTOS PREVIOS"
+    ],
+    "cie": [
+     "D59.3"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "fq",
+    "nombre": "Enfermedad fibroquística del páncreas",
+    "especialidad": "Enfermedad fibroquística del páncreas",
+    "medicacion": [
+     "TOBRAMICINA INHALATORIA",
+     "DNASA RECOMBINANTE HUMANA (DORNASA ALFA)",
+     "ENZIMAS PANCREATICAS (PANCREATINA)",
+     "ELEXACAFTOR / TEZACAFTOR / IVACAFTOR",
+     "IVACAFTOR (MONOTERAPIA)",
+     "LUMACAFTOR / IVACAFTOR",
+     "TEZACAFTOR / IVACAFTOR"
+    ],
+    "requerimiento": [
+     "RHC",
+     "CAPACIDAD VITAL FORZADA (CVF)",
+     "TALLA",
+     "PESO",
+     "CLASE DE MUTACION (2, 3, 4, 5, 6)",
+     "TEST DE DIFERENCIA DE POTENCIAL NASAL TRANSEPITELIAL",
+     "TEST DE SUDOR",
+     "VOLUMEN ESPIRATORIO FORZADO EN 1 SEG (VEF1)",
+     "TRTAMIENTOS PREVIOS",
+     "ESTUDIO MOLECULAR (FQ)",
+     "TRATAMIENTOS PREVIOS"
+    ],
+    "cie": [
+     "E84"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "hap",
+    "nombre": "Hipertensión arterial pulmonar (HAP)",
+    "especialidad": "Hipertensión arterial pulmonar",
+    "medicacion": [
+     "AMBRISENTAN",
+     "BOSENTAN",
+     "EPOPROSTENOL",
+     "ILOPROST",
+     "MACITENTAN",
+     "RIOCIGUAT",
+     "SELEXIPAG",
+     "TREPROSTINIL",
+     "MACITENTÁN",
+     "BOSENTÁN",
+     "AMBRISENTÁN"
+    ],
+    "requerimiento": [
+     "RHC",
+     "CLASE FUNCIONAL NYHA",
+     "CLASIFICACION ETIOLOGICA DE HAP",
+     "CATETERISMO CARDIACO",
+     "ANGIOGRAFIA PULMONAR / ANGIO TC",
+     "TRATAMIENTOS PREVIOS"
+    ],
+    "cie": [
+     "I27.0",
+     "I27.2"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "em",
+    "nombre": "Esclerosis múltiple",
+    "especialidad": "Esclerosis múltiple",
+    "medicacion": [
+     "FINGOLIMOD",
+     "COPOLIMERO (ACETATO DE GLATIRAMER)",
+     "INTERFERON BETA 1A",
+     "INTERFERON BETA 1B",
+     "PEGINTERFERON BETA 1A",
+     "TERIFLUNOMIDA",
+     "NATALIZUMAB",
+     "DIMETILFUMARATO",
+     "CLADRIBINA",
+     "ALEMTUZUMAB",
+     "OZANIMOD",
+     "OFATUMUMAB",
+     "OCRELIZUMAB"
+    ],
+    "requerimiento": [
+     "RHC",
+     "TIPO DE ESCLEROSIS (EMRR – EMPP)",
+     "ESCALA EDSS",
+     "INFORME DE RMN DE CEREBRO",
+     "ANALISIS DE LIQUIDO CEFALORRAQUIDEO",
+     "POTENCIALES EVOCADOS",
+     "DETERMINACION DE SEROLOGIA PARA VIRUS JC",
+     "TRATAMIENTOS PREVIOS"
+    ],
+    "cie": [
+     "G35"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "ghd",
+    "nombre": "Déficit de hormona de crecimiento",
+    "especialidad": "Déficit de hormona de crecimiento",
+    "medicacion": [
+     "SOMATOTROPINA"
+    ],
+    "requerimiento": [
+     "ESTUDIO GENETICO",
+     "RHC",
+     "EDAD OSEA",
+     "TABLA PONDOESTATURAL",
+     "TALLA",
+     "PESO",
+     "PATOLOGIA ASOCIADA AL USO DE HORMONAS",
+     "LABORATORIO (HORMONA DE CRECIMIENTO)",
+     "TRATAMIENTOS PREVIOS"
+    ],
+    "cie": [
+     "E23.0"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "inmunosupresion",
+    "nombre": "Inmunosupresión post trasplante",
+    "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+    "medicacion": [
+     "BASILIXIMAB",
+     "AZATIOPRINA",
+     "INMUNOGLOBULINA ANTILINFOCITARIA HUMANA",
+     "BALATACEPT",
+     "TACROLIMUS",
+     "CICLOSPORINA",
+     "MICOFENOLATO",
+     "SIROLIMUS",
+     "EVEROLIMUS"
+    ],
+    "requerimiento": [
+     "RHC",
+     "PROTOCOLO QUIRURGICO DEL TRASPLANTE",
+     "SEROLOGIA EPSTEIN BARR",
+     "TRATAMIENTOS PREVIOS"
+    ],
+    "cie": [
+     "Z94"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "hiv",
+    "nombre": "Infección por HIV",
+    "especialidad": "HIV",
+    "medicacion": [
+     "ABACAVIR (ABC)",
+     "DARUNAVIR (DRV)",
+     "ELVITEGRAVIR",
+     "LOPINAVIR / RITONAVIR",
+     "RITONAVIR (R)",
+     "RILPIVIRINA",
+     "TENOFOVIR DISOPROXIL FUMARATO (TDF)",
+     "ATAZANAVIR (ATZ)",
+     "DOLUTEGRAVIR (DTG)",
+     "EMTRICITABINA (FTC)",
+     "MARAVIROC",
+     "BICTEGRAVIR",
+     "DORAVIRINA",
+     "ETRAVIRINA",
+     "NEVIRAPINA",
+     "COBICISTAT",
+     "EFAVIRENZ (EFV)",
+     "LAMIVUDINA (3TC)",
+     "RALTEGRAVIR",
+     "TENOFOVIR ALAFENAMIDA (TAF)"
+    ],
+    "requerimiento": [
+     "FORMULARIO DE EMPADRONAMIENTO",
+     "CONSTANCIA DE DENUNCIA AL PROGRAMA DE VIGILANCIA",
+     "CARGA VIRAL HIV",
+     "RTO LINFOCITO T CD4",
+     "TRATAMIENTOS PREVIOS"
+    ],
+    "cie": [
+     "B20",
+     "B24",
+     "Z21"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "hepc",
+    "nombre": "Hepatitis crónica por virus C",
+    "especialidad": "Hepatitis crónica por virus C",
+    "medicacion": [],
+    "requerimiento": [
+     "RHC",
+     "GENOTIPO",
+     "ESTADIO DE FIBROSIS",
+     "COINFECCION HIV",
+     "TRASPLANTE HEPATICO",
+     "CARGA VIRAL HCV",
+     "SEMANAS DE TRATAMIENTO",
+     "RESPUESTA OBTENIDA"
+    ],
+    "cie": [
+     "B18.2"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "prep",
+    "nombre": "Módulo de profilaxis preexposición (PrEP)",
+    "especialidad": "Profilaxis preexposición",
+    "medicacion": [
+     "TENOFOVIR ALAFENAMIDA (TAF)",
+     "TENOFOVIR DISOPROXIL FUMARATO (TDF)",
+     "EMTRICITABINA (FTC)",
+     "LAMIVUDINA (3TC)"
+    ],
+    "requerimiento": [
+     "FORMULARIO DE EMPADRONAMIENTO",
+     "SEROLOGIA HIV",
+     "TRATAMIENTOS PREVIOS"
+    ],
+    "cie": [
+     "Z20.6"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "diabetes",
+    "nombre": "Diabetes mellitus",
+    "especialidad": "Diabetes mellitus",
+    "medicacion": [],
+    "requerimiento": [
+     "RHC",
+     "Laboratorio (HbA1c, glucemia)",
+     "Esquema terapéutico",
+     "Tratamientos previos"
+    ],
+    "cie": [
+     "E10",
+     "E11"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "drogodependencia",
+    "nombre": "Drogodependencia",
+    "especialidad": "Drogodependencia",
+    "medicacion": [],
+    "requerimiento": [
+     "RHC",
+     "Evaluación por salud mental",
+     "Plan de tratamiento"
+    ],
+    "cie": [
+     "F19"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "fertilidad",
+    "nombre": "Fertilidad",
+    "especialidad": "Fertilidad",
+    "medicacion": [],
+    "requerimiento": [
+     "RHC",
+     "Estudios de fertilidad de ambos miembros",
+     "Tratamientos previos"
+    ],
+    "cie": [
+     "N46",
+     "N97"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "hemofilia_a",
+    "nombre": "Hemofilia A",
+    "especialidad": "Hemofilia",
+    "medicacion": [
+     "FACTOR VIII",
+     "EMICIZUMAB",
+     "COMPLEJO COAGULANTE ANTIINHIBIDOR",
+     "FACTOR VII A RECOMBINANTE",
+     "FACTOR VIII RECOMBINANTE"
+    ],
+    "requerimiento": [
+     "TALLA",
+     "PESO",
+     "DETALLE DE EPISODIOS DE SANGRADO O INTERVENCION",
+     "VALOR DE INHIBIDOR DE FACTOR",
+     "SANGRADO ARTICULAR EN LOS ULTIMOS 6 MESES",
+     "SANGRADO EXTRAARTICULAR EN LOS ULTIMOS 6 MESES",
+     "DETERMINACION DE INHIBIDORES",
+     "RHC",
+     "TRATAMIENTOS PREVIOS"
+    ],
+    "cie": [
+     "D66"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "hemofilia_b",
+    "nombre": "Hemofilia B",
+    "especialidad": "Hemofilia",
+    "medicacion": [
+     "FACTOR VII A RECOMBINANTE",
+     "FACTOR IX",
+     "FACTOR IX RECOMBINANTE",
+     "COMPLEJO COAGULANTE ANTIINHIBIDOR",
+     "COMPLEJO PROTOMBINICO (CCP)",
+     "COMPLEJO COAGULANTE ANTIINHIBIDORCOMPLEJO PROTOMBINICO (CCP)"
+    ],
+    "requerimiento": [
+     "TALLA",
+     "PESO",
+     "DETALLE DE EPISODIOS DE SANGRADO O INTERVENCION",
+     "VALOR DE INHIBIDOR DE FACTOR",
+     "SANGRADO ARTICULAR EN LOS ULTIMOS 6 MESES",
+     "SANGRADO EXTRAARTICULAR EN LOS ULTIMOS 6 MESES",
+     "DETERMINACION DE INHIBIDORES",
+     "RHC",
+     "TRATAMIENTOS PREVIOS",
+     "PRESCRIPCION DE UNIDADES UTILIZADAS EN EL PERIODO"
+    ],
+    "cie": [
+     "D67"
+    ],
+    "codigos": []
+   },
+   {
+    "id": "parkinson",
+    "nombre": "Enfermedad de Parkinson refractaria al tratamiento",
+    "especialidad": "Neurología",
+    "medicacion": [],
+    "requerimiento": [
+     "RHC",
+     "Escala UPDRS",
+     "Respuesta a levodopa",
+     "Tratamientos previos"
+    ],
+    "cie": [
+     "G20"
+    ],
+    "codigos": [
+     "U40010218"
+    ]
+   },
+   {
+    "id": "dolor_cronico",
+    "nombre": "Dolor crónico intratable",
+    "especialidad": "Neurología",
+    "medicacion": [],
+    "requerimiento": [
+     "RHC",
+     "Escala de dolor",
+     "Tratamientos previos",
+     "Evaluación multidisciplinaria"
+    ],
+    "cie": [
+     "G89.2",
+     "R52.1"
+    ],
+    "codigos": [
+     "U40010219"
+    ]
+   },
+   {
+    "id": "epilepsia",
+    "nombre": "Epilepsia refractaria al tratamiento médico",
+    "especialidad": "Neurología",
+    "medicacion": [],
+    "requerimiento": [
+     "RHC",
+     "Video-EEG",
+     "RMN de cerebro",
+     "Fármacos antiepilépticos utilizados",
+     "Tratamientos previos"
+    ],
+    "cie": [
+     "G40"
+    ],
+    "codigos": [
+     "U40010220",
+     "U40010221"
+    ]
+   },
+   {
+    "id": "procesos_arteriales",
+    "nombre": "Procesos arteriales y aneurismas craneales",
+    "especialidad": "Cirugía vascular / Neurocirugía",
+    "medicacion": [],
+    "requerimiento": [
+     "RHC",
+     "Angiografía / Angio-TC",
+     "Informe de imagen",
+     "Tratamientos previos"
+    ],
+    "cie": [
+     "I67.1",
+     "I72"
+    ],
+    "codigos": [
+     "U40010708",
+     "U40010709",
+     "U40010710",
+     "U40070806",
+     "010709",
+     "010710",
+     "010711",
+     "070806"
+    ]
+   },
+   {
+    "id": "aneurisma_aorta",
+    "nombre": "Aneurisma de aorta abdominal / torácica",
+    "especialidad": "Cirugía vascular",
+    "medicacion": [],
+    "requerimiento": [
+     "RHC",
+     "Angio-TC de aorta",
+     "Diámetro del aneurisma",
+     "Tratamientos previos"
+    ],
+    "cie": [
+     "I71"
+    ],
+    "codigos": [
+     "U40070208",
+     "070208"
+    ]
+   },
+   {
+    "id": "estenosis_aortica",
+    "nombre": "Estenosis valvular aórtica (TAVI)",
+    "especialidad": "Cardiología",
+    "medicacion": [],
+    "requerimiento": [
+     "RHC",
+     "Ecocardiograma Doppler",
+     "Área valvular / gradiente",
+     "Score de riesgo quirúrgico",
+     "Tratamientos previos"
+    ],
+    "cie": [
+     "I35.0"
+    ],
+    "codigos": [
+     "U40070203"
+    ]
+   },
+   {
+    "id": "arritmias",
+    "nombre": "Arritmias ventriculares — prevención de muerte súbita",
+    "especialidad": "Cardiología",
+    "medicacion": [],
+    "requerimiento": [
+     "RHC",
+     "ECG / Holter",
+     "Fracción de eyección",
+     "Estudio electrofisiológico",
+     "Tratamientos previos"
+    ],
+    "cie": [
+     "I47.2",
+     "I49"
+    ],
+    "codigos": [
+     "U40070115"
+    ]
+   },
+   {
+    "id": "insuf_cardiaca",
+    "nombre": "Insuficiencia cardíaca aguda / insuficiencia respiratoria (ECMO)",
+    "especialidad": "Cardiología / Terapia intensiva",
+    "medicacion": [],
+    "requerimiento": [
+     "RHC",
+     "Parámetros hemodinámicos",
+     "Indicación de ECMO",
+     "Tratamientos previos"
+    ],
+    "cie": [
+     "I50",
+     "J96"
+    ],
+    "codigos": [
+     "U40380301"
+    ]
+   },
+   {
+    "id": "hipoacusia",
+    "nombre": "Hipoacusia — implante coclear",
+    "especialidad": "Otorrinolaringología",
+    "medicacion": [],
+    "requerimiento": [
+     "RHC",
+     "Audiometría",
+     "Potenciales evocados auditivos",
+     "Evaluación fonoaudiológica",
+     "Tratamientos previos"
+    ],
+    "cie": [
+     "H90",
+     "H91"
+    ],
+    "codigos": [
+     "U40030220",
+     "U40318105"
+    ]
+   },
+   {
+    "id": "tx_cardiaco",
+    "nombre": "Trasplante cardíaco",
+    "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+    "medicacion": [],
+    "requerimiento": [
+     "RHC",
+     "Protocolo de trasplante",
+     "Estudios pretrasplante",
+     "Dictamen del INCUCAI"
+    ],
+    "cie": [
+     "Z94.1"
+    ],
+    "codigos": [
+     "U40070901",
+     "U40070902",
+     "U40070903",
+     "U40070904",
+     "070901",
+     "070902"
+    ]
+   },
+   {
+    "id": "tx_pulmon",
+    "nombre": "Trasplante de pulmón",
+    "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+    "medicacion": [],
+    "requerimiento": [
+     "RHC",
+     "Protocolo de trasplante",
+     "Estudios pretrasplante",
+     "Dictamen del INCUCAI"
+    ],
+    "cie": [
+     "Z94.2"
+    ],
+    "codigos": [
+     "U40050401",
+     "U40288401",
+     "U40288402"
+    ]
+   },
+   {
+    "id": "tx_hepatico",
+    "nombre": "Trasplante hepático",
+    "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+    "medicacion": [],
+    "requerimiento": [
+     "RHC",
+     "Protocolo de trasplante",
+     "Estudios pretrasplante",
+     "Dictamen del INCUCAI"
+    ],
+    "cie": [
+     "Z94.4"
+    ],
+    "codigos": [
+     "U40081001",
+     "U40081002",
+     "U40081003",
+     "U40081005",
+     "U40201001",
+     "U40209090",
+     "U40209091",
+     "U40209092",
+     "081002",
+     "081003",
+     "081001"
+    ]
+   },
+   {
+    "id": "tx_renal",
+    "nombre": "Trasplante renal",
+    "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+    "medicacion": [],
+    "requerimiento": [
+     "RHC",
+     "Protocolo de trasplante",
+     "Estudios pretrasplante",
+     "Dictamen del INCUCAI"
+    ],
+    "cie": [
+     "Z94.0"
+    ],
+    "codigos": [
+     "U40270201",
+     "U40270202"
+    ]
+   },
+   {
+    "id": "tx_medula",
+    "nombre": "Trasplante de médula ósea / precursores hematopoyéticos",
+    "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+    "medicacion": [],
+    "requerimiento": [
+     "RHC",
+     "Indicación de trasplante",
+     "Estudios pretrasplante",
+     "Tipificación HLA",
+     "Tratamientos previos"
+    ],
+    "cie": [
+     "Z94.8"
+    ],
+    "codigos": [
+     "U40230234",
+     "U40241202",
+     "U40241203",
+     "241202"
+    ]
+   },
+   {
+    "id": "hepatitis_lab",
+    "nombre": "Hepatitis — carga viral (estudios SURGE)",
+    "especialidad": "Hepatitis crónica por virus C",
+    "medicacion": [],
+    "requerimiento": [
+     "RHC",
+     "Genotipo",
+     "Estadio de fibrosis",
+     "Carga viral"
+    ],
+    "cie": [
+     "B18"
+    ],
+    "codigos": [
+     "665922",
+     "665948"
+    ]
+   }
+  ],
+  "codigo_patologia": {
+   "40010218": "parkinson",
+   "40010219": "dolor_cronico",
+   "40010220": "epilepsia",
+   "40010221": "epilepsia",
+   "40010708": "procesos_arteriales",
+   "40010709": "procesos_arteriales",
+   "40010710": "procesos_arteriales",
+   "40070806": "procesos_arteriales",
+   "40030220": "hipoacusia",
+   "40318105": "hipoacusia",
+   "40050401": "tx_pulmon",
+   "40288401": "tx_pulmon",
+   "40288402": "tx_pulmon",
+   "40070115": "arritmias",
+   "40070203": "estenosis_aortica",
+   "40070208": "aneurisma_aorta",
+   "40070901": "tx_cardiaco",
+   "40070902": "tx_cardiaco",
+   "40070903": "tx_cardiaco",
+   "40070904": "tx_cardiaco",
+   "40081001": "tx_hepatico",
+   "40081002": "tx_hepatico",
+   "40081003": "tx_hepatico",
+   "40081005": "tx_hepatico",
+   "40201001": "tx_hepatico",
+   "40209090": "tx_hepatico",
+   "40209091": "tx_hepatico",
+   "40209092": "tx_hepatico",
+   "40230234": "tx_medula",
+   "40241202": "tx_medula",
+   "40241203": "tx_medula",
+   "40270201": "tx_renal",
+   "40270202": "tx_renal",
+   "40350115": "radioterapia",
+   "40350120": "radioterapia",
+   "40380301": "insuf_cardiaca",
+   "665922": "hepatitis_lab",
+   "665948": "hepatitis_lab"
+  }
+ },
  "codigos": {
   "660001": {
    "code": "660001",
@@ -105878,8 +107257,8 @@
     }
    ],
    "abrev_posibles": [
-    "GB",
-    "RTO"
+    "RTO",
+    "GB"
    ]
   },
   "660409": {
@@ -169078,7 +170457,19 @@
      "score": null,
      "tipo": "lab"
     }
-   ]
+   ],
+   "surge": {
+    "patologia_id": "hepatitis_lab",
+    "patologia": "Hepatitis — carga viral (estudios SURGE)",
+    "especialidad": "Hepatitis crónica por virus C",
+    "requerimiento": [
+     "RHC",
+     "Genotipo",
+     "Estadio de fibrosis",
+     "Carga viral"
+    ],
+    "medicacion": []
+   }
   },
   "665948": {
    "code": "665948",
@@ -169121,7 +170512,19 @@
      "score": null,
      "tipo": "lab"
     }
-   ]
+   ],
+   "surge": {
+    "patologia_id": "hepatitis_lab",
+    "patologia": "Hepatitis — carga viral (estudios SURGE)",
+    "especialidad": "Hepatitis crónica por virus C",
+    "requerimiento": [
+     "RHC",
+     "Genotipo",
+     "Estadio de fibrosis",
+     "Carga viral"
+    ],
+    "medicacion": []
+   }
   },
   "665999": {
    "code": "665999",
@@ -177485,8 +178888,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "010102": {
@@ -177557,8 +178960,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "010103": {
@@ -178244,8 +179647,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "010207": {
@@ -179073,8 +180476,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "010303": {
@@ -180219,8 +181622,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "010502": {
@@ -180291,8 +181694,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "010503": {
@@ -181539,7 +182942,19 @@
    ],
    "abrev_posibles": [
     "TTO"
-   ]
+   ],
+   "surge": {
+    "patologia_id": "procesos_arteriales",
+    "patologia": "Procesos arteriales y aneurismas craneales",
+    "especialidad": "Cirugía vascular / Neurocirugía",
+    "requerimiento": [
+     "RHC",
+     "Angiografía / Angio-TC",
+     "Informe de imagen",
+     "Tratamientos previos"
+    ],
+    "medicacion": []
+   }
   },
   "010710": {
    "code": "010710",
@@ -181585,7 +183000,19 @@
    ],
    "abrev_posibles": [
     "TTO"
-   ]
+   ],
+   "surge": {
+    "patologia_id": "procesos_arteriales",
+    "patologia": "Procesos arteriales y aneurismas craneales",
+    "especialidad": "Cirugía vascular / Neurocirugía",
+    "requerimiento": [
+     "RHC",
+     "Angiografía / Angio-TC",
+     "Informe de imagen",
+     "Tratamientos previos"
+    ],
+    "medicacion": []
+   }
   },
   "010711": {
    "code": "010711",
@@ -181628,7 +183055,19 @@
      "score": 0.9838,
      "tipo": "med"
     }
-   ]
+   ],
+   "surge": {
+    "patologia_id": "procesos_arteriales",
+    "patologia": "Procesos arteriales y aneurismas craneales",
+    "especialidad": "Cirugía vascular / Neurocirugía",
+    "requerimiento": [
+     "RHC",
+     "Angiografía / Angio-TC",
+     "Informe de imagen",
+     "Tratamientos previos"
+    ],
+    "medicacion": []
+   }
   },
   "010801": {
    "code": "010801",
@@ -182125,8 +183564,8 @@
     "Gasto quirúrgico: 910 galenos."
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "020109": {
@@ -183454,8 +184893,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "020502": {
@@ -184333,8 +185772,8 @@
     }
    ],
    "abrev_posibles": [
-    "CAV",
-    "DCR"
+    "DCR",
+    "CAV"
    ]
   },
   "020802": {
@@ -184473,8 +185912,8 @@
     }
    ],
    "abrev_posibles": [
-    "GL",
-    "DJE"
+    "DJE",
+    "GL"
    ]
   },
   "020804": {
@@ -186449,8 +187888,8 @@
    ],
    "abrev_posibles": [
     "FX",
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "030306": {
@@ -186520,8 +187959,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "030401": {
@@ -186792,8 +188231,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "030405": {
@@ -188785,8 +190224,8 @@
     }
    ],
    "abrev_posibles": [
-    "LAR",
-    "DJE"
+    "DJE",
+    "LAR"
    ]
   },
   "030608": {
@@ -191240,8 +192679,8 @@
     }
    ],
    "abrev_posibles": [
-    "OP",
-    "PBL"
+    "PBL",
+    "OP"
    ]
   },
   "031206": {
@@ -195781,8 +197220,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "070203": {
@@ -196057,8 +197496,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "070208": {
@@ -196136,9 +197575,21 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
-   ]
+    "Qx",
+    "TTO"
+   ],
+   "surge": {
+    "patologia_id": "aneurisma_aorta",
+    "patologia": "Aneurisma de aorta abdominal / torácica",
+    "especialidad": "Cirugía vascular",
+    "requerimiento": [
+     "RHC",
+     "Angio-TC de aorta",
+     "Diámetro del aneurisma",
+     "Tratamientos previos"
+    ],
+    "medicacion": []
+   }
   },
   "070209": {
    "code": "070209",
@@ -196480,8 +197931,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "070401": {
@@ -196552,9 +198003,9 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
     "Qx",
-    "AAA"
+    "AAA",
+    "TTO"
    ]
   },
   "070402": {
@@ -199132,7 +200583,19 @@
      "tipo": "med"
     }
    ],
-   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: 1. Arterial Renal: La cobertura será obligatoria cuando se cumplen los siguientes criterios:al menos 75% de estenosis de una o ambas arterias y que desarrollen, a pesar de tratamiento médico óptimo (asociación de dosis máximas de 3 o más drogas sinérgicas) al menos alguna de las siguientes condiciones: — Hipertensión no controlada — Edema pulmonar recurrente fugaz — Ingreso a diálisis dependiente únicamente de estenosis ateroesclerótica de la arteria renal, o deterioro de función renal, especialmente con estenosis bilateral o riñón único funcionante. 2. Enfermedad Arterial Periférica de miembros inferiores: La cobertura será obligatoria cuando se cumplen los siguientes criterios: Estenosis u oclusión de la arteria ilíaca con claudicación intermitente o isquemia crítica de la extremidad con empeoramiento clínico y que luego de una extensa evaluación y tratamiento médico adecuados no mejora ni se estabiliza y requiere de un procedimiento invasivo, ante la presencia de al menos alguna de las siguientes condiciones clínicas: — Dolor vascular limitante para su estilo de vida habitual o permanente en reposo — Ulceras vasculares no cicatrizantes o gangrena focal — Deberá cumplirse en su totalidad con los siguientes criterios anatómicos: — lesiones menores de 10 cm — lesiones localizadas en la ilíaca externa o común,"
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: 1. Arterial Renal: La cobertura será obligatoria cuando se cumplen los siguientes criterios:al menos 75% de estenosis de una o ambas arterias y que desarrollen, a pesar de tratamiento médico óptimo (asociación de dosis máximas de 3 o más drogas sinérgicas) al menos alguna de las siguientes condiciones: — Hipertensión no controlada — Edema pulmonar recurrente fugaz — Ingreso a diálisis dependiente únicamente de estenosis ateroesclerótica de la arteria renal, o deterioro de función renal, especialmente con estenosis bilateral o riñón único funcionante. 2. Enfermedad Arterial Periférica de miembros inferiores: La cobertura será obligatoria cuando se cumplen los siguientes criterios: Estenosis u oclusión de la arteria ilíaca con claudicación intermitente o isquemia crítica de la extremidad con empeoramiento clínico y que luego de una extensa evaluación y tratamiento médico adecuados no mejora ni se estabiliza y requiere de un procedimiento invasivo, ante la presencia de al menos alguna de las siguientes condiciones clínicas: — Dolor vascular limitante para su estilo de vida habitual o permanente en reposo — Ulceras vasculares no cicatrizantes o gangrena focal — Deberá cumplirse en su totalidad con los siguientes criterios anatómicos: — lesiones menores de 10 cm — lesiones localizadas en la ilíaca externa o común,",
+   "surge": {
+    "patologia_id": "procesos_arteriales",
+    "patologia": "Procesos arteriales y aneurismas craneales",
+    "especialidad": "Cirugía vascular / Neurocirugía",
+    "requerimiento": [
+     "RHC",
+     "Angiografía / Angio-TC",
+     "Informe de imagen",
+     "Tratamientos previos"
+    ],
+    "medicacion": []
+   }
   },
   "070901": {
    "code": "070901",
@@ -199175,7 +200638,19 @@
      "score": 0.9814,
      "tipo": "med"
     }
-   ]
+   ],
+   "surge": {
+    "patologia_id": "tx_cardiaco",
+    "patologia": "Trasplante cardíaco",
+    "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+    "requerimiento": [
+     "RHC",
+     "Protocolo de trasplante",
+     "Estudios pretrasplante",
+     "Dictamen del INCUCAI"
+    ],
+    "medicacion": []
+   }
   },
   "070902": {
    "code": "070902",
@@ -199218,7 +200693,19 @@
      "score": 0.9811,
      "tipo": "med"
     }
-   ]
+   ],
+   "surge": {
+    "patologia_id": "tx_cardiaco",
+    "patologia": "Trasplante cardíaco",
+    "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+    "requerimiento": [
+     "RHC",
+     "Protocolo de trasplante",
+     "Estudios pretrasplante",
+     "Dictamen del INCUCAI"
+    ],
+    "medicacion": []
+   }
   },
   "071001": {
    "code": "071001",
@@ -200387,8 +201874,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "080205": {
@@ -204498,9 +205985,9 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
     "Qx",
-    "OP"
+    "OP",
+    "TTO"
    ]
   },
   "080609": {
@@ -205123,8 +206610,8 @@
     "Capítulo / especialidad: Aparato digestivo y abdomen (cirugía)."
    ],
    "abrev_posibles": [
-    "TTO",
-    "US"
+    "US",
+    "TTO"
    ]
   },
   "080701": {
@@ -206864,7 +208351,19 @@
    ],
    "abrev_posibles": [
     "TXH"
-   ]
+   ],
+   "surge": {
+    "patologia_id": "tx_hepatico",
+    "patologia": "Trasplante hepático",
+    "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+    "requerimiento": [
+     "RHC",
+     "Protocolo de trasplante",
+     "Estudios pretrasplante",
+     "Dictamen del INCUCAI"
+    ],
+    "medicacion": []
+   }
   },
   "081002": {
    "code": "081002",
@@ -206917,7 +208416,19 @@
    ],
    "abrev_posibles": [
     "TXH"
-   ]
+   ],
+   "surge": {
+    "patologia_id": "tx_hepatico",
+    "patologia": "Trasplante hepático",
+    "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+    "requerimiento": [
+     "RHC",
+     "Protocolo de trasplante",
+     "Estudios pretrasplante",
+     "Dictamen del INCUCAI"
+    ],
+    "medicacion": []
+   }
   },
   "081003": {
    "code": "081003",
@@ -206963,7 +208474,19 @@
    ],
    "abrev_posibles": [
     "TXH"
-   ]
+   ],
+   "surge": {
+    "patologia_id": "tx_hepatico",
+    "patologia": "Trasplante hepático",
+    "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+    "requerimiento": [
+     "RHC",
+     "Protocolo de trasplante",
+     "Estudios pretrasplante",
+     "Dictamen del INCUCAI"
+    ],
+    "medicacion": []
+   }
   },
   "090101": {
    "code": "090101",
@@ -208049,8 +209572,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "100109": {
@@ -208597,8 +210120,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "100117": {
@@ -209325,8 +210848,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "100207": {
@@ -209396,8 +210919,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "100208": {
@@ -209716,8 +211239,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "OP"
+    "OP",
+    "TTO"
    ]
   },
   "100213": {
@@ -211006,8 +212529,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "100507": {
@@ -213451,8 +214974,8 @@
     }
    ],
    "abrev_posibles": [
-    "DX",
-    "BX"
+    "BX",
+    "DX"
    ]
   },
   "110212": {
@@ -214007,8 +215530,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "110304": {
@@ -216543,8 +218066,8 @@
     }
    ],
    "abrev_posibles": [
-    "MTT",
-    "MTC"
+    "MTC",
+    "MTT"
    ]
   },
   "120701": {
@@ -218719,8 +220242,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "121306": {
@@ -218791,8 +220314,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "121307": {
@@ -218862,8 +220385,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "121308": {
@@ -218933,8 +220456,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "121401": {
@@ -220333,8 +221856,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "121704": {
@@ -220541,8 +222064,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "121707": {
@@ -220926,8 +222449,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "121719": {
@@ -221201,8 +222724,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "121723": {
@@ -221410,8 +222933,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "121726": {
@@ -221481,8 +223004,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "121727": {
@@ -221552,8 +223075,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "121728": {
@@ -224404,9 +225927,9 @@
     }
    ],
    "abrev_posibles": [
-    "SC",
+    "BX",
     "TCSC",
-    "BX"
+    "SC"
    ]
   },
   "130109": {
@@ -227659,8 +229182,8 @@
     }
    ],
    "abrev_posibles": [
-    "ECO",
-    "ABD"
+    "ABD",
+    "ECO"
    ]
   },
   "180113": {
@@ -231380,7 +232903,20 @@
      "score": 0.9253,
      "tipo": "med"
     }
-   ]
+   ],
+   "surge": {
+    "patologia_id": "tx_medula",
+    "patologia": "Trasplante de médula ósea / precursores hematopoyéticos",
+    "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+    "requerimiento": [
+     "RHC",
+     "Indicación de trasplante",
+     "Estudios pretrasplante",
+     "Tipificación HLA",
+     "Tratamientos previos"
+    ],
+    "medicacion": []
+   }
   },
   "241203": {
    "code": "241203",
@@ -241689,10 +243225,10 @@
     "Capítulo / especialidad: Radiología / Diagnóstico por imágenes."
    ],
    "abrev_posibles": [
+    "ABD",
     "RMI",
     "RMN",
-    "RNM",
-    "ABD"
+    "RNM"
    ]
   },
   "342009": {
@@ -249332,8 +250868,8 @@
     "Coseguro máximo: 100%."
    ],
    "abrev_posibles": [
-    "DX",
-    "Px"
+    "Px",
+    "DX"
    ]
   },
   "ODO0802": {
@@ -250411,8 +251947,8 @@
     "total_2002": 394.36
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U010102": {
@@ -250483,8 +252019,8 @@
     "total_2002": 327.27
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U010103": {
@@ -251170,8 +252706,8 @@
     "total_2002": 508.12
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U010207": {
@@ -252008,8 +253544,8 @@
     "total_2002": 331.83
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U010303": {
@@ -253154,8 +254690,8 @@
     "total_2002": 240.29
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U010502": {
@@ -253226,8 +254762,8 @@
     "total_2002": 262.27
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U010503": {
@@ -254546,8 +256082,8 @@
     "Equivale a la práctica 010715 del Nomenclador de Prestaciones Médicas (similitud 89%)."
    ],
    "abrev_posibles": [
-    "DVP",
-    "DJE"
+    "DJE",
+    "DVP"
    ]
   },
   "U010801": {
@@ -255250,8 +256786,8 @@
     "total_2002": 207.24
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U020110": {
@@ -256508,8 +258044,8 @@
     "total_2002": 237.06
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U020502": {
@@ -257405,9 +258941,9 @@
     "total_2002": 186.28
    },
    "abrev_posibles": [
-    "CAV",
+    "OP",
     "DCR",
-    "OP"
+    "CAV"
    ]
   },
   "U020802": {
@@ -259522,8 +261058,8 @@
    },
    "abrev_posibles": [
     "FX",
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U030306": {
@@ -259593,8 +261129,8 @@
     "total_2002": 436.34
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U030401": {
@@ -259865,8 +261401,8 @@
     "total_2002": 103.43
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U030405": {
@@ -261889,8 +263425,8 @@
     "total_2002": 27.23
    },
    "abrev_posibles": [
-    "LAR",
-    "DJE"
+    "DJE",
+    "LAR"
    ]
   },
   "U030608": {
@@ -264358,8 +265894,8 @@
     "total_2002": 394.36
    },
    "abrev_posibles": [
-    "PBL",
-    "OP"
+    "OP",
+    "PBL"
    ]
   },
   "U031206": {
@@ -269032,8 +270568,8 @@
     "total_2002": 1392.52
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U070203": {
@@ -269308,8 +270844,8 @@
     "total_2002": 1468.93
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U070208": {
@@ -269380,8 +270916,8 @@
     "total_2002": 1325.53
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U070209": {
@@ -269727,8 +271263,8 @@
     "total_2002": 531.29
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U070401": {
@@ -269799,9 +271335,9 @@
     "total_2002": 443.57
    },
    "abrev_posibles": [
-    "TTO",
     "Qx",
-    "AAA"
+    "AAA",
+    "TTO"
    ]
   },
   "U070402": {
@@ -273761,8 +275297,8 @@
     "total_2002": 203.29
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U080205": {
@@ -277857,8 +279393,8 @@
     "total_2002": 108.32
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U080609": {
@@ -278493,8 +280029,8 @@
     "Equivale a la práctica 080625 del Nomenclador de Prestaciones Médicas (similitud 100%)."
    ],
    "abrev_posibles": [
-    "TTO",
-    "US"
+    "US",
+    "TTO"
    ]
   },
   "U080701": {
@@ -282540,8 +284076,8 @@
     "total_2002": 216.94
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U100109": {
@@ -283088,8 +284624,8 @@
     "total_2002": 239.6
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U100117": {
@@ -283886,8 +285422,8 @@
     "total_2002": 226.77
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U100207": {
@@ -283957,8 +285493,8 @@
     "total_2002": 188.74
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U100208": {
@@ -285566,8 +287102,8 @@
     "Equivale a la práctica 100506 del Nomenclador de Prestaciones Médicas (similitud 89%)."
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U100507": {
@@ -288623,8 +290159,8 @@
     "total_2002": 303.49
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U110303": {
@@ -291032,8 +292568,8 @@
     "total_2002": 124.2
    },
    "abrev_posibles": [
-    "MTT",
-    "MTC"
+    "MTC",
+    "MTT"
    ]
   },
   "U120401": {
@@ -294116,8 +295652,8 @@
     "total_2002": 302.67
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U121306": {
@@ -294188,8 +295724,8 @@
     "total_2002": 280.69
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U121307": {
@@ -294259,8 +295795,8 @@
     "total_2002": 137.39
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U121308": {
@@ -294330,8 +295866,8 @@
     "total_2002": 128.14
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U121401": {
@@ -295742,8 +297278,8 @@
     "total_2002": 230.64
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U121704": {
@@ -295953,8 +297489,8 @@
     "total_2002": 180.05
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U121707": {
@@ -296749,8 +298285,8 @@
     "total_2002": 306.34
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U121719": {
@@ -297027,8 +298563,8 @@
     "total_2002": 128.81
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U121723": {
@@ -297236,8 +298772,8 @@
     "total_2002": 128.81
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U121726": {
@@ -297307,8 +298843,8 @@
     "total_2002": 198.28
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U121727": {
@@ -297378,8 +298914,8 @@
     "total_2002": 126.17
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U121728": {
@@ -300973,9 +302509,9 @@
     "total_2002": 15.78
    },
    "abrev_posibles": [
-    "SC",
+    "BX",
     "TCSC",
-    "BX"
+    "SC"
    ]
   },
   "U130109": {
@@ -304990,9 +306526,9 @@
     "Equivale a la práctica 170105 del Nomenclador de Prestaciones Médicas (similitud 90%)."
    ],
    "abrev_posibles": [
+    "DX",
     "ECG",
-    "EKG",
-    "DX"
+    "EKG"
    ]
   },
   "U170106": {
@@ -312082,8 +313618,8 @@
     "Equivale a la práctica 260130 del Nomenclador de Prestaciones Médicas (similitud 87%)."
    ],
    "abrev_posibles": [
-    "DX",
-    "VIT"
+    "VIT",
+    "DX"
    ],
    "cie_rel": [
     "D51",
@@ -312354,8 +313890,8 @@
     "Equivale a la práctica 260136 del Nomenclador de Prestaciones Médicas (similitud 94%)."
    ],
    "abrev_posibles": [
-    "TTO",
-    "Ca"
+    "Ca",
+    "TTO"
    ]
   },
   "U260137": {
@@ -323599,10 +325135,10 @@
     "Equivale a la práctica 260613 del Nomenclador de Prestaciones Médicas (similitud 90%)."
    ],
    "abrev_posibles": [
+    "ABD",
     "RMI",
     "RMN",
-    "RNM",
-    "ABD"
+    "RNM"
    ]
   },
   "U342009": {
@@ -324117,9 +325653,9 @@
     "Equivale a la práctica 350116 del Nomenclador de Prestaciones Médicas (similitud 92%)."
    ],
    "abrev_posibles": [
-    "TTO",
+    "Ca",
     "RT",
-    "Ca"
+    "TTO"
    ]
   },
   "U350310": {
@@ -329558,7 +331094,19 @@
    "sin_equivalencia": true,
    "auditoria": [
     "Sin equivalencia hallada en Prestaciones Médicas — pendiente de mapeo manual."
-   ]
+   ],
+   "surge": {
+    "patologia_id": "parkinson",
+    "patologia": "Enfermedad de Parkinson refractaria al tratamiento",
+    "especialidad": "Neurología",
+    "requerimiento": [
+     "RHC",
+     "Escala UPDRS",
+     "Respuesta a levodopa",
+     "Tratamientos previos"
+    ],
+    "medicacion": []
+   }
   },
   "U40010219": {
    "code": "40010219",
@@ -329594,7 +331142,19 @@
    "sin_equivalencia": true,
    "auditoria": [
     "Sin equivalencia hallada en Prestaciones Médicas — pendiente de mapeo manual."
-   ]
+   ],
+   "surge": {
+    "patologia_id": "dolor_cronico",
+    "patologia": "Dolor crónico intratable",
+    "especialidad": "Neurología",
+    "requerimiento": [
+     "RHC",
+     "Escala de dolor",
+     "Tratamientos previos",
+     "Evaluación multidisciplinaria"
+    ],
+    "medicacion": []
+   }
   },
   "U40010220": {
    "code": "40010220",
@@ -329630,7 +331190,20 @@
    "sin_equivalencia": true,
    "auditoria": [
     "Sin equivalencia hallada en Prestaciones Médicas — pendiente de mapeo manual."
-   ]
+   ],
+   "surge": {
+    "patologia_id": "epilepsia",
+    "patologia": "Epilepsia refractaria al tratamiento médico",
+    "especialidad": "Neurología",
+    "requerimiento": [
+     "RHC",
+     "Video-EEG",
+     "RMN de cerebro",
+     "Fármacos antiepilépticos utilizados",
+     "Tratamientos previos"
+    ],
+    "medicacion": []
+   }
   },
   "U40010221": {
    "code": "40010221",
@@ -329666,7 +331239,20 @@
    "sin_equivalencia": true,
    "auditoria": [
     "Sin equivalencia hallada en Prestaciones Médicas — pendiente de mapeo manual."
-   ]
+   ],
+   "surge": {
+    "patologia_id": "epilepsia",
+    "patologia": "Epilepsia refractaria al tratamiento médico",
+    "especialidad": "Neurología",
+    "requerimiento": [
+     "RHC",
+     "Video-EEG",
+     "RMN de cerebro",
+     "Fármacos antiepilépticos utilizados",
+     "Tratamientos previos"
+    ],
+    "medicacion": []
+   }
   },
   "U40010708": {
    "code": "40010708",
@@ -329712,7 +331298,19 @@
    ],
    "abrev_posibles": [
     "TTO"
-   ]
+   ],
+   "surge": {
+    "patologia_id": "procesos_arteriales",
+    "patologia": "Procesos arteriales y aneurismas craneales",
+    "especialidad": "Cirugía vascular / Neurocirugía",
+    "requerimiento": [
+     "RHC",
+     "Angiografía / Angio-TC",
+     "Informe de imagen",
+     "Tratamientos previos"
+    ],
+    "medicacion": []
+   }
   },
   "U40010709": {
    "code": "40010709",
@@ -329758,7 +331356,19 @@
    ],
    "abrev_posibles": [
     "TTO"
-   ]
+   ],
+   "surge": {
+    "patologia_id": "procesos_arteriales",
+    "patologia": "Procesos arteriales y aneurismas craneales",
+    "especialidad": "Cirugía vascular / Neurocirugía",
+    "requerimiento": [
+     "RHC",
+     "Angiografía / Angio-TC",
+     "Informe de imagen",
+     "Tratamientos previos"
+    ],
+    "medicacion": []
+   }
   },
   "U40010710": {
    "code": "40010710",
@@ -329804,7 +331414,19 @@
    ],
    "abrev_posibles": [
     "TTO"
-   ]
+   ],
+   "surge": {
+    "patologia_id": "procesos_arteriales",
+    "patologia": "Procesos arteriales y aneurismas craneales",
+    "especialidad": "Cirugía vascular / Neurocirugía",
+    "requerimiento": [
+     "RHC",
+     "Angiografía / Angio-TC",
+     "Informe de imagen",
+     "Tratamientos previos"
+    ],
+    "medicacion": []
+   }
   },
   "U40030220": {
    "code": "40030220",
@@ -329850,7 +331472,20 @@
    ],
    "abrev_posibles": [
     "Qx"
-   ]
+   ],
+   "surge": {
+    "patologia_id": "hipoacusia",
+    "patologia": "Hipoacusia — implante coclear",
+    "especialidad": "Otorrinolaringología",
+    "requerimiento": [
+     "RHC",
+     "Audiometría",
+     "Potenciales evocados auditivos",
+     "Evaluación fonoaudiológica",
+     "Tratamientos previos"
+    ],
+    "medicacion": []
+   }
   },
   "U40050401": {
    "code": "40050401",
@@ -329893,7 +331528,19 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 050603 del Nomenclador de Prestaciones Médicas (similitud 96%)."
-   ]
+   ],
+   "surge": {
+    "patologia_id": "tx_pulmon",
+    "patologia": "Trasplante de pulmón",
+    "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+    "requerimiento": [
+     "RHC",
+     "Protocolo de trasplante",
+     "Estudios pretrasplante",
+     "Dictamen del INCUCAI"
+    ],
+    "medicacion": []
+   }
   },
   "U40070115": {
    "code": "40070115",
@@ -329936,7 +331583,20 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 070116 del Nomenclador de Prestaciones Médicas (similitud 98%)."
-   ]
+   ],
+   "surge": {
+    "patologia_id": "arritmias",
+    "patologia": "Arritmias ventriculares — prevención de muerte súbita",
+    "especialidad": "Cardiología",
+    "requerimiento": [
+     "RHC",
+     "ECG / Holter",
+     "Fracción de eyección",
+     "Estudio electrofisiológico",
+     "Tratamientos previos"
+    ],
+    "medicacion": []
+   }
   },
   "U40070203": {
    "code": "40070203",
@@ -329979,7 +331639,20 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 070726 del Nomenclador de Prestaciones Médicas (similitud 92%)."
-   ]
+   ],
+   "surge": {
+    "patologia_id": "estenosis_aortica",
+    "patologia": "Estenosis valvular aórtica (TAVI)",
+    "especialidad": "Cardiología",
+    "requerimiento": [
+     "RHC",
+     "Ecocardiograma Doppler",
+     "Área valvular / gradiente",
+     "Score de riesgo quirúrgico",
+     "Tratamientos previos"
+    ],
+    "medicacion": []
+   }
   },
   "U40070208": {
    "code": "40070208",
@@ -330049,9 +331722,21 @@
     "total_2002": 1325.53
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
-   ]
+    "Qx",
+    "TTO"
+   ],
+   "surge": {
+    "patologia_id": "aneurisma_aorta",
+    "patologia": "Aneurisma de aorta abdominal / torácica",
+    "especialidad": "Cirugía vascular",
+    "requerimiento": [
+     "RHC",
+     "Angio-TC de aorta",
+     "Diámetro del aneurisma",
+     "Tratamientos previos"
+    ],
+    "medicacion": []
+   }
   },
   "U40070806": {
    "code": "40070806",
@@ -330095,7 +331780,19 @@
    "auditoria": [
     "Equivale a la práctica 070806 del Nomenclador de Prestaciones Médicas (similitud 89%)."
    ],
-   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: 1. Arterial Renal: La cobertura será obligatoria cuando se cumplen los siguientes criterios:al menos 75% de estenosis de una o ambas arterias y que desarrollen, a pesar de tratamiento médico óptimo (asociación de dosis máximas de 3 o más drogas sinérgicas) al menos alguna de las siguientes condiciones: — Hipertensión no controlada — Edema pulmonar recurrente fugaz — Ingreso a diálisis dependiente únicamente de estenosis ateroesclerótica de la arteria renal, o deterioro de función renal, especialmente con estenosis bilateral o riñón único funcionante. 2. Enfermedad Arterial Periférica de miembros inferiores: La cobertura será obligatoria cuando se cumplen los siguientes criterios: Estenosis u oclusión de la arteria ilíaca con claudicación intermitente o isquemia crítica de la extremidad con empeoramiento clínico y que luego de una extensa evaluación y tratamiento médico adecuados no mejora ni se estabiliza y requiere de un procedimiento invasivo, ante la presencia de al menos alguna de las siguientes condiciones clínicas: — Dolor vascular limitante para su estilo de vida habitual o permanente en reposo — Ulceras vasculares no cicatrizantes o gangrena focal — Deberá cumplirse en su totalidad con los siguientes criterios anatómicos: — lesiones menores de 10 cm — lesiones localizadas en la ilíaca externa o común,"
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: 1. Arterial Renal: La cobertura será obligatoria cuando se cumplen los siguientes criterios:al menos 75% de estenosis de una o ambas arterias y que desarrollen, a pesar de tratamiento médico óptimo (asociación de dosis máximas de 3 o más drogas sinérgicas) al menos alguna de las siguientes condiciones: — Hipertensión no controlada — Edema pulmonar recurrente fugaz — Ingreso a diálisis dependiente únicamente de estenosis ateroesclerótica de la arteria renal, o deterioro de función renal, especialmente con estenosis bilateral o riñón único funcionante. 2. Enfermedad Arterial Periférica de miembros inferiores: La cobertura será obligatoria cuando se cumplen los siguientes criterios: Estenosis u oclusión de la arteria ilíaca con claudicación intermitente o isquemia crítica de la extremidad con empeoramiento clínico y que luego de una extensa evaluación y tratamiento médico adecuados no mejora ni se estabiliza y requiere de un procedimiento invasivo, ante la presencia de al menos alguna de las siguientes condiciones clínicas: — Dolor vascular limitante para su estilo de vida habitual o permanente en reposo — Ulceras vasculares no cicatrizantes o gangrena focal — Deberá cumplirse en su totalidad con los siguientes criterios anatómicos: — lesiones menores de 10 cm — lesiones localizadas en la ilíaca externa o común,",
+   "surge": {
+    "patologia_id": "procesos_arteriales",
+    "patologia": "Procesos arteriales y aneurismas craneales",
+    "especialidad": "Cirugía vascular / Neurocirugía",
+    "requerimiento": [
+     "RHC",
+     "Angiografía / Angio-TC",
+     "Informe de imagen",
+     "Tratamientos previos"
+    ],
+    "medicacion": []
+   }
   },
   "U40070901": {
    "code": "40070901",
@@ -330138,7 +331835,19 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 070903 del Nomenclador de Prestaciones Médicas (similitud 93%)."
-   ]
+   ],
+   "surge": {
+    "patologia_id": "tx_cardiaco",
+    "patologia": "Trasplante cardíaco",
+    "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+    "requerimiento": [
+     "RHC",
+     "Protocolo de trasplante",
+     "Estudios pretrasplante",
+     "Dictamen del INCUCAI"
+    ],
+    "medicacion": []
+   }
   },
   "U40070902": {
    "code": "40070902",
@@ -330174,7 +331883,19 @@
    "sin_equivalencia": true,
    "auditoria": [
     "Sin equivalencia hallada en Prestaciones Médicas — pendiente de mapeo manual."
-   ]
+   ],
+   "surge": {
+    "patologia_id": "tx_cardiaco",
+    "patologia": "Trasplante cardíaco",
+    "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+    "requerimiento": [
+     "RHC",
+     "Protocolo de trasplante",
+     "Estudios pretrasplante",
+     "Dictamen del INCUCAI"
+    ],
+    "medicacion": []
+   }
   },
   "U40070903": {
    "code": "40070903",
@@ -330217,7 +331938,19 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 070901 del Nomenclador de Prestaciones Médicas (similitud 98%)."
-   ]
+   ],
+   "surge": {
+    "patologia_id": "tx_cardiaco",
+    "patologia": "Trasplante cardíaco",
+    "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+    "requerimiento": [
+     "RHC",
+     "Protocolo de trasplante",
+     "Estudios pretrasplante",
+     "Dictamen del INCUCAI"
+    ],
+    "medicacion": []
+   }
   },
   "U40070904": {
    "code": "40070904",
@@ -330260,7 +331993,19 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 070902 del Nomenclador de Prestaciones Médicas (similitud 98%)."
-   ]
+   ],
+   "surge": {
+    "patologia_id": "tx_cardiaco",
+    "patologia": "Trasplante cardíaco",
+    "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+    "requerimiento": [
+     "RHC",
+     "Protocolo de trasplante",
+     "Estudios pretrasplante",
+     "Dictamen del INCUCAI"
+    ],
+    "medicacion": []
+   }
   },
   "U40081001": {
    "code": "40081001",
@@ -330306,7 +332051,19 @@
    ],
    "abrev_posibles": [
     "TXH"
-   ]
+   ],
+   "surge": {
+    "patologia_id": "tx_hepatico",
+    "patologia": "Trasplante hepático",
+    "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+    "requerimiento": [
+     "RHC",
+     "Protocolo de trasplante",
+     "Estudios pretrasplante",
+     "Dictamen del INCUCAI"
+    ],
+    "medicacion": []
+   }
   },
   "U40081002": {
    "code": "40081002",
@@ -330352,7 +332109,19 @@
    ],
    "abrev_posibles": [
     "TXH"
-   ]
+   ],
+   "surge": {
+    "patologia_id": "tx_hepatico",
+    "patologia": "Trasplante hepático",
+    "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+    "requerimiento": [
+     "RHC",
+     "Protocolo de trasplante",
+     "Estudios pretrasplante",
+     "Dictamen del INCUCAI"
+    ],
+    "medicacion": []
+   }
   },
   "U40081003": {
    "code": "40081003",
@@ -330391,7 +332160,19 @@
    ],
    "abrev_posibles": [
     "TXH"
-   ]
+   ],
+   "surge": {
+    "patologia_id": "tx_hepatico",
+    "patologia": "Trasplante hepático",
+    "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+    "requerimiento": [
+     "RHC",
+     "Protocolo de trasplante",
+     "Estudios pretrasplante",
+     "Dictamen del INCUCAI"
+    ],
+    "medicacion": []
+   }
   },
   "U40081005": {
    "code": "40081005",
@@ -330434,7 +332215,19 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 081005 del Nomenclador de Prestaciones Médicas (similitud 99%)."
-   ]
+   ],
+   "surge": {
+    "patologia_id": "tx_hepatico",
+    "patologia": "Trasplante hepático",
+    "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+    "requerimiento": [
+     "RHC",
+     "Protocolo de trasplante",
+     "Estudios pretrasplante",
+     "Dictamen del INCUCAI"
+    ],
+    "medicacion": []
+   }
   },
   "U40201001": {
    "code": "40201001",
@@ -330480,7 +332273,19 @@
    ],
    "abrev_posibles": [
     "TXH"
-   ]
+   ],
+   "surge": {
+    "patologia_id": "tx_hepatico",
+    "patologia": "Trasplante hepático",
+    "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+    "requerimiento": [
+     "RHC",
+     "Protocolo de trasplante",
+     "Estudios pretrasplante",
+     "Dictamen del INCUCAI"
+    ],
+    "medicacion": []
+   }
   },
   "U40209090": {
    "code": "40209090",
@@ -330526,7 +332331,19 @@
    ],
    "abrev_posibles": [
     "TXH"
-   ]
+   ],
+   "surge": {
+    "patologia_id": "tx_hepatico",
+    "patologia": "Trasplante hepático",
+    "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+    "requerimiento": [
+     "RHC",
+     "Protocolo de trasplante",
+     "Estudios pretrasplante",
+     "Dictamen del INCUCAI"
+    ],
+    "medicacion": []
+   }
   },
   "U40209091": {
    "code": "40209091",
@@ -330572,7 +332389,19 @@
    ],
    "abrev_posibles": [
     "TXH"
-   ]
+   ],
+   "surge": {
+    "patologia_id": "tx_hepatico",
+    "patologia": "Trasplante hepático",
+    "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+    "requerimiento": [
+     "RHC",
+     "Protocolo de trasplante",
+     "Estudios pretrasplante",
+     "Dictamen del INCUCAI"
+    ],
+    "medicacion": []
+   }
   },
   "U40209092": {
    "code": "40209092",
@@ -330619,7 +332448,19 @@
    "abrev_posibles": [
     "TXH",
     "DVR"
-   ]
+   ],
+   "surge": {
+    "patologia_id": "tx_hepatico",
+    "patologia": "Trasplante hepático",
+    "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+    "requerimiento": [
+     "RHC",
+     "Protocolo de trasplante",
+     "Estudios pretrasplante",
+     "Dictamen del INCUCAI"
+    ],
+    "medicacion": []
+   }
   },
   "U40210201": {
    "code": "40210201",
@@ -330963,7 +332804,20 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 241202 del Nomenclador de Prestaciones Médicas (similitud 90%)."
-   ]
+   ],
+   "surge": {
+    "patologia_id": "tx_medula",
+    "patologia": "Trasplante de médula ósea / precursores hematopoyéticos",
+    "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+    "requerimiento": [
+     "RHC",
+     "Indicación de trasplante",
+     "Estudios pretrasplante",
+     "Tipificación HLA",
+     "Tratamientos previos"
+    ],
+    "medicacion": []
+   }
   },
   "U40241202": {
    "code": "40241202",
@@ -331006,7 +332860,20 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 241202 del Nomenclador de Prestaciones Médicas (similitud 98%)."
-   ]
+   ],
+   "surge": {
+    "patologia_id": "tx_medula",
+    "patologia": "Trasplante de médula ósea / precursores hematopoyéticos",
+    "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+    "requerimiento": [
+     "RHC",
+     "Indicación de trasplante",
+     "Estudios pretrasplante",
+     "Tipificación HLA",
+     "Tratamientos previos"
+    ],
+    "medicacion": []
+   }
   },
   "U40241203": {
    "code": "40241203",
@@ -331049,7 +332916,20 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 241202 del Nomenclador de Prestaciones Médicas (similitud 93%)."
-   ]
+   ],
+   "surge": {
+    "patologia_id": "tx_medula",
+    "patologia": "Trasplante de médula ósea / precursores hematopoyéticos",
+    "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+    "requerimiento": [
+     "RHC",
+     "Indicación de trasplante",
+     "Estudios pretrasplante",
+     "Tipificación HLA",
+     "Tratamientos previos"
+    ],
+    "medicacion": []
+   }
   },
   "U40270201": {
    "code": "40270201",
@@ -331092,7 +332972,19 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 270206 del Nomenclador de Prestaciones Médicas (similitud 98%)."
-   ]
+   ],
+   "surge": {
+    "patologia_id": "tx_renal",
+    "patologia": "Trasplante renal",
+    "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+    "requerimiento": [
+     "RHC",
+     "Protocolo de trasplante",
+     "Estudios pretrasplante",
+     "Dictamen del INCUCAI"
+    ],
+    "medicacion": []
+   }
   },
   "U40270202": {
    "code": "40270202",
@@ -331135,7 +333027,19 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 270207 del Nomenclador de Prestaciones Médicas (similitud 98%)."
-   ]
+   ],
+   "surge": {
+    "patologia_id": "tx_renal",
+    "patologia": "Trasplante renal",
+    "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+    "requerimiento": [
+     "RHC",
+     "Protocolo de trasplante",
+     "Estudios pretrasplante",
+     "Dictamen del INCUCAI"
+    ],
+    "medicacion": []
+   }
   },
   "U40288401": {
    "code": "40288401",
@@ -331178,7 +333082,19 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 050601 del Nomenclador de Prestaciones Médicas (similitud 99%)."
-   ]
+   ],
+   "surge": {
+    "patologia_id": "tx_pulmon",
+    "patologia": "Trasplante de pulmón",
+    "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+    "requerimiento": [
+     "RHC",
+     "Protocolo de trasplante",
+     "Estudios pretrasplante",
+     "Dictamen del INCUCAI"
+    ],
+    "medicacion": []
+   }
   },
   "U40288402": {
    "code": "40288402",
@@ -331221,7 +333137,19 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 050602 del Nomenclador de Prestaciones Médicas (similitud 98%)."
-   ]
+   ],
+   "surge": {
+    "patologia_id": "tx_pulmon",
+    "patologia": "Trasplante de pulmón",
+    "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+    "requerimiento": [
+     "RHC",
+     "Protocolo de trasplante",
+     "Estudios pretrasplante",
+     "Dictamen del INCUCAI"
+    ],
+    "medicacion": []
+   }
   },
   "U40318105": {
    "code": "40318105",
@@ -331264,7 +333192,20 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 031335 del Nomenclador de Prestaciones Médicas (similitud 91%)."
-   ]
+   ],
+   "surge": {
+    "patologia_id": "hipoacusia",
+    "patologia": "Hipoacusia — implante coclear",
+    "especialidad": "Otorrinolaringología",
+    "requerimiento": [
+     "RHC",
+     "Audiometría",
+     "Potenciales evocados auditivos",
+     "Evaluación fonoaudiológica",
+     "Tratamientos previos"
+    ],
+    "medicacion": []
+   }
   },
   "U40350115": {
    "code": "40350115",
@@ -331310,7 +333251,19 @@
    ],
    "abrev_posibles": [
     "RT"
-   ]
+   ],
+   "surge": {
+    "patologia_id": "radioterapia",
+    "patologia": "Módulo de radioterapia oncológica",
+    "especialidad": "Oncología",
+    "requerimiento": [
+     "RHC",
+     "Informe de anatomía patológica",
+     "Estadificación",
+     "Plan de tratamiento radiante"
+    ],
+    "medicacion": []
+   }
   },
   "U40350120": {
    "code": "40350120",
@@ -331356,7 +333309,19 @@
    ],
    "abrev_posibles": [
     "RT"
-   ]
+   ],
+   "surge": {
+    "patologia_id": "radioterapia",
+    "patologia": "Módulo de radioterapia oncológica",
+    "especialidad": "Oncología",
+    "requerimiento": [
+     "RHC",
+     "Informe de anatomía patológica",
+     "Estadificación",
+     "Plan de tratamiento radiante"
+    ],
+    "medicacion": []
+   }
   },
   "U40380301": {
    "code": "40380301",
@@ -331392,7 +333357,19 @@
    "sin_equivalencia": true,
    "auditoria": [
     "Sin equivalencia hallada en Prestaciones Médicas — pendiente de mapeo manual."
-   ]
+   ],
+   "surge": {
+    "patologia_id": "insuf_cardiaca",
+    "patologia": "Insuficiencia cardíaca aguda / insuficiencia respiratoria (ECMO)",
+    "especialidad": "Cardiología / Terapia intensiva",
+    "requerimiento": [
+     "RHC",
+     "Parámetros hemodinámicos",
+     "Indicación de ECMO",
+     "Tratamientos previos"
+    ],
+    "medicacion": []
+   }
   },
   "U50080305": {
    "code": "50080305",
@@ -341055,8 +343032,8 @@
     "Urgencia (U): si se solicita de urgencia, adicionar el código 661200 en la misma prescripción."
    ],
    "abrev_posibles": [
-    "GB",
-    "RTO"
+    "RTO",
+    "GB"
    ]
   },
   "U60660409": {

@@ -1018,6 +1018,37 @@ for _k, _r in records.items():
         _r["leyes_rel"] = code2ley[_k]; _ley_n += 1
 print(f"relaciones inversas: {_cie_n} códigos con CIE-10 · {_ley_n} códigos con normativa", file=sys.stderr)
 
+# ---------- SURGE — Sistema Único de Reintegro por Gestión de Enfermedades ----------
+try:
+    SURGE = json.load(open("data/surge.json", encoding="utf-8"))
+except FileNotFoundError:
+    try: SURGE = json.load(open("surge.json", encoding="utf-8"))
+    except FileNotFoundError: SURGE = {"patologias": [], "codigo_patologia": {}}
+# índice bare-code -> clave real del registro (NBU usa el código; Único usa "U"+código)
+_code_key = {}
+for _k, _r in records.items():
+    _code_key.setdefault(str(_r.get("code")), _k)
+_pat_by_id = {p["id"]: p for p in SURGE.get("patologias", [])}
+# resolver los códigos de cada patología a claves reales y etiquetar cada práctica
+for _p in SURGE.get("patologias", []):
+    _p["codigos"] = [_code_key[c] for c in _p.get("codigos", []) if c in _code_key]
+_surge_n = 0
+for _code, _pid in SURGE.get("codigo_patologia", {}).items():
+    _key = _code_key.get(_code); _pat = _pat_by_id.get(_pid)
+    if not _key or not _pat: continue
+    records[_key]["surge"] = {
+        "patologia_id": _pid, "patologia": _pat["nombre"], "especialidad": _pat["especialidad"],
+        "requerimiento": _pat["requerimiento"], "medicacion": _pat.get("medicacion", []),
+    }
+    _surge_n += 1
+    # propagar a la equivalencia (NBU<->Único) si existe
+    _eq = records[_key].get("equivalencia") or {}
+    _eqk = _code_key.get(str(_eq.get("code"))) if _eq else None
+    if _eqk and "surge" not in records[_eqk]:
+        records[_eqk]["surge"] = records[_key]["surge"]
+        if _eqk not in _pat["codigos"]: _pat["codigos"].append(_eqk)
+print(f"SURGE: patologías {len(SURGE.get('patologias', []))} · prácticas etiquetadas {_surge_n}", file=sys.stderr)
+
 # grupo stats
 grupos_stats = defaultdict(int)
 nomen_stats = defaultdict(int)
@@ -1053,6 +1084,7 @@ db = {
     "leyes": leyes,
     "cie10": CIE10,
     "abreviaturas": ABREVS,
+    "surge": SURGE,
     "codigos": records,
 }
 json.dump(db, open("nbu_db.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)

@@ -1,0 +1,1368 @@
+{
+ "resolucion": "Resolución 731/2023 (Anexo II) — Sistema Único de Reintegro por Gestión de Enfermedades (SURGE)",
+ "nota": "Reintegro por gestión de enfermedades. La columna «Requerimiento» detalla lo que VISITAR solicita al afiliado para autorizar la cobertura.",
+ "especialidades": [
+  "Oncología",
+  "Oncohematología",
+  "Reumatología",
+  "Enfermedad inflamatoria intestinal",
+  "Enfermedades lisosomales",
+  "Enfermedades poco frecuentes",
+  "Enfermedad fibroquística del páncreas",
+  "Hipertensión arterial pulmonar",
+  "Esclerosis múltiple",
+  "Déficit de hormona de crecimiento",
+  "Trasplante de órganos y precursores hematopoyéticos",
+  "HIV",
+  "Hepatitis crónica por virus C",
+  "Profilaxis preexposición",
+  "Diabetes mellitus",
+  "Drogodependencia",
+  "Fertilidad",
+  "Hemofilia",
+  "Neurología",
+  "Cirugía vascular / Neurocirugía",
+  "Cirugía vascular",
+  "Cardiología",
+  "Cardiología / Terapia intensiva",
+  "Otorrinolaringología"
+ ],
+ "patologias": [
+  {
+   "id": "ca_mama",
+   "nombre": "Cáncer de mama",
+   "especialidad": "Oncología",
+   "medicacion": [
+    "LAPATINIB",
+    "PERTUZUMAB / TRASTUZUMAB",
+    "TRASTUZUMAB",
+    "TRASTUZUMAB EMTANSINA (TDMI - 1)",
+    "ABEMACICLIB",
+    "PALBOCICLIB",
+    "RIBOCICLIB",
+    "EVEROLIMUS",
+    "ALPELISIB",
+    "OLAPARIB",
+    "TALAZOPARIB",
+    "ATEZOLIZUMAB",
+    "PEMBROLIZUMAB",
+    "PERTUZUMAB"
+   ],
+   "requerimiento": [
+    "RHC",
+    "ECOG",
+    "ESTADIO INICIAL",
+    "ESTADIO ACTUAL",
+    "ESQUEMA DE QUIMIOTERAPIA CONCOMITANTE (MONOTERAPIA / OTRO)",
+    "QUIMIOTERAPIA CONCOMITANTE",
+    "ESTRATEGIA TERAPEUTICA",
+    "PROGRESION / RECAIDA",
+    "SITIO DE METASTASIS",
+    "INFORME DE ANATOMIA PATOLOGICA",
+    "ESTUDIOS COMPLEMENTARIOS",
+    "IMAGENES COMPLEMENTARIAS",
+    "MARCADORES TUMORALES (CA MAMA)",
+    "TRATAMIENTOS PREVIOS",
+    "MARCADORES TUMORALES",
+    "ESTRATEGIA ADYUVANCIA"
+   ],
+   "cie": [
+    "C50"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "ca_colon",
+   "nombre": "Cáncer de colon",
+   "especialidad": "Oncología",
+   "medicacion": [
+    "AFLIBERCEPT",
+    "BEVACIZUMAB",
+    "CETUXIMAB",
+    "ENCORAFENIB",
+    "NIVOLUMAB",
+    "PANITUMUMAB",
+    "PEMBROLIZUMAB",
+    "REGORAFENIB",
+    "TRIFLURIDINA / TIPIRACILO"
+   ],
+   "requerimiento": [
+    "RHC",
+    "ECOG",
+    "ESTADIO INICIAL",
+    "ESTADIO ACTUAL",
+    "ESQUEMA DE QUIMIOTERAPIA CONCOMITANTE (MONOTERAPIA",
+    "OTRO)",
+    "ESQUEMA CONCOMITANTE",
+    "ESTRATEGIA TERAPEUTICA",
+    "PROGRESION / RECAIDA",
+    "SITIO DE METASTASIS",
+    "INFORME DE ANATOMIA PATOLOGICA",
+    "ESTUDIOS COMPLEMENTARIOS",
+    "IMAGENES COMPLEMENTARIAS",
+    "MARCADORES TUMORALES (CA COLON)",
+    "TRATAMIENTOS PREVIOS"
+   ],
+   "cie": [
+    "C18",
+    "C19",
+    "C20"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "ca_prostata",
+   "nombre": "Cáncer de próstata",
+   "especialidad": "Oncología",
+   "medicacion": [
+    "OLAPARIB",
+    "ABIRATERONA",
+    "APALUTAMIDA",
+    "CABAZITAXEL",
+    "DAROLUTAMIDA",
+    "DICLORURO DE RADIO 223",
+    "ENZALUTAMIDA"
+   ],
+   "requerimiento": [
+    "RHC",
+    "INFORME DE ANATOMIA PATOLOGICA",
+    "INFORME DE IMAGEN",
+    "TRATAMIENTOS PREVIOS"
+   ],
+   "cie": [
+    "C61"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "ca_pulmon",
+   "nombre": "Cáncer de pulmón",
+   "especialidad": "Oncología",
+   "medicacion": [
+    "BEVACIZUMAB",
+    "BRIGATINIB",
+    "CERITINIB",
+    "CRIZOTINIB",
+    "DACOMITINIB",
+    "ERLOTINIB",
+    "GEFITINIB",
+    "LORLATINIB",
+    "NIVOLUMAB",
+    "OSIMERTINIB",
+    "PEMBROLIZUMAB"
+   ],
+   "requerimiento": [
+    "RHC",
+    "ECOG",
+    "ESTADIO INICIAL",
+    "ESTADIO ACTUAL",
+    "ESQUEMA DE QUIMIOTERAPIA CONCOMITANTE (MONOTERAPIA / OTRO)",
+    "QUIMIOTERAPIA CONCOMITANTE",
+    "ESTRATEGIA TERAPEUTICA",
+    "PROGRESION / RECAIDA",
+    "SITIO DE METASTASIS",
+    "INFORME DE ANATOMIA PATOLOGICA",
+    "ESTUDIOS COMPLEMENTARIOS",
+    "IMAGENES COMPLEMENTARIAS",
+    "MARCADORES TUMORALES (CA PULMON)",
+    "TRATAMIENTOS PREVIOS"
+   ],
+   "cie": [
+    "C34"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "ca_rinon",
+   "nombre": "Cáncer de riñón",
+   "especialidad": "Oncología",
+   "medicacion": [
+    "AVELUMAB",
+    "AXITINIB",
+    "CABOZANTINIB",
+    "EVEROLIMUS",
+    "LENVATINIB",
+    "NIVOLUMAB",
+    "PAZOPANIB",
+    "PEMBROLIZUMAB",
+    "SORAFENIB",
+    "SUNITINIB"
+   ],
+   "requerimiento": [
+    "RHC",
+    "INFORME DE ANATOMIA PATOLOGICA",
+    "INFORME DE IMAGEN",
+    "TRATAMIENTOS PREVIOS"
+   ],
+   "cie": [
+    "C64"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "melanoma",
+   "nombre": "Melanoma",
+   "especialidad": "Oncología",
+   "medicacion": [
+    "BENIMETINIB",
+    "DABRAFENIB + TRAMETINIB",
+    "ENCORAFENIB",
+    "NIVOLUMAB",
+    "PEMBROLIZUMAB",
+    "VEMURAFENIB + COBIMETINIB"
+   ],
+   "requerimiento": [
+    "RHC",
+    "INFORME DE ANATOMIA PATOLOGICA",
+    "TRATAMIENTOS PREVIOS"
+   ],
+   "cie": [
+    "C43"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "radioterapia",
+   "nombre": "Módulo de radioterapia oncológica",
+   "especialidad": "Oncología",
+   "medicacion": [],
+   "requerimiento": [
+    "RHC",
+    "Informe de anatomía patológica",
+    "Estadificación",
+    "Plan de tratamiento radiante"
+   ],
+   "cie": [
+    "Z51.0"
+   ],
+   "codigos": [
+    "40350115",
+    "40350120"
+   ]
+  },
+  {
+   "id": "mieloma",
+   "nombre": "Mieloma múltiple",
+   "especialidad": "Oncohematología",
+   "medicacion": [
+    "ISATUXIMAB",
+    "BORTEZOMIB",
+    "CARFILZOMIB",
+    "IXAZOMIB",
+    "DARATUMUMAB",
+    "LENALIDOMIDA",
+    "POMALIDOMIDA",
+    "ELOTUZUMAB"
+   ],
+   "requerimiento": [
+    "RHC",
+    "BIOPSIA",
+    "ESTUDIO CITOGENETICO",
+    "ESTUDIO MOLECULAR (MM)",
+    "LINEA DE TRATAMIENTO (MM)",
+    "LABORATORIO (MM)",
+    "TRATAMIENTOS PREVIOS"
+   ],
+   "cie": [
+    "C90"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "lmc",
+   "nombre": "Leucemia mieloide crónica (LMC)",
+   "especialidad": "Oncohematología",
+   "medicacion": [
+    "BOSUTINIB",
+    "IMATINIB",
+    "NILOTINIB",
+    "PONATINIB",
+    "DASATINIB"
+   ],
+   "requerimiento": [
+    "RHC",
+    "CROMOSOMA DE FILADELFIA",
+    "LABORATORIO (LMC)",
+    "CITOMETRIA DE FLUJO",
+    "MUTACION T315I",
+    "FASE DE LMC AL DIAGNOSTICO",
+    "TRATAMIENTOS PREVIOS"
+   ],
+   "cie": [
+    "C92.1"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "ar",
+   "nombre": "Artritis reumatoidea",
+   "especialidad": "Reumatología",
+   "medicacion": [
+    "TOCILIZUMAB",
+    "TOFACITINIB",
+    "UPADACITINIB",
+    "ABATACEPT",
+    "ADALIMUMAB",
+    "BARICITINIB",
+    "CERTOLIZUMAB PEGOL",
+    "ETANERCEPT",
+    "GOLIMUMAB",
+    "INFLIXIMAB",
+    "RITUXIMAB",
+    "SARILUMAB"
+   ],
+   "requerimiento": [
+    "SCORE DAS 28 (INICIO)",
+    "SCORE DAS 28 (ACTUAL)",
+    "RHC",
+    "TRATAMIENTOS PREVIOS"
+   ],
+   "cie": [
+    "M05",
+    "M06"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "aps",
+   "nombre": "Artritis psoriásica",
+   "especialidad": "Reumatología",
+   "medicacion": [
+    "ETANERCEPT",
+    "GOLIMUMAB",
+    "GUSELKUMAB",
+    "INFLIXIMAB",
+    "IXEKIZUMAB",
+    "TOFACITINIB",
+    "UPADACITINIB",
+    "USTEKINUMAB",
+    "RISANKIZUMAB",
+    "SECUKINUMAB",
+    "ABATACEPT",
+    "ADALIMUMAB",
+    "APREMILAST",
+    "CERTOLIZUMAB PEGOL"
+   ],
+   "requerimiento": [
+    "RHC",
+    "BIOPSIA DE PIEL",
+    "SCORE DAS 28",
+    "TRATAMIENTOS PREVIOS"
+   ],
+   "cie": [
+    "L40.5",
+    "M07"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "psoriasis",
+   "nombre": "Psoriasis en placa",
+   "especialidad": "Reumatología",
+   "medicacion": [
+    "ADALIMUMAB",
+    "APREMILAST",
+    "CERTOLIZUMAB PEGOL",
+    "ETANERCEPT",
+    "GUSELKUMAB",
+    "INFLIXIMAB",
+    "IXEKIZUMAB",
+    "RISANKIZUMAB",
+    "SECUKINUMAB",
+    "USTEKINUMAB",
+    "DEUCRAVACITINIB"
+   ],
+   "requerimiento": [
+    "RHC",
+    "BIOPSIA DE PIEL",
+    "SCORE PASI",
+    "TRATAMIENTOS PREVIOS"
+   ],
+   "cie": [
+    "L40"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "aij",
+   "nombre": "Artritis idiopática juvenil",
+   "especialidad": "Reumatología",
+   "medicacion": [
+    "ABATACEPT",
+    "ADALIMUMAB",
+    "CANAKINUMAB",
+    "ETANERCEPT",
+    "TOCILIZUMAB",
+    "GOLIMUMAB"
+   ],
+   "requerimiento": [
+    "RHC",
+    "SCORE JADAS 27",
+    "TRATAMIENTOS PREVIOS"
+   ],
+   "cie": [
+    "M08"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "espondilitis",
+   "nombre": "Espondilitis anquilosante / axial",
+   "especialidad": "Reumatología",
+   "medicacion": [
+    "ADALIMUMAB",
+    "CERTOLIZUMAB PEGOL",
+    "GOLIMUMAB",
+    "INFLIXIMAB",
+    "ETANERCEPT",
+    "UPADACITINIB",
+    "SECUKINUMAB",
+    "TOFACITINIB",
+    "IXEKIZUMAB"
+   ],
+   "requerimiento": [
+    "RHC",
+    "BADSAI",
+    "LABORATORIO (ERITROSEDIMENTACION)",
+    "RX COLUMNA SACROILIACA",
+    "RMN COLUMNA SACROILIACA",
+    "TRATAMIENTOS PREVIOS"
+   ],
+   "cie": [
+    "M45",
+    "M46"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "crohn",
+   "nombre": "Enfermedad de Crohn",
+   "especialidad": "Enfermedad inflamatoria intestinal",
+   "medicacion": [
+    "VEDOLIZUMAB",
+    "INFLIXIMAB",
+    "ADALIMUMAB",
+    "USTEKINUMAB",
+    "CERTOLIZUMAB PEGOL",
+    "TOFACITINIB",
+    "UPADACITINIB",
+    "RIZANKIZUMAB"
+   ],
+   "requerimiento": [
+    "RHC",
+    "BIOPSIA",
+    "ENDOSCOPIA",
+    "CDAI",
+    "ENTEROTOMOGRAFIA",
+    "ENTERORESONANCIA",
+    "TRATAMIENTOS PREVIOS"
+   ],
+   "cie": [
+    "K50"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "colitis",
+   "nombre": "Colitis ulcerosa",
+   "especialidad": "Enfermedad inflamatoria intestinal",
+   "medicacion": [
+    "ADALIMUMAB",
+    "GOLIMUMAB",
+    "USTEKINUMAB",
+    "INFLIXIMAB",
+    "TOFACITINIB",
+    "VEDOLIZUMAB",
+    "UPADACITINIB"
+   ],
+   "requerimiento": [
+    "RHC",
+    "BIOPSIA",
+    "ENDOSCOPIA",
+    "SCORE DE MAYO",
+    "TRATAMIENTOS PREVIOS"
+   ],
+   "cie": [
+    "K51"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "fabry",
+   "nombre": "Enfermedad de Fabry",
+   "especialidad": "Enfermedades lisosomales",
+   "medicacion": [
+    "AGALSIDASA ALFA",
+    "AGALSIDASA BETA",
+    "MIGALASTAT"
+   ],
+   "requerimiento": [
+    "RHC",
+    "LABORATORIO (ALFA GALACTOSIDASA A)",
+    "ESTUDIO GENETICO GEN GLA",
+    "ESTUDIO GENETICO (MUTACIONES SUCEPTIBLES)",
+    "VALOR DE CREATININA",
+    "VALOR DE PROTEINURIA",
+    "TENSION ARTERIAL (S/D)",
+    "TRATAMIENTOS PREVIOS"
+   ],
+   "cie": [
+    "E75.2"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "gaucher",
+   "nombre": "Enfermedad de Gaucher",
+   "especialidad": "Enfermedades lisosomales",
+   "medicacion": [
+    "ELIGLUSTAT",
+    "VELAGLUCERASA ALFA",
+    "IMIGLUCERASA"
+   ],
+   "requerimiento": [
+    "RHC",
+    "LABORATORIO (BETA GLUCOCEREBROSIDASA)",
+    "COMPLICACIONES DE ENFERMEDAD DE GAUCHER",
+    "TIPO DE TERAPIA (TSE – TRS)",
+    "SUBTIPO",
+    "TRATAMIENTOS PREVIOS"
+   ],
+   "cie": [
+    "E75.2"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "pompe",
+   "nombre": "Enfermedad de Pompe",
+   "especialidad": "Enfermedades lisosomales",
+   "medicacion": [
+    "ALGLUCOSIDASA ALFA"
+   ],
+   "requerimiento": [
+    "RHC",
+    "BIOPSIA",
+    "LABORATORIO (ESTUDIO GENETICO)",
+    "CAPACIDAD VITAL FORZADA",
+    "TRATAMIENTOS PREVIOS"
+   ],
+   "cie": [
+    "E74.0"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "mps1",
+   "nombre": "Mucopolisacaridosis tipo I",
+   "especialidad": "Enfermedades lisosomales",
+   "medicacion": [
+    "LARONIDASA"
+   ],
+   "requerimiento": [
+    "RHC",
+    "LABORATORIO (ALFA L-IDUONIDASA)",
+    "SUBTIPO DE MOCOPOLISACARIDOSIS TIPO I",
+    "COMPROMISO ORGANICO-TRATAMIENTOS PREVIOS"
+   ],
+   "cie": [
+    "E76.0",
+    "E76.1"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "mps2",
+   "nombre": "Mucopolisacaridosis tipo II",
+   "especialidad": "Enfermedades lisosomales",
+   "medicacion": [
+    "IDURSULFASA"
+   ],
+   "requerimiento": [
+    "RHC",
+    "EVALUACION OFTALMOLOGICA",
+    "ECOCARDIOGRAMA",
+    "LABORATORIO (IDURONATO SULFATASA)",
+    "TRATAMIENTOS PREVIOS"
+   ],
+   "cie": [
+    "E76.1"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "mps6",
+   "nombre": "Mucopolisacaridosis tipo VI",
+   "especialidad": "Enfermedades lisosomales",
+   "medicacion": [
+    "GALSULFASA"
+   ],
+   "requerimiento": [
+    "RHC",
+    "ECOCARDIOGRAMA",
+    "CRITERIOS DE TRATAMIENTO MUCOPOLISACARIDOSIS TIPO VI",
+    "TEST DE CAMINATA DE 6 MINUTOS",
+    "LABORATORIO (ARILSULFATASA B)",
+    "TRATAMIENTOS PREVIOS"
+   ],
+   "cie": [
+    "E76.2"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "ame",
+   "nombre": "Atrofia muscular espinal (AME)",
+   "especialidad": "Enfermedades poco frecuentes",
+   "medicacion": [
+    "ONASEMNOGEN ABEPARVOVEC",
+    "NUSINERSEN",
+    "RISDIPLAM"
+   ],
+   "requerimiento": [
+    "RHC",
+    "ESTUDIO GENETICO AME",
+    "DICTAMEN CONAME",
+    "TIPO DE AME ( I II III IV)",
+    "ESCALA CHOP INTEND",
+    "ESCALA HFMSE",
+    "DEGLUCION",
+    "TRAQUEOSTOMIA",
+    "REQUERIMIENTO RESPIRATORIO",
+    "CANTIDAD DE HORAS DE APOYO VENTILATORIO",
+    "ESCALA DE VALORACION FUNCIONAL AME",
+    "TRATAMIENTOS PREVIOS"
+   ],
+   "cie": [
+    "G12.0",
+    "G12.1"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "tirosinemia",
+   "nombre": "Tirosinemia tipo I",
+   "especialidad": "Enfermedades poco frecuentes",
+   "medicacion": [
+    "NITISINONA"
+   ],
+   "requerimiento": [
+    "RHC",
+    "ESTUDIOS BIOQUIMICOS QUE FUNDAMENTEN EL DIAGNOSTICO",
+    "ESTUDIOS GENETICOS",
+    "TRATAMIENTOS PREVIOS"
+   ],
+   "cie": [
+    "E70.2"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "hpn",
+   "nombre": "Hemoglobinuria paroxística nocturna",
+   "especialidad": "Enfermedades poco frecuentes",
+   "medicacion": [
+    "ECULIZUMAB"
+   ],
+   "requerimiento": [
+    "RHC",
+    "LABORATORIO",
+    "CITOMETRIA DE FLUJO",
+    "TRATAMIENTOS PREVIOS"
+   ],
+   "cie": [
+    "D59.5"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "suha",
+   "nombre": "Síndrome urémico hemolítico atípico (SUHa)",
+   "especialidad": "Enfermedades poco frecuentes",
+   "medicacion": [
+    "ECULIZUMAB"
+   ],
+   "requerimiento": [
+    "RHC",
+    "MANIFESTACIONES CLINICAS",
+    "MANIFESTACIONES ISQUEMICAS EN OTROS ORGANOS BLANDOS",
+    "LABORATORIO (PLAQUETAS, HEMOGLOBINA, CREATININA)",
+    "TRATAMIENTOS PREVIOS"
+   ],
+   "cie": [
+    "D59.3"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "fq",
+   "nombre": "Enfermedad fibroquística del páncreas",
+   "especialidad": "Enfermedad fibroquística del páncreas",
+   "medicacion": [
+    "TOBRAMICINA INHALATORIA",
+    "DNASA RECOMBINANTE HUMANA (DORNASA ALFA)",
+    "ENZIMAS PANCREATICAS (PANCREATINA)",
+    "ELEXACAFTOR / TEZACAFTOR / IVACAFTOR",
+    "IVACAFTOR (MONOTERAPIA)",
+    "LUMACAFTOR / IVACAFTOR",
+    "TEZACAFTOR / IVACAFTOR"
+   ],
+   "requerimiento": [
+    "RHC",
+    "CAPACIDAD VITAL FORZADA (CVF)",
+    "TALLA",
+    "PESO",
+    "CLASE DE MUTACION (2, 3, 4, 5, 6)",
+    "TEST DE DIFERENCIA DE POTENCIAL NASAL TRANSEPITELIAL",
+    "TEST DE SUDOR",
+    "VOLUMEN ESPIRATORIO FORZADO EN 1 SEG (VEF1)",
+    "TRTAMIENTOS PREVIOS",
+    "ESTUDIO MOLECULAR (FQ)",
+    "TRATAMIENTOS PREVIOS"
+   ],
+   "cie": [
+    "E84"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "hap",
+   "nombre": "Hipertensión arterial pulmonar (HAP)",
+   "especialidad": "Hipertensión arterial pulmonar",
+   "medicacion": [
+    "AMBRISENTAN",
+    "BOSENTAN",
+    "EPOPROSTENOL",
+    "ILOPROST",
+    "MACITENTAN",
+    "RIOCIGUAT",
+    "SELEXIPAG",
+    "TREPROSTINIL",
+    "MACITENTÁN",
+    "BOSENTÁN",
+    "AMBRISENTÁN"
+   ],
+   "requerimiento": [
+    "RHC",
+    "CLASE FUNCIONAL NYHA",
+    "CLASIFICACION ETIOLOGICA DE HAP",
+    "CATETERISMO CARDIACO",
+    "ANGIOGRAFIA PULMONAR / ANGIO TC",
+    "TRATAMIENTOS PREVIOS"
+   ],
+   "cie": [
+    "I27.0",
+    "I27.2"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "em",
+   "nombre": "Esclerosis múltiple",
+   "especialidad": "Esclerosis múltiple",
+   "medicacion": [
+    "FINGOLIMOD",
+    "COPOLIMERO (ACETATO DE GLATIRAMER)",
+    "INTERFERON BETA 1A",
+    "INTERFERON BETA 1B",
+    "PEGINTERFERON BETA 1A",
+    "TERIFLUNOMIDA",
+    "NATALIZUMAB",
+    "DIMETILFUMARATO",
+    "CLADRIBINA",
+    "ALEMTUZUMAB",
+    "OZANIMOD",
+    "OFATUMUMAB",
+    "OCRELIZUMAB"
+   ],
+   "requerimiento": [
+    "RHC",
+    "TIPO DE ESCLEROSIS (EMRR – EMPP)",
+    "ESCALA EDSS",
+    "INFORME DE RMN DE CEREBRO",
+    "ANALISIS DE LIQUIDO CEFALORRAQUIDEO",
+    "POTENCIALES EVOCADOS",
+    "DETERMINACION DE SEROLOGIA PARA VIRUS JC",
+    "TRATAMIENTOS PREVIOS"
+   ],
+   "cie": [
+    "G35"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "ghd",
+   "nombre": "Déficit de hormona de crecimiento",
+   "especialidad": "Déficit de hormona de crecimiento",
+   "medicacion": [
+    "SOMATOTROPINA"
+   ],
+   "requerimiento": [
+    "ESTUDIO GENETICO",
+    "RHC",
+    "EDAD OSEA",
+    "TABLA PONDOESTATURAL",
+    "TALLA",
+    "PESO",
+    "PATOLOGIA ASOCIADA AL USO DE HORMONAS",
+    "LABORATORIO (HORMONA DE CRECIMIENTO)",
+    "TRATAMIENTOS PREVIOS"
+   ],
+   "cie": [
+    "E23.0"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "inmunosupresion",
+   "nombre": "Inmunosupresión post trasplante",
+   "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+   "medicacion": [
+    "BASILIXIMAB",
+    "AZATIOPRINA",
+    "INMUNOGLOBULINA ANTILINFOCITARIA HUMANA",
+    "BALATACEPT",
+    "TACROLIMUS",
+    "CICLOSPORINA",
+    "MICOFENOLATO",
+    "SIROLIMUS",
+    "EVEROLIMUS"
+   ],
+   "requerimiento": [
+    "RHC",
+    "PROTOCOLO QUIRURGICO DEL TRASPLANTE",
+    "SEROLOGIA EPSTEIN BARR",
+    "TRATAMIENTOS PREVIOS"
+   ],
+   "cie": [
+    "Z94"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "hiv",
+   "nombre": "Infección por HIV",
+   "especialidad": "HIV",
+   "medicacion": [
+    "ABACAVIR (ABC)",
+    "DARUNAVIR (DRV)",
+    "ELVITEGRAVIR",
+    "LOPINAVIR / RITONAVIR",
+    "RITONAVIR (R)",
+    "RILPIVIRINA",
+    "TENOFOVIR DISOPROXIL FUMARATO (TDF)",
+    "ATAZANAVIR (ATZ)",
+    "DOLUTEGRAVIR (DTG)",
+    "EMTRICITABINA (FTC)",
+    "MARAVIROC",
+    "BICTEGRAVIR",
+    "DORAVIRINA",
+    "ETRAVIRINA",
+    "NEVIRAPINA",
+    "COBICISTAT",
+    "EFAVIRENZ (EFV)",
+    "LAMIVUDINA (3TC)",
+    "RALTEGRAVIR",
+    "TENOFOVIR ALAFENAMIDA (TAF)"
+   ],
+   "requerimiento": [
+    "FORMULARIO DE EMPADRONAMIENTO",
+    "CONSTANCIA DE DENUNCIA AL PROGRAMA DE VIGILANCIA",
+    "CARGA VIRAL HIV",
+    "RTO LINFOCITO T CD4",
+    "TRATAMIENTOS PREVIOS"
+   ],
+   "cie": [
+    "B20",
+    "B24",
+    "Z21"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "hepc",
+   "nombre": "Hepatitis crónica por virus C",
+   "especialidad": "Hepatitis crónica por virus C",
+   "medicacion": [],
+   "requerimiento": [
+    "RHC",
+    "GENOTIPO",
+    "ESTADIO DE FIBROSIS",
+    "COINFECCION HIV",
+    "TRASPLANTE HEPATICO",
+    "CARGA VIRAL HCV",
+    "SEMANAS DE TRATAMIENTO",
+    "RESPUESTA OBTENIDA"
+   ],
+   "cie": [
+    "B18.2"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "prep",
+   "nombre": "Módulo de profilaxis preexposición (PrEP)",
+   "especialidad": "Profilaxis preexposición",
+   "medicacion": [
+    "TENOFOVIR ALAFENAMIDA (TAF)",
+    "TENOFOVIR DISOPROXIL FUMARATO (TDF)",
+    "EMTRICITABINA (FTC)",
+    "LAMIVUDINA (3TC)"
+   ],
+   "requerimiento": [
+    "FORMULARIO DE EMPADRONAMIENTO",
+    "SEROLOGIA HIV",
+    "TRATAMIENTOS PREVIOS"
+   ],
+   "cie": [
+    "Z20.6"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "diabetes",
+   "nombre": "Diabetes mellitus",
+   "especialidad": "Diabetes mellitus",
+   "medicacion": [],
+   "requerimiento": [
+    "RHC",
+    "Laboratorio (HbA1c, glucemia)",
+    "Esquema terapéutico",
+    "Tratamientos previos"
+   ],
+   "cie": [
+    "E10",
+    "E11"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "drogodependencia",
+   "nombre": "Drogodependencia",
+   "especialidad": "Drogodependencia",
+   "medicacion": [],
+   "requerimiento": [
+    "RHC",
+    "Evaluación por salud mental",
+    "Plan de tratamiento"
+   ],
+   "cie": [
+    "F19"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "fertilidad",
+   "nombre": "Fertilidad",
+   "especialidad": "Fertilidad",
+   "medicacion": [],
+   "requerimiento": [
+    "RHC",
+    "Estudios de fertilidad de ambos miembros",
+    "Tratamientos previos"
+   ],
+   "cie": [
+    "N46",
+    "N97"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "hemofilia_a",
+   "nombre": "Hemofilia A",
+   "especialidad": "Hemofilia",
+   "medicacion": [
+    "FACTOR VIII",
+    "EMICIZUMAB",
+    "COMPLEJO COAGULANTE ANTIINHIBIDOR",
+    "FACTOR VII A RECOMBINANTE",
+    "FACTOR VIII RECOMBINANTE"
+   ],
+   "requerimiento": [
+    "TALLA",
+    "PESO",
+    "DETALLE DE EPISODIOS DE SANGRADO O INTERVENCION",
+    "VALOR DE INHIBIDOR DE FACTOR",
+    "SANGRADO ARTICULAR EN LOS ULTIMOS 6 MESES",
+    "SANGRADO EXTRAARTICULAR EN LOS ULTIMOS 6 MESES",
+    "DETERMINACION DE INHIBIDORES",
+    "RHC",
+    "TRATAMIENTOS PREVIOS"
+   ],
+   "cie": [
+    "D66"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "hemofilia_b",
+   "nombre": "Hemofilia B",
+   "especialidad": "Hemofilia",
+   "medicacion": [
+    "FACTOR VII A RECOMBINANTE",
+    "FACTOR IX",
+    "FACTOR IX RECOMBINANTE",
+    "COMPLEJO COAGULANTE ANTIINHIBIDOR",
+    "COMPLEJO PROTOMBINICO (CCP)",
+    "COMPLEJO COAGULANTE ANTIINHIBIDORCOMPLEJO PROTOMBINICO (CCP)"
+   ],
+   "requerimiento": [
+    "TALLA",
+    "PESO",
+    "DETALLE DE EPISODIOS DE SANGRADO O INTERVENCION",
+    "VALOR DE INHIBIDOR DE FACTOR",
+    "SANGRADO ARTICULAR EN LOS ULTIMOS 6 MESES",
+    "SANGRADO EXTRAARTICULAR EN LOS ULTIMOS 6 MESES",
+    "DETERMINACION DE INHIBIDORES",
+    "RHC",
+    "TRATAMIENTOS PREVIOS",
+    "PRESCRIPCION DE UNIDADES UTILIZADAS EN EL PERIODO"
+   ],
+   "cie": [
+    "D67"
+   ],
+   "codigos": []
+  },
+  {
+   "id": "parkinson",
+   "nombre": "Enfermedad de Parkinson refractaria al tratamiento",
+   "especialidad": "Neurología",
+   "medicacion": [],
+   "requerimiento": [
+    "RHC",
+    "Escala UPDRS",
+    "Respuesta a levodopa",
+    "Tratamientos previos"
+   ],
+   "cie": [
+    "G20"
+   ],
+   "codigos": [
+    "40010218"
+   ]
+  },
+  {
+   "id": "dolor_cronico",
+   "nombre": "Dolor crónico intratable",
+   "especialidad": "Neurología",
+   "medicacion": [],
+   "requerimiento": [
+    "RHC",
+    "Escala de dolor",
+    "Tratamientos previos",
+    "Evaluación multidisciplinaria"
+   ],
+   "cie": [
+    "G89.2",
+    "R52.1"
+   ],
+   "codigos": [
+    "40010219"
+   ]
+  },
+  {
+   "id": "epilepsia",
+   "nombre": "Epilepsia refractaria al tratamiento médico",
+   "especialidad": "Neurología",
+   "medicacion": [],
+   "requerimiento": [
+    "RHC",
+    "Video-EEG",
+    "RMN de cerebro",
+    "Fármacos antiepilépticos utilizados",
+    "Tratamientos previos"
+   ],
+   "cie": [
+    "G40"
+   ],
+   "codigos": [
+    "40010220",
+    "40010221"
+   ]
+  },
+  {
+   "id": "procesos_arteriales",
+   "nombre": "Procesos arteriales y aneurismas craneales",
+   "especialidad": "Cirugía vascular / Neurocirugía",
+   "medicacion": [],
+   "requerimiento": [
+    "RHC",
+    "Angiografía / Angio-TC",
+    "Informe de imagen",
+    "Tratamientos previos"
+   ],
+   "cie": [
+    "I67.1",
+    "I72"
+   ],
+   "codigos": [
+    "40010708",
+    "40010709",
+    "40010710",
+    "40070806"
+   ]
+  },
+  {
+   "id": "aneurisma_aorta",
+   "nombre": "Aneurisma de aorta abdominal / torácica",
+   "especialidad": "Cirugía vascular",
+   "medicacion": [],
+   "requerimiento": [
+    "RHC",
+    "Angio-TC de aorta",
+    "Diámetro del aneurisma",
+    "Tratamientos previos"
+   ],
+   "cie": [
+    "I71"
+   ],
+   "codigos": [
+    "40070208"
+   ]
+  },
+  {
+   "id": "estenosis_aortica",
+   "nombre": "Estenosis valvular aórtica (TAVI)",
+   "especialidad": "Cardiología",
+   "medicacion": [],
+   "requerimiento": [
+    "RHC",
+    "Ecocardiograma Doppler",
+    "Área valvular / gradiente",
+    "Score de riesgo quirúrgico",
+    "Tratamientos previos"
+   ],
+   "cie": [
+    "I35.0"
+   ],
+   "codigos": [
+    "40070203"
+   ]
+  },
+  {
+   "id": "arritmias",
+   "nombre": "Arritmias ventriculares — prevención de muerte súbita",
+   "especialidad": "Cardiología",
+   "medicacion": [],
+   "requerimiento": [
+    "RHC",
+    "ECG / Holter",
+    "Fracción de eyección",
+    "Estudio electrofisiológico",
+    "Tratamientos previos"
+   ],
+   "cie": [
+    "I47.2",
+    "I49"
+   ],
+   "codigos": [
+    "40070115"
+   ]
+  },
+  {
+   "id": "insuf_cardiaca",
+   "nombre": "Insuficiencia cardíaca aguda / insuficiencia respiratoria (ECMO)",
+   "especialidad": "Cardiología / Terapia intensiva",
+   "medicacion": [],
+   "requerimiento": [
+    "RHC",
+    "Parámetros hemodinámicos",
+    "Indicación de ECMO",
+    "Tratamientos previos"
+   ],
+   "cie": [
+    "I50",
+    "J96"
+   ],
+   "codigos": [
+    "40380301"
+   ]
+  },
+  {
+   "id": "hipoacusia",
+   "nombre": "Hipoacusia — implante coclear",
+   "especialidad": "Otorrinolaringología",
+   "medicacion": [],
+   "requerimiento": [
+    "RHC",
+    "Audiometría",
+    "Potenciales evocados auditivos",
+    "Evaluación fonoaudiológica",
+    "Tratamientos previos"
+   ],
+   "cie": [
+    "H90",
+    "H91"
+   ],
+   "codigos": [
+    "40030220",
+    "40318105"
+   ]
+  },
+  {
+   "id": "tx_cardiaco",
+   "nombre": "Trasplante cardíaco",
+   "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+   "medicacion": [],
+   "requerimiento": [
+    "RHC",
+    "Protocolo de trasplante",
+    "Estudios pretrasplante",
+    "Dictamen del INCUCAI"
+   ],
+   "cie": [
+    "Z94.1"
+   ],
+   "codigos": [
+    "40070901",
+    "40070902",
+    "40070903",
+    "40070904"
+   ]
+  },
+  {
+   "id": "tx_pulmon",
+   "nombre": "Trasplante de pulmón",
+   "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+   "medicacion": [],
+   "requerimiento": [
+    "RHC",
+    "Protocolo de trasplante",
+    "Estudios pretrasplante",
+    "Dictamen del INCUCAI"
+   ],
+   "cie": [
+    "Z94.2"
+   ],
+   "codigos": [
+    "40050401",
+    "40288401",
+    "40288402"
+   ]
+  },
+  {
+   "id": "tx_hepatico",
+   "nombre": "Trasplante hepático",
+   "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+   "medicacion": [],
+   "requerimiento": [
+    "RHC",
+    "Protocolo de trasplante",
+    "Estudios pretrasplante",
+    "Dictamen del INCUCAI"
+   ],
+   "cie": [
+    "Z94.4"
+   ],
+   "codigos": [
+    "40081001",
+    "40081002",
+    "40081003",
+    "40081005",
+    "40201001",
+    "40209090",
+    "40209091",
+    "40209092"
+   ]
+  },
+  {
+   "id": "tx_renal",
+   "nombre": "Trasplante renal",
+   "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+   "medicacion": [],
+   "requerimiento": [
+    "RHC",
+    "Protocolo de trasplante",
+    "Estudios pretrasplante",
+    "Dictamen del INCUCAI"
+   ],
+   "cie": [
+    "Z94.0"
+   ],
+   "codigos": [
+    "40270201",
+    "40270202"
+   ]
+  },
+  {
+   "id": "tx_medula",
+   "nombre": "Trasplante de médula ósea / precursores hematopoyéticos",
+   "especialidad": "Trasplante de órganos y precursores hematopoyéticos",
+   "medicacion": [],
+   "requerimiento": [
+    "RHC",
+    "Indicación de trasplante",
+    "Estudios pretrasplante",
+    "Tipificación HLA",
+    "Tratamientos previos"
+   ],
+   "cie": [
+    "Z94.8"
+   ],
+   "codigos": [
+    "40230234",
+    "40241202",
+    "40241203"
+   ]
+  },
+  {
+   "id": "hepatitis_lab",
+   "nombre": "Hepatitis — carga viral (estudios SURGE)",
+   "especialidad": "Hepatitis crónica por virus C",
+   "medicacion": [],
+   "requerimiento": [
+    "RHC",
+    "Genotipo",
+    "Estadio de fibrosis",
+    "Carga viral"
+   ],
+   "cie": [
+    "B18"
+   ],
+   "codigos": [
+    "665922",
+    "665948"
+   ]
+  }
+ ],
+ "codigo_patologia": {
+  "40010218": "parkinson",
+  "40010219": "dolor_cronico",
+  "40010220": "epilepsia",
+  "40010221": "epilepsia",
+  "40010708": "procesos_arteriales",
+  "40010709": "procesos_arteriales",
+  "40010710": "procesos_arteriales",
+  "40070806": "procesos_arteriales",
+  "40030220": "hipoacusia",
+  "40318105": "hipoacusia",
+  "40050401": "tx_pulmon",
+  "40288401": "tx_pulmon",
+  "40288402": "tx_pulmon",
+  "40070115": "arritmias",
+  "40070203": "estenosis_aortica",
+  "40070208": "aneurisma_aorta",
+  "40070901": "tx_cardiaco",
+  "40070902": "tx_cardiaco",
+  "40070903": "tx_cardiaco",
+  "40070904": "tx_cardiaco",
+  "40081001": "tx_hepatico",
+  "40081002": "tx_hepatico",
+  "40081003": "tx_hepatico",
+  "40081005": "tx_hepatico",
+  "40201001": "tx_hepatico",
+  "40209090": "tx_hepatico",
+  "40209091": "tx_hepatico",
+  "40209092": "tx_hepatico",
+  "40230234": "tx_medula",
+  "40241202": "tx_medula",
+  "40241203": "tx_medula",
+  "40270201": "tx_renal",
+  "40270202": "tx_renal",
+  "40350115": "radioterapia",
+  "40350120": "radioterapia",
+  "40380301": "insuf_cardiaca",
+  "665922": "hepatitis_lab",
+  "665948": "hepatitis_lab"
+ }
+}
