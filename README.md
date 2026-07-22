@@ -156,7 +156,9 @@ soportan `DecompressionStream`).
 Tres vistas (pestañas):
 - **Listado** — buscá por código, práctica, sinónimo o abreviatura; filtrá por sección, grupo o reglas/estados. Detalle con **códigos relacionados clickeables** que navegan entre sí. Enlace directo por hash: `index.html#660475`.
 - **Árbol de módulos** — jerarquía expandible de los módulos de facturación (qué incluye cada código y no debe facturarse por separado).
-- **Validador de facturación** — pegás una lista de códigos (con cantidades `×N`) y detecta doble facturación por inclusión, urgencias sin 661200, Acto Bioquímico faltante, seriados excedidos, desuso e inexistentes; calcula U.B. netas y arancel.
+- **Mesa de trabajo** — pegás los códigos de un caso (orden, factura o solicitud) de cualquier nomenclador —NBU/Prestaciones/Odontología (6 díg.) o Único (8 díg.)— con cantidades `×N`, y auditás en **dos modos**:
+  - **Auditoría de facturación**: detecta doble facturación por inclusión en módulos, urgencias sin 661200, Acto Bioquímico faltante, seriados excedidos, desuso e inexistentes; calcula U.B. netas y arancel; exporta CSV/PDF.
+  - **Auditoría de autorización**: **semáforo** por práctica (🔴 autorización previa · 🟡 cobertura con condición · 🟢 directa), consolidando SURGE, «requiere norma» y cobertura obligatoria PMO; arma el **checklist de documentación a solicitar al afiliado** (requerimientos SURGE del caso), lista las **patologías SURGE**, el **diagnóstico (CIE-10) justificante** sugerido y la **normativa aplicable**; exporta el dictamen (CSV/PDF).
 
 Productividad y atajos:
 - **Atajos de teclado**: `/` enfoca la búsqueda; `↑`/`↓` recorren los resultados y `Enter` abre el resaltado.

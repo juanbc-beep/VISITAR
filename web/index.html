@@ -490,6 +490,19 @@ ul{margin:0;padding:0}
 .st-desuso{background:var(--desuso-soft);color:var(--desuso)}
 .st-dup{background:var(--norma-soft);color:var(--norma)}
 .vtrow.dim{opacity:.6}
+/* Mesa de trabajo — toggle de modo */
+.vmode-toggle{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.vmbtn{flex:1;min-width:180px;padding:10px 14px;border:1.5px solid var(--line-2);border-radius:10px;background:var(--surface-2);color:var(--muted);font:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:.13s}
+.vmbtn:hover{border-color:var(--line-2);color:var(--ink)}
+.vmbtn.on[data-vmode="facturacion"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent-ink)}
+.vmbtn.on[data-vmode="autorizacion"]{border-color:var(--surge);background:color-mix(in srgb,var(--surge) 10%,transparent);color:var(--surge)}
+/* semáforo de autorización */
+.sem-table .vtrow{grid-template-columns:14px 76px 1fr auto!important}
+.sem{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.sem-r{background:var(--exc)} .sem-y{background:var(--norma)} .sem-g{background:var(--inc)}
+.vtrow .vnm2{font-size:12px;color:var(--muted);text-align:right;max-width:340px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vtrow .vnm .badge{margin-right:5px}
+@media (max-width:560px){.sem-table .vtrow{grid-template-columns:12px 56px 1fr!important}.vtrow .vnm2{display:none}}
 @media (max-width:560px){.vtrow{grid-template-columns:64px 1fr auto;gap:8px}.vtrow .vub{display:none}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -681,7 +694,7 @@ mark.hl{background:var(--accent-soft);color:var(--accent-ink);border-radius:3px;
       <button class="vtab" data-view="tree" role="tab">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5h7v5H3zM14 3h7v5h-7zM14 16h7v5h-7zM10 7h4M17 8v8M10 18h4"/></svg>Árbol de módulos</button>
       <button class="vtab" data-view="validator" role="tab">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Validador de facturación</button>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Mesa de trabajo</button>
     </div>
     <div class="resbar">
       <div class="count" id="count"></div>
@@ -773,7 +786,7 @@ function cieSuggest(d){
 }
 
 let savedMode='NBU';try{savedMode=localStorage.getItem('nbu-mode')||'NBU';}catch(e){}
-const state={q:'',mode:savedMode,seccion:new Set(),grupo:new Set(),flags:new Set(),limit:80,view:'list'};
+const state={q:'',mode:savedMode,seccion:new Set(),grupo:new Set(),flags:new Set(),limit:80,view:'list',vmode:'facturacion'};
 const el=id=>document.getElementById(id);
 
 /* ---------- ajustes globales: valor U.B. + favoritos ---------- */
@@ -1367,125 +1380,185 @@ el('tree').addEventListener('click',e=>{
 
 /* ---------- validador de facturación ---------- */
 let validatorInit=false;
+function resolveKey(num){ if(BYCODE[num])return num; if(BYCODE['U'+num])return 'U'+num; return null; }
 function initValidator(){
   if(validatorInit)return; validatorInit=true;
   el('validator').innerHTML=`
     <div class="vinput">
-      <label for="vcodes">Códigos facturados en la orden / prescripción</label>
-      <textarea id="vcodes" spellcheck="false" placeholder="Pegá los códigos separados por espacio, coma o salto de línea. Cantidad con ×N.  Ej:  660475  660470  660005  660102 x3"></textarea>
+      <label for="vcodes">Códigos del caso — orden, factura o solicitud de autorización</label>
+      <textarea id="vcodes" spellcheck="false" placeholder="Pegá los códigos (NBU, Prestaciones Médicas, Odontología o Único) separados por espacio, coma o salto de línea. Cantidad con ×N.  Ej:  660475  660102 x3  40070208"></textarea>
       <div class="vrow">
         <div class="vfield"><label for="vub">Valor de la U.B. ($) — opcional</label><input id="vub" type="number" min="0" step="0.01" placeholder="ej: 850" value="${ubValue||''}"></div>
         <button class="vbtn ghost" id="vclear">Limpiar</button>
-        <button class="vbtn" id="vrun">Validar facturación</button>
+        <button class="vbtn" id="vrun">Analizar caso</button>
       </div>
-      <div class="vhint">Detecta doble facturación por inclusión en módulos, urgencias sin 661200, Acto Bioquímico faltante, seriados excedidos, prácticas en desuso y códigos inexistentes. Podés indicar cantidades con <b>×N</b> (ej. <span class="mono">660102 x3</span>). Reglas según el Anexo de Normas del NBU.</div>
+      <div class="vmode-toggle" role="tablist" aria-label="Tipo de auditoría">
+        <button class="vmbtn${state.vmode==='facturacion'?' on':''}" data-vmode="facturacion" role="tab">💲 Auditoría de facturación</button>
+        <button class="vmbtn${state.vmode==='autorizacion'?' on':''}" data-vmode="autorizacion" role="tab">📋 Auditoría de autorización</button>
+      </div>
+      <div class="vhint" id="vhint"></div>
     </div>
     <div id="vresults"></div>`;
-  el('vrun').addEventListener('click',runValidator);
-  el('vclear').addEventListener('click',()=>{el('vcodes').value='';el('vub').value='';el('vresults').innerHTML='';});
-  el('vcodes').addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter')runValidator();});
-  el('vresults').addEventListener('click',e=>{const g=e.target.closest('[data-code]');if(g&&BYCODE[g.dataset.code])openCode(g.dataset.code);});
+  const setHint=()=>el('vhint').innerHTML = state.vmode==='facturacion'
+    ? 'Detecta <b>doble facturación</b> por inclusión en módulos, urgencias sin 661200, Acto Bioquímico faltante, seriados excedidos, desuso y códigos inexistentes. Suma total en U.B. y $. Cantidades con <b>×N</b>.'
+    : 'Indica qué prácticas <b>requieren autorización previa</b> (SURGE / norma), arma el <b>checklist de documentación</b> a solicitar al afiliado, sugiere el <b>diagnóstico (CIE-10)</b> justificante y lista la <b>normativa</b> aplicable.';
+  setHint();
+  el('vrun').addEventListener('click',runCase);
+  el('vclear').addEventListener('click',()=>{el('vcodes').value='';el('vub').value='';el('vresults').innerHTML='';caseData=null;});
+  el('vcodes').addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter')runCase();});
+  el('vresults').addEventListener('click',e=>{const g=e.target.closest('[data-code]');if(g&&BYCODE[g.dataset.code])openCode(g.dataset.code);
+    const s=e.target.closest('[data-surge2]');if(s){setMode('SURGE');openSurge(s.dataset.surge2);}
+    const cg=e.target.closest('[data-cie2]');if(cg){setMode('CIE');openCie(cg.dataset.cie2);}});
+  el('validator').querySelectorAll('.vmbtn').forEach(b=>b.addEventListener('click',()=>{
+    state.vmode=b.dataset.vmode;
+    el('validator').querySelectorAll('.vmbtn').forEach(x=>x.classList.toggle('on',x.dataset.vmode===state.vmode));
+    setHint(); if(caseData)renderCase();
+  }));
 }
-let lastVal=null;
-function runValidator(){
+let lastVal=null, caseData=null;
+const SL='font-size:11px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);font-weight:700';
+function runValidator(){runCase();}   // compat (addToValidator)
+function runCase(){
   const raw=el('vcodes').value;
-  const rx=/\b(\d{6})\b(?:\s*[x×*]\s*(\d+))?/g;
-  const qty={},uniq=[]; let m;
-  while((m=rx.exec(raw))){const code=m[1];const q=Math.max(1,parseInt(m[2]||'1',10)||1);if(!(code in qty))uniq.push(code);qty[code]=(qty[code]||0)+q;}
-  const ubVal=parseFloat(el('vub').value)||ubValue||0;
-  if(!uniq.length){el('vresults').innerHTML=`<div class="finding info"><div class="ficon">i</div><div class="fbody">Ingresá al menos un código de 6 dígitos. Podés indicar cantidad con <b>×N</b> (ej: <span class="mono">660102 x3</span>).</div></div>`;return;}
-  const billed=new Set(uniq.filter(c=>BYCODE[c]));
-  const unknown=uniq.filter(c=>!BYCODE[c]);
+  const rx=/\b(\d{6,8})\b(?:\s*[x×*]\s*(\d+))?/g;
+  const qty={},uniq=[],unknown=[]; let m;
+  while((m=rx.exec(raw))){const num=m[1];const q=Math.max(1,parseInt(m[2]||'1',10)||1);const key=resolveKey(num);
+    if(key){if(!(key in qty))uniq.push(key);qty[key]=(qty[key]||0)+q;}
+    else if(!unknown.includes(num))unknown.push(num);}
+  caseData={uniq,qty,unknown,ubVal:parseFloat(el('vub').value)||ubValue||0};
+  renderCase();
+}
+function renderCase(){
+  if(!caseData)return;
+  if(!caseData.uniq.length&&!caseData.unknown.length){
+    el('vresults').innerHTML=`<div class="finding info"><div class="ficon">i</div><div class="fbody">Ingresá al menos un código (6 u 8 dígitos). Cantidad con <b>×N</b> (ej. <span class="mono">660102 x3</span>).</div></div>`;return;}
+  if(state.vmode==='autorizacion')renderAutorizacion(); else renderFacturacion();
+}
+function nomBadge(key){const r=BYCODE[key];const lbl={NBU:'NBU',PMO:'PMO',ODO:'Odont.',UNICO:'Único'}[r.nomenclador]||r.nomenclador;const cls={NBU:'b-pmo',PMO:'b-med',ODO:'b-odo',UNICO:'b-unico'}[r.nomenclador]||'';return `<span class="badge ${cls}">${esc(lbl)}</span>`;}
+function renderFacturacion(){
+  const {uniq,qty,unknown,ubVal}=caseData;
+  const billed=new Set(uniq);
   const findings=[];
-  const nm=c=>BYCODE[c]?BYCODE[c].nombre:'';
-  const link=c=>`<span class="mono" data-code="${c}">${c}</span>`;
-  // 1. doble facturación por inclusión
+  const nm=k=>BYCODE[k]?BYCODE[k].nombre:'';
+  const link=k=>`<span class="mono" data-code="${k}">${BYCODE[k]?BYCODE[k].code:k}</span>`;
   const redundant=new Set();
-  billed.forEach(c=>{
-    (BYCODE[c].relaciones.incluido_en||[]).forEach(par=>{
-      if(billed.has(par)){
-        redundant.add(c);
-        findings.push({sev:'rechazo',msg:`${link(c)} <b>${esc(nm(c))}</b> ya está incluido en el módulo ${link(par)} <b>${esc(nm(par))}</b>. No debe facturarse por separado.`});
-      }
-    });
-  });
-  // 2. urgencia sin 661200
-  const urg=[...billed].filter(c=>BYCODE[c].flags.urgencia);
+  billed.forEach(k=>{(BYCODE[k].relaciones.incluido_en||[]).forEach(par=>{if(billed.has(par)){redundant.add(k);
+    findings.push({sev:'rechazo',msg:`${link(k)} <b>${esc(nm(k))}</b> ya está incluido en el módulo ${link(par)} <b>${esc(nm(par))}</b>. No debe facturarse por separado.`});}});});
+  const urg=[...billed].filter(k=>BYCODE[k].flags.urgencia);
   if(urg.length&&!billed.has('661200'))
     findings.push({sev:'advertencia',msg:`Hay ${urg.length} práctica(s) de urgencia (${urg.map(link).join(', ')}) pero falta el código ${link('661200')} <b>Urgencias</b>, que debe adicionarse a la prescripción.`});
-  // 3. acto bioquímico
   const hasAB=['660001','661001','662001'].some(c=>billed.has(c));
-  const anyLab=[...billed].some(c=>c!=='660001'&&['PMO','PE'].includes(BYCODE[c].seccion));
+  const anyLab=[...billed].some(k=>k!=='660001'&&['PMO','PE'].includes(BYCODE[k].seccion)&&BYCODE[k].nomenclador==='NBU');
   if(anyLab&&!hasAB)
     findings.push({sev:'advertencia',msg:`No se incluyó el Acto Bioquímico ${link('660001')}, que se factura 1 vez por prescripción (o ${link('661001')} ABI si es internación).`});
-  // 4. desuso
-  [...billed].filter(c=>BYCODE[c].flags.desuso).forEach(c=>
-    findings.push({sev:'advertencia',msg:`${link(c)} <b>${esc(nm(c))}</b> está en desuso / por presupuesto (#): sin U.B. de referencia.`}));
-  // 4b. seriado / frecuencia excedido
-  [...billed].forEach(c=>{const s=BYCODE[c].seriado;if(s&&qty[c]>s.max)
-    findings.push({sev:'advertencia',msg:`${link(c)} facturado <b>×${qty[c]}</b> supera el seriado habitual (máx. ×${s.max}). ${esc(s.nota)}`});});
-  // 5. inexistentes
-  unknown.forEach(u=>findings.push({sev:'rechazo',msg:`El código <span class="mono">${esc(u)}</span> no existe en el NBU cargado. Verificá el número.`}));
+  [...billed].filter(k=>BYCODE[k].flags.desuso).forEach(k=>
+    findings.push({sev:'advertencia',msg:`${link(k)} <b>${esc(nm(k))}</b> está en desuso / por presupuesto (#): sin U.B. de referencia.`}));
+  [...billed].forEach(k=>{const s=BYCODE[k].seriado;if(s&&qty[k]>s.max)
+    findings.push({sev:'advertencia',msg:`${link(k)} facturado <b>×${qty[k]}</b> supera el seriado habitual (máx. ×${s.max}). ${esc(s.nota)}`});});
+  unknown.forEach(u=>findings.push({sev:'rechazo',msg:`El código <span class="mono">${esc(u)}</span> no existe en el nomenclador cargado. Verificá el número.`}));
   if(!findings.length)findings.push({sev:'ok',msg:`Sin observaciones: los ${billed.size} códigos son válidos y no presentan conflictos de inclusión.`});
-
-  // totals (× cantidad, netas de redundantes)
-  let totalUB=0; billed.forEach(c=>{const _u=getUB(BYCODE[c]);if(!redundant.has(c)&&_u!=null)totalUB+=_u*qty[c];});
-  const rechazos=findings.filter(f=>f.sev==='rechazo').length;
-  const adverts=findings.filter(f=>f.sev==='advertencia').length;
-  const order={rechazo:0,advertencia:1,info:2,ok:3};
-  findings.sort((a,b)=>order[a.sev]-order[b.sev]);
+  let totalUB=0; billed.forEach(k=>{const _u=getUB(BYCODE[k]);if(!redundant.has(k)&&_u!=null)totalUB+=_u*qty[k];});
+  const rechazos=findings.filter(f=>f.sev==='rechazo').length, adverts=findings.filter(f=>f.sev==='advertencia').length;
+  const order={rechazo:0,advertencia:1,info:2,ok:3};findings.sort((a,b)=>order[a.sev]-order[b.sev]);
   const ICON={rechazo:'✕',advertencia:'!',info:'i',ok:'✓'};
   lastVal={uniq,qty,redundant:[...redundant],ubVal};
-
   const money=ubVal>0?`<div class="vstat money"><div class="vn">${fmtMoney(totalUB*ubVal)}</div><div class="vl">Arancel estimado (U.B. × ${fmtMoney(ubVal)})</div></div>`:'';
   const summary=`<div class="vsummary">
     <div class="vstat"><div class="vn">${billed.size}</div><div class="vl">Códigos válidos</div></div>
     <div class="vstat ${rechazos?'err':''}"><div class="vn">${rechazos}</div><div class="vl">Rechazos</div></div>
     <div class="vstat ${adverts?'warn':''}"><div class="vn">${adverts}</div><div class="vl">Advertencias</div></div>
-    <div class="vstat ${(!rechazos&&!adverts)?'ok':''}"><div class="vn">${totalUB.toLocaleString('es-AR',{maximumFractionDigits:1})}</div><div class="vl">U.B. facturables${redundant.size?' (netas)':''}</div></div>
-    ${money}
-  </div>`;
-
-  const rows=uniq.map(c=>{
-    const q=qty[c]>1?`<span class="vqty">×${qty[c]}</span>`:`<span class="vqty" style="color:var(--faint)">—</span>`;
-    if(!BYCODE[c])return `<div class="vtrow dim"><span class="vc">${esc(c)}</span><span class="vnm" style="color:var(--exc)">No encontrado en el NBU</span>${q}<span class="vub">—</span><span class="vstatus st-inc">rechazo</span></div>`;
-    const r=BYCODE[c];let st='<span class="vstatus st-ok">correcto</span>';
-    if(redundant.has(c))st='<span class="vstatus st-inc">incluido en módulo</span>';
+    <div class="vstat ${(!rechazos&&!adverts)?'ok':''}"><div class="vn">${totalUB.toLocaleString('es-AR',{maximumFractionDigits:1})}</div><div class="vl">U.B. facturables${redundant.size?' (netas)':''}</div></div>${money}</div>`;
+  const rows=uniq.map(k=>{
+    const q=qty[k]>1?`<span class="vqty">×${qty[k]}</span>`:`<span class="vqty" style="color:var(--faint)">—</span>`;
+    const r=BYCODE[k];let st='<span class="vstatus st-ok">correcto</span>';
+    if(redundant.has(k))st='<span class="vstatus st-inc">incluido en módulo</span>';
     else if(r.flags.desuso)st='<span class="vstatus st-desuso"># desuso</span>';
-    else if(r.seriado&&qty[c]>r.seriado.max)st='<span class="vstatus st-dup">excede seriado</span>';
+    else if(r.seriado&&qty[k]>r.seriado.max)st='<span class="vstatus st-dup">excede seriado</span>';
     const _uv=getUB(r);const ub=_uv!=null?_uv+' UB':'—';
-    return `<div class="vtrow${redundant.has(c)?' dim':''}"><span class="vc" data-code="${c}">${c}</span><span class="vnm">${esc(r.nombre)}</span>${q}<span class="vub">${ub}</span>${st}</div>`;
-  }).join('');
-
-  const sl='font-size:11px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);font-weight:700';
+    return `<div class="vtrow${redundant.has(k)?' dim':''}"><span class="vc" data-code="${k}">${r.code}</span><span class="vnm">${esc(r.nombre)}</span>${q}<span class="vub">${ub}</span>${st}</div>`;
+  }).join('')+unknown.map(u=>`<div class="vtrow dim"><span class="vc">${esc(u)}</span><span class="vnm" style="color:var(--exc)">No encontrado</span><span class="vqty">—</span><span class="vub">—</span><span class="vstatus st-inc">rechazo</span></div>`).join('');
   el('vresults').innerHTML=summary+
-    `<div class="exportbtns" style="margin-top:14px;justify-content:flex-end">
-       <button class="xbtn" id="vExpCsv">⬇ CSV</button><button class="xbtn" id="vPrint">🖨 PDF</button></div>`+
-    `<div class="sec" style="margin-top:12px"><div class="slabel" style="${sl};margin-bottom:9px">Hallazgos</div><div class="findings">`+
-    findings.map(f=>`<div class="finding ${f.sev}"><div class="ficon">${ICON[f.sev]}</div><div class="fbody">${f.msg}</div></div>`).join('')+
-    `</div></div>`+
-    `<div class="sec" style="margin-top:16px"><div class="slabel" style="${sl};margin-bottom:9px">Detalle por código (${uniq.length})</div><div class="vtable">${rows}</div></div>`;
+    `<div class="exportbtns" style="margin-top:14px;justify-content:flex-end"><button class="xbtn" id="vExpCsv">⬇ CSV</button><button class="xbtn" id="vPrint">🖨 PDF</button></div>`+
+    `<div class="sec" style="margin-top:12px"><div class="slabel" style="${SL};margin-bottom:9px">Hallazgos</div><div class="findings">`+
+    findings.map(f=>`<div class="finding ${f.sev}"><div class="ficon">${ICON[f.sev]}</div><div class="fbody">${f.msg}</div></div>`).join('')+`</div></div>`+
+    `<div class="sec" style="margin-top:16px"><div class="slabel" style="${SL};margin-bottom:9px">Detalle por código (${uniq.length})</div><div class="vtable">${rows}</div></div>`;
   el('vExpCsv').addEventListener('click',exportValidatorCSV);
-  el('vPrint').addEventListener('click',()=>{
-    el('printHead').innerHTML=`<h2>Manual NBU — Validación de facturación</h2><p>${new Date().toLocaleDateString('es-AR')} · ${uniq.length} códigos${ubVal>0?' · U.B. $'+ubVal:''}</p>`;
-    window.print();
-  });
+  el('vPrint').addEventListener('click',()=>{el('printHead').innerHTML=`<h2>VISITAR — Auditoría de facturación</h2><p>${new Date().toLocaleDateString('es-AR')} · ${uniq.length} códigos${ubVal>0?' · U.B. $'+ubVal:''}</p>`;window.print();});
+}
+function renderAutorizacion(){
+  const {uniq,qty,unknown}=caseData;
+  const link=k=>`<span class="mono" data-code="${k}">${BYCODE[k].code}</span>`;
+  const previa=[],pmo=[],directa=[];
+  uniq.forEach(k=>{const r=BYCODE[k]; if(r.surge||r.flags.requiere_norma)previa.push(k); else if(r.cobertura_pmo||r.tope_pmo)pmo.push(k); else directa.push(k);});
+  const docs=[],docseen=new Set();
+  uniq.forEach(k=>{const r=BYCODE[k];if(r.surge&&r.surge.requerimiento)r.surge.requerimiento.forEach(d=>{const kk=norm(d);if(kk&&!docseen.has(kk)){docseen.add(kk);docs.push(d);}});});
+  const pats=[],patseen=new Set();
+  uniq.forEach(k=>{const r=BYCODE[k];if(r.surge&&!patseen.has(r.surge.patologia_id)){patseen.add(r.surge.patologia_id);pats.push(r.surge);}});
+  const cies=[],cieseen=new Set();
+  uniq.forEach(k=>{(BYCODE[k].cie_rel||[]).forEach(dg=>{if(CIE[dg]&&!cieseen.has(dg)){cieseen.add(dg);cies.push(dg);}});});
+  const leyes=[],leyseen=new Set();
+  uniq.forEach(k=>{(BYCODE[k].leyes_rel||[]).forEach(ln=>{if(LEYES_BY_NUM[ln]&&!leyseen.has(ln)){leyseen.add(ln);leyes.push(ln);}});});
+  lastVal={mode:'auth',uniq,pats,docs};
+  const summary=`<div class="vsummary">
+    <div class="vstat"><div class="vn">${uniq.length}</div><div class="vl">Prácticas</div></div>
+    <div class="vstat ${previa.length?'err':''}"><div class="vn">${previa.length}</div><div class="vl">Autorización previa</div></div>
+    <div class="vstat ${pmo.length?'warn':''}"><div class="vn">${pmo.length}</div><div class="vl">Cobertura con condición</div></div>
+    <div class="vstat ${(!previa.length&&!pmo.length)?'ok':''}"><div class="vn">${directa.length}</div><div class="vl">Cobertura directa</div></div>
+  </div>`;
+  // semáforo por código
+  const rowFor=k=>{const r=BYCODE[k];let dot,txt;
+    if(r.surge){dot='r';txt=`Autorización previa · SURGE — ${esc(r.surge.patologia)}`;}
+    else if(r.flags.requiere_norma){dot='r';txt='Requiere norma / autorización previa';}
+    else if(r.cobertura_pmo){dot='y';txt='Cobertura obligatoria PMO'+(r.tope_pmo?` · tope: ${esc(r.tope_pmo)}`:'');}
+    else if(r.tope_pmo){dot='y';txt='Tope PMO: '+esc(r.tope_pmo);}
+    else {dot='g';txt='Cobertura directa (sin autorización previa)';}
+    return `<div class="vtrow"><span class="sem sem-${dot}"></span><span class="vc" data-code="${k}">${r.code}</span><span class="vnm">${nomBadge(k)} ${esc(r.nombre)}</span><span class="vnm2">${txt}</span></div>`;};
+  const semTable=uniq.map(rowFor).join('')+unknown.map(u=>`<div class="vtrow dim"><span class="sem sem-r"></span><span class="vc">${esc(u)}</span><span class="vnm" style="color:var(--exc)">No encontrado</span><span class="vnm2">verificar código</span></div>`).join('');
+  let html=summary+`<div class="exportbtns" style="margin-top:14px;justify-content:flex-end"><button class="xbtn" id="vExpCsv">⬇ CSV</button><button class="xbtn" id="vPrint">🖨 PDF</button></div>`;
+  html+=`<div class="sec" style="margin-top:12px"><div class="slabel" style="${SL};margin-bottom:9px">Semáforo de autorización</div><div class="vtable sem-table">${semTable}</div></div>`;
+  if(docs.length){
+    html+=`<div class="sec" style="margin-top:16px"><div class="slabel" style="${SL};margin-bottom:9px">Documentación a solicitar al afiliado (${docs.length})</div>
+      <div class="cie-rel" style="background:color-mix(in srgb,var(--surge) 8%,transparent);border-color:color-mix(in srgb,var(--surge) 26%,transparent)">
+      <ul style="margin:0;padding-left:2px;list-style:none">${docs.map(d=>`<li style="margin-bottom:6px;font-size:13.5px;color:var(--ink)">☐ ${esc(d)}</li>`).join('')}</ul>
+      <div style="margin-top:8px;font-size:11.5px;color:var(--faint);font-style:italic">Consolidado de los requerimientos SURGE de las prácticas del caso. Verificar contra la normativa vigente.</div></div></div>`;
+  }
+  if(pats.length){
+    html+=`<div class="sec" style="margin-top:16px"><div class="slabel" style="${SL};margin-bottom:9px">Patologías SURGE del caso</div><div class="cie-rel">
+      ${pats.map(p=>`<button class="cie-chip" data-surge2="${esc(p.patologia_id)}"><b style="font-family:var(--font-ui);color:var(--surge)">${esc(p.patologia)}</b><small>${esc(p.especialidad)}</small></button>`).join('')}</div></div>`;
+  }
+  if(cies.length){
+    html+=`<div class="sec" style="margin-top:16px"><div class="slabel" style="${SL};margin-bottom:9px">Diagnóstico (CIE-10) justificante — sugerido</div><div class="cie-rel" style="background:color-mix(in srgb,var(--cie) 8%,transparent);border-color:color-mix(in srgb,var(--cie) 26%,transparent)">
+      ${cies.slice(0,24).map(dg=>`<button class="cie-chip" data-cie2="${dg}"><b>${dg}</b><small title="${esc(CIE[dg].desc)}">${esc(CIE[dg].desc)}</small></button>`).join('')}</div></div>`;
+  }
+  if(leyes.length){
+    html+=`<div class="sec" style="margin-top:16px"><div class="slabel" style="${SL};margin-bottom:9px">Normativa aplicable</div><div class="cie-rel" style="background:var(--accent-soft);border-color:color-mix(in srgb,var(--accent) 26%,transparent)">
+      ${leyes.map(ln=>{const L=LEYES_BY_NUM[ln];return `<button class="cie-chip" data-ley="${ln}"><b>${esc(L.etiqueta||('Ley '+L.ley))}</b><small title="${esc(L.titulo)}">${esc(L.titulo)}</small></button>`;}).join('')}</div></div>`;
+  }
+  if(!docs.length&&!previa.length)
+    html+=`<div class="finding ok" style="margin-top:14px"><div class="ficon">✓</div><div class="fbody">Ninguna práctica del caso requiere autorización previa por SURGE o norma especial.</div></div>`;
+  el('vresults').innerHTML=html;
+  el('vresults').querySelectorAll('[data-ley]').forEach(b=>b.addEventListener('click',()=>openInfo(b.dataset.ley)));
+  el('vExpCsv').addEventListener('click',exportAuthCSV);
+  el('vPrint').addEventListener('click',()=>{el('printHead').innerHTML=`<h2>VISITAR — Auditoría de autorización</h2><p>${new Date().toLocaleDateString('es-AR')} · ${uniq.length} prácticas · ${previa.length} con autorización previa</p>`;window.print();});
 }
 function exportValidatorCSV(){
-  if(!lastVal)return;
+  if(!lastVal||lastVal.mode==='auth')return;
   const {uniq,qty,ubVal}=lastVal; const redundant=new Set(lastVal.redundant); const money=ubVal>0;
-  const header=['Código','Cantidad','Nombre','Sección','U.B. unit.','U.B. total'];if(money)header.push('Arancel $');header.push('Estado');
+  const header=['Código','Cantidad','Nombre','Nomenclador','U.B. unit.','U.B. total'];if(money)header.push('Arancel $');header.push('Estado');
   const rows=[header];
-  uniq.forEach(c=>{
-    if(!BYCODE[c]){rows.push([c,qty[c],'NO ENCONTRADO EN EL NBU','','','',...(money?['']:[]),'rechazo']);return;}
-    const r=BYCODE[c];const red=redundant.has(c);const ubU=getUB(r);
-    const ubT=(ubU!=null&&!red)?ubU*qty[c]:0;
-    const st=red?'incluido en módulo (no facturar)':(r.flags.desuso?'desuso':(r.seriado&&qty[c]>r.seriado.max?'excede seriado':'correcto'));
-    const row=[c,qty[c],r.nombre,r.seccion,ubU??'',red?0:(ubU!=null?ubT:'')];
-    if(money)row.push(ubT?(ubT*ubVal).toFixed(2):'0');
-    row.push(st);rows.push(row);
-  });
-  downloadCSV('NBU_validacion_facturacion.csv',rows);
+  uniq.forEach(k=>{const r=BYCODE[k];const red=redundant.has(k);const ubU=getUB(r);const ubT=(ubU!=null&&!red)?ubU*qty[k]:0;
+    const st=red?'incluido en módulo (no facturar)':(r.flags.desuso?'desuso':(r.seriado&&qty[k]>r.seriado.max?'excede seriado':'correcto'));
+    const row=[r.code,qty[k],r.nombre,r.nomenclador,ubU??'',red?0:(ubU!=null?ubT:'')];if(money)row.push(ubT?(ubT*ubVal).toFixed(2):'0');row.push(st);rows.push(row);});
+  downloadCSV('VISITAR_auditoria_facturacion.csv',rows);
+}
+function exportAuthCSV(){
+  if(!lastVal||lastVal.mode!=='auth')return;
+  const rows=[['Código','Nomenclador','Nombre','Estado de autorización','Patología SURGE','Requisitos']];
+  lastVal.uniq.forEach(k=>{const r=BYCODE[k];
+    let est=r.surge?'autorización previa (SURGE)':(r.flags.requiere_norma?'requiere norma':(r.cobertura_pmo||r.tope_pmo?'cobertura con condición':'cobertura directa'));
+    rows.push([r.code,r.nomenclador,r.nombre,est,r.surge?r.surge.patologia:'',(r.surge&&r.surge.requerimiento?r.surge.requerimiento.join(' | '):'')]);});
+  if(lastVal.docs.length)rows.push([],['DOCUMENTACIÓN A SOLICITAR'],...lastVal.docs.map(d=>[d]));
+  downloadCSV('VISITAR_auditoria_autorizacion.csv',rows);
 }
 
 /* ---------- drawer / detail ---------- */
@@ -2367,7 +2440,7 @@ create policy "kv_all" on kv for all
       {i:'search',t:'Buscá al instante',d:'Escribí un <b>código, práctica, sinónimo o abreviatura</b>. Tocá cualquier resultado para ver la ficha completa con normas, relaciones y valores.'},
       {i:'star',t:'Tus favoritos',d:'Marcá con la <b>estrella</b> los códigos que más usás. Quedan guardados en <b>tu perfil</b>: al iniciar sesión los tenés a mano y podés filtrarlos.'},
       {i:'money',t:'Arancel automático',d:'Cargá el <b>valor de la U.B.</b> arriba y la app calcula el <b>arancel en $</b> en el listado, la ficha y el validador. Usa la U.B. vigente actualizada.'},
-      {i:'check',t:'Validador de facturación',d:'Pegá una lista de códigos y detectá <b>doble facturación</b>, urgencias sin 661200, seriados excedidos y más. Ideal para auditar antes de presentar.'}
+      {i:'check',t:'Mesa de trabajo',d:'Pegá los códigos de un caso y auditá en dos modos: <b>facturación</b> (doble facturación, seriados, topes, total en U.B. y $) y <b>autorización</b> (qué requiere autorización previa, documentación a solicitar al afiliado, diagnóstico y normativa).'}
     ];
     if(current&&current.role==='admin')s.push({i:'edit',t:'Sos administrador',d:'Con el botón <b>✎</b> activás el <b>modo edición</b> para corregir el contenido de cada ficha, y con el <b>engranaje</b> gestionás perfiles, el logo y la sincronización.'});
     return s;
