@@ -1032,22 +1032,41 @@ _pat_by_id = {p["id"]: p for p in SURGE.get("patologias", [])}
 # resolver los códigos de cada patología a claves reales y etiquetar cada práctica
 for _p in SURGE.get("patologias", []):
     _p["codigos"] = [_code_key[c] for c in _p.get("codigos", []) if c in _code_key]
-_surge_n = 0
+# grafo de equivalencias entre nomencladores (Único <-> Prestaciones/Laboratorio),
+# no dirigido y transitivo, para propagar el vínculo SURGE a TODAS las representaciones
+# del mismo código (ej.: PMO 070208 <-> Único U070208 <-> Único U40070208).
+from collections import deque as _deque
+_adj = defaultdict(set)
+def _link(a, b):
+    if a in records and b in records and a != b:
+        _adj[a].add(b); _adj[b].add(a)
+for _k, _r in records.items():
+    _eq = _r.get("equivalencia")
+    if isinstance(_eq, dict):
+        _link(_k, _eq.get("key"))
+    for _it in (_r.get("equivalencia_unico") or []):
+        _link(_k, _it.get("unico_key"))
+
+_surge_n = 0; _prop_n = 0
 for _code, _pid in SURGE.get("codigo_patologia", {}).items():
-    _key = _code_key.get(_code); _pat = _pat_by_id.get(_pid)
-    if not _key or not _pat: continue
-    records[_key]["surge"] = {
+    _origin = _code_key.get(_code); _pat = _pat_by_id.get(_pid)
+    if not _origin or not _pat: continue
+    _info = {
         "patologia_id": _pid, "patologia": _pat["nombre"], "especialidad": _pat["especialidad"],
         "requerimiento": _pat["requerimiento"], "medicacion": _pat.get("medicacion", []),
     }
-    _surge_n += 1
-    # propagar a la equivalencia (NBU<->Único) si existe
-    _eq = records[_key].get("equivalencia") or {}
-    _eqk = _code_key.get(str(_eq.get("code"))) if _eq else None
-    if _eqk and "surge" not in records[_eqk]:
-        records[_eqk]["surge"] = records[_key]["surge"]
-        if _eqk not in _pat["codigos"]: _pat["codigos"].append(_eqk)
-print(f"SURGE: patologías {len(SURGE.get('patologias', []))} · prácticas etiquetadas {_surge_n}", file=sys.stderr)
+    # recorrer el componente conexo de equivalencias y etiquetar todo lo alcanzable
+    _seen = {_origin}; _q = _deque([_origin])
+    while _q:
+        _cur = _q.popleft()
+        if "surge" not in records[_cur]:
+            records[_cur]["surge"] = _info
+            if _cur == _origin: _surge_n += 1
+            else: _prop_n += 1
+            if _cur not in _pat["codigos"]: _pat["codigos"].append(_cur)
+        for _nb in _adj[_cur]:
+            if _nb not in _seen: _seen.add(_nb); _q.append(_nb)
+print(f"SURGE: patologías {len(SURGE.get('patologias', []))} · códigos (SUR)/(SURGE) {_surge_n} · propagados por equivalencia {_prop_n}", file=sys.stderr)
 
 # grupo stats
 grupos_stats = defaultdict(int)
