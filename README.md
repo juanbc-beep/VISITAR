@@ -114,16 +114,22 @@ orden médica** antes de cargar las prácticas.
   el apartado **«Puede abreviarse en la orden»** con las siglas con que suelen aparecer escritas.
 
 **SURGE — Sistema Único de Reintegro por Gestión de Enfermedades (Res. 731/2023, Anexo II):**
-- Apartado propio (en «Consulta rápida») con las **54 patologías** del SURGE agrupadas por **especialidad**
-  (Oncología, Reumatología, Enfermedades lisosomales, Trasplantes, etc.), buscables por patología, **medicación
-  (droga)**, especialidad o código.
-- Cada patología muestra: la **medicación SURGE** que le corresponde, el **requerimiento para autorización que
-  VISITAR solicita al afiliado** (RHC, laboratorios, estudios, dictámenes, etc.), los **códigos del nomenclador
-  relacionados** y los **diagnósticos CIE-10** asociados.
+- Apartado propio (en «Consulta rápida») con las **58 secciones** del Anexo II (todas las del índice del PDF de
+  67 páginas), agrupadas por **especialidad** (Oncología, Oncohematología, Reumatología, Enfermedades lisosomales,
+  Trasplante de órganos, y las patologías por procedimiento), buscables por patología, **medicación (droga)**,
+  especialidad o código.
+- Cada patología muestra el **detalle completo del Anexo II** parseado del PDF: **tecnología**, **fundamento
+  terapéutico**, **información requerida**, **sub-módulos** (A./B./C./D. — p. ej. los cuatro tipos de prótesis
+  traumatológicas), **prestaciones/prótesis incluidas** y **observaciones**, además del **requerimiento para
+  autorización que VISITAR solicita al afiliado** (del Excel), la **medicación SURGE** y los **diagnósticos
+  CIE-10** asociados.
 - Los **38 códigos** del nomenclador marcados **(SUR)/(SURGE)** (trasplantes, neuroestimuladores, TAVI, ECMO,
   radioterapia, cargas virales, etc.) quedan **cruzados con su patología**: llevan un distintivo **SURGE** en el
   listado y, en su ficha, la sección **«Sistema Único de Reintegro (SURGE)»** con la patología (clickeable) y el
   requerimiento de autorización. El cruce se **propaga por equivalencia** NBU↔Único.
+- El parser (`parse_surge.py`) recorre el PDF completo detectando cada título del índice (incluidos los que se
+  parten en dos líneas, como *Prótesis de implante traumatológicas* pág. 53) y estructura su contenido en bloques
+  (etiquetas, sub-módulos, listas y párrafos), sin perder texto.
 
 **Relación bidireccional CIE-10 ↔ prácticas y normativa por código (en todos los nomencladores):** además de la
 pantalla de diagnósticos, **cada ficha de código** (NBU, PMO, Odontología o Único) muestra —cuando corresponde—
