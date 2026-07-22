@@ -1401,7 +1401,7 @@ function initValidator(){
     <div id="vresults"></div>`;
   const setHint=()=>el('vhint').innerHTML = state.vmode==='facturacion'
     ? 'Detecta <b>doble facturación</b> por inclusión en módulos, urgencias sin 661200, Acto Bioquímico faltante, seriados excedidos, desuso y códigos inexistentes. Suma total en U.B. y $. Cantidades con <b>×N</b>.'
-    : 'Indica qué prácticas <b>requieren autorización previa</b> (SURGE / norma), arma el <b>checklist de documentación</b> a solicitar al afiliado, sugiere el <b>diagnóstico (CIE-10)</b> justificante y lista la <b>normativa</b> aplicable.';
+    : 'Todas las prácticas del caso se tratan como <b>autorización previa</b>. Arma el <b>checklist de documentación</b> a solicitar al afiliado (requerimientos SURGE), y muestra la patología SURGE, el <b>diagnóstico (CIE-10)</b> justificante y la <b>normativa</b> aplicable cuando corresponde.';
   setHint();
   el('vrun').addEventListener('click',runCase);
   el('vclear').addEventListener('click',()=>{el('vcodes').value='';el('vub').value='';el('vresults').innerHTML='';caseData=null;});
@@ -1488,8 +1488,7 @@ function renderFacturacion(){
 function renderAutorizacion(){
   const {uniq,qty,unknown}=caseData;
   const link=k=>`<span class="mono" data-code="${k}">${BYCODE[k].code}</span>`;
-  const previa=[],pmo=[],directa=[];
-  uniq.forEach(k=>{const r=BYCODE[k]; if(r.surge||r.flags.requiere_norma)previa.push(k); else if(r.cobertura_pmo||r.tope_pmo)pmo.push(k); else directa.push(k);});
+  // criterio: TODAS las prácticas se toman como autorización previa (no se infiere excepción).
   const docs=[],docseen=new Set();
   uniq.forEach(k=>{const r=BYCODE[k];if(r.surge&&r.surge.requerimiento)r.surge.requerimiento.forEach(d=>{const kk=norm(d);if(kk&&!docseen.has(kk)){docseen.add(kk);docs.push(d);}});});
   const pats=[],patseen=new Set();
@@ -1500,22 +1499,21 @@ function renderAutorizacion(){
   uniq.forEach(k=>{(BYCODE[k].leyes_rel||[]).forEach(ln=>{if(LEYES_BY_NUM[ln]&&!leyseen.has(ln)){leyseen.add(ln);leyes.push(ln);}});});
   lastVal={mode:'auth',uniq,pats,docs};
   const summary=`<div class="vsummary">
-    <div class="vstat"><div class="vn">${uniq.length}</div><div class="vl">Prácticas</div></div>
-    <div class="vstat ${previa.length?'err':''}"><div class="vn">${previa.length}</div><div class="vl">Autorización previa</div></div>
-    <div class="vstat ${pmo.length?'warn':''}"><div class="vn">${pmo.length}</div><div class="vl">Cobertura con condición</div></div>
-    <div class="vstat ${(!previa.length&&!pmo.length)?'ok':''}"><div class="vn">${directa.length}</div><div class="vl">Cobertura directa</div></div>
+    <div class="vstat err"><div class="vn">${uniq.length}</div><div class="vl">Prácticas · autorización previa</div></div>
+    <div class="vstat"><div class="vn">${pats.length}</div><div class="vl">Patologías SURGE</div></div>
+    <div class="vstat"><div class="vn">${docs.length}</div><div class="vl">Requisitos a solicitar</div></div>
   </div>`;
-  // semáforo por código
-  const rowFor=k=>{const r=BYCODE[k];let dot,txt;
-    if(r.surge){dot='r';txt=`Autorización previa · SURGE — ${esc(r.surge.patologia)}`;}
-    else if(r.flags.requiere_norma){dot='r';txt='Requiere norma / autorización previa';}
-    else if(r.cobertura_pmo){dot='y';txt='Cobertura obligatoria PMO'+(r.tope_pmo?` · tope: ${esc(r.tope_pmo)}`:'');}
-    else if(r.tope_pmo){dot='y';txt='Tope PMO: '+esc(r.tope_pmo);}
-    else {dot='g';txt='Cobertura directa (sin autorización previa)';}
-    return `<div class="vtrow"><span class="sem sem-${dot}"></span><span class="vc" data-code="${k}">${r.code}</span><span class="vnm">${nomBadge(k)} ${esc(r.nombre)}</span><span class="vnm2">${txt}</span></div>`;};
+  // TODAS requieren autorización previa; el texto sólo aporta el dato conocido de la práctica
+  const rowFor=k=>{const r=BYCODE[k];let txt='Requiere autorización previa';
+    if(r.surge)txt=`Autorización previa · SURGE — ${esc(r.surge.patologia)}`;
+    else if(r.flags.requiere_norma)txt='Autorización previa · requiere norma';
+    else if(r.cobertura_pmo)txt='Autorización previa · cobertura obligatoria PMO'+(r.tope_pmo?` · tope: ${esc(r.tope_pmo)}`:'');
+    else if(r.tope_pmo)txt='Autorización previa · tope PMO: '+esc(r.tope_pmo);
+    return `<div class="vtrow"><span class="sem sem-r"></span><span class="vc" data-code="${k}">${r.code}</span><span class="vnm">${nomBadge(k)} ${esc(r.nombre)}</span><span class="vnm2">${txt}</span></div>`;};
   const semTable=uniq.map(rowFor).join('')+unknown.map(u=>`<div class="vtrow dim"><span class="sem sem-r"></span><span class="vc">${esc(u)}</span><span class="vnm" style="color:var(--exc)">No encontrado</span><span class="vnm2">verificar código</span></div>`).join('');
   let html=summary+`<div class="exportbtns" style="margin-top:14px;justify-content:flex-end"><button class="xbtn" id="vExpCsv">⬇ CSV</button><button class="xbtn" id="vPrint">🖨 PDF</button></div>`;
-  html+=`<div class="sec" style="margin-top:12px"><div class="slabel" style="${SL};margin-bottom:9px">Semáforo de autorización</div><div class="vtable sem-table">${semTable}</div></div>`;
+  html+=`<div class="finding advertencia" style="margin-top:12px"><div class="ficon">!</div><div class="fbody">Todas las prácticas del caso se consideran <b>con autorización previa</b>. El detalle de cada una aporta la patología SURGE, la cobertura obligatoria PMO o la norma cuando corresponde.</div></div>`;
+  html+=`<div class="sec" style="margin-top:12px"><div class="slabel" style="${SL};margin-bottom:9px">Prácticas del caso — autorización previa</div><div class="vtable sem-table">${semTable}</div></div>`;
   if(docs.length){
     html+=`<div class="sec" style="margin-top:16px"><div class="slabel" style="${SL};margin-bottom:9px">Documentación a solicitar al afiliado (${docs.length})</div>
       <div class="cie-rel" style="background:color-mix(in srgb,var(--surge) 8%,transparent);border-color:color-mix(in srgb,var(--surge) 26%,transparent)">
@@ -1534,12 +1532,10 @@ function renderAutorizacion(){
     html+=`<div class="sec" style="margin-top:16px"><div class="slabel" style="${SL};margin-bottom:9px">Normativa aplicable</div><div class="cie-rel" style="background:var(--accent-soft);border-color:color-mix(in srgb,var(--accent) 26%,transparent)">
       ${leyes.map(ln=>{const L=LEYES_BY_NUM[ln];return `<button class="cie-chip" data-ley="${ln}"><b>${esc(L.etiqueta||('Ley '+L.ley))}</b><small title="${esc(L.titulo)}">${esc(L.titulo)}</small></button>`;}).join('')}</div></div>`;
   }
-  if(!docs.length&&!previa.length)
-    html+=`<div class="finding ok" style="margin-top:14px"><div class="ficon">✓</div><div class="fbody">Ninguna práctica del caso requiere autorización previa por SURGE o norma especial.</div></div>`;
   el('vresults').innerHTML=html;
   el('vresults').querySelectorAll('[data-ley]').forEach(b=>b.addEventListener('click',()=>openInfo(b.dataset.ley)));
   el('vExpCsv').addEventListener('click',exportAuthCSV);
-  el('vPrint').addEventListener('click',()=>{el('printHead').innerHTML=`<h2>VISITAR — Auditoría de autorización</h2><p>${new Date().toLocaleDateString('es-AR')} · ${uniq.length} prácticas · ${previa.length} con autorización previa</p>`;window.print();});
+  el('vPrint').addEventListener('click',()=>{el('printHead').innerHTML=`<h2>VISITAR — Auditoría de autorización</h2><p>${new Date().toLocaleDateString('es-AR')} · ${uniq.length} prácticas · todas con autorización previa</p>`;window.print();});
 }
 function exportValidatorCSV(){
   if(!lastVal||lastVal.mode==='auth')return;
@@ -1553,10 +1549,10 @@ function exportValidatorCSV(){
 }
 function exportAuthCSV(){
   if(!lastVal||lastVal.mode!=='auth')return;
-  const rows=[['Código','Nomenclador','Nombre','Estado de autorización','Patología SURGE','Requisitos']];
+  const rows=[['Código','Nomenclador','Nombre','Estado de autorización','Base','Patología SURGE','Requisitos']];
   lastVal.uniq.forEach(k=>{const r=BYCODE[k];
-    let est=r.surge?'autorización previa (SURGE)':(r.flags.requiere_norma?'requiere norma':(r.cobertura_pmo||r.tope_pmo?'cobertura con condición':'cobertura directa'));
-    rows.push([r.code,r.nomenclador,r.nombre,est,r.surge?r.surge.patologia:'',(r.surge&&r.surge.requerimiento?r.surge.requerimiento.join(' | '):'')]);});
+    let base=r.surge?'SURGE':(r.flags.requiere_norma?'requiere norma':(r.cobertura_pmo||r.tope_pmo?'cobertura obligatoria PMO':''));
+    rows.push([r.code,r.nomenclador,r.nombre,'autorización previa',base,r.surge?r.surge.patologia:'',(r.surge&&r.surge.requerimiento?r.surge.requerimiento.join(' | '):'')]);});
   if(lastVal.docs.length)rows.push([],['DOCUMENTACIÓN A SOLICITAR'],...lastVal.docs.map(d=>[d]));
   downloadCSV('VISITAR_auditoria_autorizacion.csv',rows);
 }
