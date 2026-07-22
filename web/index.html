@@ -85,13 +85,17 @@ html,body{margin:0;padding:0}
 .modebtn.on[data-mode="UNICO"] svg,.modebtn.on[data-mode="UNICO"] small{color:var(--unico)}
 .modebtn.on[data-mode="CIE"]{border-color:var(--cie);background:color-mix(in srgb,var(--cie) 13%,transparent)}
 .modebtn.on[data-mode="CIE"] svg,.modebtn.on[data-mode="CIE"] small{color:var(--cie)}
+.modebtn-all{border-style:dashed}
+.modebtn.on[data-mode="ALL"]{border-style:solid;border-color:var(--accent);background:var(--accent-soft)}
+.modebtn.on[data-mode="ALL"] svg,.modebtn.on[data-mode="ALL"] small{color:var(--accent-ink)}
 .modebtn b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
-@media (max-width:720px){
-  .modeswitch{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media (max-width:900px){
+  .modeswitch{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
   .modebtn{padding:10px 12px}
   .modebtn small{display:none}
   .modebtn b{white-space:normal}
 }
+@media (max-width:620px){.modeswitch{grid-template-columns:1fr 1fr}}
 @media (max-width:380px){.modeswitch{grid-template-columns:1fr}}
 .consultarow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;max-width:1500px;margin:2px auto 0;padding:14px 20px 12px;
   border-top:1px solid var(--line)}
@@ -243,6 +247,11 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
 .clearf:hover{background:var(--surface-2)}
 
 /* ---------- results ---------- */
+.allgroup{display:flex;align-items:center;gap:9px;margin:16px 2px 8px;padding-bottom:0}
+.allgroup:first-child{margin-top:2px}
+.allglbl{font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--muted)}
+.allgn{font-size:11px;font-weight:700;color:var(--faint);background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:1px 8px}
+.allgroup::after{content:"";flex:1;height:1px;background:var(--line)}
 .resbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;flex-wrap:wrap}
 .resbar .count{font-size:13.5px;color:var(--muted)}
 .resbar .count b{color:var(--ink);font-weight:700}
@@ -367,7 +376,8 @@ ul{margin:0;padding:0}
     padding:16px;transform:translateX(-100%);transition:transform .22s;box-shadow:8px 0 30px rgba(0,0,0,.2)}
   aside.on{transform:translateX(0)}
   .filter-toggle{display:inline-flex}
-  .search{max-width:none}
+  .hbar{flex-wrap:wrap;row-gap:10px}                 /* la búsqueda baja a su propia fila */
+  .search{order:3;flex-basis:100%;max-width:none}
   .brand p{display:none}
 }
 @media (max-width:560px){
@@ -598,6 +608,9 @@ mark.hl{background:var(--accent-soft);color:var(--accent-ink);border-radius:3px;
     </div>
   </div>
   <div class="modeswitch" id="modeSwitch" role="tablist" aria-label="Sección del manual">
+    <button class="modebtn modebtn-all" data-mode="ALL" role="tab" aria-label="Buscar en todo el manual">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <span><b>Buscar en todo</b><small>Todos los nomencladores</small></span></button>
     <button class="modebtn" data-mode="NBU" role="tab">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M9 3v6l-5.5 9.5A2 2 0 0 0 5.2 21h13.6a2 2 0 0 0 1.7-2.5L15 9V3M8 3h8M10 14h4"/></svg>
       <span><b>Laboratorio</b><small>NBU · bioquímica</small></span></button>
@@ -632,11 +645,11 @@ mark.hl{background:var(--accent-soft);color:var(--accent-ink);border-radius:3px;
       <h2>Sección NBU</h2>
       <div class="fgroup" id="fSeccion"></div>
     </div>
-    <div class="panel">
+    <div class="panel" id="grupoPanel">
       <h2 id="grupoTitle">Grupo · especialidad</h2>
       <div class="fgroup" id="fGrupo"></div>
     </div>
-    <div class="panel">
+    <div class="panel" id="flagsPanel">
       <h2>Reglas y estados</h2>
       <div class="fgroup" id="fFlags"></div>
     </div>
@@ -707,7 +720,7 @@ CODES.forEach(c=>{ c._h = norm([c.code,c._key,c.nombre,...(c.sinonimos||[]),...(
 const SEC_LABEL={PMO:'PMO',PE:'Prácticas Especiales',GESTION:'Gestión Adm.',PMO_MED:'Catálogo PMO',ODO:'Odontología',UNICO:'Único'};
 const SEC_CLASS={PMO:'b-pmo',PE:'b-pe',GESTION:'b-gestion',PMO_MED:'b-med',ODO:'b-odo',UNICO:'b-unico'};
 const SEC_COLORVAR={PMO:'var(--pmo)',PE:'var(--pe)',GESTION:'var(--gestion)',PMO_MED:'var(--med)',ODO:'var(--odo)',UNICO:'var(--unico)'};
-const NOMEN_LABEL={NBU:'NBU · bioquímica',PMO:'PMO · prestaciones médicas',ODO:'Odontología',UNICO:'Nomenclador Único (VISITAR)',CIE:'Diagnósticos CIE-10',ABR:'Abreviaturas médicas'};
+const NOMEN_LABEL={ALL:'Todo el manual',NBU:'NBU · bioquímica',PMO:'PMO · prestaciones médicas',ODO:'Odontología',UNICO:'Nomenclador Único (VISITAR)',CIE:'Diagnósticos CIE-10',ABR:'Abreviaturas médicas'};
 // CIE-10 (diagnósticos)
 const CIE=(DB.cie10&&DB.cie10.codigos)?DB.cie10.codigos:{};
 const CIE_LIST=Object.values(CIE);
@@ -786,7 +799,7 @@ function buildGroups(){
   if(state.mode==='CIE'){
     const cnt={};CIE_LIST.forEach(d=>{cnt[d.cap]=(cnt[d.cap]||0)+1;});
     grupos=CIE_CAPS.map(cp=>[cp.rom,cnt[cp.rom]||0,cp.rom+' · '+cp.nombre]).filter(g=>g[1]);
-  }else if(state.mode==='ABR'){
+  }else if(state.mode==='ABR'||state.mode==='ALL'){
     grupos=[];
   }else{
     const counts=countBy(c=>c.grupo,c=>c.nomenclador===state.mode);
@@ -795,6 +808,7 @@ function buildGroups(){
   el('fGrupo').innerHTML=grupos.map(([g,n,lbl])=>
     `<button class="opt${state.grupo.has(g)?' on':''}" data-f="grupo" data-v="${String(g).replace(/"/g,'&quot;')}"><span class="optrow"><span class="lbl">${esc(lbl)}</span></span><span class="n">${n}</span></button>`).join('');
   el('fGrupo').querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>toggleOpt(b)));
+  const gp=el('grupoPanel');if(gp)gp.hidden=!grupos.length;   // ocultar panel de grupo cuando no aplica (ALL/ABR)
 }
 const FLAGS=[['fav','★ Favoritos'],['recientes','Vistos recientemente'],['nota','Con nota personal'],['sin_equiv','⚠ Sin equivalencia (Único)'],['con_equiv','Con equivalencia (Único)'],['valores','Con valores validados'],['urgencia','Urgencia (U)'],['requiere_norma','Requiere norma (N)'],['con_rel','Con relaciones'],['seriado','Con frecuencia/seriado'],['desuso','En desuso (#)'],['pcr','Metodología PCR'],['new2024','Actualizado 2024']];
 el('fFlags').innerHTML=FLAGS.map(([k,l])=>`<button class="opt" data-f="flags" data-v="${k}"><span class="optrow"><span class="lbl">${l}</span></span></button>`).join('');
@@ -816,13 +830,15 @@ function setMode(m){
 }
 function applyMode(){
   document.querySelectorAll('.modebtn,.cbtn').forEach(b=>b.classList.toggle('on',b.dataset.mode===state.mode));
+  const isAll = state.mode==='ALL';
   el('secPanel').hidden = state.mode!=='NBU';        // "Sección NBU" solo aplica a laboratorio
+  el('flagsPanel').hidden = isAll;                   // reglas/estados no aplican a la búsqueda global
   el('grupoTitle').textContent = state.mode==='NBU' ? 'Grupo · área bioquímica' : (state.mode==='CIE' ? 'Capítulo CIE-10' : (state.mode==='ABR' ? 'Fuente' : 'Capítulo · especialidad'));
   const treeOK = state.mode==='NBU'||state.mode==='UNICO'; // árbol de módulos: NBU y Único (lab)
   document.querySelector('.vtab[data-view="tree"]').hidden = !treeOK;
   if(!treeOK&&state.view==='tree')state.view='list';
-  document.querySelector('.vtab[data-view="validator"]').hidden = (state.mode==='CIE'||state.mode==='ABR'); // el validador no aplica a diagnósticos/abreviaturas
-  if((state.mode==='CIE'||state.mode==='ABR')&&state.view==='validator')state.view='list';
+  document.querySelector('.vtab[data-view="validator"]').hidden = (isAll||state.mode==='CIE'||state.mode==='ABR'); // el validador no aplica a búsqueda global/diagnósticos/abreviaturas
+  if((isAll||state.mode==='CIE'||state.mode==='ABR')&&state.view==='validator')state.view='list';
   // limpiar chips de sección/grupo que no correspondan al modo
   document.querySelectorAll('#fSeccion .opt.on').forEach(o=>{if(state.mode!=='NBU'){state.seccion.delete(o.dataset.v);o.classList.remove('on');}});
   buildGroups();
@@ -941,6 +957,7 @@ function render(){
   document.querySelectorAll('.vtab').forEach(t=>t.classList.toggle('on',t.dataset.view===v));
   if(v==='tree'){renderTree();return;}
   if(v==='validator'){el('count').textContent='';initValidator();return;}
+  if(state.mode==='ALL'){renderAll();return;}
   if(state.mode==='CIE'){renderCie();return;}
   if(state.mode==='ABR'){renderAbr();return;}
   const res=filtered();
@@ -967,6 +984,48 @@ function render(){
   if(more)el('moreBtn').textContent=`Ver más — ${(res.length-state.limit).toLocaleString('es-AR')} restantes`;
 }
 let lastResults=[];
+/* ---------- búsqueda global (todos los nomencladores + CIE + abreviaturas) ---------- */
+function renderAll(){
+  const terms=norm(state.q).split(/\s+/).filter(Boolean);
+  lastResults=[];el('listExport').style.display='none';
+  if(!terms.length){
+    el('count').textContent='';
+    el('list').innerHTML=`<div class="empty"><b>Buscá en todo el manual</b>Escribí un código, práctica, diagnóstico o sigla y te muestro las coincidencias en todos los nomencladores (NBU, PMO, Odontología, Único), CIE-10 y abreviaturas médicas a la vez.</div>`;
+    el('moreBtn').hidden=true;return;
+  }
+  const groups=[];
+  [['NBU','Laboratorio (NBU)'],['PMO','Prestaciones médicas (PMO)'],['ODO','Odontología'],['UNICO','Nomenclador Único']].forEach(([nm,lbl])=>{
+    const arr=CODES.filter(c=>c.nomenclador===nm&&terms.every(t=>c._h.includes(t)));
+    if(arr.length)groups.push({lbl,rows:arr,build:rowHTML});
+  });
+  const cies=CIE_LIST.filter(d=>terms.every(t=>d._h.includes(t)));
+  if(cies.length){cies.sort((a,b)=>a.code.localeCompare(b.code));groups.push({lbl:'Diagnósticos CIE-10',rows:cies,build:cieRowHTML});}
+  const abrs=ABREV_UNIQ.filter(a=>terms.every(t=>a._h.includes(t)));
+  if(abrs.length)groups.push({lbl:'Abreviaturas médicas',rows:abrs,build:abrRowHTML});
+  const total=groups.reduce((s,g)=>s+g.rows.length,0);
+  el('count').innerHTML=`<b>${total.toLocaleString('es-AR')}</b> resultado${total!==1?'s':''} en todo el manual`;
+  if(!total){el('list').innerHTML=`<div class="empty"><b>Sin resultados</b>Probá con otro término (código, práctica, diagnóstico o sigla).</div>`;el('moreBtn').hidden=true;return;}
+  let budget=state.limit,html='';
+  for(const g of groups){
+    if(budget<=0)break;
+    const take=g.rows.slice(0,budget);
+    html+=`<div class="allgroup"><span class="allglbl">${esc(g.lbl)}</span><span class="allgn">${g.rows.length.toLocaleString('es-AR')}</span></div>`;
+    html+=take.map(g.build).join('');
+    budget-=take.length;
+  }
+  el('list').innerHTML=html;kbIdx=-1;
+  el('list').querySelectorAll('.row').forEach(r=>r.addEventListener('click',e=>{
+    if(r.dataset.code){
+      const s=e.target.closest('.star');
+      if(s){e.stopPropagation();toggleFav(s.dataset.fav);s.classList.toggle('on');s.textContent=s.classList.contains('on')?'★':'☆';refreshStats();return;}
+      openCode(r.dataset.code);
+    } else if(r.dataset.cie){openCie(r.dataset.cie);}
+    else if(r.dataset.abr){openAbr(r.dataset.abr);}
+  }));
+  const more=total>state.limit;
+  el('moreBtn').hidden=!more;
+  if(more)el('moreBtn').textContent=`Ver más — ${(total-state.limit).toLocaleString('es-AR')} restantes`;
+}
 /* ---------- CIE-10 (diagnósticos) ---------- */
 function cieRowHTML(d){
   const rel=(CIE_REL[d.code]||[]).length;

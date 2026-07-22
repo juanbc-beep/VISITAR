@@ -123,6 +123,11 @@ La interfaz separa **cuatro nomencladores** en el selector principal — **Labor
 médicas (PMO)**, **Odontología** y **Único (VISITAR)** — más un apartado de **Consulta rápida** (Diagnósticos
 CIE-10 y Abreviaturas médicas). En cada nomenclador solo se ven sus códigos y agrupaciones (no se mezclan).
 
+**Buscar en todo (búsqueda global):** una opción "Buscar en todo" cruza en una sola búsqueda **todos los
+nomencladores (NBU, PMO, Odontología, Único) + CIE-10 + abreviaturas** a la vez, sin tener que elegir primero a
+qué nomenclador pertenece lo que se busca. Los resultados se muestran **agrupados por origen** (con su cantidad) y
+cada uno abre su ficha correspondiente al hacer clic.
+
 ## Uso
 
 Abrí **`web/index.html`** en cualquier navegador (no requiere servidor ni conexión — la base va embebida
