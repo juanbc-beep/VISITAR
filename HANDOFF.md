@@ -50,7 +50,8 @@ HTML que funciona **sin servidor y sin internet**. Sirve a dos sectores de VISIT
 |---|---|
 | Códigos con vínculo **SURGE** | 52 (38 marcados `(SUR)/(SURGE)` + 17 propagados por equivalencia) |
 | Códigos con **abreviaturas posibles** | 1.023 (eran 1.025; bajan 3 falsos positivos y sube 1 real al limpiar los títulos) |
-| Códigos con **cobertura obligatoria PMO** | 65 |
+| Códigos con **cobertura obligatoria PMO** | 67 |
+| Códigos con **lateralidad** (Bilateral/Unilateral) | 28 (sólo oftalmología) |
 | Códigos con **diagnósticos CIE-10** relacionados | 242 |
 | Códigos con **normativa** relacionada | 61 |
 | Único **sin equivalencia** (agrupados aparte) | 79 |
