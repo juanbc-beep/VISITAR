@@ -251,6 +251,11 @@ Funciones clave en el código: `initValidator()`, `runCase()`, `renderCase()`,
 19. Validador reencuadrado en Mesa de trabajo con los dos modos de auditoría.
 20. Ajuste final: todas las prácticas = autorización previa.
 
+**Calidad de datos — oftalmología**
+23. **Capítulo de oftalmología revisado** (prefijos `02` y `30`, 69 códigos): 30 títulos
+    recompuestos, 8 equivalencias reparadas y 28 fichas con **lateralidad**
+    (Bilateral / Unilateral / Uni o bilateral). Ver punto 9.
+
 **Calidad de datos — títulos**
 22. **Auditoría de títulos de los 6.344 códigos.** La planilla del Único mezclaba en una
     sola celda el nombre de la práctica, un marcador de clasificación y, en algunas filas,
@@ -274,6 +279,20 @@ Funciones clave en el código: `initValidator()`, `runCase()`, `renderCase()`,
 - **Buscador por droga** para autorizaciones de medicación (la data ya está en SURGE).
 - **App instalable (PWA) + offline total** (manifest + service worker).
 - **Novedades normativas / vigencias**.
+
+**Oftalmología — lo que queda por confirmar:**
+- **2 denominaciones marcadas «a confirmar»** (`titulo_revisar`): `020103` y `020502`.
+  Ninguna fuente las resuelve sin ambigüedad; la ficha lo avisa y se corrigen desde
+  **✎ Editar ficha**.
+- **9 códigos del Único sin destino en el Nacional** (`300130` autorrefractometría,
+  los agregados manuales `103002xx`, etc.): no existen en el catálogo cargado.
+- **La lateralidad sólo está cargada en oftalmología** (28 fichas), porque es donde el
+  usuario la señaló. El mismo dato existe en otros capítulos del Nacional.
+- **Las otras 332 equivalencias colgadas** (fuera de oftalmología) siguen sin resolver:
+  apuntan a códigos que no están en el catálogo. 106 de ellas tienen un PMO con el
+  **mismo número** disponible, así que se arreglarían con la misma regla.
+- El **corrimiento de títulos entre códigos** afecta también a otros capítulos del PMO;
+  sólo se reparó oftalmología por pedido explícito.
 
 **Defectos de título que quedan abiertos (dependen de la fuente, no se inventó texto):**
 - **139 fichas con el texto cortado en el origen** (`texto_truncado`): la planilla del
@@ -315,6 +334,10 @@ Funciones clave en el código: `initValidator()`, `runCase()`, `renderCase()`,
 | Truncado a 100 chars no detectado en filas con espacios dobles | Medir el corte sobre la **celda cruda**, antes de colapsar espacios |
 | Ficha del Único mostraba el badge «NBU» | Faltaba `UNICO` en el mapa de nomencladores de `openCode()` |
 | `130303` sin denominación (OCR ilegible en origen) | Guarda final en `assemble.py`: marca `sin_denominacion` y avisa en la ficha, **sin inventar** el título |
+| **Oftalmología: títulos cortados entre códigos** (`300117` perdía «afectados», que abría `300118`) | El PDF del PMO trae el texto bien escrito pero mal cortado; el OCR del Nacional lo asigna bien pero con las palabras pegadas. **Se alinean ambos flujos** y se arbitra con el OCR; si no alcanza, con el nombre del Único. 30 títulos recompuestos |
+| **Oftalmología: catálogo corrido un código** (`020108` era «vitrectomía» según OCR y Único, pero figuraba en `020107`) | Detectado por la misma alineación. Las abreviaturas siguieron a su título correcto |
+| **Equivalencias a códigos inexistentes** (`300113` remitía a `300153`, que no está en la base) | Si el destino no existe se re-resuelve por código idéntico y, si no, por proximidad de nombre en el capítulo |
+| **Lateralidad ignorada** (el Nacional anota BILATERAL / UNILATERAL) | Se extrae del OCR (busca sobre el flujo de letras, porque vienen pegadas), se propaga al Único y **la Mesa de trabajo rechaza un bilateral con cantidad > 1** |
 | Títulos PMO garbled (`342014` con 360+ caracteres) | Parseo columna a columna separando título/cobertura |
 | Cobertura PMO absorbía otras prestaciones | Detectar códigos pegados al título + filtrar artefactos de página |
 | Títulos SURGE faltantes en el índice | Detectar títulos partidos en dos líneas |
