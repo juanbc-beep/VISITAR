@@ -941,8 +941,32 @@ except FileNotFoundError:
     except FileNotFoundError:
         PMOCOB = {"codigos": {}, "generalidades": [], "topes": []}
 pmo_fix = pmo_cob = 0
+pmo_alta = 0
 for _code, _info in PMOCOB.get("codigos", {}).items():
     _r = records.get(_code)
+    if not _r and (_info.get("cobertura") or "").strip() and (_info.get("titulo") or "").strip():
+        # Prestaciones que figuran en el anexo de cobertura pero que el catálogo no
+        # trae (Cámara Hiperbárica, cama para acompañante). Tienen obligación de
+        # cobertura, así que dejarlas afuera es peor que darlas de alta: se crean con
+        # lo único que la fuente aporta —denominación y cobertura— y se marcan, para
+        # que se vea que no vienen del catálogo y que no tienen valorización cargada.
+        _cap = UNICO_CAP.get(_code[:2], "Otras prestaciones PMO")
+        records[_code] = {
+            "code": _code, "nomenclador": "PMO",
+            "nomenclador_full": "Programa Médico Obligatorio (Res. 201/02) — anexo de cobertura obligatoria",
+            "seccion": "PMO_MED", "seccion_label": "Catálogo PMO — prestaciones médicas",
+            "grupo": _cap, "nombre": _info["titulo"],
+            "sinonimos": [], "abreviaturas": [],
+            "valor": {"ub": None, "unidad": "—",
+                      "arancel": "Prestación con cobertura obligatoria. La fuente no trae valorización; el arancel surge del nomenclador/convenio aplicable."},
+            "flags": {"urgencia": False, "requiere_norma": False, "desuso": False, "pcr": False},
+            "referencias": [], "norma": None, "frecuencia": [],
+            "relaciones": {"incluye": [], "no_incluye": [], "incluido_en": []},
+            "auditoria": ["Prestación tomada del anexo de cobertura del PMO: no figura en el catálogo y no tiene valorización cargada."],
+            "solo_anexo_cobertura": True,
+        }
+        _r = records[_code]
+        pmo_alta += 1
     if not _r:
         continue
     if _r.get("nomenclador") == "PMO":
@@ -1303,7 +1327,7 @@ for _k, _r in records.items():
                     _r.pop("observacion_unico", None)
             if _s.get("tope_pmo") and "tope_pmo" not in _r:
                 _r["tope_pmo"] = _s["tope_pmo"]
-print(f"PMO cobertura: títulos corregidos {pmo_fix} · con cobertura {pmo_cob} · generalidades {len(PMOCOB.get('generalidades',[]))} · topes {len(PMOCOB.get('topes',[]))}", file=sys.stderr)
+print(f"PMO cobertura: altas desde el anexo {pmo_alta} · títulos corregidos {pmo_fix} · con cobertura {pmo_cob} · generalidades {len(PMOCOB.get('generalidades',[]))} · topes {len(PMOCOB.get('topes',[]))}", file=sys.stderr)
 
 # ---------- abreviaturas médicas: diccionario + vínculo a prácticas coincidentes ----------
 import unicodedata as _ud

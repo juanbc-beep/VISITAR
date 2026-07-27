@@ -3,7 +3,7 @@
   "titulo": "Manual Inteligente Unificado de Códigos Médicos",
   "fuente": "NBU — Nomenclador Bioquímico Único v2012/2016 (CUBRA) + Catálogo de Prestaciones del PMO (Res. 201/2002, S.S. Salud)",
   "overlay": "Anexo Enero 2024 (U.B. actualizadas) aplicado como valor_actualizado_2024 donde corresponde.",
-  "total_codigos": 6344,
+  "total_codigos": 6346,
   "secciones": {
    "PMO": "PMO — Programa Médico Obligatorio",
    "PE": "Prácticas Especiales (P.E.)",
@@ -17,7 +17,7 @@
   },
   "nomenclador_counts": {
    "NBU": 1815,
-   "PMO": 1219,
+   "PMO": 1221,
    "ODO": 79,
    "UNICO": 3231
   },
@@ -534,8 +534,8 @@
    "Mama (cirugía)": 25,
    "Anatomía patológica": 25,
    "Consultas": 24,
+   "Internación / hotelería": 24,
    "Citología y anatomía": 23,
-   "Internación / hotelería": 23,
    "Sistema endócrino (cirugía)": 21,
    "Radioterapia": 21,
    "Neumonología": 20,
@@ -548,8 +548,8 @@
    "Operatoria dental": 7,
    "Odontopediatría": 6,
    "Alergia e inmunología": 5,
+   "Tratamientos especiales": 5,
    "Periodoncia": 5,
-   "Tratamientos especiales": 4,
    "Endodoncia": 4,
    "Odontología preventiva": 4,
    "Ortodoncia y ortopedia funcional": 4,
@@ -186662,8 +186662,8 @@
    ],
    "titulo_revisar": true,
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "010102": {
@@ -186734,8 +186734,8 @@
     }
    ],
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "010103": {
@@ -187427,8 +187427,8 @@
    ],
    "titulo_origen": "realineado",
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "010207": {
@@ -188272,8 +188272,8 @@
     }
    ],
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "010303": {
@@ -189493,8 +189493,8 @@
     }
    ],
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "010503": {
@@ -191484,8 +191484,8 @@
    "lateralidad": "Uni o bilateral",
    "titulo_origen": "realineado",
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "020110": {
@@ -191556,8 +191556,8 @@
    ],
    "titulo_origen": "realineado",
    "abrev_posibles": [
-    "Inf",
-    "OP"
+    "OP",
+    "Inf"
    ]
   },
   "020111": {
@@ -192760,8 +192760,8 @@
    ],
    "titulo_origen": "unico",
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "020502": {
@@ -193660,8 +193660,8 @@
    ],
    "titulo_origen": "unico",
    "abrev_posibles": [
-    "DCR",
     "CAV",
+    "DCR",
     "OP"
    ]
   },
@@ -193801,8 +193801,8 @@
     }
    ],
    "abrev_posibles": [
-    "GL",
-    "DJE"
+    "DJE",
+    "GL"
    ]
   },
   "020804": {
@@ -195791,9 +195791,9 @@
     }
    ],
    "abrev_posibles": [
+    "TTO",
     "Qx",
-    "FX",
-    "TTO"
+    "FX"
    ]
   },
   "030306": {
@@ -195863,8 +195863,8 @@
     }
    ],
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "030401": {
@@ -196135,8 +196135,8 @@
     }
    ],
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "030405": {
@@ -198988,8 +198988,8 @@
     }
    ],
    "abrev_posibles": [
-    "GL",
-    "OP"
+    "OP",
+    "GL"
    ]
   },
   "030806": {
@@ -200631,8 +200631,8 @@
     }
    ],
    "abrev_posibles": [
-    "PBL",
-    "OP"
+    "OP",
+    "PBL"
    ]
   },
   "031206": {
@@ -205262,8 +205262,8 @@
    ],
    "titulo_revisar": true,
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "070203": {
@@ -205568,8 +205568,8 @@
    ],
    "titulo_origen": "realineado",
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "070208": {
@@ -205648,8 +205648,8 @@
    ],
    "titulo_origen": "realineado",
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ],
    "surge": {
     "patologia_id": "aneurisma_de_aorta_abdominal_aneur",
@@ -206013,8 +206013,8 @@
     }
    ],
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "070401": {
@@ -206085,9 +206085,9 @@
     }
    ],
    "abrev_posibles": [
+    "TTO",
     "AAA",
-    "Qx",
-    "TTO"
+    "Qx"
    ]
   },
   "070402": {
@@ -210092,8 +210092,8 @@
     }
    ],
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "080205": {
@@ -214235,9 +214235,9 @@
     }
    ],
    "abrev_posibles": [
-    "Qx",
+    "TTO",
     "OP",
-    "TTO"
+    "Qx"
    ]
   },
   "080609": {
@@ -214867,8 +214867,8 @@
     }
    ],
    "abrev_posibles": [
-    "US",
-    "TTO"
+    "TTO",
+    "US"
    ]
   },
   "080701": {
@@ -217928,8 +217928,8 @@
    ],
    "titulo_origen": "realineado",
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "100109": {
@@ -218479,8 +218479,8 @@
     }
    ],
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "100117": {
@@ -219288,8 +219288,8 @@
     }
    ],
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "100207": {
@@ -219359,8 +219359,8 @@
     }
    ],
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "100208": {
@@ -219679,8 +219679,8 @@
     }
    ],
    "abrev_posibles": [
-    "OP",
-    "TTO"
+    "TTO",
+    "OP"
    ]
   },
   "100213": {
@@ -220987,8 +220987,8 @@
     }
    ],
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "100507": {
@@ -223981,8 +223981,8 @@
    ],
    "titulo_origen": "realineado",
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "110303": {
@@ -225756,8 +225756,8 @@
    ],
    "titulo_origen": "unico",
    "abrev_posibles": [
-    "MTT",
-    "MTC"
+    "MTC",
+    "MTT"
    ]
   },
   "120401": {
@@ -226653,8 +226653,8 @@
     }
    ],
    "abrev_posibles": [
-    "MTT",
-    "MTC"
+    "MTC",
+    "MTT"
    ]
   },
   "120701": {
@@ -228838,8 +228838,8 @@
     }
    ],
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "121306": {
@@ -228910,8 +228910,8 @@
     }
    ],
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "121307": {
@@ -228981,8 +228981,8 @@
     }
    ],
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "121308": {
@@ -229052,8 +229052,8 @@
     }
    ],
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "121401": {
@@ -230456,8 +230456,8 @@
    ],
    "titulo_origen": "unico",
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "121704": {
@@ -230668,8 +230668,8 @@
     }
    ],
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "121707": {
@@ -231054,8 +231054,8 @@
     }
    ],
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "121719": {
@@ -231329,8 +231329,8 @@
     }
    ],
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "121723": {
@@ -231538,8 +231538,8 @@
     }
    ],
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "121726": {
@@ -231609,8 +231609,8 @@
     }
    ],
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "121727": {
@@ -231680,8 +231680,8 @@
     }
    ],
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "121728": {
@@ -234534,8 +234534,8 @@
    "titulo_revisar": true,
    "abrev_posibles": [
     "TCSC",
-    "SC",
-    "BX"
+    "BX",
+    "SC"
    ]
   },
   "130109": {
@@ -237827,8 +237827,8 @@
     }
    ],
    "abrev_posibles": [
-    "ECO",
-    "TS"
+    "TS",
+    "ECO"
    ]
   },
   "180112": {
@@ -243750,8 +243750,8 @@
    ],
    "titulo_origen": "unico",
    "abrev_posibles": [
-    "Ca",
-    "TTO"
+    "TTO",
+    "Ca"
    ]
   },
   "260137": {
@@ -246758,8 +246758,8 @@
    "lateralidad": "Bilateral",
    "titulo_origen": "realineado",
    "abrev_posibles": [
-    "CTROL",
-    "FO"
+    "FO",
+    "CTROL"
    ]
   },
   "300201": {
@@ -252628,10 +252628,10 @@
     }
    ],
    "abrev_posibles": [
+    "ABD",
     "RMI",
     "RMN",
-    "RNM",
-    "ABD"
+    "RNM"
    ]
   },
   "342009": {
@@ -260701,8 +260701,8 @@
     "Coseguro máximo: 100%."
    ],
    "abrev_posibles": [
-    "TTO",
-    "ENF"
+    "ENF",
+    "TTO"
    ]
   },
   "ODO0805": {
@@ -261663,8 +261663,8 @@
     "total_2002": 394.36
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U010102": {
@@ -261735,8 +261735,8 @@
     "total_2002": 327.27
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U010103": {
@@ -262426,8 +262426,8 @@
     "total_2002": 508.12
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U010207": {
@@ -263271,8 +263271,8 @@
     "total_2002": 331.83
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U010303": {
@@ -264419,8 +264419,8 @@
     "total_2002": 240.29
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U010502": {
@@ -264492,8 +264492,8 @@
     "total_2002": 262.27
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U010503": {
@@ -265832,8 +265832,8 @@
     "Equivale a la práctica 010715 del Nomenclador de Prestaciones Médicas (similitud 89%)."
    ],
    "abrev_posibles": [
-    "DVP",
-    "DJE"
+    "DJE",
+    "DVP"
    ]
   },
   "U010801": {
@@ -266540,8 +266540,8 @@
    },
    "lateralidad": "Uni o bilateral",
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U020110": {
@@ -267805,8 +267805,8 @@
     "total_2002": 237.06
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U020502": {
@@ -268705,8 +268705,8 @@
     "total_2002": 186.28
    },
    "abrev_posibles": [
-    "DCR",
     "CAV",
+    "DCR",
     "OP"
    ]
   },
@@ -270830,9 +270830,9 @@
     "total_2002": 280.48
    },
    "abrev_posibles": [
+    "TTO",
     "Qx",
-    "FX",
-    "TTO"
+    "FX"
    ]
   },
   "U030306": {
@@ -270902,8 +270902,8 @@
     "total_2002": 436.34
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U030401": {
@@ -271174,8 +271174,8 @@
     "total_2002": 103.43
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U030405": {
@@ -280419,8 +280419,8 @@
     "total_2002": 1392.52
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U070203": {
@@ -280717,8 +280717,8 @@
     "total_2002": 1468.93
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U070208": {
@@ -280789,8 +280789,8 @@
     "total_2002": 1325.53
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ],
    "surge": {
     "patologia_id": "aneurisma_de_aorta_abdominal_aneur",
@@ -281152,8 +281152,8 @@
     "total_2002": 531.29
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U070401": {
@@ -281224,9 +281224,9 @@
     "total_2002": 443.57
    },
    "abrev_posibles": [
+    "TTO",
     "AAA",
-    "Qx",
-    "TTO"
+    "Qx"
    ]
   },
   "U070402": {
@@ -285233,8 +285233,8 @@
     "total_2002": 203.29
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U080205": {
@@ -289336,8 +289336,8 @@
     "total_2002": 108.32
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U080609": {
@@ -289974,8 +289974,8 @@
     "Equivale a la práctica 080618 del Nomenclador de Prestaciones Médicas."
    ],
    "abrev_posibles": [
-    "US",
-    "TTO"
+    "TTO",
+    "US"
    ]
   },
   "U080701": {
@@ -291043,8 +291043,8 @@
     "total_2002": 253.89
    },
    "abrev_posibles": [
-    "TTO",
-    "CTL"
+    "CTL",
+    "TTO"
    ]
   },
   "U080718": {
@@ -294031,8 +294031,8 @@
     "total_2002": 216.94
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U100109": {
@@ -295464,8 +295464,8 @@
     "total_2002": 188.74
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U100208": {
@@ -297085,8 +297085,8 @@
     "Equivale a la práctica 100506 del Nomenclador de Prestaciones Médicas (similitud 89%)."
    ],
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U100507": {
@@ -300154,8 +300154,8 @@
     "total_2002": 303.49
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U110303": {
@@ -302579,8 +302579,8 @@
     "total_2002": 124.2
    },
    "abrev_posibles": [
-    "MTT",
-    "MTC"
+    "MTC",
+    "MTT"
    ]
   },
   "U120401": {
@@ -305672,8 +305672,8 @@
     "total_2002": 302.67
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U121306": {
@@ -305744,8 +305744,8 @@
     "total_2002": 280.69
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U121307": {
@@ -305816,8 +305816,8 @@
     "total_2002": 137.39
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U121308": {
@@ -305887,8 +305887,8 @@
     "total_2002": 128.14
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U121401": {
@@ -307306,8 +307306,8 @@
     "total_2002": 230.64
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U121704": {
@@ -307518,8 +307518,8 @@
     "total_2002": 180.05
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U121707": {
@@ -308316,8 +308316,8 @@
     "total_2002": 306.34
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U121719": {
@@ -308594,8 +308594,8 @@
     "total_2002": 128.81
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U121723": {
@@ -308803,8 +308803,8 @@
     "total_2002": 128.81
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U121726": {
@@ -308874,8 +308874,8 @@
     "total_2002": 198.28
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U121727": {
@@ -308946,8 +308946,8 @@
     "total_2002": 126.17
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U121728": {
@@ -311518,8 +311518,8 @@
     "total_2002": 35.67
    },
    "abrev_posibles": [
-    "Inf",
-    "MMSS"
+    "MMSS",
+    "Inf"
    ]
   },
   "U121937": {
@@ -312551,8 +312551,8 @@
    },
    "abrev_posibles": [
     "TCSC",
-    "SC",
-    "BX"
+    "BX",
+    "SC"
    ]
   },
   "U130109": {
@@ -316619,9 +316619,9 @@
     "Equivale a la práctica 170105 del Nomenclador de Prestaciones Médicas (similitud 90%)."
    ],
    "abrev_posibles": [
+    "DX",
     "ECG",
-    "EKG",
-    "DX"
+    "EKG"
    ]
   },
   "U170106": {
@@ -323771,8 +323771,8 @@
     "Equivale a la práctica 260130 del Nomenclador de Prestaciones Médicas (similitud 87%)."
    ],
    "abrev_posibles": [
-    "DX",
-    "VIT"
+    "VIT",
+    "DX"
    ],
    "cie_rel": [
     "D51",
@@ -324043,8 +324043,8 @@
     "Equivale a la práctica 260136 del Nomenclador de Prestaciones Médicas (similitud 94%)."
    ],
    "abrev_posibles": [
-    "Ca",
-    "TTO"
+    "TTO",
+    "Ca"
    ]
   },
   "U260137": {
@@ -329015,8 +329015,8 @@
    ],
    "lateralidad": "Bilateral",
    "abrev_posibles": [
-    "CTROL",
-    "FO"
+    "FO",
+    "CTROL"
    ]
   },
   "U300130": {
@@ -335422,10 +335422,10 @@
     "Equivale a la práctica 342008 del Nomenclador de Prestaciones Médicas."
    ],
    "abrev_posibles": [
+    "ABD",
     "RMI",
     "RMN",
-    "RNM",
-    "ABD"
+    "RNM"
    ]
   },
   "U342009": {
@@ -335956,8 +335956,8 @@
    ],
    "abrev_posibles": [
     "TTO",
-    "Ca",
-    "RT"
+    "RT",
+    "Ca"
    ]
   },
   "U350310": {
@@ -336649,15 +336649,17 @@
     "target_nom": "PMO",
     "target_label": "Prestaciones Médicas",
     "code": "380201",
-    "key": null,
-    "desc": "Camara Hiperbarica",
+    "key": "380201",
+    "desc": "Cámara Hiperbárica",
     "score": 0.9104,
-    "destino_inexistente": true
+    "recalculada": "codigo"
    },
    "sin_equivalencia": false,
    "auditoria": [
-    "Equivale a la práctica 380201 del Nomenclador de Prestaciones Médicas (similitud 91%)."
-   ]
+    "Equivale a la práctica 380201 del Nomenclador de Prestaciones Médicas."
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Enfermedad por descompresión, gangrena gaseosa, y embolia gaseosa o aérea",
+   "cobertura_tipo": "obligacion"
   },
   "U400101": {
    "code": "400101",
@@ -337769,15 +337771,17 @@
     "target_nom": "PMO",
     "target_label": "Prestaciones Médicas",
     "code": "430106",
-    "key": null,
-    "desc": "",
+    "key": "430106",
+    "desc": "cama para acompañante",
     "score": 0.8893,
-    "destino_inexistente": true
+    "recalculada": "codigo"
    },
    "sin_equivalencia": false,
    "auditoria": [
-    "Equivale a la práctica 430106 del Nomenclador de Prestaciones Médicas (similitud 89%)."
-   ]
+    "Equivale a la práctica 430106 del Nomenclador de Prestaciones Médicas."
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Internación en menores de 15 años, a fin de asegurar una adecuada contención por parte de un familiar durante un momento crítico como es la internación, y sobre todo en este grupo de personas.",
+   "cobertura_tipo": "obligacion"
   },
   "U430109": {
    "code": "430109",
@@ -342193,8 +342197,8 @@
     "total_2002": 1325.53
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ],
    "surge": {
     "patologia_id": "aneurisma_de_aorta_abdominal_aneur",
@@ -423746,6 +423750,97 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 669990."
+   ]
+  },
+  "380201": {
+   "code": "380201",
+   "nomenclador": "PMO",
+   "nomenclador_full": "Programa Médico Obligatorio (Res. 201/02) — anexo de cobertura obligatoria",
+   "seccion": "PMO_MED",
+   "seccion_label": "Catálogo PMO — prestaciones médicas",
+   "grupo": "Tratamientos especiales",
+   "nombre": "Cámara Hiperbárica",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "—",
+    "arancel": "Prestación con cobertura obligatoria. La fuente no trae valorización; el arancel surge del nomenclador/convenio aplicable."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "auditoria": [
+    "Prestación tomada del anexo de cobertura del PMO: no figura en el catálogo y no tiene valorización cargada."
+   ],
+   "solo_anexo_cobertura": true,
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Enfermedad por descompresión, gangrena gaseosa, y embolia gaseosa o aérea",
+   "cobertura_tipo": "obligacion",
+   "equivalencia_unico": [
+    {
+     "unico_code": "380201",
+     "unico_key": "U380201",
+     "unico_desc": "Cámara Hiperbarica· (ver OC)",
+     "score": null,
+     "tipo": "med"
+    }
+   ]
+  },
+  "430106": {
+   "code": "430106",
+   "nomenclador": "PMO",
+   "nomenclador_full": "Programa Médico Obligatorio (Res. 201/02) — anexo de cobertura obligatoria",
+   "seccion": "PMO_MED",
+   "seccion_label": "Catálogo PMO — prestaciones médicas",
+   "grupo": "Internación / hotelería",
+   "nombre": "cama para acompañante",
+   "sinonimos": [],
+   "abreviaturas": [],
+   "valor": {
+    "ub": null,
+    "unidad": "—",
+    "arancel": "Prestación con cobertura obligatoria. La fuente no trae valorización; el arancel surge del nomenclador/convenio aplicable."
+   },
+   "flags": {
+    "urgencia": false,
+    "requiere_norma": false,
+    "desuso": false,
+    "pcr": false
+   },
+   "referencias": [],
+   "norma": null,
+   "frecuencia": [],
+   "relaciones": {
+    "incluye": [],
+    "no_incluye": [],
+    "incluido_en": []
+   },
+   "auditoria": [
+    "Prestación tomada del anexo de cobertura del PMO: no figura en el catálogo y no tiene valorización cargada."
+   ],
+   "solo_anexo_cobertura": true,
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Internación en menores de 15 años, a fin de asegurar una adecuada contención por parte de un familiar durante un momento crítico como es la internación, y sobre todo en este grupo de personas.",
+   "cobertura_tipo": "obligacion",
+   "titulo_revisar": true,
+   "equivalencia_unico": [
+    {
+     "unico_code": "430106",
+     "unico_key": "U430106",
+     "unico_desc": "cama para acompañante",
+     "score": null,
+     "tipo": "med"
+    }
    ]
   }
  }
