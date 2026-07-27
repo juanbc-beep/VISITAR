@@ -512,6 +512,87 @@ ul{margin:0;padding:0}
 .vtrow .vnm .badge{margin-right:5px}
 @media (max-width:560px){.sem-table .vtrow{grid-template-columns:12px 56px 1fr!important}.vtrow .vnm2{display:none}}
 @media (max-width:560px){.vtrow{grid-template-columns:64px 1fr auto;gap:8px}.vtrow .vub{display:none}}
+
+/* ---------- cabecera compacta al scrollear ----------
+   La cabecera ocupaba 255px en notebook y 518px en celular: se veían 6 y 3 filas de
+   resultados. Al scrollear se comprime —las tarjetas quedan como fichas chicas y se
+   ocultan la barra de U.B. y los subtítulos— y la búsqueda sigue siempre a mano. */
+header{transition:box-shadow .18s}
+header.compact{box-shadow:0 4px 18px rgba(19,32,41,.10)}
+header.compact .modeswitch{padding-bottom:8px;gap:6px}
+header.compact .modebtn{padding:6px 11px;border-radius:9px}
+header.compact .modebtn svg{display:none}
+header.compact .modebtn small{display:none}
+header.compact .modebtn b{font-size:13px}
+header.compact .consultarow{padding:7px 20px 8px;gap:7px}
+header.compact .consulta-head{display:none}
+header.compact .cbtn{padding:5px 11px 5px 5px}
+header.compact .cbtn .cbicon{width:24px;height:24px;border-radius:7px}
+header.compact .cbtn small{display:none}
+header.compact .cbtn b{font-size:12.5px}
+header.compact .stats{display:none}
+header.compact .brand p{display:none}
+header.compact .logo{height:32px;min-width:32px}
+/* la barra lateral se pega justo debajo de la cabecera, midiéndola de verdad */
+aside{top:calc(var(--hh,128px) + 10px);max-height:calc(100vh - var(--hh,128px) - 28px)}
+.modesel{display:none}
+@media (max-width:900px){
+  /* en celular los nomencladores pasan a un selector: dos filas de tarjetas se comían
+     tres cuartos de la pantalla */
+  .modeswitch{display:none!important}
+  .modesel{display:block;max-width:1500px;margin:0 auto;padding:0 14px 10px}
+  .modesel select{width:100%;padding:10px 12px;border:1.5px solid var(--line-2);border-radius:10px;
+    background:var(--surface-2);color:var(--ink);font:inherit;font-size:14.5px;font-weight:700}
+  .consultarow{border-top:none;padding-top:0;padding-bottom:10px;gap:6px;flex-wrap:nowrap;
+    overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .consultarow::-webkit-scrollbar{display:none}
+  /* el rótulo "Consulta rápida" se comía una fila entera en una pantalla donde
+     apenas entraban tres resultados */
+  .consultarow .consulta-head{display:none}
+  .consultarow .cbtn{flex:0 0 auto;padding:6px 12px 6px 6px}
+  .consultarow .cbtn .cbicon{width:26px;height:26px;border-radius:7px}
+  .consultarow .cbtn small{display:none}
+  .consultarow .cbtn b{font-size:12.5px}
+  header.compact .consultarow{padding-bottom:6px}
+}
+/* ---------- franja de veredicto en la ficha ---------- */
+.veredicto{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:8px;margin-top:12px}
+.vtile{text-align:left;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;
+  padding:9px 11px;font:inherit;cursor:pointer;transition:.13s;min-width:0}
+.vtile:hover{border-color:var(--accent);background:var(--surface-3)}
+.vtile .vt-l{display:block;font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--faint)}
+.vtile .vt-v{display:block;font-size:13.5px;font-weight:700;color:var(--ink);margin-top:3px;line-height:1.25}
+.vtile .vt-s{display:block;font-size:11px;color:var(--muted);margin-top:1px}
+.vtile.ok .vt-v{color:var(--inc)} .vtile.warn .vt-v{color:var(--urg)} .vtile.cob .vt-v{color:var(--cob)}
+.vtile.lat .vt-v{color:var(--lat)} .vtile.val .vt-v{color:var(--accent-ink)}
+/* ---------- paleta de comandos ---------- */
+#palette{position:fixed;inset:0;z-index:1150;background:rgba(10,18,24,.5);display:none;
+  align-items:flex-start;justify-content:center;padding:12vh 18px 18px}
+#palette.on{display:flex}
+.palbox{width:100%;max-width:640px;background:var(--surface);border:1px solid var(--line-2);
+  border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.35);overflow:hidden;display:flex;flex-direction:column;max-height:70vh}
+.palbox input{width:100%;padding:15px 18px;border:none;border-bottom:1px solid var(--line);
+  background:none;color:var(--ink);font:inherit;font-size:16px;outline:none}
+.palist{overflow-y:auto;padding:6px}
+.palrow{display:flex;align-items:center;gap:11px;padding:9px 12px;border-radius:9px;cursor:pointer}
+.palrow.sel{background:var(--accent-soft)}
+.palrow .pc{font-family:var(--font-mono);font-weight:700;font-size:12.5px;color:var(--accent-ink);flex-shrink:0;min-width:64px}
+.palrow .pn{font-size:13.5px;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.palrow .pt{font-size:10.5px;font-weight:700;color:var(--muted);flex-shrink:0}
+.palfoot{padding:8px 14px;border-top:1px solid var(--line);font-size:11.5px;color:var(--faint);display:flex;gap:14px;flex-wrap:wrap}
+/* ---------- comparador ---------- */
+.cmp-tray{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:70;display:none;
+  align-items:center;gap:10px;background:var(--surface);border:1.5px solid var(--accent);border-radius:999px;
+  padding:8px 10px 8px 16px;box-shadow:var(--shadow);font-size:13px}
+.cmp-tray.on{display:flex}
+.cmp-tray b{color:var(--accent-ink)}
+.cmp-grid{display:grid;grid-template-columns:118px 1fr 1fr;gap:0;font-size:13px}
+.cmp-grid>div{padding:9px 11px;border-top:1px solid var(--line);min-width:0;overflow-wrap:anywhere}
+.cmp-grid .ch{font-weight:800;font-size:10.5px;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);background:var(--surface-2)}
+.cmp-grid .cd{color:var(--ink-2)}
+.cmp-grid .dif{background:color-mix(in srgb,var(--urg) 9%,transparent)}
+@media (max-width:620px){.cmp-grid{grid-template-columns:92px 1fr 1fr;font-size:12px}}
+
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 <style id="auth-css">
@@ -660,6 +741,7 @@ mark.hl{background:var(--accent-soft);color:var(--accent-ink);border-radius:3px;
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 7V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2M9 20h6M12 4v16M7 11l2 2 2-2M13 11l2 2 2-2"/></svg>
       <span><b>Único</b><small>VISITAR · equivalencias</small></span></button>
   </div>
+  <div class="modesel"><select id="modeSel" aria-label="Nomenclador"></select></div>
   <div class="consultarow" role="tablist" aria-label="Consulta rápida">
     <div class="consulta-head">
       <span class="consultalbl">Consulta rápida</span>
@@ -723,6 +805,8 @@ mark.hl{background:var(--accent-soft);color:var(--accent-ink);border-radius:3px;
 </div>
 
 <div class="scrim" id="scrim"></div>
+<div id="palette"><div class="palbox"><input id="palQ" type="text" autocomplete="off" spellcheck="false" placeholder="Código, práctica, diagnóstico o sigla…"><div class="palist" id="palList"></div><div class="palfoot"><span><span class="kbd">↑</span><span class="kbd">↓</span> moverse</span><span><span class="kbd">Enter</span> abrir</span><span><span class="kbd">Esc</span> cerrar</span></div></div></div>
+<div class="cmp-tray" id="cmpTray"></div>
 <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Detalle del código"></div>
 
 <div class="modal" id="modal">
@@ -995,8 +1079,35 @@ function applyMode(){
   // limpiar chips de sección/grupo que no correspondan al modo
   document.querySelectorAll('#fSeccion .opt.on').forEach(o=>{if(state.mode!=='NBU'){state.seccion.delete(o.dataset.v);o.classList.remove('on');}});
   buildGroups();
+  document.dispatchEvent(new CustomEvent('nbu:modo'));
+  if(typeof medirCabecera==='function')medirCabecera();
 }
 document.querySelectorAll('.modebtn,.cbtn').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
+
+/* ---------- cabecera: se comprime al scrollear y libera pantalla ---------- */
+const _hdr=document.querySelector('header');
+function medirCabecera(){document.documentElement.style.setProperty('--hh',_hdr.offsetHeight+'px');}
+let _tick=false;
+function alScrollear(){
+  if(_tick)return; _tick=true;
+  requestAnimationFrame(()=>{
+    _hdr.classList.toggle('compact',window.scrollY>90);
+    medirCabecera(); _tick=false;
+  });
+}
+addEventListener('scroll',alScrollear,{passive:true});
+addEventListener('resize',()=>{medirCabecera();},{passive:true});
+medirCabecera();
+
+/* En celular las tarjetas de nomenclador pasan a un selector. */
+(function(){
+  const sel=el('modeSel'); if(!sel)return;
+  const opts=[...document.querySelectorAll('.modebtn')].map(b=>({m:b.dataset.mode,t:b.querySelector('b').textContent}));
+  sel.innerHTML=opts.map(o=>`<option value="${o.m}">${esc(o.t)}</option>`).join('');
+  sel.value=state.mode;
+  sel.addEventListener('change',()=>setMode(sel.value));
+  document.addEventListener('nbu:modo',()=>{sel.value=state.mode;});
+})();
 
 el('clearFilters').addEventListener('click',()=>{
   state.seccion.clear();state.grupo.clear();state.flags.clear();state.q='';el('q').value='';
@@ -1593,10 +1704,11 @@ function renderFacturacion(){
     return `<div class="vtrow${redundant.has(k)?' dim':''}"><span class="vc" data-code="${k}">${r.code}</span><span class="vnm">${esc(r.nombre)}</span>${q}<span class="vub">${ub}</span>${st}</div>`;
   }).join('')+unknown.map(u=>`<div class="vtrow dim"><span class="vc">${esc(u)}</span><span class="vnm" style="color:var(--exc)">No encontrado</span><span class="vqty">—</span><span class="vub">—</span><span class="vstatus st-inc">rechazo</span></div>`).join('');
   el('vresults').innerHTML=summary+
-    `<div class="exportbtns" style="margin-top:14px;justify-content:flex-end"><button class="xbtn" id="vExpCsv">⬇ CSV</button><button class="xbtn" id="vPrint">🖨 PDF</button></div>`+
+    `<div class="exportbtns" style="margin-top:14px;justify-content:flex-end"><button class="xbtn" id="vCopy">⧉ Copiar informe</button><button class="xbtn" id="vExpCsv">⬇ CSV</button><button class="xbtn" id="vPrint">🖨 PDF</button></div>`+
     `<div class="sec" style="margin-top:12px"><div class="slabel" style="${SL};margin-bottom:9px">Hallazgos</div><div class="findings">`+
     findings.map(f=>`<div class="finding ${f.sev}"><div class="ficon">${ICON[f.sev]}</div><div class="fbody">${f.msg}</div></div>`).join('')+`</div></div>`+
     `<div class="sec" style="margin-top:16px"><div class="slabel" style="${SL};margin-bottom:9px">Detalle por código (${uniq.length})</div><div class="vtable">${rows}</div></div>`;
+  el('vCopy').addEventListener('click',e=>copiarInforme(e.currentTarget));
   el('vExpCsv').addEventListener('click',exportValidatorCSV);
   el('vPrint').addEventListener('click',()=>{el('printHead').innerHTML=`<h2>VISITAR — Auditoría de facturación</h2><p>${new Date().toLocaleDateString('es-AR')} · ${uniq.length} códigos${ubVal>0?' · U.B. $'+ubVal:''}</p>`;window.print();});
 }
@@ -1626,7 +1738,7 @@ function renderAutorizacion(){
     else if(r.tope_pmo)txt='Autorización previa · tope PMO: '+esc(r.tope_pmo);
     return `<div class="vtrow"><span class="sem sem-r"></span><span class="vc" data-code="${k}">${r.code}</span><span class="vnm">${nomBadge(k)} ${esc(r.nombre)}</span><span class="vnm2">${txt}</span></div>`;};
   const semTable=uniq.map(rowFor).join('')+unknown.map(u=>`<div class="vtrow dim"><span class="sem sem-r"></span><span class="vc">${esc(u)}</span><span class="vnm" style="color:var(--exc)">No encontrado</span><span class="vnm2">verificar código</span></div>`).join('');
-  let html=summary+`<div class="exportbtns" style="margin-top:14px;justify-content:flex-end"><button class="xbtn" id="vExpCsv">⬇ CSV</button><button class="xbtn" id="vPrint">🖨 PDF</button></div>`;
+  let html=summary+`<div class="exportbtns" style="margin-top:14px;justify-content:flex-end"><button class="xbtn" id="vCopy">⧉ Copiar informe</button><button class="xbtn" id="vExpCsv">⬇ CSV</button><button class="xbtn" id="vPrint">🖨 PDF</button></div>`;
   html+=`<div class="finding advertencia" style="margin-top:12px"><div class="ficon">!</div><div class="fbody">Todas las prácticas del caso se consideran <b>con autorización previa</b>. El detalle de cada una aporta la patología SURGE, la cobertura obligatoria PMO o la norma cuando corresponde.</div></div>`;
   html+=`<div class="sec" style="margin-top:12px"><div class="slabel" style="${SL};margin-bottom:9px">Prácticas del caso — autorización previa</div><div class="vtable sem-table">${semTable}</div></div>`;
   if(docs.length){
@@ -1662,8 +1774,59 @@ function renderAutorizacion(){
   }
   el('vresults').innerHTML=html;
   el('vresults').querySelectorAll('[data-ley]').forEach(b=>b.addEventListener('click',()=>openInfo(b.dataset.ley)));
+  el('vCopy').addEventListener('click',e=>copiarInforme(e.currentTarget));
   el('vExpCsv').addEventListener('click',exportAuthCSV);
   el('vPrint').addEventListener('click',()=>{el('printHead').innerHTML=`<h2>VISITAR — Auditoría de autorización</h2><p>${new Date().toLocaleDateString('es-AR')} · ${uniq.length} prácticas · todas con autorización previa</p>`;window.print();});
+}
+/* El registro de casos lo llevan en otro sistema: este informe sale en texto plano
+   para pegarlo ahí sin pasar por un archivo. */
+function informeTexto(){
+  if(!caseData)return '';
+  const {uniq,qty,unknown}=caseData;
+  const L=[];
+  const fecha=new Date().toLocaleDateString('es-AR');
+  const auth=state.vmode==='autorizacion';
+  L.push(`VISITAR — ${auth?'Auditoría de autorización':'Auditoría de facturación'} — ${fecha}`);
+  L.push('');
+  L.push('PRÁCTICAS DEL CASO');
+  uniq.forEach(k=>{const r=BYCODE[k];const n=qty[k]>1?` x${qty[k]}`:'';
+    const u=getUB(r);L.push(`  ${r.code}${n}  ${r.nombre}${(!auth&&u!=null)?`  (${u} U.B.)`:''}`);});
+  unknown.forEach(u=>L.push(`  ${u}  *** no existe en el nomenclador ***`));
+  const cobs=uniq.filter(k=>BYCODE[k].cobertura_pmo);
+  if(cobs.length){
+    L.push(''); L.push('OBLIGACIÓN DE COBERTURA');
+    cobs.forEach(k=>{const r=BYCODE[k];
+      L.push(`  ${r.code} ${r.nombre}`);
+      L.push(`    ${(r.cobertura_pmo||'').replace(/\s+/g,' ')}`);
+      if(r.tope_pmo)L.push(`    Tope: ${r.tope_pmo}`);});
+  }
+  const lats=uniq.filter(k=>BYCODE[k].lateralidad);
+  if(lats.length){
+    L.push(''); L.push('LATERALIDAD');
+    lats.forEach(k=>{const r=BYCODE[k];
+      L.push(`  ${r.code} ${r.lateralidad}${r.lateralidad==='Bilateral'?' — se carga por cantidad 1 (ambos ojos)':''}`);});
+  }
+  if(auth){
+    const docs=[],vis=new Set();
+    uniq.forEach(k=>{const r=BYCODE[k];if(r.surge&&r.surge.requerimiento)r.surge.requerimiento.forEach(d=>{
+      const kk=norm(d);if(kk&&!vis.has(kk)){vis.add(kk);docs.push(d);}});});
+    L.push(''); L.push('TODAS LAS PRÁCTICAS SE TOMAN COMO AUTORIZACIÓN PREVIA');
+    if(docs.length){L.push(''); L.push('DOCUMENTACIÓN A SOLICITAR AL AFILIADO');
+      docs.forEach(d=>L.push(`  [ ] ${d}`));}
+  }else{
+    const nodos=[...el('vresults').querySelectorAll('.finding .fbody')];
+    if(nodos.length){L.push(''); L.push('HALLAZGOS');
+      nodos.forEach(n=>L.push('  - '+n.textContent.replace(/\s+/g,' ').trim()));}
+  }
+  L.push(''); L.push('Generado con el Manual Inteligente NBU. Verificar contra la normativa vigente.');
+  return L.join('\n');
+}
+function copiarInforme(btn){
+  const t=informeTexto(); if(!t)return;
+  const ok=()=>{const o=btn.textContent;btn.textContent='Copiado ✓';setTimeout(()=>{btn.textContent=o;},1500);};
+  try{navigator.clipboard.writeText(t).then(ok,()=>fallback());}catch(e){fallback();}
+  function fallback(){const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);
+    ta.select();try{document.execCommand('copy');ok();}catch(e){toast('No se pudo copiar',true);}ta.remove();}
 }
 function exportValidatorCSV(){
   if(!lastVal||lastVal.mode==='auth')return;
@@ -1693,6 +1856,58 @@ function codechip(code,cls){
   return `<button class="codechip ${cls}" data-goto="${code}">${label}<small>${name}</small></button>`;
 }
 let currentCode=null;
+/* ---------- franja de veredicto ----------
+   La ficha son 1,6 a 2,6 pantallas de scroll con todas las secciones al mismo peso.
+   Acá arriba quedan resueltas las cuatro preguntas con las que se abre una ficha, y
+   cada casilla lleva a su sección para el detalle. */
+function veredictoHTML(c){
+  const t=[];
+  // 1. cobertura
+  if(c.cobertura_pmo){
+    const obs=c.cobertura_tipo==='observacion';
+    t.push(`<button class="vtile ${obs?'warn':'cob'}" data-ir="cobertura"><span class="vt-l">Cobertura</span>
+      <span class="vt-v">${obs?'Con reparos':'Obligatoria'}</span><span class="vt-s">${obs?'ver cuándo corresponde':'ver en qué casos'}</span></button>`);
+  }else if(c.tope_pmo){
+    t.push(`<button class="vtile warn" data-ir="cobertura"><span class="vt-l">Cobertura</span>
+      <span class="vt-v">Con tope</span><span class="vt-s">ver límite</span></button>`);
+  }else{
+    t.push(`<span class="vtile" style="cursor:default"><span class="vt-l">Cobertura</span>
+      <span class="vt-v" style="color:var(--faint)">Sin dato</span><span class="vt-s">no cargada en la fuente</span></span>`);
+  }
+  // 2. valor
+  const ub=getUB(c), ar=aranStr(ub);
+  let vv,vs;
+  if(c.valores){const tt=c.valores.tipo==='odontologia'?c.valores.valor_practica_2002:c.valores.total_2002;
+    vv=tt!=null?fmtMoney(tt):'—'; vs='referencia 2002';}
+  else if(ub!=null){vv=ar||(ub+' U.B.'); vs=ar?`${ub} U.B.`:'cargá el valor de U.B.';}
+  else {vv='Sin valor'; vs=c.nomenclador==='PMO'?'cobertura obligatoria':'por presupuesto';}
+  t.push(`<button class="vtile val" data-ir="valor"><span class="vt-l">Valor</span>
+    <span class="vt-v">${esc(String(vv))}</span><span class="vt-s">${esc(vs)}</span></button>`);
+  // 3. autorización — todas las prácticas se toman como autorización previa
+  const nreq=(c.surge&&c.surge.requerimiento)?c.surge.requerimiento.length:0;
+  t.push(`<button class="vtile warn" data-ir="${c.surge?'surge':'auditoria'}"><span class="vt-l">Autorización</span>
+    <span class="vt-v">Previa</span><span class="vt-s">${nreq?nreq+' requisito'+(nreq!==1?'s':'')+' SURGE':(c.flags.requiere_norma?'requiere norma':'sin requisitos cargados')}</span></button>`);
+  // 4. lateralidad / cantidad
+  if(c.lateralidad){
+    const bil=c.lateralidad==='Bilateral';
+    t.push(`<button class="vtile lat" data-ir="lateralidad"><span class="vt-l">Cantidad</span>
+      <span class="vt-v">${bil?'1 (bilateral)':(c.lateralidad==='Unilateral'?'Por ojo':'Uni o bilateral')}</span>
+      <span class="vt-s">${esc(c.lateralidad)}</span></button>`);
+  }else if(c.seriado){
+    t.push(`<button class="vtile" data-ir="frecuencia"><span class="vt-l">Cantidad</span>
+      <span class="vt-v">Seriado</span><span class="vt-s">máx. ×${c.seriado.max}</span></button>`);
+  }
+  return `<div class="veredicto">${t.join('')}</div>`;
+}
+function irASeccion(dr,clave){
+  const mapa={cobertura:/Obligación de cobertura|Cuándo corresponde|Cobertura obligatoria/i,
+              valor:/Valorización/i, surge:/Sistema Único de Reintegro/i,
+              auditoria:/Normas de auditoría|Norma e interpretación/i,
+              lateralidad:/Lateralidad/i, frecuencia:/Frecuencia/i};
+  const re=mapa[clave]; if(!re)return;
+  const sec=[...dr.querySelectorAll('.sec')].find(x=>{const l=x.querySelector('.slabel');return l&&re.test(l.textContent);});
+  if(sec)sec.scrollIntoView({behavior:'smooth',block:'start'});
+}
 function openCode(code){
   const c=BYCODE[code];
   if(!c)return;
@@ -1731,8 +1946,10 @@ function openCode(code){
       <div class="dactions">
         ${c.nomenclador==='NBU'?`<button class="minibtn" id="dAddVal">➕ Al validador</button>`:''}
         <button class="minibtn" id="dCopy">⧉ Copiar código</button>
+        <button class="minibtn" id="dCmp">⇄ Comparar</button>
       </div>
       ${(window.NBUProfile&&NBUProfile.canEdit())?`<div class="dedit"><button class="minibtn" id="editFichaBtn">✎ Editar ficha</button></div>`:''}
+      ${veredictoHTML(c)}
       ${(window.NBUProfile&&NBUProfile.active())?`<div class="dnote"><textarea id="dNote" placeholder="Tu nota personal para este código (privada de tu perfil)…">${esc(note)}</textarea></div>`:''}
     </div>`;
 
@@ -1969,8 +2186,10 @@ function openCode(code){
   d.querySelectorAll('[data-cie2]').forEach(b=>b.addEventListener('click',()=>{setMode('CIE');openCie(b.dataset.cie2);}));
   d.querySelectorAll('[data-surge2]').forEach(b=>b.addEventListener('click',()=>{setMode('SURGE');openSurge(b.dataset.surge2);}));
   d.querySelectorAll('[data-ley]').forEach(b=>b.addEventListener('click',()=>{closeDrawer();openInfo(b.dataset.ley);}));
+  d.querySelectorAll('[data-ir]').forEach(b=>b.addEventListener('click',()=>irASeccion(d,b.dataset.ir)));
   const ef=el('editFichaBtn');if(ef)ef.addEventListener('click',()=>window.NBUProfile&&NBUProfile.editFicha(code));
   const av=el('dAddVal');if(av)av.addEventListener('click',()=>addToValidator(c.code));
+  const cm=el('dCmp');if(cm)cm.addEventListener('click',()=>{cmpToggle(code);toast(cmp.length===1?'Elegí el segundo código para comparar':'Comparando');});
   const cp=el('dCopy');if(cp)cp.addEventListener('click',()=>{const t=c.code;try{navigator.clipboard&&navigator.clipboard.writeText(t);}catch(e){}cp.textContent='Copiado ✓';setTimeout(()=>{cp.textContent='⧉ Copiar código';},1400);});
   const nt=el('dNote');if(nt)nt.addEventListener('input',()=>{if(window.NBUProfile&&NBUProfile.setNote)NBUProfile.setNote(code,nt.value);});
 }
@@ -2003,6 +2222,117 @@ document.addEventListener('keydown',e=>{
   else if(e.key==='ArrowUp'){e.preventDefault();kbSet(Math.max(kbIdx-1,0));}
   else if(e.key==='Enter'&&kbIdx>=0){const r=kbRows()[kbIdx];if(r){e.preventDefault();if(r.dataset.cie)openCie(r.dataset.cie);else if(r.dataset.abr)openAbr(r.dataset.abr);else if(r.dataset.surge)openSurge(r.dataset.surge);else openCode(r.dataset.code);}}
 });
+
+/* ============================================================
+   Paleta de comandos (Ctrl/⌘+K)
+   Para quien consulta decenas de códigos por hora: escribís, Enter, se abre la ficha.
+   Sin pasar por el listado ni tocar el mouse. Vacía muestra lo último consultado.
+   ============================================================ */
+let palIdx=0, palRes=[];
+function palAbrir(){
+  el('palette').classList.add('on');
+  const i=el('palQ'); i.value=''; palRender(''); setTimeout(()=>i.focus(),30);
+}
+function palCerrar(){el('palette').classList.remove('on');}
+function palRender(q){
+  const terms=norm(q).split(/\s+/).filter(Boolean);
+  if(!terms.length){
+    const rec=(window.NBUProfile&&NBUProfile.recent)?NBUProfile.recent():[];
+    palRes=rec.map(k=>BYCODE[k]).filter(c=>c&&!ocultoNom(c.nomenclador)).slice(0,8)
+              .map(c=>({k:c._key,c:c.code,n:c.nombre,t:c.nomenclador}));
+  }else{
+    const codes=buscar(CODES,terms,c=>!ocultoNom(c.nomenclador)).slice(0,7)
+                 .map(c=>({k:c._key,c:c.code,n:c.nombre,t:c.nomenclador}));
+    const dx=buscar(CIE_LIST,terms).slice(0,3).map(d=>({cie:d.code,c:d.code,n:d.desc,t:'CIE-10'}));
+    const ab=buscar(ABREV_UNIQ,terms).slice(0,2).map(a=>({abr:a.abrev,c:a.abrev,n:a.sigs[0],t:'sigla'}));
+    palRes=[...codes,...dx,...ab];
+  }
+  palIdx=0;
+  const L=el('palList');
+  L.innerHTML=palRes.length?palRes.map((r,i)=>
+    `<div class="palrow${i===0?' sel':''}" data-i="${i}"><span class="pc">${esc(r.c)}</span>
+     <span class="pn">${esc(r.n||'')}</span><span class="pt">${esc(r.t)}</span></div>`).join('')
+    :`<div class="palrow" style="cursor:default;color:var(--muted)">${q?'Sin resultados':'Todavía no consultaste ninguna ficha'}</div>`;
+  L.querySelectorAll('.palrow[data-i]').forEach(r=>r.addEventListener('click',()=>palAbrirItem(+r.dataset.i)));
+}
+function palMover(d){
+  if(!palRes.length)return;
+  palIdx=(palIdx+d+palRes.length)%palRes.length;
+  const L=el('palList');
+  L.querySelectorAll('.palrow').forEach((r,i)=>r.classList.toggle('sel',i===palIdx));
+  const sel=L.querySelector('.palrow.sel'); if(sel)sel.scrollIntoView({block:'nearest'});
+}
+function palAbrirItem(i){
+  const r=palRes[i]; if(!r)return;
+  palCerrar();
+  if(r.cie){setMode('CIE');render();openCie(r.cie);}
+  else if(r.abr){setMode('ABR');render();openAbr(r.abr);}
+  else{const c=BYCODE[r.k]; if(c){setMode(c.nomenclador);render();openCode(r.k);}}
+}
+el('palQ').addEventListener('input',e=>palRender(e.target.value));
+el('palQ').addEventListener('keydown',e=>{
+  if(e.key==='ArrowDown'){e.preventDefault();palMover(1);}
+  else if(e.key==='ArrowUp'){e.preventDefault();palMover(-1);}
+  else if(e.key==='Enter'){e.preventDefault();palAbrirItem(palIdx);}
+  else if(e.key==='Escape'){e.preventDefault();palCerrar();}
+});
+el('palette').addEventListener('click',e=>{if(e.target===el('palette'))palCerrar();});
+document.addEventListener('keydown',e=>{
+  if((e.ctrlKey||e.metaKey)&&(e.key==='k'||e.key==='K')){e.preventDefault();
+    el('palette').classList.contains('on')?palCerrar():palAbrir();}
+});
+
+/* ============================================================
+   Comparador de dos códigos
+   Sirve justo cuando estás resolviendo una equivalencia dudosa.
+   ============================================================ */
+let cmp=[];
+function cmpToggle(key){
+  const i=cmp.indexOf(key);
+  if(i>=0)cmp.splice(i,1); else {cmp.push(key); if(cmp.length>2)cmp.shift();}
+  cmpTray();
+  if(cmp.length===2)cmpVer();
+}
+function cmpTray(){
+  const t=el('cmpTray');
+  if(!cmp.length){t.classList.remove('on');t.innerHTML='';return;}
+  t.classList.add('on');
+  t.innerHTML=`<span>Comparar: <b>${cmp.map(k=>esc(BYCODE[k].code)).join(' · ')}</b></span>`+
+    (cmp.length===2?`<button class="minibtn" id="cmpGo">Ver comparación</button>`:`<span style="color:var(--muted)">elegí otro código</span>`)+
+    `<button class="minibtn danger" id="cmpX">✕</button>`;
+  if(el('cmpGo'))el('cmpGo').addEventListener('click',cmpVer);
+  el('cmpX').addEventListener('click',()=>{cmp=[];cmpTray();});
+}
+function cmpVer(){
+  if(cmp.length!==2)return;
+  const [a,b]=cmp.map(k=>BYCODE[k]);
+  const ubTxt=c=>{const u=getUB(c);return u!=null?(aranStr(u)?`${u} U.B. · ${aranStr(u)}`:`${u} U.B.`):'—';};
+  const rel=c=>{const r=c.relaciones||{};const n=(r.incluye||[]).length+(r.no_incluye||[]).length+(r.incluido_en||[]).length;return n?`${n} vínculo${n!==1?'s':''}`:'—';};
+  const eq=c=>{const e=c.equivalencia;return e?(e.code+(e.recalculada?' (reconstruida)':'')):(c.sin_equivalencia?'sin equivalencia':'—');};
+  const filas=[
+    ['Denominación',a.nombre,b.nombre],
+    ['Nomenclador',a.nomenclador_full||a.nomenclador,b.nomenclador_full||b.nomenclador],
+    ['Grupo',a.grupo||'—',b.grupo||'—'],
+    ['Valor',ubTxt(a),ubTxt(b)],
+    ['Cobertura',a.cobertura_pmo?(a.cobertura_tipo==='observacion'?'Con reparos':'Obligatoria'):'—',
+                 b.cobertura_pmo?(b.cobertura_tipo==='observacion'?'Con reparos':'Obligatoria'):'—'],
+    ['Lateralidad',a.lateralidad||'—',b.lateralidad||'—'],
+    ['Equivalencia',eq(a),eq(b)],
+    ['Relaciones',rel(a),rel(b)],
+    ['Urgencia / norma',[a.flags.urgencia?'U':'',a.flags.requiere_norma?'N':''].filter(Boolean).join(' ')||'—',
+                        [b.flags.urgencia?'U':'',b.flags.requiere_norma?'N':''].filter(Boolean).join(' ')||'—'],
+  ];
+  el('modalBox').innerHTML=`
+    <button class="icon-btn close-x" id="closeModal" aria-label="Cerrar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <h3>Comparar códigos</h3><div class="sub">Las diferencias quedan resaltadas.</div>
+    <div class="cmp-grid">
+      <div class="ch"></div><div class="ch" style="color:var(--accent-ink)">${esc(a.code)}</div><div class="ch" style="color:var(--accent-ink)">${esc(b.code)}</div>
+      ${filas.map(([l,x,y])=>{const d=norm(String(x))!==norm(String(y));
+        return `<div class="ch">${esc(l)}</div><div class="cd${d?' dif':''}">${esc(String(x))}</div><div class="cd${d?' dif':''}">${esc(String(y))}</div>`;}).join('')}
+    </div>`;
+  el('modal').classList.add('on');
+  el('closeModal').addEventListener('click',()=>el('modal').classList.remove('on'));
+}
 
 /* ---------- info modal ---------- */
 function openInfo(expandLey){
