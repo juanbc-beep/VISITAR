@@ -1,61 +1,73 @@
 [
  {
   "unico": "10310110",
-  "nombre": "Timpanometría (incluída en impedanciometría) SC",
+  "nombre": "Timpanometría",
+  "observacion": "incluída en impedanciometría",
+  "marcador": "SC",
   "pm": "310144",
   "pm_desc": "TIMPANOMETRIA"
  },
  {
   "unico": "10310109",
-  "nombre": "Acufenometría (NO PMO SC)",
+  "nombre": "Acufenometría",
+  "marcador": "NO PMO SC",
   "pm": "310126",
   "pm_desc": "ACUFONOMETRIA"
  },
  {
   "unico": "10300210",
-  "nombre": "Test de Lotmar (NO PMO SC)",
+  "nombre": "Test de Lotmar",
+  "marcador": "NO PMO SC",
   "pm": "300128",
   "pm_desc": "TEST DE LOTMAR"
  },
  {
   "unico": "10300211",
-  "nombre": "Ultrabiomicroscopía UBM (NO PMO SC)",
+  "nombre": "Ultrabiomicroscopía UBM",
+  "marcador": "NO PMO SC",
   "pm": "180204",
   "pm_desc": "ECOGRAFIA OFTALMOLOGICA"
  },
  {
   "unico": "10300212",
-  "nombre": "Test de But (NO PMO SC)",
+  "nombre": "Test de But",
+  "marcador": "NO PMO SC",
   "pm": "300148",
   "pm_desc": "EXAMEN DE OJO SECO"
  },
  {
   "unico": "10342018",
-  "nombre": "Espectroscopía en resonancia (NO PMO)",
+  "nombre": "Espectroscopía en resonancia",
+  "marcador": "NO PMO",
   "pm": "260656",
   "pm_desc": "ESPECTROSCOPIA"
  },
  {
   "unico": "10360112",
-  "nombre": "Uroflujometría (incluidada en estudio urodinamico completo) SC",
+  "nombre": "Uroflujometría",
+  "observacion": "incluidada en estudio urodinamico completo",
+  "marcador": "SC",
   "pm": "360113",
   "pm_desc": "UROFLUJOMETRIA O URODINAMIA SIMPLE"
  },
  {
   "unico": "10300123",
-  "nombre": "ESTUDIO DE OJO SECO CON MEIBOGRAFÍA / EVALUACIÓN NO INVASIVA DE GLÁNDULAS DE MEIBOMIO (NO PMO)",
+  "nombre": "ESTUDIO DE OJO SECO CON MEIBOGRAFÍA / EVALUACIÓN NO INVASIVA DE GLÁNDULAS DE MEIBOMIO",
+  "marcador": "NO PMO",
   "pm": "300148",
   "pm_desc": "EXAMEN DE OJO SECO"
  },
  {
   "unico": "64665230",
-  "nombre": "ADN FETAL LIBRE EN SANGRE MATERNA (NO PMO BF NC)",
+  "nombre": "ADN FETAL LIBRE EN SANGRE MATERNA",
+  "marcador": "NO PMO BF NC",
   "pm": "",
   "pm_desc": ""
  },
  {
   "unico": "10300121",
   "nombre": "TEST DE MIRADA PREFERENCIAL / TMP PARA EVALUACIÓN DE AGUDEZA VISUAL EN PACIENTE PREVERBAL O NO COLAB",
+  "truncado": true,
   "pm": "",
   "pm_desc": ""
  }

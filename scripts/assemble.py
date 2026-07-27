@@ -567,11 +567,20 @@ for r in UNICO:
     else:
         sin_equiv += 1
         audit = "Sin equivalencia hallada en Prestaciones Médicas — pendiente de mapeo manual."
+    # Igual que en la parte de laboratorio: la planilla pega al nombre de la
+    # práctica encabezados de observación / cobertura. El parser ya los separó.
+    med_extra = {}
+    if r.get("unico_obs"):
+        med_extra["observacion_unico"] = r["unico_obs"]
+    if r.get("marcador"):
+        med_extra["marcador_unico"] = r["marcador"]
+    if r.get("truncado"):
+        med_extra["texto_truncado"] = True
     records["U" + code] = {
         "code": code, "nomenclador": "UNICO", "unico_tipo": "med",
         "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — prestaciones médicas · en elaboración",
         "seccion": "UNICO", "seccion_label": "Único — " + cap,
-        "grupo": cap, "nombre": r["unico_desc"] or code,
+        "grupo": cap, "nombre": r["unico_desc"] or code, **med_extra,
         "sinonimos": [], "abreviaturas": [],
         "valor": {"ub": None, "unidad": "—",
                   "arancel": "Nomenclador ÚNICO en elaboración (sin valorización cargada)."},
@@ -627,11 +636,18 @@ for r in UNICO_MED_EXTRA:
         cap = classify(r["nombre"], [])
         audit = ["Sin equivalencia en Prestaciones Médicas — pendiente de mapeo manual."]
         extra_sin += 1
+    extra_extra = {}
+    if r.get("observacion"):
+        extra_extra["observacion_unico"] = r["observacion"]
+    if r.get("marcador"):
+        extra_extra["marcador_unico"] = r["marcador"]
+    if r.get("truncado"):
+        extra_extra["texto_truncado"] = True
     records[ukey] = {
         "code": code, "nomenclador": "UNICO", "unico_tipo": "med",
         "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — prestación agregada",
         "seccion": "UNICO", "seccion_label": "Único — " + cap,
-        "grupo": cap, "nombre": r["nombre"] or code,
+        "grupo": cap, "nombre": r["nombre"] or code, **extra_extra,
         "sinonimos": [], "abreviaturas": [],
         "valor": {"ub": None, "unidad": "—",
                   "arancel": "Nomenclador ÚNICO en elaboración (sin valorización cargada)."},
@@ -676,11 +692,22 @@ for r in UNICO_LAB:
         "desc": records[nbu]["nombre"] if nbu_key else "",
         "score": None,
     }
+    # La planilla del Único mezcla en la misma celda el nombre de la práctica, un
+    # marcador de clasificación —(PMO AA), (NO PMO BF NC)…— y a veces una
+    # observación. El parser ya los separó: acá se guardan en campos propios para
+    # que el título de la ficha sea sólo el nombre de la práctica.
+    lab_extra = {}
+    if r.get("marcador"):
+        lab_extra["marcador_unico"] = r["marcador"]
+    if r.get("observacion"):
+        lab_extra["observacion_unico"] = r["observacion"]
+    if r.get("truncado"):
+        lab_extra["texto_truncado"] = True
     records[ukey] = {
         "code": code, "nomenclador": "UNICO", "unico_tipo": "lab",
         "nomenclador_full": "Nomenclador ÚNICO (VISITAR SRL) — laboratorio (equivalente al NBU)",
         "seccion": "UNICO", "seccion_label": "Único — Laboratorio · " + grupo,
-        "grupo": grupo, "nombre": r["nombre"],
+        "grupo": grupo, "nombre": r["nombre"], **lab_extra,
         "sinonimos": [], "abreviaturas": [],
         "valor": {"ub": ub, "unidad": "U.B. (Unidad Bioquímica)",
                   "arancel": "Arancel = U.B. × valor monetario de la Unidad Bioquímica (según convenio)."},
@@ -1106,6 +1133,21 @@ db = {
     "surge": SURGE,
     "codigos": records,
 }
+
+# ---------- guarda final: ninguna ficha sin denominación ----------
+# Alguna prestación llega con el título destruido en la fuente (p. ej. 130303, que
+# el OCR del PDF dejó ilegible). No se inventa una denominación: se marca la ficha
+# como sin denominación en origen para que se vea el faltante y pueda corregirse
+# desde el panel de administración.
+_sin_denom = 0
+for _k, _r in records.items():
+    if not (_r.get("nombre") or "").strip():
+        _r["nombre"] = f"[{_r['code']}] — sin denominación en la fuente"
+        _r["sin_denominacion"] = True
+        _sin_denom += 1
+if _sin_denom:
+    print(f"fichas sin denominación en la fuente: {_sin_denom}", file=sys.stderr)
+
 json.dump(db, open("nbu_db.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 print(f"CIE-10: {len(CIE10.get('codigos', {}))} diagnósticos · {len(CIE10.get('relaciones', {}))} con prácticas relacionadas", file=sys.stderr)
 

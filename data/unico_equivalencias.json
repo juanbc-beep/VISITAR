@@ -46,14 +46,16 @@
   "unico_desc": "Ventriculocisternostomías (apertura de las láminas terminales, ventrículocisterna magna y otras simi",
   "eq": "010201",
   "eq_desc": "Ventriculocisternostomías (apertura de l",
-  "score": 0.8832
+  "score": 0.8832,
+  "truncado": true
  },
  {
   "unico": "010202",
   "unico_desc": "Derivación ventrículoaurícula derecha -ventrículoatriostomia-. Derivación ventrículo peritoneal o si",
   "eq": "010202",
   "eq_desc": "",
-  "score": 0.8782
+  "score": 0.8782,
+  "truncado": true
  },
  {
   "unico": "010203",
@@ -81,35 +83,40 @@
   "unico_desc": "Tratamiento quirúrgico de los aneurismas y malformaciones arteriovenosas intracraneales ( aneurismas",
   "eq": "010206",
   "eq_desc": "Tratamiento quirúrgico de los aneurismas y malformaciones arteriovenosas",
-  "score": 0.9415
+  "score": 0.9415,
+  "truncado": true
  },
  {
   "unico": "010207",
-  "unico_desc": "Evacuación por punción, de colección intercerebral, epidural, subdural y/o subaracnoidea ( hematoma,",
+  "unico_desc": "Evacuación por punción, de colección intercerebral, epidural, subdural y/o subaracnoidea ( hematoma",
   "eq": "010207",
   "eq_desc": "evacuación por punción de colección intercerebral, epidural, subdural y/o subaracnoidea",
-  "score": 0.9295
+  "score": 0.9295,
+  "truncado": true
  },
  {
   "unico": "010208",
   "unico_desc": "Craneotomía exploradora, con o sin biopsia, evacuación de colección intracerebral, epídural,subdural",
   "eq": "010208",
   "eq_desc": "Craneotomía exploradora, con o sin biopsia",
-  "score": 0.9361
+  "score": 0.9361,
+  "truncado": true
  },
  {
   "unico": "010209",
   "unico_desc": "Reparación plástica de senos craneales y/o meninges. Rinolicuorrea, otolicuorrea, neumucefalia, Físt",
   "eq": "010209",
   "eq_desc": "Reparación plástica de senos craneales y/o meninges",
-  "score": 0.8438
+  "score": 0.8438,
+  "truncado": true
  },
  {
   "unico": "010210",
   "unico_desc": "Escisión de lesión tumoral intracraneana (neoplasia benigna o maligna cualquiera sea su ubicación) c",
   "eq": "010210",
   "eq_desc": "Escisión de lesión tumoral intracraneana",
-  "score": 0.9024
+  "score": 0.9024,
+  "truncado": true
  },
  {
   "unico": "010211",
@@ -165,14 +172,16 @@
   "unico_desc": "Reparación de defectos congénitos del complejo vertebromeningomedular ( espina bífida con meringocel",
   "eq": "010301",
   "eq_desc": "",
-  "score": 0.8923
+  "score": 0.8923,
+  "truncado": true
  },
  {
   "unico": "010302",
   "unico_desc": "Tratamiento quirúrgico de las lesiones adquiridas del complejo vertebromeningomedular, (escisión, ex",
   "eq": "010302",
   "eq_desc": "",
-  "score": 0.819
+  "score": 0.819,
+  "truncado": true
  },
  {
   "unico": "010303",
@@ -263,7 +272,8 @@
   "unico_desc": "neurotomia del supraorbitario, infraorbitario, dentario inferior, suboccipital y temporal superficia",
   "eq": "010405",
   "eq_desc": "Neurotomía del supraorbitario, infraorbi",
-  "score": 0.8857
+  "score": 0.8857,
+  "truncado": true
  },
  {
   "unico": "010406",
@@ -298,21 +308,24 @@
   "unico_desc": "Tratamiento quirúrgico ( exploración, neurorrafia, escisión de neurona ) por patología del plexo cer",
   "eq": "010501",
   "eq_desc": "",
-  "score": 0.8551
+  "score": 0.8551,
+  "truncado": true
  },
  {
   "unico": "010502",
   "unico_desc": "Tratamiento quirúrgico ( exploración, neurorrafia, escisión de neurona ) por patología del plexo lum",
   "eq": "010502",
   "eq_desc": "",
-  "score": 0.869
+  "score": 0.869,
+  "truncado": true
  },
  {
   "unico": "010503",
   "unico_desc": "Neurorrafia, injerto, tubulización,escisión de lesión tumoral del nervio radial, mediano, cubital fe",
   "eq": "010503",
   "eq_desc": "Neurorrafia, injerto, tubulización,escis",
-  "score": 0.9052
+  "score": 0.9052,
+  "truncado": true
  },
  {
   "unico": "010504",
@@ -389,7 +402,8 @@
   "unico_desc": "Inyección paravertebral de troncos y ganglios simpáticos. Simpático cervical, torácico, lumbar, esp",
   "eq": "010606",
   "eq_desc": "Inyección paravertebral de troncos y gan",
-  "score": 0.8335
+  "score": 0.8335,
+  "truncado": true
  },
  {
   "unico": "010607",
@@ -515,7 +529,8 @@
   "unico_desc": "Orbitotomía con escisión de lesión de órbita, con extracción de cuerpo extraño, con exploración, bio",
   "eq": "020103",
   "eq_desc": "",
-  "score": 0.8408
+  "score": 0.8408,
+  "truncado": true
  },
  {
   "unico": "020104",
@@ -564,7 +579,8 @@
   "unico_desc": "operación de Humnelshein suplantamiento del recto externo por el recto superior y rectoinferior y va",
   "eq": "020110",
   "eq_desc": "Op. de Humnelshein ( Suplantamiento del",
-  "score": 0.847
+  "score": 0.847,
+  "truncado": true
  },
  {
   "unico": "020111",
@@ -585,7 +601,8 @@
   "unico_desc": "Blefaroplastia ( injerto, cantoplastia, trasoplastia, restaución plástica de cejas por injerto, repo",
   "eq": "020202",
   "eq_desc": "Blefaroplastia ( injerto, cantoplastia,",
-  "score": 0.9158
+  "score": 0.9158,
+  "truncado": true
  },
  {
   "unico": "020203",
@@ -606,14 +623,16 @@
   "unico_desc": "Escisión de lesión de párpados, blefarectomía ( piel de párpados glándula meibomiana, chalazio sutur",
   "eq": "020205",
   "eq_desc": "Escisión de lesión de párpados, blefarectomia, blefarotomia (absceso, orzuelo, chalazio)",
-  "score": 0.934
+  "score": 0.934,
+  "truncado": true
  },
  {
   "unico": "020301",
   "unico_desc": "Conjuntivoplastia ( injerto libre de conjuntiva o membrana mucosa del labio. Operación colgajo: Flap",
   "eq": "020301",
   "eq_desc": "",
-  "score": 0.8792
+  "score": 0.8792,
+  "truncado": true
  },
  {
   "unico": "020302",
@@ -641,7 +660,8 @@
   "unico_desc": "Sutura de conjuntiva ( incluída extracción de cuerpo extraño). Cuerpo extraño subconjuntival. Biopsi",
   "eq": "020305",
   "eq_desc": "Sutura de conjuntiva ( incluída extracci",
-  "score": 0.9013
+  "score": 0.9013,
+  "truncado": true
  },
  {
   "unico": "020401",
@@ -683,7 +703,8 @@
   "unico_desc": "sutura de herida de cornea con prolapso de iris y/o herida de cristalino,extracción de cuerpoextraño",
   "eq": "020406",
   "eq_desc": "Sutura de herida de córnea con prolapso",
-  "score": 0.9243
+  "score": 0.9243,
+  "truncado": true
  },
  {
   "unico": "020501",
@@ -788,7 +809,8 @@
   "unico_desc": "dacriocistorrinostomia fistulizacion de saco lagrimal en cavidad nasal, plombaje. Operación plástica",
   "eq": "020801",
   "eq_desc": "",
-  "score": 0.8797
+  "score": 0.8797,
+  "truncado": true
  },
  {
   "unico": "020802",
@@ -813,7 +835,7 @@
  },
  {
   "unico": "020901",
-  "unico_desc": "fotocoagulacion con yag laser:",
+  "unico_desc": "fotocoagulacion con yag laser",
   "eq": "020901",
   "eq_desc": "fotocoagulacion con yag laser",
   "score": 0.9795
@@ -914,7 +936,8 @@
   "unico_desc": "Escisión de lesión local de conducto auditivo externo. Incisión y drenaje de conducto auditivo exter",
   "eq": "030109",
   "eq_desc": "Escisión de lesión local de conducto aud",
-  "score": 0.8891
+  "score": 0.8891,
+  "truncado": true
  },
  {
   "unico": "030201",
@@ -1019,7 +1042,8 @@
   "unico_desc": "Cirugia del conducto auditivo interno y su contenido (primera porción del facial, auditivo interno v",
   "eq": "030304",
   "eq_desc": "",
-  "score": 0.8698
+  "score": 0.8698,
+  "truncado": true
  },
  {
   "unico": "030305",
@@ -1075,7 +1099,8 @@
   "unico_desc": "Resección de lesión local endonasal (de septum. de cornete hematoma septal, drenaje de septum)Ext. d",
   "eq": "030406",
   "eq_desc": "Resección de lesión local endonasal (de",
-  "score": 0.8783
+  "score": 0.8783,
+  "truncado": true
  },
  {
   "unico": "030407",
@@ -1089,7 +1114,8 @@
   "unico_desc": "Rinoplastia con injerto cutáneo pediculado, con o sin injerto óseo cartilaginoso o implantes. Incluy",
   "eq": "030408",
   "eq_desc": "Rinoplastia con injerto cutáneo pedicula",
-  "score": 0.8568
+  "score": 0.8568,
+  "truncado": true
  },
  {
   "unico": "030409",
@@ -1117,7 +1143,8 @@
   "unico_desc": "Turbinectomía parcial o completa simple (única o múltiple), resección submucosa de cornete inferior.",
   "eq": "030412",
   "eq_desc": "Turbinectomía parcial o completa simple",
-  "score": 0.9371
+  "score": 0.9371,
+  "truncado": true
  },
  {
   "unico": "030413",
@@ -1334,7 +1361,8 @@
   "unico_desc": "Operación comando de encía o de trígono retromolar (escisión de lesión primaria, más vaciamiento gan",
   "eq": "030705",
   "eq_desc": "",
-  "score": 0.873
+  "score": 0.873,
+  "truncado": true
  },
  {
   "unico": "030706",
@@ -1376,7 +1404,8 @@
   "unico_desc": "Operación comando de glándula submaxilar (escisión de lesión primaria y vaciamiento ganglionar cervi",
   "eq": "030805",
   "eq_desc": "Operación comando de glándula submaxilar",
-  "score": 0.9234
+  "score": 0.9234,
+  "truncado": true
  },
  {
   "unico": "030806",
@@ -1411,7 +1440,8 @@
   "unico_desc": "Escisión ampliada de mucosa yugal y reconstructiva inmediata con injerto o colgajo (incuye toma de i",
   "eq": "030902",
   "eq_desc": "",
-  "score": 0.8518
+  "score": 0.8518,
+  "truncado": true
  },
  {
   "unico": "030903",
@@ -1425,7 +1455,8 @@
   "unico_desc": "Incisión y drenaje de piso de boca-biopsia de mucosa bucal. Sutura de boca (piso o cara mucosa de me",
   "eq": "030904",
   "eq_desc": "Incisión y drenaje de piso de boca-biops",
-  "score": 0.8434
+  "score": 0.8434,
+  "truncado": true
  },
  {
   "unico": "030905",
@@ -1453,14 +1484,16 @@
   "unico_desc": "Resección de labio (por escisión amplia de tumor maligno y sutural). Escisión en cuña (como única op",
   "eq": "031004",
   "eq_desc": "",
-  "score": 0.8303
+  "score": 0.8303,
+  "truncado": true
  },
  {
   "unico": "031005",
   "unico_desc": "Queiloplastia de Bernard, Borow, Abbe Eastlander o similar (escisión de tumor de labio inferior y re",
   "eq": "031005",
   "eq_desc": "",
-  "score": 0.8285
+  "score": 0.8285,
+  "truncado": true
  },
  {
   "unico": "031006",
@@ -1516,7 +1549,8 @@
   "unico_desc": "Glosotomía con drenaje de absceso, con extracción de cuerpo extraño. Sección frenillo lingual. Sutur",
   "eq": "031105",
   "eq_desc": "",
-  "score": 0.8865
+  "score": 0.8865,
+  "truncado": true
  },
  {
   "unico": "031201",
@@ -1544,7 +1578,8 @@
   "unico_desc": "Resección total de paladar y reconstrucción inmediata con injerto o colgajo (incluye toma de injerto",
   "eq": "031204",
   "eq_desc": "",
-  "score": 0.9153
+  "score": 0.9153,
+  "truncado": true
  },
  {
   "unico": "031205",
@@ -1607,7 +1642,8 @@
   "unico_desc": "Escisión de divertículo faringoesofágico.Escisión de lesión local de faringe, de fístula branquial y",
   "eq": "031307",
   "eq_desc": "Escisión de divertículo faringoesofágico",
-  "score": 0.8838
+  "score": 0.8838,
+  "truncado": true
  },
  {
   "unico": "031308",
@@ -1814,14 +1850,14 @@
  },
  {
   "unico": "050403",
-  "unico_desc": "Operaciones en el mediastino via toracica o videoscopica·",
+  "unico_desc": "Operaciones en el mediastino via toracica o videoscopica",
   "eq": "050403",
   "eq_desc": "Operaciones en el mediastino (vía toráci",
   "score": 0.907
  },
  {
   "unico": "050405",
-  "unico_desc": "Mediastinoscopia con o sin videoscopia·",
+  "unico_desc": "Mediastinoscopia con o sin videoscopia",
   "eq": "050405",
   "eq_desc": "Mediastinoscopía.",
   "score": 0.9133
@@ -1845,7 +1881,8 @@
   "unico_desc": "Punción de cavidad pleural para lavaje, para instilación de substancias terapéuticas. Punción pleura",
   "eq": "050408",
   "eq_desc": "Punción de cavidad pleural para lavaje,",
-  "score": 0.9375
+  "score": 0.9375,
+  "truncado": true
  },
  {
   "unico": "050409",
@@ -1887,14 +1924,16 @@
   "unico_desc": "Mastectomía radial (resección del pectoral mayor, pectoral menor y vaciamiento axilar). Incluye la e",
   "eq": "060101",
   "eq_desc": "",
-  "score": 0.8658
+  "score": 0.8658,
+  "truncado": true
  },
  {
   "unico": "060102",
   "unico_desc": "Mastectomía subradical (con conservación del pectoral mayor y vaciamiento axilar ). Incluye la event",
   "eq": "060102",
   "eq_desc": "Mastectomía subradical (con conservación",
-  "score": 0.8493
+  "score": 0.8493,
+  "truncado": true
  },
  {
   "unico": "060103",
@@ -1936,7 +1975,8 @@
   "unico_desc": "Escisión local de lesión de mama (quiste, fibroadenoma o tejido mamario aberrante) de lesión de cond",
   "eq": "060108",
   "eq_desc": "Escisión local de lesión de mama (quiste",
-  "score": 0.8737
+  "score": 0.8737,
+  "truncado": true
  },
  {
   "unico": "060109",
@@ -1971,7 +2011,8 @@
   "unico_desc": "Septostomía interauricular (Blalock Halon) Cardiotomía (con exploración , con extracción de cuerpo e",
   "eq": "070101",
   "eq_desc": "Septostomía interauricular (Blalock Halo",
-  "score": 0.8669
+  "score": 0.8669,
+  "truncado": true
  },
  {
   "unico": "070102",
@@ -2020,7 +2061,8 @@
   "unico_desc": "Pericadiotomía con exploración, con drenaje con extracción de cuerpo extraño, con descompresión, par",
   "eq": "070109",
   "eq_desc": "Pericadiotomía con exploración, con dren",
-  "score": 0.8431
+  "score": 0.8431,
+  "truncado": true
  },
  {
   "unico": "070110",
@@ -2041,7 +2083,8 @@
   "unico_desc": "Cateterismo de corazón para colocación de marcapaso transitorio (incluído cirujano y cardiólogo, exc",
   "eq": "070112",
   "eq_desc": "Cateterismo de corazón para colocación d",
-  "score": 0.8535
+  "score": 0.8535,
+  "truncado": true
  },
  {
   "unico": "070113",
@@ -2062,7 +2105,8 @@
   "unico_desc": "Tratamiento quirúrgico de las cardiopatías congénitas complejas - Tetralogía de Fallot, transposició",
   "eq": "070201",
   "eq_desc": "",
-  "score": 0.8834
+  "score": 0.8834,
+  "truncado": true
  },
  {
   "unico": "070203",
@@ -2083,7 +2127,8 @@
   "unico_desc": "Cierre defectos septales (auriculares y/o ventriculares). Plásticas valvulares únicas o múltiples. A",
   "eq": "070206",
   "eq_desc": "(SUR) Cierre defectos septales (auriculares y/",
-  "score": 0.8896
+  "score": 0.8896,
+  "truncado": true
  },
  {
   "unico": "070207",
@@ -2125,7 +2170,8 @@
   "unico_desc": "Cirugía de los grandes troncos arteriovenosos de la cavidad torácica anastomosis, injertos, embolect",
   "eq": "070301",
   "eq_desc": "Cirugía de los grandes troncos arteriove",
-  "score": 0.9149
+  "score": 0.9149,
+  "truncado": true
  },
  {
   "unico": "070302",
@@ -2146,7 +2192,8 @@
   "unico_desc": "Cirugía de las ramas viscerales de la aorta abdominal y troncos iliacos: Anastomosis directas; injer",
   "eq": "070402",
   "eq_desc": "Cirugía de las ramas viscerales de la ao",
-  "score": 0.8459
+  "score": 0.8459,
+  "truncado": true
  },
  {
   "unico": "070403",
@@ -2195,7 +2242,8 @@
   "unico_desc": "Cirugía de la arteria carótida o de la vertebral: Tromboendarterectomía; endarterectomia, embolectom",
   "eq": "070501",
   "eq_desc": "Cirugía de la arteria carótida o de la v",
-  "score": 0.8812
+  "score": 0.8812,
+  "truncado": true
  },
  {
   "unico": "070502",
@@ -2223,7 +2271,8 @@
   "unico_desc": "Tromboendarterectomía de vasos periféricos con o sin arterioplastia (incluye eventual toma de parche",
   "eq": "070602",
   "eq_desc": "Tromboendarterectomía de vasos periféric",
-  "score": 0.9176
+  "score": 0.9176,
+  "truncado": true
  },
  {
   "unico": "070603",
@@ -2300,7 +2349,8 @@
   "unico_desc": "Flebotomía con colocación de catéter. Disección de venas para perfusión (canalización venosa con cat",
   "eq": "070615",
   "eq_desc": "Flebotomía con colocación de catéter. Di",
-  "score": 0.8531
+  "score": 0.8531,
+  "truncado": true
  },
  {
   "unico": "070616",
@@ -2321,7 +2371,8 @@
   "unico_desc": "Coronariografía selectiva de coronaria izquierda y/o derecha incluye cateterismo cardíaco, toma de p",
   "eq": "070703",
   "eq_desc": "",
-  "score": 0.8556
+  "score": 0.8556,
+  "truncado": true
  },
  {
   "unico": "070704",
@@ -2335,14 +2386,16 @@
   "unico_desc": "aortografia por cateterismo con o sin estudio selectivo de cualquiera desus ramas toracicas oabdomin",
   "eq": "070705",
   "eq_desc": "",
-  "score": 0.915
+  "score": 0.915,
+  "truncado": true
  },
  {
   "unico": "070709",
   "unico_desc": "Cavografía abdominal y/o torácica y/o selectiva de sus afluentes (incluye toma de muestras sanguínea",
   "eq": "070709",
   "eq_desc": "",
-  "score": 0.891
+  "score": 0.891,
+  "truncado": true
  },
  {
   "unico": "070710",
@@ -2377,7 +2430,8 @@
   "unico_desc": "Embolización selectiva terapéutica y/o inyección de drogas, a continuación de arterio o flebografías",
   "eq": "070715",
   "eq_desc": "Embolización selectiva terapéutica y/o i",
-  "score": 0.9115
+  "score": 0.9115,
+  "truncado": true
  },
  {
   "unico": "070716",
@@ -2416,7 +2470,7 @@
  },
  {
   "unico": "070803",
-  "unico_desc": "angioplastia trasluminal coronaria con rotablator / simpson·",
+  "unico_desc": "angioplastia trasluminal coronaria con rotablator / simpson",
   "eq": "290148",
   "eq_desc": "",
   "score": 0.8865
@@ -2437,7 +2491,7 @@
  },
  {
   "unico": "070806",
-  "unico_desc": "angioplastia periferica con colocación de stent·",
+  "unico_desc": "angioplastia periferica con colocación de stent",
   "eq": "070722",
   "eq_desc": "ANGIOPLASTIA PERIFERICA",
   "score": 0.9035
@@ -2461,7 +2515,8 @@
   "unico_desc": "Materiales descartables para realizar cirugía cardiovascular con bomba de circulación extracorpórea.",
   "eq": null,
   "eq_desc": "",
-  "score": 0.8989
+  "score": 0.8989,
+  "truncado": true
  },
  {
   "unico": "080101",
@@ -2528,7 +2583,7 @@
  },
  {
   "unico": "080110",
-  "unico_desc": "Esofagotomía o esofagorrafía de esófago cervical (exploradora extracción de cuerpo extraño, herida,",
+  "unico_desc": "Esofagotomía o esofagorrafía de esófago cervical (exploradora extracción de cuerpo extraño, herida",
   "eq": "080110",
   "eq_desc": "Esofagotomía o esofagorrafía de esófago",
   "score": 0.896
@@ -2559,7 +2614,8 @@
   "unico_desc": "Dermolipectomía abdominal con o sin reconstrucción del ombligo, con o sin Hernioplastía umbilical (c",
   "eq": "080201",
   "eq_desc": "",
-  "score": 0.8913
+  "score": 0.8913,
+  "truncado": true
  },
  {
   "unico": "080202",
@@ -2755,14 +2811,16 @@
   "unico_desc": "Enterostomía.Iliostomia temporaria o definitiva. Enterorrafía. Cierre de enterostomias. Cierre de f",
   "eq": "080403",
   "eq_desc": "Enterostomía. Esterostomía temporaria o",
-  "score": 0.8367
+  "score": 0.8367,
+  "truncado": true
  },
  {
   "unico": "080404",
   "unico_desc": "Derivaciones intestinales internas como única operación (entero entéricas, yeyuno ileal, íleo-transv",
   "eq": "080404",
   "eq_desc": "Derivaciones intestinales internas como",
-  "score": 0.8565
+  "score": 0.8565,
+  "truncado": true
  },
  {
   "unico": "080405",
@@ -2832,7 +2890,8 @@
   "unico_desc": "Colectomía segmentaria (resección segmentaria de colon, colectomía transversa - operación de Hartman",
   "eq": "080504",
   "eq_desc": "Colectomía segmentaria (resección segmen",
-  "score": 0.9005
+  "score": 0.9005,
+  "truncado": true
  },
  {
   "unico": "080505",
@@ -2846,7 +2905,8 @@
   "unico_desc": "Operaciones radicales para el megacolon (sigmoideorectal) - tipo Duhamenl o Swenson o similares. Vía",
   "eq": "080506",
   "eq_desc": "Operaciones radicales para el megacolon",
-  "score": 0.9238
+  "score": 0.9238,
+  "truncado": true
  },
  {
   "unico": "080508",
@@ -3021,7 +3081,8 @@
   "unico_desc": "Tratamiento quirúrgico del prolapso mucoso (Op. de Witehead o Buie. Plástica de ano húmedo (con o si",
   "eq": "080608",
   "eq_desc": "Tratamiento quirúrgico del prolapso muco",
-  "score": 0.8818
+  "score": 0.8818,
+  "truncado": true
  },
  {
   "unico": "080609",
@@ -3063,7 +3124,8 @@
   "unico_desc": "Escisión de lesión de piel perianal (cuerpos cutáneos, papilomas, plicomas). Biopsia de ano.Fulgurac",
   "eq": "080614",
   "eq_desc": "Escisión de lesión de piel perianal (cue",
-  "score": 0.8657
+  "score": 0.8657,
+  "truncado": true
  },
  {
   "unico": "080615",
@@ -3112,7 +3174,8 @@
   "unico_desc": "Hepatectomía parcial. Escisión radical de lesión de hígado (quiste hidatidico, amebiano, absceso, tu",
   "eq": "080703",
   "eq_desc": "Hepatectomía parcial. Escisión radical d",
-  "score": 0.8417
+  "score": 0.8417,
+  "truncado": true
  },
  {
   "unico": "080704",
@@ -3245,7 +3308,8 @@
   "unico_desc": "Anastomosis pancreáticodigestivas ( pancreaticogastrotomía, pancreaticoyeyunostomía, cistogastrostom",
   "eq": "080802",
   "eq_desc": "Anastomosis pancreáticodigestivas ( panc",
-  "score": 0.938
+  "score": 0.938,
+  "truncado": true
  },
  {
   "unico": "080803",
@@ -3539,7 +3603,8 @@
   "unico_desc": "Lumbotomías (exploradora, drenaje perirrenal, biopsia a cielo abierto, fístula lumbar postnefrectomí",
   "eq": "100107",
   "eq_desc": "Lumbotomías (exploradora, drenaje perirr",
-  "score": 0.9189
+  "score": 0.9189,
+  "truncado": true
  },
  {
   "unico": "100108",
@@ -3560,14 +3625,16 @@
   "unico_desc": "Plastia de la unión ureteropiélica. Pieloplastia. Plastias del uréter. Plastia de la unión urétero-v",
   "eq": "100110",
   "eq_desc": "Plastia de la unión ureteropiélica. Piel",
-  "score": 0.9021
+  "score": 0.9021,
+  "truncado": true
  },
  {
   "unico": "100111",
   "unico_desc": "Derivaciones ureterales a: Intestino in situ (urétero sigmoideostomía); a piel (ureterostomía cutáne",
   "eq": "100111",
   "eq_desc": "Derivaciones ureterales a: Intestino in",
-  "score": 0.8825
+  "score": 0.8825,
+  "truncado": true
  },
  {
   "unico": "100112",
@@ -3595,14 +3662,16 @@
   "unico_desc": "Extracción de cálculos ureterales o cuerpo extraño por instrumentación (dormía o similares). Incluye",
   "eq": "100115",
   "eq_desc": "",
-  "score": 0.8368
+  "score": 0.8368,
+  "truncado": true
  },
  {
   "unico": "100116",
   "unico_desc": "Tratamiento quirúrgico de la fístula ureterointestinal con o sin resección intestinal, ureterovagina",
   "eq": "100116",
   "eq_desc": "Tratamiento quirúrgico de la fístula ure",
-  "score": 0.9164
+  "score": 0.9164,
+  "truncado": true
  },
  {
   "unico": "100117",
@@ -3686,7 +3755,8 @@
   "unico_desc": "Cistectomía parcial (diverticulectomía-resección del cuello vesical-denervación vesical-reducción ve",
   "eq": "100203",
   "eq_desc": "Cistectomía parcial (diverticulectomía-r",
-  "score": 0.8908
+  "score": 0.8908,
+  "truncado": true
  },
  {
   "unico": "100204",
@@ -3707,7 +3777,8 @@
   "unico_desc": "Tratamiento quirúrgico de la fístula vesicointestinal con o sin resección entérica, vesicovaginal y/",
   "eq": "100206",
   "eq_desc": "Tratamiento quirúrgico de la fístula ves",
-  "score": 0.8833
+  "score": 0.8833,
+  "truncado": true
  },
  {
   "unico": "100207",
@@ -3749,7 +3820,8 @@
   "unico_desc": "Tratamiento de la incontinencia de orina (vía abdominal) en la mujer (Marshall-Marchetti-Bursch o si",
   "eq": "100212",
   "eq_desc": "",
-  "score": 0.8285
+  "score": 0.8285,
+  "truncado": true
  },
  {
   "unico": "100213",
@@ -3770,14 +3842,16 @@
   "unico_desc": "Uretroplastia: Por traumatismo, corrección de fístula uretrorrectal o uretrovaginal o uretrocutánea.",
   "eq": "100302",
   "eq_desc": "",
-  "score": 0.8935
+  "score": 0.8935,
+  "truncado": true
  },
  {
   "unico": "100303",
   "unico_desc": "Uretromía externa (derivativa, por extracción de cálculo o de cuerpo extraño). Uretromía interna. Bi",
   "eq": "100303",
   "eq_desc": "Uretromía externa (derivativa, por extra",
-  "score": 0.8754
+  "score": 0.8754,
+  "truncado": true
  },
  {
   "unico": "100304",
@@ -3826,7 +3900,8 @@
   "unico_desc": "Resección endoscópica (transuretral) de próstata. Resección endoscópica de fibrosis y cicatrices del",
   "eq": "100404",
   "eq_desc": "Resección endoscópica (transuretral) de",
-  "score": 0.89
+  "score": 0.89,
+  "truncado": true
  },
  {
   "unico": "100405",
@@ -3875,7 +3950,8 @@
   "unico_desc": "Orquidopexia unilateral (Cualquiera fuera la técnica empleada) con o sin tratamiento de hernia conco",
   "eq": "100504",
   "eq_desc": "Orquidopexia unilateral (Cualquiera fuer",
-  "score": 0.8959
+  "score": 0.8959,
+  "truncado": true
  },
  {
   "unico": "100505",
@@ -4054,14 +4130,14 @@
  },
  {
   "unico": "101101",
-  "unico_desc": "Colocación de stent uretral·",
+  "unico_desc": "Colocación de stent uretral",
   "eq": "101101",
   "eq_desc": "colocacion de stent uretral",
   "score": 0.9377
  },
  {
   "unico": "101102",
-  "unico_desc": "tratamiento endoscopico de lesiónes de prostata y vejiga por medios físicos y químicos·",
+  "unico_desc": "tratamiento endoscopico de lesiónes de prostata y vejiga por medios físicos y químicos",
   "eq": "101102",
   "eq_desc": "tratamiento endoscopico de lesiones de prostata y vejiga por medios fisicos y quimicos",
   "score": 0.9693
@@ -4071,7 +4147,8 @@
   "unico_desc": "Resección cuneiforme de ovarios. Extirpación de ovario. Ooforoplastía (implantación de ovario en úte",
   "eq": "110101",
   "eq_desc": "Resección cuneiforme de ovarios. Extirpa",
-  "score": 0.8826
+  "score": 0.8826,
+  "truncado": true
  },
  {
   "unico": "110102",
@@ -4148,7 +4225,8 @@
   "unico_desc": "Corrección quirúrgica de inversión uterina por vía abdominal. Histeropexia con o sin resección gangl",
   "eq": "110209",
   "eq_desc": "Corrección quirúrgica de inversión uteri",
-  "score": 0.8703
+  "score": 0.8703,
+  "truncado": true
  },
  {
   "unico": "110210",
@@ -4162,7 +4240,8 @@
   "unico_desc": "Raspado uterino diagnóstico, con o sin biopsia de cuello o aspiración endometrial para citología exf",
   "eq": "110211",
   "eq_desc": "Raspado uterino diagnóstico, con o sin b",
-  "score": 0.9077
+  "score": 0.9077,
+  "truncado": true
  },
  {
   "unico": "110212",
@@ -4225,7 +4304,8 @@
   "unico_desc": "Colporrafia anterior y/o posterior, con o sin amputación de cuello, con o sin corrección de retrover",
   "eq": "110303",
   "eq_desc": "Colporrafia anterior y/o posterior, con",
-  "score": 0.9052
+  "score": 0.9052,
+  "truncado": true
  },
  {
   "unico": "110304",
@@ -4281,7 +4361,8 @@
   "unico_desc": "Biopsia de vagina. Punción de vagina, (diagnóstica exploradora). Punción de fondo de saco de Douglas",
   "eq": "110311",
   "eq_desc": "",
-  "score": 0.9029
+  "score": 0.9029,
+  "truncado": true
  },
  {
   "unico": "110312",
@@ -4302,7 +4383,8 @@
   "unico_desc": "Escisión de labios mayores, labios menores, de glándulas de Bartholino, de glándulas de Skene, Clito",
   "eq": "110314",
   "eq_desc": "Escisión de labios mayores, labios menor",
-  "score": 0.9286
+  "score": 0.9286,
+  "truncado": true
  },
  {
   "unico": "110315",
@@ -4351,7 +4433,8 @@
   "unico_desc": "atencion del alumbramiento o puerperio y/o sus complicaciones cuando el parto no fue asistidopor med",
   "eq": "110404",
   "eq_desc": "Atención del alumbramiento o puerperio y",
-  "score": 0.8701
+  "score": 0.8701,
+  "truncado": true
  },
  {
   "unico": "110405",
@@ -4470,21 +4553,24 @@
   "unico_desc": "Fractura con desplazamiento osteoplastia Esternón escápula, húmero, (excepto supracondilea) cúbito y",
   "eq": "120202",
   "eq_desc": "Esternón escápula, húmero, (excepto supr",
-  "score": 0.8413
+  "score": 0.8413,
+  "truncado": true
  },
  {
   "unico": "120203",
   "unico_desc": "Fractura con desplazamiento osteoplastia Pelvis, femur, tibia y peroné, astrágalo, calcáneo supracon",
   "eq": "120203",
   "eq_desc": "Pelvis, femur, tibia y peroné, astrágalo",
-  "score": 0.8316
+  "score": 0.8316,
+  "truncado": true
  },
  {
   "unico": "120204",
   "unico_desc": "Fractura con desplazamiento osteoplastia Clavícula, costillas, rótula, metacarpianos o metatarsianos",
   "eq": "120204",
   "eq_desc": "Clavícula, costillas, rótula, metacarpia",
-  "score": 0.9155
+  "score": 0.9155,
+  "truncado": true
  },
  {
   "unico": "120301",
@@ -4498,14 +4584,16 @@
   "unico_desc": "Reducción y osteosintesis Húmero, pelvis, sacro, femur, tibia, tibia y peroné, cúbito y radio. Disyu",
   "eq": "120302",
   "eq_desc": "Luxación congénita de cadera, reducción",
-  "score": 0.8604
+  "score": 0.8604,
+  "truncado": true
  },
  {
   "unico": "120303",
   "unico_desc": "Reducción y osteosintesis Cúbito radio, tercio inferior, uno o más huesos del carpo, primer metacarp",
   "eq": "120303",
   "eq_desc": "Clavícula, hombro, codo, muñeca, metacar",
-  "score": 0.8674
+  "score": 0.8674,
+  "truncado": true
  },
  {
   "unico": "120304",
@@ -4519,14 +4607,16 @@
   "unico_desc": "Reducción y osteosintesis Metacarpiano (excepto el primer metacarpiano)o metatarsiano falanges (de u",
   "eq": "120305",
   "eq_desc": "Metacarpiano (excepto el primer metacarp",
-  "score": 0.8547
+  "score": 0.8547,
+  "truncado": true
  },
  {
   "unico": "120401",
   "unico_desc": "Incision reseccion parcial de huesos: Vértebras, laminectomía como única operación, sacro, hemimand",
   "eq": "120401",
   "eq_desc": "Vértebras, laminectomía como única opera",
-  "score": 0.8609
+  "score": 0.8609,
+  "truncado": true
  },
  {
   "unico": "120402",
@@ -4540,14 +4630,16 @@
   "unico_desc": "Incision reseccion parcial de huesos: Esternón, escápula, cúbito, radio, carpo, tibia, peroné, tars",
   "eq": "120403",
   "eq_desc": "Esternón, escápula, cúbito, radio, carpo",
-  "score": 0.8778
+  "score": 0.8778,
+  "truncado": true
  },
  {
   "unico": "120404",
   "unico_desc": "Incision reseccion parcial de huesos: Costilla, clavícula, metacarpiano, metatarsiano, falange, rót",
   "eq": "120204",
   "eq_desc": "Clavícula, costillas, rótula, metacarpia",
-  "score": 0.8674
+  "score": 0.8674,
+  "truncado": true
  },
  {
   "unico": "120405",
@@ -4579,7 +4671,7 @@
  },
  {
   "unico": "120503",
-  "unico_desc": "Reseccion total de huesos: Cúbito, radio, peroné, carpo(uno o más huesos), astrágalo y/o calcaneo,",
+  "unico_desc": "Reseccion total de huesos: Cúbito, radio, peroné, carpo(uno o más huesos), astrágalo y/o calcaneo",
   "eq": "120503",
   "eq_desc": "",
   "score": 0.8863
@@ -4589,7 +4681,8 @@
   "unico_desc": "Reseccion total de huesos: Clavícula, rótula, metatarsiano o metacarpiano, falanges (de un mismo de",
   "eq": "120504",
   "eq_desc": "",
-  "score": 0.8497
+  "score": 0.8497,
+  "truncado": true
  },
  {
   "unico": "120601",
@@ -4600,7 +4693,7 @@
  },
  {
   "unico": "120602",
-  "unico_desc": "Osteotomias correctivas: Húmero, cúbito y/o radio, astrágalo y/o calcáneo, otros huesos del tarso,",
+  "unico_desc": "Osteotomias correctivas: Húmero, cúbito y/o radio, astrágalo y/o calcáneo, otros huesos del tarso",
   "eq": "120602",
   "eq_desc": "Húmero, cúbito y/o radio, astrágalo y/o",
   "score": 0.9004
@@ -4680,7 +4773,8 @@
   "unico_desc": "Artrotomia: Sacro-ilíaca, condro-costal, condro-esternal, esterno-clavicular, acromio-clavicular, c",
   "eq": "120901",
   "eq_desc": "Sacro-ilíaca, condro-costal, condro-este",
-  "score": 0.8773
+  "score": 0.8773,
+  "truncado": true
  },
  {
   "unico": "120902",
@@ -4764,7 +4858,8 @@
   "unico_desc": "Artrodesis: Esterno-clavicular, muñeca, tarso (simple, tibiotarsiana), tarso, metatarsiana, sínfisi",
   "eq": "121104",
   "eq_desc": "Esterno-clavicular, muñeca, tarso (simpl",
-  "score": 0.8862
+  "score": 0.8862,
+  "truncado": true
  },
  {
   "unico": "121105",
@@ -4789,10 +4884,11 @@
  },
  {
   "unico": "121201",
-  "unico_desc": "Sutura de capsula o ligamentos: Esterno-clavicular, acromio-clavicular, codo, muñeca, carpo, carpo-",
+  "unico_desc": "Sutura de capsula o ligamentos: Esterno-clavicular, acromio-clavicular, codo, muñeca, carpo, carpo",
   "eq": "121201",
   "eq_desc": "",
-  "score": 0.8832
+  "score": 0.8832,
+  "truncado": true
  },
  {
   "unico": "121202",
@@ -4813,7 +4909,8 @@
   "unico_desc": "Sutura de capsula o ligamentos: Escisión o incisión, biopsia, drenaje o extracción de depósitos cal",
   "eq": "121204",
   "eq_desc": "",
-  "score": 0.821
+  "score": 0.821,
+  "truncado": true
  },
  {
   "unico": "121301",
@@ -4862,7 +4959,8 @@
   "unico_desc": "tratamiento quirúrgico e inmovilizacion por luxacion de clavicula hombrocodo muñecametacarpo tobillo",
   "eq": "121307",
   "eq_desc": "",
-  "score": 0.8735
+  "score": 0.8735,
+  "truncado": true
  },
  {
   "unico": "121308",
@@ -4876,18 +4974,19 @@
   "unico_desc": "Miectomías, (miositis oscificante, hipertrofias, neoplastias) con vaciamiento de celda muscular o ex",
   "eq": "121401",
   "eq_desc": "Miectomías, (miositis oscificante, hiper",
-  "score": 0.831
+  "score": 0.831,
+  "truncado": true
  },
  {
   "unico": "121402",
-  "unico_desc": "Insición de músculos, escisión de lesión local (exploración, extracción de cuerpo extraño, drenaje,",
+  "unico_desc": "Insición de músculos, escisión de lesión local (exploración, extracción de cuerpo extraño, drenaje",
   "eq": "121402",
   "eq_desc": "Insición de músculos, escisión de lesión",
   "score": 0.9052
  },
  {
   "unico": "121501",
-  "unico_desc": "Exploración, drenaje, extracción, Incisión, escisión, biopsia, tenotomía, fasciotomía,",
+  "unico_desc": "Exploración, drenaje, extracción, Incisión, escisión, biopsia, tenotomía, fasciotomía",
   "eq": "121501",
   "eq_desc": "Exploración, drenaje, extracción, Incisi",
   "score": 0.9276
@@ -4918,7 +5017,8 @@
   "unico_desc": "Tenoplastia con alargamiento o acortamiento o injerto o transferencia de tendón extensor de la muñec",
   "eq": "121505",
   "eq_desc": "Tenoplastia con alargamiento o acortamie",
-  "score": 0.8655
+  "score": 0.8655,
+  "truncado": true
  },
  {
   "unico": "121506",
@@ -4932,14 +5032,16 @@
   "unico_desc": "Tenoplastia con alargamiento o acortamiento o injerto o transferencia de otro tendón que no sea de l",
   "eq": "121507",
   "eq_desc": "",
-  "score": 0.8481
+  "score": 0.8481,
+  "truncado": true
  },
  {
   "unico": "121508",
   "unico_desc": "Tratamiento de la secuela por parálisis (poliomelitis), sección nerviosa, parálisis obstétrica, etc.",
   "eq": "121508",
   "eq_desc": "Tratamiento de la secuela por parálisis",
-  "score": 0.9327
+  "score": 0.9327,
+  "truncado": true
  },
  {
   "unico": "121509",
@@ -5044,7 +5146,8 @@
   "unico_desc": "Operaciones en el hueco supraclavicular por síndrome del escaleno (resección de costilla cervical su",
   "eq": "121705",
   "eq_desc": "Operaciones en el hueco supraclavicular",
-  "score": 0.8447
+  "score": 0.8447,
+  "truncado": true
  },
  {
   "unico": "121706",
@@ -5072,7 +5175,8 @@
   "unico_desc": "Dupuytren: Aponeurectomía parcial (incluye toma de injerto).Tratamiento quirúrgico de la Sindactili",
   "eq": "121709",
   "eq_desc": "",
-  "score": 0.8662
+  "score": 0.8662,
+  "truncado": true
  },
  {
   "unico": "121710",
@@ -5121,7 +5225,8 @@
   "unico_desc": "Displasia de cadera sin luxación, tratamiento qui rúrgico (Salter, Pemberton, Colonna, Chiard, etc.)",
   "eq": "121716",
   "eq_desc": "Displasia de cadera sin luxación, tratam",
-  "score": 0.8937
+  "score": 0.8937,
+  "truncado": true
  },
  {
   "unico": "121717",
@@ -5198,7 +5303,8 @@
   "unico_desc": "Tratamiento quirúrgico del dedo en garra en martillo, del quinto superducuts, del juanetillo de sast",
   "eq": "121727",
   "eq_desc": "Tratamiento quirúrgico del dedo en garra",
-  "score": 0.909
+  "score": 0.909,
+  "truncado": true
  },
  {
   "unico": "121728",
@@ -5443,7 +5549,8 @@
   "unico_desc": "Yesos,vendajes y tracciones continuas: Tracción contínua cutánea, tracción de partes blandas con fr",
   "eq": "121932",
   "eq_desc": "Tracción contínua cutánea, tracción de p",
-  "score": 0.838
+  "score": 0.838,
+  "truncado": true
  },
  {
   "unico": "121933",
@@ -5464,14 +5571,16 @@
   "unico_desc": "Yesos,vendajes y tracciones continuas: Tracción contínua esquelética cefalopélvica o cefalofemoral.",
   "eq": "121935",
   "eq_desc": "",
-  "score": 0.9308
+  "score": 0.9308,
+  "truncado": true
  },
  {
   "unico": "121936",
   "unico_desc": "Yesos,vendajes y tracciones continuas: Tracción contínua esquelética de miembro superior o inferior",
   "eq": "121936",
   "eq_desc": "Tracción contínua esquelética de miembro",
-  "score": 0.9236
+  "score": 0.9236,
+  "truncado": true
  },
  {
   "unico": "121937",
@@ -5583,7 +5692,8 @@
   "unico_desc": "Escisión amplia de lesión de piel comprendiendo estructuras vecinas por tumor maligno (incluye repar",
   "eq": "130102",
   "eq_desc": "Escisión amplia de lesión de piel compre",
-  "score": 0.8556
+  "score": 0.8556,
+  "truncado": true
  },
  {
   "unico": "130103",
@@ -5597,28 +5707,32 @@
   "unico_desc": "Escisión local de lesión de piel o glándula de piel cicatrizal, inflamatoria o tumoral benigna (quis",
   "eq": "130104",
   "eq_desc": "Escisión local de lesión de piel o glánd",
-  "score": 0.8518
+  "score": 0.8518,
+  "truncado": true
  },
  {
   "unico": "130105",
   "unico_desc": "Incisión y drenaje de abceso, superficial, hidrosadenitis, quiste sebáseo infectado, forúnculo, pana",
   "eq": "130105",
   "eq_desc": "Incisión y drenaje de abceso, superficia",
-  "score": 0.8856
+  "score": 0.8856,
+  "truncado": true
  },
  {
   "unico": "130106",
   "unico_desc": "Destrucción de lesión de piel (verruga, queratosis senil, fibroma, nevus, etc.) por electrocoagulaci",
   "eq": "130106",
   "eq_desc": "",
-  "score": 0.8933
+  "score": 0.8933,
+  "truncado": true
  },
  {
   "unico": "130107",
   "unico_desc": "Destrucción de lesión de piel (verruga, queratosis senil, fibroma, nevus, etc.) por electrocoagulaci",
   "eq": "130107",
   "eq_desc": "",
-  "score": 0.8933
+  "score": 0.8933,
+  "truncado": true
  },
  {
   "unico": "130108",
@@ -5758,28 +5872,32 @@
   "unico_desc": "Atención del paciente con quemaduras de 2° y 3° grado, hasta el 5% de superficie corporal (tome o no",
   "eq": "130301",
   "eq_desc": "",
-  "score": 0.8853
+  "score": 0.8853,
+  "truncado": true
  },
  {
   "unico": "130302",
   "unico_desc": "Atención del paciente con quemaduras de 2° y 3° grado, de más de 5% y por cada 10% o fracción de sup",
   "eq": "130302",
   "eq_desc": "",
-  "score": 0.8398
+  "score": 0.8398,
+  "truncado": true
  },
  {
   "unico": "130303",
   "unico_desc": "Atencion del paciente con quemaduras de 2° y 3° grado que comprometen zonas funcionales, articulacio",
   "eq": "130303",
   "eq_desc": "Atencion del paciente con quemaduras de",
-  "score": 0.8934
+  "score": 0.8934,
+  "truncado": true
  },
  {
   "unico": "130304",
   "unico_desc": "Escisión de escaras postquemaduras y/o curación del paciente quemado en quirófano con anestesia gene",
   "eq": "130304",
   "eq_desc": "Escisión de escaras postquemaduras y/o c",
-  "score": 0.8364
+  "score": 0.8364,
+  "truncado": true
  },
  {
   "unico": "140101",
@@ -5807,28 +5925,32 @@
   "unico_desc": "Tratamiento desensibilizante. Incluye provisión de alergeno y las consultas que fueren necesarias. P",
   "eq": "140104",
   "eq_desc": "Tratamiento desensibilizante. Incluye pr",
-  "score": 0.8779
+  "score": 0.8779,
+  "truncado": true
  },
  {
   "unico": "150101",
   "unico_desc": "Biopsia por incisión o por punción. Ganglio, lesión de piel, trozo de ovario, cilindro de hígado,etc",
   "eq": "150101",
   "eq_desc": "",
-  "score": 0.9138
+  "score": 0.9138,
+  "truncado": true
  },
  {
   "unico": "150102",
   "unico_desc": "Estudio macro y microscópico de pieza operatoria simple. Vesícula simple. Vesícula biliar, ovario, p",
   "eq": "150102",
   "eq_desc": "",
-  "score": 0.8612
+  "score": 0.8612,
+  "truncado": true
  },
  {
   "unico": "150103",
   "unico_desc": "Estudio macro y microscópico de pieza de resección oncológica ampliada. Organo y sus ganglios region",
   "eq": "150103",
   "eq_desc": "Estudio macro y microscópico de pieza de",
-  "score": 0.834
+  "score": 0.834,
+  "truncado": true
  },
  {
   "unico": "150104",
@@ -5846,10 +5968,11 @@
  },
  {
   "unico": "150106",
-  "unico_desc": "Citologia exfoliativa oncologica OBLIGACION de cobertura:",
+  "unico_desc": "Citologia exfoliativa oncologica",
   "eq": "150106",
   "eq_desc": "Citología exfoliativa oncológica.",
-  "score": 0.9208
+  "score": 0.9208,
+  "unico_obs": "OBLIGACION de cobertura"
  },
  {
   "unico": "150107",
@@ -5881,7 +6004,7 @@
  },
  {
   "unico": "150201",
-  "unico_desc": "receptores hormonales con tecnica inmunohistoquimica para cancer de mama·",
+  "unico_desc": "receptores hormonales con tecnica inmunohistoquimica para cancer de mama",
   "eq": "150235",
   "eq_desc": "",
   "score": 0.9047
@@ -6220,7 +6343,8 @@
   "unico_desc": "Monitoraje operatorio (incluye el control osciloscópico, marcapaso externo, desfibrilador, respiraci",
   "eq": "170109",
   "eq_desc": "Monitoraje operatorio (incluye el contro",
-  "score": 0.8552
+  "score": 0.8552,
+  "truncado": true
  },
  {
   "unico": "170110",
@@ -6294,14 +6418,14 @@
  },
  {
   "unico": "170202",
-  "unico_desc": "estudio electrofisiologico completo cardiaco con Pruebas terapéuticas y de estimulacion·",
+  "unico_desc": "estudio electrofisiologico completo cardiaco con Pruebas terapéuticas y de estimulacion",
   "eq": "170221",
   "eq_desc": "estudio electrofisiologico completo cardiaco con pruebas terapeuticas y de estimulacion",
   "score": 0.9768
  },
  {
   "unico": "170203",
-  "unico_desc": "Ablación por radiofrecuencia de arritmias cardiacas·",
+  "unico_desc": "Ablación por radiofrecuencia de arritmias cardiacas",
   "eq": "170222",
   "eq_desc": "ABALACION POR RADIOFRECUANCIA DE ARRITMIAS CARDIACAS",
   "score": 0.9174
@@ -7547,7 +7671,7 @@
  },
  {
   "unico": "260231",
-  "unico_desc": "Spect cardiaco- coronario estudio de perfusion con talio 201 esfuerzo y redistribucion·",
+  "unico_desc": "Spect cardiaco- coronario estudio de perfusion con talio 201 esfuerzo y redistribucion",
   "eq": "260231",
   "eq_desc": "spect cardiaco-coronario estudio de perfusion con talio 201 esfuerzo y redistribucion",
   "score": 0.9625
@@ -7557,14 +7681,16 @@
   "unico_desc": "Spect cardiaco- coronario estudio de perfusion con talio 201 dipiridamoly redistribucion:igualesindi",
   "eq": "260232",
   "eq_desc": "spect cardiaco-coronario estudio de perfusion con talio 201 dipiridamol y redistribucion",
-  "score": 0.9372
+  "score": 0.9372,
+  "truncado": true
  },
  {
   "unico": "260233",
   "unico_desc": "Spect cardiaco- coronario estudio de perfusion con talio 201 con dobutamina y 4 hs. igualesindicacio",
   "eq": "260233",
   "eq_desc": "spect cardiaco-coronario estudio de perfusion con talio 201con dobutamina y 4hs",
-  "score": 0.9466
+  "score": 0.9466,
+  "truncado": true
  },
  {
   "unico": "260234",
@@ -7606,7 +7732,8 @@
   "unico_desc": "Prueba de estimulo gonadal con hormona gonatropa corionica HGG con determinación deestrogenos totale",
   "eq": "260405",
   "eq_desc": "Prueba de estímulo conadal con hormona g",
-  "score": 0.9119
+  "score": 0.9119,
+  "truncado": true
  },
  {
   "unico": "260406",
@@ -8044,14 +8171,14 @@
  },
  {
   "unico": "290112",
-  "unico_desc": "Holter electroencefalografico·",
+  "unico_desc": "Holter electroencefalografico",
   "eq": "290122",
   "eq_desc": "",
   "score": 0.8868
  },
  {
   "unico": "290201",
-  "unico_desc": "Polisomnografia con oximetria en neonatos·",
+  "unico_desc": "Polisomnografia con oximetria en neonatos",
   "eq": "290202",
   "eq_desc": "POLISOMNOGRAFIA NOCTURNA CON OXIMETRIA",
   "score": 0.8882
@@ -8436,10 +8563,11 @@
  },
  {
   "unico": "330302",
-  "unico_desc": "Talleres de estimulacion temprana, incluye guarderiaSe asegura la cobertura:",
+  "unico_desc": "Talleres de estimulacion temprana, incluye guarderia",
   "eq": "330311",
   "eq_desc": "(SUR) taller de estimulacion temprana, incluye guarderia",
-  "score": 0.9299
+  "score": 0.9299,
+  "unico_obs": "Se asegura la cobertura"
  },
  {
   "unico": "330406",
@@ -8618,7 +8746,7 @@
  },
  {
   "unico": "340402",
-  "unico_desc": "esofago -estudio seriado-",
+  "unico_desc": "esofago -estudio seriado",
   "eq": "340402",
   "eq_desc": "",
   "score": 0.9043
@@ -9360,7 +9488,7 @@
  },
  {
   "unico": "380101",
-  "unico_desc": "puvaterapia·",
+  "unico_desc": "puvaterapia",
   "eq": "380101",
   "eq_desc": "Puvaterapia",
   "score": 0.9001
@@ -9556,7 +9684,7 @@
  },
  {
   "unico": "430106",
-  "unico_desc": "cama para acompañante·",
+  "unico_desc": "cama para acompañante",
   "eq": "430106",
   "eq_desc": "",
   "score": 0.8893
@@ -9598,10 +9726,11 @@
  },
  {
   "unico": "430301",
-  "unico_desc": "En consultorio externo, cada aplicacion (NO PMO)",
+  "unico_desc": "En consultorio externo, cada aplicacion",
   "eq": "430301",
   "eq_desc": "En consultorio externo, cada aplicación.--(NO USAR)--",
-  "score": 0.948
+  "score": 0.948,
+  "marcador": "NO PMO"
  },
  {
   "unico": "430401",
@@ -9927,10 +10056,11 @@
  },
  {
   "unico": "10180210",
-  "unico_desc": "ECOGRAFIA DE CADERA (No PMO)",
+  "unico_desc": "ECOGRAFIA DE CADERA",
   "eq": "180210",
   "eq_desc": "ECOGRAFIA DE CADERA",
-  "score": 0.9438
+  "score": 0.9438,
+  "marcador": "No PMO"
  },
  {
   "unico": "10180728",
@@ -10039,24 +10169,27 @@
  },
  {
   "unico": "10340209",
-  "unico_desc": "ESPINOGRAMA (no PMO)",
+  "unico_desc": "ESPINOGRAMA",
   "eq": "340223",
   "eq_desc": "ESPINOGRAMA",
-  "score": 0.935
+  "score": 0.935,
+  "marcador": "no PMO"
  },
  {
   "unico": "10340601",
-  "unico_desc": "Mamografia con tecnica Eklund (no PMO)",
+  "unico_desc": "Mamografia con tecnica Eklund",
   "eq": "340633",
   "eq_desc": "",
-  "score": 0.8575
+  "score": 0.8575,
+  "marcador": "no PMO"
  },
  {
   "unico": "10340610",
-  "unico_desc": "Magnificación Mamaria Por Lado (No PMO)",
+  "unico_desc": "Magnificación Mamaria Por Lado",
   "eq": "340634",
   "eq_desc": "",
-  "score": 0.8494
+  "score": 0.8494,
+  "marcador": "No PMO"
  },
  {
   "unico": "10341014",
@@ -10140,14 +10273,16 @@
   "unico_desc": "(SURGE) tratamiento endovascular de aneurismas craneales con embolizaciones terapéuticas omicrolisis",
   "eq": "010709",
   "eq_desc": "(SUR) tratamiento endovascular de aneurismas craneales con embolizaciones terapeuticas o microlisis",
-  "score": 0.9674
+  "score": 0.9674,
+  "truncado": true
  },
  {
   "unico": "40010709",
   "unico_desc": "(SURGE) tratamiento endovascular de malformaciones craneales con embolizaciones terapéuticas omicrol",
   "eq": "010710",
   "eq_desc": "",
-  "score": 0.9409
+  "score": 0.9409,
+  "truncado": true
  },
  {
   "unico": "40010710",
@@ -10196,7 +10331,8 @@
   "unico_desc": "(SURGE)Tratamiento endovascular periférico por procedimientos hemodinámicos angioplastias (endopróte",
   "eq": "070806",
   "eq_desc": "",
-  "score": 0.8855
+  "score": 0.8855,
+  "truncado": true
  },
  {
   "unico": "40070901",
@@ -10315,7 +10451,8 @@
   "unico_desc": "cross-match contra donante vivo en linfocitos t y b en receptor de transplante renal 48 hs.previasal",
   "eq": "210205",
   "eq_desc": "",
-  "score": 0.9082
+  "score": 0.9082,
+  "truncado": true
  },
  {
   "unico": "40210206",
@@ -10336,7 +10473,8 @@
   "unico_desc": "(SURGE) Transplante de Médula Osea Indicado en: - Aplasia medular idiopática o adquirida no secunda",
   "eq": "241202",
   "eq_desc": "(SUR) Transplante de medula osea autologo",
-  "score": 0.895
+  "score": 0.895,
+  "truncado": true
  },
  {
   "unico": "40241202",
