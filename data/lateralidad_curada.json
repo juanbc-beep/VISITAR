@@ -1,0 +1,21 @@
+{
+ "_nota": "Lateralidad relevada por el área de auditoría de VISITAR SRL. Tiene prioridad sobre la que se detecta en el OCR del Nomenclador Nacional: acá el dato es de la casa, no inferido. Se aplica al código en todos los nomencladores donde aparezca.",
+ "_uso": "Bilateral = el código comprende ambos ojos y se carga por cantidad 1.",
+ "codigos": {
+  "10300123": "Bilateral",
+  "10300205": "Unilateral",
+  "10300206": "Unilateral",
+  "10300207": "Bilateral",
+  "10300208": "Unilateral",
+  "10300209": "Unilateral",
+  "10300210": "Unilateral",
+  "10300212": "Unilateral",
+  "300102": "Unilateral",
+  "300111": "Bilateral",
+  "300130": "Bilateral",
+  "300201": "Unilateral",
+  "300202": "Unilateral",
+  "300204": "Unilateral",
+  "300205": "Unilateral"
+ }
+}

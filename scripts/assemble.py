@@ -1226,6 +1226,31 @@ for _k, _r in records.items():
         _lat_prop += 1
 print(f"Lateralidad propagada al Único: {_lat_prop}", file=sys.stderr)
 
+# ---------- Lateralidad relevada por auditoría (tiene prioridad) ----------
+# El OCR sólo la trae donde el PDF la imprime; el área de auditoría de VISITAR relevó
+# además las que faltaban. Ese dato es de la casa, no inferido, así que pisa al del
+# OCR y se aplica al código en todos los nomencladores donde aparezca.
+try:
+    LAT_CURADA = json.load(open("data/lateralidad_curada.json", encoding="utf-8"))
+except FileNotFoundError:
+    try:
+        LAT_CURADA = json.load(open("lateralidad_curada.json", encoding="utf-8"))
+    except FileNotFoundError:
+        LAT_CURADA = {"codigos": {}}
+_LAT_MAP = LAT_CURADA.get("codigos", {})
+lat_cur = lat_pisa = 0
+for _k, _r in records.items():
+    _val = _LAT_MAP.get(_r["code"])
+    if not _val:
+        continue
+    if _r.get("lateralidad") and _r["lateralidad"] != _val:
+        lat_pisa += 1
+    _r["lateralidad"] = _val
+    _r["lateralidad_origen"] = "auditoria"
+    lat_cur += 1
+print(f"Lateralidad relevada por auditoría: {lat_cur} fichas ({len(_LAT_MAP)} códigos) · "
+      f"corrige al OCR en {lat_pisa}", file=sys.stderr)
+
 # topes por capítulo (áreas con límite de cantidad de sesiones/visitas)
 TOPES_CAP = {
     "33": "Salud mental: atención ambulatoria hasta 30 visitas por año calendario, sin exceder 4 consultas mensuales (Res. 201/02, Anexo I, punto 4).",

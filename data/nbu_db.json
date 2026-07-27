@@ -115041,8 +115041,8 @@
     }
    ],
    "abrev_posibles": [
-    "GB",
-    "RTO"
+    "RTO",
+    "GB"
    ]
   },
   "660410": {
@@ -186638,8 +186638,8 @@
    ],
    "titulo_revisar": true,
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "010102": {
@@ -186711,8 +186711,8 @@
    ],
    "titulo_origen": "unico",
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "010103": {
@@ -187402,8 +187402,8 @@
    ],
    "titulo_origen": "realineado",
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "010207": {
@@ -191464,8 +191464,8 @@
    "lateralidad": "Uni o bilateral",
    "titulo_origen": "realineado",
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "020110": {
@@ -192743,8 +192743,8 @@
    ],
    "titulo_origen": "unico",
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "020502": {
@@ -193643,8 +193643,8 @@
    ],
    "titulo_origen": "unico",
    "abrev_posibles": [
-    "DCR",
     "OP",
+    "DCR",
     "CAV"
    ]
   },
@@ -195771,8 +195771,8 @@
    ],
    "abrev_posibles": [
     "FX",
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "030306": {
@@ -195842,8 +195842,8 @@
     }
    ],
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "030401": {
@@ -196114,8 +196114,8 @@
     }
    ],
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "030405": {
@@ -198974,8 +198974,8 @@
     }
    ],
    "abrev_posibles": [
-    "OP",
-    "GL"
+    "GL",
+    "OP"
    ]
   },
   "030806": {
@@ -199114,9 +199114,9 @@
     }
    ],
    "abrev_posibles": [
-    "BX",
     "GL",
-    "GLS"
+    "GLS",
+    "BX"
    ]
   },
   "030808": {
@@ -205250,8 +205250,8 @@
    ],
    "titulo_revisar": true,
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "070203": {
@@ -208423,8 +208423,8 @@
     }
    ],
    "abrev_posibles": [
-    "Inf",
-    "MMII"
+    "MMII",
+    "Inf"
    ]
   },
   "070717": {
@@ -210083,8 +210083,8 @@
     }
    ],
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "080205": {
@@ -218485,8 +218485,8 @@
     }
    ],
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "100117": {
@@ -219364,8 +219364,8 @@
     }
    ],
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "100208": {
@@ -231353,8 +231353,8 @@
     }
    ],
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "121723": {
@@ -231424,8 +231424,8 @@
     }
    ],
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "121724": {
@@ -231562,8 +231562,8 @@
     }
    ],
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "121726": {
@@ -234559,9 +234559,9 @@
    ],
    "titulo_revisar": true,
    "abrev_posibles": [
-    "SC",
+    "TCSC",
     "BX",
-    "TCSC"
+    "SC"
    ]
   },
   "130109": {
@@ -234762,8 +234762,8 @@
     }
    ],
    "abrev_posibles": [
-    "SC",
-    "TCSC"
+    "TCSC",
+    "SC"
    ]
   },
   "130113": {
@@ -237854,8 +237854,8 @@
     }
    ],
    "abrev_posibles": [
-    "ECO",
-    "TS"
+    "TS",
+    "ECO"
    ]
   },
   "180112": {
@@ -237901,8 +237901,8 @@
     }
    ],
    "abrev_posibles": [
-    "ECO",
-    "ABD"
+    "ABD",
+    "ECO"
    ]
   },
   "180113": {
@@ -243493,8 +243493,8 @@
     }
    ],
    "abrev_posibles": [
-    "VIT",
-    "DX"
+    "DX",
+    "VIT"
    ],
    "cie_rel": [
     "D51",
@@ -243768,8 +243768,8 @@
    ],
    "titulo_origen": "unico",
    "abrev_posibles": [
-    "Ca",
-    "TTO"
+    "TTO",
+    "Ca"
    ]
   },
   "260137": {
@@ -246226,7 +246226,9 @@
      "score": 0.9274,
      "tipo": "med"
     }
-   ]
+   ],
+   "lateralidad": "Unilateral",
+   "lateralidad_origen": "auditoria"
   },
   "300106": {
    "code": "300106",
@@ -246448,7 +246450,9 @@
      "score": 0.9017,
      "tipo": "med"
     }
-   ]
+   ],
+   "lateralidad": "Bilateral",
+   "lateralidad_origen": "auditoria"
   },
   "300113": {
    "code": "300113",
@@ -246815,7 +246819,9 @@
      "score": null,
      "tipo": "med"
     }
-   ]
+   ],
+   "lateralidad": "Unilateral",
+   "lateralidad_origen": "auditoria"
   },
   "300202": {
    "code": "300202",
@@ -246859,7 +246865,9 @@
      "score": null,
      "tipo": "med"
     }
-   ]
+   ],
+   "lateralidad": "Unilateral",
+   "lateralidad_origen": "auditoria"
   },
   "300204": {
    "code": "300204",
@@ -246904,6 +246912,8 @@
      "tipo": "med"
     }
    ],
+   "lateralidad": "Unilateral",
+   "lateralidad_origen": "auditoria",
    "abrev_posibles": [
     "TOPO"
    ]
@@ -246950,7 +246960,9 @@
      "tipo": "med"
     }
    ],
-   "titulo_origen": "realineado"
+   "titulo_origen": "realineado",
+   "lateralidad": "Unilateral",
+   "lateralidad_origen": "auditoria"
   },
   "310101": {
    "code": "310101",
@@ -261727,8 +261739,8 @@
     "total_2002": 327.27
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U010103": {
@@ -267797,8 +267809,8 @@
     "total_2002": 237.06
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U020502": {
@@ -268697,8 +268709,8 @@
     "total_2002": 186.28
    },
    "abrev_posibles": [
-    "DCR",
     "OP",
+    "DCR",
     "CAV"
    ]
   },
@@ -270817,8 +270829,8 @@
    },
    "abrev_posibles": [
     "FX",
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U030306": {
@@ -270888,8 +270900,8 @@
     "total_2002": 436.34
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U030401": {
@@ -271160,8 +271172,8 @@
     "total_2002": 103.43
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U030405": {
@@ -272778,8 +272790,8 @@
     "total_2002": 378.1
    },
    "abrev_posibles": [
-    "OP",
-    "LAR"
+    "LAR",
+    "OP"
    ]
   },
   "U030602": {
@@ -274023,8 +274035,8 @@
     "total_2002": 263.44
    },
    "abrev_posibles": [
-    "OP",
-    "GL"
+    "GL",
+    "OP"
    ]
   },
   "U030806": {
@@ -274163,9 +274175,9 @@
     "total_2002": 22.06
    },
    "abrev_posibles": [
-    "BX",
     "GL",
-    "GLS"
+    "GLS",
+    "BX"
    ]
   },
   "U030808": {
@@ -283538,8 +283550,8 @@
     "total_2002": 22.06
    },
    "abrev_posibles": [
-    "Inf",
-    "MMII"
+    "MMII",
+    "Inf"
    ]
   },
   "U070717": {
@@ -284046,8 +284058,8 @@
     "Sin equivalencia hallada en Prestaciones Médicas — pendiente de mapeo manual."
    ],
    "abrev_posibles": [
-    "CEC",
-    "CCV"
+    "CCV",
+    "CEC"
    ]
   },
   "U080101": {
@@ -285209,8 +285221,8 @@
     "total_2002": 203.29
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U080205": {
@@ -295439,8 +295451,8 @@
     "total_2002": 188.74
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U100208": {
@@ -308566,8 +308578,8 @@
     "total_2002": 128.81
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U121723": {
@@ -308637,8 +308649,8 @@
     "total_2002": 197.62
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U121724": {
@@ -308775,8 +308787,8 @@
     "total_2002": 128.81
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U121726": {
@@ -312522,9 +312534,9 @@
     "total_2002": 15.78
    },
    "abrev_posibles": [
-    "SC",
+    "TCSC",
     "BX",
-    "TCSC"
+    "SC"
    ]
   },
   "U130109": {
@@ -312725,8 +312737,8 @@
     "total_2002": 28.22
    },
    "abrev_posibles": [
-    "SC",
-    "TCSC"
+    "TCSC",
+    "SC"
    ]
   },
   "U130113": {
@@ -324006,8 +324018,8 @@
     "Equivale a la práctica 260136 del Nomenclador de Prestaciones Médicas (similitud 94%)."
    ],
    "abrev_posibles": [
-    "Ca",
-    "TTO"
+    "TTO",
+    "Ca"
    ]
   },
   "U260137": {
@@ -328432,7 +328444,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 300102 del Nomenclador de Prestaciones Médicas (similitud 93%)."
-   ]
+   ],
+   "lateralidad": "Unilateral",
+   "lateralidad_origen": "auditoria"
   },
   "U300106": {
    "code": "300106",
@@ -328654,7 +328668,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 300111 del Nomenclador de Prestaciones Médicas (similitud 90%)."
-   ]
+   ],
+   "lateralidad": "Bilateral",
+   "lateralidad_origen": "auditoria"
   },
   "U300113": {
    "code": "300113",
@@ -329018,7 +329034,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 300130 del Nomenclador de Prestaciones Médicas (similitud 100%)."
-   ]
+   ],
+   "lateralidad": "Bilateral",
+   "lateralidad_origen": "auditoria"
   },
   "U300201": {
    "code": "300201",
@@ -329062,7 +329080,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 300201 del Nomenclador de Prestaciones Médicas."
-   ]
+   ],
+   "lateralidad": "Unilateral",
+   "lateralidad_origen": "auditoria"
   },
   "U300202": {
    "code": "300202",
@@ -329107,6 +329127,8 @@
    "auditoria": [
     "Equivale a la práctica 300202 del Nomenclador de Prestaciones Médicas."
    ],
+   "lateralidad": "Unilateral",
+   "lateralidad_origen": "auditoria",
    "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Paciente con disminución visual que se presenta con edema corneal en la biomicroscopía. Se realiza seguimiento con recuento endotelital y paquimetría."
   },
   "U300204": {
@@ -329152,6 +329174,8 @@
    "auditoria": [
     "Equivale a la práctica 300204 del Nomenclador de Prestaciones Médicas."
    ],
+   "lateralidad": "Unilateral",
+   "lateralidad_origen": "auditoria",
    "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Diagnóstico de queratocono (mancha roja inferior)",
    "abrev_posibles": [
     "TOPO"
@@ -329198,7 +329222,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 300205 del Nomenclador de Prestaciones Médicas (similitud 88%)."
-   ]
+   ],
+   "lateralidad": "Unilateral",
+   "lateralidad_origen": "auditoria"
   },
   "U310101": {
    "code": "310101",
@@ -335894,8 +335920,8 @@
     "Equivale a la práctica 350116 del Nomenclador de Prestaciones Médicas (similitud 92%)."
    ],
    "abrev_posibles": [
-    "Ca",
     "TTO",
+    "Ca",
     "RT"
    ]
   },
@@ -340767,6 +340793,8 @@
    "auditoria": [
     "Equivale a la práctica 170119 del Nomenclador de Prestaciones Médicas (similitud 87%)."
    ],
+   "lateralidad": "Unilateral",
+   "lateralidad_origen": "auditoria",
    "abrev_posibles": [
     "EMC"
    ]
@@ -340813,7 +340841,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 341119 del Nomenclador de Prestaciones Médicas (similitud 93%)."
-   ]
+   ],
+   "lateralidad": "Unilateral",
+   "lateralidad_origen": "auditoria"
   },
   "U10300207": {
    "code": "10300207",
@@ -340857,7 +340887,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 300186 del Nomenclador de Prestaciones Médicas (similitud 98%)."
-   ]
+   ],
+   "lateralidad": "Bilateral",
+   "lateralidad_origen": "auditoria"
   },
   "U10300208": {
    "code": "10300208",
@@ -340902,6 +340934,8 @@
    "auditoria": [
     "Equivale a la práctica 300142 del Nomenclador de Prestaciones Médicas (similitud 91%)."
    ],
+   "lateralidad": "Unilateral",
+   "lateralidad_origen": "auditoria",
    "abrev_posibles": [
     "RTO"
    ]
@@ -340948,7 +340982,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 300184 del Nomenclador de Prestaciones Médicas (similitud 90%)."
-   ]
+   ],
+   "lateralidad": "Unilateral",
+   "lateralidad_origen": "auditoria"
   },
   "U10340209": {
    "code": "10340209",
@@ -342963,8 +342999,8 @@
     "Equivale a la práctica 081001 del Nomenclador de Prestaciones Médicas (similitud 96%)."
    ],
    "abrev_posibles": [
-    "TXH",
-    "DVR"
+    "DVR",
+    "TXH"
    ],
    "surge": {
     "patologia_id": "trasplante_de_organos_y_precursore",
@@ -344795,7 +344831,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 300128 del Nomenclador de Prestaciones Médicas (sin ficha propia cargada)."
-   ]
+   ],
+   "lateralidad": "Unilateral",
+   "lateralidad_origen": "auditoria"
   },
   "U10300211": {
    "code": "10300211",
@@ -344884,7 +344922,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 300148 del Nomenclador de Prestaciones Médicas (sin ficha propia cargada)."
-   ]
+   ],
+   "lateralidad": "Unilateral",
+   "lateralidad_origen": "auditoria"
   },
   "U10342018": {
    "code": "10342018",
@@ -345020,7 +345060,9 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 300148 del Nomenclador de Prestaciones Médicas (sin ficha propia cargada)."
-   ]
+   ],
+   "lateralidad": "Bilateral",
+   "lateralidad_origen": "auditoria"
   },
   "U64665230": {
    "code": "64665230",
@@ -345096,8 +345138,8 @@
     "Sin equivalencia en Prestaciones Médicas — pendiente de mapeo manual."
    ],
    "abrev_posibles": [
-    "PTE",
-    "AV"
+    "AV",
+    "PTE"
    ]
   },
   "U60660001": {
@@ -353926,8 +353968,8 @@
     "Urgencia (U): si se solicita de urgencia, adicionar el código 661200 en la misma prescripción."
    ],
    "abrev_posibles": [
-    "GB",
-    "RTO"
+    "RTO",
+    "GB"
    ]
   },
   "U60660410": {
