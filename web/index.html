@@ -755,6 +755,11 @@ const SEC_LABEL={PMO:'PMO',PE:'Prácticas Especiales',GESTION:'Gestión Adm.',PM
 const SEC_CLASS={PMO:'b-pmo',PE:'b-pe',GESTION:'b-gestion',PMO_MED:'b-med',ODO:'b-odo',UNICO:'b-unico'};
 const SEC_COLORVAR={PMO:'var(--pmo)',PE:'var(--pe)',GESTION:'var(--gestion)',PMO_MED:'var(--med)',ODO:'var(--odo)',UNICO:'var(--unico)'};
 const NOMEN_LABEL={ALL:'Todo el manual',NBU:'NBU · bioquímica',PMO:'PMO · prestaciones médicas',ODO:'Odontología',UNICO:'Nomenclador Único (VISITAR)',CIE:'Diagnósticos CIE-10',ABR:'Abreviaturas médicas',SURGE:'SURGE · reintegros'};
+// Nomencladores que VISITAR no usa: se ocultan de la navegación y de la búsqueda
+// global. Los datos siguen en la base, así que para volver a mostrarlos alcanza con
+// sacarlos de este conjunto — no hace falta recompilar nada.
+const NOMEN_OCULTOS=new Set(['ODO']);
+const ocultoNom=n=>NOMEN_OCULTOS.has(n);
 // CIE-10 (diagnósticos)
 const CIE=(DB.cie10&&DB.cie10.codigos)?DB.cie10.codigos:{};
 const CIE_LIST=Object.values(CIE);
@@ -789,6 +794,9 @@ function cieSuggest(d){
 }
 
 let savedMode='NBU';try{savedMode=localStorage.getItem('nbu-mode')||'NBU';}catch(e){}
+if(ocultoNom(savedMode))savedMode='NBU';   // por si quedó guardado de antes de ocultarlo
+// quitar de la barra de navegación los nomencladores ocultos
+document.querySelectorAll('.modebtn').forEach(b=>{if(ocultoNom(b.dataset.mode))b.remove();});
 const state={q:'',mode:savedMode,seccion:new Set(),grupo:new Set(),flags:new Set(),limit:80,view:'list',vmode:'facturacion'};
 const el=id=>document.getElementById(id);
 
@@ -863,6 +871,7 @@ document.querySelectorAll('#fSeccion .opt, #fFlags .opt').forEach(b=>b.addEventL
 
 /* ---------- selector de sección principal (modo) ---------- */
 function setMode(m){
+  if(ocultoNom(m))return;      // no se navega a un nomenclador oculto
   if(m===state.mode)return;
   state.mode=m; state.seccion.clear(); state.grupo.clear(); state.limit=80;
   try{localStorage.setItem('nbu-mode',m);}catch(e){}
@@ -1039,7 +1048,7 @@ function renderAll(){
     el('moreBtn').hidden=true;return;
   }
   const groups=[];
-  [['NBU','Laboratorio (NBU)'],['PMO','Prestaciones médicas (PMO)'],['ODO','Odontología'],['UNICO','Nomenclador Único']].forEach(([nm,lbl])=>{
+  [['NBU','Laboratorio (NBU)'],['PMO','Prestaciones médicas (PMO)'],['ODO','Odontología'],['UNICO','Nomenclador Único']].filter(([nm])=>!ocultoNom(nm)).forEach(([nm,lbl])=>{
     const arr=CODES.filter(c=>c.nomenclador===nm&&terms.every(t=>c._h.includes(t)));
     if(arr.length)groups.push({lbl,rows:arr,build:rowHTML});
   });
@@ -1942,7 +1951,7 @@ window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(h&&B
 applyMode();
 render();
 const initial=location.hash.slice(1);
-if(initial&&BYCODE[initial]){state.mode=BYCODE[initial].nomenclador;applyMode();render();openCode(initial);}
+if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode=BYCODE[initial].nomenclador;applyMode();render();openCode(initial);}
 
 /* ============================================================
    Perfiles · Administrador · Sincronización (Supabase)
