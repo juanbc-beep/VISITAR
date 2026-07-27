@@ -188272,8 +188272,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "010303": {
@@ -189493,8 +189493,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "010503": {
@@ -193660,9 +193660,9 @@
    ],
    "titulo_origen": "unico",
    "abrev_posibles": [
+    "DCR",
     "CAV",
-    "OP",
-    "DCR"
+    "OP"
    ]
   },
   "020802": {
@@ -193801,8 +193801,8 @@
     }
    ],
    "abrev_posibles": [
-    "DJE",
-    "GL"
+    "GL",
+    "DJE"
    ]
   },
   "020804": {
@@ -195792,8 +195792,8 @@
    ],
    "abrev_posibles": [
     "Qx",
-    "TTO",
-    "FX"
+    "FX",
+    "TTO"
    ]
   },
   "030306": {
@@ -198160,8 +198160,8 @@
     }
    ],
    "abrev_posibles": [
-    "DJE",
-    "LAR"
+    "LAR",
+    "DJE"
    ]
   },
   "030608": {
@@ -198988,8 +198988,8 @@
     }
    ],
    "abrev_posibles": [
-    "OP",
-    "GL"
+    "GL",
+    "OP"
    ]
   },
   "030806": {
@@ -199128,9 +199128,9 @@
     }
    ],
    "abrev_posibles": [
-    "BX",
     "GL",
-    "GLS"
+    "GLS",
+    "BX"
    ]
   },
   "030808": {
@@ -199449,8 +199449,8 @@
     }
    ],
    "abrev_posibles": [
-    "BX",
-    "DJE"
+    "DJE",
+    "BX"
    ]
   },
   "030905": {
@@ -199992,8 +199992,8 @@
     }
    ],
    "abrev_posibles": [
-    "BX",
-    "DJE"
+    "DJE",
+    "BX"
    ]
   },
   "031101": {
@@ -200287,8 +200287,8 @@
     }
    ],
    "abrev_posibles": [
-    "BX",
-    "DJE"
+    "DJE",
+    "BX"
    ]
   },
   "031201": {
@@ -200678,8 +200678,8 @@
     }
    ],
    "abrev_posibles": [
-    "BX",
-    "DJE"
+    "DJE",
+    "BX"
    ]
   },
   "031301": {
@@ -205568,8 +205568,8 @@
    ],
    "titulo_origen": "realineado",
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "070208": {
@@ -205648,8 +205648,8 @@
    ],
    "titulo_origen": "realineado",
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ],
    "surge": {
     "patologia_id": "aneurisma_de_aorta_abdominal_aneur",
@@ -206013,8 +206013,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "070401": {
@@ -206086,8 +206086,8 @@
    ],
    "abrev_posibles": [
     "AAA",
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "070402": {
@@ -214235,9 +214235,9 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
+    "Qx",
     "OP",
-    "Qx"
+    "TTO"
    ]
   },
   "080609": {
@@ -214867,8 +214867,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "US"
+    "US",
+    "TTO"
    ]
   },
   "080701": {
@@ -217855,8 +217855,8 @@
     }
    ],
    "abrev_posibles": [
-    "BX",
-    "DJE"
+    "DJE",
+    "BX"
    ]
   },
   "100108": {
@@ -217928,8 +217928,8 @@
    ],
    "titulo_origen": "realineado",
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "100109": {
@@ -219679,8 +219679,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "OP"
+    "OP",
+    "TTO"
    ]
   },
   "100213": {
@@ -220987,8 +220987,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "100507": {
@@ -228501,8 +228501,8 @@
     }
    ],
    "abrev_posibles": [
-    "BX",
-    "DJE"
+    "DJE",
+    "BX"
    ]
   },
   "121301": {
@@ -228838,8 +228838,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "121306": {
@@ -228910,8 +228910,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "121307": {
@@ -228981,8 +228981,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "121308": {
@@ -229052,8 +229052,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "121401": {
@@ -230456,8 +230456,8 @@
    ],
    "titulo_origen": "unico",
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "121704": {
@@ -230668,8 +230668,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "121707": {
@@ -231054,8 +231054,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "121719": {
@@ -231400,8 +231400,8 @@
     }
    ],
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "121724": {
@@ -231609,8 +231609,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "121727": {
@@ -231680,8 +231680,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "121728": {
@@ -237827,8 +237827,8 @@
     }
    ],
    "abrev_posibles": [
-    "TS",
-    "ECO"
+    "ECO",
+    "TS"
    ]
   },
   "180112": {
@@ -243474,8 +243474,8 @@
     }
    ],
    "abrev_posibles": [
-    "DX",
-    "VIT"
+    "VIT",
+    "DX"
    ],
    "cie_rel": [
     "D51",
@@ -243750,8 +243750,8 @@
    ],
    "titulo_origen": "unico",
    "abrev_posibles": [
-    "TTO",
-    "Ca"
+    "Ca",
+    "TTO"
    ]
   },
   "260137": {
@@ -252628,10 +252628,10 @@
     }
    ],
    "abrev_posibles": [
-    "ABD",
     "RMI",
     "RMN",
-    "RNM"
+    "RNM",
+    "ABD"
    ]
   },
   "342009": {
@@ -260584,8 +260584,8 @@
     "Coseguro máximo: 100%."
    ],
    "abrev_posibles": [
-    "DX",
-    "Px"
+    "Px",
+    "DX"
    ]
   },
   "ODO0802": {
@@ -260701,8 +260701,8 @@
     "Coseguro máximo: 100%."
    ],
    "abrev_posibles": [
-    "ENF",
-    "TTO"
+    "TTO",
+    "ENF"
    ]
   },
   "ODO0805": {
@@ -261663,8 +261663,8 @@
     "total_2002": 394.36
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U010102": {
@@ -262426,8 +262426,8 @@
     "total_2002": 508.12
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U010207": {
@@ -263271,8 +263271,8 @@
     "total_2002": 331.83
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U010303": {
@@ -264419,8 +264419,8 @@
     "total_2002": 240.29
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U010502": {
@@ -264492,8 +264492,8 @@
     "total_2002": 262.27
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U010503": {
@@ -266540,8 +266540,8 @@
    },
    "lateralidad": "Uni o bilateral",
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U020110": {
@@ -268705,9 +268705,9 @@
     "total_2002": 186.28
    },
    "abrev_posibles": [
+    "DCR",
     "CAV",
-    "OP",
-    "DCR"
+    "OP"
    ]
   },
   "U020802": {
@@ -270831,8 +270831,8 @@
    },
    "abrev_posibles": [
     "Qx",
-    "TTO",
-    "FX"
+    "FX",
+    "TTO"
    ]
   },
   "U030306": {
@@ -272792,8 +272792,8 @@
     "total_2002": 378.1
    },
    "abrev_posibles": [
-    "OP",
-    "LAR"
+    "LAR",
+    "OP"
    ]
   },
   "U030602": {
@@ -273207,8 +273207,8 @@
     "total_2002": 27.23
    },
    "abrev_posibles": [
-    "DJE",
-    "LAR"
+    "LAR",
+    "DJE"
    ]
   },
   "U030608": {
@@ -274037,8 +274037,8 @@
     "total_2002": 263.44
    },
    "abrev_posibles": [
-    "OP",
-    "GL"
+    "GL",
+    "OP"
    ]
   },
   "U030806": {
@@ -274177,9 +274177,9 @@
     "total_2002": 22.06
    },
    "abrev_posibles": [
-    "BX",
     "GL",
-    "GLS"
+    "GLS",
+    "BX"
    ]
   },
   "U030808": {
@@ -275048,8 +275048,8 @@
     "total_2002": 15.78
    },
    "abrev_posibles": [
-    "BX",
-    "DJE"
+    "DJE",
+    "BX"
    ]
   },
   "U031101": {
@@ -275734,8 +275734,8 @@
     "Equivale a la práctica 031206 del Nomenclador de Prestaciones Médicas (similitud 93%)."
    ],
    "abrev_posibles": [
-    "BX",
-    "DJE"
+    "DJE",
+    "BX"
    ]
   },
   "U031301": {
@@ -280419,8 +280419,8 @@
     "total_2002": 1392.52
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U070203": {
@@ -280717,8 +280717,8 @@
     "total_2002": 1468.93
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U070208": {
@@ -280789,8 +280789,8 @@
     "total_2002": 1325.53
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ],
    "surge": {
     "patologia_id": "aneurisma_de_aorta_abdominal_aneur",
@@ -281152,8 +281152,8 @@
     "total_2002": 531.29
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U070401": {
@@ -281225,8 +281225,8 @@
    },
    "abrev_posibles": [
     "AAA",
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U070402": {
@@ -284069,8 +284069,8 @@
     "Sin equivalencia hallada en Prestaciones Médicas — pendiente de mapeo manual."
    ],
    "abrev_posibles": [
-    "CCV",
-    "CEC"
+    "CEC",
+    "CCV"
    ]
   },
   "U080101": {
@@ -289336,8 +289336,8 @@
     "total_2002": 108.32
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U080609": {
@@ -289974,8 +289974,8 @@
     "Equivale a la práctica 080618 del Nomenclador de Prestaciones Médicas."
    ],
    "abrev_posibles": [
-    "TTO",
-    "US"
+    "US",
+    "TTO"
    ]
   },
   "U080701": {
@@ -291043,8 +291043,8 @@
     "total_2002": 253.89
    },
    "abrev_posibles": [
-    "CTL",
-    "TTO"
+    "TTO",
+    "CTL"
    ]
   },
   "U080718": {
@@ -293959,8 +293959,8 @@
     "total_2002": 164.6
    },
    "abrev_posibles": [
-    "BX",
-    "DJE"
+    "DJE",
+    "BX"
    ]
   },
   "U100108": {
@@ -294031,8 +294031,8 @@
     "total_2002": 216.94
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U100109": {
@@ -297085,8 +297085,8 @@
     "Equivale a la práctica 100506 del Nomenclador de Prestaciones Médicas (similitud 89%)."
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U100507": {
@@ -300154,8 +300154,8 @@
     "total_2002": 303.49
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U110303": {
@@ -305672,8 +305672,8 @@
     "total_2002": 302.67
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U121306": {
@@ -305744,8 +305744,8 @@
     "total_2002": 280.69
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U121307": {
@@ -305816,8 +305816,8 @@
     "total_2002": 137.39
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U121308": {
@@ -305887,8 +305887,8 @@
     "total_2002": 128.14
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U121401": {
@@ -307306,8 +307306,8 @@
     "total_2002": 230.64
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U121704": {
@@ -307518,8 +307518,8 @@
     "total_2002": 180.05
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U121707": {
@@ -308316,8 +308316,8 @@
     "total_2002": 306.34
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U121719": {
@@ -308665,8 +308665,8 @@
     "total_2002": 197.62
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U121724": {
@@ -308874,8 +308874,8 @@
     "total_2002": 198.28
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U121727": {
@@ -308946,8 +308946,8 @@
     "total_2002": 126.17
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U121728": {
@@ -316619,9 +316619,9 @@
     "Equivale a la práctica 170105 del Nomenclador de Prestaciones Médicas (similitud 90%)."
    ],
    "abrev_posibles": [
-    "DX",
     "ECG",
-    "EKG"
+    "EKG",
+    "DX"
    ]
   },
   "U170106": {
@@ -324043,8 +324043,8 @@
     "Equivale a la práctica 260136 del Nomenclador de Prestaciones Médicas (similitud 94%)."
    ],
    "abrev_posibles": [
-    "TTO",
-    "Ca"
+    "Ca",
+    "TTO"
    ]
   },
   "U260137": {
@@ -335422,10 +335422,10 @@
     "Equivale a la práctica 342008 del Nomenclador de Prestaciones Médicas."
    ],
    "abrev_posibles": [
-    "ABD",
     "RMI",
     "RMN",
-    "RNM"
+    "RNM",
+    "ABD"
    ]
   },
   "U342009": {
@@ -335955,9 +335955,9 @@
     "Equivale a la práctica 350116 del Nomenclador de Prestaciones Médicas (similitud 92%)."
    ],
    "abrev_posibles": [
-    "RT",
     "TTO",
-    "Ca"
+    "Ca",
+    "RT"
    ]
   },
   "U350310": {
@@ -342193,8 +342193,8 @@
     "total_2002": 1325.53
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ],
    "surge": {
     "patologia_id": "aneurisma_de_aorta_abdominal_aneur",
@@ -343039,8 +343039,8 @@
     "Equivale a la práctica 081001 del Nomenclador de Prestaciones Médicas (similitud 96%)."
    ],
    "abrev_posibles": [
-    "DVR",
-    "TXH"
+    "TXH",
+    "DVR"
    ],
    "surge": {
     "patologia_id": "trasplante_de_organos_y_precursore",
@@ -364443,8 +364443,8 @@
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 661025."
    ],
    "abrev_posibles": [
-    "CMV",
-    "Ac"
+    "Ac",
+    "CMV"
    ]
   },
   "U61661030": {
@@ -364493,8 +364493,8 @@
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 661030."
    ],
    "abrev_posibles": [
-    "CMV",
-    "Ac"
+    "Ac",
+    "CMV"
    ]
   },
   "U60661035": {

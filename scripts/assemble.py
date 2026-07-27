@@ -1480,6 +1480,40 @@ db = {
     "codigos": records,
 }
 
+# ---------- correcciones de contenido hechas por auditoría ----------
+# Se aplican al final y pisan todo lo anterior: las hizo una persona que sabe, sobre
+# fichas que el pipeline no pudo resolver solo. Salen del panel de administración de
+# la app, con «Exportar correcciones para la base».
+try:
+    CORR = json.load(open("data/correcciones_curadas.json", encoding="utf-8"))
+except FileNotFoundError:
+    try:
+        CORR = json.load(open("correcciones_curadas.json", encoding="utf-8"))
+    except FileNotFoundError:
+        CORR = {"codigos": {}}
+corr_n = 0
+for _code, _ov in (CORR.get("codigos") or {}).items():
+    _r = records.get(_code)
+    if not _r:
+        print(f"  aviso: corrección para {_code}, que no está en la base", file=sys.stderr)
+        continue
+    if _ov.get("nombre"):
+        _r["nombre"] = _ov["nombre"]
+        # corregido a mano: ya no hay nada que confirmar
+        _r.pop("titulo_revisar", None)
+        _r.pop("sin_denominacion", None)
+        _r.pop("titulo_origen", None)
+    if "norma" in _ov:
+        _r["norma"] = _ov["norma"]
+    if "auditoria" in _ov:
+        _r["auditoria"] = _ov["auditoria"]
+    if _ov.get("asoc_extra"):
+        _r["asoc_extra"] = _ov["asoc_extra"]
+    _r["correccion_curada"] = True
+    corr_n += 1
+if corr_n:
+    print(f"Correcciones de auditoría aplicadas: {corr_n}", file=sys.stderr)
+
 # ---------- guarda final: ninguna ficha sin denominación ----------
 # Alguna prestación llega con el título destruido en la fuente (p. ej. 130303, que
 # el OCR del PDF dejó ilegible). No se inventa una denominación: se marca la ficha
