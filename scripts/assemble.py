@@ -943,12 +943,23 @@ except FileNotFoundError:
 pmo_fix = pmo_cob = 0
 for _code, _info in PMOCOB.get("codigos", {}).items():
     _r = records.get(_code)
-    if not _r or _r.get("nomenclador") != "PMO":
+    if not _r:
         continue
-    if len(_r["nombre"]) > 90 and _info.get("titulo") and len(_info["titulo"]) < len(_r["nombre"]):
-        _r["nombre"] = _info["titulo"]; pmo_fix += 1
+    if _r.get("nomenclador") == "PMO":
+        if len(_r["nombre"]) > 90 and _info.get("titulo") and len(_info["titulo"]) < len(_r["nombre"]):
+            _r["nombre"] = _info["titulo"]; pmo_fix += 1
+    # La cobertura se aplica a cualquier nomenclador, no sólo al PMO: 12 prácticas de
+    # laboratorio (PSA, hepatitis, marcadores tumorales, rubéola…) traen su obligación
+    # de cobertura acá y se estaban descartando por venir bajo un código del NBU.
     if _info.get("cobertura"):
-        _r["cobertura_pmo"] = _info["cobertura"]; pmo_cob += 1
+        _r["cobertura_pmo"] = _info["cobertura"]
+        # El texto puede ser una obligación de cobertura o una observación sobre
+        # cuándo corresponde o no hacer el estudio: se distinguen para mostrarlos
+        # con el encabezado que corresponde.
+        _r["cobertura_tipo"] = ("obligacion"
+                                if re.match(r"\s*obligaci[oó]n\s+de\s+cobertura", _info["cobertura"], re.I)
+                                else "observacion")
+        pmo_cob += 1
 # ---------- Oftalmología: reparación de títulos y lateralidad ----------
 # El texto del PDF del PMO viene bien escrito pero **mal cortado entre códigos**: la
 # cola de una práctica queda pegada al comienzo de la siguiente (300117 perdía
@@ -985,10 +996,22 @@ def _letras(s):
 
 
 def _ocr_ref(code):
-    """Firma en letras del título según el OCR del Nacional, sin encabezados ni ruido."""
-    t = _letras((NNV.get(code) or {}).get("nombre_ocr", "") if NNV else "")
+    """Firma en letras del título según el OCR del Nacional, sin encabezados ni ruido.
+
+    Se corta también en el texto de cobertura: si la firma lo incluyera, un recorte
+    que se comiera el título del código siguiente parecería coincidir mejor que el
+    título correcto (pasaba en 070114 y 180301).
+    """
+    crudo = (NNV.get(code) or {}).get("nombre_ocr", "") if NNV else ""
+    # El título es la primera oración: el OCR mete a continuación el detalle que el
+    # PMO retiró y, en algunas celdas, hasta el título del código siguiente (070114
+    # trae también el de 070115). Se corta en el primer punto seguido de espacio,
+    # exigiendo letras antes para no partir siglas como "P.M.O.".
+    crudo = re.split(r"(?<=[A-Za-z][A-Za-z][A-Za-z])\.\s", crudo)[0]
+    t = _letras(crudo)
     for r in _OCR_RUIDO:
         t = re.sub(r, "", t)
+    t = re.split(r"OB[LU]?[IG]?[AG]?[CS]?ION[ED]{0,2}CO[EB]{1,2}ERTURA|DECOBERTURAENLOSSIGUIENTES", t)[0]
     return t
 
 
@@ -1269,6 +1292,15 @@ for _k, _r in records.items():
             _s = records[_tgt]
             if _s.get("cobertura_pmo") and "cobertura_pmo" not in _r:
                 _r["cobertura_pmo"] = _s["cobertura_pmo"]
+                if _s.get("cobertura_tipo"):
+                    _r["cobertura_tipo"] = _s["cobertura_tipo"]
+                # La planilla del Único traía sólo el encabezado («OBLIGACION de
+                # cobertura en los siguientes casos:») sin los casos. Ahora que llega
+                # el texto completo, ese resto suelto sobra.
+                _obs = _r.get("observacion_unico") or ""
+                if re.match(r"\s*(obligaci[oó]n\s+de\s+cobertura|se\s+asegura\s+la\s+cobertura)", _obs, re.I) \
+                        and len(_obs) < 70:
+                    _r.pop("observacion_unico", None)
             if _s.get("tope_pmo") and "tope_pmo" not in _r:
                 _r["tope_pmo"] = _s["tope_pmo"]
 print(f"PMO cobertura: títulos corregidos {pmo_fix} · con cobertura {pmo_cob} · generalidades {len(PMOCOB.get('generalidades',[]))} · topes {len(PMOCOB.get('topes',[]))}", file=sys.stderr)
