@@ -48,10 +48,10 @@ HTML que funciona **sin servidor y sin internet**. Sirve a dos sectores de VISIT
 
 | Relación | Cobertura |
 |---|---|
-| Códigos con vínculo **SURGE** | 52 (38 marcados `(SUR)/(SURGE)` + 17 propagados por equivalencia) |
+| Códigos con vínculo **SURGE** | 60 (sube de 52 al reparar equivalencias) |
 | Códigos con **abreviaturas posibles** | 1.023 (eran 1.025; bajan 3 falsos positivos y sube 1 real al limpiar los títulos) |
-| Códigos con **cobertura obligatoria PMO** | 67 |
-| Códigos con **lateralidad** (Bilateral/Unilateral) | 28 (sólo oftalmología) |
+| Códigos con **cobertura obligatoria PMO** | 87 |
+| Códigos con **lateralidad** (Bilateral/Unilateral) | 109 (57 del Nacional + 52 propagados al Único) |
 | Códigos con **diagnósticos CIE-10** relacionados | 242 |
 | Códigos con **normativa** relacionada | 61 |
 | Único **sin equivalencia** (agrupados aparte) | 79 |
@@ -281,6 +281,19 @@ Funciones clave en el código: `initValidator()`, `runCase()`, `renderCase()`,
 - **App instalable (PWA) + offline total** (manifest + service worker).
 - **Novedades normativas / vigencias**.
 
+**Extensión a todo el nomenclador (hecha):** 265 títulos recompuestos, 170 equivalencias
+re-resueltas (148 por código, 22 por nombre) y 109 fichas con lateralidad. Toda
+equivalencia reconstruida y todo título dudoso lo **avisan en la ficha**.
+
+**Lo que queda por confirmar:**
+- **70 títulos marcados «denominación a confirmar»** (`titulo_revisar`): ninguna fuente
+  los resuelve sin ambigüedad. Se corrigen desde **✎ Editar ficha**.
+- **215 equivalencias sin destino posible**: apuntan a códigos que no están en el
+  Nacional cargado y no tienen equivalente por código ni por nombre.
+- Las equivalencias resueltas **por nombre** (22) conviene revisarlas: el capítulo 260
+  tenía un corrimiento sistemático de numeración y se resolvió bien, pero el criterio
+  es estadístico.
+
 **Oftalmología — lo que queda por confirmar:**
 - **2 denominaciones marcadas «a confirmar»** (`titulo_revisar`): `020103` y `020502`.
   Ninguna fuente las resuelve sin ambigüedad; la ficha lo avisa y se corrigen desde
@@ -339,6 +352,11 @@ Funciones clave en el código: `initValidator()`, `runCase()`, `renderCase()`,
 | **Oftalmología: catálogo corrido un código** (`020108` era «vitrectomía» según OCR y Único, pero figuraba en `020107`) | Detectado por la misma alineación. Las abreviaturas siguieron a su título correcto |
 | **Equivalencias a códigos inexistentes** (`300113` remitía a `300153`, que no está en la base) | Si el destino no existe se re-resuelve por código idéntico y, si no, por proximidad de nombre en el capítulo |
 | **Lateralidad ignorada** (el Nacional anota BILATERAL / UNILATERAL) | Se extrae del OCR (busca sobre el flujo de letras, porque vienen pegadas), se propaga al Único y **la Mesa de trabajo rechaza un bilateral con cantidad > 1** |
+| **Capítulo mal asignado en códigos del Único de 8 dígitos** (`10300122`, de oftalmología, mostraba la norma de «Aparato urinario y genital masculino») | Esos códigos llevan 2 dígitos propios delante del código del Nacional: el capítulo son los **dígitos 3º y 4º**, no los dos primeros. Corregido en `assemble.py` y en la ficha |
+| Al ampliar la realineación a todos los capítulos, el recorte se tragaba la cobertura del código siguiente (`070115`: 39 → 831 caracteres) | Guarda de **proporción** contra la firma del OCR + tope duro de 160 caracteres |
+| Cortes a mitad de palabra al realinear (`radiol`) | Se completa la palabra en vez de cortarla |
+| Nombre del capítulo arrastrado al título (`Anestesiología anestesia mínima…`) | Se quita el nombre del capítulo cuando encabeza el título |
+| Equivalencia por nombre con falsos positivos graves (`Centellograma de cerebro` → `…de bazo`, 0,83) | Umbral subido de **0,80 a 0,88** |
 | Títulos PMO garbled (`342014` con 360+ caracteres) | Parseo columna a columna separando título/cobertura |
 | Cobertura PMO absorbía otras prestaciones | Detectar códigos pegados al título + filtrar artefactos de página |
 | Títulos SURGE faltantes en el índice | Detectar títulos partidos en dos líneas |
