@@ -251,6 +251,13 @@ Funciones clave en el código: `initValidator()`, `runCase()`, `renderCase()`,
 19. Validador reencuadrado en Mesa de trabajo con los dos modos de auditoría.
 20. Ajuste final: todas las prácticas = autorización previa.
 
+**Calidad de datos — títulos**
+22. **Auditoría de títulos de los 6.344 códigos.** La planilla del Único mezclaba en una
+    sola celda el nombre de la práctica, un marcador de clasificación y, en algunas filas,
+    una observación. Se separaron en campos propios: **1.724 títulos** quedaron con sólo el
+    nombre, **20 observaciones** pasaron a su sección y **139 fichas** avisan que el texto
+    viene cortado en el origen. Ver punto 9.
+
 **UI/UX**
 21. Barra de conteos eliminada (quedan solo Valor U.B. y Favoritos); rediseño de
     Consulta rápida; responsive completo sin scroll horizontal.
@@ -267,6 +274,23 @@ Funciones clave en el código: `initValidator()`, `runCase()`, `renderCase()`,
 - **Buscador por droga** para autorizaciones de medicación (la data ya está en SURGE).
 - **App instalable (PWA) + offline total** (manifest + service worker).
 - **Novedades normativas / vigencias**.
+
+**Defectos de título que quedan abiertos (dependen de la fuente, no se inventó texto):**
+- **139 fichas con el texto cortado en el origen** (`texto_truncado`): la planilla del
+  Único capa las descripciones a **100 caracteres**. El final se perdió en el archivo,
+  no es recuperable desde el PDF del PMO (que trae títulos aún más cortos). Hoy la ficha
+  avisa del corte. Para recuperarlos hace falta una planilla sin el capado.
+- **`130303` sin denominación**: el OCR del PDF dejó el título ilegible. Se puede cargar
+  a mano desde **✎ Editar ficha** (admin).
+- **3 títulos PMO con artefactos de OCR**: `070212`, `070702`, `110103` (arrancan con
+  «PMo…» y traen palabras fusionadas).
+- **3 títulos PMO que arrancan a mitad de frase**: `010208`, `110204`, `110212`.
+- **4 títulos del Único médico con palabras fusionadas** (falta un espacio en la fuente):
+  `160105`, `290202`, `290203`, `310125`.
+- **`10300205`** conserva `(NO PMO pre CX Cataratas)` en el título **a propósito**: el
+  paréntesis aporta información clínica además del marcador.
+- El significado de las siglas del marcador (`AA`, `AM`, `AF`, `BF`, `NC`, `SC`) **no está
+  documentado**: la planilla no trae leyenda. Se guarda literal y sin interpretar.
 
 **Mejoras de datos ofrecidas y no ejecutadas:**
 - Ampliar las **relaciones CIE-10 ↔ prácticas** (hoy 45 diagnósticos curados + sugerencias
@@ -286,6 +310,11 @@ Funciones clave en el código: `initValidator()`, `runCase()`, `renderCase()`,
 
 | Problema | Solución aplicada |
 |---|---|
+| Título del Único con la **observación pegada** (`60660902` «UremiaObservaciones: …», `60660833`) | Los parsers separan **nombre / marcador / observación** en campos propios (`marcador_unico`, `observacion_unico`, `texto_truncado`). La ficha los muestra por separado |
+| 1.710 títulos del Único-lab arrastraban el marcador `(PMO AA)` / `(NO PMO BF NC)` | Se recorta a `marcador_unico` y se muestra como badge. En la parte médica sólo se recorta si el paréntesis es **únicamente** el marcador (para no perder `(NO PMO pre CX Cataratas)`) |
+| Truncado a 100 chars no detectado en filas con espacios dobles | Medir el corte sobre la **celda cruda**, antes de colapsar espacios |
+| Ficha del Único mostraba el badge «NBU» | Faltaba `UNICO` en el mapa de nomencladores de `openCode()` |
+| `130303` sin denominación (OCR ilegible en origen) | Guarda final en `assemble.py`: marca `sin_denominacion` y avisa en la ficha, **sin inventar** el título |
 | Títulos PMO garbled (`342014` con 360+ caracteres) | Parseo columna a columna separando título/cobertura |
 | Cobertura PMO absorbía otras prestaciones | Detectar códigos pegados al título + filtrar artefactos de página |
 | Títulos SURGE faltantes en el índice | Detectar títulos partidos en dos líneas |
