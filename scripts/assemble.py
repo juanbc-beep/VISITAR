@@ -1504,6 +1504,78 @@ db = {
     "codigos": records,
 }
 
+# ---------- tipo de muestra de las determinaciones de laboratorio ----------
+# Para quien carga la orden, distinguir una determinación en sangre de una en orina es
+# la diferencia entre cargar bien y cargar mal. Cuando el nombre lo dice, se usa eso.
+# Cuando no, vale la regla de los sufijos: -emia es en sangre (glucemia, uremia) y
+# -uria es en orina (glucosuria, hematuria). Contrastadas ambas contra los 3.534
+# nombres de laboratorio, no se contradicen en ningún caso.
+MUESTRA_TEXTO = [
+    ("orina", r"\b(?:en\s+)?orina\b|\burinari|\bmicci|\bdiuresis\b"),
+    ("sangre", r"\bs[ée]ric[ao]\b|\bsuero\b|\bplasm|\ben\s+sangre\b|\bsangu[ií]ne|\bhem[aá]tic"),
+    ("materia fecal", r"materia\s+fecal|\bheces\b|\bcoprol|\bmat\.?\s*fecal"),
+    ("líquido cefalorraquídeo", r"cefalorraqu|\bl\.?c\.?r\.?\b"),
+    ("semen", r"\bsemen\b|\besperm"),
+    ("saliva", r"\bsaliva\b"),
+    ("pelo", r"\bpelo\b"),
+]
+# Termina en -emia pero no es una sustancia medida en sangre.
+MUESTRA_SUF_EXCL = {"isquemia"}
+
+muestra_txt = muestra_suf = 0
+for _k, _r in records.items():
+    es_lab = _r.get("nomenclador") == "NBU" or (
+        _r.get("nomenclador") == "UNICO" and _r.get("unico_tipo") == "lab")
+    if not es_lab:
+        continue
+    _n = _sinac(_r.get("nombre", "")).lower()
+    _m = [lbl for lbl, pat in MUESTRA_TEXTO if re.search(pat, _n)]
+    if _m:
+        _r["muestra"] = _m
+        _r["muestra_origen"] = "texto"
+        muestra_txt += 1
+        continue
+    _suf = None
+    for _w in re.findall(r"[a-zñ]+", _n):
+        if _w in MUESTRA_SUF_EXCL:
+            continue
+        if _w.endswith("emia"):
+            _suf = "sangre"
+        elif _w.endswith("uria"):
+            _suf = "orina"
+    if _suf:
+        _r["muestra"] = [_suf]
+        _r["muestra_origen"] = "sufijo"
+        muestra_suf += 1
+print(f"Muestra de laboratorio: por el nombre {muestra_txt} · por la regla -emia/-uria {muestra_suf}",
+      file=sys.stderr)
+
+# Pares que se prestan a confusión: la misma sustancia medida en sangre y en orina
+# (bilirrubinemia / bilirrubinuria). Además llevan códigos consecutivos, así que un
+# dígito de más carga la práctica equivocada. Cada ficha apunta a su par.
+_raices = {}
+for _k, _r in records.items():
+    if not _r.get("muestra"):
+        continue
+    for _w in re.findall(r"[a-zñ]+", _sinac(_r.get("nombre", "")).lower()):
+        if _w in MUESTRA_SUF_EXCL:
+            continue
+        if _w.endswith("emia"):
+            _raices.setdefault((_r["nomenclador"], _w[:-4]), {}).setdefault("sangre", []).append(_k)
+        elif _w.endswith("uria"):
+            _raices.setdefault((_r["nomenclador"], _w[:-4]), {}).setdefault("orina", []).append(_k)
+pares_n = 0
+for (_nom, _raiz), _d in _raices.items():
+    if len(_d) != 2:
+        continue
+    for _a, _b in (("sangre", "orina"), ("orina", "sangre")):
+        for _ka in _d[_a]:
+            _kb = _d[_b][0]
+            records[_ka]["par_muestra"] = {"key": _kb, "code": records[_kb]["code"],
+                                           "nombre": records[_kb]["nombre"], "muestra": _b}
+            pares_n += 1
+print(f"Pares sangre/orina vinculados: {pares_n}", file=sys.stderr)
+
 # ---------- correcciones de contenido hechas por auditoría ----------
 # Se aplican al final y pisan todo lo anterior: las hizo una persona que sabe, sobre
 # fichas que el pipeline no pudo resolver solo. Salen del panel de administración de
