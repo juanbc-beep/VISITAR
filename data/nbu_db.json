@@ -115034,8 +115034,8 @@
     }
    ],
    "abrev_posibles": [
-    "GB",
-    "RTO"
+    "RTO",
+    "GB"
    ]
   },
   "660410": {
@@ -190864,7 +190864,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato de la visión (cirugía)",
-   "nombre": "exenteración del contenido orbitario",
+   "nombre": "Exenteración del contenido orbitario ( no incluye injerto de piel )",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -190922,7 +190922,8 @@
      "score": 0.8844,
      "tipo": "med"
     }
-   ]
+   ],
+   "titulo_origen": "unico"
   },
   "020102": {
    "code": "020102",
@@ -190931,7 +190932,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato de la visión (cirugía)",
-   "nombre": "neurotomía del nervio óptico Normativa Nº 1/2002 - S.S.SALUD",
+   "nombre": "neurotomía del nervio óptico",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -190989,7 +190990,8 @@
      "score": 0.9429,
      "tipo": "med"
     }
-   ]
+   ],
+   "titulo_origen": "unico"
   },
   "020103": {
    "code": "020103",
@@ -190998,7 +191000,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato de la visión (cirugía)",
-   "nombre": "orbitotomía con escisión de lesión de órbita, explora",
+   "nombre": "Orbitotomía con escisión de lesión de órbita, con extracción de cuerpo extraño, con exploración, bio",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -191056,7 +191058,9 @@
      "score": 0.8408,
      "tipo": "med"
     }
-   ]
+   ],
+   "titulo_revisar": true,
+   "titulo_origen": "unico"
   },
   "020104": {
    "code": "020104",
@@ -191065,7 +191069,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato de la visión (cirugía)",
-   "nombre": "introducción de sustancias terapéuticas retroglobulares inyectables",
+   "nombre": "introducción de sustancias terapéuticas retroglobulares inyectables reparación plástica de la órbita con o sin injerto de piel",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -191099,7 +191103,8 @@
      "score": 0.9228,
      "tipo": "med"
     }
-   ]
+   ],
+   "titulo_origen": "realineado"
   },
   "020105": {
    "code": "020105",
@@ -191108,7 +191113,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato de la visión (cirugía)",
-   "nombre": "inyectables reparación plástica de la órbita con o sin injerto de piel",
+   "nombre": "Reparación plástica de la órbita con o sin injerto de piel. Incluye toma del mismo",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -191142,7 +191147,8 @@
      "score": 0.9061,
      "tipo": "med"
     }
-   ]
+   ],
+   "titulo_origen": "unico"
   },
   "020106": {
    "code": "020106",
@@ -191151,7 +191157,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato de la visión (cirugía)",
-   "nombre": "enucleación o evisceración del globo ocular aspiración, lavado e implante del vítreo",
+   "nombre": "Enucleación o evisceración del globo ocular con o sin implante. (García Nocito o similar)",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -191185,7 +191191,8 @@
      "score": 0.9323,
      "tipo": "med"
     }
-   ]
+   ],
+   "titulo_origen": "unico"
   },
   "020107": {
    "code": "020107",
@@ -191194,7 +191201,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato de la visión (cirugía)",
-   "nombre": "vitrectomía",
+   "nombre": "aspiración, lavado e implante del vítreo",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -191253,9 +191260,7 @@
      "tipo": "med"
     }
    ],
-   "abrev_posibles": [
-    "VY"
-   ]
+   "titulo_origen": "realineado"
   },
   "020108": {
    "code": "020108",
@@ -191264,7 +191269,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato de la visión (cirugía)",
-   "nombre": "tratamiento quirúrgico correctivo del estrabismo",
+   "nombre": "vitrectomía",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -191314,9 +191319,18 @@
     "Lleva anestesia: 188 galenos — se factura por separado (cap. 16).",
     "Gasto quirúrgico: 910 galenos."
    ],
+   "titulo_origen": "realineado",
+   "equivalencia_unico": [
+    {
+     "unico_code": "020108",
+     "unico_key": "U020108",
+     "unico_desc": "vitrectomia",
+     "score": null,
+     "tipo": "med"
+    }
+   ],
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "VY"
    ]
   },
   "020109": {
@@ -191326,7 +191340,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato de la visión (cirugía)",
-   "nombre": "operación de Humnelshein suplantamiento del recto",
+   "nombre": "Tratamiento quirúrgico corrector del estrabismo ( miototomías, plegamientos, avanzamientos, injerto",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -191385,8 +191399,11 @@
      "tipo": "med"
     }
    ],
+   "lateralidad": "Uni o bilateral",
+   "titulo_origen": "unico",
    "abrev_posibles": [
-    "OP"
+    "TTO",
+    "Qx"
    ]
   },
   "020110": {
@@ -191396,7 +191413,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato de la visión (cirugía)",
-   "nombre": "externo por el recto superior y recto inferior y variantes",
+   "nombre": "operación de Humnelshein suplantamiento del recto externo por el recto superior y recto inferior y variantes",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -191455,8 +191472,10 @@
      "tipo": "med"
     }
    ],
+   "titulo_origen": "realineado",
    "abrev_posibles": [
-    "Inf"
+    "Inf",
+    "OP"
    ]
   },
   "020111": {
@@ -191466,7 +191485,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato de la visión (cirugía)",
-   "nombre": "excenteración de contenido orbitario y resección total",
+   "nombre": "excenteración de contenido orbitario y resección total de maxilar superior",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -191525,7 +191544,8 @@
      "score": 0.8859,
      "tipo": "med"
     }
-   ]
+   ],
+   "titulo_origen": "realineado"
   },
   "020201": {
    "code": "020201",
@@ -191534,7 +191554,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato de la visión (cirugía)",
-   "nombre": "de maxilar superior reconstrucción total del párpado técnica de hugjes o similar",
+   "nombre": "reconstrucción total del párpado técnica de hugjes o similar",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -191592,7 +191612,8 @@
      "score": 0.8799,
      "tipo": "med"
     }
-   ]
+   ],
+   "titulo_origen": "realineado"
   },
   "020202": {
    "code": "020202",
@@ -191660,6 +191681,7 @@
      "tipo": "med"
     }
    ],
+   "lateralidad": "Unilateral",
    "abrev_posibles": [
     "BLEFARO"
    ]
@@ -191869,7 +191891,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato de la visión (cirugía)",
-   "nombre": "conjuntivoplastia",
+   "nombre": "Conjuntivoplastia ( injerto libre de conjuntiva o membrana mucosa del labio. Operación colgajo: Flap",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -191927,6 +191949,10 @@
      "score": 0.8792,
      "tipo": "med"
     }
+   ],
+   "titulo_origen": "unico",
+   "abrev_posibles": [
+    "OP"
    ]
   },
   "020302": {
@@ -191936,7 +191962,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato de la visión (cirugía)",
-   "nombre": "escisión de lesión conjuntiva",
+   "nombre": "Escisión de lesión conjuntiva ( quiste epitelioma, nevus, pterigión )",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -191993,7 +192019,8 @@
      "score": 0.9789,
      "tipo": "med"
     }
-   ]
+   ],
+   "titulo_origen": "unico"
   },
   "020303": {
    "code": "020303",
@@ -192075,7 +192102,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato de la visión (cirugía)",
-   "nombre": "peritectomía peritotomía",
+   "nombre": "Peritectomía, perittoomía, escisión de anillo de conjuntiva alrededor de córnea ( pannus )",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -192132,7 +192159,8 @@
      "score": 0.9035,
      "tipo": "med"
     }
-   ]
+   ],
+   "titulo_origen": "unico"
   },
   "020305": {
    "code": "020305",
@@ -192141,7 +192169,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato de la visión (cirugía)",
-   "nombre": "sutura de conjuntiva",
+   "nombre": "Sutura de conjuntiva ( incluída extracción de cuerpo extraño). Cuerpo extraño subconjuntival. Biopsi",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -192198,7 +192226,8 @@
      "score": 0.9013,
      "tipo": "med"
     }
-   ]
+   ],
+   "titulo_origen": "unico"
   },
   "020401": {
    "code": "020401",
@@ -192584,7 +192613,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato de la visión (cirugía)",
-   "nombre": "cámara anterior tratamiento quirúrgico del glaucoma",
+   "nombre": "tratamiento quirúrgico del glaucoma",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -192643,6 +192672,7 @@
      "tipo": "med"
     }
    ],
+   "titulo_origen": "unico",
    "abrev_posibles": [
     "Qx",
     "TTO"
@@ -192713,7 +192743,8 @@
      "score": 0.9904,
      "tipo": "med"
     }
-   ]
+   ],
+   "titulo_revisar": true
   },
   "020503": {
    "code": "020503",
@@ -193191,7 +193222,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato de la visión (cirugía)",
-   "nombre": "extracción del cristalino",
+   "nombre": "Extracción del cristalino ( cataratas )",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -193249,7 +193280,8 @@
      "score": 1.0,
      "tipo": "med"
     }
-   ]
+   ],
+   "titulo_origen": "unico"
   },
   "020702": {
    "code": "020702",
@@ -193418,6 +193450,15 @@
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Aparato de la visión (cirugía)."
    ],
+   "equivalencia_unico": [
+    {
+     "unico_code": "020704",
+     "unico_key": "U020704",
+     "unico_desc": "implante de lente intraocular en forma extracapsular",
+     "score": null,
+     "tipo": "med"
+    }
+   ],
    "abrev_posibles": [
     "LIO"
    ]
@@ -193454,6 +193495,15 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Aparato de la visión (cirugía)."
+   ],
+   "equivalencia_unico": [
+    {
+     "unico_code": "020705",
+     "unico_key": "U020705",
+     "unico_desc": "implante de membrana amniotica solo en quemaduras igneas o quimicas",
+     "score": null,
+     "tipo": "med"
+    }
    ]
   },
   "020801": {
@@ -193463,7 +193513,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato de la visión (cirugía)",
-   "nombre": "dacriocistorrinostomía fistulización de saco lagrimal en cavidad nasal, plombaje",
+   "nombre": "dacriocistorrinostomia fistulizacion de saco lagrimal en cavidad nasal, plombaje. Operación plástica",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -193522,9 +193572,11 @@
      "tipo": "med"
     }
    ],
+   "titulo_origen": "unico",
    "abrev_posibles": [
     "DCR",
-    "CAV"
+    "CAV",
+    "OP"
    ]
   },
   "020802": {
@@ -193534,7 +193586,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato de la visión (cirugía)",
-   "nombre": "escisión de glándula lagrimal",
+   "nombre": "Escisión de glándula lagrimal. Escisión de saco lagrimal",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -193593,6 +193645,7 @@
      "tipo": "med"
     }
    ],
+   "titulo_origen": "unico",
    "abrev_posibles": [
     "GL"
    ]
@@ -193604,7 +193657,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato de la visión (cirugía)",
-   "nombre": "drenaje de glándula o saco lagrimal",
+   "nombre": "Drenaje de glándula o saco lagrimal (abceso). Sección de papila lagrimal (estricturotomía)",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -193662,6 +193715,7 @@
      "tipo": "med"
     }
    ],
+   "titulo_origen": "unico",
    "abrev_posibles": [
     "DJE",
     "GL"
@@ -193829,7 +193883,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato de la visión (cirugía)",
-   "nombre": "maculares fotocirugía con dye láser de cobertura en los siguientes casos: maculares",
+   "nombre": "fotocirugía con dye láser",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -193864,7 +193918,8 @@
      "tipo": "med"
     }
    ],
-   "cobertura_pmo": "Obligación de cobertura en los siguientes casos:"
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos:",
+   "titulo_origen": "realineado"
   },
   "020905": {
    "code": "020905",
@@ -193873,7 +193928,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Aparato de la visión (cirugía)",
-   "nombre": "fotocirugía con krypton láser de cobertura en los siguientes casos: de cuerpo vítreo",
+   "nombre": "fotocirugía con krypton láser",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -193908,7 +193963,8 @@
      "tipo": "med"
     }
    ],
-   "cobertura_pmo": "Obligación de cobertura en los siguientes casos:"
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos:",
+   "titulo_origen": "actual"
   },
   "020906": {
    "code": "020906",
@@ -198793,8 +198849,8 @@
     }
    ],
    "abrev_posibles": [
-    "OP",
-    "GL"
+    "GL",
+    "OP"
    ]
   },
   "030806": {
@@ -200430,8 +200486,8 @@
     }
    ],
    "abrev_posibles": [
-    "OP",
-    "PBL"
+    "PBL",
+    "OP"
    ]
   },
   "031206": {
@@ -203027,8 +203083,8 @@
     }
    ],
    "abrev_posibles": [
-    "BX",
-    "Ca"
+    "Ca",
+    "BX"
    ]
   },
   "050407": {
@@ -205757,8 +205813,8 @@
     }
    ],
    "abrev_posibles": [
-    "Qx",
     "AAA",
+    "Qx",
     "TTO"
    ]
   },
@@ -208077,8 +208133,8 @@
     }
    ],
    "abrev_posibles": [
-    "MMII",
-    "Inf"
+    "Inf",
+    "MMII"
    ]
   },
   "070717": {
@@ -213762,9 +213818,9 @@
     }
    ],
    "abrev_posibles": [
+    "TTO",
     "Qx",
-    "OP",
-    "TTO"
+    "OP"
    ]
   },
   "080609": {
@@ -214387,8 +214443,8 @@
     "Capítulo / especialidad: Aparato digestivo y abdomen (cirugía)."
    ],
    "abrev_posibles": [
-    "TTO",
-    "US"
+    "US",
+    "TTO"
    ]
   },
   "080701": {
@@ -222781,8 +222837,8 @@
     }
    ],
    "abrev_posibles": [
-    "BX",
-    "DX"
+    "DX",
+    "BX"
    ]
   },
   "110212": {
@@ -230531,8 +230587,8 @@
     }
    ],
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "121723": {
@@ -230602,8 +230658,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "121724": {
@@ -233734,9 +233790,9 @@
     }
    ],
    "abrev_posibles": [
-    "BX",
+    "TCSC",
     "SC",
-    "TCSC"
+    "BX"
    ]
   },
   "130109": {
@@ -233937,8 +233993,8 @@
     }
    ],
    "abrev_posibles": [
-    "SC",
-    "TCSC"
+    "TCSC",
+    "SC"
    ]
   },
   "130113": {
@@ -242346,8 +242402,8 @@
     }
    ],
    "abrev_posibles": [
-    "DX",
-    "VIT"
+    "VIT",
+    "DX"
    ],
    "cie_rel": [
     "D51",
@@ -244838,7 +244894,8 @@
      "score": 0.8885,
      "tipo": "med"
     }
-   ]
+   ],
+   "lateralidad": "Bilateral"
   },
   "300102": {
    "code": "300102",
@@ -244924,7 +244981,8 @@
      "score": 0.8874,
      "tipo": "med"
     }
-   ]
+   ],
+   "lateralidad": "Bilateral"
   },
   "300108": {
    "code": "300108",
@@ -244968,6 +245026,7 @@
      "tipo": "med"
     }
    ],
+   "lateralidad": "Bilateral",
    "abrev_posibles": [
     "GONIO"
    ]
@@ -245013,7 +245072,8 @@
      "score": 0.9314,
      "tipo": "med"
     }
-   ]
+   ],
+   "lateralidad": "Bilateral"
   },
   "300110": {
    "code": "300110",
@@ -245056,7 +245116,8 @@
      "score": 0.8962,
      "tipo": "med"
     }
-   ]
+   ],
+   "lateralidad": "Bilateral"
   },
   "300111": {
    "code": "300111",
@@ -245134,6 +245195,16 @@
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Oftalmología."
    ],
+   "lateralidad": "Unilateral",
+   "equivalencia_unico": [
+    {
+     "unico_code": "300113",
+     "unico_key": "U300113",
+     "unico_desc": "retinofluoresceinografia",
+     "score": null,
+     "tipo": "med"
+    }
+   ],
    "abrev_posibles": [
     "RFG"
    ]
@@ -245170,6 +245241,16 @@
    "auditoria": [
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Oftalmología."
+   ],
+   "lateralidad": "Unilateral",
+   "equivalencia_unico": [
+    {
+     "unico_code": "300116",
+     "unico_key": "U300116",
+     "unico_desc": "extracción de cuerpo extraño en cornea",
+     "score": null,
+     "tipo": "med"
+    }
    ]
   },
   "300117": {
@@ -245179,7 +245260,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Oftalmología",
-   "nombre": "depilación eléctrica del párpado de todos los elementos",
+   "nombre": "depilación eléctrica del párpado de todos los elementos afectados",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -245213,7 +245294,9 @@
      "score": 0.8497,
      "tipo": "med"
     }
-   ]
+   ],
+   "lateralidad": "Unilateral",
+   "titulo_origen": "realineado"
   },
   "300118": {
    "code": "300118",
@@ -245222,7 +245305,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Oftalmología",
-   "nombre": "afectados dilatación de conducto lacrimonasal intubación, plombaje",
+   "nombre": "dilatación de conducto lacrimonasal intubación, plombaje",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -245256,7 +245339,9 @@
      "score": 0.8975,
      "tipo": "med"
     }
-   ]
+   ],
+   "lateralidad": "Unilateral",
+   "titulo_origen": "realineado"
   },
   "300119": {
    "code": "300119",
@@ -245265,7 +245350,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Oftalmología",
-   "nombre": "oftalmoscopía indirecta binocular con esquema de fon",
+   "nombre": "oftalmoscopía indirecta binocular con esquema de fondo de ojo",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -245299,6 +245384,11 @@
      "score": 0.926,
      "tipo": "med"
     }
+   ],
+   "lateralidad": "Bilateral",
+   "titulo_origen": "realineado",
+   "abrev_posibles": [
+    "FO"
    ]
   },
   "300120": {
@@ -245308,7 +245398,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Oftalmología",
-   "nombre": "do de ojo estudio de fijación en el estrabismo con visuscopio",
+   "nombre": "estudio de fijación en el estrabismo con visuscopio",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -245342,7 +245432,9 @@
      "score": 0.8852,
      "tipo": "med"
     }
-   ]
+   ],
+   "lateralidad": "Bilateral",
+   "titulo_origen": "realineado"
   },
   "300122": {
    "code": "300122",
@@ -245351,7 +245443,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Oftalmología",
-   "nombre": "exoftalmología prescripción de cristales control poste",
+   "nombre": "exoftalmología prescripción de cristales control posterior tonometría y fondo de ojo",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -245386,7 +245478,10 @@
      "tipo": "med"
     }
    ],
+   "lateralidad": "Bilateral",
+   "titulo_origen": "realineado",
    "abrev_posibles": [
+    "FO",
     "CTROL"
    ]
   },
@@ -245397,7 +245492,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Oftalmología",
-   "nombre": "rior tonometría y fondo de ojo campimetría computarizada",
+   "nombre": "campimetría computarizada",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -245423,8 +245518,15 @@
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Oftalmología."
    ],
-   "abrev_posibles": [
-    "FO"
+   "titulo_origen": "unico",
+   "equivalencia_unico": [
+    {
+     "unico_code": "300201",
+     "unico_key": "U300201",
+     "unico_desc": "campimetría computarizada",
+     "score": null,
+     "tipo": "med"
+    }
    ]
   },
   "300202": {
@@ -245460,7 +245562,16 @@
     "Prestación incluida en el Catálogo de Prestaciones del PMO — cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).",
     "Capítulo / especialidad: Oftalmología."
    ],
-   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Paciente con disminución visual que se presenta con edema corneal en la biomicroscopía. Se realiza seguimiento con recuento endotelital y paquimetría."
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Paciente con disminución visual que se presenta con edema corneal en la biomicroscopía. Se realiza seguimiento con recuento endotelital y paquimetría.",
+   "equivalencia_unico": [
+    {
+     "unico_code": "300202",
+     "unico_key": "U300202",
+     "unico_desc": "Paquimetría computarizada",
+     "score": null,
+     "tipo": "med"
+    }
+   ]
   },
   "300204": {
    "code": "300204",
@@ -245496,6 +245607,15 @@
     "Capítulo / especialidad: Oftalmología."
    ],
    "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Diagnóstico de queratocono (mancha roja inferior)",
+   "equivalencia_unico": [
+    {
+     "unico_code": "300204",
+     "unico_key": "U300204",
+     "unico_desc": "Topografía corneal",
+     "score": null,
+     "tipo": "med"
+    }
+   ],
    "abrev_posibles": [
     "TOPO"
    ]
@@ -245507,7 +245627,7 @@
    "seccion": "PMO_MED",
    "seccion_label": "Catálogo PMO — prestaciones médicas",
    "grupo": "Oftalmología",
-   "nombre": "de queratocono (mancha roja inferior) angiografía con indocianina",
+   "nombre": "angiografía con indocianina",
    "sinonimos": [],
    "abreviaturas": [],
    "valor": {
@@ -245542,9 +245662,7 @@
      "tipo": "med"
     }
    ],
-   "abrev_posibles": [
-    "KC"
-   ]
+   "titulo_origen": "realineado"
   },
   "310101": {
    "code": "310101",
@@ -258685,8 +258803,8 @@
     "Coseguro máximo: 100%."
    ],
    "abrev_posibles": [
-    "DX",
-    "Px"
+    "Px",
+    "DX"
    ]
   },
   "ODO0802": {
@@ -264538,14 +264656,15 @@
    "equivalencia": {
     "target_nom": "PMO",
     "target_label": "Prestaciones Médicas",
-    "code": "020841",
-    "key": null,
-    "desc": "",
-    "score": 0.9036
+    "code": "020108",
+    "key": "020108",
+    "desc": "vitrectomía",
+    "score": 0.9036,
+    "recalculada": "codigo"
    },
    "sin_equivalencia": false,
    "auditoria": [
-    "Equivale a la práctica 020841 del Nomenclador de Prestaciones Médicas (similitud 90%)."
+    "Equivale a la práctica 020108 del Nomenclador de Prestaciones Médicas."
    ],
    "abrev_posibles": [
     "VY"
@@ -264617,9 +264736,10 @@
     },
     "total_2002": 207.24
    },
+   "lateralidad": "Uni o bilateral",
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U020110": {
@@ -264895,6 +265015,7 @@
     },
     "total_2002": 161.78
    },
+   "lateralidad": "Unilateral",
    "abrev_posibles": [
     "BLEFARO"
    ]
@@ -266656,14 +266777,15 @@
    "equivalencia": {
     "target_nom": "PMO",
     "target_label": "Prestaciones Médicas",
-    "code": "020706",
-    "key": null,
+    "code": "020704",
+    "key": "020704",
     "desc": "implante de lente intraocular en forma extracapsular",
-    "score": 1.0
+    "score": 1.0,
+    "recalculada": "codigo"
    },
    "sin_equivalencia": false,
    "auditoria": [
-    "Equivale a la práctica 020706 del Nomenclador de Prestaciones Médicas (similitud 100%)."
+    "Equivale a la práctica 020704 del Nomenclador de Prestaciones Médicas."
    ],
    "abrev_posibles": [
     "LIO"
@@ -266702,14 +266824,15 @@
    "equivalencia": {
     "target_nom": "PMO",
     "target_label": "Prestaciones Médicas",
-    "code": "020707",
-    "key": null,
-    "desc": "implante de membrana amniotica solo en quemaduras igneas o quimicas",
-    "score": 1.0
+    "code": "020705",
+    "key": "020705",
+    "desc": "implante de membrana amniótica sólo en quemaduras ígneas o químicas",
+    "score": 1.0,
+    "recalculada": "codigo"
    },
    "sin_equivalencia": false,
    "auditoria": [
-    "Equivale a la práctica 020707 del Nomenclador de Prestaciones Médicas (similitud 100%)."
+    "Equivale a la práctica 020705 del Nomenclador de Prestaciones Médicas."
    ]
   },
   "U020801": {
@@ -279213,8 +279336,8 @@
     "total_2002": 443.57
    },
    "abrev_posibles": [
-    "Qx",
     "AAA",
+    "Qx",
     "TTO"
    ]
   },
@@ -281541,8 +281664,8 @@
     "total_2002": 22.06
    },
    "abrev_posibles": [
-    "MMII",
-    "Inf"
+    "Inf",
+    "MMII"
    ]
   },
   "U070717": {
@@ -282022,8 +282145,8 @@
     "Sin equivalencia hallada en Prestaciones Médicas — pendiente de mapeo manual."
    ],
    "abrev_posibles": [
-    "CCV",
-    "CEC"
+    "CEC",
+    "CCV"
    ]
   },
   "U080101": {
@@ -287923,8 +288046,8 @@
     "Equivale a la práctica 080625 del Nomenclador de Prestaciones Médicas (similitud 100%)."
    ],
    "abrev_posibles": [
-    "TTO",
-    "US"
+    "US",
+    "TTO"
    ]
   },
   "U080701": {
@@ -306503,8 +306626,8 @@
     "total_2002": 128.81
    },
    "abrev_posibles": [
-    "Qx",
-    "TTO"
+    "TTO",
+    "Qx"
    ]
   },
   "U121723": {
@@ -306574,8 +306697,8 @@
     "total_2002": 197.62
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U121724": {
@@ -310458,9 +310581,9 @@
     "total_2002": 15.78
    },
    "abrev_posibles": [
-    "BX",
+    "TCSC",
     "SC",
-    "TCSC"
+    "BX"
    ]
   },
   "U130109": {
@@ -310661,8 +310784,8 @@
     "total_2002": 28.22
    },
    "abrev_posibles": [
-    "SC",
-    "TCSC"
+    "TCSC",
+    "SC"
    ]
   },
   "U130113": {
@@ -314484,9 +314607,9 @@
     "Equivale a la práctica 170105 del Nomenclador de Prestaciones Médicas (similitud 90%)."
    ],
    "abrev_posibles": [
-    "DX",
     "ECG",
-    "EKG"
+    "EKG",
+    "DX"
    ]
   },
   "U170106": {
@@ -326176,7 +326299,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 300101 del Nomenclador de Prestaciones Médicas (similitud 89%)."
-   ]
+   ],
+   "lateralidad": "Bilateral"
   },
   "U300102": {
    "code": "300102",
@@ -326262,7 +326386,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 300106 del Nomenclador de Prestaciones Médicas (similitud 89%)."
-   ]
+   ],
+   "lateralidad": "Bilateral"
   },
   "U300108": {
    "code": "300108",
@@ -326306,6 +326431,7 @@
    "auditoria": [
     "Equivale a la práctica 300108 del Nomenclador de Prestaciones Médicas (similitud 88%)."
    ],
+   "lateralidad": "Bilateral",
    "abrev_posibles": [
     "GONIO"
    ]
@@ -326351,7 +326477,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 300109 del Nomenclador de Prestaciones Médicas (similitud 93%)."
-   ]
+   ],
+   "lateralidad": "Bilateral"
   },
   "U300110": {
    "code": "300110",
@@ -326394,7 +326521,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 300110 del Nomenclador de Prestaciones Médicas (similitud 90%)."
-   ]
+   ],
+   "lateralidad": "Bilateral"
   },
   "U300111": {
    "code": "300111",
@@ -326472,15 +326600,17 @@
    "equivalencia": {
     "target_nom": "PMO",
     "target_label": "Prestaciones Médicas",
-    "code": "300153",
-    "key": null,
-    "desc": "RETINOFLUORESCEINOGRAFIA",
-    "score": 0.9378
+    "code": "300113",
+    "key": "300113",
+    "desc": "retinofluoresceinografía",
+    "score": 0.9378,
+    "recalculada": "codigo"
    },
    "sin_equivalencia": false,
    "auditoria": [
-    "Equivale a la práctica 300153 del Nomenclador de Prestaciones Médicas (similitud 94%)."
+    "Equivale a la práctica 300113 del Nomenclador de Prestaciones Médicas."
    ],
+   "lateralidad": "Unilateral",
    "abrev_posibles": [
     "RFG"
    ]
@@ -326518,15 +326648,17 @@
    "equivalencia": {
     "target_nom": "PMO",
     "target_label": "Prestaciones Médicas",
-    "code": "300115",
-    "key": null,
-    "desc": "Extracción de cuerpo extraño conjuntival",
-    "score": 0.9612
+    "code": "300116",
+    "key": "300116",
+    "desc": "extracción de cuerpo extraño en cornea",
+    "score": 0.9612,
+    "recalculada": "codigo"
    },
    "sin_equivalencia": false,
    "auditoria": [
-    "Equivale a la práctica 300115 del Nomenclador de Prestaciones Médicas (similitud 96%)."
-   ]
+    "Equivale a la práctica 300116 del Nomenclador de Prestaciones Médicas."
+   ],
+   "lateralidad": "Unilateral"
   },
   "U300117": {
    "code": "300117",
@@ -326569,7 +326701,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 300117 del Nomenclador de Prestaciones Médicas (similitud 85%)."
-   ]
+   ],
+   "lateralidad": "Unilateral"
   },
   "U300118": {
    "code": "300118",
@@ -326612,7 +326745,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 300118 del Nomenclador de Prestaciones Médicas (similitud 90%)."
-   ]
+   ],
+   "lateralidad": "Unilateral"
   },
   "U300119": {
    "code": "300119",
@@ -326656,6 +326790,7 @@
    "auditoria": [
     "Equivale a la práctica 300119 del Nomenclador de Prestaciones Médicas (similitud 93%)."
    ],
+   "lateralidad": "Bilateral",
    "abrev_posibles": [
     "FO"
    ]
@@ -326701,7 +326836,8 @@
    "sin_equivalencia": false,
    "auditoria": [
     "Equivale a la práctica 300120 del Nomenclador de Prestaciones Médicas (similitud 89%)."
-   ]
+   ],
+   "lateralidad": "Bilateral"
   },
   "U300122": {
    "code": "300122",
@@ -326745,9 +326881,10 @@
    "auditoria": [
     "Equivale a la práctica 300122 del Nomenclador de Prestaciones Médicas (similitud 87%)."
    ],
+   "lateralidad": "Bilateral",
    "abrev_posibles": [
-    "CTROL",
-    "FO"
+    "FO",
+    "CTROL"
    ]
   },
   "U300130": {
@@ -326786,7 +326923,8 @@
     "code": "300130",
     "key": null,
     "desc": "AUTORREFRACTOMETRIA",
-    "score": 1.0
+    "score": 1.0,
+    "destino_inexistente": true
    },
    "sin_equivalencia": false,
    "auditoria": [
@@ -326826,14 +326964,15 @@
    "equivalencia": {
     "target_nom": "PMO",
     "target_label": "Prestaciones Médicas",
-    "code": "300123",
-    "key": null,
-    "desc": "",
-    "score": 0.8937
+    "code": "300201",
+    "key": "300201",
+    "desc": "campimetría computarizada",
+    "score": 0.8937,
+    "recalculada": "codigo"
    },
    "sin_equivalencia": false,
    "auditoria": [
-    "Equivale a la práctica 300123 del Nomenclador de Prestaciones Médicas (similitud 89%)."
+    "Equivale a la práctica 300201 del Nomenclador de Prestaciones Médicas."
    ]
   },
   "U300202": {
@@ -326869,15 +327008,17 @@
    "equivalencia": {
     "target_nom": "PMO",
     "target_label": "Prestaciones Médicas",
-    "code": "300129",
-    "key": null,
-    "desc": "",
-    "score": 0.9044
+    "code": "300202",
+    "key": "300202",
+    "desc": "Paquimetría computarizada",
+    "score": 0.9044,
+    "recalculada": "codigo"
    },
    "sin_equivalencia": false,
    "auditoria": [
-    "Equivale a la práctica 300129 del Nomenclador de Prestaciones Médicas (similitud 90%)."
-   ]
+    "Equivale a la práctica 300202 del Nomenclador de Prestaciones Médicas."
+   ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Paciente con disminución visual que se presenta con edema corneal en la biomicroscopía. Se realiza seguimiento con recuento endotelital y paquimetría."
   },
   "U300204": {
    "code": "300204",
@@ -326912,15 +327053,17 @@
    "equivalencia": {
     "target_nom": "PMO",
     "target_label": "Prestaciones Médicas",
-    "code": "300126",
-    "key": null,
-    "desc": "TOPOGRAFIA CORNEAL",
-    "score": 0.9384
+    "code": "300204",
+    "key": "300204",
+    "desc": "Topografía corneal",
+    "score": 0.9384,
+    "recalculada": "codigo"
    },
    "sin_equivalencia": false,
    "auditoria": [
-    "Equivale a la práctica 300126 del Nomenclador de Prestaciones Médicas (similitud 94%)."
+    "Equivale a la práctica 300204 del Nomenclador de Prestaciones Médicas."
    ],
+   "cobertura_pmo": "Obligación de cobertura en los siguientes casos: Diagnóstico de queratocono (mancha roja inferior)",
    "abrev_posibles": [
     "TOPO"
    ]
@@ -331854,8 +331997,8 @@
     "Equivale a la práctica 340820 del Nomenclador de Prestaciones Médicas (similitud 95%)."
    ],
    "abrev_posibles": [
-    "MMSS",
-    "Inf"
+    "Inf",
+    "MMSS"
    ]
   },
   "U340822": {
@@ -333616,8 +333759,8 @@
     "Equivale a la práctica 350116 del Nomenclador de Prestaciones Médicas (similitud 92%)."
    ],
    "abrev_posibles": [
-    "RT",
     "Ca",
+    "RT",
     "TTO"
    ]
   },
@@ -336448,7 +336591,8 @@
     "code": "028104",
     "key": null,
     "desc": "",
-    "score": 0.9074
+    "score": 0.9074,
+    "destino_inexistente": true
    },
    "sin_equivalencia": false,
    "auditoria": [
@@ -336557,7 +336701,8 @@
     "code": "020808",
     "key": null,
     "desc": "CIRUGIA REFRACTIVA DE MIOPIA Y ASTIGM",
-    "score": 0.9279
+    "score": 0.9279,
+    "destino_inexistente": true
    },
    "sin_equivalencia": false,
    "auditoria": [
@@ -338493,7 +338638,8 @@
     "code": "300186",
     "key": null,
     "desc": "IOL MASTER",
-    "score": 0.9767
+    "score": 0.9767,
+    "destino_inexistente": true
    },
    "sin_equivalencia": false,
    "auditoria": [
@@ -338536,7 +338682,8 @@
     "code": "300142",
     "key": null,
     "desc": "CONTEO DE CELULAS ENDOTEL X OJO",
-    "score": 0.9107
+    "score": 0.9107,
+    "destino_inexistente": true
    },
    "sin_equivalencia": false,
    "auditoria": [
@@ -338582,7 +338729,8 @@
     "code": "300184",
     "key": null,
     "desc": "PENTACAM",
-    "score": 0.8971
+    "score": 0.8971,
+    "destino_inexistente": true
    },
    "sin_equivalencia": false,
    "auditoria": [
@@ -342392,7 +342540,8 @@
     "code": "300128",
     "key": null,
     "desc": "TEST DE LOTMAR",
-    "score": null
+    "score": null,
+    "destino_inexistente": true
    },
    "sin_equivalencia": false,
    "auditoria": [
@@ -342480,7 +342629,8 @@
     "code": "300148",
     "key": null,
     "desc": "EXAMEN DE OJO SECO",
-    "score": null
+    "score": null,
+    "destino_inexistente": true
    },
    "sin_equivalencia": false,
    "auditoria": [
@@ -342613,7 +342763,8 @@
     "code": "300148",
     "key": null,
     "desc": "EXAMEN DE OJO SECO",
-    "score": null
+    "score": null,
+    "destino_inexistente": true
    },
    "sin_equivalencia": false,
    "auditoria": [
@@ -342694,8 +342845,8 @@
     "Sin equivalencia en Prestaciones Médicas — pendiente de mapeo manual."
    ],
    "abrev_posibles": [
-    "PTE",
-    "AV"
+    "AV",
+    "PTE"
    ]
   },
   "U60660001": {
@@ -351518,8 +351669,8 @@
     "Urgencia (U): si se solicita de urgencia, adicionar el código 661200 en la misma prescripción."
    ],
    "abrev_posibles": [
-    "GB",
-    "RTO"
+    "RTO",
+    "GB"
    ]
   },
   "U60660410": {
@@ -357449,10 +357600,10 @@
     "Urgencia (U): si se solicita de urgencia, adicionar el código 661200 en la misma prescripción."
    ],
    "abrev_posibles": [
+    "RTO",
     "PLAQ",
     "PLQ",
-    "PQ",
-    "RTO"
+    "PQ"
    ]
   },
   "U60660747": {
@@ -361926,8 +362077,8 @@
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 661025."
    ],
    "abrev_posibles": [
-    "Ac",
-    "CMV"
+    "CMV",
+    "Ac"
    ]
   },
   "U61661030": {
@@ -361976,8 +362127,8 @@
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 661030."
    ],
    "abrev_posibles": [
-    "Ac",
-    "CMV"
+    "CMV",
+    "Ac"
    ]
   },
   "U60661035": {

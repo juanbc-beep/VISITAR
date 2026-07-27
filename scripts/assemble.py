@@ -937,6 +937,238 @@ for _code, _info in PMOCOB.get("codigos", {}).items():
         _r["nombre"] = _info["titulo"]; pmo_fix += 1
     if _info.get("cobertura"):
         _r["cobertura_pmo"] = _info["cobertura"]; pmo_cob += 1
+# ---------- Oftalmología: reparación de títulos y lateralidad ----------
+# El texto del PDF del PMO viene bien escrito pero **mal cortado entre códigos**: la
+# cola de una práctica queda pegada al comienzo de la siguiente (300117 perdía
+# "afectados", que aparecía al inicio de 300118). El OCR del Nomenclador Nacional, en
+# cambio, asigna bien el texto a cada código aunque las palabras salgan pegadas.
+# Alineando ambos flujos se recupera el corte correcto. Se arbitra con el OCR del
+# propio Nacional y, cuando no alcanza, con el nombre del Único para el mismo código.
+# No se redacta texto nuevo: siempre se elige entre las denominaciones ya existentes.
+import difflib as _dl
+
+OFTALMO_PREFIJOS = {"02", "30"}
+PMO_REC = (pmo or {}).get("records", {})
+PMO_ORDER = (pmo or {}).get("order", [])
+
+_OCR_RUIDO = [
+    r"P?M?O?DEINTERVENCIONESQUIR[A-Z]{0,3}RGICASCONNOMENCLADORNACIONAL",
+    r"P?M?O?DEPRACTICASESPECIALIZADASCONNOMENCLADORNA[A-Z]*",
+    r"[A-Z]{0,4}TO?RE[TFI][IR]{0,2}[AD]{0,3}O?POR?E?L?PM[OD]",   # "texto retirado por el PMO"
+    r"OPERACIONESEN[A-Z]*",
+    r"OTROSDEOFTALMOLOGIA",
+]
+
+
+def _sinac(s):
+    s = unicodedata.normalize("NFD", s or "")
+    return "".join(c for c in s if unicodedata.category(c) != "Mn")
+
+
+def _letras(s):
+    return re.sub(r"[^A-Za-z]", "", _sinac(s)).upper()
+
+
+def _ocr_ref(code):
+    """Firma en letras del título según el OCR del Nacional, sin encabezados ni ruido."""
+    t = _letras((NNV.get(code) or {}).get("nombre_ocr", "") if NNV else "")
+    for r in _OCR_RUIDO:
+        t = re.sub(r, "", t)
+    return t
+
+
+def _lateralidad(code):
+    """Bilateral / Unilateral tal como lo anota el Nomenclador Nacional.
+
+    El OCR devuelve las palabras pegadas al resto del texto ("…PMOBILATERAL"), así
+    que se busca sobre el flujo de letras y no por palabra. Se aceptan además las
+    formas a las que el OCR les comió la última letra ("BILATERA").
+    """
+    t = _letras((NNV.get(code) or {}).get("nombre_ocr", "") if NNV else "")
+    if "UNIOBILATERAL" in t:
+        return "Uni o bilateral"
+    for largo, corto, val in (("BILATERAL", "BILATERA", "Bilateral"),
+                              ("UNILATERAL", "UNILATERA", "Unilateral")):
+        if largo in t or corto in t:
+            return val
+    return None
+
+
+def _titulos_realineados(prefijos):
+    """Recorta el flujo de texto del PDF usando los límites que marca el OCR."""
+    codes = [c for c in PMO_ORDER if c[:2] in prefijos and c in PMO_REC]
+    legible = " ".join((PMO_REC[c].get("nombre") or "") for c in codes)
+    legible = re.sub(r"(\w)-\s+(\w)", r"\1\2", legible)      # des-hifenar tras unir
+    legible = " ".join(legible.split())
+    A = _letras(legible)
+    idx = [i for i, ch in enumerate(legible) if re.match(r"[A-Za-z]", _sinac(ch))]
+    B, bordes = "", []
+    for c in codes:
+        o = _ocr_ref(c)
+        bordes.append((c, len(B), len(o) >= 6))
+        B += o
+    bloques = _dl.SequenceMatcher(None, A, B, autojunk=False).get_matching_blocks()
+
+    def _mapa(b0):
+        for a, b, n in bloques:
+            if b + n > b0:
+                return a + max(0, b0 - b)
+        return len(A)
+
+    cortes, last = [], -1
+    for c, b0, ok in bordes:
+        a0 = _mapa(b0) if ok else None
+        if a0 is not None:
+            a0 = max(a0, last)
+            last = a0
+        cortes.append([c, a0])
+    out = {}
+    for i, (c, a0) in enumerate(cortes):
+        if a0 is None:
+            continue
+        a1 = next((cortes[j][1] for j in range(i + 1, len(cortes))
+                   if cortes[j][1] is not None and cortes[j][1] > a0), None)
+        s = idx[a0] if a0 < len(idx) else len(legible)
+        e = idx[a1] if (a1 is not None and a1 < len(idx)) else len(legible)
+        t = " ".join(legible[s:e].split()).strip(" ,;.-")
+        if t:
+            out[c] = t
+    return out
+
+
+def _sim(cand, ref):
+    lc = _letras(cand)
+    if not lc or not ref:
+        return 0.0
+    return _dl.SequenceMatcher(None, lc, ref[:len(lc) + 12], autojunk=False).ratio()
+
+
+# "… de cobertura en los siguientes casos:" es el encabezado del texto de cobertura,
+# no parte de la denominación de la práctica.
+_RE_COB = re.compile(r"\s*(?:de\s+)?cobertura\s+en\s+los\s+siguientes\s+casos\s*:.*$", re.I)
+
+_realineados = _titulos_realineados(OFTALMO_PREFIJOS)
+_uni_por_codigo = {r["code"]: r["nombre"] for r in records.values()
+                   if r.get("nomenclador") == "UNICO"}
+oft_fix = oft_rev = oft_lat = 0
+for _code, _r in records.items():
+    if _r.get("nomenclador") != "PMO" or _code[:2] not in OFTALMO_PREFIJOS:
+        continue
+    _lat = _lateralidad(_code)
+    if _lat:
+        _r["lateralidad"] = _lat
+        oft_lat += 1
+    _ref = _ocr_ref(_code)
+    _cands = [("actual", _r["nombre"]),
+              ("realineado", _realineados.get(_code, "")),
+              ("unico", _uni_por_codigo.get(_code, ""))]
+    _cands = [(k, v) for k, v in _cands if v]
+    if len(_ref) >= 6:
+        _sc = {k: _sim(v, _ref) for k, v in _cands}
+        _best = max(_cands, key=lambda kv: (_sc[kv[0]], kv[0] == "actual"))
+        if _sc[_best[0]] < 0.55:
+            _r["titulo_revisar"] = True
+            oft_rev += 1
+            _elegido = None
+        else:
+            _elegido = _best
+    else:
+        # Sin firma de OCR utilizable, el Único es la única denominación limpia.
+        _elegido = ("unico", _uni_por_codigo[_code]) if _uni_por_codigo.get(_code) else None
+    if _elegido:
+        _nuevo = clean_pmo_name(_RE_COB.sub("", _elegido[1])).strip(" ,;.-")
+        # El título del PDF viene acentuado y el del Único no. Si el elegido es un
+        # recorte del actual, se recorta el actual para no perder las tildes.
+        _la, _ln = _letras(_r["nombre"]), _letras(_nuevo)
+        if _ln and _la.startswith(_ln):
+            _acum, _corte = 0, len(_r["nombre"])
+            for _i, _ch in enumerate(_r["nombre"]):
+                if _acum == len(_ln):
+                    _corte = _i
+                    break
+                if re.match(r"[A-Za-z]", _sinac(_ch)):
+                    _acum += 1
+            _nuevo = _r["nombre"][:_corte].strip(" ,;.-")
+        # Si sólo cambian tildes o mayúsculas, se conserva el título actual.
+        if _nuevo and _letras(_nuevo) != _la:
+            # Un recorte mucho más corto que la denominación del Único suele ser un
+            # corte de más: se marca para que lo revise un auditor.
+            _u = _uni_por_codigo.get(_code, "")
+            if _u and len(_letras(_u)) > 2 * len(_letras(_nuevo)):
+                # El recorte se quedó corto: la denominación del Único cubre tanto el
+                # arranque del PMO como el texto del OCR, así que se usa esa y se deja
+                # marcado para que lo confirme un auditor.
+                _nuevo = clean_pmo_name(_RE_COB.sub("", _u)).strip(" ,;.-") or _nuevo
+                _elegido = ("unico", _nuevo)
+                _r["titulo_revisar"] = True
+                oft_rev += 1
+            _r["nombre"] = _nuevo
+            _r["titulo_origen"] = _elegido[0]
+            oft_fix += 1
+print(f"Oftalmología: títulos recompuestos {oft_fix} · con lateralidad {oft_lat} · a revisar {oft_rev}",
+      file=sys.stderr)
+
+# ---------- Oftalmología: equivalencias Único ↔ Nacional ----------
+# Varias equivalencias de la planilla apuntan a códigos que no existen en el
+# Nomenclador Nacional cargado (300113 «retinofluoresceinografía» remitía a 300153,
+# inexistente). Cuando el destino no existe se vuelve a resolver: primero por código
+# idéntico y, si no, por proximidad de nombre dentro del mismo capítulo.
+_pmo_oft = {r["code"]: k for k, r in records.items()
+            if r.get("nomenclador") == "PMO" and r["code"][:2] in OFTALMO_PREFIJOS}
+eq_cod = eq_nom = eq_sin = 0
+for _k, _r in records.items():
+    if _r.get("nomenclador") != "UNICO":
+        continue
+    _eq = _r.get("equivalencia")
+    if not _eq or _eq.get("key"):
+        continue                      # sin equivalencia o ya resuelta
+    _destino = str(_eq.get("code") or "")
+    if not (_r["code"][:2] in OFTALMO_PREFIJOS or _destino[:2] in OFTALMO_PREFIJOS):
+        continue                      # fuera de oftalmología
+    _nuevo_key = None
+    _via = None
+    if _r["code"] in _pmo_oft:        # 1) mismo número de código
+        _nuevo_key = _pmo_oft[_r["code"]]
+        _via = "codigo"
+    else:                             # 2) proximidad de nombre en el capítulo
+        _mejor, _mscore = None, 0.0
+        for _pc, _pk in _pmo_oft.items():
+            _s = _dl.SequenceMatcher(None, _letras(_r["nombre"]),
+                                     _letras(records[_pk]["nombre"]), autojunk=False).ratio()
+            if _s > _mscore:
+                _mejor, _mscore = _pk, _s
+        if _mejor and _mscore >= 0.80:
+            _nuevo_key, _via = _mejor, "nombre"
+    if not _nuevo_key:
+        _eq["destino_inexistente"] = True
+        eq_sin += 1
+        continue
+    _pr = records[_nuevo_key]
+    _eq.update({"code": _pr["code"], "key": _nuevo_key, "desc": _pr["nombre"],
+                "recalculada": _via})
+    _r["auditoria"] = [a for a in (_r.get("auditoria") or [])
+                       if not a.startswith("Equivale a la práctica")]
+    _r["auditoria"].insert(0, "Equivale a la práctica " + _pr["code"] +
+                           " del Nomenclador de Prestaciones Médicas.")
+    annot_unico(_nuevo_key, _r["code"], _r["nombre"], None, _r.get("unico_tipo") or "med")
+    if _via == "codigo":
+        eq_cod += 1
+    else:
+        eq_nom += 1
+print(f"Oftalmología equivalencias: por código {eq_cod} · por nombre {eq_nom} · sin destino {eq_sin}",
+      file=sys.stderr)
+
+# la lateralidad del Nacional vale para la misma práctica en el Único
+_lat_prop = 0
+for _k, _r in records.items():
+    if _r.get("nomenclador") != "UNICO" or _r.get("lateralidad"):
+        continue
+    _tgt = (_r.get("equivalencia") or {}).get("key")
+    if _tgt and records.get(_tgt, {}).get("lateralidad"):
+        _r["lateralidad"] = records[_tgt]["lateralidad"]
+        _lat_prop += 1
+print(f"Lateralidad propagada al Único: {_lat_prop}", file=sys.stderr)
+
 # topes por capítulo (áreas con límite de cantidad de sesiones/visitas)
 TOPES_CAP = {
     "33": "Salud mental: atención ambulatoria hasta 30 visitas por año calendario, sin exceder 4 consultas mensuales (Res. 201/02, Anexo I, punto 4).",
