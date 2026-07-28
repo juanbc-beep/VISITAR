@@ -634,6 +634,30 @@ aside{top:calc(var(--hh,128px) + 10px);max-height:calc(100vh - var(--hh,128px) -
 .vtile.ok .vt-v{color:var(--inc)} .vtile.warn .vt-v{color:var(--urg)} .vtile.cob .vt-v{color:var(--cob)}
 .vtile.lat .vt-v{color:var(--lat)} .vtile.val .vt-v{color:var(--accent-ink)}
 /* ---------- paleta de comandos ---------- */
+/* ---------- recorrido guiado ----------
+   El anterior era un cuadro en el medio de la pantalla: explicaba funciones sin decir
+   dónde estaban. Este resalta el elemento real y ancla la explicación al lado. */
+#tour{position:fixed;inset:0;z-index:1200;display:none}
+#tour.on{display:block}
+#tourHole{position:fixed;border-radius:10px;box-shadow:0 0 0 9999px rgba(8,15,20,.66);
+  transition:top .26s,left .26s,width .26s,height .26s;pointer-events:none;
+  outline:2px solid var(--accent);outline-offset:2px}
+#tourHole.oculto{outline:none;box-shadow:0 0 0 9999px rgba(8,15,20,.66)}
+#tourTip{position:fixed;width:min(360px,calc(100vw - 28px));background:var(--surface);
+  border:1px solid var(--line-2);border-radius:13px;box-shadow:0 18px 50px rgba(0,0,0,.4);
+  padding:16px 18px;transition:top .26s,left .26s}
+#tourTip .tt-n{font-size:10.5px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:var(--accent)}
+#tourTip h4{margin:5px 0 6px;font-size:16px;font-weight:700;color:var(--ink);line-height:1.25}
+#tourTip p{margin:0;font-size:13.5px;line-height:1.55;color:var(--ink-2)}
+#tourTip p b{color:var(--ink)}
+#tourTip .tt-rol{display:inline-block;margin-top:9px;font-size:10.5px;font-weight:800;letter-spacing:.4px;
+  text-transform:uppercase;background:var(--accent-soft);color:var(--accent-ink);padding:2px 8px;border-radius:20px}
+#tourTip .tt-nav{display:flex;align-items:center;gap:9px;margin-top:14px}
+#tourTip .tt-nav .gbtn{margin-top:0;flex:1;padding:9px}
+#tourTip .tt-prog{font-size:11.5px;color:var(--faint);white-space:nowrap}
+#tourTip .tt-x{background:none;border:none;color:var(--muted);font:inherit;font-size:12.5px;cursor:pointer;padding:4px}
+#tourTip .tt-x:hover{color:var(--ink)}
+#tourTip.centro{top:50%!important;left:50%!important;transform:translate(-50%,-50%);width:min(430px,calc(100vw - 28px))}
 #palette{position:fixed;inset:0;z-index:1150;background:rgba(10,18,24,.5);display:none;
   align-items:flex-start;justify-content:center;padding:12vh 18px 18px}
 #palette.on{display:flex}
@@ -760,6 +784,7 @@ mark.hl{background:var(--accent-soft);color:var(--accent-ink);border-radius:3px;
 <div id="gate" hidden></div>
 <div id="adminModal"><div class="adminbox" id="adminBox"></div></div>
 <div id="onboard"><div class="obcard" id="onboardCard"></div></div>
+<div id="tour"><div id="tourHole"></div><div id="tourTip"></div></div>
 <header>
   <div class="hbar">
     <div class="brand">
@@ -3291,45 +3316,152 @@ create policy "kv_all" on kv for all
   }
 
   /* ============ ONBOARDING (primer uso) ============ */
-  const ICN={
-    search:'<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>',
-    tabs:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 4v5"/>',
-    star:'<path d="M12 3l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 18l-5.9 3 1.2-6.5L2.5 9.9 9.1 9z"/>',
-    money:'<circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5c0-1.1 1.1-2 2.5-2s2.5.7 2.5 1.8-1 1.6-2.5 1.9-2.5.8-2.5 2 1.1 1.8 2.5 1.8 2.5-.9 2.5-2"/>',
-    check:'<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',
-    edit:'<path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>'
-  };
-  function obSteps(){
-    const s=[
-      {i:'tabs',t:'Tres nomencladores en uno',d:'Cambiá entre <b>Laboratorio (NBU)</b>, <b>Prestaciones médicas (PMO)</b> y <b>Odontología</b> con el selector de arriba. Cada sección muestra solo sus códigos.'},
-      {i:'search',t:'Buscá al instante',d:'Escribí un <b>código, práctica, sinónimo o abreviatura</b>. Tocá cualquier resultado para ver la ficha completa con normas, relaciones y valores.'},
-      {i:'star',t:'Tus favoritos',d:'Marcá con la <b>estrella</b> los códigos que más usás. Quedan guardados en <b>tu perfil</b>: al iniciar sesión los tenés a mano y podés filtrarlos.'},
-      {i:'money',t:'Arancel automático',d:'Cargá el <b>valor de la U.B.</b> arriba y la app calcula el <b>arancel en $</b> en el listado, la ficha y el validador. Usa la U.B. vigente actualizada.'},
-      {i:'check',t:'Mesa de trabajo',d:'Pegá los códigos de un caso y auditá en dos modos: <b>facturación</b> (doble facturación, seriados, topes, total en U.B. y $) y <b>autorización</b> (qué requiere autorización previa, documentación a solicitar al afiliado, diagnóstico y normativa).'}
+  /* ============ RECORRIDO GUIADO ============
+     Cada paso apunta a un elemento real: el recorrido lo resalta, lo trae a la vista y
+     ancla la explicación al lado. Los pasos que dependen de un estado (una ficha
+     abierta, la Mesa de trabajo) lo preparan antes. Los que no aplican al perfil o no
+     están en pantalla —el selector de celular, los botones de administrador— se saltan
+     solos. */
+  const esperar=ms=>new Promise(r=>setTimeout(r,ms));
+  function pasosTour(){
+    const admin=!!(current&&current.role==='admin');
+    const P=[
+      {sel:null,t:'Bienvenido al Manual Inteligente',
+       d:'Este es el <b>centro de respaldo</b>: acá verificás códigos, prestaciones, obligaciones de cobertura y cómo se carga cada solicitud. La carga en sí se hace en los sistemas de siempre. El recorrido lleva un minuto y te muestra dónde está cada cosa.'},
+      {sel:'#q',t:'Buscador',
+       d:'Escribí un <b>código, el nombre de la práctica, un sinónimo o una sigla</b>. Tolera errores de tipeo: «emograma» encuentra HEMOGRAMA. Y busca también por el nombre que la práctica tiene en el otro nomenclador.'},
+      {sel:'.modeswitch',t:'Nomencladores',selAlt:'.modesel',
+       d:'Elegís dónde buscar: <b>Laboratorio (NBU)</b>, <b>Prestaciones médicas (PMO)</b> o <b>Único</b>. «Buscar en todo» consulta los tres a la vez, más diagnósticos y siglas.'},
+      {sel:'.consultarow',t:'Consulta rápida',
+       d:'Tres apartados de apoyo: <b>Diagnósticos CIE-10</b> para el diagnóstico que justifica la práctica, <b>Abreviaturas</b> para descifrar cómo viene escrita la orden, y <b>SURGE</b> con las patologías de reintegro y su documentación.'},
+      {sel:'.ubctl',t:'Valor de la Unidad Bioquímica',
+       d:'Cargá acá el <b>valor de la U.B.</b> y la app calcula el arancel en pesos en el listado, en la ficha y en la Mesa de trabajo. Queda guardado en tu perfil.'},
+      {sel:'#fFlags',t:'Reglas y estados',antes:async()=>{el('rail')&&el('rail').classList.add('on');await esperar(220);},
+       d:'Filtros para acotar: <b>con obligación de cobertura</b>, <b>en sangre</b> o <b>en orina</b>, favoritos, en desuso, y el estado de verificación de cada ficha.'},
+      {sel:'.viewtabs',t:'Vistas',antes:async()=>{el('rail')&&el('rail').classList.remove('on');await esperar(200);},
+       d:'<b>Listado</b> es la vista normal. <b>Árbol de módulos</b> muestra qué prácticas quedan comprendidas dentro de otra. <b>Mesa de trabajo</b> analiza un caso completo.'},
+      {sel:'#list .row',t:'Cada resultado',
+       d:'Muestra el <b>código</b>, el nombre y su valor. Las etiquetas de colores avisan lo importante de un vistazo: obligación de cobertura, si es en sangre o en orina, lateralidad, si está en desuso.'},
+      {sel:'.veredicto',t:'La respuesta corta',
+       antes:async()=>{openCode('660475');await esperar(430);},
+       d:'Al abrir una ficha, arriba de todo están las cuatro respuestas: <b>si se cubre</b>, <b>cuánto vale</b>, <b>si requiere autorización</b> y <b>qué cantidad</b> corresponde. Tocá cualquiera para ir al detalle.'},
+      {sel:'.carga',t:'Cómo se carga esta solicitud',
+       d:'Los pasos en orden: qué código y en qué cantidad, <b>qué no cargar por separado</b> porque ya está comprendido, qué adicionar, qué diagnóstico consignar y qué papeles pedirle al afiliado.'},
+      {sel:'.verif',t:'Verificación de la ficha',
+       d:admin?'Podés <b>marcar la ficha como verificada</b>, y también <b>validar</b> las que verificó un administrativo. La verificación vence a los 180 días, porque la normativa cambia.'
+              :'Si contrastaste la ficha contra la fuente, tocá <b>Solicitar verificación</b>. Queda pendiente hasta que <b>un administrador la valide</b>.'},
+      {sel:'#propAbrir',t:'Contá cómo se carga acá',
+       d:'Lo que sabés sobre cómo se carga esta práctica <b>en el sistema de VISITAR</b> no está en ningún nomenclador. Escribilo una vez: un administrador lo aprueba y queda publicado para todo el equipo.'},
+      {sel:'#dCmp',t:'Comparar y copiar',
+       d:'<b>Comparar</b> pone dos códigos lado a lado con las diferencias resaltadas, útil cuando dudás entre parecidos. Al lado tenés copiar el código y la estrella para marcarlo como favorito.'},
+      {sel:'#rapidos',t:'Tus prácticas frecuentes',
+       antes:async()=>{closeDrawer();await esperar(280);
+         if(!FAVS.size){['660475','660481'].forEach(k=>{if(!FAVS.has(k))toggleFav(k);});render();await esperar(300);}},
+       d:'Los códigos que marcás con la <b>estrella</b> aparecen acá arriba, a un clic. Como cargás siempre las mismas prácticas, te ahorra la búsqueda casi siempre.'},
+      {sel:'.vtab[data-view="validator"]',t:'Mesa de trabajo',
+       d:'Pegás <b>todos los códigos de un caso</b> y te los analiza junto. En modo <b>autorización</b> arma la documentación a pedirle al afiliado; en <b>facturación</b> detecta doble facturación, cantidades mal cargadas y códigos inexistentes.'},
+      {sel:'#vCopy',t:'Informe para pegar',
+       antes:async()=>{state.view='validator';render();await esperar(320);
+         el('vcodes').value='661000 660475';el('vrun').click();await esperar(400);},
+       d:'Deja el análisis en <b>texto listo para pegar</b> en el sistema donde llevan el caso: prácticas, obligaciones de cobertura y documentación a solicitar. También podés bajarlo en CSV o PDF.'},
+      {sel:'#infoBtn',t:'Glosario y normativa',
+       antes:async()=>{state.view='list';render();await esperar(280);},
+       d:'Las <b>leyes y resoluciones</b> que respaldan las coberturas, con sus artículos y las prácticas relacionadas. Es de donde sale el fundamento cuando hay que justificar una decisión.'},
+      {sel:'#themeBtn',t:'Tema y atajos',
+       d:'Cambia entre claro y oscuro. Y dos atajos que ahorran tiempo: <b>Ctrl+K</b> abre el buscador rápido desde cualquier lado, y la <b>barra /</b> salta al campo de búsqueda.'},
+      {sel:'#acctChip',t:'Tu perfil',
+       d:'Tus <b>favoritos, notas y valor de U.B.</b> quedan guardados acá. Desde este botón cambiás de perfil cuando se sienta otra persona.'}
     ];
-    if(current&&current.role==='admin')s.push({i:'edit',t:'Sos administrador',d:'Con el botón <b>✎</b> activás el <b>modo edición</b> para corregir el contenido de cada ficha, y con el <b>engranaje</b> gestionás perfiles, el logo y la sincronización.'});
-    return s;
+    if(admin)P.push(
+      {sel:'#pendBtn',t:'Pendientes de revisar',forzar:true,
+       d:'Cuando un administrativo <b>verifica una ficha</b> o <b>propone cómo se carga</b>, aparece acá con el número. Nada de eso vale hasta que vos lo validás. Sólo se muestra cuando hay algo esperando.'},
+      {sel:'#editModeBtn',t:'Modo edición',
+       d:'Lo activás para poder <b>corregir el contenido de una ficha</b>: la denominación, las normas, las notas de auditoría. Se usa sobre todo en las que están marcadas como «denominación a confirmar».'},
+      {sel:'#adminBtn',t:'Administración',
+       d:'Perfiles del equipo, textos y logo, sincronización en la nube, respaldo, y <b>exportar las correcciones y verificaciones</b> para que se incorporen a la base y no queden sólo en esta computadora.'});
+    P.push({sel:null,t:'Listo',
+      d:'Podés volver a ver este recorrido cuando quieras desde <b>Glosario y leyes → Ver tutorial de uso</b>.'});
+    return P;
   }
-  let obIdx=0,obList=[];
+
+  let tIdx=0,tPasos=[],tCorriendo=false;
   function maybeOnboard(){try{if(localStorage.getItem('nbu-onboarded'))return;}catch(e){}startOnboard();}
-  function startOnboard(){obList=obSteps();obIdx=0;el('onboard').classList.add('on');renderOb();}
-  function endOnboard(){el('onboard').classList.remove('on');try{localStorage.setItem('nbu-onboarded','1');}catch(e){}}
-  function renderOb(){
-    const s=obList[obIdx],last=obIdx===obList.length-1;
-    el('onboardCard').innerHTML=`
-      <button class="obskip" id="obX" style="position:absolute;top:10px;right:10px">Saltar</button>
-      <div class="obicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICN[s.i]}</svg></div>
-      <h3>${s.t}</h3><p>${s.d}</p>
-      <div class="obdots">${obList.map((_,k)=>`<i class="${k===obIdx?'on':''}"></i>`).join('')}</div>
-      <div class="obnav">
-        ${obIdx>0?'<button class="obskip" id="obPrev">← Atrás</button>':'<span style="flex:1"></span>'}
-        <button class="gbtn" id="obNext">${last?'Empezar a usar':'Siguiente'}</button>
-      </div>`;
-    el('obX').addEventListener('click',endOnboard);
-    el('obNext').addEventListener('click',()=>{if(last)endOnboard();else{obIdx++;renderOb();}});
-    if(el('obPrev'))el('obPrev').addEventListener('click',()=>{obIdx--;renderOb();});
+  async function startOnboard(){
+    if(tCorriendo&&el('tour').classList.contains('on'))return;
+    tCorriendo=true;
+    tPasos=pasosTour(); tIdx=0;
+    el('onboard').classList.remove('on');
+    el('tour').classList.add('on');
+    await pintarPaso();
   }
-  el('onboard').addEventListener('click',e=>{if(e.target===el('onboard'))endOnboard();});
+  function endOnboard(){
+    el('tour').classList.remove('on'); el('onboard').classList.remove('on'); tCorriendo=false;
+    try{localStorage.setItem('nbu-onboarded','1');}catch(e){}
+    closeDrawer(); if(state.view!=='list'){state.view='list';render();}
+    el('rail')&&el('rail').classList.remove('on');
+  }
+  function objetivoDe(paso){
+    if(!paso.sel)return null;
+    let n=document.querySelector(paso.sel);
+    if((!n||!visible(n))&&paso.selAlt)n=document.querySelector(paso.selAlt);
+    // «forzar» significa que el paso se cuenta igual, no que se resalte un elemento
+    // invisible: sin nada que señalar, la tarjeta va centrada.
+    return (n&&visible(n))?n:null;
+  }
+  function visible(n){const r=n.getBoundingClientRect();return r.width>0&&r.height>0&&getComputedStyle(n).visibility!=='hidden';}
+  async function pintarPaso(){
+    const paso=tPasos[tIdx];
+    if(!paso)return endOnboard();
+    if(paso.antes){try{await paso.antes();}catch(e){}}
+    const n=objetivoDe(paso);
+    // Si el elemento no está en pantalla el paso no aporta y se salta; salvo los
+    // marcados como forzar —el botón de pendientes sólo aparece cuando hay algo—,
+    // que se explican igual con la tarjeta centrada.
+    if(paso.sel&&!n&&!paso.forzar){tIdx++;return pintarPaso();}
+    const hole=el('tourHole'), tip=el('tourTip');
+    if(n){
+      try{n.scrollIntoView({block:'center',behavior:'smooth'});}catch(e){}
+      await esperar(260);
+      const r=n.getBoundingClientRect(), m=6;
+      hole.classList.remove('oculto');
+      hole.style.top=(r.top-m)+'px'; hole.style.left=(r.left-m)+'px';
+      hole.style.width=(r.width+m*2)+'px'; hole.style.height=(r.height+m*2)+'px';
+    }else{
+      hole.classList.add('oculto');
+      hole.style.top='50%'; hole.style.left='50%'; hole.style.width='0px'; hole.style.height='0px';
+    }
+    const ultimo=tIdx===tPasos.length-1;
+    tip.className=n?'':'centro';
+    tip.innerHTML=`<span class="tt-n">Paso ${tIdx+1} de ${tPasos.length}</span>
+      <h4>${paso.t}</h4><p>${paso.d}</p>
+      <div class="tt-nav">
+        ${tIdx>0?'<button class="tt-x" id="tPrev">← Atrás</button>':''}
+        <button class="gbtn" id="tNext">${ultimo?'Terminar':'Siguiente'}</button>
+        ${!ultimo?'<button class="tt-x" id="tSkip">Saltar</button>':''}
+      </div>`;
+    if(n)ubicarTip(tip,n);
+    el('tNext').addEventListener('click',()=>{if(ultimo)endOnboard();else{tIdx++;pintarPaso();}});
+    if(el('tPrev'))el('tPrev').addEventListener('click',()=>{tIdx--;pintarPaso();});
+    if(el('tSkip'))el('tSkip').addEventListener('click',endOnboard);
+  }
+  function ubicarTip(tip,n){
+    const r=n.getBoundingClientRect(), tr=tip.getBoundingClientRect();
+    const H=innerHeight, W=innerWidth, gap=14;
+    let top=r.bottom+gap;
+    if(top+tr.height>H-10)top=r.top-tr.height-gap;          // no entra abajo: va arriba
+    if(top<10)top=Math.max(10,Math.min(H-tr.height-10,r.top));
+    let left=r.left+r.width/2-tr.width/2;
+    left=Math.max(12,Math.min(W-tr.width-12,left));
+    tip.style.top=top+'px'; tip.style.left=left+'px';
+  }
+  addEventListener('resize',()=>{if(tCorriendo)pintarPaso();},{passive:true});
+  document.addEventListener('keydown',e=>{
+    if(!tCorriendo)return;
+    if(e.key==='Escape'){e.preventDefault();endOnboard();}
+    else if(e.key==='ArrowRight'||e.key==='Enter'){e.preventDefault();el('tNext')&&el('tNext').click();}
+    else if(e.key==='ArrowLeft'){e.preventDefault();el('tPrev')&&el('tPrev').click();}
+  });
+
 
   /* ============ header wiring ============ */
   el('acctChip').addEventListener('click',()=>{if(companyAuthed)renderGate('profiles'),gate.hidden=false;});
