@@ -139,6 +139,9 @@ html,body{margin:0;padding:0}
   border-radius:9px;border:1px solid var(--line);background:var(--surface-2);font-size:12.5px;color:var(--muted)}
 .verif.ok{border-color:color-mix(in srgb,var(--inc) 40%,transparent);background:color-mix(in srgb,var(--inc) 8%,transparent)}
 .verif.vieja{border-color:color-mix(in srgb,var(--urg) 42%,transparent);background:var(--urg-soft)}
+.verif.pendiente{border-color:color-mix(in srgb,var(--gestion) 45%,transparent);background:#efe4c4}
+:root[data-theme="dark"] .verif.pendiente{background:#2e2811}
+.verif.pendiente .vf-t{color:var(--gestion)}
 .verif .vf-t{flex:1;min-width:120px}
 .verif.ok .vf-t{color:var(--inc)} .verif.vieja .vf-t{color:var(--urg)}
 .verif .vf-t b{font-weight:700}
@@ -1104,7 +1107,7 @@ function buildGroups(){
   el('fGrupo').querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>toggleOpt(b)));
   const gp=el('grupoPanel');if(gp)gp.hidden=!grupos.length;   // ocultar panel de grupo cuando no aplica (ALL/ABR)
 }
-const FLAGS=[['cobertura','⚕ Con obligación de cobertura'],['sin_verificar','○ Sin verificar'],['verif_vencida','⧗ Verificación vencida'],['en_sangre','En sangre'],['en_orina','En orina'],['fav','★ Favoritos'],['recientes','Vistos recientemente'],['nota','Con nota personal'],['sin_equiv','⚠ Sin equivalencia (Único)'],['con_equiv','Con equivalencia (Único)'],['valores','Con valores validados'],['urgencia','Urgencia (U)'],['requiere_norma','Requiere norma (N)'],['con_rel','Con relaciones'],['seriado','Con frecuencia/seriado'],['desuso','En desuso (#)'],['pcr','Metodología PCR'],['new2024','Actualizado 2024']];
+const FLAGS=[['cobertura','⚕ Con obligación de cobertura'],['sin_verificar','○ Sin verificar'],['verif_pendiente','⏳ Pendiente de validación'],['verif_vencida','⧗ Verificación vencida'],['en_sangre','En sangre'],['en_orina','En orina'],['fav','★ Favoritos'],['recientes','Vistos recientemente'],['nota','Con nota personal'],['sin_equiv','⚠ Sin equivalencia (Único)'],['con_equiv','Con equivalencia (Único)'],['valores','Con valores validados'],['urgencia','Urgencia (U)'],['requiere_norma','Requiere norma (N)'],['con_rel','Con relaciones'],['seriado','Con frecuencia/seriado'],['desuso','En desuso (#)'],['pcr','Metodología PCR'],['new2024','Actualizado 2024']];
 el('fFlags').innerHTML=FLAGS.map(([k,l])=>`<button class="opt" data-f="flags" data-v="${k}"><span class="optrow"><span class="lbl">${l}</span></span></button>`).join('');
 
 function toggleOpt(b){
@@ -1193,6 +1196,7 @@ function passFlags(c){
     if(f==='valores'&&!c.valores)return false;
     if(f==='cobertura'&&!c.cobertura_pmo)return false;
     if(f==='sin_verificar'&&verifEstado(c._key).estado!=='sin')return false;
+    if(f==='verif_pendiente'&&verifEstado(c._key).estado!=='pendiente')return false;
     if(f==='verif_vencida'&&verifEstado(c._key).estado!=='vieja')return false;
     if(f==='en_sangre'&&!((c.muestra||[]).includes('sangre')))return false;
     if(f==='en_orina'&&!((c.muestra||[]).includes('orina')))return false;
@@ -1954,19 +1958,32 @@ const VERIF_DIAS=180;
 function verifEstado(code){
   const v=(window.NBUProfile&&NBUProfile.verifDe)?NBUProfile.verifDe(code):null;
   if(!v)return {estado:'sin',v:null};
-  const dias=Math.floor((Date.now()-v.t)/86400000);
+  if(v.estado==='pendiente')return {estado:'pendiente',v,dias:0};
+  // la vigencia corre desde que se validó, que es cuando el dato pasó a ser confiable
+  const desde=v.tv||v.t;
+  const dias=Math.floor((Date.now()-desde)/86400000);
   return {estado:dias>VERIF_DIAS?'vieja':'ok',v,dias};
 }
 function verifHTML(code){
   if(!(window.NBUProfile&&NBUProfile.active()))return '';
   const {estado,v,dias}=verifEstado(code);
-  const txt=estado==='sin'?'<b>Sin verificar.</b> Nadie contrastó esta ficha contra la fuente.'
-    :(estado==='ok'?`<b>Verificada</b> el ${new Date(v.t).toLocaleDateString('es-AR')} por ${esc(v.por||'—')}`
-      :`<b>Verificación vencida</b> — hace ${dias} días, por ${esc(v.por||'—')}`);
-  return `<div class="verif ${estado==='sin'?'':estado}">
-    <span class="vf-t">${estado==='ok'?'✓ ':(estado==='vieja'?'⧗ ':'○ ')}${txt}</span>
-    <button class="minibtn" id="verifBtn">${estado==='sin'?'✓ Marcar verificada':'✓ Verificar de nuevo'}</button>
-    ${estado!=='sin'?'<button class="minibtn danger" id="verifQuitar">Quitar</button>':''}</div>`;
+  const esAdmin=!!(NBUProfile.active()&&NBUProfile.active().role==='admin');
+  const f=t=>new Date(t).toLocaleDateString('es-AR');
+  let txt,cls=estado;
+  if(estado==='sin'){txt='<b>Sin verificar.</b> Nadie contrastó esta ficha contra la fuente.';cls='';}
+  else if(estado==='pendiente')txt=`<b>Pendiente de validación.</b> ${esc(v.por||'—')} la verificó el ${f(v.t)}; falta que la valide un administrador.`;
+  else if(estado==='ok')txt=`<b>Verificada</b> el ${f(v.tv||v.t)} · revisó ${esc(v.por||'—')}${v.validadoPor&&v.validadoPor!==v.por?`, validó ${esc(v.validadoPor)}`:''}`;
+  else txt=`<b>Verificación vencida</b> — hace ${dias} días, por ${esc(v.por||'—')}`;
+  const icono={sin:'○ ',pendiente:'⏳ ',ok:'✓ ',vieja:'⧗ '}[estado];
+  let botones='';
+  if(estado==='pendiente'&&esAdmin)
+    botones=`<button class="minibtn" id="verifValidar">✓ Validar</button><button class="minibtn danger" id="verifQuitar">Rechazar</button>`;
+  else if(estado==='pendiente')
+    botones=`<button class="minibtn danger" id="verifQuitar">Cancelar solicitud</button>`;
+  else
+    botones=`<button class="minibtn" id="verifBtn">${estado==='sin'?(esAdmin?'✓ Marcar verificada':'✓ Solicitar verificación'):'✓ Verificar de nuevo'}</button>`
+      +(estado!=='sin'?'<button class="minibtn danger" id="verifQuitar">Quitar</button>':'');
+  return `<div class="verif ${cls}"><span class="vf-t">${icono}${txt}</span>${botones}</div>`;
 }
 
 /* ---------- instructivo de carga ----------
@@ -2390,6 +2407,8 @@ function openCode(code){
   d.querySelectorAll('[data-ir]').forEach(b=>b.addEventListener('click',()=>irASeccion(d,b.dataset.ir)));
   const vb=el('verifBtn');
   if(vb)vb.addEventListener('click',()=>{NBUProfile.verificar(code);toast('Ficha verificada');openCode(code);if(state.view==='list')render();});
+  const vv=el('verifValidar');
+  if(vv)vv.addEventListener('click',()=>{NBUProfile.validarVerif(code);toast('Verificación validada');openCode(code);if(state.view==='list')render();});
   const vq=el('verifQuitar');
   if(vq)vq.addEventListener('click',()=>{NBUProfile.desverificar(code);toast('Verificación quitada');openCode(code);if(state.view==='list')render();});
   const pa=el('propAbrir');
@@ -2976,7 +2995,7 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
   let aTab='perfiles';
   function openAdmin(t){aTab=t||aTab;renderAdmin();amodal.classList.add('on');}
   function renderAdmin(){
-    const tabs=[['perfiles','Perfiles'],['propuestas','Propuestas'],['empresa','Empresa'],['contenido','Textos'],['nube','Nube'],['registro','Registro'],['respaldo','Respaldo']];
+    const tabs=[['perfiles','Perfiles'],['propuestas','Pendientes'],['empresa','Empresa'],['contenido','Textos'],['nube','Nube'],['registro','Registro'],['respaldo','Respaldo']];
     abox.innerHTML=`
       <button class="icon-btn close-x" id="aClose" style="position:absolute;top:16px;right:16px" aria-label="Cerrar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
       <h3>Administración</h3>
@@ -3008,7 +3027,17 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
       });
     } else if(aTab==='propuestas'){
       const props=window.NBUProfile.propuestasTodas();
-      p.innerHTML=`<div class="ahint">Propuestas de los agentes sobre <b>cómo se carga</b> cada solicitud. Al aprobar, el texto queda publicado en la ficha para todo el equipo y se incluye al exportar las correcciones para la base.</div>`+
+      const pv=window.NBUProfile.verifPendientes();
+      // Verificaciones que un administrativo solicitó y esperan validación.
+      p.innerHTML=`<div class="ahint"><b>Verificaciones a validar (${pv.length}).</b> Un administrativo contrastó la ficha contra la fuente; recién vale cuando la valida un administrador.</div>`+
+        (pv.length?pv.map(v=>{const c=BYCODE[v.code];
+          return `<div class="arow">
+            <div class="grow2"><div class="pnm"><span class="mono" style="color:var(--accent-ink)">${E(c?c.code:v.code)}</span> ${E(c?c.nombre.slice(0,52):'')}</div>
+            <div class="pmeta">Verificó ${E(v.por||'—')} · ${new Date(v.t).toLocaleDateString('es-AR')}</div></div>
+            <button class="minibtn" data-vact="ok" data-c="${E(v.code)}">Validar</button>
+            <button class="minibtn danger" data-vact="no" data-c="${E(v.code)}">Rechazar</button>
+          </div>`;}).join(''):'<div class="ahint">No hay verificaciones esperando validación.</div>')+
+        `<div class="ahint" style="margin-top:18px;padding-top:14px;border-top:1px solid var(--line)">Propuestas de los agentes sobre <b>cómo se carga</b> cada solicitud. Al aprobar, el texto queda publicado en la ficha para todo el equipo y se incluye al exportar las correcciones para la base.</div>`+
         (props.length?props.map(pr=>{const c=BYCODE[pr.code];
           return `<div class="arow" style="align-items:flex-start">
             <div class="grow2">
@@ -3019,6 +3048,13 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
             <button class="minibtn" data-pact="ok" data-c="${E(pr.code)}" data-i="${pr.idx}">Aprobar</button>
             <button class="minibtn danger" data-pact="no" data-c="${E(pr.code)}" data-i="${pr.idx}">Descartar</button>
           </div>`;}).join(''):'<div class="ahint">No hay propuestas pendientes.</div>');
+      p.querySelectorAll('[data-vact]').forEach(b=>b.addEventListener('click',()=>{
+        const code=b.dataset.c;
+        if(b.dataset.vact==='ok')window.NBUProfile.validarVerif(code);
+        else window.NBUProfile.desverificar(code);
+        renderPane(); if(state.view==='list')render();
+        toast(b.dataset.vact==='ok'?'Verificación validada':'Verificación rechazada');
+      }));
       p.querySelectorAll('[data-pact]').forEach(b=>b.addEventListener('click',()=>{
         const code=b.dataset.c, i=+b.dataset.i, lista=(CONTENT.propuestas||{})[code]||[];
         const pr=lista[i]; if(!pr)return;
@@ -3138,9 +3174,12 @@ create policy "kv_all" on kv for all
         });
         // Las verificaciones también se versionan: si no, cada instalación vuelve a
         // arrancar sin saber qué se contrastó contra la fuente.
+        // Sólo las validadas: una pendiente todavía no es un dato confiable.
         const verif={};
         Object.entries(CONTENT.verif||{}).forEach(([c,v])=>{
-          verif[c]={fecha:new Date(v.t).toISOString().slice(0,10),por:v.por||''};});
+          if(v.estado==='pendiente')return;
+          verif[c]={fecha:new Date(v.tv||v.t).toISOString().slice(0,10),
+                    por:v.por||'',validado_por:v.validadoPor||''};});
         const nv=Object.keys(verif).length;
         const n=Object.keys(corr).length;
         el('bkCorrN').textContent=(n||nv)
@@ -3292,13 +3331,25 @@ create policy "kv_all" on kv for all
     propuestasDe:(code)=>((CONTENT.propuestas||{})[code]||[]),
     /* Verificación: un centro de respaldo vale por la confianza que genera, y hoy
        nada decía cuándo se había contrastado una ficha contra la fuente. */
+    /* La verificación la puede solicitar un administrativo, pero sólo vale una vez
+       que un administrador la valida: mientras tanto queda pendiente. Si la marca un
+       administrador, él mismo es el validador y queda validada de una. */
     verificar:(code)=>{CONTENT.verif=CONTENT.verif||{};
-      CONTENT.verif[code]={t:Date.now(),por:(current&&current.name)||''};
-      logEdit('verificó la ficha',code); persistContent();},
+      const esAdmin=!!(current&&current.role==='admin');
+      CONTENT.verif[code]={t:Date.now(),por:(current&&current.name)||'',
+        estado:esAdmin?'validado':'pendiente',
+        validadoPor:esAdmin?((current&&current.name)||''):'', tv:esAdmin?Date.now():0};
+      logEdit(esAdmin?'verificó la ficha':'solicitó verificar la ficha',code); persistContent();},
+    validarVerif:(code)=>{const v=(CONTENT.verif||{})[code]; if(!v)return;
+      v.estado='validado'; v.validadoPor=(current&&current.name)||''; v.tv=Date.now();
+      logEdit('validó la verificación',code); persistContent();},
     desverificar:(code)=>{if(CONTENT.verif)delete CONTENT.verif[code];
       logEdit('quitó la verificación',code); persistContent();},
     verifDe:(code)=>((CONTENT.verif||{})[code]||null),
-    verifTotal:()=>Object.keys(CONTENT.verif||{}).length,
+    verifPendientes:()=>Object.entries(CONTENT.verif||{})
+      .filter(([,v])=>v.estado==='pendiente')
+      .map(([c,v])=>Object.assign({code:c},v)).sort((a,b)=>b.t-a.t),
+    verifTotal:()=>Object.values(CONTENT.verif||{}).filter(v=>v.estado!=='pendiente').length,
     propuestasTodas:()=>{const o=[];Object.entries(CONTENT.propuestas||{}).forEach(([c,l])=>
       l.forEach((p,i)=>o.push(Object.assign({code:c,idx:i},p))));return o.sort((a,b)=>b.t-a.t);},
     getNote:(code)=>current&&current.notes?(current.notes[code]||''):'',

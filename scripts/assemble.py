@@ -1617,7 +1617,8 @@ for _code, _v in (CORR.get("verificaciones") or {}).items():
     _r = records.get(_code)
     if not _r or not isinstance(_v, dict) or not _v.get("fecha"):
         continue
-    _r["verificado"] = {"fecha": _v["fecha"], "por": _v.get("por", "")}
+    _r["verificado"] = {"fecha": _v["fecha"], "por": _v.get("por", ""),
+                        "validado_por": _v.get("validado_por", "")}
     verif_n += 1
 if verif_n:
     print(f"Fichas verificadas: {verif_n}", file=sys.stderr)
