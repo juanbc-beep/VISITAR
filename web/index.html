@@ -247,9 +247,20 @@ html,body{margin:0;padding:0}
 :root[data-theme="light"]{--sangre:#be123c}:root[data-theme="dark"]{--sangre:#fb7185}
 :root{--orina:#a16207}@media (prefers-color-scheme:dark){:root{--orina:#fcd34d}}
 :root[data-theme="light"]{--orina:#a16207}:root[data-theme="dark"]{--orina:#fcd34d}
+/* Cada tipo de muestra lleva su color: en el mostrador, confundir la muestra es cargar
+   mal la práctica, y eso vale igual para semen o materia fecal que para sangre u orina. */
+:root{--semen:#0e7490;--lcr:#4338ca;--fecal:#7c4a1e;--pelo:#57534e;--saliva:#65a30d}
+@media (prefers-color-scheme:dark){:root{--semen:#67e8f9;--lcr:#a5b4fc;--fecal:#d3a06a;--pelo:#c8c2bd;--saliva:#bef264}}
+:root[data-theme="light"]{--semen:#0e7490;--lcr:#4338ca;--fecal:#7c4a1e;--pelo:#57534e;--saliva:#65a30d}
+:root[data-theme="dark"]{--semen:#67e8f9;--lcr:#a5b4fc;--fecal:#d3a06a;--pelo:#c8c2bd;--saliva:#bef264}
 .tag.t-sangre{background:color-mix(in srgb,var(--sangre) 15%,transparent);color:var(--sangre);font-weight:800}
 .tag.t-orina{background:color-mix(in srgb,var(--orina) 18%,transparent);color:var(--orina);font-weight:800}
-.tag.t-muestra{background:var(--surface-3);color:var(--muted);font-weight:700}
+.tag.t-semen{background:color-mix(in srgb,var(--semen) 15%,transparent);color:var(--semen);font-weight:800}
+.tag.t-lcr{background:color-mix(in srgb,var(--lcr) 15%,transparent);color:var(--lcr);font-weight:800}
+.tag.t-fecal{background:color-mix(in srgb,var(--fecal) 15%,transparent);color:var(--fecal);font-weight:800}
+.tag.t-pelo{background:color-mix(in srgb,var(--pelo) 18%,transparent);color:var(--pelo);font-weight:800}
+.tag.t-saliva{background:color-mix(in srgb,var(--saliva) 18%,transparent);color:var(--saliva);font-weight:800}
+.tag.t-muestra{background:var(--surface-3);color:var(--ink-2);font-weight:800}
 .par-card{background:var(--urg-soft);border:1.5px solid color-mix(in srgb,var(--urg) 40%,transparent);
   border-radius:var(--radius);padding:12px 15px;font-size:13.5px;color:var(--ink-2);line-height:1.5}
 .par-card b{color:var(--urg)}
@@ -429,7 +440,6 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
 .t-new{background:var(--new-soft);color:var(--new)}
 /* Segundo nivel: estado del dato en la base. Sin color, para no competir con las de decisión. */
 .tag.t-meta{background:transparent;border:1px solid var(--line);color:var(--faint);font-weight:600;padding:1px 5px}
-.tag.t-meta.av{border-color:color-mix(in srgb,var(--urg) 40%,transparent);color:var(--urg)}
 .row:hover .tag.t-meta{border-color:var(--line-2);color:var(--muted)}
 .rright{text-align:right;flex-shrink:0}
 .rub{font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-size:16px;font-weight:700;color:var(--ink)}
@@ -1365,12 +1375,11 @@ function ubDisplay(c){
   return `<div class="rub">${ub}${sub}</div>`;
 }
 /* Las etiquetas van en dos niveles.
-   DECISIÓN (en color): cambian lo que el agente tiene que hacer con la solicitud.
-   ESTADO DE LA BASE (en gris): dicen cómo está cargado el dato, no qué hacer.
-   Contado sobre los 6.346 códigos, «= Único» (45% de las filas) y «valores ✓» (23%) se
-   llevaban el 66% de las etiquetas, mientras que obligación de cobertura y lateralidad
-   —las que sí cambian la carga— aparecen en el 2% cada una. Con el mismo peso visual el
-   color dejaba de significar algo: ahora, si una fila tiene color, hay algo que mirar. */
+   DECISIÓN (en color): dicen algo de la práctica que cambia cómo se carga la solicitud
+   —qué muestra pide, si hay obligación de cobertura, con qué otro código se relaciona,
+   qué equivalencia tiene en el Único—.
+   ESTADO DE LA BASE (en gris): sólo cuentan cómo quedó cargado el dato de este manual.
+   Son «valores ✓» y «2024», y no le cambian nada al agente que atiende. */
 function rowHTML(c){
   const dec=[],met=[];
   if(c.cobertura_pmo)dec.push(`<span class="tag t-cob">${c.cobertura_tipo==='observacion'?'observación de cobertura':'obligación de cobertura'}</span>`);
@@ -1381,9 +1390,9 @@ function rowHTML(c){
   if(c.flags.requiere_norma)dec.push('<span class="tag t-norma">N</span>');
   if(c.seriado||(c.frecuencia&&c.frecuencia.length))dec.push('<span class="tag t-freq">seriado</span>');
   if(c.surge)dec.push('<span class="tag t-surge">SURGE</span>');
-  if(hasRel(c))met.push('<span class="tag t-meta">relaciones</span>');
-  if(c.equivalencia_unico&&c.equivalencia_unico.length)met.push('<span class="tag t-meta">= Único</span>');
-  if(c.nomenclador==='UNICO'&&c.sin_equivalencia)met.push('<span class="tag t-meta av">⚠ sin equivalencia</span>');
+  if(hasRel(c))dec.push('<span class="tag t-rel">relaciones</span>');
+  if(c.equivalencia_unico&&c.equivalencia_unico.length)dec.push('<span class="tag t-unico">= Único</span>');
+  if(c.nomenclador==='UNICO'&&c.sin_equivalencia)dec.push('<span class="tag t-noeq">⚠ sin equivalencia</span>');
   if(c.valores)met.push('<span class="tag t-meta">valores ✓</span>');
   if(c.valor.ub_actualizado_2024!=null)met.push('<span class="tag t-meta">2024</span>');
   return `<button class="row" data-code="${c._key}">
@@ -1397,14 +1406,18 @@ function rowHTML(c){
     <div class="rright">${ubDisplay(c)}</div>
   </button>`;
 }
-/* Etiqueta de tipo de muestra. Sangre y orina llevan color propio porque son las que
-   se confunden al cargar; el resto va en gris. */
+/* Cada tipo de muestra tiene su color. Cuando una práctica admite más de una, va una
+   etiqueta por cada una: «orina + sangre» en un solo bloque gris escondía justamente el
+   dato que hay que mirar antes de cargar. */
+const MUESTRA_VAR={'sangre':'--sangre','orina':'--orina','semen':'--semen',
+  'líquido cefalorraquídeo':'--lcr','materia fecal':'--fecal','pelo':'--pelo','saliva':'--saliva'};
+const MUESTRA_CLS={'sangre':'t-sangre','orina':'t-orina','semen':'t-semen',
+  'líquido cefalorraquídeo':'t-lcr','materia fecal':'t-fecal','pelo':'t-pelo','saliva':'t-saliva'};
+const muestraCls=m=>MUESTRA_CLS[m]||'t-muestra';
 function muestraTag(c){
   const m=c.muestra||[]; if(!m.length)return '';
-  const txt=m.join(' + ');
-  const cls=(m.length===1&&m[0]==='sangre')?'t-sangre':((m.length===1&&m[0]==='orina')?'t-orina':'t-muestra');
   const t=c.muestra_origen==='sufijo'?`Terminación «-${m[0]==='sangre'?'emia':'uria'}»: la determinación es en ${m[0]}.`:'Tipo de muestra según la denominación.';
-  return `<span class="tag ${cls}" title="${esc(t)}">${esc(txt)}</span>`;
+  return m.map(x=>`<span class="tag ${muestraCls(x)}" title="${esc(t)}">${esc(x)}</span>`).join('');
 }
 function esc(s){return (s||'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));}
 function hlList(s){
@@ -2251,9 +2264,10 @@ function veredictoHTML(c){
   // 4. muestra — para el usuario de carga es la diferencia entre cargar bien o mal
   if(c.muestra&&c.muestra.length){
     const m=c.muestra, uno=m.length===1?m[0]:null;
-    t.push(`<button class="vtile" data-ir="muestra" style="${uno==='sangre'?'--x:var(--sangre)':(uno==='orina'?'--x:var(--orina)':'')}">
+    const vr=uno?MUESTRA_VAR[uno]:null;
+    t.push(`<button class="vtile" data-ir="muestra" style="${vr?`--x:var(${vr})`:''}">
       <span class="vt-l">Muestra</span>
-      <span class="vt-v" style="${uno?'color:var(--x)':''}">${esc(m.join(' + '))}</span>
+      <span class="vt-v" style="${vr?'color:var(--x)':''}">${esc(m.join(' + '))}</span>
       <span class="vt-s">${c.muestra_origen==='sufijo'?'por la terminación del nombre':'según la denominación'}</span></button>`);
   }
   // 5. lateralidad / cantidad
@@ -2364,7 +2378,7 @@ function openCode(code,origen){
   // Tipo de muestra y su par que se presta a confusión.
   if(c.muestra&&c.muestra.length){
     const m=c.muestra, uno=m.length===1?m[0]:null;
-    const col=uno==='sangre'?'var(--sangre)':(uno==='orina'?'var(--orina)':'var(--muted)');
+    const col=(uno&&MUESTRA_VAR[uno])?`var(${MUESTRA_VAR[uno]})`:'var(--muted)';
     html+=`<div class="sec"><div class="slabel">Tipo de muestra</div>
       <div class="freq-note" style="background:color-mix(in srgb,${col} 9%,transparent);border-color:color-mix(in srgb,${col} 32%,transparent)">
         <span class="seriado-b" style="color:${col}">${esc(m.join(' + '))}</span><br>
