@@ -155,6 +155,48 @@ html,body{margin:0;padding:0}
 .verif .vf-t{flex:1;min-width:120px}
 .verif.ok .vf-t{color:var(--inc)} .verif.vieja .vf-t{color:var(--urg)}
 .verif .vf-t b{font-weight:700}
+/* ---------- impresión de la ficha y comprobante del afiliado ----------
+   La hoja de impresión ocultaba el panel de la ficha, así que no había forma de
+   imprimir una práctica ni de entregarle un papel al afiliado. */
+#comprobante{display:none}
+@media print{
+  body.imp-ficha .wrap,body.imp-ficha header,body.imp-ficha .autoria,body.imp-ficha footer{display:none!important}
+  body.imp-ficha .scrim{display:none!important}
+  body.imp-ficha .drawer{display:block!important;position:static!important;width:100%!important;
+    transform:none!important;box-shadow:none!important;border:none!important;max-height:none!important}
+  body.imp-ficha .drawer .dbody{overflow:visible!important;padding:0!important;display:block!important}
+  body.imp-ficha .drawer .sec.pleg>.sc-body{display:block!important}   /* imprime todo, aunque esté plegado */
+  body.imp-ficha .drawer .sec.pleg>.slabel::before{display:none}
+  body.imp-ficha .drawer .dhead{border:none;padding:0 0 8px}
+  body.imp-ficha .drawer .icon-btn,body.imp-ficha .drawer .dactions,body.imp-ficha .drawer .dedit,
+  body.imp-ficha .drawer .dnote,body.imp-ficha .drawer .dstar,body.imp-ficha .drawer .verif,
+  body.imp-ficha .drawer .prop-box{display:none!important}
+  body.imp-comp>*{display:none!important}
+  body.imp-comp #comprobante{display:block!important}
+}
+#comprobante{padding:0;color:#000;background:#fff}
+#comprobante .cp-h{border-bottom:2px solid #000;padding-bottom:8px;margin-bottom:16px}
+#comprobante .cp-h h2{margin:0;font-size:19px}
+#comprobante .cp-h p{margin:3px 0 0;font-size:12px;color:#444}
+#comprobante h3{font-size:16px;margin:0 0 4px}
+#comprobante .cp-cod{font-family:var(--font-mono);font-size:12px;color:#555}
+#comprobante .cp-s{margin-top:18px}
+#comprobante .cp-s b{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px}
+#comprobante ul{margin:0;padding-left:0;list-style:none}
+#comprobante li{font-size:13.5px;line-height:1.6;padding:4px 0;border-bottom:1px dotted #bbb}
+#comprobante .cp-f{margin-top:26px;padding-top:10px;border-top:1px solid #999;font-size:11px;color:#555}
+/* ---------- secciones plegables de la ficha ----------
+   La ficha llegó a 3,3 pantallas de scroll. Lo que se consulta siempre queda abierto y
+   el resto se pliega, mostrando de qué se trata y cuánto hay adentro. */
+.sec.pleg>.slabel{display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none;
+  padding:7px 0;margin:0;border-radius:6px;transition:color .12s}
+.sec.pleg>.slabel:hover{color:var(--accent)}
+.sec.pleg>.slabel::before{content:'▸';font-size:11px;color:var(--accent);transition:transform .16s;flex-shrink:0}
+.sec.pleg.abierta>.slabel::before{transform:rotate(90deg)}
+.sec.pleg>.slabel .sc-n{margin-left:auto;font-size:10.5px;font-weight:700;color:var(--faint);
+  background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:1px 8px}
+.sec.pleg>.sc-body{display:none}
+.sec.pleg.abierta>.sc-body{display:flex;flex-direction:column;gap:9px}
 .carga{background:var(--surface-2);border:1.5px solid var(--accent);border-radius:var(--radius);padding:14px 16px}
 .carga .cg-h{display:flex;align-items:center;gap:8px;font-weight:800;font-size:11px;letter-spacing:.6px;
   text-transform:uppercase;color:var(--accent-ink);margin-bottom:10px}
@@ -614,7 +656,8 @@ header.compact .stats{display:none}
 header.compact .brand p{display:none}
 header.compact .logo{height:32px;min-width:32px}
 /* la barra lateral se pega justo debajo de la cabecera, midiéndola de verdad */
-aside{top:calc(var(--hh,128px) + 10px);max-height:calc(100vh - var(--hh,128px) - 28px)}
+aside{top:calc(var(--hh,128px) + 10px);max-height:calc(100vh - var(--hh,128px) - 28px);
+  transition:top .16s linear,max-height .16s linear}
 .modesel{display:none}
 @media (max-width:900px){
   /* en celular los nomencladores pasan a un selector: dos filas de tarjetas se comían
@@ -914,6 +957,8 @@ mark.hl{background:var(--accent-soft);color:var(--accent-ink);border-radius:3px;
   </main>
 </div>
 
+<div id="comprobante"></div>
+
 <footer class="autoria">
   <span class="au-t">Diseñado por</span>
   <span class="au-n">Juan Pablo Besada</span>
@@ -1206,16 +1251,28 @@ document.querySelectorAll('.modebtn,.cbtn').forEach(b=>b.addEventListener('click
 /* ---------- cabecera: se comprime al scrollear y libera pantalla ---------- */
 const _hdr=document.querySelector('header');
 function medirCabecera(){document.documentElement.style.setProperty('--hh',_hdr.offsetHeight+'px');}
+// La altura se sigue con un observador y no midiéndola al vuelo: al comprimirse la
+// cabecera anima ~140 ms, y tomar la medida en el mismo fotograma dejaba --hh
+// desfasado, con la barra lateral saltando en escalones hasta acomodarse.
+if(window.ResizeObserver)new ResizeObserver(medirCabecera).observe(_hdr);
+/* Umbrales separados a propósito. Al comprimirse, la cabecera pierde unos 90 px y el
+   navegador reajusta el scroll para no mover el contenido; con un único umbral eso
+   volvía a cruzarlo y la cabecera entraba en un ida y vuelta que se veía como un
+   parpadeo. La distancia entre 220 y 90 es mayor que lo que la cabecera encoge, así
+   que el reajuste ya no alcanza para deshacer el cambio. */
+const HDR_COMPACTA=220, HDR_EXPANDE=90;
 let _tick=false;
 function alScrollear(){
   if(_tick)return; _tick=true;
   requestAnimationFrame(()=>{
-    _hdr.classList.toggle('compact',window.scrollY>90);
-    medirCabecera(); _tick=false;
+    _tick=false;
+    const y=window.scrollY, comp=_hdr.classList.contains('compact');
+    if(!comp&&y>HDR_COMPACTA)_hdr.classList.add('compact');
+    else if(comp&&y<HDR_EXPANDE)_hdr.classList.remove('compact');
   });
 }
 addEventListener('scroll',alScrollear,{passive:true});
-addEventListener('resize',()=>{medirCabecera();},{passive:true});
+addEventListener('resize',medirCabecera,{passive:true});
 medirCabecera();
 
 /* En celular las tarjetas de nomenclador pasan a un selector. */
@@ -1384,14 +1441,8 @@ function render(){
   lastResults=res;
   el('listExport').style.display=res.length?'flex':'none';
   el('count').innerHTML=`<b>${res.length.toLocaleString('es-AR')}</b> práctica${res.length!==1?'s':''}`;
-  if(!res.length){
-    const other=state.mode==='NBU'?'PMO':'NBU';
-    const terms2=norm(state.q).split(/\s+/).filter(Boolean);
-    const otherN=state.q?CODES.filter(c=>c.nomenclador===other&&terms2.every(t=>c._h.includes(t))).length:0;
-    const hint=otherN?`<button class="more" id="switchHint" style="margin-top:14px">Ver ${otherN} coincidencia${otherN!==1?'s':''} en ${other==='NBU'?'Laboratorio (NBU)':'Prestaciones médicas (PMO)'}</button>`:'';
-    el('list').innerHTML=`<div class="empty"><b>Sin resultados en ${state.mode==='NBU'?'Laboratorio':'Prestaciones médicas'}</b>Probá con otro término o limpiá los filtros.${hint}</div>`;
-    if(otherN)el('switchHint').addEventListener('click',()=>setMode(other));
-    el('moreBtn').hidden=true;el('listExport').style.display='none';return;}
+  if(!res.length){el('list').innerHTML=sinResultados();el('moreBtn').hidden=true;el('listExport').style.display='none';
+    cablearSinResultados();return;}
   const shown=res.slice(0,state.limit);
   el('list').innerHTML=shown.map(rowHTML).join('');kbIdx=-1;
   el('list').querySelectorAll('.row').forEach(r=>r.addEventListener('click',e=>{
@@ -1404,6 +1455,61 @@ function render(){
   if(more)el('moreBtn').textContent=`Ver más — ${(res.length-state.limit).toLocaleString('es-AR')} restantes`;
 }
 let lastResults=[];
+/* ---------- sin resultados ----------
+   Decir "probá con otro término" no ayuda a quien no conoce el nomenclador. Acá se
+   ofrecen los caminos que la app ya tiene: dónde más aparece lo buscado, si es una
+   sigla, y qué términos parecidos sí existen. */
+let _sinRes={};
+function sinResultados(){
+  const terms=norm(state.q).split(/\s+/).filter(Boolean);
+  const lbl={NBU:'Laboratorio (NBU)',PMO:'Prestaciones médicas (PMO)',UNICO:'Nomenclador Único'};
+  const dondeEstoy=lbl[state.mode]||NOMEN_LABEL[state.mode]||'esta sección';
+  if(!terms.length){
+    return `<div class="empty"><b>Sin resultados en ${esc(dondeEstoy)}</b>Los filtros activos no dejan ninguna práctica. Quitá alguno o tocá «Limpiar filtros».</div>`;
+  }
+  _sinRes={};
+  const pistas=[];
+  // 1. lo mismo, en los otros nomencladores
+  Object.keys(lbl).filter(m=>m!==state.mode&&!ocultoNom(m)).forEach(m=>{
+    const n=buscar(CODES,terms,c=>c.nomenclador===m).length;
+    if(n){_sinRes[m]=true;pistas.push(`<button class="more" data-ira="${m}" style="margin:0">Ver ${n} en ${esc(lbl[m])}</button>`);}
+  });
+  // 2. ¿será una sigla?
+  const ab=buscar(ABREV_UNIQ,terms).slice(0,1);
+  if(ab.length){_sinRes.abr=ab[0].abrev;
+    pistas.push(`<button class="more" data-ira="ABR" style="margin:0">«${esc(ab[0].abrev)}» es una sigla: ${esc(ab[0].sigs[0].slice(0,44))}</button>`);}
+  // 3. ¿un diagnóstico?
+  const dx=buscar(CIE_LIST,terms).slice(0,1);
+  if(dx.length){_sinRes.cie=dx[0].code;
+    pistas.push(`<button class="more" data-ira="CIE" style="margin:0">Hay un diagnóstico CIE-10: ${esc(dx[0].code)} ${esc(dx[0].desc.slice(0,40))}</button>`);}
+  // 4. términos parecidos que sí existen en esta sección.
+  //    Con la consulta entera no sale nada —por eso estamos acá—, así que se prueba
+  //    cada término por separado: alcanza para rescatar "hemogramaa zzz".
+  const vistos=new Set(), sug=[];
+  for(const t of terms.slice().sort((a,b)=>b.length-a.length)){
+    for(const c of buscar(CODES,[t],x=>x.nomenclador===state.mode)){
+      if(vistos.has(c._key))continue;
+      vistos.add(c._key); sug.push(c);
+      if(sug.length>=4)break;
+    }
+    if(sug.length>=4)break;
+  }
+  const sugHTML=sug.length?`<div style="margin-top:16px"><div style="font-size:12px;color:var(--muted);margin-bottom:7px">¿Buscabas alguna de estas?</div>
+    <div style="display:flex;flex-direction:column;gap:6px">${sug.map(c=>
+      `<button class="more" data-cod="${esc(c._key)}" style="margin:0;text-align:left"><span class="mono">${esc(c.code)}</span> · ${esc(c.nombre.slice(0,58))}</button>`).join('')}</div></div>`:'';
+  return `<div class="empty"><b>Sin resultados para «${esc(state.q)}» en ${esc(dondeEstoy)}</b>
+    ${pistas.length?`<div style="display:flex;flex-direction:column;gap:6px;margin-top:14px">${pistas.join('')}</div>`:'La búsqueda tolera errores de tipeo, así que probablemente el término no esté en el manual.'}
+    ${sugHTML}</div>`;
+}
+function cablearSinResultados(){
+  el('list').querySelectorAll('[data-ira]').forEach(b=>b.addEventListener('click',()=>{
+    const m=b.dataset.ira;
+    if(m==='ABR'){setMode('ABR');render();if(_sinRes.abr)openAbr(_sinRes.abr);}
+    else if(m==='CIE'){setMode('CIE');render();if(_sinRes.cie)openCie(_sinRes.cie);}
+    else setMode(m);
+  }));
+  el('list').querySelectorAll('[data-cod]').forEach(b=>b.addEventListener('click',()=>openCode(b.dataset.cod)));
+}
 /* ---------- búsqueda global (todos los nomencladores + CIE + abreviaturas) ---------- */
 function renderAll(){
   const terms=norm(state.q).split(/\s+/).filter(Boolean);
@@ -2132,6 +2238,33 @@ function veredictoHTML(c){
   }
   return `<div class="veredicto">${t.join('')}</div>`;
 }
+/* Qué queda abierto al abrir la ficha: lo que se mira siempre. El resto se pliega y
+   se recuerda lo que cada uno decide abrir o cerrar. */
+const SEC_ABIERTAS=/Obligación de cobertura|Cuándo corresponde|Valorización|Lateralidad|Tipo de muestra|Equivalencia|Sistema Único de Reintegro/i;
+function plegState(){try{return JSON.parse(localStorage.getItem('nbu-secs'))||{};}catch(e){return {};}}
+function plegSave(o){try{localStorage.setItem('nbu-secs',JSON.stringify(o));}catch(e){}}
+function plegarSecciones(d){
+  const st=plegState();
+  d.querySelectorAll('.sec').forEach(sec=>{
+    const lbl=sec.querySelector(':scope > .slabel');
+    if(!lbl)return;                                  // sin título no se pliega
+    const clave=lbl.textContent.trim().replace(/\s*\d+\s*$/,'').slice(0,42);
+    const cuerpo=document.createElement('div');
+    cuerpo.className='sc-body';
+    while(lbl.nextSibling)cuerpo.appendChild(lbl.nextSibling);
+    sec.appendChild(cuerpo);
+    // cuántos elementos hay adentro, para saber si vale la pena abrirla
+    const n=cuerpo.querySelectorAll('.codechip,.cie-chip,.pill,.ld-code,.audit li,.vtrow,.norma-txt').length;
+    if(n)lbl.insertAdjacentHTML('beforeend',`<span class="sc-n">${n}</span>`);
+    sec.classList.add('pleg');
+    const abierta=(clave in st)?st[clave]:SEC_ABIERTAS.test(clave);
+    if(abierta)sec.classList.add('abierta');
+    lbl.addEventListener('click',()=>{
+      sec.classList.toggle('abierta');
+      const o=plegState(); o[clave]=sec.classList.contains('abierta'); plegSave(o);
+    });
+  });
+}
 function irASeccion(dr,clave){
   const mapa={cobertura:/Obligación de cobertura|Cuándo corresponde|Cobertura obligatoria/i,
               valor:/Valorización/i, surge:/Sistema Único de Reintegro/i,
@@ -2139,7 +2272,7 @@ function irASeccion(dr,clave){
               lateralidad:/Lateralidad/i, frecuencia:/Frecuencia/i, muestra:/Tipo de muestra/i};
   const re=mapa[clave]; if(!re)return;
   const sec=[...dr.querySelectorAll('.sec')].find(x=>{const l=x.querySelector('.slabel');return l&&re.test(l.textContent);});
-  if(sec)sec.scrollIntoView({behavior:'smooth',block:'start'});
+  if(sec){sec.classList.add('abierta');sec.scrollIntoView({behavior:'smooth',block:'start'});}
 }
 function openCode(code){
   const c=BYCODE[code];
@@ -2180,6 +2313,8 @@ function openCode(code){
         ${c.nomenclador==='NBU'?`<button class="minibtn" id="dAddVal">➕ Al validador</button>`:''}
         <button class="minibtn" id="dCopy">⧉ Copiar código</button>
         <button class="minibtn" id="dCmp">⇄ Comparar</button>
+        <button class="minibtn" id="dImp">🖨 Imprimir ficha</button>
+        <button class="minibtn" id="dComp">📄 Comprobante para el afiliado</button>
       </div>
       ${(window.NBUProfile&&NBUProfile.canEdit())?`<div class="dedit"><button class="minibtn" id="editFichaBtn">✎ Editar ficha</button></div>`:''}
       ${veredictoHTML(c)}
@@ -2451,6 +2586,7 @@ function openCode(code){
   html+=`</div>`;
 
   const d=el('drawer');d.innerHTML=html;d.classList.add('on');el('scrim').classList.add('on');
+  plegarSecciones(d);
   d.querySelector('.dbody').scrollTop=0;
   el('closeDrawer').addEventListener('click',closeDrawer);
   el('dstar').addEventListener('click',()=>{
@@ -2484,9 +2620,42 @@ function openCode(code){
   if(pc)pc.addEventListener('click',()=>{el('propForm').hidden=true;el('propTxt').value='';});
   const ef=el('editFichaBtn');if(ef)ef.addEventListener('click',()=>window.NBUProfile&&NBUProfile.editFicha(code));
   const av=el('dAddVal');if(av)av.addEventListener('click',()=>addToValidator(c.code));
+  const im=el('dImp');
+  if(im)im.addEventListener('click',()=>{
+    document.body.classList.add('imp-ficha');
+    const fin=()=>{document.body.classList.remove('imp-ficha');removeEventListener('afterprint',fin);};
+    addEventListener('afterprint',fin); window.print(); setTimeout(fin,1200);
+  });
+  const co=el('dComp');
+  if(co)co.addEventListener('click',()=>imprimirComprobante(c));
   const cm=el('dCmp');if(cm)cm.addEventListener('click',()=>{cmpToggle(code);toast(cmp.length===1?'Elegí el segundo código para comparar':'Comparando');});
   const cp=el('dCopy');if(cp)cp.addEventListener('click',()=>{const t=c.code;try{navigator.clipboard&&navigator.clipboard.writeText(t);}catch(e){}cp.textContent='Copiado ✓';setTimeout(()=>{cp.textContent='⧉ Copiar código';},1400);});
   const nt=el('dNote');if(nt)nt.addEventListener('input',()=>{if(window.NBUProfile&&NBUProfile.setNote)NBUProfile.setNote(code,nt.value);});
+}
+/* Comprobante para el afiliado: lo que la persona se lleva del mostrador. Va el nombre
+   de la práctica y qué tiene que traer; nada de códigos internos, valores ni normas. */
+function imprimirComprobante(c){
+  const docs=(c.surge&&c.surge.requerimiento)?c.surge.requerimiento.slice():[];
+  const partes=[];
+  partes.push(`<div class="cp-h"><h2>${esc((DB.meta&&DB.meta.empresa)||'VISITAR SRL')}</h2>
+    <p>Constancia de práctica solicitada · ${new Date().toLocaleDateString('es-AR')}</p></div>`);
+  partes.push(`<h3>${esc(c.nombre)}</h3><div class="cp-cod">Código ${esc(c.code)}</div>`);
+  if(c.muestra&&c.muestra.length)
+    partes.push(`<div class="cp-s"><b>Tipo de muestra</b><ul><li>La determinación se realiza en <b>${esc(c.muestra.join(' o '))}</b></li></ul></div>`);
+  partes.push(`<div class="cp-s"><b>Autorización</b><ul><li>Esta práctica requiere <b>autorización previa</b>.</li></ul></div>`);
+  if(docs.length)
+    partes.push(`<div class="cp-s"><b>Documentación a presentar</b><ul>${docs.map(d=>`<li>☐ ${esc(d)}</li>`).join('')}</ul></div>`);
+  else
+    partes.push(`<div class="cp-s"><b>Documentación a presentar</b><ul><li>☐ Orden médica</li><li>☐ Documento de identidad</li><li>☐ Credencial de la obra social</li></ul></div>`);
+  if(c.cobertura_pmo&&c.cobertura_tipo!=='observacion')
+    partes.push(`<div class="cp-s"><b>Cobertura</b><ul><li>Práctica con cobertura obligatoria, sujeta a que el caso encuadre en los supuestos previstos.</li></ul></div>`);
+  partes.push(`<div class="cp-s"><b>Observaciones</b><ul><li style="border:none;padding-top:14px">&nbsp;</li><li style="border:none;padding-top:14px">&nbsp;</li></ul></div>`);
+  partes.push(`<div class="cp-f">Atendió: ______________________  ·  Fecha: ____ / ____ / ______<br>
+    Manual Inteligente NBU — diseñado por Juan Pablo Besada</div>`);
+  el('comprobante').innerHTML=partes.join('');
+  document.body.classList.add('imp-comp');
+  const fin=()=>{document.body.classList.remove('imp-comp');removeEventListener('afterprint',fin);};
+  addEventListener('afterprint',fin); window.print(); setTimeout(fin,1200);
 }
 function addToValidator(code){
   state.view='validator';render();
