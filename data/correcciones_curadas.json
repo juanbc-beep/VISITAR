@@ -1,7 +1,8 @@
 {
  "_nota": "Correcciones de contenido hechas por auditoría desde el panel de administración de la app (✎ Editar ficha) y exportadas con «Exportar correcciones para la base». Tienen prioridad sobre lo que arma el pipeline: son dato de la casa, no inferido. Reemplazar este archivo por el que descarga la app.",
- "_uso": "Por cada código se aceptan: nombre, norma {trabajo, interpretacion}, auditoria [líneas], asoc_extra. Corregir el nombre además da por resuelta la marca «denominación a confirmar».",
+ "_uso": "Por cada código se aceptan: nombre, norma {trabajo, interpretacion}, auditoria [líneas], asoc_extra (cómo se carga en VISITAR). Corregir el nombre además da por resuelta la marca «denominación a confirmar». En «verificaciones» va {codigo: {fecha, por}}: qué fichas se contrastaron contra la fuente y cuándo.",
  "generado": null,
  "por": null,
- "codigos": {}
+ "codigos": {},
+ "verificaciones": {}
 }

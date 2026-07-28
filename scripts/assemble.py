@@ -1610,6 +1610,18 @@ for _code, _ov in (CORR.get("codigos") or {}).items():
 if corr_n:
     print(f"Correcciones de auditoría aplicadas: {corr_n}", file=sys.stderr)
 
+# Verificaciones: qué fichas se contrastaron contra la fuente, cuándo y quién. Se
+# versionan junto con las correcciones para que no dependan de una instalación.
+verif_n = 0
+for _code, _v in (CORR.get("verificaciones") or {}).items():
+    _r = records.get(_code)
+    if not _r or not isinstance(_v, dict) or not _v.get("fecha"):
+        continue
+    _r["verificado"] = {"fecha": _v["fecha"], "por": _v.get("por", "")}
+    verif_n += 1
+if verif_n:
+    print(f"Fichas verificadas: {verif_n}", file=sys.stderr)
+
 # ---------- guarda final: ninguna ficha sin denominación ----------
 # Alguna prestación llega con el título destruido en la fuente (p. ej. 130303, que
 # el OCR del PDF dejó ilegible). No se inventa una denominación: se marca la ficha
