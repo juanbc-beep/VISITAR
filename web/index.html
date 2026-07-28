@@ -135,6 +135,16 @@ html,body{margin:0;padding:0}
 :root{--medc:#0e7490}@media (prefers-color-scheme:dark){:root{--medc:#22d3ee}}
 :root[data-theme="light"]{--medc:#0e7490}:root[data-theme="dark"]{--medc:#22d3ee}
 .b-medc{background:color-mix(in srgb,var(--medc) 16%,transparent);color:var(--medc)}
+.pendbtn{position:relative;border-color:var(--gestion)!important;color:var(--gestion)!important;
+  background:color-mix(in srgb,var(--gestion) 12%,transparent)!important}
+.pendbtn:hover{background:color-mix(in srgb,var(--gestion) 22%,transparent)!important}
+.pendn{position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;padding:0 4px;border-radius:9px;
+  background:var(--gestion);color:#fff;font-size:11px;font-weight:800;display:grid;place-items:center;
+  line-height:1;box-shadow:0 0 0 2px var(--surface)}
+@media (prefers-reduced-motion:no-preference){
+  .pendbtn{animation:pendpulse 2.4s ease-in-out 3}
+  @keyframes pendpulse{0%,100%{box-shadow:0 0 0 0 transparent}50%{box-shadow:0 0 0 4px color-mix(in srgb,var(--gestion) 22%,transparent)}}
+}
 .verif{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:10px;padding:8px 11px;
   border-radius:9px;border:1px solid var(--line);background:var(--surface-2);font-size:12.5px;color:var(--muted)}
 .verif.ok{border-color:color-mix(in srgb,var(--inc) 40%,transparent);background:color-mix(in srgb,var(--inc) 8%,transparent)}
@@ -775,6 +785,10 @@ mark.hl{background:var(--accent-soft);color:var(--accent-ink);border-radius:3px;
       </button>
       <button class="icon-btn editbtn" id="editModeBtn" title="Modo edición (admin)" aria-label="Modo edición" hidden>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
+      </button>
+      <button class="icon-btn pendbtn" id="pendBtn" title="Pendientes de revisar" aria-label="Pendientes de revisar" hidden>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg>
+        <span class="pendn" id="pendN">0</span>
       </button>
       <button class="icon-btn" id="adminBtn" title="Administración" aria-label="Administración" hidden>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1V21a2 2 0 0 1-4 0v-.1A1.6 1.6 0 0 0 7 19.4a1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0-1.1-2.7H1a2 2 0 0 1 0-4h.1A1.6 1.6 0 0 0 2.6 7a1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3H7a1.6 1.6 0 0 0 1-1.5V1a2 2 0 0 1 4 0v.1a1.6 1.6 0 0 0 2.7 1.1l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8V7a1.6 1.6 0 0 0 1.5 1H23a2 2 0 0 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/></svg>
@@ -2706,7 +2720,26 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
   function logEdit(action,code){CONTENT.log=CONTENT.log||[];CONTENT.log.unshift({t:Date.now(),who:current?current.name:'',action,code:code||''});if(CONTENT.log.length>200)CONTENT.log.length=200;}
 
   function persistAuth(){AUTH.updated=Date.now();save(KEY.auth,AUTH);queuePush('auth',AUTH);}
-  function persistContent(){CONTENT.updated=Date.now();save(KEY.content,CONTENT);queuePush('content',CONTENT);}
+  function persistContent(){CONTENT.updated=Date.now();save(KEY.content,CONTENT);queuePush('content',CONTENT);actualizarPendientes();}
+
+  /* Lo que espera al administrador no puede vivir dentro de un panel de ajustes: si no
+     se ve, no se revisa. Cuando hay algo pendiente aparece en la barra superior con el
+     número, y lleva directo a la pestaña. */
+  function contarPendientes(){
+    const v=Object.values(CONTENT.verif||{}).filter(x=>x.estado==='pendiente').length;
+    const pr=Object.values(CONTENT.propuestas||{}).reduce((n,l)=>n+l.length,0);
+    return {v,pr,total:v+pr};
+  }
+  function actualizarPendientes(){
+    const b=el('pendBtn'); if(!b)return;
+    const esAdmin=!!(current&&current.role==='admin');
+    const {v,pr,total}=contarPendientes();
+    b.hidden=!(esAdmin&&total>0);
+    if(b.hidden)return;
+    el('pendN').textContent=total>99?'99+':String(total);
+    b.title=`Pendientes de revisar: ${v} ${v===1?'verificación':'verificaciones'} · ${pr} propuesta${pr!==1?'s':''}`;
+  }
+  el('pendBtn').addEventListener('click',()=>openAdmin('propuestas'));
 
   /* ---- toast ---- */
   let toastEl=null;
@@ -2982,7 +3015,7 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
     ubValue=(p.ub!=null?p.ub:0);
     el('acctChip').hidden=false;el('acctNm').textContent=p.name;el('acctAv').textContent=(p.name||'?').slice(0,1).toUpperCase();
     const adm=p.role==='admin';el('adminBtn').hidden=!adm;el('editModeBtn').hidden=!adm;
-    applyContent();refreshStats();applyMode();render();hideGate();
+    applyContent();refreshStats();applyMode();render();hideGate();actualizarPendientes();
     if(SYNC.enabled)startPolling();
     resetIdle();
     maybeOnboard();
@@ -2990,7 +3023,7 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
 
   /* ============ ADMIN PANEL ============ */
   const amodal=el('adminModal'),abox=el('adminBox');
-  function closeAdmin(){amodal.classList.remove('on');}
+  function closeAdmin(){amodal.classList.remove('on');actualizarPendientes();}
   amodal.addEventListener('click',e=>{if(e.target===amodal)closeAdmin();});
   let aTab='perfiles';
   function openAdmin(t){aTab=t||aTab;renderAdmin();amodal.classList.add('on');}
@@ -3191,7 +3224,7 @@ create policy "kv_all" on kv for all
                      generado:new Date().toISOString(),por:(current&&current.name)||'',codigos:corr,verificaciones:verif};
           const blob=new Blob([JSON.stringify(doc,null,1)],{type:'application/json'});
           const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='correcciones_curadas.json';a.click();
-          toast(`${n} corrección${n!==1?'es':''} y ${nv} verificación${nv!==1?'es':''}`);
+          toast(`${n} ${n===1?'corrección':'correcciones'} y ${nv} ${nv===1?'verificación':'verificaciones'}`);
         });
       })();
       el('bkExp').addEventListener('click',()=>{
