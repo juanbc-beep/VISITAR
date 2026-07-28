@@ -2932,7 +2932,7 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
   /* ---- registro de auditoría de ediciones ---- */
   function logEdit(action,code){CONTENT.log=CONTENT.log||[];CONTENT.log.unshift({t:Date.now(),who:current?current.name:'',action,code:code||''});if(CONTENT.log.length>200)CONTENT.log.length=200;}
 
-  function persistAuth(){AUTH.updated=Date.now();save(KEY.auth,AUTH);queuePush('auth',AUTH);}
+  function persistAuth(){AUTH.updated=Date.now();save(KEY.auth,AUTH);queuePush('auth',AUTH);actualizarPendientes();}
   function persistContent(){CONTENT.updated=Date.now();save(KEY.content,CONTENT);queuePush('content',CONTENT);actualizarPendientes();}
 
   /* Lo que espera al administrador no puede vivir dentro de un panel de ajustes: si no
@@ -2941,18 +2941,19 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
   function contarPendientes(){
     const v=Object.values(CONTENT.verif||{}).filter(x=>x.estado==='pendiente').length;
     const pr=Object.values(CONTENT.propuestas||{}).reduce((n,l)=>n+l.length,0);
-    return {v,pr,total:v+pr};
+    const cu=AUTH.profiles.filter(x=>x.estado==='pendiente').length;
+    return {v,pr,cu,total:v+pr+cu};
   }
   function actualizarPendientes(){
     const b=el('pendBtn'); if(!b)return;
     const esAdmin=!!(current&&current.role==='admin');
-    const {v,pr,total}=contarPendientes();
+    const {v,pr,cu,total}=contarPendientes();
     b.hidden=!(esAdmin&&total>0);
     if(b.hidden)return;
     el('pendN').textContent=total>99?'99+':String(total);
-    b.title=`Pendientes de revisar: ${v} ${v===1?'verificación':'verificaciones'} · ${pr} propuesta${pr!==1?'s':''}`;
+    b.title=`Pendientes de revisar: ${cu} cuenta${cu!==1?'s':''} · ${v} ${v===1?'verificación':'verificaciones'} · ${pr} propuesta${pr!==1?'s':''}`;
   }
-  el('pendBtn').addEventListener('click',()=>openAdmin('propuestas'));
+  el('pendBtn').addEventListener('click',()=>openAdmin(contarPendientes().cu?'perfiles':'propuestas'));
 
   /* ---- toast ---- */
   let toastEl=null;
@@ -3092,7 +3093,10 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
         ${SYNC.enabled?'':`<button class="gback" id="cJoin">Conectar a la nube (otro equipo)</button>`}
       </div>`;
     } else if(v==='profiles'){
-      const visibles=AUTH.profiles.filter(p=>p.role!=='admin');
+      // Sólo las cuentas aprobadas. Las que están esperando no aparecen: si no, la
+      // persona intentaría entrar y no entendería por qué le rechaza la contraseña.
+      const visibles=AUTH.profiles.filter(p=>p.role!=='admin'&&(p.estado||'activo')==='activo');
+      const enEspera=AUTH.profiles.filter(p=>p.estado==='pendiente').length;
       const list=visibles.length?visibles.map(p=>`
         <button class="pchip" data-pid="${p.id}">
           <span class="pav">${E((p.name||'?').slice(0,1).toUpperCase())}</span>
@@ -3103,7 +3107,8 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
         <h2>¿Quién sos?</h2>
         <div class="gsub">Elegí tu perfil para cargar tus favoritos, o creá uno nuevo.</div>
         <div class="gprofiles">${list}</div>
-        <button class="gbtn sec" id="pNew" style="margin-top:12px">+ Crear mi perfil</button>
+        <button class="gbtn sec" id="pNew" style="margin-top:12px">+ Crear mi cuenta</button>
+        ${enEspera?`<div class="gsub" style="text-align:center;margin-top:10px;font-size:12px">Hay ${enEspera} cuenta${enEspera!==1?'s':''} esperando la aprobación del administrador.</div>`:''}
         <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
           <button class="gback" id="pLogout">Cerrar sesión de la empresa</button>
           <button class="gback" id="pAdmin" style="color:var(--faint)">Acceso administrador</button>
@@ -3131,16 +3136,23 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
         <button class="gbtn" id="lGo">Entrar</button>
         <button class="gback" id="lBack">← Elegir otro perfil</button>
       </div>`;
+    } else if(v==='espera'){
+      html=`<div class="gcard">
+        <div class="glogo" style="background:var(--gestion)">⏳</div>
+        <h2>Cuenta creada</h2>
+        <div class="gsub">Tu cuenta <b>${E(gate._nuevo||'')}</b> quedó <b>pendiente de aprobación</b>. Un administrador tiene que habilitarla antes de que puedas entrar. Avisale para que la revise.</div>
+        <button class="gbtn" id="espVolver">Volver al inicio</button>
+      </div>`;
     } else if(v==='newprofile'){
       html=`<div class="gcard">
         <div class="glogo">+</div>
         <h2>Crear mi perfil</h2>
-        <div class="gsub">Elegí un nombre y una contraseña personal. Tus favoritos y valor de U.B. quedan guardados para vos.</div>
+        <div class="gsub">Elegí un nombre y una contraseña personal. La cuenta queda <b>pendiente</b> hasta que la apruebe un administrador.</div>
         ${field('npName','Nombre')}
         ${field('npPass','Contraseña','password')}
         ${field('npPass2','Repetir contraseña','password')}
         <div class="gerr" id="gErr"></div>
-        <button class="gbtn" id="npGo">Crear y entrar</button>
+        <button class="gbtn" id="npGo">Crear mi cuenta</button>
         <button class="gback" id="npBack">← Volver</button>
       </div>`;
     }
@@ -3219,15 +3231,23 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
         if(p1.length<4)return gerr('La contraseña debe tener al menos 4 caracteres.');
         if(p1!==p2)return gerr('Las contraseñas no coinciden.');
         const ph=await mkHash(p1);
-        const prof={id:uid(),name:nm,role:'user',hash:ph.hash,salt:ph.salt,it:ph.it,favs:[],ub:null,created:Date.now(),updated:Date.now()};
-        AUTH.profiles.push(prof);persistAuth();enterProfile(prof);
+        // La cuenta nace pendiente: la habilita el administrador.
+        const prof={id:uid(),name:nm,role:'user',estado:'pendiente',hash:ph.hash,salt:ph.salt,it:ph.it,
+                    favs:[],ub:null,created:Date.now(),updated:Date.now()};
+        AUTH.profiles.push(prof);persistAuth();
+        gate._nuevo=nm; renderGate('espera');
       };
       el('npGo').addEventListener('click',go);onEnter(go);
       el('npBack').addEventListener('click',()=>renderGate('profiles'));
+    } else if(v==='espera'){
+      el('espVolver').addEventListener('click',()=>renderGate('profiles'));
     }
   }
 
   function enterProfile(p){
+    // Última barrera: una cuenta sin aprobar no entra aunque la contraseña sea correcta
+    // (puede llegar acá si el administrador la rechazó mientras estaba en pantalla).
+    if((p.estado||'activo')==='pendiente'){gate._nuevo=p.name;return renderGate('espera');}
     current=p;companyAuthed=true;editMode=false;document.body.classList.remove('editmode-on');
     FAVS.clear();(p.favs||[]).forEach(x=>FAVS.add(x));
     ubValue=(p.ub!=null?p.ub:0);
@@ -3260,21 +3280,38 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
   function renderPane(){
     const p=el('aPane');
     if(aTab==='perfiles'){
-      p.innerHTML=AUTH.profiles.map(pr=>`
+      const pend=AUTH.profiles.filter(x=>x.estado==='pendiente');
+      const activos=AUTH.profiles.filter(x=>x.estado!=='pendiente');
+      p.innerHTML=(pend.length?`<div class="ahint"><b>Cuentas esperando aprobación (${pend.length}).</b> Nadie puede entrar con ellas hasta que las habilites.</div>`+
+        pend.map(pr=>`<div class="arow" style="border-color:color-mix(in srgb,var(--gestion) 45%,transparent);background:color-mix(in srgb,var(--gestion) 9%,transparent)">
+          <span class="pav" style="background:var(--gestion)">${E((pr.name||'?').slice(0,1).toUpperCase())}</span>
+          <div class="grow2"><div class="pnm">${E(pr.name)}</div>
+            <div class="pmeta">Solicitada el ${new Date(pr.created).toLocaleDateString('es-AR')}</div></div>
+          <button class="minibtn" data-cact="ok" data-id="${pr.id}">Aprobar</button>
+          <button class="minibtn danger" data-cact="no" data-id="${pr.id}">Rechazar</button>
+        </div>`).join('')+'<div style="height:14px"></div>':'')+
+        activos.map(pr=>`
         <div class="arow">
           <span class="pav">${E((pr.name||'?').slice(0,1).toUpperCase())}</span>
           <div class="grow2"><div class="pnm">${E(pr.name)}${current&&pr.id===current.id?' <span style="color:var(--muted);font-weight:500">(vos)</span>':''}</div>
             <div class="pmeta">${pr.role==='admin'?'Administrador':'Administrativo'} · ${(pr.favs||[]).length} favoritos</div></div>
-          <button class="minibtn" data-act="role" data-id="${pr.id}">${pr.role==='admin'?'Quitar admin':'Hacer admin'}</button>
+          <button class="minibtn" data-act="role" data-id="${pr.id}">${pr.role==='admin'?'Es el administrador':'Transferir administración'}</button>
           <button class="minibtn" data-act="reset" data-id="${pr.id}">Contraseña</button>
           <button class="minibtn danger" data-act="del" data-id="${pr.id}">Eliminar</button>
-        </div>`).join('')+`<button class="minibtn" id="aAddProf" style="margin-top:6px">+ Crear perfil</button>`;
+        </div>`).join('')+`<button class="minibtn" id="aAddProf" style="margin-top:6px">+ Crear perfil aprobado</button>`;
+      p.querySelectorAll('[data-cact]').forEach(b=>b.addEventListener('click',()=>{
+        const pr=AUTH.profiles.find(x=>x.id===b.dataset.id); if(!pr)return;
+        if(b.dataset.cact==='ok'){pr.estado='activo';pr.updated=Date.now();persistAuth();toast(`Cuenta de ${pr.name} habilitada`);}
+        else{if(!confirm(`¿Rechazar la cuenta de "${pr.name}"? Se elimina la solicitud.`))return;
+          AUTH.profiles=AUTH.profiles.filter(x=>x.id!==pr.id);persistAuth();toast('Solicitud rechazada');}
+        renderPane();actualizarPendientes();
+      }));
       p.querySelectorAll('[data-act]').forEach(b=>b.addEventListener('click',()=>profAction(b.dataset.act,b.dataset.id)));
       el('aAddProf').addEventListener('click',async()=>{
         const nm=prompt('Nombre del nuevo perfil:');if(!nm)return;
         if(AUTH.profiles.some(x=>x.name.toLowerCase()===nm.trim().toLowerCase()))return toast('Ya existe ese nombre',true);
         const pw=prompt('Contraseña inicial (mín. 4):');if(!pw||pw.length<4)return toast('Contraseña muy corta',true);
-        const ph=await mkHash(pw);AUTH.profiles.push({id:uid(),name:nm.trim(),role:'user',hash:ph.hash,salt:ph.salt,it:ph.it,favs:[],ub:null,created:Date.now(),updated:Date.now()});persistAuth();renderPane();toast('Perfil creado');
+        const ph=await mkHash(pw);AUTH.profiles.push({id:uid(),name:nm.trim(),role:'user',estado:'activo',hash:ph.hash,salt:ph.salt,it:ph.it,favs:[],ub:null,created:Date.now(),updated:Date.now()});persistAuth();renderPane();toast('Perfil creado');
       });
     } else if(aTab==='propuestas'){
       const props=window.NBUProfile.propuestasTodas();
@@ -3460,16 +3497,20 @@ create policy "kv_all" on kv for all
   function profAction(act,id){
     const pr=AUTH.profiles.find(x=>x.id===id);if(!pr)return;
     if(act==='role'){
-      if(pr.role==='admin'&&AUTH.profiles.filter(x=>x.role==='admin').length<=1)return toast('Debe quedar al menos un administrador',true);
-      pr.role=pr.role==='admin'?'user':'admin';pr.updated=Date.now();persistAuth();
-      if(current&&current.id===id){const adm=pr.role==='admin';el('adminBtn').hidden=!adm;el('editModeBtn').hidden=!adm;if(!adm){editMode=false;document.body.classList.remove('editmode-on');closeAdmin();}}
-      renderPane();
+      // Hay un solo administrador: el botón transfiere el rol en vez de sumar otro.
+      if(pr.role==='admin')return toast('Es el administrador. Transferí el rol a otra cuenta para cambiarlo.',true);
+      if(!confirm(`¿Transferir la administración a "${pr.name}"?\n\nVas a dejar de ser administrador: sólo puede haber uno.`))return;
+      AUTH.profiles.forEach(x=>{if(x.role==='admin'){x.role='user';x.updated=Date.now();}});
+      pr.role='admin';pr.estado='activo';pr.updated=Date.now();persistAuth();
+      if(current){const sigo=current.role==='admin';el('adminBtn').hidden=!sigo;el('editModeBtn').hidden=!sigo;
+        if(!sigo){editMode=false;document.body.classList.remove('editmode-on');closeAdmin();toast('Transferiste la administración');}}
+      renderPane();actualizarPendientes();
     } else if(act==='reset'){
       const np=prompt('Nueva contraseña para '+pr.name+' (mín. 4):');if(!np)return;if(np.length<4)return toast('Muy corta',true);
       mkHash(np).then(h=>{pr.hash=h.hash;pr.salt=h.salt;pr.it=h.it;pr.updated=Date.now();persistAuth();toast('Contraseña actualizada');});
     } else if(act==='del'){
       if(current&&current.id===id)return toast('No podés eliminar tu propio perfil en uso',true);
-      if(pr.role==='admin'&&AUTH.profiles.filter(x=>x.role==='admin').length<=1)return toast('Debe quedar al menos un administrador',true);
+      if(pr.role==='admin')return toast('No se puede eliminar al administrador. Transferí el rol primero.',true);
       if(!confirm('¿Eliminar el perfil "'+pr.name+'"? Se pierden sus favoritos.'))return;
       AUTH.profiles=AUTH.profiles.filter(x=>x.id!==id);persistAuth();renderPane();toast('Perfil eliminado');
     }
