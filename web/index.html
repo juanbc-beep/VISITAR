@@ -170,7 +170,7 @@ html,body{margin:0;padding:0}
   body.imp-ficha .drawer .dhead{border:none;padding:0 0 8px}
   body.imp-ficha .drawer .icon-btn,body.imp-ficha .drawer .dactions,body.imp-ficha .drawer .dedit,
   body.imp-ficha .drawer .dnote,body.imp-ficha .drawer .dstar,body.imp-ficha .drawer .verif,
-  body.imp-ficha .drawer .prop-box{display:none!important}
+  body.imp-ficha .drawer .dback,body.imp-ficha .drawer .prop-box{display:none!important}
   body.imp-comp>*{display:none!important}
   body.imp-comp #comprobante{display:block!important}
 }
@@ -427,6 +427,10 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
 .t-desuso{background:var(--desuso-soft);color:var(--desuso)}
 .t-rel{background:var(--inc-soft);color:var(--inc)}
 .t-new{background:var(--new-soft);color:var(--new)}
+/* Segundo nivel: estado del dato en la base. Sin color, para no competir con las de decisión. */
+.tag.t-meta{background:transparent;border:1px solid var(--line);color:var(--faint);font-weight:600;padding:1px 5px}
+.tag.t-meta.av{border-color:color-mix(in srgb,var(--urg) 40%,transparent);color:var(--urg)}
+.row:hover .tag.t-meta{border-color:var(--line-2);color:var(--muted)}
 .rright{text-align:right;flex-shrink:0}
 .rub{font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-size:16px;font-weight:700;color:var(--ink)}
 .rub small{font-size:10px;color:var(--faint);font-weight:600;display:block;letter-spacing:.4px;margin-top:1px}
@@ -447,6 +451,16 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
 .dhead{padding:20px 24px 16px;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;gap:14px}
 .dhead .x{margin-left:auto;flex-shrink:0}
 .dcode{font-family:var(--font-mono);font-size:22px;font-weight:800;color:var(--accent-ink);letter-spacing:-.5px;line-height:1}
+/* Rastro de navegación: al saltar de una ficha a un código relacionado se perdía el hilo.
+   El «volver» del navegador funcionaba (la navegación es por hash) pero nada lo anunciaba. */
+.dback{display:inline-flex;align-items:center;gap:6px;max-width:100%;margin-bottom:8px;padding:3px 9px 3px 6px;
+  border:1px solid var(--line);border-radius:99px;background:var(--surface-2);color:var(--muted);
+  font:600 11.5px/1.35 var(--font);cursor:pointer;transition:border-color .13s,color .13s}
+.dback:hover{border-color:var(--accent);color:var(--accent-ink)}
+.dback b{font-family:var(--font-mono);font-weight:700;color:var(--ink-2)}
+.dback{flex-wrap:nowrap;white-space:nowrap}
+.dback span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;max-width:190px}
+.dback:hover b{color:var(--accent-ink)}
 .dname{font-size:18px;font-weight:700;line-height:1.28;margin:9px 0 12px;text-wrap:balance}
 .dbadges{display:flex;gap:7px;flex-wrap:wrap}
 .dbody{overflow-y:auto;padding:20px 24px 40px;display:flex;flex-direction:column;gap:22px}
@@ -543,6 +557,7 @@ ul{margin:0;padding:0}
   .cbtn{flex:1 1 0;justify-content:flex-start}
   .vtab{padding:9px 14px}
   .dhead,.dbody{padding-left:16px;padding-right:16px}
+  .dback{padding:12px 14px 12px 11px;font-size:12px}   /* objetivo táctil ≥42px */
 }
 /* ---------- view tabs + module tree ---------- */
 .viewtabs{display:inline-flex;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:3px;gap:2px;margin-bottom:14px}
@@ -1349,28 +1364,35 @@ function ubDisplay(c){
     :(vig?`<small style="color:var(--new)">U.B. vig.</small>`:(c.valor.ub_actualizado_2024!=null?`<small style="color:var(--new)">2024 · ${c.valor.ub_actualizado_2024}</small>`:'<small>U.B.</small>'));
   return `<div class="rub">${ub}${sub}</div>`;
 }
+/* Las etiquetas van en dos niveles.
+   DECISIÓN (en color): cambian lo que el agente tiene que hacer con la solicitud.
+   ESTADO DE LA BASE (en gris): dicen cómo está cargado el dato, no qué hacer.
+   Contado sobre los 6.346 códigos, «= Único» (45% de las filas) y «valores ✓» (23%) se
+   llevaban el 66% de las etiquetas, mientras que obligación de cobertura y lateralidad
+   —las que sí cambian la carga— aparecen en el 2% cada una. Con el mismo peso visual el
+   color dejaba de significar algo: ahora, si una fila tiene color, hay algo que mirar. */
 function rowHTML(c){
-  const tags=[];
-  if(c.flags.urgencia)tags.push('<span class="tag t-urg">U</span>');
-  if(c.flags.requiere_norma)tags.push('<span class="tag t-norma">N</span>');
-  if(c.seriado||(c.frecuencia&&c.frecuencia.length))tags.push('<span class="tag t-freq">seriado</span>');
-  if(c.flags.desuso)tags.push('<span class="tag t-desuso"># desuso</span>');
-  if(hasRel(c))tags.push('<span class="tag t-rel">relaciones</span>');
-  if(c.valor.ub_actualizado_2024!=null)tags.push('<span class="tag t-new">2024</span>');
-  if(c.valores)tags.push('<span class="tag t-med">valores ✓</span>');
-  if(c.nomenclador==='UNICO'&&c.sin_equivalencia)tags.push('<span class="tag t-noeq">sin equivalencia</span>');
-  if(c.equivalencia_unico&&c.equivalencia_unico.length)tags.push('<span class="tag t-unico">= Único</span>');
-  if(c.surge)tags.push('<span class="tag t-surge">SURGE</span>');
-  if(c.lateralidad)tags.push(`<span class="tag t-lat">${esc(c.lateralidad)}</span>`);
-  if(c.cobertura_pmo)tags.push(`<span class="tag t-cob">${c.cobertura_tipo==='observacion'?'observación de cobertura':'obligación de cobertura'}</span>`);
-  if(c.muestra&&c.muestra.length)tags.push(muestraTag(c));
+  const dec=[],met=[];
+  if(c.cobertura_pmo)dec.push(`<span class="tag t-cob">${c.cobertura_tipo==='observacion'?'observación de cobertura':'obligación de cobertura'}</span>`);
+  if(c.muestra&&c.muestra.length)dec.push(muestraTag(c));
+  if(c.lateralidad)dec.push(`<span class="tag t-lat">${esc(c.lateralidad)}</span>`);
+  if(c.flags.desuso)dec.push('<span class="tag t-desuso"># desuso</span>');
+  if(c.flags.urgencia)dec.push('<span class="tag t-urg">U</span>');
+  if(c.flags.requiere_norma)dec.push('<span class="tag t-norma">N</span>');
+  if(c.seriado||(c.frecuencia&&c.frecuencia.length))dec.push('<span class="tag t-freq">seriado</span>');
+  if(c.surge)dec.push('<span class="tag t-surge">SURGE</span>');
+  if(hasRel(c))met.push('<span class="tag t-meta">relaciones</span>');
+  if(c.equivalencia_unico&&c.equivalencia_unico.length)met.push('<span class="tag t-meta">= Único</span>');
+  if(c.nomenclador==='UNICO'&&c.sin_equivalencia)met.push('<span class="tag t-meta av">⚠ sin equivalencia</span>');
+  if(c.valores)met.push('<span class="tag t-meta">valores ✓</span>');
+  if(c.valor.ub_actualizado_2024!=null)met.push('<span class="tag t-meta">2024</span>');
   return `<button class="row" data-code="${c._key}">
     ${starBtn(c._key)}
     <div class="rcode">${hlList(c.code)}</div>
     <div class="rmid">
       <div class="rname">${hlList(c.nombre)}</div>
       <div class="rmeta"><span class="badge ${SEC_CLASS[c.seccion]}">${SEC_LABEL[c.seccion]}</span>
-      <span class="rgrupo">${esc(c.grupo)}</span>${tags.join('')}</div>
+      <span class="rgrupo">${esc(c.grupo)}</span>${dec.join('')}${met.join('')}</div>
     </div>
     <div class="rright">${ubDisplay(c)}</div>
   </button>`;
@@ -2116,6 +2138,14 @@ function codechip(code,cls){
   return `<button class="codechip ${cls}" data-goto="${code}">${label}<small>${name}</small></button>`;
 }
 let currentCode=null;
+/* Pila de fichas visitadas en cadena (A → su equivalente → un código relacionado…).
+   Sólo se apila cuando el salto sale de adentro de la ficha; entrar desde el listado,
+   la búsqueda o la paleta empieza un recorrido nuevo. */
+let navPila=[];
+function atrasFicha(){
+  const k=navPila.pop();
+  if(k&&BYCODE[k])openCode(k,'atras');
+}
 /* Una ficha verificada hace más de seis meses vuelve a ser dudosa: la normativa
    cambia y nada avisaba qué había quedado viejo. */
 const VERIF_DIAS=180;
@@ -2274,9 +2304,16 @@ function irASeccion(dr,clave){
   const sec=[...dr.querySelectorAll('.sec')].find(x=>{const l=x.querySelector('.slabel');return l&&re.test(l.textContent);});
   if(sec){sec.classList.add('abierta');sec.scrollIntoView({behavior:'smooth',block:'start'});}
 }
-function openCode(code){
+function openCode(code,origen){
   const c=BYCODE[code];
   if(!c)return;
+  /* Si es la misma ficha no se toca la pila: openCode se vuelve a llamar al re-renderizar,
+     al fijar el hash y por el listener delegado del drawer, y cada una de esas llamadas
+     duplicaría el rastro. */
+  if(code!==currentCode){
+    if(origen==='ficha'&&currentCode)navPila.push(currentCode);
+    else if(origen!=='atras')navPila=[];
+  }
   currentCode=code;
   if(window.NBUProfile&&NBUProfile.pushRecent)NBUProfile.pushRecent(code);
   location.hash=code;
@@ -2295,8 +2332,10 @@ function openCode(code){
   if(c.marcador_unico)dbadges.push(`<span class="tag t-unico" title="Marcador de clasificación de la planilla del Nomenclador Único (texto literal de la fuente).">${esc(c.marcador_unico)}</span>`);
   if(c.lateralidad)dbadges.push(`<span class="tag t-lat" title="Observación de lateralidad del Nomenclador Nacional.">${esc(c.lateralidad)}</span>`);
 
+  const previo=navPila.length?BYCODE[navPila[navPila.length-1]]:null;
   let html=`<div class="dhead">
-    <div>
+    <div style="min-width:0">
+      ${previo?`<button class="dback" id="dBack" title="Volver a ${esc(previo.code)} · ${esc(previo.nombre)}">← Volver a <b>${previo.code}</b> <span>${esc(previo.nombre)}</span></button>`:''}
       <div class="dcode">${c.code}</div>
     </div>
     <span class="dstar${FAVS.has(code)?' on':''}" id="dstar" role="button" title="Marcar favorito" aria-label="Favorito">${FAVS.has(code)?'★':'☆'}</span>
@@ -2589,12 +2628,13 @@ function openCode(code){
   plegarSecciones(d);
   d.querySelector('.dbody').scrollTop=0;
   el('closeDrawer').addEventListener('click',closeDrawer);
+  if(el('dBack'))el('dBack').addEventListener('click',atrasFicha);
   el('dstar').addEventListener('click',()=>{
     toggleFav(code);const on=FAVS.has(code);
     el('dstar').classList.toggle('on',on);el('dstar').textContent=on?'★':'☆';
     refreshStats();if(state.view==='list')render();
   });
-  d.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>openCode(b.dataset.goto)));
+  d.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>openCode(b.dataset.goto,'ficha')));
   d.querySelectorAll('[data-cie2]').forEach(b=>b.addEventListener('click',()=>{setMode('CIE');openCie(b.dataset.cie2);}));
   d.querySelectorAll('[data-surge2]').forEach(b=>b.addEventListener('click',()=>{setMode('SURGE');openSurge(b.dataset.surge2);}));
   d.querySelectorAll('[data-ley]').forEach(b=>b.addEventListener('click',()=>{closeDrawer();openInfo(b.dataset.ley);}));
@@ -2667,10 +2707,10 @@ function addToValidator(code){
   ta.scrollIntoView({behavior:'smooth',block:'center'});
 }
 function linkCodes(s){return s.replace(/\b(66\d{4})\b/g,(m)=>BYCODE[m]?`<span class="mono" data-goto="${m}" style="cursor:pointer;text-decoration:underline;text-decoration-style:dotted">${m}</span>`:m);}
-function closeDrawer(){el('drawer').classList.remove('on');el('scrim').classList.remove('on');if(location.hash)history.replaceState(null,'',location.pathname+location.search);}
+function closeDrawer(){navPila=[];el('drawer').classList.remove('on');el('scrim').classList.remove('on');if(location.hash)history.replaceState(null,'',location.pathname+location.search);}
 el('scrim').addEventListener('click',()=>{closeDrawer();el('rail').classList.remove('on');});
 // delegated goto for inline code links inside audit/norma text
-el('drawer').addEventListener('click',e=>{const g=e.target.closest('[data-goto]');if(g)openCode(g.dataset.goto);});
+el('drawer').addEventListener('click',e=>{const g=e.target.closest('[data-goto]');if(g)openCode(g.dataset.goto,'ficha');});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDrawer();el('modal').classList.remove('on');el('rail').classList.remove('on');}});
 /* ---------- atajos de teclado ---------- */
 let kbIdx=-1;
