@@ -135,6 +135,28 @@ html,body{margin:0;padding:0}
 :root{--medc:#0e7490}@media (prefers-color-scheme:dark){:root{--medc:#22d3ee}}
 :root[data-theme="light"]{--medc:#0e7490}:root[data-theme="dark"]{--medc:#22d3ee}
 .b-medc{background:color-mix(in srgb,var(--medc) 16%,transparent);color:var(--medc)}
+.carga{background:var(--surface-2);border:1.5px solid var(--accent);border-radius:var(--radius);padding:14px 16px}
+.carga .cg-h{display:flex;align-items:center;gap:8px;font-weight:800;font-size:11px;letter-spacing:.6px;
+  text-transform:uppercase;color:var(--accent-ink);margin-bottom:10px}
+.carga ol{margin:0;padding-left:0;list-style:none;counter-reset:paso;display:flex;flex-direction:column;gap:9px}
+.carga ol li{counter-increment:paso;display:flex;gap:10px;font-size:13.5px;color:var(--ink-2);line-height:1.5}
+.carga ol li::before{content:counter(paso);flex-shrink:0;width:21px;height:21px;border-radius:50%;
+  background:var(--accent);color:#fff;font-size:11.5px;font-weight:800;display:grid;place-items:center;margin-top:1px}
+.carga ol li.no::before{background:var(--exc)} .carga ol li.mas::before{background:var(--inc)}
+.carga ol li b{color:var(--ink)}
+.carga .cg-cods{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
+.carga .cg-cod{font-family:var(--font-mono);font-weight:700;font-size:12px;background:var(--surface);
+  border:1px solid var(--line-2);border-radius:6px;padding:2px 7px;cursor:pointer;color:var(--accent-ink)}
+.carga .cg-cod:hover{border-color:var(--accent)}
+.carga .cg-nota{margin-top:12px;padding-top:11px;border-top:1px dashed var(--line-2)}
+.carga .cg-nota .nl{font-size:10.5px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--gestion)}
+.carga .cg-nota .nt{font-size:13.5px;color:var(--ink-2);line-height:1.5;margin-top:4px;white-space:pre-wrap}
+.prop-box{margin-top:10px}
+.prop-box textarea{width:100%;min-height:70px;resize:vertical;border:1px solid var(--line-2);border-radius:var(--radius-sm);
+  background:var(--surface);color:var(--ink);font:inherit;font-size:13px;padding:9px 11px;line-height:1.5}
+.prop-box textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.prop-pend{font-size:12px;color:var(--gestion);background:#efe4c4;border-radius:6px;padding:6px 9px;margin-top:7px}
+:root[data-theme="dark"] .prop-pend{background:#2e2811}
 .rapidos{margin-bottom:14px}
 .rapidos .rlbl{font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);
   display:flex;align-items:center;gap:8px;margin-bottom:8px}
@@ -874,6 +896,9 @@ CODES.forEach(c=>{ c._h = norm([c.code,c._key,c.nombre,...(c.sinonimos||[]),...(
    se ordenan por relevancia (antes salían por número de código) y, cuando la
    búsqueda exacta devuelve poco, se reintenta tolerando erratas.
    ============================================================ */
+/* El aviso flotante vive en el bloque de perfiles; acá queda un puente para poder
+   usarlo desde el resto de la app sin depender del orden de definición. */
+function toast(msg,err){if(window.NBUToast)window.NBUToast(msg,err);}
 const tokens = s => norm(s).split(/[^a-z0-9]+/).filter(Boolean);
 // prepara los campos que usa el buscador: nombre solo, y tokens del texto completo
 function prepBusqueda(rec,nombre){
@@ -1914,6 +1939,43 @@ function codechip(code,cls){
   return `<button class="codechip ${cls}" data-goto="${code}">${label}<small>${name}</small></button>`;
 }
 let currentCode=null;
+/* ---------- instructivo de carga ----------
+   El propósito de la app es que el agente entienda cómo se carga cada solicitud en el
+   sistema donde efectivamente se carga. Los datos para eso ya estaban, pero repartidos
+   en seis secciones distintas de la ficha: acá se ordenan como pasos. */
+function comoSeCargaHTML(c){
+  const pasos=[]; const R=c.relaciones||{};
+  const chips=ks=>`<div class="cg-cods">${ks.map(k=>{const t=BYCODE[k];
+    return `<button class="cg-cod" ${t?`data-goto="${esc(k)}"`:''} title="${esc(t?t.nombre:'código externo')}">${esc(t?t.code:k)}</button>`;}).join('')}</div>`;
+  // 1. qué se carga y en qué cantidad
+  let cant='<b>1</b>';
+  if(c.lateralidad==='Bilateral')cant='<b>1</b> — el código comprende ambos ojos';
+  else if(c.lateralidad==='Unilateral')cant='<b>1 por ojo</b>';
+  else if(c.seriado)cant=`hasta <b>×${c.seriado.max}</b> (seriado)`;
+  pasos.push(`<li>Cargar <b>${esc(c.code)}</b> — cantidad ${cant}${
+    c.muestra&&c.muestra.length?`.<br>Verificá que la orden pida la determinación <b>en ${esc(c.muestra.join(' o '))}</b>`:''}</li>`);
+  // 2. lo que NO va por separado
+  if((R.incluye||[]).length)
+    pasos.push(`<li class="no"><b>No cargar por separado</b>: ya están comprendidas en este código.${chips(R.incluye)}</li>`);
+  if((R.incluido_en||[]).length)
+    pasos.push(`<li class="no">Esta práctica <b>ya está incluida</b> en otro código. Si se cargó el módulo, no corresponde cargarla aparte.${chips(R.incluido_en)}</li>`);
+  // 3. lo que se adiciona
+  if(c.flags&&c.flags.urgencia)
+    pasos.push(`<li class="mas">Si se pidió <b>de urgencia</b>, adicionar el código <b>661200</b> en la misma prescripción.${chips(['661200'])}</li>`);
+  if(c.nomenclador==='NBU'&&['PMO','PE'].includes(c.seccion)&&c.code!=='660001')
+    pasos.push(`<li class="mas">Agregar el <b>Acto Bioquímico</b> una vez por prescripción (o el ABI si es internación).${chips(['660001','661001'])}</li>`);
+  // 4. respaldo de la solicitud
+  if(c.cobertura_pmo)
+    pasos.push(`<li>Tiene <b>${c.cobertura_tipo==='observacion'?'observaciones de cobertura':'obligación de cobertura'}</b>: verificá que el caso encuadre antes de cargar.</li>`);
+  if(c.cie_rel&&c.cie_rel.length)
+    pasos.push(`<li>Consignar el <b>diagnóstico</b> que justifica la práctica — hay ${c.cie_rel.length} CIE-10 sugeridos más abajo.</li>`);
+  if(c.surge&&c.surge.requerimiento&&c.surge.requerimiento.length)
+    pasos.push(`<li>Pedirle al afiliado <b>${c.surge.requerimiento.length} documento${c.surge.requerimiento.length!==1?'s':''}</b> antes de cargar (requerimiento SURGE, ver abajo).</li>`);
+  if(c.tope_pmo)
+    pasos.push(`<li>Controlar el <b>tope</b>: ${esc(c.tope_pmo)}</li>`);
+  return pasos;
+}
+
 /* ---------- franja de veredicto ----------
    La ficha son 1,6 a 2,6 pantallas de scroll con todas las secciones al mismo peso.
    Acá arriba quedan resueltas las cuatro preguntas con las que se abre una ficha, y
@@ -2057,6 +2119,29 @@ function openCode(code){
     html+=`<div class="sec"><div class="kv" style="font-size:12px;color:var(--urg);background:var(--urg-soft);border:1px solid color-mix(in srgb,var(--urg) 30%,transparent);border-radius:var(--radius-sm);padding:9px 12px">
       ⚠ <b>Denominación a confirmar.</b> El nombre de esta práctica está dañado en el nomenclador de origen y se recompuso a partir de las otras fuentes. Un administrador puede corregirlo desde <b>✎ Editar ficha</b>.</div></div>`;
   }
+
+  // Cómo se carga: el bloque que da sentido a la app como centro de respaldo.
+  (function(){
+    const pasos=comoSeCargaHTML(c);
+    const nota=c.asoc_extra||null;
+    const puedeProponer=!!(window.NBUProfile&&NBUProfile.active());
+    const pend=(window.NBUProfile&&NBUProfile.propuestasDe)?NBUProfile.propuestasDe(code):[];
+    if(!pasos.length&&!nota&&!puedeProponer)return;
+    html+=`<div class="sec"><div class="carga">
+      <div class="cg-h">▶ Cómo se carga esta solicitud</div>
+      ${pasos.length?`<ol>${pasos.join('')}</ol>`:'<div style="font-size:13px;color:var(--muted)">Todavía no hay pasos cargados para esta práctica.</div>'}
+      ${nota?`<div class="cg-nota"><span class="nl">✎ Cómo se carga en VISITAR</span><div class="nt">${linkCodes(esc(nota))}</div></div>`:''}
+      ${pend.length?`<div class="prop-pend">✎ Hay ${pend.length} propuesta${pend.length!==1?'s':''} esperando aprobación del administrador.</div>`:''}
+      ${puedeProponer?`<div class="prop-box">
+        <button class="minibtn" id="propAbrir">✎ ${nota?'Proponer una corrección':'Contar cómo se carga acá'}</button>
+        <div id="propForm" hidden style="margin-top:8px">
+          <textarea id="propTxt" placeholder="Ej.: se carga con modalidad ambulatoria; hay que adjuntar la orden escaneada; si es control post-quirúrgico va con el código del módulo…"></textarea>
+          <div style="display:flex;gap:7px;margin-top:7px"><button class="minibtn" id="propEnviar">Enviar propuesta</button>
+          <button class="minibtn" id="propCancel">Cancelar</button></div>
+          <div class="ahint" style="font-size:11.5px">La revisa un administrador antes de quedar publicada para todos.</div>
+        </div></div>`:''}
+    </div></div>`;
+  })();
 
   // La denominación no vino en la fuente (texto ilegible en el original).
   if(c.sin_denominacion){
@@ -2272,6 +2357,19 @@ function openCode(code){
   d.querySelectorAll('[data-surge2]').forEach(b=>b.addEventListener('click',()=>{setMode('SURGE');openSurge(b.dataset.surge2);}));
   d.querySelectorAll('[data-ley]').forEach(b=>b.addEventListener('click',()=>{closeDrawer();openInfo(b.dataset.ley);}));
   d.querySelectorAll('[data-ir]').forEach(b=>b.addEventListener('click',()=>irASeccion(d,b.dataset.ir)));
+  const pa=el('propAbrir');
+  if(pa)pa.addEventListener('click',()=>{el('propForm').hidden=!el('propForm').hidden;
+    if(!el('propForm').hidden)el('propTxt').focus();});
+  const pe=el('propEnviar');
+  if(pe)pe.addEventListener('click',()=>{
+    const t=el('propTxt').value.trim();
+    if(!t)return toast('Escribí la propuesta primero',true);
+    NBUProfile.proponerNota(code,t);
+    toast('Propuesta enviada — la revisa un administrador');
+    openCode(code);
+  });
+  const pc=el('propCancel');
+  if(pc)pc.addEventListener('click',()=>{el('propForm').hidden=true;el('propTxt').value='';});
   const ef=el('editFichaBtn');if(ef)ef.addEventListener('click',()=>window.NBUProfile&&NBUProfile.editFicha(code));
   const av=el('dAddVal');if(av)av.addEventListener('click',()=>addToValidator(c.code));
   const cm=el('dCmp');if(cm)cm.addEventListener('click',()=>{cmpToggle(code);toast(cmp.length===1?'Elegí el segundo código para comparar':'Comparando');});
@@ -2563,6 +2661,7 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
     toastEl.style.background=err?'var(--exc)':'var(--accent-ink)';toastEl.textContent=msg;toastEl.style.opacity='1';
     clearTimeout(toastEl._t);toastEl._t=setTimeout(()=>toastEl.style.opacity='0',2600);
   }
+  window.NBUToast=toast;
 
   /* ---- content overrides ---- */
   function rebuildH(c){try{
@@ -2842,7 +2941,7 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
   let aTab='perfiles';
   function openAdmin(t){aTab=t||aTab;renderAdmin();amodal.classList.add('on');}
   function renderAdmin(){
-    const tabs=[['perfiles','Perfiles'],['empresa','Empresa'],['contenido','Textos'],['nube','Nube'],['registro','Registro'],['respaldo','Respaldo']];
+    const tabs=[['perfiles','Perfiles'],['propuestas','Propuestas'],['empresa','Empresa'],['contenido','Textos'],['nube','Nube'],['registro','Registro'],['respaldo','Respaldo']];
     abox.innerHTML=`
       <button class="icon-btn close-x" id="aClose" style="position:absolute;top:16px;right:16px" aria-label="Cerrar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
       <h3>Administración</h3>
@@ -2872,6 +2971,30 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
         const pw=prompt('Contraseña inicial (mín. 4):');if(!pw||pw.length<4)return toast('Contraseña muy corta',true);
         const ph=await mkHash(pw);AUTH.profiles.push({id:uid(),name:nm.trim(),role:'user',hash:ph.hash,salt:ph.salt,it:ph.it,favs:[],ub:null,created:Date.now(),updated:Date.now()});persistAuth();renderPane();toast('Perfil creado');
       });
+    } else if(aTab==='propuestas'){
+      const props=window.NBUProfile.propuestasTodas();
+      p.innerHTML=`<div class="ahint">Propuestas de los agentes sobre <b>cómo se carga</b> cada solicitud. Al aprobar, el texto queda publicado en la ficha para todo el equipo y se incluye al exportar las correcciones para la base.</div>`+
+        (props.length?props.map(pr=>{const c=BYCODE[pr.code];
+          return `<div class="arow" style="align-items:flex-start">
+            <div class="grow2">
+              <div class="pnm"><span class="mono" style="color:var(--accent-ink)">${E(c?c.code:pr.code)}</span> ${E(c?c.nombre.slice(0,54):'')}</div>
+              <div style="font-size:13px;color:var(--ink-2);margin:5px 0;white-space:pre-wrap">${E(pr.texto)}</div>
+              <div class="pmeta">${E(pr.por||'—')} · ${new Date(pr.t).toLocaleDateString('es-AR')}</div>
+            </div>
+            <button class="minibtn" data-pact="ok" data-c="${E(pr.code)}" data-i="${pr.idx}">Aprobar</button>
+            <button class="minibtn danger" data-pact="no" data-c="${E(pr.code)}" data-i="${pr.idx}">Descartar</button>
+          </div>`;}).join(''):'<div class="ahint">No hay propuestas pendientes.</div>');
+      p.querySelectorAll('[data-pact]').forEach(b=>b.addEventListener('click',()=>{
+        const code=b.dataset.c, i=+b.dataset.i, lista=(CONTENT.propuestas||{})[code]||[];
+        const pr=lista[i]; if(!pr)return;
+        if(b.dataset.pact==='ok'){
+          const ov=CONTENT.codes[code]||{}; ov.asoc_extra=pr.texto; CONTENT.codes[code]=ov;
+          logEdit('aprobó cómo se carga',code); applyCode(code);
+        } else logEdit('descartó una propuesta',code);
+        lista.splice(i,1); if(!lista.length)delete CONTENT.propuestas[code];
+        persistContent(); renderPane(); if(state.view==='list')render();
+        toast(b.dataset.pact==='ok'?'Propuesta publicada':'Propuesta descartada');
+      }));
     } else if(aTab==='empresa'){
       p.innerHTML=`<label>Usuario de la empresa</label><input id="eUser" type="text" value="${E(AUTH.company?AUTH.company.user:'')}">
         <label>Nueva contraseña de la empresa (dejar vacío para no cambiar)</label><input id="ePass" type="password" autocomplete="off">
@@ -3114,6 +3237,18 @@ create policy "kv_all" on kv for all
     tour:startOnboard,
     recent:()=>current&&current.recent?current.recent:[],
     pushRecent:(code)=>{if(!current)return;const r=current.recent=current.recent||[];const i=r.indexOf(code);if(i>=0)r.splice(i,1);r.unshift(code);if(r.length>30)r.length=30;current.updated=Date.now();persistAuthSoon();},
+    /* Propuestas de "cómo se carga": cualquier agente las escribe, un administrador
+       las aprueba. Es el mecanismo por el que el conocimiento que hoy vive en la
+       cabeza de la gente con experiencia queda escrito una vez para todos. */
+    proponerNota:(code,texto)=>{
+      CONTENT.propuestas=CONTENT.propuestas||{};
+      (CONTENT.propuestas[code]=CONTENT.propuestas[code]||[]).push(
+        {t:Date.now(),por:(current&&current.name)||'',texto:texto});
+      logEdit('propuso cómo se carga',code); persistContent();
+    },
+    propuestasDe:(code)=>((CONTENT.propuestas||{})[code]||[]),
+    propuestasTodas:()=>{const o=[];Object.entries(CONTENT.propuestas||{}).forEach(([c,l])=>
+      l.forEach((p,i)=>o.push(Object.assign({code:c,idx:i},p))));return o.sort((a,b)=>b.t-a.t);},
     getNote:(code)=>current&&current.notes?(current.notes[code]||''):'',
     setNote:(code,txt)=>{if(!current)return;current.notes=current.notes||{};if(txt&&txt.trim())current.notes[code]=txt.trim();else delete current.notes[code];current.updated=Date.now();persistAuthSoon();}
   };
