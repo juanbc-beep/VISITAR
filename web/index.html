@@ -177,6 +177,18 @@ html,body{margin:0;padding:0}
 .prop-box textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
 .prop-pend{font-size:12px;color:var(--gestion);background:#efe4c4;border-radius:6px;padding:6px 9px;margin-top:7px}
 :root[data-theme="dark"] .prop-pend{background:#2e2811}
+/* ---------- autoría ----------
+   Queda en la app, no en los textos editables del panel: es un dato de autoría, no
+   contenido configurable. */
+.autoria{max-width:1500px;margin:0 auto;padding:26px 20px 30px;border-top:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap;text-align:center}
+.autoria .au-t{font-size:12.5px;color:var(--muted)}
+.autoria .au-n{font-size:12.5px;font-weight:800;color:var(--ink-2);letter-spacing:.2px}
+.autoria .au-p{font-size:11.5px;color:var(--faint);flex-basis:100%}
+.gcard .au-gate{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);
+  font-size:11.5px;color:var(--faint);text-align:center;line-height:1.5}
+.gcard .au-gate b{color:var(--muted);font-weight:800}
+@media print{.autoria{display:flex!important;border:none;padding:10px 0 0;font-size:10px}}
 .rapidos{margin-bottom:14px}
 .rapidos .rlbl{font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);
   display:flex;align-items:center;gap:8px;margin-bottom:8px}
@@ -901,6 +913,12 @@ mark.hl{background:var(--accent-soft);color:var(--accent-ink);border-radius:3px;
     <div class="validator" id="validator" hidden></div>
   </main>
 </div>
+
+<footer class="autoria">
+  <span class="au-t">Diseñado por</span>
+  <span class="au-n">Juan Pablo Besada</span>
+  <span class="au-p">Manual Inteligente NBU · VISITAR SRL</span>
+</footer>
 
 <div class="scrim" id="scrim"></div>
 <div id="palette"><div class="palbox"><input id="palQ" type="text" autocomplete="off" spellcheck="false" placeholder="Código, práctica, diagnóstico o sigla…"><div class="palist" id="palList"></div><div class="palfoot"><span><span class="kbd">↑</span><span class="kbd">↓</span> moverse</span><span><span class="kbd">Enter</span> abrir</span><span><span class="kbd">Esc</span> cerrar</span></div></div></div>
@@ -1681,7 +1699,7 @@ el('expCsv').addEventListener('click',()=>{
 });
 el('expPrint').addEventListener('click',()=>{
   const prev=state.limit;state.limit=lastResults.length;render();
-  el('printHead').innerHTML=`<h2>Manual NBU — Listado de prácticas</h2><p>${lastResults.length} prácticas · ${new Date().toLocaleDateString('es-AR')}${esc(activeFilterText())}</p>`;
+  el('printHead').innerHTML=`<h2>Manual NBU — Listado de prácticas</h2><p>${lastResults.length} prácticas · ${new Date().toLocaleDateString('es-AR')}${esc(activeFilterText())}</p><p>Diseñado por Juan Pablo Besada</p>`;
   window.print();
   state.limit=prev;render();
 });
@@ -1845,7 +1863,7 @@ function renderFacturacion(){
     `<div class="sec" style="margin-top:16px"><div class="slabel" style="${SL};margin-bottom:9px">Detalle por código (${uniq.length})</div><div class="vtable">${rows}</div></div>`;
   el('vCopy').addEventListener('click',e=>copiarInforme(e.currentTarget));
   el('vExpCsv').addEventListener('click',exportValidatorCSV);
-  el('vPrint').addEventListener('click',()=>{el('printHead').innerHTML=`<h2>VISITAR — Auditoría de facturación</h2><p>${new Date().toLocaleDateString('es-AR')} · ${uniq.length} códigos${ubVal>0?' · U.B. $'+ubVal:''}</p>`;window.print();});
+  el('vPrint').addEventListener('click',()=>{el('printHead').innerHTML=`<h2>VISITAR — Auditoría de facturación</h2><p>Diseñado por Juan Pablo Besada</p><p>${new Date().toLocaleDateString('es-AR')} · ${uniq.length} códigos${ubVal>0?' · U.B. $'+ubVal:''}</p>`;window.print();});
 }
 function renderAutorizacion(){
   const {uniq,qty,unknown}=caseData;
@@ -1911,7 +1929,7 @@ function renderAutorizacion(){
   el('vresults').querySelectorAll('[data-ley]').forEach(b=>b.addEventListener('click',()=>openInfo(b.dataset.ley)));
   el('vCopy').addEventListener('click',e=>copiarInforme(e.currentTarget));
   el('vExpCsv').addEventListener('click',exportAuthCSV);
-  el('vPrint').addEventListener('click',()=>{el('printHead').innerHTML=`<h2>VISITAR — Auditoría de autorización</h2><p>${new Date().toLocaleDateString('es-AR')} · ${uniq.length} prácticas · todas con autorización previa</p>`;window.print();});
+  el('vPrint').addEventListener('click',()=>{el('printHead').innerHTML=`<h2>VISITAR — Auditoría de autorización</h2><p>Diseñado por Juan Pablo Besada</p><p>${new Date().toLocaleDateString('es-AR')} · ${uniq.length} prácticas · todas con autorización previa</p>`;window.print();});
 }
 /* El registro de casos lo llevan en otro sistema: este informe sale en texto plano
    para pegarlo ahí sin pasar por un archivo. */
@@ -1953,7 +1971,8 @@ function informeTexto(){
     if(nodos.length){L.push(''); L.push('HALLAZGOS');
       nodos.forEach(n=>L.push('  - '+n.textContent.replace(/\s+/g,' ').trim()));}
   }
-  L.push(''); L.push('Generado con el Manual Inteligente NBU. Verificar contra la normativa vigente.');
+  L.push(''); L.push('Generado con el Manual Inteligente NBU — diseñado por Juan Pablo Besada.');
+  L.push('Verificar contra la normativa vigente.');
   return L.join('\n');
 }
 function copiarInforme(btn){
@@ -2956,7 +2975,12 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
         <button class="gback" id="npBack">← Volver</button>
       </div>`;
     }
-    gate.innerHTML=html;wireGate(v);
+    // La firma de autoría aparece en todas las pantallas de acceso.
+    gate.innerHTML=html;
+    const card=gate.querySelector('.gcard');
+    if(card){const au=document.createElement('div');au.className='au-gate';
+      au.innerHTML='Diseñado por <b>Juan Pablo Besada</b>';card.appendChild(au);}
+    wireGate(v);
     const first=gate.querySelector('input');if(first)setTimeout(()=>first.focus(),40);
   }
   const gv=id=>{const e=el(id);return e?e.value.trim():'';};
