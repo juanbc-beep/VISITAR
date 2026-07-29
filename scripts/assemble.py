@@ -46,6 +46,17 @@ SECCION_LABEL = {
 
 # ---------- 2024 revalorization overlay (from the Enero-2024 anexo) ----------
 def load_overlay():
+    """U.B. actualizadas del Anexo Enero 2024.
+
+    Vienen de data/nbu_reval_2024.json, que está versionado. Antes salían de un
+    nbu_reval.txt que vivía sólo en el directorio de trabajo: al reconstruir la base
+    en otra máquina esos 50 valores desaparecían sin que nada lo avisara."""
+    for _p in ("data/nbu_reval_2024.json", "nbu_reval_2024.json"):
+        try:
+            return {k: float(v) for k, v in
+                    json.load(open(_p, encoding="utf-8"))["valores"].items()}
+        except (FileNotFoundError, KeyError):
+            continue
     ov = {}
     try:
         txt = open("nbu_reval.txt").read()
@@ -778,14 +789,44 @@ glossary = {
     "(#)": "Por presupuesto: prácticas en desuso que no tienen valores de referencia (U.B.).",
     "PCR": "Determinación por metodología de Reacción en Cadena de la Polimerasa.",
     "U.B.": "Unidad Bioquímica: variable disparadora del arancel. Arancel = U.B. × valor de la U.B.",
-    "N8327": "Ver norma/interpretación del código 668327 (Pesticidas nitrogenados).",
-    "N8332": "Ver norma/interpretación del código 668332 (Pesticidas organoclorados).",
-    "N8337": "Ver norma/interpretación del código 668337 (Pesticidas organofosforados).",
     "661200": "URGENCIAS: se adiciona a toda prescripción de urgencia (una vez, independiente de la cantidad de prácticas).",
     "660001": "ACTO BIOQUÍMICO (AB): se aplica 1 vez por prescripción, cubre etapas pre/post-analíticas.",
     "661001": "ACTO BIOQUÍMICO DE INTERNACIÓN (ABI): 1 por día de internación.",
     "662001": "ABC — ACTO BIOQUÍMICO COMPLEMENTARIO: adicional en pruebas de sobrecarga/estímulo/inhibición.",
 }
+# Enlace al texto oficial. InfoLEG (servicios.infoleg.gob.ar) y el portal
+# argentina.gob.ar comparten el mismo identificador interno, que no se deduce del
+# número de norma: hay que buscarlo. Se usa la dirección con la que cada norma
+# figura publicada; donde el número va dentro de la URL, un id equivocado daría 404
+# en vez de mostrar otra norma, que es el error preferible.
+NORMA_URL = {
+    "15465":     "https://www.argentina.gob.ar/normativa/nacional/ley-15465-195093",
+    "22990":     "https://www.argentina.gob.ar/normativa/nacional/ley-22990-49103",
+    "23798":     "https://servicios.infoleg.gob.ar/infolegInternet/verNorma.do?id=199",
+    "24901":     "https://www.argentina.gob.ar/normativa/nacional/ley-24901-47677",
+    "25326":     "https://servicios.infoleg.gob.ar/infolegInternet/verNorma.do?id=64790",
+    "25543":     "https://servicios.infoleg.gob.ar/infolegInternet/verNorma.do?id=71528",
+    "26279":     "https://www.argentina.gob.ar/normativa/nacional/ley-26279-131902",
+    "26281":     "https://www.argentina.gob.ar/normativa/nacional/ley-26281-131904",
+    "26369":     "https://www.argentina.gob.ar/normativa/nacional/ley-26369-140274",
+    "26529":     "https://servicios.infoleg.gob.ar/infolegInternet/verNorma.do?id=160432",
+    "26588":     "https://www.argentina.gob.ar/normativa/nacional/ley-26588-162428",
+    "26862":     "https://servicios.infoleg.gob.ar/infolegInternet/verNorma.do?id=216700",
+    "27232":     "https://www.argentina.gob.ar/normativa/nacional/ley-27232-257440",
+    "27305":     "https://www.argentina.gob.ar/normativa/nacional/ley-27305-267397",
+    "27610":     "https://www.argentina.gob.ar/normativa/nacional/ley-27610-346231",
+    "27696":     "https://servicios.infoleg.gob.ar/infolegInternet/verNorma.do?id=374556",
+    "310/2004":  "https://servicios.infoleg.gob.ar/infolegInternet/verNorma.do?id=94218",
+    "2820/2022": "https://servicios.infoleg.gob.ar/infolegInternet/verNorma.do?id=375042",
+    "3437/2021": "https://servicios.infoleg.gob.ar/infolegInternet/verNorma.do?id=357725",
+    "340/2026":  "https://servicios.infoleg.gob.ar/infolegInternet/verNorma.do?id=423441",
+    "438/2021":  "https://servicios.infoleg.gob.ar/infolegInternet/verNorma.do?id=351763",
+    # El régimen HPGD no es una norma única: la base es el Decreto 939/2000.
+    "HPGD":      "https://www.argentina.gob.ar/normativa/nacional/decreto-939-2000-64697",
+    # La resolución que da origen al PMO, para la sección de generalidades.
+    "201/2002":  "https://servicios.infoleg.gob.ar/infolegInternet/verNorma.do?id=73649",
+}
+
 leyes = [
     {"ley": "15465", "titulo": "Enfermedades de notificación obligatoria", "sancion": "29/09/1960"},
     {"ley": "22990", "titulo": "Ley de Sangre", "sancion": "20/11/1983"},
@@ -940,6 +981,15 @@ except FileNotFoundError:
         PMOCOB = json.load(open("pmo_cobertura.json", encoding="utf-8"))
     except FileNotFoundError:
         PMOCOB = {"codigos": {}, "generalidades": [], "topes": []}
+
+# Anexo I reconstruido con su jerarquía (scripts/parse_pmo_anexo1.py).
+ANEXO1 = {"apartados": [], "preambulo": "", "fuente": ""}
+for _p in ("data/pmo_anexo1.json", "pmo_anexo1.json"):
+    try:
+        ANEXO1 = json.load(open(_p, encoding="utf-8")); break
+    except FileNotFoundError:
+        continue
+
 pmo_fix = pmo_cob = 0
 pmo_alta = 0
 for _code, _info in PMOCOB.get("codigos", {}).items():
@@ -1392,10 +1442,16 @@ for _cie, _keys in CIE10.get("relaciones", {}).items():
         if _cie not in code2cie[_k]:
             code2cie[_k].append(_cie)
 code2ley = defaultdict(list)
+_sin_url = []
 for _l in leyes:
+    _u = NORMA_URL.get(str(_l.get("ley", "")))
+    if _u: _l["url"] = _u
+    else:  _sin_url.append(_l.get("ley"))
     for _c in _l.get("codigos", []):
         if _l["ley"] not in code2ley[_c]:
             code2ley[_c].append(_l["ley"])
+print(f"normativa: {sum(1 for x in leyes if x.get('url'))}/{len(leyes)} con enlace oficial"
+      + (f" · sin enlace: {_sin_url}" if _sin_url else ""), file=sys.stderr)
 # propagar por equivalencia: el código del Único hereda las relaciones de su equivalente (NBU/PMO)
 for _k, _r in list(records.items()):
     if _r.get("nomenclador") == "UNICO":
@@ -1490,8 +1546,12 @@ db = {
         "pmo_capitulos": PMO_CAP,
         "pmo_normas_capitulo": CHAPTER_NORMS,
         "pmo_normas_nota": "Normas generales orientativas de facturación por capítulo. Verificar siempre contra la norma/convenio aplicable. No reemplazan al texto oficial del nomenclador.",
-        "pmo_generalidades": PMOCOB.get("generalidades", []),
-        "pmo_topes": PMOCOB.get("topes", []),
+        # El Anexo I entero, con su numeración y su texto completo. Reemplaza a las
+        # antiguas «generalidades» (títulos cortados a mitad de oración) y «topes»
+        # (frases sueltas sin marco de referencia: «10.14 Extracción de cuerpo
+        # extraño.» es un título de práctica, no una regla de cobertura).
+        "pmo_anexo1": ANEXO1,
+        "pmo_anexo1_url": NORMA_URL.get("201/2002", ""),
         "pmo_asociaciones": {},
         "grupos": dict(sorted(grupos_stats.items(), key=lambda x: -x[1])),
         "nota_grupos": "El 'grupo/especialidad' es orientativo para navegar. En el NBU la clasificación oficial es la sección (PMO/PE/Gestión); en el Catálogo PMO, el capítulo/especialidad proviene del código.",

@@ -378,120 +378,193 @@
    }
   },
   "pmo_normas_nota": "Normas generales orientativas de facturación por capítulo. Verificar siempre contra la norma/convenio aplicable. No reemplazan al texto oficial del nomenclador.",
-  "pmo_generalidades": [
-   {
-    "num": "1.1",
-    "titulo": "Atención Primaria de la Salud",
-    "texto": "Se reafirma el principio de que este Programa Médico Obligatorio está basado en los principios de la atención primaria de la salud, entendiendo a la misma no sólo como la cobertura para el primer nivel de atención, sino y fundamentalmente como una estrategia de organización de los servicios sanitarios. Por tanto se sostienen los principios de privilegiar la preservación de la salud antes que las acciones curativas, y por tanto reforzar los programas de prevención. Brindar una cobertura integral, es decir un abordaje biopsicosocial de los problemas de salud. Asegurar un mecanismo integrado de atención en los distintos niveles de prevención primaria, secundaria y terciaria. Proveer de cuidados continuos a los beneficiarios, privilegiando la atención a partir de un médico de familia que sea el responsable de los cuidados de los beneficiarios, y donde los mismos tengan el derecho a conocer el nombre de su médico, así como los demás proveedores de servicios obligándose a conocer y acompañar en forma integral a los pacientes en el cuidado de su salud la recuperación de la misma y la rehabilitación. Programas de Prevención Primaria y Secundaria: Se deberán acordar en colaboración con la autoridad jurisdiccional. En todos los casos será obligación de los Agentes del Seguro la entrega del listado de personas bajo programa, el cual deberá ser elevado en forma trimestral a la Superintendencia de Servicios de Salud en conjunto con la información requerida en la Resolución 650/97 ANSSAL y modificatorias. En todos los casos para que un programa de prevención sea reconocido como tal los A",
-    "fuente": "Anexo I"
-   },
-   {
-    "num": "1.1.1",
-    "titulo": "Plan Materno Infantil",
-    "texto": "Se dará cobertura durante el embarazo y el parto a partir del momento del diagnóstico y hasta el primer mes luego del nacimiento. 1.1.2. Atención del recién nacido hasta cumplir un año de edad. Todo con cobertura al 100% tanto en internación como en ambulatorio y exceptuado del pago de todo tipo de coseguros para las atenciones y medicaciones específicas. Esta cobertura comprende: a) Embarazo y parto: consultas, estudios de diagnóstico exclusivamente relacionados con el embarazo, el parto y puerperio, ya que otro tipo de estudios tendrá la cobertura que rige al resto de este PMO; psicoprofilaxis obstétrica, medicamentos exclusivamente relacionados con el embarazo y el parto con cobertura al 100%. b) Infantil: Será obligatoria la realización perinatológica de los estudios para detección de la fenilcetonuria, del hipotiroidismo congénito y enfermedad fibroquística en el recién nacido. Deberán cubrirse las consultas de seguimiento y control, inmunizaciones del período, cobertura del 100% de la medicación requerida para el primer año de vida siempre que ésta figure en el listado de medicamentos esenciales. c) A fin de estimular la lactancia materna no se cubrirán las leches 2 maternizadas o de otro tipo, salvo expresa indicación médica, con evaluación de la auditoría médica.",
-    "fuente": "Anexo I"
-   },
-   {
-    "num": "1.1.3",
-    "titulo": "Programas de prevención de cánceres femeninos",
-    "texto": "en especial de cáncer de mama y cuello uterino, diagnóstico y tratamiento de todas las afecciones malignas. Siempre con la cobertura de las medicaciones que figuren en los protocolos del Programa Nacional de Garantía de Calidad de la Atención Médica. Se excluyen de la cobertura todo tipo de tratamientos y/o protocolos de carácter experimental o en fase de prueba.",
-    "fuente": "Anexo I"
-   },
-   {
-    "num": "1.1.4",
-    "titulo": "Odontología preventiva",
-    "texto": "campos de prevención, fluoración y campañas de educación para la salud bucal.",
-    "fuente": "Anexo I"
-   },
-   {
-    "num": "2",
-    "titulo": "Atención Secundaria",
-    "texto": "Los Agentes del Seguro de Salud se encuentran obligados a brindar exclusivamente las especialidades reconocidas por la autoridad sanitaria nacional.",
-    "fuente": "Anexo I"
-   },
-   {
-    "num": "2.1",
-    "titulo": "Especialidades",
-    "texto": "• Anatomía Patológica • Diagnóstico por imágenes: Radiología, tomografía computada, resonancia magnética • Anestesiología • Cardiología y ecografía. • Cirugía cardiovascular • Endocrinología • Cirugía de cabeza y cuello • Infectología • Cirugía general • Fisiatría (medicina física y rehabilitación) • Cirugía infantil • Cirugía plástica reparadora • Gastroenterología • Cirugía de tórax • Geriatría • Clínica médica • Ginecología • Dermatología • Hematología • Hemoterapia • Oftalmología • Medicina familiar y General • Oncología • Medicina nuclear: diagnóstico y tratamiento • Ortopedia y traumatología • Nefrología • Otorrinolaringología • Neonatología • Pediatría • Neumonología • Psiquiatría • Neurología • Reumatología • Nutrición • Terapia intensiva • Obstetricia • Urología",
-    "fuente": "Anexo I"
-   },
-   {
-    "num": "2.2",
-    "titulo": "Las prestaciones a brindar son",
-    "texto": "Se asegura la consulta en consultorio e internación. Se asegura la consulta de urgencia y emergencia en domicilio. En los mayores de 65 años que no puedan movilizarse, se asegura la consulta programada en domicilio con un coseguro de $10 por cada visita. En todo otro grupo etario donde sea el paciente esté imposibilitado de desplazarse quedará a discreción de la auditoría del Agente del Seguro la provisión de Atención programada en domicilio. 2.3. Prácticas y estudios complementarios ambulatorios, diagnósticos y terapéuticos: todas las prácticas diagnósticas y terapéuticas detalladas en el anexo II de la presente Resolución, con iderando el material descartable y los medios de contraste como Actualización Normativa Nº 1/2002 - S.S.SALUD parte de la prestación que se realiza.",
-    "fuente": "Anexo I"
-   },
-   {
-    "num": "3",
-    "titulo": "Internación",
-    "texto": "Se asegura el 100% de cobertura en la internación en cualquiera de sus modalidades (institucional, hospital de día o domiciliaria). Todas las prestaciones y prácticas que se detallan en el anexo II se encuentran incluidas dentro de la cobertura. La cobertura se extiende sin límite de tiempo, a excepción de lo contemplado en el capítulo que corresponde a salud mental.",
-    "fuente": "Anexo I"
-   },
-   {
-    "num": "4",
-    "titulo": "Salud mental",
-    "texto": "4.1. Se incluyen todas aquellas actividades de fortalecimiento y desarrollo de comportamientos y hábitos de vida saludables como forma de promoción de la salud en general y de la salud mental en particular. 4.2. Actividades específicas que tienden a prevenir comportamientos que puedan generar trastornos y malestares psíquicos en temas específicos como la depresión, suicidio, adicciones, violencia, violencia familiar, maltrato infantil. Los agentes del seguro propiciarán las prácticas de promoción de salud mental mediante el desarrollo de actividades acordes a las modalidades que consideren pertinentes para su población beneficiaria.",
-    "fuente": "Anexo I"
-   },
-   {
-    "num": "4.3",
-    "titulo": "Prestaciones cubiertas",
-    "texto": "atención ambulatoria hasta 30 visitas por año calendario, no pudiendo exceder la cantidad de 4 consultas mensuales. Esto incluye las modalidades de entrevista psiquiátrica, psicológica, psicopedagogía, psicoterapia individual, psicoterapia grupal, psicoterapia de familia y de pareja, psicodiagnóstico.",
-    "fuente": "Anexo I"
-   },
-   {
-    "num": "4.4",
-    "titulo": "Internación",
-    "texto": "se cubrirán patologías agudas en las modalidades institucional u hospital de día. Hasta 30 días por año calendario.",
-    "fuente": "Anexo I"
-   },
-   {
-    "num": "5",
-    "titulo": "Rehabilitación",
-    "texto": "Se incluyen todas las prácticas kinesiológicas y fonoaudiológicas que se detallan en el Anexo II de la presente Resolución. Los Agentes del Seguro de Salud darán cobertura ambulatoria para rehabilitación motriz, psicomotriz, readaptación ortopédica y rehabilitación sensorial. Kinesioterapia: hasta 25 sesiones por beneficiario por año calendario Fonoaudiología: hasta 25 sesiones por beneficiario por año calendario Estimulación temprana: en los términos que se define en el Anexo II de la presente Resolución",
-    "fuente": "Anexo I"
-   },
-   {
-    "num": "6",
-    "titulo": "Odontología",
-    "texto": "6.1. Se asegura la cobertura por parte de los Agentes del Seguro de Salud, de las siguientes prácticas: 1.01 Consulta. Diagnóstico. Fichado y plan de tratamiento. Este código incluye examen, diagnóstico y plan de tratamiento. Se considera como primera consulta y comprende la confección de la ficha odontológica. 1.04 Consulta de urgencia. Se considera consulta de urgencia a toda consulta sin turno previo, que resuelva la demanda espontánea. El beneficiario una vez resuelta la urgencia podrá consultar a su odontólogo general para iniciar el tratamiento definitivo de la patología que lo afecte. No se contempla dentro de esa consulta la realización de prácticas no cubiertas, a excepción del cementado de puentes y coronas que no requieran de restauración protética. 2.01 Obturación de amalgama. Cavidad simple. 2.02 Obturación de amalgama. Cavidad compuesta o compleja. 2.04 Obturación con tornillo en conducto. Comprende el tratamiento de los tejidos duros del diente para resolver los daños provocados por la caries dental cuando la destrucción coronaria sea mayor que los dos tercios de la distancia intercuspídea. La obturación definitiva debe incluir, en menores de 18 años, el sellado de todas las superficies no tratadas. Será reconocida una única vez por pieza tratada. 2.05 Obturación resina autocurado. Cavidad simple. 3 2.06 Obturación resina autocurado. Cavidad compuesta o compleja. 2.08 Obturación resina fotocurado sector anterior. Comprende la restauración de las piezas anteriores y vestibular de primeros premolares. 2.09 Reconstrucción de ángulo en dientes anteriores. 3.01 Tr",
-    "fuente": "Anexo I"
-   },
-   {
-    "num": "III",
-    "titulo": "Formulario Terapéutico — reglas",
-    "texto": "ANEXO III Formulario Terapéutico Las características que reúne este formulario son las siguientes: Los principios activos incluidos atienden el 95% de los proble- mas de salud que se presentan en la consulta ambulatoria. No se incluyen los medicamentos financiados a través del Fondo Solidario de Redistribución por resoluciones de la Administra- ción de Programas Especiales y leyes de protección de grupos vulnerables. No se incluyen medicamentos de venta libre, ni específicos para patologías oncológicas. La cobertura de los medicamentos específicos para la terapéutica de la Diabetes (Resolución 301/99 MsyAS)se especifica en el Anexo I, por lo que no está incluida en este formulario. La cobertura de los medicamentos específicos para la terapéutica de la Miastenia Gravis (Resolución 791/99 MsyAS) se especifi- ca en el Anexo I, por lo que no está incluida en este formulario. Los medicamentos incluidos en el listado tienen cobertura obliga- toria por los Agentes del Seguro de Salud al 40% del valor de referencia según Anexo IV de la presente Resolución Los Agentes del Seguro de Salud podrán ampliar la cobertura e incluir otros medicamentos de acuerdo a las necesidades de sus beneficiarios y financiamiento. Se incluyeron los principios activos que demostraron tener efec- tividad clínica comprobada, y ser la mejor alternativa en relación al resto de otros principios activos dentro de la banda terapéutica en las que fueron evaluados, los estudios disponibles de costo- efectividad correspondientes. La selección de principios activos fue realizada sobre la base de los criterios que s",
-    "fuente": "Anexo III"
-   }
-  ],
-  "pmo_topes": [
-   "Este anexo determina la cobertura básica que brindarán los Agentes del Seguro de Salud 1.",
-   "Todo con cobertura al 100% tanto en internación como en ambulatorio y exceptuado del pago de todo tipo de coseguros para las atenciones y medicaciones específicas.",
-   "c) A fin de estimular la lactancia materna no se cubrirán las leches 2 maternizadas o de otro tipo, salvo expresa indicación médica, con evaluación de la auditoría médica.",
-   "En los mayores de 65 años que no puedan movilizarse, se asegura la consulta programada en domicilio con un coseguro de $10 por cada visita.",
-   "Internación: Se asegura el 100% de cobertura en la internación en cualquiera de sus modalidades (institucional, hospital de día o domiciliaria).",
-   "Prestaciones cubiertas: atención ambulatoria hasta 30 visitas por año calendario, no pudiendo exceder la cantidad de 4 consultas mensuales.",
-   "Hasta 30 días por año calendario.",
-   "Se asegura la cobertura por parte de los Agentes del Seguro de Salud, de las siguientes prácticas: 1.01 Consulta.",
-   "La obturación definitiva debe incluir, en menores de 18 años, el sellado de todas las superficies no tratadas.",
-   "En pacientes mayores de 18 se cubrirá una vez por año.",
-   "Se cubrirá hasta los 18 años y hasta dos veces por año.",
-   "Esta práctica se reconoce hasta los 15 años en premolares y molares permanentes.",
-   "7.01 Consultas de motivación.",
-   "Se cubrirá hasta los 15 años de edad e incluye la consulta diagnóstica, examen y plan de tratamiento.",
-   "Se cubrirá por única vez por pieza dentaria y en pacientes de hasta 8 años inclusive.",
-   "En primeros molares permanentes hasta los 15 años de edad.",
-   "8.03 Tratamiento de enfermedad periodontal.",
-   "10.14 Extracción de cuerpo extraño.",
-   "El monto de coseguros a pagar será de hasta $ 4 para niños de hasta 15 años, y para mayores de 65 años.",
-   "Co-seguro de hasta $ 7 para aquellos beneficiarios que tienen entre 16 y 64 años.",
-   "La cobertura será del 100% en internados.",
-   "Tendrán cobertura al 100% por parte del Agente del Seguro: Eritropoyetina en el tratamiento de la Insuficiencia Renal Crónica.",
-   "Cobertura de insulina (100%), antidiabéticos orales (70%) y tirillas reactivas (400 anuales).",
-   "Cobertura del 100% del mestinón 60 mg.",
-   "Otras coberturas 8.1.",
-   "La cobertura estará dada en función del marco general que marca el PMO, es decir que los Agentes del 4"
-  ],
+  "pmo_anexo1": {
+   "fuente": "Resolución 201/2002 del Ministerio de Salud — Anexo I",
+   "preambulo": "Este Programa de Salud se refiere al Conjunto de Prestaciones esenciales que deben garantizar los Agentes del Seguro a sus beneficiarios. Es de carácter obligatorio para los Agentes del Seguro de Salud, quienes no son meramente financiados del sistema, sino, y por sobre todo, responsables de la cobertura de salud de la población beneficiaria. Este anexo determina la cobertura básica que brindarán los Agentes del Seguro de Salud",
+   "apartados": [
+    {
+     "num": "1",
+     "nivel": 1,
+     "titulo": "Cobertura",
+     "texto": ""
+    },
+    {
+     "num": "1.1",
+     "nivel": 2,
+     "titulo": "Atención Primaria de la Salud",
+     "texto": "Se reafirma el principio de que este Programa Médico Obligatorio está basado en los principios de la atención primaria de la salud, entendiendo a la misma no sólo como la cobertura para el primer nivel de atención, sino y fundamentalmente como una estrategia de organización de los servicios sanitarios. Por tanto se sostienen los principios de privilegiar la preservación de la salud antes que las acciones curativas, y por tanto reforzar los programas de prevención. Brindar una cobertura integral, es decir un abordaje biopsicosocial de los problemas de salud. Asegurar un mecanismo integrado de atención en los distintos niveles de prevención primaria, secundaria y terciaria. Proveer de cuidados continuos a los beneficiarios, privilegiando la atención a partir de un médico de familia que sea el responsable de los cuidados de los beneficiarios, y donde los mismos tengan el derecho a conocer el nombre de su médico, así como los demás proveedores de servicios obligándose a conocer y acompañar en forma integral a los pacientes en el cuidado de su salud la recuperación de la misma y la rehabilitación. Programas de Prevención Primaria y Secundaria: Se deberán acordar en colaboración con la autoridad jurisdiccional. En todos los casos será obligación de los Agentes del Seguro la entrega del listado de personas bajo programa, el cual deberá ser elevado en forma trimestral a la Superintendencia de Servicios de Salud en conjunto con la información requerida en la Resolución 650/97 ANSSAL y modificatorias. En todos los casos para que un programa de prevención sea reconocido como tal los Agentes del Seguro deberán especificar objetivos, metas, recursos humanos, recursos materiales, guías de atención, mecanismos de evaluación y resultados esperados, los mencionados programas deberán presentarse en la Superintendencia de Servicios de Salud. Los Agentes del Seguro de Salud, deberán adaptar los programas de prevención a sus características sociodemográficas particulares, además de los otros planes que consideren procedentes por las características del Agente ."
+    },
+    {
+     "num": "1.1.1",
+     "nivel": 3,
+     "titulo": "Plan Materno Infantil",
+     "texto": "Se dará cobertura durante el embarazo y el parto a partir del momento del diagnóstico y hasta el primer mes luego del nacimiento."
+    },
+    {
+     "num": "1.1.2",
+     "nivel": 3,
+     "titulo": "",
+     "texto": "Atención del recién nacido hasta cumplir un año de edad. Todo con cobertura al 100% tanto en internación como en ambulatorio y exceptuado del pago de todo tipo de coseguros para las atenciones y medicaciones específicas. Esta cobertura comprende: a) Embarazo y parto: consultas, estudios de diagnóstico exclusivamente relacionados con el embarazo, el parto y puerperio, ya que otro tipo de estudios tendrá la cobertura que rige al resto de este PMO; psicoprofilaxis obstétrica, medicamentos exclusivamente relacionados con el embarazo y el parto con cobertura al 100%. b) Infantil: Será obligatoria la realización perinatológica de los estudios para detección de la fenilcetonuria, del hipotiroidismo congénito y enfermedad fibroquística en el recién nacido. Deberán cubrirse las consultas de seguimiento y control, inmunizaciones del período, cobertura del 100% de la medicación requerida para el primer año de vida siempre que ésta figure en el listado de medicamentos esenciales. c) A fin de estimular la lactancia materna no se cubrirán las leches maternizadas o de otro tipo, salvo expresa indicación médica, con evaluación de la auditoría médica."
+    },
+    {
+     "num": "1.1.3",
+     "nivel": 3,
+     "titulo": "",
+     "texto": "Programas de prevención de cánceres femeninos: en especial de cáncer de mama y cuello uterino, diagnóstico y tratamiento de todas las afecciones malignas. Siempre con la cobertura de las medicaciones que figuren en los protocolos del Programa Nacional de Garantía de Calidad de la Atención Médica. Se excluyen de la cobertura todo tipo de tratamientos y/o protocolos de carácter experimental o en fase de prueba."
+    },
+    {
+     "num": "1.1.4",
+     "nivel": 3,
+     "titulo": "",
+     "texto": "Odontología preventiva: campos de prevención, fluoración y campañas de educación para la salud bucal."
+    },
+    {
+     "num": "2",
+     "nivel": 1,
+     "titulo": "Atención Secundaria",
+     "texto": "Los Agentes del Seguro de Salud se encuentran obligados a brindar exclusivamente las especialidades reconocidas por la autoridad sanitaria nacional."
+    },
+    {
+     "num": "2.1",
+     "nivel": 2,
+     "titulo": "",
+     "texto": "Especialidades: • Anatomía Patológica • Diagnóstico por imágenes: Radiología, tomografía computada, resonancia magnética • Anestesiología • Cardiología y ecografía. • Cirugía cardiovascular • Endocrinología • Cirugía de cabeza y cuello • Infectología • Cirugía general • Fisiatría (medicina física y rehabilitación) • Cirugía infantil • Cirugía plástica reparadora • Gastroenterología • Cirugía de tórax • Geriatría • Clínica médica • Ginecología • Dermatología • Hematología • Hemoterapia • Oftalmología • Medicina familiar y General • Oncología • Medicina nuclear: diagnóstico y tratamiento • Ortopedia y traumatología • Nefrología • Otorrinolaringología • Neonatología • Pediatría • Neumonología • Psiquiatría • Neurología • Reumatología • Nutrición • Terapia intensiva • Obstetricia • Urología"
+    },
+    {
+     "num": "2.2",
+     "nivel": 2,
+     "titulo": "Las prestaciones a brindar son",
+     "texto": "Se asegura la consulta en consultorio e internación. Se asegura la consulta de urgencia y emergencia en domicilio. En los mayores de 65 años que no puedan movilizarse, se asegura la consulta programada en domicilio con un coseguro de $10 por cada visita. En todo otro grupo etario donde sea el paciente esté imposibilitado de desplazarse quedará a discreción de la auditoría del Agente del Seguro la provisión de Atención programada en domicilio."
+    },
+    {
+     "num": "2.3",
+     "nivel": 2,
+     "titulo": "",
+     "texto": "Prácticas y estudios complementarios ambulatorios, diagnósticos y terapéuticos: todas las prácticas diagnósticas y terapéuticas detalladas en el anexo II de la presente Resolución, con iderando el material descartable y los medios de contraste como parte de la prestación que se realiza."
+    },
+    {
+     "num": "3",
+     "nivel": 1,
+     "titulo": "Internación",
+     "texto": "Se asegura el 100% de cobertura en la internación en cualquiera de sus modalidades (institucional, hospital de día o domiciliaria). Todas las prestaciones y prácticas que se detallan en el anexo II se encuentran incluidas dentro de la cobertura. La cobertura se extiende sin límite de tiempo, a excepción de lo contemplado en el capítulo que corresponde a salud mental."
+    },
+    {
+     "num": "4",
+     "nivel": 1,
+     "titulo": "Salud mental",
+     "texto": ""
+    },
+    {
+     "num": "4.1",
+     "nivel": 2,
+     "titulo": "",
+     "texto": "Se incluyen todas aquellas actividades de fortalecimiento y desarrollo de comportamientos y hábitos de vida saludables como forma de promoción de la salud en general y de la salud mental en particular."
+    },
+    {
+     "num": "4.2",
+     "nivel": 2,
+     "titulo": "",
+     "texto": "Actividades específicas que tienden a prevenir comportamientos que puedan generar trastornos y malestares psíquicos en temas específicos como la depresión, suicidio, adicciones, violencia, violencia familiar, maltrato infantil. Los agentes del seguro propiciarán las prácticas de promoción de salud mental mediante el desarrollo de actividades acordes a las modalidades que consideren pertinentes para su población beneficiaria."
+    },
+    {
+     "num": "4.3",
+     "nivel": 2,
+     "titulo": "",
+     "texto": "Prestaciones cubiertas: atención ambulatoria hasta 30 visitas por año calendario, no pudiendo exceder la cantidad de 4 consultas mensuales. Esto incluye las modalidades de entrevista psiquiátrica, psicológica, psicopedagogía, psicoterapia individual, psicoterapia grupal, psicoterapia de familia y de pareja, psicodiagnóstico."
+    },
+    {
+     "num": "4.4",
+     "nivel": 2,
+     "titulo": "",
+     "texto": "Internación: se cubrirán patologías agudas en las modalidades institucional u hospital de día. Hasta 30 días por año calendario."
+    },
+    {
+     "num": "5",
+     "nivel": 1,
+     "titulo": "Rehabilitación",
+     "texto": "Se incluyen todas las prácticas kinesiológicas y fonoaudiológicas que se detallan en el Anexo II de la presente Resolución. Los Agentes del Seguro de Salud darán cobertura ambulatoria para rehabilitación motriz, psicomotriz, readaptación ortopédica y rehabilitación sensorial. Kinesioterapia: hasta 25 sesiones por beneficiario por año calendario Fonoaudiología: hasta 25 sesiones por beneficiario por año calendario Estimulación temprana: en los términos que se define en el Anexo II de la presente Resolución"
+    },
+    {
+     "num": "6",
+     "nivel": 1,
+     "titulo": "Odontología",
+     "texto": ""
+    },
+    {
+     "num": "6.1",
+     "nivel": 2,
+     "titulo": "",
+     "texto": "Se asegura la cobertura por parte de los Agentes del Seguro de Salud, de las siguientes prácticas: 1.01 Consulta. Diagnóstico. Fichado y plan de tratamiento. Este código incluye examen, diagnóstico y plan de tratamiento. Se considera como primera consulta y comprende la confección de la ficha odontológica. 1.04 Consulta de urgencia. Se considera consulta de urgencia a toda consulta sin turno previo, que resuelva la demanda espontánea. El beneficiario una vez resuelta la urgencia podrá consultar a su odontólogo general para iniciar el tratamiento definitivo de la patología que lo afecte. No se contempla dentro de esa consulta la realización de prácticas no cubiertas, a excepción del cementado de puentes y coronas que no requieran de restauración protética. 2.01 Obturación de amalgama. Cavidad simple. 2.02 Obturación de amalgama. Cavidad compuesta o compleja. 2.04 Obturación con tornillo en conducto. Comprende el tratamiento de los tejidos duros del diente para resolver los daños provocados por la caries dental cuando la destrucción coronaria sea mayor que los dos tercios de la distancia intercuspídea. La obturación definitiva debe incluir, en menores de 18 años, el sellado de todas las superficies no tratadas. Será reconocida una única vez por pieza tratada. 2.05 Obturación resina autocurado. Cavidad simple. 2.06 Obturación resina autocurado. Cavidad compuesta o compleja. 2.08 Obturación resina fotocurado sector anterior. Comprende la restauración de las piezas anteriores y vestibular de primeros premolares. 2.09 Reconstrucción de ángulo en dientes anteriores. 3.01 Tratamiento endodóntico en unirradiculares. 3.02 Tratamiento endodóntico en multirradiculares. 3.05 Biopulpectomía parcial. 3.06 Necropulpectomía parcial o momificación. En piezas que por causa técnicamente justificada no se pueda realizar el tratamiento endodóntico convencional. 5.01 Tartrectomía y cepillado mecánico. Está práctica no incluye el blanqueamiento de piezas dentarias. En pacientes mayores de 18 se cubrirá una vez por año. 5.02 Consulta preventiva. Terapias fluoradas Incluye Tartrectomía y cepillado mecánico, detección y control de la placa bacteriana, enseñanza de técnicas de higiene. Se cubrirá hasta los 18 años y hasta dos veces por año. Comprende aplicación de flúor tópico, barniz y colutorios. 5.04 Consulta preventiva. Detección control de placa bacteriana, y enseñanza de técnicas de higiene bucal. Comprende enseñanza de técnicas de cepillado, uso de elementos de higiene interdentarios, asesoramiento dietético y revelado de placa. Incluye monitoreo anual. 5.05 Selladores de surcos, fosas y fisuras. Esta práctica se reconoce hasta los 15 años en premolares y molares permanentes. 5.06 Aplicación de cariostáticos en piezas dentarias permanentes. 7.01 Consultas de motivación. Se cubrirá hasta los 15 años de edad e incluye la consulta diagnóstica, examen y plan de tratamiento. Comprende hasta tres visitas al consultorio. 7.02 Mantenedor de espacio. Comprende mantenedores de espacios fijos o removibles. Se cubrirá por única vez por pieza dentaria y en pacientes de hasta 8 años inclusive. Se incluye corona o banda y ansa de alambre de apoyo o tornillo de expansión. 7.03 Reducción de luxación con inmovilización dentaria. 7.04 Tratamientos en dientes temporarios con Formocresol. Cuando el diente tratado no esté próximo a su exfoliación. También se cubrirá en piezas permanentes con gran destrucción coronaria. 7.05 Corona de acero provisoria por destrucción coronaria. Se cubrirá en piezas temporarias con tratamiento de formocresol o gran destrucción coronaria, cuando la pieza no se encuentre dentro del período de exfoliación. En primeros molares permanentes hasta los 15 años de edad. 7.06 Reimplante dentario e inmovilización por luxación total. 7.07 Protección pulpar directa. 8.01 Consulta de estudio. Sondaje, fichado, diagnóstico y pronóstico. 8.02 Tratamiento de gingivitis. Comprende tartrectomía, raspaje y alisado, detección y control de placa, topicación con flúor y enseñanza de técnicas de higiene bucal. Se cubrirá anualmente. 8.03 Tratamiento de enfermedad periodontal. Comprende todos los cuadros periodontales e incluye raspaje y alisado radicular. Se cubrirá cada dos años. 8.04 Desgaste selectivo o armonización aclusal. 9.01 Radiografía periapical. Técnica de cono corto o largo. Radiografía Bte-Wing. 9.02 Radiografía oclusal. 9.03 Radiografías dentales media seriada: de 5 a 7 películas 9.04 Radiografías dentales seriada: de 8 a 14 películas. 9.05 Pantomografía o radiografía panorámica. 9.06 Estudio cefalométrico. 10.01 Extracción dentaria. 10.02 Plástica de comunicación buco-sinusal. 10.03 Biopsia por punción o aspiración o escisión. 10.04 Alveolectomía estabilizadora. 10.05 Reimplante dentario inmediato al traumatismo con inmovilización. 10.06 Incisión y drenaje de absesos. 10.08 Extracción dentaria en retención mucosa. 10.09 Extracción de dientes con retención ósea. 10.10 Germectomía. 10.11 Liberación de dientes retenidos. 10.13 Tratamiento de la osteomielitis. 10.14 Extracción de cuerpo extraño. 10.15 Alveolectomía correctiva. 10.16 Frenectomía."
+    },
+    {
+     "num": "6.2",
+     "nivel": 2,
+     "titulo": "",
+     "texto": "El monto de coseguros a pagar será de hasta $ 4 para niños de hasta 15 años, y para mayores de 65 años. Co-seguro de hasta $ 7 para aquellos beneficiarios que tienen entre 16 y 64 años."
+    },
+    {
+     "num": "6.3",
+     "nivel": 2,
+     "titulo": "",
+     "texto": "Los coseguros serán pagados en donde el Agente del Seguro de Salud lo determine."
+    },
+    {
+     "num": "7",
+     "nivel": 1,
+     "titulo": "Medicamentos",
+     "texto": ""
+    },
+    {
+     "num": "7.1",
+     "nivel": 2,
+     "titulo": "",
+     "texto": "Se asegura la cobertura de los medicamentos en ambulatorio que figuran en el Anexo III de la presente con un 40% de cobertura, conforme al precio de referencia que se explicita en el anexo IV, y en las formas farmacéuticas allí indicadas."
+    },
+    {
+     "num": "7.2",
+     "nivel": 2,
+     "titulo": "",
+     "texto": "La cobertura será del 100% en internados."
+    },
+    {
+     "num": "7.3",
+     "nivel": 2,
+     "titulo": "Tendrán cobertura al 100% por parte del Agente del Seguro",
+     "texto": "Eritropoyetina en el tratamiento de la Insuficiencia Renal Crónica. Medicamentos oncológicos según protocolos nacionales aprobados por la autoridad de aplicación."
+    },
+    {
+     "num": "7.4",
+     "nivel": 2,
+     "titulo": "",
+     "texto": "La cobertura de medicación no oncológica, de uso de protocolos oncológicos, tendrá la misma cobertura que la medicación ambulatoria, a excepción del ondasetrón en el tratamiento de vómitos agudos inducidos por drogas altamente emetizantes.(cisplatino, carboplatino, ciclofosfamida, ifosfamida, dactinomicina D, dacarbazina, doxorrubicina, idarrubicina, epirrubicina, estreptozotocina, citarabina)."
+    },
+    {
+     "num": "7.5",
+     "nivel": 2,
+     "titulo": "",
+     "texto": "Tendrán cobertura del 100% con financiamiento del Fondo Solidario de Redistribución los Programas Especiales de la Administración de Programas Especiales (APE) y los programas comprendidos en leyes de protección de grupos vulnerables. Sin perjuicio de las normas establecidas en esta Resolución sobre la cobertura en medicamentos, las mismas no podrán introducir limitaciones sobre tratamientos en curso al momento de su puesta en vigencia. Se mantiene a cargo de los Agentes del Seguro la cobertura de medicamentos establecida en otras normativas vigentes: • Res. 301/99 MsyAS. Cobertura de insulina (100%), antidiabéticos orales (70%) y tirillas reactivas (400 anuales). Para pacientes diabéticos insulinodependientes lábiles participantes en programas específicos de prevención secundaria se duplicará la provisión de tirillas para medición de glucemia (autocontrol). • Res. 791/99 MSyAS. Cobertura del 100% del mestinón 60 mg. para el tratamiento de la Miastenia Gravis"
+    },
+    {
+     "num": "7.6",
+     "nivel": 2,
+     "titulo": "",
+     "texto": "Todos los prestadores que brinden servicios a los Agentes del Seguro deberán recetar medicamentos por su nombre genérico, y se aplicarán los mecanismos de sustitución y precios de referencia para establecer la cobertura a cargo del Agente del Seguro."
+    },
+    {
+     "num": "8",
+     "nivel": 1,
+     "titulo": "Otras coberturas",
+     "texto": ""
+    },
+    {
+     "num": "8.1",
+     "nivel": 2,
+     "titulo": "",
+     "texto": "El cuidado paliativo es la asistencia activa y total de los pacientes por un equipo multidisciplinario, cuando la expectativa de vida del paciente no supera el lapso de 6 meses, por no responder al tratamiento curativo que le fue impuesto. Los objetivos aquí serán aliviar el dolor, los síntomas y el abordaje psicosocial del paciente. La cobertura estará dada en función del marco general que marca el PMO, es decir que los Agentes del"
+    }
+   ]
+  },
+  "pmo_anexo1_url": "https://servicios.infoleg.gob.ar/infolegInternet/verNorma.do?id=73649",
   "pmo_asociaciones": {},
   "grupos": {
    "Otros / general": 843,
@@ -568,9 +641,6 @@
   "(#)": "Por presupuesto: prácticas en desuso que no tienen valores de referencia (U.B.).",
   "PCR": "Determinación por metodología de Reacción en Cadena de la Polimerasa.",
   "U.B.": "Unidad Bioquímica: variable disparadora del arancel. Arancel = U.B. × valor de la U.B.",
-  "N8327": "Ver norma/interpretación del código 668327 (Pesticidas nitrogenados).",
-  "N8332": "Ver norma/interpretación del código 668332 (Pesticidas organoclorados).",
-  "N8337": "Ver norma/interpretación del código 668337 (Pesticidas organofosforados).",
   "661200": "URGENCIAS: se adiciona a toda prescripción de urgencia (una vez, independiente de la cantidad de prácticas).",
   "660001": "ACTO BIOQUÍMICO (AB): se aplica 1 vez por prescripción, cubre etapas pre/post-analíticas.",
   "661001": "ACTO BIOQUÍMICO DE INTERNACIÓN (ABI): 1 por día de internación.",
@@ -580,17 +650,20 @@
   {
    "ley": "15465",
    "titulo": "Enfermedades de notificación obligatoria",
-   "sancion": "29/09/1960"
+   "sancion": "29/09/1960",
+   "url": "https://www.argentina.gob.ar/normativa/nacional/ley-15465-195093"
   },
   {
    "ley": "22990",
    "titulo": "Ley de Sangre",
-   "sancion": "20/11/1983"
+   "sancion": "20/11/1983",
+   "url": "https://www.argentina.gob.ar/normativa/nacional/ley-22990-49103"
   },
   {
    "ley": "23798",
    "titulo": "Ley de Sida",
-   "sancion": "16/08/1990"
+   "sancion": "16/08/1990",
+   "url": "https://servicios.infoleg.gob.ar/infolegInternet/verNorma.do?id=199"
   },
   {
    "ley": "24901",
@@ -733,37 +806,44 @@
       "1.297.114"
      ]
     ]
-   }
+   },
+   "url": "https://www.argentina.gob.ar/normativa/nacional/ley-24901-47677"
   },
   {
    "ley": "25326",
    "titulo": "Protección de Datos Personales",
-   "sancion": "04/10/2000"
+   "sancion": "04/10/2000",
+   "url": "https://servicios.infoleg.gob.ar/infolegInternet/verNorma.do?id=64790"
   },
   {
    "ley": "25543",
    "titulo": "Test HIV obligatorio a embarazadas",
-   "sancion": "27/11/2001"
+   "sancion": "27/11/2001",
+   "url": "https://servicios.infoleg.gob.ar/infolegInternet/verNorma.do?id=71528"
   },
   {
    "ley": "26279",
    "titulo": "Pesquisa Neonatal",
-   "sancion": "08/08/2007"
+   "sancion": "08/08/2007",
+   "url": "https://www.argentina.gob.ar/normativa/nacional/ley-26279-131902"
   },
   {
    "ley": "26281",
    "titulo": "Prevención y Control del Chagas",
-   "sancion": "08/08/2007"
+   "sancion": "08/08/2007",
+   "url": "https://www.argentina.gob.ar/normativa/nacional/ley-26281-131904"
   },
   {
    "ley": "26369",
    "titulo": "Detección de estreptococo Grupo B a embarazadas",
-   "sancion": "16/04/2008"
+   "sancion": "16/04/2008",
+   "url": "https://www.argentina.gob.ar/normativa/nacional/ley-26369-140274"
   },
   {
    "ley": "26529",
    "titulo": "Derechos del Paciente",
-   "sancion": "21/10/2009"
+   "sancion": "21/10/2009",
+   "url": "https://servicios.infoleg.gob.ar/infolegInternet/verNorma.do?id=160432"
   },
   {
    "ley": "26588",
@@ -792,7 +872,8 @@
     "665576",
     "665583",
     "666445"
-   ]
+   ],
+   "url": "https://www.argentina.gob.ar/normativa/nacional/ley-26588-162428"
   },
   {
    "ley": "26862",
@@ -820,12 +901,14 @@
     "660759",
     "660863",
     "660298"
-   ]
+   ],
+   "url": "https://servicios.infoleg.gob.ar/infolegInternet/verNorma.do?id=216700"
   },
   {
    "ley": "27232",
    "titulo": "Ley NBU (aplicación obligatoria nacional)",
-   "sancion": "26/11/2015"
+   "sancion": "26/11/2015",
+   "url": "https://www.argentina.gob.ar/normativa/nacional/ley-27232-257440"
   },
   {
    "ley": "27305",
@@ -844,7 +927,8 @@
     "alergia proteína leche vacuna",
     "enfermedades metabólicas"
    ],
-   "codigos": []
+   "codigos": [],
+   "url": "https://www.argentina.gob.ar/normativa/nacional/ley-27305-267397"
   },
   {
    "ley": "27696",
@@ -866,7 +950,8 @@
     "330101",
     "330102",
     "330103"
-   ]
+   ],
+   "url": "https://servicios.infoleg.gob.ar/infolegInternet/verNorma.do?id=374556"
   },
   {
    "ley": "310/2004",
@@ -886,7 +971,8 @@
     "coseguro",
     "medicamentos"
    ],
-   "codigos": []
+   "codigos": [],
+   "url": "https://servicios.infoleg.gob.ar/infolegInternet/verNorma.do?id=94218"
   },
   {
    "ley": "HPGD",
@@ -907,7 +993,8 @@
     "facturación",
     "internación"
    ],
-   "codigos": []
+   "codigos": [],
+   "url": "https://www.argentina.gob.ar/normativa/nacional/decreto-939-2000-64697"
   },
   {
    "ley": "2820/2022",
@@ -931,7 +1018,8 @@
     "660413",
     "661070",
     "660543"
-   ]
+   ],
+   "url": "https://servicios.infoleg.gob.ar/infolegInternet/verNorma.do?id=375042"
   },
   {
    "ley": "3437/2021",
@@ -954,7 +1042,8 @@
     "660370",
     "660863",
     "660300"
-   ]
+   ],
+   "url": "https://servicios.infoleg.gob.ar/infolegInternet/verNorma.do?id=357725"
   },
   {
    "ley": "27610",
@@ -978,7 +1067,8 @@
     "661175",
     "660433",
     "660475"
-   ]
+   ],
+   "url": "https://www.argentina.gob.ar/normativa/nacional/ley-27610-346231"
   },
   {
    "ley": "340/2026",
@@ -996,7 +1086,8 @@
     "aranceles",
     "zona desfavorable"
    ],
-   "codigos": []
+   "codigos": [],
+   "url": "https://servicios.infoleg.gob.ar/infolegInternet/verNorma.do?id=423441"
   },
   {
    "ley": "438/2021",
@@ -1015,7 +1106,8 @@
     "opción de cambio",
     "seguro de salud"
    ],
-   "codigos": []
+   "codigos": [],
+   "url": "https://servicios.infoleg.gob.ar/infolegInternet/verNorma.do?id=351763"
   }
  ],
  "cie10": {
@@ -193309,8 +193401,8 @@
    ],
    "titulo_origen": "realineado",
    "abrev_posibles": [
-    "OP",
-    "Inf"
+    "Inf",
+    "OP"
    ]
   },
   "020111": {
@@ -195414,8 +195506,8 @@
    "titulo_origen": "unico",
    "abrev_posibles": [
     "OP",
-    "CAV",
-    "DCR"
+    "DCR",
+    "CAV"
    ]
   },
   "020802": {
@@ -195554,8 +195646,8 @@
     }
    ],
    "abrev_posibles": [
-    "GL",
-    "DJE"
+    "DJE",
+    "GL"
    ]
   },
   "020804": {
@@ -197545,8 +197637,8 @@
    ],
    "abrev_posibles": [
     "Qx",
-    "TTO",
-    "FX"
+    "FX",
+    "TTO"
    ]
   },
   "030306": {
@@ -202384,8 +202476,8 @@
     }
    ],
    "abrev_posibles": [
-    "PBL",
-    "OP"
+    "OP",
+    "PBL"
    ]
   },
   "031206": {
@@ -207838,9 +207930,9 @@
     }
    ],
    "abrev_posibles": [
+    "AAA",
     "TTO",
-    "Qx",
-    "AAA"
+    "Qx"
    ]
   },
   "070402": {
@@ -210181,8 +210273,8 @@
     }
    ],
    "abrev_posibles": [
-    "Inf",
-    "MMII"
+    "MMII",
+    "Inf"
    ]
   },
   "070717": {
@@ -215988,8 +216080,8 @@
     }
    ],
    "abrev_posibles": [
-    "OP",
     "TTO",
+    "OP",
     "Qx"
    ]
   },
@@ -216620,8 +216712,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "US"
+    "US",
+    "TTO"
    ]
   },
   "080701": {
@@ -221432,8 +221524,8 @@
     }
    ],
    "abrev_posibles": [
-    "OP",
-    "TTO"
+    "TTO",
+    "OP"
    ]
   },
   "100213": {
@@ -233082,8 +233174,8 @@
     }
    ],
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "121723": {
@@ -236286,9 +236378,9 @@
    ],
    "titulo_revisar": true,
    "abrev_posibles": [
-    "TCSC",
+    "SC",
     "BX",
-    "SC"
+    "TCSC"
    ]
   },
   "130109": {
@@ -236489,8 +236581,8 @@
     }
    ],
    "abrev_posibles": [
-    "TCSC",
-    "SC"
+    "SC",
+    "TCSC"
    ]
   },
   "130113": {
@@ -248511,8 +248603,8 @@
    "lateralidad": "Bilateral",
    "titulo_origen": "realineado",
    "abrev_posibles": [
-    "FO",
-    "CTROL"
+    "CTROL",
+    "FO"
    ]
   },
   "300201": {
@@ -253216,8 +253308,8 @@
    ],
    "titulo_origen": "unico",
    "abrev_posibles": [
-    "Inf",
-    "MMSS"
+    "MMSS",
+    "Inf"
    ]
   },
   "340822": {
@@ -254381,10 +254473,10 @@
     }
    ],
    "abrev_posibles": [
-    "ABD",
     "RMI",
     "RMN",
-    "RNM"
+    "RNM",
+    "ABD"
    ]
   },
   "342009": {
@@ -257053,8 +257145,8 @@
    ],
    "lateralidad": "Bilateral",
    "abrev_posibles": [
-    "MMII",
-    "Inf"
+    "Inf",
+    "MMII"
    ]
   },
   "070702": {
@@ -262337,8 +262429,8 @@
     "Coseguro máximo: 100%."
    ],
    "abrev_posibles": [
-    "DX",
-    "Px"
+    "Px",
+    "DX"
    ]
   },
   "ODO0802": {
@@ -270459,8 +270551,8 @@
    },
    "abrev_posibles": [
     "OP",
-    "CAV",
-    "DCR"
+    "DCR",
+    "CAV"
    ]
   },
   "U020802": {
@@ -272584,8 +272676,8 @@
    },
    "abrev_posibles": [
     "Qx",
-    "TTO",
-    "FX"
+    "FX",
+    "TTO"
    ]
   },
   "U030306": {
@@ -274545,8 +274637,8 @@
     "total_2002": 378.1
    },
    "abrev_posibles": [
-    "OP",
-    "LAR"
+    "LAR",
+    "OP"
    ]
   },
   "U030602": {
@@ -275790,8 +275882,8 @@
     "total_2002": 263.44
    },
    "abrev_posibles": [
-    "OP",
-    "GL"
+    "GL",
+    "OP"
    ]
   },
   "U030806": {
@@ -277440,8 +277532,8 @@
     "total_2002": 394.36
    },
    "abrev_posibles": [
-    "OP",
-    "PBL"
+    "PBL",
+    "OP"
    ]
   },
   "U031206": {
@@ -282977,9 +283069,9 @@
     "total_2002": 443.57
    },
    "abrev_posibles": [
+    "AAA",
     "TTO",
-    "Qx",
-    "AAA"
+    "Qx"
    ]
   },
   "U070402": {
@@ -285310,8 +285402,8 @@
     "total_2002": 22.06
    },
    "abrev_posibles": [
-    "Inf",
-    "MMII"
+    "MMII",
+    "Inf"
    ]
   },
   "U070717": {
@@ -291727,8 +291819,8 @@
     "Equivale a la práctica 080618 del Nomenclador de Prestaciones Médicas."
    ],
    "abrev_posibles": [
-    "TTO",
-    "US"
+    "US",
+    "TTO"
    ]
   },
   "U080701": {
@@ -292796,8 +292888,8 @@
     "total_2002": 253.89
    },
    "abrev_posibles": [
-    "TTO",
-    "CTL"
+    "CTL",
+    "TTO"
    ]
   },
   "U080718": {
@@ -310347,8 +310439,8 @@
     "total_2002": 128.81
    },
    "abrev_posibles": [
-    "TTO",
-    "Qx"
+    "Qx",
+    "TTO"
    ]
   },
   "U121723": {
@@ -313271,8 +313363,8 @@
     "total_2002": 35.67
    },
    "abrev_posibles": [
-    "MMSS",
-    "Inf"
+    "Inf",
+    "MMSS"
    ]
   },
   "U121937": {
@@ -314303,9 +314395,9 @@
     "total_2002": 15.78
    },
    "abrev_posibles": [
-    "TCSC",
+    "SC",
     "BX",
-    "SC"
+    "TCSC"
    ]
   },
   "U130109": {
@@ -314506,8 +314598,8 @@
     "total_2002": 28.22
    },
    "abrev_posibles": [
-    "TCSC",
-    "SC"
+    "SC",
+    "TCSC"
    ]
   },
   "U130113": {
@@ -325524,8 +325616,8 @@
     "Equivale a la práctica 260130 del Nomenclador de Prestaciones Médicas (similitud 87%)."
    ],
    "abrev_posibles": [
-    "VIT",
-    "DX"
+    "DX",
+    "VIT"
    ],
    "cie_rel": [
     "D51",
@@ -330768,8 +330860,8 @@
    ],
    "lateralidad": "Bilateral",
    "abrev_posibles": [
-    "FO",
-    "CTROL"
+    "CTROL",
+    "FO"
    ]
   },
   "U300130": {
@@ -335921,8 +336013,8 @@
     "Equivale a la práctica 340820 del Nomenclador de Prestaciones Médicas (similitud 95%)."
    ],
    "abrev_posibles": [
-    "Inf",
-    "MMSS"
+    "MMSS",
+    "Inf"
    ]
   },
   "U340822": {
@@ -337175,10 +337267,10 @@
     "Equivale a la práctica 342008 del Nomenclador de Prestaciones Médicas."
    ],
    "abrev_posibles": [
-    "ABD",
     "RMI",
     "RMN",
-    "RNM"
+    "RNM",
+    "ABD"
    ]
   },
   "U342009": {
@@ -337708,9 +337800,9 @@
     "Equivale a la práctica 350116 del Nomenclador de Prestaciones Médicas (similitud 92%)."
    ],
    "abrev_posibles": [
-    "RT",
     "TTO",
-    "Ca"
+    "Ca",
+    "RT"
    ]
   },
   "U350310": {
@@ -362018,10 +362110,10 @@
     "Urgencia (U): si se solicita de urgencia, adicionar el código 661200 en la misma prescripción."
    ],
    "abrev_posibles": [
+    "RTO",
     "PLAQ",
     "PLQ",
-    "PQ",
-    "RTO"
+    "PQ"
    ]
   },
   "U60660747": {
@@ -366588,8 +366680,8 @@
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 661025."
    ],
    "abrev_posibles": [
-    "CMV",
-    "Ac"
+    "Ac",
+    "CMV"
    ]
   },
   "U61661030": {
@@ -366638,8 +366730,8 @@
     "Práctica de laboratorio del Nomenclador Único. Equivale al código NBU 661030."
    ],
    "abrev_posibles": [
-    "CMV",
-    "Ac"
+    "Ac",
+    "CMV"
    ]
   },
   "U60661035": {
