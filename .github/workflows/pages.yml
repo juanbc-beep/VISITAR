@@ -1,0 +1,43 @@
+# Publica la carpeta web/ en GitHub Pages.
+# Cada vez que se sube un cambio a la rama de trabajo, la app queda actualizada
+# para todo el equipo: nadie tiene que reinstalar nada, el service worker avisa.
+name: Publicar el manual
+
+on:
+  push:
+    branches: [claude/unified-medical-codes-manual-o9nw1w]
+    paths: ['web/**', '.github/workflows/pages.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verificar que la app sea un archivo válido
+        run: |
+          test -f web/index.html || { echo "Falta web/index.html"; exit 1; }
+          test -f web/sw.js || { echo "Falta el service worker"; exit 1; }
+          test -f web/manifest.webmanifest || { echo "Falta el manifest"; exit 1; }
+          python3 -c "import json;json.load(open('web/manifest.webmanifest'))"
+          echo "Tamaño de la app: $(du -h web/index.html | cut -f1)"
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: web
+      - id: deploy
+        uses: actions/deploy-pages@v4

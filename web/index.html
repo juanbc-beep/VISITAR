@@ -4,6 +4,31 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Manual Inteligente NBU · Códigos Bioquímicos</title>
+<meta name="description" content="Centro de respaldo de VISITAR SRL: códigos, prestaciones, obligaciones de cobertura y cómo se carga cada solicitud.">
+<meta name="theme-color" content="#0d7a86">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Manual NBU">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<script>
+/* ===================================================================
+   NUBE DE LA EMPRESA — lo completa el administrador UNA sola vez.
+   Instrucciones paso a paso en docs/INSTALACION.md
+
+   La «anon key» de Supabase es pública por diseño: puede figurar acá y en
+   el repositorio sin problema. Lo que protege los datos no es esconderla,
+   son las reglas RLS de docs/supabase.sql, que sólo dejan entrar a una
+   cuenta aprobada por el administrador.
+
+   Si estos dos campos quedan vacíos, la app funciona igual pero en modo
+   local: los datos viven sólo en esta computadora y no se comparten.
+   =================================================================== */
+window.NBU_NUBE = {
+  url:  "",   // https://xxxxxxxx.supabase.co
+  anon: ""    // eyJhbGciOiJIUzI1NiIs...
+};
+</script>
 <style>
 :root{
   --bg:#e9eef2; --surface:#ffffff; --surface-2:#f4f7f9; --surface-3:#eef3f6;
@@ -439,6 +464,16 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
 .t-rel{background:var(--inc-soft);color:var(--inc)}
 .t-new{background:var(--new-soft);color:var(--new)}
 /* Segundo nivel: estado del dato en la base. Sin color, para no competir con las de decisión. */
+/* Barra de instalación / versión nueva. Abajo y discreta: no debe tapar la ficha. */
+#swbar{position:fixed;left:50%;bottom:18px;transform:translate(-50%,120%);z-index:120;
+  display:flex;align-items:center;gap:10px;max-width:min(560px,92vw);
+  padding:10px 12px 10px 16px;border-radius:99px;border:1px solid var(--line-2);
+  background:var(--surface);box-shadow:var(--shadow);font-size:13px;color:var(--ink-2);
+  transition:transform .26s cubic-bezier(.4,0,.2,1);opacity:.99}
+#swbar.on{transform:translate(-50%,0)}
+#swbar span{flex:1;min-width:0}
+#swbar .icon-btn{width:28px;height:28px;flex-shrink:0;font-size:13px}
+@media print{#swbar{display:none}}
 .tag.t-meta{background:transparent;border:1px solid var(--line);color:var(--faint);font-weight:600;padding:1px 5px}
 .row:hover .tag.t-meta{border-color:var(--line-2);color:var(--muted)}
 .rright{text-align:right;flex-shrink:0}
@@ -2933,6 +2968,122 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
   let AUTH=load(KEY.auth,{company:null,profiles:[],updated:0});
   let CONTENT=load(KEY.content,{codes:{},page:{},updated:0});
   let SYNC=load(KEY.sync,{url:'',key:'',enabled:false});
+
+  /* ============================================================
+     NUBE — cuentas compartidas del equipo (Supabase)
+
+     Sin esto, cada computadora guarda sus propias cuentas en su propio
+     navegador y una cuenta creada en una máquina no existe en la otra: por eso
+     el administrador nunca veía las altas. Acá las cuentas viven en una base
+     común, y el estado «pendiente» lo pone la base, no el cliente.
+
+     Se enciende sola si docs/INSTALACION.md fue seguido y window.NBU_NUBE tiene
+     los dos datos. Si no, la app sigue funcionando en modo local como siempre.
+     ============================================================ */
+  const NUBE=(function(){
+    const cfg=(window.NBU_NUBE||{});
+    const URL_=String(cfg.url||'').replace(/\/+$/,''), ANON=String(cfg.anon||'');
+    const activa=!!(URL_&&ANON);
+    const SKEY='nbu-sesion';
+    let ses=load(SKEY,null);           // {access_token, refresh_token, expira, user}
+    let perfil=null;                   // fila de public.perfiles del usuario actual
+
+    const guardarSes=s=>{ses=s;s?save(SKEY,s):localStorage.removeItem(SKEY);};
+    const hdrBase=()=>({'apikey':ANON,'Content-Type':'application/json'});
+    const hdrAuth=()=>Object.assign(hdrBase(),{'Authorization':'Bearer '+(ses&&ses.access_token||ANON)});
+
+    async function leer(r){
+      let cuerpo=null;try{cuerpo=await r.json();}catch(e){}
+      if(!r.ok){
+        const m=(cuerpo&&(cuerpo.msg||cuerpo.message||cuerpo.error_description||cuerpo.error||cuerpo.hint))||('Error '+r.status);
+        throw new Error(traducir(m));
+      }
+      return cuerpo;
+    }
+    /* Los mensajes de Supabase vienen en inglés y el equipo no tiene por qué leerlos. */
+    function traducir(m){
+      const s=String(m);
+      if(/Invalid login credentials/i.test(s))return 'Correo o contraseña incorrectos.';
+      if(/User already registered|already been registered/i.test(s))return 'Ya existe una cuenta con ese correo.';
+      if(/Password should be at least/i.test(s))return 'La contraseña debe tener al menos 6 caracteres.';
+      if(/Unable to validate email|invalid format/i.test(s))return 'El correo no tiene un formato válido.';
+      if(/Email not confirmed/i.test(s))return 'La cuenta todavía no está confirmada por correo.';
+      if(/rate limit|too many/i.test(s))return 'Demasiados intentos. Esperá un momento.';
+      if(/Failed to fetch|NetworkError/i.test(s))return 'Sin conexión con la nube de la empresa.';
+      if(/un solo administrador|Sólo puede haber/i.test(s))return s;
+      return s;
+    }
+
+    async function token(cuerpo,tipo){
+      const r=await fetch(`${URL_}/auth/v1/token?grant_type=${tipo}`,
+        {method:'POST',headers:hdrBase(),body:JSON.stringify(cuerpo)});
+      const d=await leer(r);
+      guardarSes({access_token:d.access_token,refresh_token:d.refresh_token,
+        expira:Date.now()+((d.expires_in||3600)*1000)-60000,user:d.user});
+      return d;
+    }
+    async function vigente(){
+      if(!ses)return false;
+      if(Date.now()<ses.expira)return true;
+      try{await token({refresh_token:ses.refresh_token},'refresh_token');return true;}
+      catch(e){guardarSes(null);perfil=null;return false;}
+    }
+    /* Reintenta una vez si el token venció justo en el medio del llamado. */
+    async function api(ruta,opt){
+      await vigente();
+      const hacer=()=>fetch(URL_+ruta,Object.assign({},opt,{headers:Object.assign(hdrAuth(),(opt&&opt.headers)||{})}));
+      let r=await hacer();
+      if(r.status===401&&ses){try{await token({refresh_token:ses.refresh_token},'refresh_token');r=await hacer();}catch(e){}}
+      return leer(r);
+    }
+
+    return {
+      activa,
+      hay:()=>!!ses,
+      perfil:()=>perfil,
+      correo:()=>ses&&ses.user&&ses.user.email||'',
+
+      async registrar(nombre,correo,pass){
+        const r=await fetch(`${URL_}/auth/v1/signup`,{method:'POST',headers:hdrBase(),
+          body:JSON.stringify({email:correo,password:pass,data:{nombre:nombre}})});
+        await leer(r);
+        // No se inicia sesión: la cuenta nace pendiente y no entra hasta que la aprueben.
+      },
+      async entrar(correo,pass){
+        await token({email:correo,password:pass},'password');
+        return await this.miPerfil();
+      },
+      async salir(){
+        try{if(ses)await fetch(`${URL_}/auth/v1/logout`,{method:'POST',headers:hdrAuth()});}catch(e){}
+        guardarSes(null);perfil=null;
+      },
+      async miPerfil(){
+        if(!(await vigente()))return null;
+        const f=await api('/rest/v1/perfiles?select=*&id=eq.'+encodeURIComponent(ses.user.id),{method:'GET'});
+        perfil=(f&&f[0])||null;
+        return perfil;
+      },
+      async guardarMio(campos){
+        if(!perfil)return;
+        await api('/rest/v1/perfiles?id=eq.'+encodeURIComponent(perfil.id),
+          {method:'PATCH',headers:{'Prefer':'return=minimal'},body:JSON.stringify(campos)});
+        Object.assign(perfil,campos);
+      },
+
+      /* --- administración --- */
+      listar:()=>api('/rest/v1/perfiles?select=*&order=estado.asc,nombre.asc',{method:'GET'}),
+      cambiar:(id,campos)=>api('/rest/v1/perfiles?id=eq.'+encodeURIComponent(id),
+        {method:'PATCH',headers:{'Prefer':'return=minimal'},body:JSON.stringify(campos)}),
+      borrar:(id)=>api('/rest/v1/perfiles?id=eq.'+encodeURIComponent(id),
+        {method:'DELETE',headers:{'Prefer':'return=minimal'}}),
+      transferir:(id)=>api('/rest/v1/rpc/transferir_admin',{method:'POST',body:JSON.stringify({nuevo:id})}),
+      pendientes:()=>api('/rest/v1/rpc/pendientes',{method:'POST',body:'{}'})
+    };
+  })();
+  /* Se expone a propósito: es el mismo módulo que usa el panel de administración y
+     no otorga ningún permiso, porque todo lo decide la base con las reglas RLS. Sirve
+     para diagnosticar desde la consola si algún día la nube no responde. */
+  window.NBUNube=NUBE;
   let current=null, companyAuthed=false, editMode=false, gView='';
   let syncState={ok:null,msg:'',ts:0}, pollT=null;
 
@@ -2957,7 +3108,7 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
   function lockedFor(id){const l=LOCK[lockKey(id)];if(!l)return 0;const rem=Math.ceil((l.until-Date.now())/1000);return rem>0?rem:0;}
   function noteFail(id){const k=lockKey(id);const l=LOCK[k]||{n:0,until:0};l.n++;if(l.n>=5){l.until=Date.now()+30000;l.n=0;}LOCK[k]=l;}
   function noteOk(id){delete LOCK[lockKey(id)];}
-  function resetIdle(){if(!current)return;clearTimeout(idleT);idleT=setTimeout(()=>{if(current){current=null;editMode=false;document.body.classList.remove('editmode-on');toast('Sesión cerrada por inactividad');renderGate('profiles');gate.hidden=false;}},IDLE_MS);}
+  function resetIdle(){if(!current)return;clearTimeout(idleT);idleT=setTimeout(()=>{if(current){current=null;editMode=false;document.body.classList.remove('editmode-on');vigilarCuentas(false);toast('Sesión cerrada por inactividad');renderGate(NUBE.activa?'nubeLogin':'profiles');gate.hidden=false;}},IDLE_MS);}
   ['mousemove','keydown','click','touchstart'].forEach(ev=>document.addEventListener(ev,()=>{if(current)resetIdle();},{passive:true}));
 
   function logoInner(){return CONTENT.page.logo?`<img src="${CONTENT.page.logo}" alt="VISITAR SRL">`:'VISITAR';}
@@ -2992,11 +3143,24 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
   /* Lo que espera al administrador no puede vivir dentro de un panel de ajustes: si no
      se ve, no se revisa. Cuando hay algo pendiente aparece en la barra superior con el
      número, y lleva directo a la pestaña. */
+  let cuNube=0;   // cuentas pendientes en la nube, refrescadas aparte (el conteo es remoto)
   function contarPendientes(){
     const v=Object.values(CONTENT.verif||{}).filter(x=>x.estado==='pendiente').length;
     const pr=Object.values(CONTENT.propuestas||{}).reduce((n,l)=>n+l.length,0);
-    const cu=AUTH.profiles.filter(x=>x.estado==='pendiente').length;
+    const cu=NUBE.activa?cuNube:AUTH.profiles.filter(x=>x.estado==='pendiente').length;
     return {v,pr,cu,total:v+pr+cu};
+  }
+  /* El administrador tiene que enterarse de un alta hecha en otra computadora sin
+     recargar nada: se relee al entrar, al abrir el panel y cada dos minutos. */
+  let cuT=null;
+  async function refrescarCuentasNube(){
+    if(!NUBE.activa||!current||current.role!=='admin')return;
+    try{const d=await NUBE.pendientes();const o=Array.isArray(d)?d[0]:d;
+      if(o&&typeof o.cuentas==='number'){cuNube=o.cuentas;actualizarPendientes();}}catch(e){}
+  }
+  function vigilarCuentas(on){
+    clearInterval(cuT);cuT=null;
+    if(on&&NUBE.activa){refrescarCuentasNube();cuT=setInterval(refrescarCuentasNube,120000);}
   }
   function actualizarPendientes(){
     const b=el('pendBtn'); if(!b)return;
@@ -3007,7 +3171,7 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
     el('pendN').textContent=total>99?'99+':String(total);
     b.title=`Pendientes de revisar: ${cu} cuenta${cu!==1?'s':''} · ${v} ${v===1?'verificación':'verificaciones'} · ${pr} propuesta${pr!==1?'s':''}`;
   }
-  el('pendBtn').addEventListener('click',()=>openAdmin(contarPendientes().cu?'perfiles':'propuestas'));
+  el('pendBtn').addEventListener('click',()=>{refrescarCuentasNube();openAdmin(contarPendientes().cu?'perfiles':'propuestas');});
 
   /* ---- toast ---- */
   let toastEl=null;
@@ -3197,6 +3361,37 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
         <div class="gsub">Tu cuenta <b>${E(gate._nuevo||'')}</b> quedó <b>pendiente de aprobación</b>. Un administrador tiene que habilitarla antes de que puedas entrar. Avisale para que la revise.</div>
         <button class="gbtn" id="espVolver">Volver al inicio</button>
       </div>`;
+    } else if(v==='nubeLogin'){
+      html=`<div class="gcard">
+        <div class="glogo brand${CONTENT.page.logo?' hasimg':''}">${logoInner()}</div>
+        <h2>Entrar al manual</h2>
+        <div class="gsub">Con tu correo de trabajo y tu contraseña. La misma cuenta te sirve en cualquier computadora.</div>
+        ${field('nbMail','Correo','email')}
+        ${field('nbPass','Contraseña','password')}
+        <div class="gerr" id="gErr"></div>
+        <button class="gbtn" id="nbGo">Entrar</button>
+        <button class="gback" id="nbNew">No tengo cuenta todavía → crearla</button>
+      </div>`;
+    } else if(v==='nubeAlta'){
+      html=`<div class="gcard">
+        <div class="glogo">+</div>
+        <h2>Crear mi cuenta</h2>
+        <div class="gsub">La cuenta queda <b>pendiente</b> hasta que la apruebe el administrador. Usá tu correo de trabajo: es con lo que te va a identificar.</div>
+        ${field('naNom','Tu nombre y apellido')}
+        ${field('naMail','Correo','email')}
+        ${field('naPass','Contraseña (mínimo 6)','password')}
+        ${field('naPass2','Repetir contraseña','password')}
+        <div class="gerr" id="gErr"></div>
+        <button class="gbtn" id="naGo">Crear mi cuenta</button>
+        <button class="gback" id="naBack">← Volver</button>
+      </div>`;
+    } else if(v==='nubeRechazada'){
+      html=`<div class="gcard">
+        <div class="glogo" style="background:var(--exc)">✕</div>
+        <h2>Cuenta no habilitada</h2>
+        <div class="gsub">El administrador no habilitó esta cuenta. Si creés que es un error, pedile que la revise desde <b>Administración → Perfiles</b>.</div>
+        <button class="gbtn" id="nrVolver">Volver</button>
+      </div>`;
     } else if(v==='newprofile'){
       html=`<div class="gcard">
         <div class="glogo">+</div>
@@ -3294,8 +3489,48 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
       el('npGo').addEventListener('click',go);onEnter(go);
       el('npBack').addEventListener('click',()=>renderGate('profiles'));
     } else if(v==='espera'){
-      el('espVolver').addEventListener('click',()=>renderGate('profiles'));
+      el('espVolver').addEventListener('click',()=>renderGate(NUBE.activa?'nubeLogin':'profiles'));
+    } else if(v==='nubeRechazada'){
+      el('nrVolver').addEventListener('click',async()=>{await NUBE.salir();renderGate('nubeLogin');});
+    } else if(v==='nubeLogin'){
+      const go=async()=>{
+        const m=gv('nbMail'),p=gv('nbPass');
+        if(!m||!p)return gerr('Completá correo y contraseña.');
+        const b=el('nbGo');b.disabled=true;b.textContent='Entrando…';gerr('');
+        try{ const pf=await NUBE.entrar(m,p); entrarConNube(pf); }
+        catch(e){ gerr(e.message); }
+        finally{ if(el('nbGo')){b.disabled=false;b.textContent='Entrar';} }
+      };
+      el('nbGo').addEventListener('click',go);onEnter(go);
+      el('nbNew').addEventListener('click',()=>renderGate('nubeAlta'));
+    } else if(v==='nubeAlta'){
+      const go=async()=>{
+        const nm=gv('naNom'),m=gv('naMail'),p1=gv('naPass'),p2=gv('naPass2');
+        if(!nm)return gerr('Ingresá tu nombre.');
+        if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m))return gerr('Revisá el correo.');
+        if(p1.length<6)return gerr('La contraseña debe tener al menos 6 caracteres.');
+        if(p1!==p2)return gerr('Las contraseñas no coinciden.');
+        const b=el('naGo');b.disabled=true;b.textContent='Creando…';gerr('');
+        try{ await NUBE.registrar(nm,m,p1); gate._nuevo=nm; renderGate('espera'); }
+        catch(e){ gerr(e.message); if(el('naGo')){b.disabled=false;b.textContent='Crear mi cuenta';} }
+      };
+      el('naGo').addEventListener('click',go);onEnter(go);
+      el('naBack').addEventListener('click',()=>renderGate('nubeLogin'));
     }
+  }
+
+  /* Traduce la fila de public.perfiles al perfil que ya entiende el resto de la app,
+     para no tener que duplicar toda la interfaz por venir de la nube. */
+  function perfilDesdeNube(p){
+    return {id:p.id,name:p.nombre,role:p.rol==='admin'?'admin':'user',estado:p.estado,
+            favs:p.favoritos||[],notes:p.notas||{},recent:p.recientes||[],
+            ub:(p.ub!=null?Number(p.ub):null),_nube:true};
+  }
+  function entrarConNube(pf){
+    if(!pf){gerr('La cuenta existe pero no tiene perfil en la base. Avisale al administrador.');return;}
+    if(pf.estado==='pendiente'){gate._nuevo=pf.nombre;return renderGate('espera');}
+    if(pf.estado==='rechazado')return renderGate('nubeRechazada');
+    enterProfile(perfilDesdeNube(pf));
   }
 
   function enterProfile(p){
@@ -3309,6 +3544,7 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
     const adm=p.role==='admin';el('adminBtn').hidden=!adm;el('editModeBtn').hidden=!adm;
     applyContent();refreshStats();applyMode();render();hideGate();actualizarPendientes();
     if(SYNC.enabled)startPolling();
+    vigilarCuentas(adm);
     resetIdle();
     maybeOnboard();
   }
@@ -3331,8 +3567,61 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
     abox.querySelectorAll('.atab').forEach(b=>b.addEventListener('click',()=>{aTab=b.dataset.t;renderAdmin();}));
     renderPane();
   }
+  /* Perfiles cuando las cuentas viven en la nube. Se lee del servidor cada vez que se
+     abre: es la única forma de ver un alta hecha en otra computadora. */
+  async function paneNube(p){
+    p.innerHTML='<div class="ahint">Leyendo las cuentas del equipo…</div>';
+    let filas;
+    try{ filas=await NUBE.listar(); }
+    catch(e){ p.innerHTML=`<div class="ahint" style="color:var(--exc)">No se pudieron leer las cuentas: ${E(e.message)}</div>`; return; }
+    cuNube=filas.filter(x=>x.estado==='pendiente').length; actualizarPendientes();
+    const yo=NUBE.perfil()||{};
+    const pend=filas.filter(x=>x.estado==='pendiente');
+    const resto=filas.filter(x=>x.estado!=='pendiente');
+    const av=n=>E((n||'?').slice(0,1).toUpperCase());
+    p.innerHTML=
+      (pend.length?`<div class="ahint"><b>Cuentas esperando aprobación (${pend.length}).</b> Nadie puede entrar con ellas hasta que las habilites.</div>`+
+        pend.map(x=>`<div class="arow" style="border-color:color-mix(in srgb,var(--gestion) 45%,transparent);background:color-mix(in srgb,var(--gestion) 9%,transparent)">
+          <span class="pav" style="background:var(--gestion)">${av(x.nombre)}</span>
+          <div class="grow2"><div class="pnm">${E(x.nombre)}</div>
+            <div class="pmeta">Solicitada el ${new Date(x.creado).toLocaleDateString('es-AR')}</div></div>
+          <button class="minibtn" data-nact="ok" data-id="${E(x.id)}">Aprobar</button>
+          <button class="minibtn danger" data-nact="no" data-id="${E(x.id)}">Rechazar</button>
+        </div>`).join('')+'<div style="height:14px"></div>':'')+
+      resto.map(x=>`<div class="arow"${x.estado==='rechazado'?' style="opacity:.6"':''}>
+        <span class="pav">${av(x.nombre)}</span>
+        <div class="grow2"><div class="pnm">${E(x.nombre)}${x.id===yo.id?' <span style="color:var(--muted);font-weight:500">(vos)</span>':''}</div>
+          <div class="pmeta">${x.rol==='admin'?'Administrador':'Administrativo'}${x.estado==='rechazado'?' · rechazada':''} · ${(x.favoritos||[]).length} favoritos</div></div>
+        ${x.estado==='rechazado'
+          ? `<button class="minibtn" data-nact="ok" data-id="${E(x.id)}">Habilitar</button>`
+          : `<button class="minibtn" data-nact="rol" data-id="${E(x.id)}">${x.rol==='admin'?'Es el administrador':'Transferir administración'}</button>`}
+        <button class="minibtn danger" data-nact="del" data-id="${E(x.id)}"${x.rol==='admin'?' disabled title="No se puede eliminar al administrador"':''}>Eliminar</button>
+      </div>`).join('')+
+      `<div class="ahint" style="margin-top:12px">Las contraseñas las maneja la nube: nadie, ni vos, puede verlas. Si alguien la olvida, que cree la cuenta de nuevo o restablecela desde el panel de Supabase.</div>`;
+
+    p.querySelectorAll('[data-nact]').forEach(b=>b.addEventListener('click',async()=>{
+      const id=b.dataset.id, acc=b.dataset.nact, f=filas.find(x=>x.id===id)||{};
+      try{
+        if(acc==='ok'){ await NUBE.cambiar(id,{estado:'activo'}); toast(`Cuenta de ${f.nombre} habilitada`); }
+        else if(acc==='no'){ if(!confirm(`¿Rechazar la cuenta de "${f.nombre}"?\n\nNo va a poder entrar hasta que la habilites.`))return;
+          await NUBE.cambiar(id,{estado:'rechazado'}); toast('Cuenta rechazada'); }
+        else if(acc==='rol'){ if(f.rol==='admin')return toast('Es el administrador. Transferí el rol a otra cuenta para cambiarlo.',true);
+          if(!confirm(`¿Transferir la administración a "${f.nombre}"?\n\nVas a dejar de ser administrador: sólo puede haber uno.`))return;
+          await NUBE.transferir(id); toast('Transferiste la administración');
+          const mio=await NUBE.miPerfil();
+          if(mio&&mio.rol!=='admin'){current.role='user';el('adminBtn').hidden=true;el('editModeBtn').hidden=true;
+            editMode=false;document.body.classList.remove('editmode-on');closeAdmin();vigilarCuentas(false);return;} }
+        else if(acc==='del'){ if(f.rol==='admin')return toast('No se puede eliminar al administrador. Transferí el rol primero.',true);
+          if(!confirm(`¿Eliminar la cuenta de "${f.nombre}"? Se pierden sus favoritos y notas.`))return;
+          await NUBE.borrar(id); toast('Cuenta eliminada'); }
+        paneNube(p);
+      }catch(e){ toast(e.message,true); }
+    }));
+  }
+
   function renderPane(){
     const p=el('aPane');
+    if(aTab==='perfiles'&&NUBE.activa){ paneNube(p); return; }
     if(aTab==='perfiles'){
       const pend=AUTH.profiles.filter(x=>x.estado==='pendiente');
       const activos=AUTH.profiles.filter(x=>x.estado!=='pendiente');
@@ -3752,7 +4041,14 @@ create policy "kv_all" on kv for all
 
 
   /* ============ header wiring ============ */
-  el('acctChip').addEventListener('click',()=>{if(companyAuthed)renderGate('profiles'),gate.hidden=false;});
+  el('acctChip').addEventListener('click',async()=>{
+    if(NUBE.activa){
+      if(!confirm('¿Cerrar tu sesión?\n\nVas a tener que volver a poner tu correo y contraseña.'))return;
+      current=null;editMode=false;document.body.classList.remove('editmode-on');vigilarCuentas(false);
+      await NUBE.salir();renderGate('nubeLogin');gate.hidden=false;return;
+    }
+    if(companyAuthed)renderGate('profiles'),gate.hidden=false;
+  });
   el('adminBtn').addEventListener('click',()=>openAdmin());
   el('editModeBtn').addEventListener('click',()=>{
     editMode=!editMode;document.body.classList.toggle('editmode-on',editMode);
@@ -3762,12 +4058,25 @@ create policy "kv_all" on kv for all
 
   /* ============ API pública para el resto de la app ============ */
   let paT=null;
-  function persistAuthSoon(){save(KEY.auth,AUTH);clearTimeout(paT);paT=setTimeout(persistAuth,1200);}
+  function guardarPerfil(){ if(current&&current._nube)persistAuthSoon(); else persistAuth(); }
+  function persistAuthSoon(){
+    // Con la nube encendida, lo personal (favoritos, notas, U.B., recientes) viaja a la
+    // fila del propio usuario: así lo encuentra igual desde otra computadora.
+    if(current&&current._nube){
+      clearTimeout(paT);
+      paT=setTimeout(()=>{NUBE.guardarMio({favoritos:current.favs||[],notas:current.notes||{},
+        recientes:current.recent||[],ub:(current.ub!=null?current.ub:null)}).catch(()=>{});},1200);
+      return;
+    }
+    save(KEY.auth,AUTH);clearTimeout(paT);paT=setTimeout(persistAuth,1200);
+  }
   window.NBUProfile={
     active:()=>current,
     canEdit:()=>!!(current&&current.role==='admin'&&editMode),
-    saveFavs:(arr)=>{if(current){current.favs=arr.slice();current.updated=Date.now();persistAuth();}},
-    saveUB:(val)=>{if(current){current.ub=val;current.updated=Date.now();persistAuth();}},
+    /* guardarPerfil() y no persistAuth(): con la nube encendida lo personal va a la
+       fila del usuario, no al bloque local de perfiles. */
+    saveFavs:(arr)=>{if(current){current.favs=arr.slice();current.updated=Date.now();guardarPerfil();}},
+    saveUB:(val)=>{if(current){current.ub=val;current.updated=Date.now();guardarPerfil();}},
     editFicha:editFicha,
     tour:startOnboard,
     recent:()=>current&&current.recent?current.recent:[],
@@ -3811,10 +4120,66 @@ create policy "kv_all" on kv for all
 
   /* ============ init ============ */
   applyContent();
-  if(!AUTH.company){showGate('setup');}
+  if(NUBE.activa){
+    /* Modo empresa: la identidad la da la nube. Si ya había sesión en esta máquina se
+       vuelve a entrar sola; si la cuenta fue rechazada o todavía está pendiente, se
+       muestra la pantalla que corresponde en vez de dejar entrar. */
+    showGate('nubeLogin');
+    if(NUBE.hay()){
+      NUBE.miPerfil().then(pf=>{ if(pf)entrarConNube(pf); }).catch(()=>{});
+    }
+  } else if(!AUTH.company){showGate('setup');}
   else{showGate('company');}
   if(SYNC.enabled){initEnc().then(()=>{startPolling();pull();});}
 })();
+})();
+
+/* ============ APLICACIÓN DE ESCRITORIO (PWA) ============
+   Con el service worker registrado, el navegador ofrece «Instalar» y la app
+   pasa a tener su propia ventana, su ícono y su copia local: abre sin internet
+   y sin entrar a ninguna dirección. Cuando el administrador publica una versión
+   nueva se avisa en pantalla en vez de recargar de prepo. */
+(function(){
+  if(!('serviceWorker' in navigator))return;
+  // file:// no admite service workers; en ese caso la app funciona igual, sin instalar.
+  if(location.protocol!=='http:'&&location.protocol!=='https:')return;
+  const aviso=(m,fn,txtBtn)=>{
+    let d=document.getElementById('swbar');
+    if(!d){d=document.createElement('div');d.id='swbar';document.body.appendChild(d);}
+    d.innerHTML=`<span></span>${fn?`<button class="minibtn" id="swAct"></button>`:''}<button class="icon-btn" id="swX" aria-label="Cerrar">✕</button>`;
+    d.querySelector('span').textContent=m;
+    if(fn){const b=d.querySelector('#swAct');b.textContent=txtBtn||'Actualizar';b.addEventListener('click',fn);}
+    d.querySelector('#swX').addEventListener('click',()=>d.classList.remove('on'));
+    requestAnimationFrame(()=>d.classList.add('on'));
+  };
+  navigator.serviceWorker.register('sw.js').then(reg=>{
+    reg.addEventListener('updatefound',()=>{
+      const nuevo=reg.installing;if(!nuevo)return;
+      nuevo.addEventListener('statechange',()=>{
+        if(nuevo.state==='installed'&&navigator.serviceWorker.controller)
+          aviso('Hay una versión nueva del manual.',()=>{nuevo.postMessage('SKIP_WAITING');},'Actualizar');
+      });
+    });
+  }).catch(()=>{});
+  navigator.serviceWorker.addEventListener('message',e=>{
+    if(e.data&&e.data.tipo==='nueva-version')
+      aviso('Hay una versión nueva del manual.',()=>location.reload(),'Actualizar');
+  });
+  let recargando=false;
+  navigator.serviceWorker.addEventListener('controllerchange',()=>{
+    if(recargando)return;recargando=true;location.reload();
+  });
+  // Botón de instalación: aparece sólo si el navegador todavía no la instaló.
+  let prompt=null;
+  window.addEventListener('beforeinstallprompt',e=>{
+    e.preventDefault();prompt=e;
+    aviso('Podés instalar el manual como aplicación de escritorio.',async()=>{
+      const d=document.getElementById('swbar');if(d)d.classList.remove('on');
+      prompt.prompt();await prompt.userChoice;prompt=null;
+    },'Instalar');
+  });
+  window.addEventListener('appinstalled',()=>{prompt=null;
+    const d=document.getElementById('swbar');if(d)d.classList.remove('on');});
 })();
 </script>
 </body>
