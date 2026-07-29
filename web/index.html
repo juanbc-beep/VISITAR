@@ -25,8 +25,8 @@
    local: los datos viven sólo en esta computadora y no se comparten.
    =================================================================== */
 window.NBU_NUBE = {
-  url:  "",   // https://xxxxxxxx.supabase.co
-  anon: ""    // eyJhbGciOiJIUzI1NiIs...
+  url:  "",   // https://xxxxxxxx.supabase.co          (Settings → API Keys)
+  anon: ""    // sb_publishable_...  o  eyJhbGciOiJIUzI1NiIs...  (las dos sirven)
 };
 </script>
 <style>
@@ -3100,7 +3100,8 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
      ============================================================ */
   const NUBE=(function(){
     const cfg=(window.NBU_NUBE||{});
-    const URL_=String(cfg.url||'').replace(/\/+$/,''), ANON=String(cfg.anon||'');
+    // trim y sin barra final: al pegar del panel de Supabase suelen colarse las dos cosas
+    const URL_=String(cfg.url||'').trim().replace(/\/+$/,''), ANON=String(cfg.anon||'').trim();
     const activa=!!(URL_&&ANON);
     const SKEY='nbu-sesion';
     let ses=load(SKEY,null);           // {access_token, refresh_token, expira, user}

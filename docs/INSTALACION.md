@@ -50,17 +50,27 @@ un paso de más que sólo trae problemas.
 1. **Authentication** → **Sign In / Providers** → **Email**.
 2. Desactivá **Confirm email**. Guardá.
 
-### 1.4 Copiar las dos claves
+### 1.4 Copiar la dirección del proyecto y la clave pública
 
-1. **Project Settings** (el engranaje) → **API**.
-2. Anotá:
-   - **Project URL** → algo como `https://abcdefgh.supabase.co`
-   - **anon public** → una cadena larga que arranca con `eyJ...`
+1. Engranaje **Settings** (abajo a la izquierda) → **API Keys**.
+   *(Si no lo encontrás, los mismos datos están en el botón **Connect**, arriba a
+   la derecha.)*
+2. Anotá los dos valores:
 
-> La clave `anon` **es pública a propósito** y va a quedar en el repositorio.
-> No es un descuido: lo que protege los datos son las reglas del paso 1.2, no
-> esconder esa clave. La otra clave, la `service_role`, **no se usa acá y no debe
-> salir nunca del panel de Supabase**.
+| Qué copiar | Dónde dice | Cómo se ve |
+|---|---|---|
+| **Project URL** | arriba de todo | `https://abcdefghijklmnop.supabase.co` |
+| **Clave pública** | *Publishable key* o *anon public* | `sb_publishable_…` o `eyJhbGciOi…` |
+
+> **Sobre el nombre de la clave:** Supabase la renombró. Los proyectos viejos la
+> muestran como **anon public** (arranca con `eyJhbGciOi…`) y los nuevos como
+> **Publishable key** (arranca con `sb_publishable_…`). **Las dos funcionan igual
+> en la app**: copiá la que te muestre tu proyecto.
+
+> **Sobre que sea pública:** esa clave **es pública a propósito** y va a quedar en
+> el repositorio. No es un descuido: lo que protege los datos son las reglas del
+> paso 1.2, no esconder la clave. La otra, la **service_role** (o *secret key*),
+> **no se usa acá y no debe salir nunca del panel de Supabase**.
 
 ---
 
@@ -72,7 +82,7 @@ un paso de más que sólo trae problemas.
 ```js
 window.NBU_NUBE = {
   url:  "",   // https://xxxxxxxx.supabase.co
-  anon: ""    // eyJhbGciOiJIUzI1NiIs...
+  anon: ""    // sb_publishable_...  (o la anon key: eyJhbGciOiJIUzI1NiIs...)
 };
 ```
 
@@ -80,10 +90,12 @@ window.NBU_NUBE = {
 
 ```js
 window.NBU_NUBE = {
-  url:  "https://abcdefgh.supabase.co",
-  anon: "eyJhbGciOiJIUzI1NiIsInR5cCI6..."
+  url:  "https://abcdefghijklmnop.supabase.co",
+  anon: "sb_publishable_A1b2C3d4E5f6G7h8"
 };
 ```
+
+Pegalos **entre las comillas**, sin espacios de más y sin barra al final de la URL.
 
 4. Guardá el cambio (**Commit changes**).
 
@@ -192,7 +204,8 @@ Las maneja Supabase y **nadie puede verlas**, ni vos. Si alguien la olvida:
 
 | Síntoma | Causa habitual |
 |---|---|
-| «Sin conexión con la nube de la empresa» | Las claves del paso 2 están mal pegadas, o el proyecto de Supabase está pausado (se pausa solo tras una semana sin uso; se reactiva desde el panel) |
+| «Sin conexión con la nube de la empresa» | Las claves del paso 2 están mal pegadas (fijate que la URL no tenga barra al final ni espacios), o el proyecto de Supabase está pausado (se pausa solo tras una semana sin uso; se reactiva desde el panel) |
+| No encontrás la Project URL en el panel | **Settings → API Keys**, arriba de todo. También aparece en el botón **Connect** de la barra superior. Es única de tu proyecto: nadie te la puede pasar |
 | Se creó la cuenta pero no aparece en Perfiles | Falta correr el SQL del paso 1.2, o tu cuenta no quedó como `admin` (paso 4.4) |
 | No aparece el cartel de «Instalar» | Sólo aparece en Chrome, Edge o navegadores derivados, y sólo con `https://`. En Firefox la app funciona igual pero no se instala |
 | «La cuenta todavía no está confirmada por correo» | Faltó desactivar *Confirm email* en el paso 1.3 |
