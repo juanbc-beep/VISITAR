@@ -754,13 +754,20 @@ aside{top:calc(var(--hh,128px) + 10px);max-height:calc(100vh - var(--hh,128px) -
    dónde estaban. Este resalta el elemento real y ancla la explicación al lado. */
 #tour{position:fixed;inset:0;z-index:1200;display:none}
 #tour.on{display:block}
+#tour{touch-action:none;overscroll-behavior:contain}
+body.tour-on{overscroll-behavior:none}
 #tourHole{position:fixed;border-radius:10px;box-shadow:0 0 0 9999px rgba(8,15,20,.66);
   transition:top .26s,left .26s,width .26s,height .26s;pointer-events:none;
   outline:2px solid var(--accent);outline-offset:2px}
+/* Al seguir un desplazamiento, el recorte tiene que ir pegado al elemento: con la
+   transición puesta llegaba tarde y se veía como un arrastre. */
+#tourHole.quieto{transition:none}
 #tourHole.oculto{outline:none;box-shadow:0 0 0 9999px rgba(8,15,20,.66)}
 #tourTip{position:fixed;width:min(360px,calc(100vw - 28px));background:var(--surface);
   border:1px solid var(--line-2);border-radius:13px;box-shadow:0 18px 50px rgba(0,0,0,.4);
-  padding:16px 18px;transition:top .26s,left .26s}
+  padding:16px 18px;transition:top .26s,left .26s;
+  /* si el texto de un paso no entra, se desplaza dentro de la tarjeta y no se corta */
+  max-height:calc(100vh - 24px);overflow-y:auto;overscroll-behavior:contain}
 #tourTip .tt-n{font-size:10.5px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:var(--accent)}
 #tourTip h4{margin:5px 0 6px;font-size:16px;font-weight:700;color:var(--ink);line-height:1.25}
 #tourTip p{margin:0;font-size:13.5px;line-height:1.55;color:var(--ink-2)}
@@ -773,6 +780,25 @@ aside{top:calc(var(--hh,128px) + 10px);max-height:calc(100vh - var(--hh,128px) -
 #tourTip .tt-x{background:none;border:none;color:var(--muted);font:inherit;font-size:12.5px;cursor:pointer;padding:4px}
 #tourTip .tt-x:hover{color:var(--ink)}
 #tourTip.centro{top:50%!important;left:50%!important;transform:translate(-50%,-50%);width:min(430px,calc(100vw - 28px))}
+/* En pantallas angostas el globo se apoya abajo y ocupa el ancho: al lado del elemento
+   no entra, y buscarle lugar terminaba tapando justo lo que se quería señalar. */
+#tourTip.abajo{top:auto!important;bottom:calc(12px + env(safe-area-inset-bottom,0px))!important;
+  left:50%!important;right:auto!important;transform:translateX(-50%);transition:none}
+/* Pantallas bajas: la tarjeta se achica para dejarle sitio a lo que señala. */
+@media (max-height:700px){
+  #tourTip{padding:12px 14px}
+  #tourTip h4{font-size:14.5px;margin:4px 0 5px}
+  #tourTip p{font-size:12.5px;line-height:1.5}
+  #tourTip .tt-nav{margin-top:11px}
+}
+@media (max-width:640px){
+  #tourTip.abajo{left:10px!important;right:10px!important;width:auto!important;transform:none}
+  #tourTip{width:auto;left:10px;right:10px}
+  #tourTip h4{font-size:15px}
+  #tourTip p{font-size:13px}
+  #tourTip .tt-nav .gbtn{padding:11px}
+  #tourTip .tt-x{padding:9px 6px}
+}
 #palette{position:fixed;inset:0;z-index:1150;background:rgba(10,18,24,.5);display:none;
   align-items:flex-start;justify-content:center;padding:12vh 18px 18px}
 #palette.on{display:flex}
@@ -3963,16 +3989,104 @@ create policy "kv_all" on kv for all
 
   let tIdx=0,tPasos=[],tCorriendo=false;
   function maybeOnboard(){try{if(localStorage.getItem('nbu-onboarded'))return;}catch(e){}startOnboard();}
+
+  /* ---- El recorrido manda sobre la pantalla ----
+     Mientras corre, la persona no scrollea: scrollea el recorrido. Antes se podía
+     mover la página con la rueda y el recorte se quedaba clavado donde estaba,
+     señalando cualquier otra cosa. Ahora el scroll del usuario se frena y el paso
+     encuadra solo el elemento, esperando a que el movimiento termine de verdad
+     antes de medir —medir a mitad de viaje era lo que se veía como «trabado»—. */
+  const TECLAS_SCROLL=new Set(['PageUp','PageDown','Home','End','ArrowUp','ArrowDown',' ','Spacebar']);
+  function frenarScroll(e){
+    if(!tCorriendo)return;
+    // Dentro de la tarjeta se deja pasar sólo si de verdad tiene texto de sobra: en
+    // pantallas chicas algunos pasos no entran enteros. Si no tiene nada que desplazar,
+    // el gesto se le escapaba a la página por debajo y movía el fondo.
+    const t=e.target&&e.target.closest?e.target.closest('#tourTip'):null;
+    if(t&&t.scrollHeight>t.clientHeight+2)return;   // overscroll-behavior evita que siga de largo
+    e.preventDefault();
+  }
+  function frenarTeclas(e){
+    if(!tCorriendo)return;
+    if(e.target&&e.target.closest&&e.target.closest('#tourTip'))return;   // los botones del globo siguen andando
+    if(TECLAS_SCROLL.has(e.key))e.preventDefault();
+  }
+  addEventListener('wheel',frenarScroll,{passive:false});
+  addEventListener('touchmove',frenarScroll,{passive:false});
+  addEventListener('keydown',frenarTeclas,{capture:true});
+
+  const esperarQuieto=async(cont)=>{
+    let prev=-1,quieto=0;
+    for(let i=0;i<45;i++){                       // tope ~750 ms por si el navegador no anima
+      await new Promise(r=>requestAnimationFrame(r));
+      const y=Math.round(cont?cont.scrollTop:window.scrollY);
+      if(y===prev){ if(++quieto>=3)return; } else { quieto=0; prev=y; }
+    }
+  };
+  /* Fijo o pegajoso da igual: mover la página no lo saca de donde está, así que
+     scrollear la ventana para «buscarlo» sólo desacomoda el resto. */
+  const enSitioFijo=n=>{
+    for(let e=n;e&&e!==document.body;e=e.parentElement){
+      const p=getComputedStyle(e).position;
+      if(p==='fixed'||p==='sticky')return true;
+    }
+    return false;
+  };
+  /* El elemento puede vivir dentro de algo que scrollea por su cuenta —la ficha, por
+     ejemplo—: ahí hay que mover ese contenedor, no la ventana. Sin esto, el paso de
+     «Contá cómo se carga acá» señalaba un punto por debajo del borde de la pantalla. */
+  function contenedorScroll(n){
+    for(let e=n.parentElement;e&&e!==document.body;e=e.parentElement){
+      const cs=getComputedStyle(e);
+      if(/(auto|scroll)/.test(cs.overflowY)&&e.scrollHeight>e.clientHeight+2)return e;
+    }
+    return null;
+  }
+  /* Franja realmente utilizable: descuenta la cabecera pegajosa arriba y, en pantallas
+     angostas donde el globo va apoyado abajo, su altura. */
+  function franja(){
+    const hh=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hh'))||0;
+    const arriba=Math.max(10,hh+10);
+    // Se reserva el alto del globo abajo en cualquier resolución: el elemento queda en
+    // la mitad de arriba y la tarjeta debajo, que es donde se lee sin taparlo.
+    const tip=el('tourTip');
+    const abajo=(tip&&tip.offsetHeight?tip.offsetHeight:150)+22;
+    return {arriba,abajo,alto:Math.max(90,innerHeight-arriba-abajo)};
+  }
+  async function encuadrar(n){
+    if(!n)return;
+    const cont=contenedorScroll(n);
+    if(cont){
+      const cr=cont.getBoundingClientRect(), r=n.getBoundingClientRect();
+      let y=cont.scrollTop+(r.top-cr.top)-Math.max(0,(cont.clientHeight-r.height)/2);
+      y=Math.max(0,Math.min(cont.scrollHeight-cont.clientHeight,Math.round(y)));
+      if(Math.abs(y-cont.scrollTop)>2){
+        try{cont.scrollTo({top:y,behavior:'smooth'});}catch(e){cont.scrollTop=y;}
+        await esperarQuieto(cont);
+      }
+    }
+    if(enSitioFijo(n))return;
+    const f=franja(), r=n.getBoundingClientRect();
+    let y=scrollY+r.top-f.arriba;
+    if(r.height<f.alto)y-=(f.alto-r.height)/2; // centrado en la franja, no en la ventana
+    const max=Math.max(0,document.documentElement.scrollHeight-innerHeight);
+    y=Math.max(0,Math.min(max,Math.round(y)));
+    if(Math.abs(y-scrollY)<=2)return;
+    try{scrollTo({top:y,behavior:'smooth'});}catch(e){scrollTo(0,y);}
+    await esperarQuieto();
+  }
+
   async function startOnboard(){
-    if(tCorriendo&&el('tour').classList.contains('on'))return;
     tCorriendo=true;
-    tPasos=pasosTour(); tIdx=0;
+    tPasos=pasosTour(); tIdx=0;                 // volver a pedirlo reinicia desde el principio
     el('onboard').classList.remove('on');
     el('tour').classList.add('on');
+    document.body.classList.add('tour-on');
     await pintarPaso();
   }
   function endOnboard(){
     el('tour').classList.remove('on'); el('onboard').classList.remove('on'); tCorriendo=false;
+    document.body.classList.remove('tour-on');
     try{localStorage.setItem('nbu-onboarded','1');}catch(e){}
     closeDrawer(); if(state.view!=='list'){state.view='list';render();}
     el('rail')&&el('rail').classList.remove('on');
@@ -3986,6 +4100,56 @@ create policy "kv_all" on kv for all
     return (n&&visible(n))?n:null;
   }
   function visible(n){const r=n.getBoundingClientRect();return r.width>0&&r.height>0&&getComputedStyle(n).visibility!=='hidden';}
+
+  const pintarHueco=(hole,c)=>{hole.style.top=c.top+'px';hole.style.left=c.left+'px';
+    hole.style.width=c.width+'px';hole.style.height=c.height+'px';};
+  /* Coloca resalte y tarjeta juntos, porque uno depende del otro. */
+  function colocarHueco(n,animar){
+    const hole=el('tourHole'), tip=el('tourTip');
+    hole.classList.toggle('quieto',!animar);
+    if(!n){hole.classList.add('oculto');hole.style.top='50%';hole.style.left='50%';
+      hole.style.width='0px';hole.style.height='0px';tip.className='centro';return;}
+    let c=rectoRecorte(n);
+    // A mitad de un desplazamiento el elemento puede quedar fuera de la ventana por un
+    // instante y el cálculo da un rectángulo sin área. Se deja el resalte donde estaba
+    // en vez de aplastarlo a cero: el reasentado posterior lo pone en su lugar.
+    if(c.width<2||c.height<2)return;
+    hole.classList.remove('oculto');
+    pintarHueco(hole,c);
+    ubicarTip(tip,n);
+    // Con la tarjeta apoyada abajo, un elemento muy alto se le metía por debajo y
+    // quedaba resaltado un pedazo que no se veía. Se recorta el resalte hasta donde
+    // empieza la tarjeta: se marca la parte que la persona sí tiene delante.
+    if(tip.classList.contains('abajo')){
+      const limite=tip.getBoundingClientRect().top-10;
+      if(c.bottom>limite&&limite-c.top>46){   // 46 px alcanzan para reconocer qué se señala
+        c=Object.assign({},c,{bottom:limite,height:Math.round(limite-c.top)});
+        pintarHueco(hole,c);
+      }
+    }
+  }
+  /* Recorte acotado a la ventana: un elemento a todo lo ancho se pasaba por los costados
+     con el margen y el marco quedaba cortado contra el borde. Se calcula acá y no se lee
+     del DOM porque el recorte viaja animado: leerlo devolvería una posición intermedia. */
+  function rectoRecorte(n){
+    const r=n.getBoundingClientRect(), m=6;
+    const L=Math.max(2,r.left-m), T=Math.max(2,r.top-m);
+    const R=Math.min(innerWidth-2,r.right+m), B=Math.min(innerHeight-2,r.bottom+m);
+    return {top:T,left:L,right:R,bottom:B,width:Math.max(0,R-L),height:Math.max(0,B-T)};
+  }
+  /* Reubicar sin rehacer el paso: para el scroll, el giro del teléfono y los cambios
+     de tamaño. Si algo llegara a mover la página, el recorte la sigue en vez de
+     quedarse señalando el vacío. */
+  let recolT=null;
+  function recolocar(){
+    if(!tCorriendo)return;
+    const paso=tPasos[tIdx]; if(!paso)return;
+    colocarHueco(objetivoDe(paso),false);
+  }
+  addEventListener('scroll',recolocar,{passive:true,capture:true});
+  addEventListener('resize',()=>{clearTimeout(recolT);recolT=setTimeout(recolocar,90);},{passive:true});
+  addEventListener('orientationchange',()=>{clearTimeout(recolT);recolT=setTimeout(recolocar,220);});
+
   async function pintarPaso(){
     const paso=tPasos[tIdx];
     if(!paso)return endOnboard();
@@ -3996,18 +4160,9 @@ create policy "kv_all" on kv for all
     // que se explican igual con la tarjeta centrada.
     if(paso.sel&&!n&&!paso.forzar){tIdx++;return pintarPaso();}
     const hole=el('tourHole'), tip=el('tourTip');
-    if(n){
-      try{n.scrollIntoView({block:'center',behavior:'smooth'});}catch(e){}
-      await esperar(260);
-      const r=n.getBoundingClientRect(), m=6;
-      hole.classList.remove('oculto');
-      hole.style.top=(r.top-m)+'px'; hole.style.left=(r.left-m)+'px';
-      hole.style.width=(r.width+m*2)+'px'; hole.style.height=(r.height+m*2)+'px';
-    }else{
-      hole.classList.add('oculto');
-      hole.style.top='50%'; hole.style.left='50%'; hole.style.width='0px'; hole.style.height='0px';
-    }
     const ultimo=tIdx===tPasos.length-1;
+    // Primero el texto: recién con el globo en su tamaño final se puede calcular
+    // cuánta pantalla queda libre para encuadrar el elemento.
     tip.className=n?'':'centro';
     tip.innerHTML=`<span class="tt-n">Paso ${tIdx+1} de ${tPasos.length}</span>
       <h4>${paso.t}</h4><p>${paso.d}</p>
@@ -4016,22 +4171,45 @@ create policy "kv_all" on kv for all
         <button class="gbtn" id="tNext">${ultimo?'Terminar':'Siguiente'}</button>
         ${!ultimo?'<button class="tt-x" id="tSkip">Saltar</button>':''}
       </div>`;
-    if(n)ubicarTip(tip,n);
+    await encuadrar(n);
+    colocarHueco(n,true);
     el('tNext').addEventListener('click',()=>{if(ultimo)endOnboard();else{tIdx++;pintarPaso();}});
     if(el('tPrev'))el('tPrev').addEventListener('click',()=>{tIdx--;pintarPaso();});
     if(el('tSkip'))el('tSkip').addEventListener('click',endOnboard);
+    // Varias pantallas entran con animación (la barra lateral, la ficha): el elemento
+    // sigue moviéndose después de la primera medición, así que se reasienta un par de
+    // veces. Es lo que evitaba que la tarjeta quedara plantada encima.
+    clearTimeout(reasentarT);
+    reasentarT=setTimeout(recolocar,130);
+    setTimeout(recolocar,380);
   }
+  let reasentarT=null;
+  /* La tarjeta se prueba contra el recorte real, en este orden: debajo, encima, a la
+     derecha, a la izquierda, y como último recurso apoyada abajo. Antes se decidía con
+     una sola cuenta y con la altura del paso anterior, así que a veces se plantaba
+     encima justo del elemento que estaba señalando. */
   function ubicarTip(tip,n){
-    const r=n.getBoundingClientRect(), tr=tip.getBoundingClientRect();
-    const H=innerHeight, W=innerWidth, gap=14;
-    let top=r.bottom+gap;
-    if(top+tr.height>H-10)top=r.top-tr.height-gap;          // no entra abajo: va arriba
-    if(top<10)top=Math.max(10,Math.min(H-tr.height-10,r.top));
-    let left=r.left+r.width/2-tr.width/2;
-    left=Math.max(12,Math.min(W-tr.width-12,left));
-    tip.style.top=top+'px'; tip.style.left=left+'px';
+    tip.className='';
+    const apoyar=()=>{tip.classList.add('abajo');tip.style.top='';tip.style.left='';};
+    // En pantallas angostas siempre abajo: al costado no entra en ningún caso.
+    if(innerWidth<=640)return apoyar();
+    tip.style.top='-9999px'; tip.style.left='0px';        // medir con su ancho definitivo
+    const m=tip.getBoundingClientRect(), tw=m.width, th=m.height;
+    const h=rectoRecorte(n);
+    const H=innerHeight, W=innerWidth, g=14, b=10;
+    const medio=h.left+h.width/2-tw/2;
+    const alCostado=Math.min(Math.max(b,h.top),Math.max(b,H-th-b));
+    const opciones=[[h.bottom+g,medio],[h.top-th-g,medio],
+                    [alCostado,h.right+g],[alCostado,h.left-tw-g]];
+    for(const [t,l0] of opciones){
+      const l=Math.max(b,Math.min(W-tw-b,l0));
+      if(t<b||t+th>H-b||l<b||l+tw>W-b)continue;
+      const pisa=l<h.right&&l+tw>h.left&&t<h.bottom&&t+th>h.top;
+      if(pisa)continue;
+      tip.style.top=t+'px'; tip.style.left=l+'px'; return;
+    }
+    apoyar();
   }
-  addEventListener('resize',()=>{if(tCorriendo)pintarPaso();},{passive:true});
   document.addEventListener('keydown',e=>{
     if(!tCorriendo)return;
     if(e.key==='Escape'){e.preventDefault();endOnboard();}
