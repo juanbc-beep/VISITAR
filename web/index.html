@@ -598,6 +598,11 @@ ul{margin:0;padding:0}
   font:700 12px var(--font-ui);padding:6px 12px;border-radius:99px;cursor:pointer;transition:.13s}
 .mnav-b:hover{border-color:var(--accent);color:var(--accent-ink)}
 .mnav-b.on{background:var(--accent-soft);border-color:color-mix(in srgb,var(--accent) 45%,transparent);color:var(--accent-ink)}
+/* El tutorial estaba al final del panel, a más de cinco pantallas de scroll: existía
+   pero no lo encontraba nadie. Va arriba, separado de las secciones. */
+.mnav-b.tut{margin-left:auto;border-color:color-mix(in srgb,var(--accent) 40%,transparent);color:var(--accent-ink)}
+.mnav-b.tut:hover{background:var(--accent-soft)}
+@media (max-width:560px){.mnav-b.tut{margin-left:0}}
 /* Renglones del texto normativo: la separación que la fuente ya trae, visible. */
 .nrm{display:flex;flex-direction:column;gap:4px}
 .nrm>span{padding-left:14px;text-indent:-14px}
@@ -3111,14 +3116,15 @@ function openInfo(expandLey){
     <button class="icon-btn close-x" id="closeModal" aria-label="Cerrar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
     <h3>Glosario y marco normativo</h3>
     <div class="sub">${esc(DB.meta.fuente)}</div>
-    <nav class="mnav">${SEC.map(([id,l],i)=>`<button class="mnav-b${i?'':' on'}" data-ir="${id}">${l}</button>`).join('')}</nav>
+    <nav class="mnav">${SEC.map(([id,l],i)=>`<button class="mnav-b${i?'':' on'}" data-ir="${id}">${l}</button>`).join('')}
+      <button class="mnav-b tut" id="tourBtn">▶ Ver tutorial</button></nav>
     <div class="slabel" id="iRef" style="font-size:11px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);font-weight:700;margin-bottom:8px">Referencias y flags</div>
     <div class="gtable">${gl}</div>
     <div class="slabel" id="iLey" style="font-size:11px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);font-weight:700;margin-bottom:8px">Leyes · Resoluciones · Decretos vigentes</div>
     <div class="leyes">${ley}</div>
     ${pmoGen}
     <p style="font-size:12px;color:var(--muted);margin-top:18px;line-height:1.5">${esc(DB.meta.nota_grupos)}</p>
-    <button class="minibtn" id="tourBtn" style="margin-top:14px">▶ Ver tutorial de uso</button>`;
+`;
   el('modal').classList.add('on'); tomarFoco(el('modalBox'));
   el('closeModal').addEventListener('click',()=>cerrarInfo());
   el('tourBtn').addEventListener('click',()=>{cerrarInfo();if(window.NBUProfile)NBUProfile.tour();});
@@ -4122,7 +4128,7 @@ create policy "kv_all" on kv for all
     const admin=!!(current&&current.role==='admin');
     const P=[
       {sel:null,t:'Bienvenido al Manual Inteligente',
-       d:'Este es el <b>centro de respaldo</b>: acá verificás códigos, prestaciones, obligaciones de cobertura y cómo se carga cada solicitud. La carga en sí se hace en los sistemas de siempre. El recorrido lleva un minuto y te muestra dónde está cada cosa.'},
+       d:'Este es el <b>centro de respaldo</b>: acá verificás códigos, prestaciones, obligaciones de cobertura y cómo se carga cada solicitud. La carga en sí se hace en los sistemas de siempre. El recorrido lleva dos minutos y te muestra dónde está cada cosa.'},
       {sel:'#q',t:'Buscador',
        d:'Escribí un <b>código, el nombre de la práctica, un sinónimo o una sigla</b>. Tolera errores de tipeo: «emograma» encuentra HEMOGRAMA. Y busca también por el nombre que la práctica tiene en el otro nomenclador.'},
       {sel:'.modeswitch',t:'Nomencladores',selAlt:'.modesel',
@@ -4131,51 +4137,64 @@ create policy "kv_all" on kv for all
        d:'Tres apartados de apoyo: <b>Diagnósticos CIE-10</b> para el diagnóstico que justifica la práctica, <b>Abreviaturas</b> para descifrar cómo viene escrita la orden, y <b>SURGE</b> con las patologías de reintegro y su documentación.'},
       {sel:'.ubctl',t:'Valor de la Unidad Bioquímica',
        d:'Cargá acá el <b>valor de la U.B.</b> y la app calcula el arancel en pesos en el listado, en la ficha y en la Mesa de trabajo. Queda guardado en tu perfil.'},
-      {sel:'#fFlags',t:'Reglas y estados',antes:async()=>{el('rail')&&el('rail').classList.add('on');await esperar(220);},
-       d:'Filtros para acotar: <b>con obligación de cobertura</b>, <b>en sangre</b> o <b>en orina</b>, favoritos, en desuso, y el estado de verificación de cada ficha.'},
+      {sel:'#fFlags',t:'Filtros, en tres bloques',antes:async()=>{el('rail')&&el('rail').classList.add('on');await esperar(220);},
+       d:'<b>Para decidir</b> junta lo que cambia la carga: obligación de cobertura, sangre u orina, urgencia, desuso. <b>Mi trabajo</b> son tus favoritos, lo visto hace poco y el estado de verificación. <b>Estado del dato</b> es cómo quedó cargado en este manual.'},
       {sel:'.viewtabs',t:'Vistas',antes:async()=>{el('rail')&&el('rail').classList.remove('on');await esperar(200);},
        d:'<b>Listado</b> es la vista normal. <b>Árbol de módulos</b> muestra qué prácticas quedan comprendidas dentro de otra. <b>Mesa de trabajo</b> analiza un caso completo.'},
-      {sel:'#list .row',t:'Cada resultado',
-       d:'Muestra el <b>código</b>, el nombre y su valor. Las etiquetas de colores avisan lo importante de un vistazo: obligación de cobertura, si es en sangre o en orina, lateralidad, si está en desuso.'},
+      {sel:'#list .row',t:'Cada resultado, y qué significa el color',
+       d:'Las etiquetas <b>en color</b> avisan algo que cambia la carga: cobertura, muestra, lateralidad, urgencia, desuso. Las <b>grises</b> sólo dicen cómo quedó cargado el dato. Si la fila tiene color, hay algo para mirar.'},
       {sel:'.veredicto',t:'La respuesta corta',
        antes:async()=>{openCode('660475');await esperar(430);},
        d:'Al abrir una ficha, arriba de todo están las cuatro respuestas: <b>si se cubre</b>, <b>cuánto vale</b>, <b>si requiere autorización</b> y <b>qué cantidad</b> corresponde. Tocá cualquiera para ir al detalle.'},
       {sel:'.carga',t:'Cómo se carga esta solicitud',
        d:'Los pasos en orden: qué código y en qué cantidad, <b>qué no cargar por separado</b> porque ya está comprendido, qué adicionar, qué diagnóstico consignar y qué papeles pedirle al afiliado.'},
+      {sel:'.sec.pleg .slabel',t:'Secciones que se abren y se cierran',
+       d:'El resto de la ficha va plegado, con el número de elementos que hay adentro. Se abre tocando el título —o con <b>Enter</b> si vas por teclado— y la app <b>recuerda cuáles dejás abiertas</b> para las próximas fichas.'},
+      {sel:'.dback',t:'Volver sobre tus pasos',
+       antes:async()=>{const g=document.querySelector('.drawer [data-goto]');
+         if(g){g.click();await esperar(520);}},
+       d:'Cuando saltás desde una ficha a un <b>código relacionado</b> o a su equivalente en el otro nomenclador, arriba te queda el rastro de dónde venías. Un toque y volvés, sin perder el hilo.'},
       {sel:'.verif',t:'Verificación de la ficha',
+       antes:async()=>{if(navPila.length)atrasFicha();await esperar(420);},
        d:admin?'Podés <b>marcar la ficha como verificada</b>, y también <b>validar</b> las que verificó un administrativo. La verificación vence a los 180 días, porque la normativa cambia.'
               :'Si contrastaste la ficha contra la fuente, tocá <b>Solicitar verificación</b>. Queda pendiente hasta que <b>un administrador la valide</b>.'},
       {sel:'#propAbrir',t:'Contá cómo se carga acá',
        d:'Lo que sabés sobre cómo se carga esta práctica <b>en el sistema de VISITAR</b> no está en ningún nomenclador. Escribilo una vez: un administrador lo aprueba y queda publicado para todo el equipo.'},
-      {sel:'#dCmp',t:'Comparar y copiar',
-       d:'<b>Comparar</b> pone dos códigos lado a lado con las diferencias resaltadas, útil cuando dudás entre parecidos. Al lado tenés copiar el código y la estrella para marcarlo como favorito.'},
-      {sel:'#rapidos',t:'Tus prácticas frecuentes',
+      {sel:'#dCmp',t:'Comparar, copiar e imprimir',
+       d:'<b>Comparar</b> pone dos códigos lado a lado con las diferencias resaltadas, útil cuando dudás entre parecidos. Al lado tenés copiar el código, <b>imprimir la ficha</b> completa y la estrella para marcarla como favorita.'},
+      {sel:'#rapidos',t:'Lo que usás todo el tiempo',
        antes:async()=>{closeDrawer();await esperar(280);
          if(!FAVS.size){['660475','660481'].forEach(k=>{if(!FAVS.has(k))toggleFav(k);});render();await esperar(300);}},
-       d:'Los códigos que marcás con la <b>estrella</b> aparecen acá arriba, a un clic. Como cargás siempre las mismas prácticas, te ahorra la búsqueda casi siempre.'},
+       d:'Dos solapas arriba del listado: <b>Frecuentes</b> son las que marcaste con la estrella, y <b>Vistos hoy</b> las últimas fichas que abriste. Esa segunda se llena sola con lo que estás cargando ahora.'},
       {sel:'.vtab[data-view="validator"]',t:'Mesa de trabajo',
        d:'Pegás <b>todos los códigos de un caso</b> y te los analiza junto. En modo <b>autorización</b> arma la documentación a pedirle al afiliado; en <b>facturación</b> detecta doble facturación, cantidades mal cargadas y códigos inexistentes.'},
       {sel:'#vCopy',t:'Informe para pegar',
        antes:async()=>{state.view='validator';render();await esperar(320);
          el('vcodes').value='661000 660475';el('vrun').click();await esperar(400);},
        d:'Deja el análisis en <b>texto listo para pegar</b> en el sistema donde llevan el caso: prácticas, obligaciones de cobertura y documentación a solicitar. También podés bajarlo en CSV o PDF.'},
-      {sel:'#infoBtn',t:'Glosario y normativa',
+      {sel:'#infoBtn',t:'Glosario y marco normativo',
        antes:async()=>{state.view='list';render();await esperar(280);},
-       d:'Las <b>leyes y resoluciones</b> que respaldan las coberturas, con sus artículos y las prácticas relacionadas. Es de donde sale el fundamento cuando hay que justificar una decisión.'},
-      {sel:'#themeBtn',t:'Tema y atajos',
-       d:'Cambia entre claro y oscuro. Y dos atajos que ahorran tiempo: <b>Ctrl+K</b> abre el buscador rápido desde cualquier lado, y la <b>barra /</b> salta al campo de búsqueda.'},
+       d:'Acá adentro hay tres cosas, con un índice arriba para saltar entre ellas: las <b>referencias</b> de las siglas, las <b>22 leyes y resoluciones</b> —cada una con enlace a su texto oficial— y la <b>cobertura y generalidades del PMO</b>, el Anexo I completo de la Res. 201/02.'},
+      {sel:'.mnav',t:'El Anexo I del PMO, entero',
+       antes:async()=>{el('infoBtn').click();await esperar(520);},
+       d:'Los 30 apartados de la norma con su numeración y su texto completo: qué se cubre en atención primaria, salud mental, odontología, medicamentos. Se abre cada uno tocándolo. Desde este mismo índice volvés a ver este tutorial cuando quieras.'},
+      {sel:'#themeBtn',t:'Tema, atajos y teclado',
+       antes:async()=>{cerrarInfo();await esperar(320);},
+       d:'Cambia entre claro y oscuro. <b>Ctrl+K</b> abre el buscador rápido desde cualquier lado y la <b>barra /</b> salta al campo de búsqueda. Toda la app se maneja con el tabulador si no querés usar el mouse.'},
       {sel:'#acctChip',t:'Tu perfil',
-       d:'Tus <b>favoritos, notas y valor de U.B.</b> quedan guardados acá. Desde este botón cambiás de perfil cuando se sienta otra persona.'}
+       d:'Tus <b>favoritos, notas y valor de U.B.</b> quedan guardados en tu cuenta, así que los encontrás igual desde cualquier computadora. Desde este botón cerrás sesión cuando se sienta otra persona.'},
+      {sel:null,t:'Instalala en tu computadora',
+       d:'Si abrís el manual desde el navegador te va a ofrecer <b>instalarlo como aplicación</b>: queda con su propio ícono y su ventana, y <b>abre sin internet</b> con toda la base adentro. Cuando se publique una versión nueva vas a ver un cartel para actualizar; no se reinicia sola, decidís vos cuándo.'}
     ];
     if(admin)P.push(
       {sel:'#pendBtn',t:'Pendientes de revisar',forzar:true,
-       d:'Cuando un administrativo <b>verifica una ficha</b> o <b>propone cómo se carga</b>, aparece acá con el número. Nada de eso vale hasta que vos lo validás. Sólo se muestra cuando hay algo esperando.'},
+       d:'Acá se junta todo lo que espera tu decisión: <b>altas de cuenta</b> de gente nueva, <b>verificaciones</b> que pidió un administrativo y <b>propuestas</b> de cómo se carga. Nada de eso vale hasta que vos lo apruebes. Sólo aparece cuando hay algo esperando.'},
       {sel:'#editModeBtn',t:'Modo edición',
        d:'Lo activás para poder <b>corregir el contenido de una ficha</b>: la denominación, las normas, las notas de auditoría. Se usa sobre todo en las que están marcadas como «denominación a confirmar».'},
       {sel:'#adminBtn',t:'Administración',
-       d:'Perfiles del equipo, textos y logo, sincronización en la nube, respaldo, y <b>exportar las correcciones y verificaciones</b> para que se incorporen a la base y no queden sólo en esta computadora.'});
+       d:'Perfiles del equipo y aprobación de cuentas, textos y logo, sincronización, respaldo, y <b>exportar las correcciones y verificaciones</b> para que se incorporen a la base y no queden sólo en esta computadora.'});
     P.push({sel:null,t:'Listo',
-      d:'Podés volver a ver este recorrido cuando quieras desde <b>Glosario y leyes → Ver tutorial de uso</b>.'});
+      d:'Podés volver a ver este recorrido cuando quieras desde el botón <b>Ver tutorial</b>, arriba del panel de Glosario y marco normativo.'});
     return P;
   }
 
@@ -4319,7 +4338,7 @@ create policy "kv_all" on kv for all
     // empieza la tarjeta: se marca la parte que la persona sí tiene delante.
     if(tip.classList.contains('abajo')){
       const limite=tip.getBoundingClientRect().top-10;
-      if(c.bottom>limite&&limite-c.top>46){   // 46 px alcanzan para reconocer qué se señala
+      if(c.bottom>limite&&limite-c.top>38){   // con 38 px todavía se reconoce qué se señala
         c=Object.assign({},c,{bottom:limite,height:Math.round(limite-c.top)});
         pintarHueco(hole,c);
       }
