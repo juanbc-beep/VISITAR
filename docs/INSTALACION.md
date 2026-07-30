@@ -107,17 +107,30 @@ venías trabajando.
 
 ## Parte 3 — Publicar la app (5 minutos)
 
+> **Este paso es obligatorio antes de publicar.** Si GitHub Pages no está
+> habilitado, el despliegue falla con *«Get Pages site failed»* y GitHub manda un
+> correo de error por cada intento.
+
 1. En el repositorio → **Settings** → **Pages**.
-2. En **Source**, elegí **GitHub Actions**.
-3. Listo. Cada vez que se suba un cambio a la rama de trabajo, la acción
-   *Publicar el manual* deja la versión nueva en línea sola.
-4. La dirección va a ser:
+2. En **Source**, elegí **GitHub Actions**. Guardá.
+3. La dirección va a ser:
 
 ```
 https://juanbc-beep.github.io/VISITAR/
 ```
 
-Podés seguir el despliegue en la pestaña **Actions**.
+### Cómo publicar una versión
+
+La publicación es **manual, a propósito**: así nada se despliega sin que vos lo
+decidas y no llegan correos de error por cambios de trabajo.
+
+1. Pestaña **Actions** → **Publicar el manual** (menú izquierdo).
+2. Botón **Run workflow** → **Run workflow**.
+3. En un minuto la versión nueva está en línea, y a cada persona le aparece el
+   cartel «Hay una versión nueva del manual».
+
+Si más adelante preferís que se publique solo en cada cambio, descomentá el bloque
+`push:` de `.github/workflows/pages.yml`.
 
 ---
 
@@ -209,7 +222,8 @@ Las maneja Supabase y **nadie puede verlas**, ni vos. Si alguien la olvida:
 | Se creó la cuenta pero no aparece en Perfiles | Falta correr el SQL del paso 1.2, o tu cuenta no quedó como `admin` (paso 4.4) |
 | No aparece el cartel de «Instalar» | Sólo aparece en Chrome, Edge o navegadores derivados, y sólo con `https://`. En Firefox la app funciona igual pero no se instala |
 | «La cuenta todavía no está confirmada por correo» | Faltó desactivar *Confirm email* en el paso 1.3 |
-| Los cambios no llegan al equipo | Mirá la pestaña **Actions** del repositorio: si la acción falló, ahí dice por qué |
+| Los cambios no llegan al equipo | La publicación es manual: **Actions → Publicar el manual → Run workflow**. Si la acción falla, ahí dice por qué |
+| «Get Pages site failed» al publicar | Falta el paso 3: **Settings → Pages → Source: GitHub Actions** |
 
 Para diagnosticar desde adentro de la app: `F12` → consola → escribí
 `NBUNube.pendientes()` y presioná Enter. Si contesta con números, la base
