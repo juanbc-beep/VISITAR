@@ -4137,14 +4137,14 @@ create policy "kv_all" on kv for all
        d:'Tres apartados de apoyo: <b>Diagnósticos CIE-10</b> para el diagnóstico que justifica la práctica, <b>Abreviaturas</b> para descifrar cómo viene escrita la orden, y <b>SURGE</b> con las patologías de reintegro y su documentación.'},
       {sel:'.ubctl',t:'Valor de la Unidad Bioquímica',
        d:'Cargá acá el <b>valor de la U.B.</b> y la app calcula el arancel en pesos en el listado, en la ficha y en la Mesa de trabajo. Queda guardado en tu perfil.'},
-      {sel:'#fFlags',t:'Filtros, en tres bloques',antes:async()=>{el('rail')&&el('rail').classList.add('on');await esperar(220);},
+      {sel:'#fFlags',t:'Filtros, en tres bloques',antes:async()=>{el('rail')&&el('rail').classList.add('on');await esperar(120);},
        d:'<b>Para decidir</b> junta lo que cambia la carga: obligación de cobertura, sangre u orina, urgencia, desuso. <b>Mi trabajo</b> son tus favoritos, lo visto hace poco y el estado de verificación. <b>Estado del dato</b> es cómo quedó cargado en este manual.'},
-      {sel:'.viewtabs',t:'Vistas',antes:async()=>{el('rail')&&el('rail').classList.remove('on');await esperar(200);},
+      {sel:'.viewtabs',t:'Vistas',antes:async()=>{el('rail')&&el('rail').classList.remove('on');await esperar(120);},
        d:'<b>Listado</b> es la vista normal. <b>Árbol de módulos</b> muestra qué prácticas quedan comprendidas dentro de otra. <b>Mesa de trabajo</b> analiza un caso completo.'},
       {sel:'#list .row',t:'Cada resultado, y qué significa el color',
        d:'Las etiquetas <b>en color</b> avisan algo que cambia la carga: cobertura, muestra, lateralidad, urgencia, desuso. Las <b>grises</b> sólo dicen cómo quedó cargado el dato. Si la fila tiene color, hay algo para mirar.'},
       {sel:'.veredicto',t:'La respuesta corta',
-       antes:async()=>{openCode('660475');await esperar(430);},
+       antes:async()=>{openCode('660475');await esperar(260);},
        d:'Al abrir una ficha, arriba de todo están las cuatro respuestas: <b>si se cubre</b>, <b>cuánto vale</b>, <b>si requiere autorización</b> y <b>qué cantidad</b> corresponde. Tocá cualquiera para ir al detalle.'},
       {sel:'.carga',t:'Cómo se carga esta solicitud',
        d:'Los pasos en orden: qué código y en qué cantidad, <b>qué no cargar por separado</b> porque ya está comprendido, qué adicionar, qué diagnóstico consignar y qué papeles pedirle al afiliado.'},
@@ -4152,10 +4152,10 @@ create policy "kv_all" on kv for all
        d:'El resto de la ficha va plegado, con el número de elementos que hay adentro. Se abre tocando el título —o con <b>Enter</b> si vas por teclado— y la app <b>recuerda cuáles dejás abiertas</b> para las próximas fichas.'},
       {sel:'.dback',t:'Volver sobre tus pasos',
        antes:async()=>{const g=document.querySelector('.drawer [data-goto]');
-         if(g){g.click();await esperar(520);}},
+         if(g){g.click();await esperar(200);}},
        d:'Cuando saltás desde una ficha a un <b>código relacionado</b> o a su equivalente en el otro nomenclador, arriba te queda el rastro de dónde venías. Un toque y volvés, sin perder el hilo.'},
       {sel:'.verif',t:'Verificación de la ficha',
-       antes:async()=>{if(navPila.length)atrasFicha();await esperar(420);},
+       antes:async()=>{if(navPila.length)atrasFicha();await esperar(200);},
        d:admin?'Podés <b>marcar la ficha como verificada</b>, y también <b>validar</b> las que verificó un administrativo. La verificación vence a los 180 días, porque la normativa cambia.'
               :'Si contrastaste la ficha contra la fuente, tocá <b>Solicitar verificación</b>. Queda pendiente hasta que <b>un administrador la valide</b>.'},
       {sel:'#propAbrir',t:'Contá cómo se carga acá',
@@ -4163,23 +4163,23 @@ create policy "kv_all" on kv for all
       {sel:'#dCmp',t:'Comparar, copiar e imprimir',
        d:'<b>Comparar</b> pone dos códigos lado a lado con las diferencias resaltadas, útil cuando dudás entre parecidos. Al lado tenés copiar el código, <b>imprimir la ficha</b> completa y la estrella para marcarla como favorita.'},
       {sel:'#rapidos',t:'Lo que usás todo el tiempo',
-       antes:async()=>{closeDrawer();await esperar(280);
-         if(!FAVS.size){['660475','660481'].forEach(k=>{if(!FAVS.has(k))toggleFav(k);});render();await esperar(300);}},
+       antes:async()=>{closeDrawer();await esperar(160);
+         if(!FAVS.size){['660475','660481'].forEach(k=>{if(!FAVS.has(k))toggleFav(k);});render();await esperar(120);}},
        d:'Dos solapas arriba del listado: <b>Frecuentes</b> son las que marcaste con la estrella, y <b>Vistos hoy</b> las últimas fichas que abriste. Esa segunda se llena sola con lo que estás cargando ahora.'},
       {sel:'.vtab[data-view="validator"]',t:'Mesa de trabajo',
        d:'Pegás <b>todos los códigos de un caso</b> y te los analiza junto. En modo <b>autorización</b> arma la documentación a pedirle al afiliado; en <b>facturación</b> detecta doble facturación, cantidades mal cargadas y códigos inexistentes.'},
       {sel:'#vCopy',t:'Informe para pegar',
-       antes:async()=>{state.view='validator';render();await esperar(320);
-         el('vcodes').value='661000 660475';el('vrun').click();await esperar(400);},
+       antes:async()=>{state.view='validator';render();await esperar(140);
+         el('vcodes').value='661000 660475';el('vrun').click();await esperar(220);},
        d:'Deja el análisis en <b>texto listo para pegar</b> en el sistema donde llevan el caso: prácticas, obligaciones de cobertura y documentación a solicitar. También podés bajarlo en CSV o PDF.'},
       {sel:'#infoBtn',t:'Glosario y marco normativo',
-       antes:async()=>{state.view='list';render();await esperar(280);},
+       antes:async()=>{state.view='list';render();await esperar(140);},
        d:'Acá adentro hay tres cosas, con un índice arriba para saltar entre ellas: las <b>referencias</b> de las siglas, las <b>22 leyes y resoluciones</b> —cada una con enlace a su texto oficial— y la <b>cobertura y generalidades del PMO</b>, el Anexo I completo de la Res. 201/02.'},
       {sel:'.mnav',t:'El Anexo I del PMO, entero',
-       antes:async()=>{el('infoBtn').click();await esperar(520);},
+       antes:async()=>{el('infoBtn').click();await esperar(180);},
        d:'Los 30 apartados de la norma con su numeración y su texto completo: qué se cubre en atención primaria, salud mental, odontología, medicamentos. Se abre cada uno tocándolo. Desde este mismo índice volvés a ver este tutorial cuando quieras.'},
       {sel:'#themeBtn',t:'Tema, atajos y teclado',
-       antes:async()=>{cerrarInfo();await esperar(320);},
+       antes:async()=>{cerrarInfo();await esperar(140);},
        d:'Cambia entre claro y oscuro. <b>Ctrl+K</b> abre el buscador rápido desde cualquier lado y la <b>barra /</b> salta al campo de búsqueda. Toda la app se maneja con el tabulador si no querés usar el mouse.'},
       {sel:'#acctChip',t:'Tu perfil',
        d:'Tus <b>favoritos, notas y valor de U.B.</b> quedan guardados en tu cuenta, así que los encontrás igual desde cualquier computadora. Desde este botón cerrás sesión cuando se sienta otra persona.'},
@@ -4229,14 +4229,6 @@ create policy "kv_all" on kv for all
   /* Quien pidió movimiento reducido no debería recibir 20 desplazamientos animados:
      la regla CSS apaga las transiciones pero el scroll del recorrido es JavaScript. */
   const sinMovimiento=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const esperarQuieto=async(cont)=>{
-    let prev=-1,quieto=0;
-    for(let i=0;i<45;i++){                       // tope ~750 ms por si el navegador no anima
-      await new Promise(r=>requestAnimationFrame(r));
-      const y=Math.round(cont?cont.scrollTop:window.scrollY);
-      if(y===prev){ if(++quieto>=3)return; } else { quieto=0; prev=y; }
-    }
-  };
   /* Fijo o pegajoso da igual: mover la página no lo saca de donde está, así que
      scrollear la ventana para «buscarlo» sólo desacomoda el resto. */
   const enSitioFijo=n=>{
@@ -4267,29 +4259,81 @@ create policy "kv_all" on kv for all
     const abajo=(tip&&tip.offsetHeight?tip.offsetHeight:150)+22;
     return {arriba,abajo,alto:Math.max(90,innerHeight-arriba-abajo)};
   }
-  async function encuadrar(n){
-    if(!n)return;
+  /* El desplazamiento se calcula primero y se ejecuta después, cuadro a cuadro. Antes se
+     pedía scroll «smooth» al navegador y se esperaba a que terminara para recién dibujar
+     el resalte: eso hacía que el recorte apareciera tarde y de golpe. Ahora movemos
+     nosotros la página y el recorte en el mismo cuadro, así van pegados. */
+  function planScroll(n){
+    const plan={cont:null,cIni:0,cFin:0,wIni:scrollY,wFin:scrollY};
+    if(!n)return plan;
     const cont=contenedorScroll(n);
     if(cont){
       const cr=cont.getBoundingClientRect(), r=n.getBoundingClientRect();
       let y=cont.scrollTop+(r.top-cr.top)-Math.max(0,(cont.clientHeight-r.height)/2);
       y=Math.max(0,Math.min(cont.scrollHeight-cont.clientHeight,Math.round(y)));
-      if(Math.abs(y-cont.scrollTop)>2){
-        if(sinMovimiento()){cont.scrollTop=y;}
-        else{try{cont.scrollTo({top:y,behavior:'smooth'});}catch(e){cont.scrollTop=y;}
-             await esperarQuieto(cont);}
-      }
+      plan.cont=cont; plan.cIni=cont.scrollTop; plan.cFin=y;
     }
-    if(enSitioFijo(n))return;
-    const f=franja(), r=n.getBoundingClientRect();
-    let y=scrollY+r.top-f.arriba;
-    if(r.height<f.alto)y-=(f.alto-r.height)/2; // centrado en la franja, no en la ventana
-    const max=Math.max(0,document.documentElement.scrollHeight-innerHeight);
-    y=Math.max(0,Math.min(max,Math.round(y)));
-    if(Math.abs(y-scrollY)<=2)return;
-    if(sinMovimiento()){scrollTo(0,y);return;}
-    try{scrollTo({top:y,behavior:'smooth'});}catch(e){scrollTo(0,y);}
-    await esperarQuieto();
+    if(!enSitioFijo(n)){
+      const f=franja(), r=n.getBoundingClientRect();
+      let y=scrollY+r.top-f.arriba;
+      if(r.height<f.alto)y-=(f.alto-r.height)/2;   // centrado en la franja, no en la ventana
+      const max=Math.max(0,document.documentElement.scrollHeight-innerHeight);
+      plan.wFin=Math.max(0,Math.min(max,Math.round(y)));
+    }
+    return plan;
+  }
+  /* Dónde va a quedar el elemento cuando el desplazamiento termine, sin haberlo hecho
+     todavía: con eso la tarjeta se planta directo en su lugar definitivo en vez de
+     acomodarse después, que era buena parte de lo que se veía como tosco. */
+  function rectoFinal(n,plan){
+    const d=(plan.cFin-plan.cIni)+(plan.wFin-plan.wIni);
+    const r=n.getBoundingClientRect(), m=6;
+    const L=Math.max(2,r.left-m), T=Math.max(2,r.top-d-m);
+    const R=Math.min(innerWidth-2,r.right+m), B=Math.min(innerHeight-2,r.bottom-d+m);
+    return {top:T,left:L,right:R,bottom:B,width:Math.max(0,R-L),height:Math.max(0,B-T)};
+  }
+  const suave=t=>1-Math.pow(1-t,3);
+  const mezclar=(a,b,e)=>({top:a.top+(b.top-a.top)*e,left:a.left+(b.left-a.left)*e,
+    width:a.width+(b.width-a.width)*e,height:a.height+(b.height-a.height)*e});
+  function cajaHueco(){
+    const h=el('tourHole');
+    if(h.classList.contains('oculto'))return null;
+    const r=h.getBoundingClientRect();
+    return r.width<2?null:{top:r.top,left:r.left,width:r.width,height:r.height};
+  }
+  /* Un solo movimiento: la página se desplaza y el recorte viaja del elemento anterior
+     al nuevo, medido en cada cuadro. Sin transición CSS de por medio, que llegaba tarde. */
+  function transicion(n,plan,ms){
+    const hole=el('tourHole');
+    hole.classList.add('quieto');
+    const mueve=Math.abs(plan.cFin-plan.cIni)>2||Math.abs(plan.wFin-plan.wIni)>2;
+    if(sinMovimiento()||ms<=0){
+      if(plan.cont)plan.cont.scrollTop=plan.cFin;
+      if(plan.wFin!==plan.wIni)scrollTo(0,plan.wFin);
+      colocarHueco(n,false); return Promise.resolve();
+    }
+    let desde=cajaHueco();
+    if(!desde&&n){                       // no venía de otro elemento: crece desde su centro
+      const f=rectoRecorte(n);
+      desde={top:f.top+f.height/2,left:f.left+f.width/2,width:0,height:0};
+      hole.classList.remove('oculto');
+    }
+    if(!mueve&&!desde){colocarHueco(n,false);return Promise.resolve();}
+    const t0=performance.now();
+    return new Promise(fin=>{
+      (function cuadro(t){
+        const pr=Math.min(1,(t-t0)/ms), e=suave(pr);
+        if(plan.cont)plan.cont.scrollTop=plan.cIni+(plan.cFin-plan.cIni)*e;
+        if(plan.wFin!==plan.wIni)scrollTo(0,plan.wIni+(plan.wFin-plan.wIni)*e);
+        if(n){
+          const hacia=rectoRecorte(n);
+          pintarHueco(hole,desde?mezclar(desde,hacia,e):hacia);
+          if(!desde)hole.classList.remove('oculto');
+        }
+        if(pr<1)requestAnimationFrame(cuadro);
+        else{colocarHueco(n,false);fin();}
+      })(performance.now());
+    });
   }
 
   async function startOnboard(){
@@ -4356,30 +4400,33 @@ create policy "kv_all" on kv for all
   /* Reubicar sin rehacer el paso: para el scroll, el giro del teléfono y los cambios
      de tamaño. Si algo llegara a mover la página, el recorte la sigue en vez de
      quedarse señalando el vacío. */
-  let recolT=null;
-  function recolocar(){
+  let recolT=null, ultimaCaja='';
+  function recolocar(soloSiCambio){
     if(!tCorriendo)return;
     const paso=tPasos[tIdx]; if(!paso)return;
-    colocarHueco(objetivoDe(paso),false);
+    const n=objetivoDe(paso);
+    const c=n?rectoRecorte(n):null;
+    const firma=c?[c.top,c.left,c.width,c.height].map(Math.round).join(','):'';
+    if(soloSiCambio&&firma===ultimaCaja)return;   // nada se movió: no repintar
+    ultimaCaja=firma;
+    // La corrección tardía se desliza; sin esto el resalte pegaba un salto seco cuando
+    // un panel terminaba de acomodarse. Al seguir el scroll, en cambio, va sin retardo.
+    colocarHueco(n,!soloSiCambio?false:!sinMovimiento());
   }
   addEventListener('scroll',recolocar,{passive:true,capture:true});
   addEventListener('resize',()=>{clearTimeout(recolT);recolT=setTimeout(recolocar,90);},{passive:true});
   addEventListener('orientationchange',()=>{clearTimeout(recolT);recolT=setTimeout(recolocar,220);});
 
+  let reasentarT=null, tSecuencia=0;
   async function pintarPaso(){
     const paso=tPasos[tIdx];
     if(!paso)return endOnboard();
-    if(paso.antes){try{await paso.antes();}catch(e){}}
-    const n=objetivoDe(paso);
-    // Si el elemento no está en pantalla el paso no aporta y se salta; salvo los
-    // marcados como forzar —el botón de pendientes sólo aparece cuando hay algo—,
-    // que se explican igual con la tarjeta centrada.
-    if(paso.sel&&!n&&!paso.forzar){tIdx++;return pintarPaso();}
-    const hole=el('tourHole'), tip=el('tourTip');
+    const mio=++tSecuencia;                      // si se avanza rápido, gana el último
+    const tip=el('tourTip');
     const ultimo=tIdx===tPasos.length-1;
-    // Primero el texto: recién con el globo en su tamaño final se puede calcular
-    // cuánta pantalla queda libre para encuadrar el elemento.
-    tip.className=n?'':'centro';
+    /* El texto se pinta ANTES de preparar la pantalla. Antes se hacía al revés y en los
+       pasos que abren la ficha o la barra lateral la tarjeta seguía mostrando el paso
+       anterior hasta medio segundo después del clic: eso era lo que se sentía trabado. */
     tip.innerHTML=`<span class="tt-n">Paso ${tIdx+1} de ${tPasos.length}</span>
       <h4>${paso.t}</h4><p>${paso.d}</p>
       <div class="tt-nav">
@@ -4387,31 +4434,47 @@ create policy "kv_all" on kv for all
         <button class="gbtn" id="tNext">${ultimo?'Terminar':'Siguiente'}</button>
         ${!ultimo?'<button class="tt-x" id="tSkip">Saltar</button>':''}
       </div>`;
-    await encuadrar(n);
-    colocarHueco(n,true);
     el('tNext').addEventListener('click',()=>{if(ultimo)endOnboard();else{tIdx++;pintarPaso();}});
     if(el('tPrev'))el('tPrev').addEventListener('click',()=>{tIdx--;pintarPaso();});
     if(el('tSkip'))el('tSkip').addEventListener('click',endOnboard);
-    // Varias pantallas entran con animación (la barra lateral, la ficha): el elemento
-    // sigue moviéndose después de la primera medición, así que se reasienta un par de
-    // veces. Es lo que evitaba que la tarjeta quedara plantada encima.
+
+    if(paso.antes){try{await paso.antes();}catch(e){}}
+    if(mio!==tSecuencia)return;                  // ya se avanzó a otro paso
+    const n=objetivoDe(paso);
+    // Si el elemento no está en pantalla el paso no aporta y se salta; salvo los
+    // marcados como forzar —el botón de pendientes sólo aparece cuando hay algo—,
+    // que se explican igual con la tarjeta centrada.
+    if(paso.sel&&!n&&!paso.forzar){tIdx++;return pintarPaso();}
+    tip.className=n?'':'centro';
+    if(n){
+      // La tarjeta se planta directo donde va a quedar, calculado sobre la posición
+      // final del elemento: así no se reacomoda a mitad del movimiento.
+      const plan=planScroll(n);
+      ubicarTip(tip,n,rectoFinal(n,plan));
+      await transicion(n,plan,240);
+      if(mio!==tSecuencia)return;
+      ubicarTip(tip,n);
+    }else{
+      colocarHueco(null,false);
+    }
+    /* Un único reasentado tardío: la ficha y la barra lateral entran con animación
+       propia y el elemento puede seguir moviéndose unos cuadros más. Sólo repinta si
+       de verdad cambió de lugar, para no producir un salto visible. */
     clearTimeout(reasentarT);
-    reasentarT=setTimeout(recolocar,130);
-    setTimeout(recolocar,380);
+    reasentarT=setTimeout(()=>{if(mio===tSecuencia)recolocar(true);},300);
   }
-  let reasentarT=null;
   /* La tarjeta se prueba contra el recorte real, en este orden: debajo, encima, a la
      derecha, a la izquierda, y como último recurso apoyada abajo. Antes se decidía con
      una sola cuenta y con la altura del paso anterior, así que a veces se plantaba
      encima justo del elemento que estaba señalando. */
-  function ubicarTip(tip,n){
+  function ubicarTip(tip,n,rectoDado){
     tip.className='';
     const apoyar=()=>{tip.classList.add('abajo');tip.style.top='';tip.style.left='';};
     // En pantallas angostas siempre abajo: al costado no entra en ningún caso.
     if(innerWidth<=640)return apoyar();
     tip.style.top='-9999px'; tip.style.left='0px';        // medir con su ancho definitivo
     const m=tip.getBoundingClientRect(), tw=m.width, th=m.height;
-    const h=rectoRecorte(n);
+    const h=rectoDado||rectoRecorte(n);
     const H=innerHeight, W=innerWidth, g=14, b=10;
     const medio=h.left+h.width/2-tw/2;
     const alCostado=Math.min(Math.max(b,h.top),Math.max(b,H-th-b));
