@@ -32,13 +32,13 @@ window.NBU_NUBE = {
 <style>
 :root{
   --bg:#e9eef2; --surface:#ffffff; --surface-2:#f4f7f9; --surface-3:#eef3f6;
-  --ink:#132029; --ink-2:#33454f; --muted:#5d6e79; --faint:#8797a1;
+  --ink:#132029; --ink-2:#33454f; --muted:#5d6e79; --faint:#677984;
   --line:#dae2e8; --line-2:#c8d4db;
-  --accent:#0d7a86; --accent-ink:#0a5a63; --accent-soft:#d6ecee;
-  --urg:#b3560c; --urg-soft:#fbe7d3;
+  --accent:#0d7a86; --accent-ink:#0a5a63; --accent-soft:#d6ecee; --sobre-acento:#ffffff;
+  --urg:#a9510b; --urg-soft:#fbe7d3;
   --norma:#1c62b0; --norma-soft:#dde9f8;
-  --desuso:#6b7681; --desuso-soft:#e6ebef;
-  --inc:#15803d; --inc-soft:#d8efdf;
+  --desuso:#616b74; --desuso-soft:#e6ebef;
+  --inc:#14793a; --inc-soft:#d8efdf;
   --exc:#b3261e; --exc-soft:#f8dedb;
   --incd:#6d34c4; --incd-soft:#e7ddf7;
   --new:#0d7a86; --new-soft:#d6ecee;
@@ -51,9 +51,9 @@ window.NBU_NUBE = {
 @media (prefers-color-scheme:dark){
   :root{
     --bg:#0c1317; --surface:#141e25; --surface-2:#1a262e; --surface-3:#202e37;
-    --ink:#e7eef2; --ink-2:#c3d0d8; --muted:#93a3ad; --faint:#6f818c;
+    --ink:#e7eef2; --ink-2:#c3d0d8; --muted:#93a3ad; --faint:#768792;
     --line:#26333c; --line-2:#33434d;
-    --accent:#2cb6c3; --accent-ink:#8ddbe2; --accent-soft:#123037;
+    --accent:#2cb6c3; --accent-ink:#8ddbe2; --accent-soft:#123037; --sobre-acento:#08222a;
     --urg:#e08a4a; --urg-soft:#3a2413;
     --norma:#6aa8ee; --norma-soft:#132741;
     --desuso:#8a97a1; --desuso-soft:#232e35;
@@ -67,20 +67,20 @@ window.NBU_NUBE = {
 }
 :root[data-theme="light"]{
   --bg:#e9eef2; --surface:#ffffff; --surface-2:#f4f7f9; --surface-3:#eef3f6;
-  --ink:#132029; --ink-2:#33454f; --muted:#5d6e79; --faint:#8797a1;
+  --ink:#132029; --ink-2:#33454f; --muted:#5d6e79; --faint:#677984;
   --line:#dae2e8; --line-2:#c8d4db;
-  --accent:#0d7a86; --accent-ink:#0a5a63; --accent-soft:#d6ecee;
-  --urg:#b3560c; --urg-soft:#fbe7d3; --norma:#1c62b0; --norma-soft:#dde9f8;
-  --desuso:#6b7681; --desuso-soft:#e6ebef; --inc:#15803d; --inc-soft:#d8efdf;
+  --accent:#0d7a86; --accent-ink:#0a5a63; --accent-soft:#d6ecee; --sobre-acento:#ffffff;
+  --urg:#a9510b; --urg-soft:#fbe7d3; --norma:#1c62b0; --norma-soft:#dde9f8;
+  --desuso:#616b74; --desuso-soft:#e6ebef; --inc:#14793a; --inc-soft:#d8efdf;
   --exc:#b3261e; --exc-soft:#f8dedb; --incd:#6d34c4; --incd-soft:#e7ddf7;
   --new:#0d7a86; --new-soft:#d6ecee; --pmo:#0d7a86; --pe:#7a4bd6; --gestion:#8a6d1f;
   --shadow:0 1px 2px rgba(19,32,41,.06),0 8px 28px rgba(19,32,41,.10);
 }
 :root[data-theme="dark"]{
   --bg:#0c1317; --surface:#141e25; --surface-2:#1a262e; --surface-3:#202e37;
-  --ink:#e7eef2; --ink-2:#c3d0d8; --muted:#93a3ad; --faint:#6f818c;
+  --ink:#e7eef2; --ink-2:#c3d0d8; --muted:#93a3ad; --faint:#768792;
   --line:#26333c; --line-2:#33434d;
-  --accent:#2cb6c3; --accent-ink:#8ddbe2; --accent-soft:#123037;
+  --accent:#2cb6c3; --accent-ink:#8ddbe2; --accent-soft:#123037; --sobre-acento:#08222a;
   --urg:#e08a4a; --urg-soft:#3a2413; --norma:#6aa8ee; --norma-soft:#132741;
   --desuso:#8a97a1; --desuso-soft:#232e35; --inc:#4fbf78; --inc-soft:#123023;
   --exc:#e9736a; --exc-soft:#3a1a18; --incd:#a985ea; --incd-soft:#241634;
@@ -97,7 +97,7 @@ html,body{margin:0;padding:0}
 .modebtn svg{flex-shrink:0;opacity:.8}
 .modebtn span{display:flex;flex-direction:column;line-height:1.2}
 .modebtn b{font-size:14.5px;font-weight:700;color:var(--ink-2)}
-.modebtn small{font-size:11.5px;color:var(--faint);letter-spacing:.2px}
+.modebtn small{font-size:11.5px;color:var(--muted);letter-spacing:.2px}
 .modebtn:hover{border-color:var(--line-2);background:var(--surface-3)}
 .modebtn.on[data-mode="NBU"]{border-color:var(--pmo);background:var(--accent-soft)}
 .modebtn.on[data-mode="PMO"]{border-color:var(--med);background:color-mix(in srgb,var(--med) 12%,transparent)}
@@ -133,7 +133,7 @@ html,body{margin:0;padding:0}
   background:color-mix(in srgb,var(--cie) 12%,transparent);color:var(--cie)}
 .cbtn .cbtxt{display:flex;flex-direction:column;line-height:1.2}
 .cbtn b{font-size:13.5px;font-weight:700;color:var(--ink-2)}
-.cbtn small{font-size:11px;color:var(--faint);letter-spacing:.2px}
+.cbtn small{font-size:11px;color:var(--muted);letter-spacing:.2px}
 .cbtn:hover{border-color:color-mix(in srgb,var(--cie) 45%,transparent);background:var(--surface-3)}
 .cbtn.on{border-color:var(--cie);background:color-mix(in srgb,var(--cie) 10%,transparent)}
 .cbtn.on b{color:var(--cie)} .cbtn.on .cbicon{background:var(--cie);color:#fff}
@@ -251,7 +251,7 @@ html,body{margin:0;padding:0}
   display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap;text-align:center}
 .autoria .au-t{font-size:12.5px;color:var(--muted)}
 .autoria .au-n{font-size:12.5px;font-weight:800;color:var(--ink-2);letter-spacing:.2px}
-.autoria .au-p{font-size:11.5px;color:var(--faint);flex-basis:100%}
+.autoria .au-p{font-size:11.5px;color:var(--muted);flex-basis:100%}
 .gcard .au-gate{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);
   font-size:11.5px;color:var(--faint);text-align:center;line-height:1.5}
 .gcard .au-gate b{color:var(--muted);font-weight:800}
@@ -329,7 +329,7 @@ html,body{margin:0;padding:0}
 .equiv-card .eqscore{font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;background:var(--surface-3);color:var(--muted)}
 /* --- feature add-ons: valor U.B., favoritos, arancel, seriado, export, print --- */
 .ubctl{gap:5px!important}
-.ubctl .ubsign{color:var(--faint);font-weight:700}
+.ubctl .ubsign{color:var(--ink-2);font-weight:700}
 .ubctl input{width:64px;border:none;background:none;color:var(--ink);font-family:var(--font-mono);font-weight:700;
   font-size:13.5px;outline:none;padding:0;-moz-appearance:textfield}
 .ubctl input::-webkit-outer-spin-button,.ubctl input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
@@ -338,7 +338,12 @@ html,body{margin:0;padding:0}
 .ubclr:hover{color:var(--exc)}
 .row{grid-template-columns:22px 78px 1fr auto!important}
 @media (max-width:560px){.row{grid-template-columns:20px 62px 1fr auto!important;gap:8px!important}}
-.star{cursor:pointer;font-size:16px;line-height:1;color:var(--faint);transition:.12s;user-select:none;justify-self:center}
+/* La estrella medía 14x16: por debajo del mínimo de 24x24 y difícil de acertar en el
+   celular, justo la acción que alimenta los accesos rápidos. */
+.star{cursor:pointer;font-size:17px;line-height:1;color:var(--faint);transition:color .12s,transform .12s;
+  user-select:none;justify-self:center;display:inline-flex;align-items:center;justify-content:center;
+  min-width:26px;min-height:26px;border-radius:7px;background:none;border:none;padding:0}
+.star:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 .star:hover{color:var(--gestion);transform:scale(1.18)}
 .star.on{color:var(--gestion)}
 .aran{color:var(--accent-ink)!important;font-weight:700!important}
@@ -423,7 +428,7 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
 .seccol{width:8px;height:8px;border-radius:2px;flex-shrink:0;margin-right:2px}
 .optrow{display:flex;align-items:center;gap:0;flex:1;min-width:0}
 .optrow span.lbl{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.clearf{margin:0 11px 12px;font-size:12.5px;color:var(--accent);background:none;border:1px solid var(--line-2);
+.clearf{margin:0 11px 12px;font-size:12.5px;color:var(--accent-ink);background:none;border:1px solid var(--line-2);
   border-radius:8px;padding:7px;width:calc(100% - 22px);transition:.12s}
 .clearf:hover{background:var(--surface-2)}
 
@@ -474,6 +479,25 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
 #swbar span{flex:1;min-width:0}
 #swbar .icon-btn{width:28px;height:28px;flex-shrink:0;font-size:13px}
 @media print{#swbar{display:none}}
+/* Sólo para lectores de pantalla: fuera de la vista pero leído. */
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
+/* Antes del listado hay 26 paradas de tabulación: este enlace las saltea. Aparece
+   sólo cuando recibe el foco, así que no molesta a quien usa el mouse. */
+/* Bloques del panel de filtros. */
+.fsub{font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);
+  padding:12px 11px 5px;border-top:1px solid var(--line)}
+.fsub:first-child{border-top:none;padding-top:4px}
+/* Pestañas de la tira de accesos rápidos. */
+.rtab{background:none;border:none;font:800 11px var(--font-ui);letter-spacing:.7px;text-transform:uppercase;
+  color:var(--muted);cursor:pointer;padding:4px 9px;border-radius:99px;transition:.13s}
+.rtab:hover:not(:disabled){color:var(--accent-ink);background:var(--surface-2)}
+.rtab.on{color:var(--accent-ink);background:var(--accent-soft)}
+.rtab:disabled{opacity:.4;cursor:default}
+.saltar{position:fixed;top:-60px;left:12px;z-index:2000;background:var(--accent);color:var(--sobre-acento);
+  font:700 13px var(--font-ui);padding:11px 16px;border-radius:0 0 10px 10px;text-decoration:none;
+  transition:top .16s}
+.saltar:focus{top:0}
 .tag.t-meta{background:transparent;border:1px solid var(--line);color:var(--faint);font-weight:600;padding:1px 5px}
 .row:hover .tag.t-meta{border-color:var(--line-2);color:var(--muted)}
 .rright{text-align:right;flex-shrink:0}
@@ -906,9 +930,9 @@ body.tour-on{overscroll-behavior:none}
 .acctbox{display:flex;align-items:center;gap:8px}
 .acctchip{display:flex;align-items:center;gap:8px;padding:5px 10px 5px 6px;border:1px solid var(--line-2);border-radius:22px;background:var(--surface-2);cursor:pointer;font:inherit}
 .acctchip:hover{border-color:var(--accent)}
-.acctchip .aav{width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px}
+.acctchip .aav{width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--sobre-acento);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px}
 .acctchip .anm{font-size:12.5px;font-weight:700;color:var(--ink);max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.editmode-on .icon-btn.editbtn{background:var(--accent);color:#fff;border-color:var(--accent)}
+.editmode-on .icon-btn.editbtn{background:var(--accent);color:var(--sobre-acento);border-color:var(--accent)}
 /* admin panel (reuse modal styles) */
 #adminModal{position:fixed;inset:0;z-index:900;background:rgba(19,32,41,.44);display:none;align-items:flex-start;justify-content:center;padding:40px 18px;overflow:auto}
 #adminModal.on{display:flex}
@@ -964,6 +988,7 @@ mark.hl{background:var(--accent-soft);color:var(--accent-ink);border-radius:3px;
 </style>
 </head>
 <body>
+<a class="saltar" href="#contenido" id="saltarLink">Saltar al listado de prácticas</a>
 <div id="boot" style="position:fixed;inset:0;z-index:2000;display:flex;align-items:center;justify-content:center;background:var(--bg);font:600 14px system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:var(--muted)"><div style="text-align:center"><div style="width:34px;height:34px;border:3px solid var(--line-2);border-top-color:var(--accent);border-radius:50%;margin:0 auto 14px;animation:bootspin .8s linear infinite"></div>Cargando base…</div></div>
 <style>@keyframes bootspin{to{transform:rotate(360deg)}}</style>
 <div id="gate" hidden></div>
@@ -981,7 +1006,7 @@ mark.hl{background:var(--accent-soft);color:var(--accent-ink);border-radius:3px;
     </div>
     <div class="search">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-      <input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="Buscar código, práctica, sinónimo o abreviatura…">
+      <input id="q" type="search" autocomplete="off" spellcheck="false" aria-label="Buscar en el manual: código, práctica, sinónimo o abreviatura" placeholder="Buscar código, práctica, sinónimo o abreviatura…">
     </div>
     <div class="hbtns">
       <button class="icon-btn filter-toggle" id="filterToggle" title="Filtros" aria-label="Filtros">
@@ -1059,7 +1084,7 @@ mark.hl{background:var(--accent-soft);color:var(--accent-ink);border-radius:3px;
     <button class="clearf" id="clearFilters">Limpiar filtros</button>
   </aside>
 
-  <main>
+  <main id="contenido">
     <div class="viewtabs" role="tablist">
       <button class="vtab on" data-view="list" role="tab">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>Listado</button>
@@ -1080,7 +1105,8 @@ mark.hl{background:var(--accent-soft);color:var(--accent-ink);border-radius:3px;
     </div>
     <div class="print-head" id="printHead"></div>
     <div class="rapidos" id="rapidos" hidden></div>
-    <div class="list" id="list"></div>
+    <div class="list" id="list" tabindex="-1" role="region" aria-label="Resultados"></div>
+    <p class="sr-only" id="avisos" role="status" aria-live="polite" aria-atomic="true"></p>
     <button class="more" id="moreBtn" hidden>Ver más resultados</button>
     <div class="tree" id="tree" hidden></div>
     <div class="validator" id="validator" hidden></div>
@@ -1140,7 +1166,16 @@ CODES.forEach(c=>{ c._h = norm([c.code,c._key,c.nombre,...(c.sinonimos||[]),...(
    ============================================================ */
 /* El aviso flotante vive en el bloque de perfiles; acá queda un puente para poder
    usarlo desde el resto de la app sin depender del orden de definición. */
-function toast(msg,err){if(window.NBUToast)window.NBUToast(msg,err);}
+function toast(msg,err){if(window.NBUToast)window.NBUToast(msg,err);anunciar(msg);}
+/* Región viva: el conteo de resultados y los avisos de acción cambiaban sin que un
+   lector de pantalla los mencionara nunca. Se anuncian con retardo para no interrumpir
+   mientras se escribe en el buscador. */
+let _avisoT=null;
+function anunciar(txt){
+  const e=document.getElementById('avisos'); if(!e||!txt)return;
+  clearTimeout(_avisoT);
+  _avisoT=setTimeout(()=>{e.textContent='';e.textContent=txt;},350);
+}
 const tokens = s => norm(s).split(/[^a-z0-9]+/).filter(Boolean);
 // prepara los campos que usa el buscador: nombre solo, y tokens del texto completo
 function prepBusqueda(rec,nombre){
@@ -1339,8 +1374,25 @@ function buildGroups(){
   el('fGrupo').querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>toggleOpt(b)));
   const gp=el('grupoPanel');if(gp)gp.hidden=!grupos.length;   // ocultar panel de grupo cuando no aplica (ALL/ABR)
 }
-const FLAGS=[['cobertura','⚕ Con obligación de cobertura'],['sin_verificar','○ Sin verificar'],['verif_pendiente','⏳ Pendiente de validación'],['verif_vencida','⧗ Verificación vencida'],['en_sangre','En sangre'],['en_orina','En orina'],['fav','★ Favoritos'],['recientes','Vistos recientemente'],['nota','Con nota personal'],['sin_equiv','⚠ Sin equivalencia (Único)'],['con_equiv','Con equivalencia (Único)'],['valores','Con valores validados'],['urgencia','Urgencia (U)'],['requiere_norma','Requiere norma (N)'],['con_rel','Con relaciones'],['seriado','Con frecuencia/seriado'],['desuso','En desuso (#)'],['pcr','Metodología PCR'],['new2024','Actualizado 2024']];
-el('fFlags').innerHTML=FLAGS.map(([k,l])=>`<button class="opt" data-f="flags" data-v="${k}"><span class="optrow"><span class="lbl">${l}</span></span></button>`).join('');
+/* Diecinueve filtros en lista plana mezclaban «con obligación de cobertura» con
+   «metodología PCR». Van en tres bloques: lo que cambia la decisión, lo propio de
+   cada uno, y el estado del dato en la base. */
+const GRUPOS_FLAGS=[
+  ['Para decidir',[['cobertura','⚕ Con obligación de cobertura'],['en_sangre','En sangre'],
+    ['en_orina','En orina'],['urgencia','Urgencia (U)'],['requiere_norma','Requiere norma (N)'],
+    ['seriado','Con frecuencia/seriado'],['desuso','En desuso (#)']]],
+  ['Mi trabajo',[['fav','★ Favoritos'],['recientes','Vistos recientemente'],
+    ['nota','Con nota personal'],['sin_verificar','○ Sin verificar'],
+    ['verif_pendiente','⏳ Pendiente de validación'],['verif_vencida','⧗ Verificación vencida']]],
+  ['Estado del dato',[['con_rel','Con relaciones'],['con_equiv','Con equivalencia (Único)'],
+    ['sin_equiv','⚠ Sin equivalencia (Único)'],['valores','Con valores validados'],
+    ['new2024','Actualizado 2024'],['pcr','Metodología PCR']]],
+];
+const FLAGS=GRUPOS_FLAGS.flatMap(([,l])=>l);
+el('fFlags').innerHTML=GRUPOS_FLAGS.map(([t,lst])=>
+  `<div class="fsub">${t}</div>`+lst.map(([k,l])=>
+    `<button class="opt" data-f="flags" data-v="${k}"><span class="optrow"><span class="lbl">${l}</span></span></button>`).join('')
+).join('');
 
 function toggleOpt(b){
   const f=b.dataset.f,v=b.dataset.v,set=state[f];
@@ -1398,8 +1450,16 @@ function alScrollear(){
     _tick=false;
     const y=window.scrollY, comp=_hdr.classList.contains('compact');
     if(!comp&&y>HDR_COMPACTA)_hdr.classList.add('compact');
-    else if(comp&&y<HDR_EXPANDE)_hdr.classList.remove('compact');
+    else if(comp&&y<HDR_EXPANDE&&!buscando())_hdr.classList.remove('compact');
   });
+}
+/* Con una búsqueda escrita la cabecera arranca compacta: en 1366x768 pasa de 6 a 12
+   filas visibles, y ése es justo el momento en que hay alguien esperando del otro
+   lado del mostrador. Al borrar la búsqueda vuelve a su altura normal. */
+function buscando(){return !!(state.q&&state.q.trim());}
+function ajustarCabecera(){
+  if(buscando())_hdr.classList.add('compact');
+  else if(window.scrollY<HDR_EXPANDE)_hdr.classList.remove('compact');
 }
 addEventListener('scroll',alScrollear,{passive:true});
 addEventListener('resize',medirCabecera,{passive:true});
@@ -1547,19 +1607,28 @@ function renderChips(){
 /* Accesos rápidos: quien carga repite las mismas prácticas todo el día. Son sus
    favoritos, por perfil, a un clic y sin buscar. Sólo cuando no hay búsqueda ni
    filtros activos, para no competir con los resultados. */
+let rapMod='fav';
 function renderRapidos(){
   const cont=el('rapidos');
   const limpio=!state.q&&!state.seccion.size&&!state.grupo.size&&!state.flags.size
                &&state.view==='list'&&!['CIE','ABR','SURGE','ALL'].includes(state.mode);
   const favs=[...FAVS].map(k=>BYCODE[k]).filter(c=>c&&c.nomenclador===state.mode).slice(0,8);
-  if(!limpio||!favs.length){cont.hidden=true;cont.innerHTML='';return;}
+  /* Los últimos códigos abiertos valen tanto como los marcados a mano: reflejan lo que
+     se está cargando ahora, sin que nadie los haya tenido que señalar. */
+  const rec=((window.NBUProfile&&NBUProfile.recent&&NBUProfile.recent())||[])
+    .map(k=>BYCODE[k]).filter(c=>c&&c.nomenclador===state.mode).slice(0,8);
+  if(!limpio||(!favs.length&&!rec.length)){cont.hidden=true;cont.innerHTML='';return;}
+  if(!favs.length)rapMod='rec'; if(!rec.length)rapMod='fav';
+  const lista=rapMod==='rec'?rec:favs;
   cont.hidden=false;
-  cont.innerHTML=`<div class="rlbl">★ Tus prácticas frecuentes</div><div class="rgrid">`+
-    favs.map(c=>`<button class="rcard" data-code="${esc(c._key)}">
+  const tab=(id,txt,n)=>`<button class="rtab${rapMod===id?' on':''}" data-rap="${id}"${n?'':' disabled'}>${txt}</button>`;
+  cont.innerHTML=`<div class="rlbl">${tab('fav','★ Frecuentes',favs.length)}${tab('rec','⟲ Vistos hoy',rec.length)}</div><div class="rgrid">`+
+    lista.map(c=>`<button class="rcard" data-code="${esc(c._key)}">
       <span class="rc">${esc(c.code)}</span><span class="rn" title="${esc(c.nombre)}">${esc(c.nombre)}</span>
       <span class="rt">${c.muestra&&c.muestra.length?muestraTag(c):''}${c.lateralidad?`<span class="tag t-lat">${esc(c.lateralidad)}</span>`:''}</span>
     </button>`).join('')+`</div>`;
   cont.querySelectorAll('.rcard').forEach(b=>b.addEventListener('click',()=>openCode(b.dataset.code)));
+  cont.querySelectorAll('.rtab').forEach(b=>b.addEventListener('click',()=>{rapMod=b.dataset.rap;renderRapidos();}));
 }
 function render(){
   renderChips();
@@ -1581,6 +1650,8 @@ function render(){
   lastResults=res;
   el('listExport').style.display=res.length?'flex':'none';
   el('count').innerHTML=`<b>${res.length.toLocaleString('es-AR')}</b> práctica${res.length!==1?'s':''}`;
+  ajustarCabecera();
+  anunciar(`${res.length.toLocaleString('es-AR')} práctica${res.length!==1?'s':''}`+(state.q?` para «${state.q}»`:''));
   if(!res.length){el('list').innerHTML=sinResultados();el('moreBtn').hidden=true;el('listExport').style.display='none';
     cablearSinResultados();return;}
   const shown=res.slice(0,state.limit);
@@ -1672,6 +1743,8 @@ function renderAll(){
   if(surg.length)groups.push({lbl:'SURGE · patologías',rows:surg,build:surgeRowHTML});
   const total=groups.reduce((s,g)=>s+g.rows.length,0);
   el('count').innerHTML=`<b>${total.toLocaleString('es-AR')}</b> resultado${total!==1?'s':''} en todo el manual`;
+  ajustarCabecera();
+  anunciar(`${total.toLocaleString('es-AR')} resultado${total!==1?'s':''} en todo el manual`);
   if(!total){el('list').innerHTML=`<div class="empty"><b>Sin resultados</b>Probá con otro término (código, práctica, diagnóstico o sigla).</div>`;el('moreBtn').hidden=true;return;}
   let budget=state.limit,html='';
   for(const g of groups){
@@ -1763,7 +1836,7 @@ function openCie(code){
     html+=`<div class="sec"><div class="cie-rel"><div style="font-size:13px;color:var(--ink-2)">No hay prácticas relacionadas cargadas para este diagnóstico. Usá la búsqueda en las secciones de nomencladores.</div></div></div>`;
   }
   html+=`<div class="sec"><div class="slabel">Origen</div><div class="kv">Clasificación Internacional de Enfermedades (CIE-10 / CIE-10-ES). ${d.sub?'Subcategoría diagnóstica.':'Categoría de 3 caracteres.'}</div></div></div>`;
-  const dr=el('drawer');dr.innerHTML=html;dr.classList.add('on');el('scrim').classList.add('on');
+  const dr=el('drawer');dr.innerHTML=html;dr.classList.add('on');el('scrim').classList.add('on');tomarFoco(dr);
   dr.querySelector('.dbody').scrollTop=0;
   el('closeDrawer').addEventListener('click',closeDrawer);
   dr.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>{const k=b.dataset.goto;const t=BYCODE[k];if(t){setMode(t.nomenclador);openCode(k);}}));
@@ -1820,7 +1893,7 @@ function openAbr(abrev){
       ${prac.map(pracChip).join('')}</div></div>`;
   }
   html+=`</div>`;
-  const dr=el('drawer');dr.innerHTML=html;dr.classList.add('on');el('scrim').classList.add('on');
+  const dr=el('drawer');dr.innerHTML=html;dr.classList.add('on');el('scrim').classList.add('on');tomarFoco(dr);
   dr.querySelector('.dbody').scrollTop=0;
   el('closeDrawer').addEventListener('click',closeDrawer);
   dr.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>{const k=b.dataset.goto;const t=BYCODE[k];if(t){setMode(t.nomenclador);openCode(k);}}));
@@ -1899,7 +1972,7 @@ function openSurge(id){
   }
   html+=`<div class="sec"><div class="slabel">Marco normativo</div><div class="kv" style="color:var(--muted);font-size:12.5px">${esc(SURGE_META.resolucion||'')}. ${esc(SURGE_META.nota||'')}</div></div>`;
   html+=`</div>`;
-  const dr=el('drawer');dr.innerHTML=html;dr.classList.add('on');el('scrim').classList.add('on');
+  const dr=el('drawer');dr.innerHTML=html;dr.classList.add('on');el('scrim').classList.add('on');tomarFoco(dr);
   dr.querySelector('.dbody').scrollTop=0;
   el('closeDrawer').addEventListener('click',closeDrawer);
   dr.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>{const k=b.dataset.goto;const t=BYCODE[k];if(t){setMode(t.nomenclador);openCode(k);}}));
@@ -2408,9 +2481,22 @@ function plegarSecciones(d){
     sec.classList.add('pleg');
     const abierta=(clave in st)?st[clave]:SEC_ABIERTAS.test(clave);
     if(abierta)sec.classList.add('abierta');
-    lbl.addEventListener('click',()=>{
-      sec.classList.toggle('abierta');
+    /* El título es un botón de verdad: como <div> no se alcanzaba con el tabulador y
+       quien navega por teclado abría la ficha pero no podía desplegar ninguna de sus
+       secciones. Se declara además el estado, para que un lector de pantalla lo diga. */
+    lbl.setAttribute('role','button');
+    lbl.tabIndex=0;
+    const idc='sc'+Math.random().toString(36).slice(2,8);
+    cuerpo.id=idc; lbl.setAttribute('aria-controls',idc);
+    const marcar=()=>lbl.setAttribute('aria-expanded',sec.classList.contains('abierta')?'true':'false');
+    marcar();
+    const alternar=()=>{
+      sec.classList.toggle('abierta'); marcar();
       const o=plegState(); o[clave]=sec.classList.contains('abierta'); plegSave(o);
+    };
+    lbl.addEventListener('click',alternar);
+    lbl.addEventListener('keydown',e=>{
+      if(e.key==='Enter'||e.key===' '||e.key==='Spacebar'){e.preventDefault();alternar();}
     });
   });
 }
@@ -2421,11 +2507,14 @@ function irASeccion(dr,clave){
               lateralidad:/Lateralidad/i, frecuencia:/Frecuencia/i, muestra:/Tipo de muestra/i};
   const re=mapa[clave]; if(!re)return;
   const sec=[...dr.querySelectorAll('.sec')].find(x=>{const l=x.querySelector('.slabel');return l&&re.test(l.textContent);});
-  if(sec){sec.classList.add('abierta');sec.scrollIntoView({behavior:'smooth',block:'start'});}
+  if(sec){sec.classList.add('abierta');
+    const l=sec.querySelector('.slabel'); if(l)l.setAttribute('aria-expanded','true');
+    sec.scrollIntoView({behavior:'smooth',block:'start'});}
 }
 function openCode(code,origen){
   const c=BYCODE[code];
   if(!c)return;
+  const yaAbierta=el('drawer').classList.contains('on');
   /* Si es la misma ficha no se toca la pila: openCode se vuelve a llamar al re-renderizar,
      al fijar el hash y por el listener delegado del drawer, y cada una de esas llamadas
      duplicaría el rastro. */
@@ -2744,6 +2833,7 @@ function openCode(code,origen){
   html+=`</div>`;
 
   const d=el('drawer');d.innerHTML=html;d.classList.add('on');el('scrim').classList.add('on');
+  if(!yaAbierta)tomarFoco(d);   // al saltar entre fichas el foco ya está adentro
   plegarSecciones(d);
   d.querySelector('.dbody').scrollTop=0;
   el('closeDrawer').addEventListener('click',closeDrawer);
@@ -2826,7 +2916,40 @@ function addToValidator(code){
   ta.scrollIntoView({behavior:'smooth',block:'center'});
 }
 function linkCodes(s){return s.replace(/\b(66\d{4})\b/g,(m)=>BYCODE[m]?`<span class="mono" data-goto="${m}" style="cursor:pointer;text-decoration:underline;text-decoration-style:dotted">${m}</span>`:m);}
-function closeDrawer(){navPila=[];el('drawer').classList.remove('on');el('scrim').classList.remove('on');if(location.hash)history.replaceState(null,'',location.pathname+location.search);}
+function closeDrawer(){
+  navPila=[];el('drawer').classList.remove('on');el('scrim').classList.remove('on');
+  if(location.hash)history.replaceState(null,'',location.pathname+location.search);
+  devolverFoco();
+}
+/* La ficha se declara como diálogo (role=dialog, aria-modal) pero el foco se quedaba
+   en el buscador: un lector de pantalla anunciaba la apertura y seguía leyendo el
+   fondo, y con el tabulador se salía de la ficha sin cerrarla. Se lleva el foco
+   adentro, se lo mantiene ahí mientras está abierta y se devuelve al cerrar. */
+let focoPrevio=null;
+function tomarFoco(cont){
+  focoPrevio=document.activeElement;
+  const f=cont.querySelector('.dback,#closeDrawer')||cont;
+  if(!cont.hasAttribute('tabindex'))cont.tabIndex=-1;
+  setTimeout(()=>{try{f.focus({preventScroll:true});}catch(e){}},30);
+}
+function devolverFoco(){
+  const p=focoPrevio; focoPrevio=null;
+  if(p&&document.contains(p))setTimeout(()=>{try{p.focus({preventScroll:true});}catch(e){}},20);
+}
+const FOCABLES='a[href],button:not([disabled]),input:not([disabled]),select,textarea,[tabindex]:not([tabindex="-1"])';
+function atraparFoco(e){
+  if(e.key!=='Tab')return;
+  const cont=[el('drawer'),el('modal'),el('adminModal')]
+    .find(x=>x&&(x.classList.contains('on')||(x.id==='drawer'&&x.classList.contains('on'))));
+  if(!cont)return;
+  const f=[...cont.querySelectorAll(FOCABLES)].filter(x=>x.offsetParent!==null);
+  if(!f.length)return;
+  const primero=f[0], ultimo=f[f.length-1];
+  if(e.shiftKey&&document.activeElement===primero){e.preventDefault();ultimo.focus();}
+  else if(!e.shiftKey&&document.activeElement===ultimo){e.preventDefault();primero.focus();}
+  else if(!cont.contains(document.activeElement)){e.preventDefault();primero.focus();}
+}
+document.addEventListener('keydown',atraparFoco,true);
 el('scrim').addEventListener('click',()=>{closeDrawer();el('rail').classList.remove('on');});
 // delegated goto for inline code links inside audit/norma text
 el('drawer').addEventListener('click',e=>{const g=e.target.closest('[data-goto]');if(g)openCode(g.dataset.goto,'ficha');});
@@ -4108,6 +4231,9 @@ create policy "kv_all" on kv for all
   addEventListener('touchmove',frenarScroll,{passive:false});
   addEventListener('keydown',frenarTeclas,{capture:true});
 
+  /* Quien pidió movimiento reducido no debería recibir 20 desplazamientos animados:
+     la regla CSS apaga las transiciones pero el scroll del recorrido es JavaScript. */
+  const sinMovimiento=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
   const esperarQuieto=async(cont)=>{
     let prev=-1,quieto=0;
     for(let i=0;i<45;i++){                       // tope ~750 ms por si el navegador no anima
@@ -4154,8 +4280,9 @@ create policy "kv_all" on kv for all
       let y=cont.scrollTop+(r.top-cr.top)-Math.max(0,(cont.clientHeight-r.height)/2);
       y=Math.max(0,Math.min(cont.scrollHeight-cont.clientHeight,Math.round(y)));
       if(Math.abs(y-cont.scrollTop)>2){
-        try{cont.scrollTo({top:y,behavior:'smooth'});}catch(e){cont.scrollTop=y;}
-        await esperarQuieto(cont);
+        if(sinMovimiento()){cont.scrollTop=y;}
+        else{try{cont.scrollTo({top:y,behavior:'smooth'});}catch(e){cont.scrollTop=y;}
+             await esperarQuieto(cont);}
       }
     }
     if(enSitioFijo(n))return;
@@ -4165,6 +4292,7 @@ create policy "kv_all" on kv for all
     const max=Math.max(0,document.documentElement.scrollHeight-innerHeight);
     y=Math.max(0,Math.min(max,Math.round(y)));
     if(Math.abs(y-scrollY)<=2)return;
+    if(sinMovimiento()){scrollTo(0,y);return;}
     try{scrollTo({top:y,behavior:'smooth'});}catch(e){scrollTo(0,y);}
     await esperarQuieto();
   }
@@ -4199,7 +4327,7 @@ create policy "kv_all" on kv for all
   /* Coloca resalte y tarjeta juntos, porque uno depende del otro. */
   function colocarHueco(n,animar){
     const hole=el('tourHole'), tip=el('tourTip');
-    hole.classList.toggle('quieto',!animar);
+    hole.classList.toggle('quieto',!animar||sinMovimiento());
     if(!n){hole.classList.add('oculto');hole.style.top='50%';hole.style.left='50%';
       hole.style.width='0px';hole.style.height='0px';tip.className='centro';return;}
     let c=rectoRecorte(n);
@@ -4403,6 +4531,19 @@ create policy "kv_all" on kv for all
   else{showGate('company');}
   if(SYNC.enabled){initEnc().then(()=>{startPolling();pull();});}
 })();
+})();
+
+/* El salto al contenido mueve el foco a mano: la barra de direcciones la usa la app
+   para abrir fichas por código, y dejarle un #contenido colgado la confundiría. */
+(function(){
+  const a=document.getElementById('saltarLink'); if(!a)return;
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const l=document.getElementById('list');
+    if(!l)return;
+    l.focus({preventScroll:false});
+    l.scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+  });
 })();
 
 /* ============ APLICACIÓN DE ESCRITORIO (PWA) ============
