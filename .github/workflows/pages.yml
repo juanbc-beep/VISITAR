@@ -35,6 +35,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # El navegador decide si hay version nueva comparando sw.js byte a byte.
+      # Si la version quedara fija, un cambio en index.html no lo despertaria y
+      # la actualizacion dependeria de acordarse de subirla a mano en cada
+      # publicacion. Con el sha del commit, cada publicacion es distinta sola.
+      - name: Sellar la version en el service worker
+        run: |
+          sed -i "s|const VERSION = '[^']*'|const VERSION = '${GITHUB_SHA:0:12}'|" web/sw.js
+          grep -n "const VERSION" web/sw.js
+
       - name: Verificar que la app sea un archivo válido
         run: |
           test -f web/index.html || { echo "Falta web/index.html"; exit 1; }

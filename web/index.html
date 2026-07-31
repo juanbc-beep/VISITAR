@@ -461,7 +461,10 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
 .t-new{background:var(--new-soft);color:var(--new)}
 /* Segundo nivel: estado del dato en la base. Sin color, para no competir con las de decisión. */
 /* Barra de instalación / versión nueva. Abajo y discreta: no debe tapar la ficha. */
-#swbar{position:fixed;left:50%;bottom:18px;transform:translate(-50%,120%);z-index:120;
+/* Por encima de la pantalla de ingreso (#gate, z-index 1000). Con 120 quedaba
+   tapado justo cuando más falta hace: el cartel de «Instalar» aparece en la
+   primera visita, y en la primera visita lo que se ve es el ingreso. */
+#swbar{position:fixed;left:50%;bottom:18px;transform:translate(-50%,120%);z-index:1100;
   display:flex;align-items:center;gap:10px;max-width:min(560px,92vw);
   padding:10px 12px 10px 16px;border-radius:99px;border:1px solid var(--line-2);
   background:var(--surface);box-shadow:var(--shadow);font-size:13px;color:var(--ink-2);
@@ -4679,12 +4682,32 @@ create policy "kv_all" on kv for all
 /* ============ APLICACIÓN DE ESCRITORIO (PWA) ============
    Con el service worker registrado, el navegador ofrece «Instalar» y la app
    pasa a tener su propia ventana, su ícono y su copia local: abre sin internet
-   y sin entrar a ninguna dirección. Cuando el administrador publica una versión
-   nueva se avisa en pantalla en vez de recargar de prepo. */
+   y sin entrar a ninguna dirección.
+
+   Versión nueva: se aplica sola al abrir, sin preguntar nada. Si en cambio la
+   versión aparece con la app ya en uso, se avisa con el cartel y se aplica
+   cuando la persona quiere: recargar encima de alguien que está escribiendo le
+   borra lo que tenía a medias. */
 (function(){
   if(!('serviceWorker' in navigator))return;
   // file:// no admite service workers; en ese caso la app funciona igual, sin instalar.
   if(location.protocol!=='http:'&&location.protocol!=='https:')return;
+
+  /* «Recién abierta» = arrancó hace poco y todavía nadie tocó nada. Las dos
+     condiciones importan: el tiempo solo no alcanza, porque en esos segundos
+     alguien ya puede estar escribiendo su contraseña. */
+  const ABIERTA_MS=20000, MARCA='nbu-autoactualizada';
+  const t0=Date.now(); let usando=false;
+  ['pointerdown','keydown','wheel','touchstart'].forEach(ev=>
+    addEventListener(ev,()=>{usando=true;},{once:true,passive:true}));
+  const reciénAbierta=()=>{
+    if(usando||Date.now()-t0>ABIERTA_MS)return false;
+    // Una sola recarga automática por pestaña: si la comparación de versiones
+    // fallara, esto evita que la app entre en un ciclo de recargas.
+    try{ if(sessionStorage.getItem(MARCA))return false;
+         sessionStorage.setItem(MARCA,'1'); }catch(e){}
+    return true;
+  };
   const aviso=(m,fn,txtBtn)=>{
     let d=document.getElementById('swbar');
     if(!d){d=document.createElement('div');d.id='swbar';document.body.appendChild(d);}
@@ -4698,14 +4721,16 @@ create policy "kv_all" on kv for all
     reg.addEventListener('updatefound',()=>{
       const nuevo=reg.installing;if(!nuevo)return;
       nuevo.addEventListener('statechange',()=>{
-        if(nuevo.state==='installed'&&navigator.serviceWorker.controller)
-          aviso('Hay una versión nueva del manual.',()=>{nuevo.postMessage('SKIP_WAITING');},'Actualizar');
+        if(nuevo.state!=='installed'||!navigator.serviceWorker.controller)return;
+        if(reciénAbierta())return nuevo.postMessage('SKIP_WAITING');   // se aplica sola
+        aviso('Hay una versión nueva del manual.',()=>{nuevo.postMessage('SKIP_WAITING');},'Actualizar');
       });
     });
   }).catch(()=>{});
   navigator.serviceWorker.addEventListener('message',e=>{
-    if(e.data&&e.data.tipo==='nueva-version')
-      aviso('Hay una versión nueva del manual.',()=>location.reload(),'Actualizar');
+    if(!e.data||e.data.tipo!=='nueva-version')return;
+    if(reciénAbierta())return location.reload();
+    aviso('Hay una versión nueva del manual.',()=>location.reload(),'Actualizar');
   });
   let recargando=false;
   navigator.serviceWorker.addEventListener('controllerchange',()=>{

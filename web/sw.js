@@ -47,11 +47,18 @@ self.addEventListener('fetch', e => {
     const enCache = await cache.match(req, { ignoreSearch: true })
                  || (req.mode === 'navigate' ? await cache.match('index.html') : null);
 
+    /* La copia se saca ACÁ, antes de devolver «enCache» más abajo. Al devolverlo,
+       el navegador consume su cuerpo, y clonar una respuesta ya leída lanza
+       excepción: el .catch() de más abajo se la tragaba y el aviso de versión
+       nueva no salía nunca. La actualización llegaba igual, pero en silencio y
+       recién en la apertura siguiente. */
+    const copiaVieja = enCache ? enCache.clone() : null;
+
     const red = fetch(req).then(async r => {
       if (r && r.ok) {
         await cache.put(req, r.clone());
-        if (enCache && req.mode === 'navigate') {
-          const viejo = await enCache.clone().text();
+        if (copiaVieja && req.mode === 'navigate') {
+          const viejo = await copiaVieja.text();
           const nuevo = await r.clone().text();
           if (viejo.length !== nuevo.length) avisar('nueva-version');
         }
