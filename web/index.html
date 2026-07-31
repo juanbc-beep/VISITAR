@@ -25,9 +25,14 @@
    local: los datos viven sólo en esta computadora y no se comparten.
    =================================================================== */
 window.NBU_NUBE = {
-  url:  "",   // https://xxxxxxxx.supabase.co          (Settings → API Keys)
-  anon: ""    // sb_publishable_...  o  eyJhbGciOiJIUzI1NiIs...  (las dos sirven)
+  url:  "https://gavfxnoigomxbteagneu.supabase.co",
+  anon: "sb_publishable_eNYnI827FlSpx6XKy7I1gQ_UzrBHpTQ"
 };
+/* Estos dos datos son publicos a proposito: la clave «publishable» solo sirve
+   para pedirle cosas a la base en nombre de quien este con la sesion iniciada.
+   Lo que protege los datos son las reglas de acceso de docs/supabase.sql, no
+   esconder la clave. La otra clave, la «secret», NO se usa aca y no debe salir
+   nunca del panel de Supabase. */
 </script>
 <style>
 :root{
