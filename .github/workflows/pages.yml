@@ -4,8 +4,9 @@
 # mientras GitHub Pages no esté habilitado en el repositorio, el despliegue falla
 # y manda un correo de error por cada cambio subido.
 #
-# La primera corrida enciende Pages sola (ver «enablement» abajo). Si aun asi
-# fallara, se hace a mano: Settings -> Pages -> Source: GitHub Actions.
+# ANTES DE LA PRIMERA PUBLICACION, una sola vez y a mano:
+#   Settings -> Pages -> Build and deployment -> Source: GitHub Actions.
+# No se puede automatizar (ver el comentario en el paso configure-pages).
 # Para publicar: pestaña Actions -> «Publicar el manual» -> Run workflow.
 # Para volver a publicar en cada push, descomentar el bloque «push:» de abajo.
 name: Publicar el manual
@@ -42,12 +43,12 @@ jobs:
           python3 -c "import json;json.load(open('web/manifest.webmanifest'))"
           echo "Tamaño de la app: $(du -h web/index.html | cut -f1)"
 
-      # enablement: true hace que la propia acción encienda Pages la primera vez,
-      # en lugar de fallar con «Get Pages site failed» porque el sitio no existe.
-      # Evita tener que entrar a Settings -> Pages a mano.
+      # Probado y descartado: con «enablement: true» la accion intenta crear el
+      # sitio de Pages sola y GitHub se lo niega con «Resource not accessible by
+      # integration». Crear el sitio pide permisos de administrador del
+      # repositorio, y el GITHUB_TOKEN automatico nunca los tiene. No se puede
+      # evitar el paso manual de Settings -> Pages -> Source: GitHub Actions.
       - uses: actions/configure-pages@v5
-        with:
-          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: web

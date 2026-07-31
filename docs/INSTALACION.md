@@ -107,18 +107,17 @@ venías trabajando.
 
 ## Parte 3 — Publicar la app (5 minutos)
 
-La primera vez que corras la acción, ella misma enciende GitHub Pages. No hace
-falta tocar nada antes.
+> **Obligatorio antes de la primera publicación.** Sin esto el despliegue falla
+> con *«Get Pages site failed»*. **No se puede automatizar**: crear el sitio pide
+> permisos de administrador del repositorio, y el token de las acciones no los
+> tiene nunca (contesta *«Resource not accessible by integration»*).
 
-Si esa primera corrida igual falla con *«Get Pages site failed»*, es que tu cuenta
-no le permite a las acciones cambiar esa configuración. En ese caso se hace a mano,
-una sola vez:
+1. Entrá a **`https://github.com/juanbc-beep/VISITAR/settings/pages`**
+   *(o: repositorio → **Settings** → **Pages** en el menú izquierdo).*
+2. En **Build and deployment** → **Source**, elegí **GitHub Actions**.
+   Se guarda solo; no hay botón *Save*.
 
-1. En el repositorio → **Settings** → **Pages**.
-2. En **Source**, elegí **GitHub Actions**. Guardá.
-3. Volvé a correr la acción.
-
-La dirección va a ser:
+Se hace **una sola vez**. La dirección va a ser:
 
 ```
 https://juanbc-beep.github.io/VISITAR/
