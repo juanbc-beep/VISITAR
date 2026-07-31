@@ -3238,6 +3238,15 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
       if(/Unable to validate email|invalid format/i.test(s))return 'El correo no tiene un formato válido.';
       if(/Email not confirmed/i.test(s))return 'La cuenta todavía no está confirmada por correo.';
       if(/rate limit|too many/i.test(s))return 'Demasiados intentos. Esperá un momento.';
+      /* Estos tres no son errores de quien usa la app: son interruptores del panel de
+         Supabase. Sin traducirlos, el equipo veía un texto en inglés que no le decía
+         a quién reclamarle. */
+      if(/Email logins are disabled|email provider.*disabled/i.test(s))
+        return 'El ingreso con correo está apagado en el panel de la empresa. Avisale al administrador.';
+      if(/Signups not allowed|signup is disabled/i.test(s))
+        return 'Las altas nuevas están cerradas en el panel de la empresa. Avisale al administrador.';
+      if(/Database error|unexpected_failure|Unexpected failure/i.test(s))
+        return 'La base rechazó el alta. Avisale al administrador: falta correr docs/supabase.sql.';
       if(/Failed to fetch|NetworkError/i.test(s))return 'Sin conexión con la nube de la empresa.';
       if(/un solo administrador|Sólo puede haber/i.test(s))return s;
       return s;
