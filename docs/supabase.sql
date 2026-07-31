@@ -113,9 +113,17 @@ create trigger perfiles_guardia
 --    Constraint trigger DEFERRABLE: la comprobación se hace al cerrar la
 --    transacción, así la transferencia (bajar a uno y subir a otro) pasa
 --    sin quedar transitoriamente en cero o en dos.
+--
+--    SECURITY DEFINER no es opcional acá. Al ser diferido, este control se
+--    ejecuta al confirmar la transacción y con los permisos de quien la
+--    confirma. Cuando alguien se registra, quien confirma es el rol interno
+--    de Supabase Auth, que no tiene permiso de lectura sobre public.perfiles:
+--    sin SECURITY DEFINER el conteo falla con «permission denied for table
+--    perfiles», el alta entera se cae, y la app sólo recibe el «Unexpected
+--    failure, please check server logs» que devuelve Auth.
 -- ---------------------------------------------------------------------
 create or replace function public.un_solo_admin() returns trigger
-  language plpgsql set search_path = public as $$
+  language plpgsql security definer set search_path = public as $$
 declare n int;
 begin
   select count(*) into n from public.perfiles where rol = 'admin' and estado = 'activo';

@@ -260,6 +260,7 @@ Las maneja Supabase y **nadie puede verlas**, ni vos. Si alguien la olvida:
 | `hacerme_admin` dice que ya hay un administrador activo | Hay uno solo. Se cambia desde la app: **Administración → Perfiles → Transferir administración** |
 | No aparece el cartel de «Instalar» | Sólo aparece en Chrome, Edge o navegadores derivados, y sólo con `https://`. En Firefox la app funciona igual pero no se instala |
 | «La cuenta todavía no está confirmada por correo» | Faltó desactivar *Confirm email* en el paso 1.3 |
+| Al crear la cuenta: **«Unexpected failure, please check server logs»** | Es un error 500 de Supabase Auth: se cayó el trigger de alta. Corré de nuevo `docs/supabase.sql` completo — las versiones anteriores del archivo tenían el control de «un solo admin» sin `security definer` y fallaba con *permission denied* justo al confirmar el alta |
 | Los cambios no llegan al equipo | La publicación es manual: **Actions → Publicar el manual → Run workflow**. Si la acción falla, ahí dice por qué |
 | «Get Pages site failed» al publicar | La acción no pudo encender Pages sola: hacelo a mano en **Settings → Pages → Source: GitHub Actions** y volvé a correrla |
 
