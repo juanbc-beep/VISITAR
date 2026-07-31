@@ -3350,7 +3350,47 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
       borrar:(id)=>api('/rest/v1/perfiles?id=eq.'+encodeURIComponent(id),
         {method:'DELETE',headers:{'Prefer':'return=minimal'}}),
       transferir:(id)=>api('/rest/v1/rpc/transferir_admin',{method:'POST',body:JSON.stringify({nuevo:id})}),
-      pendientes:()=>api('/rest/v1/rpc/pendientes',{method:'POST',body:'{}'})
+      pendientes:()=>api('/rest/v1/rpc/pendientes',{method:'POST',body:'{}'}),
+
+      /* --- contenido compartido ---
+         Correcciones de ficha, verificaciones y propuestas. Quién puede hacer
+         qué lo decide la base, no esto: acá sólo se llama. */
+      correcciones:()=>api('/rest/v1/correcciones?select=*',{method:'GET'}),
+      guardarCorreccion:(codigo,ov)=>api('/rest/v1/correcciones',
+        {method:'POST',headers:{'Prefer':'resolution=merge-duplicates,return=minimal'},
+         body:JSON.stringify({codigo:codigo,
+           nombre:('nombre'in ov)?ov.nombre:null,
+           norma:('norma'in ov)?ov.norma:null,
+           auditoria:('auditoria'in ov)?ov.auditoria:null,
+           asoc_extra:('asoc_extra'in ov)?ov.asoc_extra:null,
+           datos:ov,                                   // la copia exacta manda
+           autor:(perfil&&perfil.id)||null,
+           actualizado:new Date().toISOString()})}),
+      borrarCorreccion:(codigo)=>api('/rest/v1/correcciones?codigo=eq.'+encodeURIComponent(codigo),
+        {method:'DELETE',headers:{'Prefer':'return=minimal'}}),
+
+      verificaciones:()=>api('/rest/v1/verificaciones?select=*',{method:'GET'}),
+      // Por función: el estado, el autor y las fechas los pone la base.
+      pedirVerif:(codigo)=>api('/rest/v1/rpc/pedir_verificacion',
+        {method:'POST',body:JSON.stringify({p_codigo:codigo})}),
+      validarVerif:(codigo)=>api('/rest/v1/rpc/validar_verificacion',
+        {method:'POST',body:JSON.stringify({p_codigo:codigo})}),
+      borrarVerif:(codigo)=>api('/rest/v1/verificaciones?codigo=eq.'+encodeURIComponent(codigo),
+        {method:'DELETE',headers:{'Prefer':'return=minimal'}}),
+
+      propuestas:()=>api('/rest/v1/propuestas?select=*&estado=eq.pendiente&order=creada.desc',{method:'GET'}),
+      crearPropuesta:(codigo,texto)=>api('/rest/v1/propuestas',
+        {method:'POST',headers:{'Prefer':'return=minimal'},
+         body:JSON.stringify({codigo:codigo,texto:texto,autor:(perfil&&perfil.id)||null})}),
+      resolverPropuesta:(id,estado)=>api('/rest/v1/propuestas?id=eq.'+encodeURIComponent(id),
+        {method:'PATCH',headers:{'Prefer':'return=minimal'},
+         body:JSON.stringify({estado:estado,resuelta_por:(perfil&&perfil.id)||null,
+           resuelta_en:new Date().toISOString()})}),
+
+      ajustes:()=>api('/rest/v1/ajustes?select=contenido&id=eq.1',{method:'GET'}),
+      guardarAjustes:(contenido)=>api('/rest/v1/ajustes?id=eq.1',
+        {method:'PATCH',headers:{'Prefer':'return=minimal'},
+         body:JSON.stringify({contenido:contenido,actualizado:new Date().toISOString()})})
     };
   })();
   /* Se expone a propósito: es el mismo módulo que usa el panel de administración y
@@ -3412,6 +3452,75 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
 
   function persistAuth(){AUTH.updated=Date.now();save(KEY.auth,AUTH);queuePush('auth',AUTH);actualizarPendientes();}
   function persistContent(){CONTENT.updated=Date.now();save(KEY.content,CONTENT);queuePush('content',CONTENT);actualizarPendientes();}
+
+  /* ============ CONTENIDO COMPARTIDO EN LA NUBE ============
+     Correcciones de ficha, verificaciones y propuestas dejan de vivir en cada
+     computadora y pasan a la base: lo que corrige uno lo ve el resto sin
+     exportar ni importar nada.
+
+     En modo local (sin nube configurada) nada de esto se activa y la app sigue
+     funcionando como antes, con todo guardado en el navegador. */
+  let nubeContenido=false;      // true cuando CONTENT viene de la base
+  let nombrePorId={};           // uuid -> nombre, para mostrar quién hizo qué
+
+  async function cargarContenidoNube(){
+    if(!(NUBE.activa&&current&&current._nube))return false;
+    const [perfiles,corr,ver,props,aj]=await Promise.all([
+      NUBE.listar().catch(()=>[]),          // sólo para poner nombres a los uuid
+      NUBE.correcciones(), NUBE.verificaciones(), NUBE.propuestas(), NUBE.ajustes()]);
+    nombrePorId={}; (perfiles||[]).forEach(p=>{nombrePorId[p.id]=p.nombre;});
+    const quien=id=>id?(nombrePorId[id]||'—'):'';
+    const ms=s=>s?Date.parse(s):0;
+
+    const codes={};
+    (corr||[]).forEach(r=>{
+      // «datos» es la corrección exacta; las columnas sueltas son el respaldo
+      // para filas cargadas a mano desde el panel de Supabase.
+      if(r.datos&&typeof r.datos==='object'){codes[r.codigo]=r.datos;return;}
+      const o={};
+      if(r.nombre)o.nombre=r.nombre;
+      if(r.norma!=null)o.norma=r.norma;
+      if(r.auditoria!=null)o.auditoria=r.auditoria;
+      if(r.asoc_extra)o.asoc_extra=r.asoc_extra;
+      codes[r.codigo]=o;
+    });
+
+    const verif={};
+    (ver||[]).forEach(r=>{verif[r.codigo]={
+      t:ms(r.solicitada_en), por:quien(r.solicitada_por),
+      // la base dice «validada», la pantalla «validado»
+      estado:r.estado==='validada'?'validado':'pendiente',
+      validadoPor:quien(r.validada_por), tv:ms(r.validada_en)};});
+
+    const propuestas={};
+    (props||[]).forEach(p=>{(propuestas[p.codigo]=propuestas[p.codigo]||[]).push(
+      {id:p.id,t:ms(p.creada),por:quien(p.autor),texto:p.texto});});
+
+    CONTENT.codes=codes; CONTENT.verif=verif; CONTENT.propuestas=propuestas;
+    const a=(Array.isArray(aj)?aj[0]:aj)||{};
+    if(a.contenido&&a.contenido.page)CONTENT.page=a.contenido.page;
+    save(KEY.content,CONTENT);
+    nubeContenido=true;
+    applyContent(); refreshStats(); render(); renderPane(); actualizarPendientes();
+    return true;
+  }
+
+  /* Título, subtítulo y logo de la empresa. Van juntos en una sola fila, porque
+     se cambian de a uno cada muchos meses y no vale la pena una tabla. */
+  function guardarAjustesNube(){
+    if(!nubeContenido)return;
+    NUBE.guardarAjustes({page:CONTENT.page}).catch(err=>
+      toast('No se pudieron guardar los textos para el equipo: '+err.message,true));
+  }
+
+  /* Toda escritura vuelve a leer de la base. Es un viaje de más, pero evita lo
+     peor: que la pantalla siga mostrando algo que las reglas rechazaron. */
+  function enNube(promesa,queHacia){
+    return promesa.then(()=>cargarContenidoNube()).catch(err=>{
+      toast('No se pudo '+queHacia+': '+err.message,true);
+      return cargarContenidoNube().catch(()=>{});
+    });
+  }
 
   /* Lo que espera al administrador no puede vivir dentro de un panel de ajustes: si no
      se ve, no se revisa. Cuando hay algo pendiente aparece en la barra superior con el
@@ -3846,6 +3955,10 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
     el('acctChip').hidden=false;el('acctNm').textContent=p.name;el('acctAv').textContent=(p.name||'?').slice(0,1).toUpperCase();
     const adm=p.role==='admin';el('adminBtn').hidden=!adm;el('editModeBtn').hidden=!adm;
     applyContent();refreshStats();applyMode();render();hideGate();actualizarPendientes();
+    /* El contenido del equipo se trae después de mostrar la app: si la nube
+       tardara, se entra igual y se ve la copia guardada de la última vez. */
+    if(NUBE.activa&&p._nube)
+      cargarContenidoNube().catch(e=>toast('No se pudo traer el contenido del equipo: '+e.message,true));
     if(SYNC.enabled)startPolling();
     vigilarCuentas(adm);
     resetIdle();
@@ -3924,6 +4037,9 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
 
   function renderPane(){
     const p=el('aPane');
+    // El panel se dibuja al abrirlo: si está cerrado no hay dónde escribir, y
+    // refrescarlo desde afuera reventaba con «innerHTML de null».
+    if(!p)return;
     if(aTab==='perfiles'&&NUBE.activa){ paneNube(p); return; }
     if(aTab==='perfiles'){
       const pend=AUTH.profiles.filter(x=>x.estado==='pendiente');
@@ -3971,7 +4087,7 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
             <button class="minibtn" data-vact="ok" data-c="${E(v.code)}">Validar</button>
             <button class="minibtn danger" data-vact="no" data-c="${E(v.code)}">Rechazar</button>
           </div>`;}).join(''):'<div class="ahint">No hay verificaciones esperando validación.</div>')+
-        `<div class="ahint" style="margin-top:18px;padding-top:14px;border-top:1px solid var(--line)">Propuestas de los agentes sobre <b>cómo se carga</b> cada solicitud. Al aprobar, el texto queda publicado en la ficha para todo el equipo y se incluye al exportar las correcciones para la base.</div>`+
+        `<div class="ahint" style="margin-top:18px;padding-top:14px;border-top:1px solid var(--line)">Propuestas de los agentes sobre <b>cómo se carga</b> cada solicitud. Al aprobar, el texto queda publicado en la ficha y le llega a todo el equipo enseguida, sin que nadie exporte ni importe nada.</div>`+
         (props.length?props.map(pr=>{const c=BYCODE[pr.code];
           return `<div class="arow" style="align-items:flex-start">
             <div class="grow2">
@@ -3979,8 +4095,8 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
               <div style="font-size:13px;color:var(--ink-2);margin:5px 0;white-space:pre-wrap">${E(pr.texto)}</div>
               <div class="pmeta">${E(pr.por||'—')} · ${new Date(pr.t).toLocaleDateString('es-AR')}</div>
             </div>
-            <button class="minibtn" data-pact="ok" data-c="${E(pr.code)}" data-i="${pr.idx}">Aprobar</button>
-            <button class="minibtn danger" data-pact="no" data-c="${E(pr.code)}" data-i="${pr.idx}">Descartar</button>
+            <button class="minibtn" data-pact="ok" data-c="${E(pr.code)}" data-i="${pr.idx}" data-id="${E(pr.id||'')}">Aprobar</button>
+            <button class="minibtn danger" data-pact="no" data-c="${E(pr.code)}" data-i="${pr.idx}" data-id="${E(pr.id||'')}">Descartar</button>
           </div>`;}).join(''):'<div class="ahint">No hay propuestas pendientes.</div>');
       p.querySelectorAll('[data-vact]').forEach(b=>b.addEventListener('click',()=>{
         const code=b.dataset.c;
@@ -3990,14 +4106,27 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
         toast(b.dataset.vact==='ok'?'Verificación validada':'Verificación rechazada');
       }));
       p.querySelectorAll('[data-pact]').forEach(b=>b.addEventListener('click',()=>{
-        const code=b.dataset.c, i=+b.dataset.i, lista=(CONTENT.propuestas||{})[code]||[];
+        const code=b.dataset.c, i=+b.dataset.i, id=b.dataset.id||'';
+        const lista=(CONTENT.propuestas||{})[code]||[];
         const pr=lista[i]; if(!pr)return;
-        if(b.dataset.pact==='ok'){
-          const ov=CONTENT.codes[code]||{}; ov.asoc_extra=pr.texto; CONTENT.codes[code]=ov;
-          logEdit('aprobó cómo se carga',code); applyCode(code);
+        const aprueba=b.dataset.pact==='ok';
+        let ov=null;
+        if(aprueba){
+          ov=Object.assign({},CONTENT.codes[code]||{},{asoc_extra:pr.texto});
+          CONTENT.codes[code]=ov; logEdit('aprobó cómo se carga',code); applyCode(code);
         } else logEdit('descartó una propuesta',code);
         lista.splice(i,1); if(!lista.length)delete CONTENT.propuestas[code];
-        persistContent(); renderPane(); if(state.view==='list')render();
+        persistContent();
+        /* En la nube la propuesta no se borra: queda marcada como aprobada o
+           rechazada, con quién y cuándo. El registro de lo decidido vale tanto
+           como la decisión. */
+        if(nubeContenido&&id){
+          const guardar=aprueba
+            ? NUBE.resolverPropuesta(id,'aprobada').then(()=>NUBE.guardarCorreccion(code,ov))
+            : NUBE.resolverPropuesta(id,'rechazada');
+          enNube(guardar,aprueba?'publicar la propuesta':'descartar la propuesta');
+        }
+        renderPane(); if(state.view==='list')render();
         toast(b.dataset.pact==='ok'?'Propuesta publicada':'Propuesta descartada');
       }));
     } else if(aTab==='empresa'){
@@ -4026,14 +4155,14 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
         <button class="minibtn" id="pgReset" style="margin-top:14px;margin-left:6px">Restaurar por defecto</button>
         <div style="margin-top:16px"><div class="pmeta" style="font-weight:700;color:var(--ink)">Fichas con contenido editado: ${Object.keys(CONTENT.codes).length}</div>
         ${Object.keys(CONTENT.codes).length?`<div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:5px">${Object.keys(CONTENT.codes).map(c=>`<button class="minibtn" data-goto2="${c}">${c}</button>`).join('')}</div>`:''}</div>`;
-      el('pgSave').addEventListener('click',()=>{CONTENT.page.title=gv('pgTitle');CONTENT.page.subtitle=gv('pgSub');logEdit('editó textos generales');persistContent();applyContent();toast('Textos guardados');});
-      el('pgReset').addEventListener('click',()=>{const lg=CONTENT.page.logo;CONTENT.page={};if(lg)CONTENT.page.logo=lg;persistContent();applyContent();renderPane();toast('Textos restaurados');});
+      el('pgSave').addEventListener('click',()=>{CONTENT.page.title=gv('pgTitle');CONTENT.page.subtitle=gv('pgSub');logEdit('editó textos generales');persistContent();guardarAjustesNube();applyContent();toast('Textos guardados');});
+      el('pgReset').addEventListener('click',()=>{const lg=CONTENT.page.logo;CONTENT.page={};if(lg)CONTENT.page.logo=lg;persistContent();guardarAjustesNube();applyContent();renderPane();toast('Textos restaurados');});
       el('pgLogo').addEventListener('change',e=>{
         const f=e.target.files[0];if(!f)return;
         if(f.size>400000)return toast('Imagen muy grande (máx. 400 KB)',true);
-        const rd=new FileReader();rd.onload=()=>{CONTENT.page.logo=rd.result;logEdit('cambió el logo');persistContent();applyContent();renderPane();toast('Logo actualizado');};rd.readAsDataURL(f);
+        const rd=new FileReader();rd.onload=()=>{CONTENT.page.logo=rd.result;logEdit('cambió el logo');persistContent();guardarAjustesNube();applyContent();renderPane();toast('Logo actualizado');};rd.readAsDataURL(f);
       });
-      if(el('pgLogoDel'))el('pgLogoDel').addEventListener('click',()=>{delete CONTENT.page.logo;persistContent();applyContent();renderPane();toast('Logo quitado');});
+      if(el('pgLogoDel'))el('pgLogoDel').addEventListener('click',()=>{delete CONTENT.page.logo;persistContent();guardarAjustesNube();applyContent();renderPane();toast('Logo quitado');});
       p.querySelectorAll('[data-goto2]').forEach(b=>b.addEventListener('click',()=>{closeAdmin();openCode(b.dataset.goto2);}));
     } else if(aTab==='nube'){
       const project=(SYNC.url||'').replace(/^https?:\/\//,'').split('.')[0];
@@ -4185,11 +4314,13 @@ create policy "kv_all" on kv for all
       const aud=el('efAud').value.split('\n').map(s=>s.trim()).filter(Boolean);
       const ov={nombre:el('efNom').value.trim(),norma:(trab||intp)?{trabajo:trab,interpretacion:intp}:null,auditoria:aud,asoc_extra:el('efAsoc').value.trim()||null};
       CONTENT.codes[code]=ov;logEdit('editó ficha',code);persistContent();applyCode(code);
+      if(nubeContenido)enNube(NUBE.guardarCorreccion(code,ov),'guardar la ficha para el equipo');
       if(state.view==='list')render();closeAdmin();openCode(code);toast('Ficha actualizada');
     });
     el('efReset').addEventListener('click',()=>{
       if(!confirm('¿Restaurar el contenido original de este código?'))return;
       delete CONTENT.codes[code];logEdit('restauró ficha',code);persistContent();applyCode(code);
+      if(nubeContenido)enNube(NUBE.borrarCorreccion(code),'restaurar la ficha para el equipo');
       if(state.view==='list')render();closeAdmin();openCode(code);toast('Contenido restaurado');
     });
     amodal.classList.add('on');
@@ -4271,7 +4402,7 @@ create policy "kv_all" on kv for all
       {sel:'#editModeBtn',t:'Modo edición',
        d:'Lo activás para poder <b>corregir el contenido de una ficha</b>: la denominación, las normas, las notas de auditoría. Se usa sobre todo en las que están marcadas como «denominación a confirmar».'},
       {sel:'#adminBtn',t:'Administración',
-       d:'Perfiles del equipo y aprobación de cuentas, textos y logo, sincronización, respaldo, y <b>exportar las correcciones y verificaciones</b> para que se incorporen a la base y no queden sólo en esta computadora.'});
+       d:'Perfiles del equipo y aprobación de cuentas, textos y logo, respaldo, y <b>exportar las correcciones y verificaciones</b> como archivo, para archivarlas o llevarlas a otro sistema. Con la nube configurada ya se comparten solas: esto es una copia, no el medio de transporte.'});
     P.push({sel:null,t:'Listo',
       d:'Podés volver a ver este recorrido cuando quieras desde el botón <b>Ver tutorial</b>, arriba del panel de Glosario y marco normativo.'});
     return P;
@@ -4625,6 +4756,9 @@ create policy "kv_all" on kv for all
       (CONTENT.propuestas[code]=CONTENT.propuestas[code]||[]).push(
         {t:Date.now(),por:(current&&current.name)||'',texto:texto});
       logEdit('propuso cómo se carga',code); persistContent();
+      // Se pinta primero y se manda después: la pantalla responde al instante y
+      // la relectura de la base corrige si algo no entró.
+      if(nubeContenido)enNube(NUBE.crearPropuesta(code,texto),'guardar la propuesta');
     },
     propuestasDe:(code)=>((CONTENT.propuestas||{})[code]||[]),
     /* Verificación: un centro de respaldo vale por la confianza que genera, y hoy
@@ -4637,12 +4771,15 @@ create policy "kv_all" on kv for all
       CONTENT.verif[code]={t:Date.now(),por:(current&&current.name)||'',
         estado:esAdmin?'validado':'pendiente',
         validadoPor:esAdmin?((current&&current.name)||''):'', tv:esAdmin?Date.now():0};
-      logEdit(esAdmin?'verificó la ficha':'solicitó verificar la ficha',code); persistContent();},
+      logEdit(esAdmin?'verificó la ficha':'solicitó verificar la ficha',code); persistContent();
+      if(nubeContenido)enNube(NUBE.pedirVerif(code),'registrar la verificación');},
     validarVerif:(code)=>{const v=(CONTENT.verif||{})[code]; if(!v)return;
       v.estado='validado'; v.validadoPor=(current&&current.name)||''; v.tv=Date.now();
-      logEdit('validó la verificación',code); persistContent();},
+      logEdit('validó la verificación',code); persistContent();
+      if(nubeContenido)enNube(NUBE.validarVerif(code),'validar la verificación');},
     desverificar:(code)=>{if(CONTENT.verif)delete CONTENT.verif[code];
-      logEdit('quitó la verificación',code); persistContent();},
+      logEdit('quitó la verificación',code); persistContent();
+      if(nubeContenido)enNube(NUBE.borrarVerif(code),'quitar la verificación');},
     verifDe:(code)=>((CONTENT.verif||{})[code]||null),
     verifPendientes:()=>Object.entries(CONTENT.verif||{})
       .filter(([,v])=>v.estado==='pendiente')

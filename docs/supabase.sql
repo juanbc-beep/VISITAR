@@ -164,6 +164,12 @@ create table if not exists public.correcciones (
   autor        uuid references public.perfiles(id) on delete set null,
   actualizado  timestamptz not null default now()
 );
+-- La corrección exacta, tal como la aplica la app. Las columnas de arriba son
+-- para poder leer la tabla a ojo; ésta es la que manda al reconstruirla.
+-- Hace falta porque no es lo mismo «no toqué la norma» que «la dejé vacía a
+-- propósito», y en columnas sueltas las dos cosas llegan como null: al volver
+-- de la base reaparecería una norma que el administrador había borrado.
+alter table public.correcciones add column if not exists datos jsonb;
 
 -- Verificaciones: las solicita un administrativo, las valida el administrador.
 create table if not exists public.verificaciones (
@@ -275,6 +281,54 @@ create policy ajustes_ver on public.ajustes for select to authenticated
 drop policy if exists ajustes_editar on public.ajustes;
 create policy ajustes_editar on public.ajustes for update to authenticated
   using (public.es_admin()) with check (public.es_admin());
+
+-- ---------------------------------------------------------------------
+-- 7 bis. VERIFICAR UNA FICHA
+--    Van por función y no por INSERT directo porque la ficha se verifica más
+--    de una vez: pedir la verificación de algo ya verificado es un UPDATE, y
+--    dejar que un no-admin haga UPDATE sobre esta tabla abriría también la
+--    puerta a auto-validarse. Acá el estado, el autor y las fechas los pone
+--    la base: el cliente no los manda y no los puede falsear.
+-- ---------------------------------------------------------------------
+create or replace function public.pedir_verificacion(p_codigo text) returns void
+  language plpgsql security definer set search_path = public as $$
+declare admin boolean := public.es_admin();
+begin
+  if not public.es_activo() then
+    raise exception 'Tu cuenta todavía no está habilitada.';
+  end if;
+  -- Un administrador verifica de una; el resto deja el pedido pendiente.
+  insert into public.verificaciones (codigo, estado, solicitada_por, solicitada_en,
+                                     validada_por, validada_en)
+       values (p_codigo,
+               case when admin then 'validada' else 'pendiente' end,
+               auth.uid(), now(),
+               case when admin then auth.uid() end,
+               case when admin then now() end)
+  on conflict (codigo) do update
+     set estado         = case when admin then 'validada' else 'pendiente' end,
+         solicitada_por = auth.uid(),
+         solicitada_en  = now(),
+         validada_por   = case when admin then auth.uid() end,
+         validada_en    = case when admin then now() end;
+end $$;
+
+create or replace function public.validar_verificacion(p_codigo text) returns void
+  language plpgsql security definer set search_path = public as $$
+begin
+  if not public.es_admin() then
+    raise exception 'Sólo el administrador valida una verificación.';
+  end if;
+  update public.verificaciones
+     set estado = 'validada', validada_por = auth.uid(), validada_en = now()
+   where codigo = p_codigo;
+end $$;
+
+-- Nadie sin cuenta habilitada puede siquiera intentarlo.
+revoke all on function public.pedir_verificacion(text)   from public, anon;
+revoke all on function public.validar_verificacion(text) from public, anon;
+grant execute on function public.pedir_verificacion(text)   to authenticated;
+grant execute on function public.validar_verificacion(text) to authenticated;
 
 -- ---------------------------------------------------------------------
 -- 8. AVISO AL ADMINISTRADOR

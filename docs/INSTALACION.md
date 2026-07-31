@@ -233,6 +233,16 @@ Cuando se publica una versión nueva de la app, a cada persona le aparece un car
 actualiza cuando la persona lo decide, para que no se le corte una consulta con un
 afiliado enfrente.
 
+### Verificaciones y propuestas
+Un administrativo puede **pedir que se verifique** una ficha y **proponer cómo se
+carga** una práctica. Las dos cosas quedan pendientes hasta que las aprobás vos,
+desde **Pendientes**. Al aprobar una propuesta, el texto se publica en la ficha y
+le llega a todo el equipo enseguida.
+
+Quién puede hacer qué lo hace cumplir la base, no la aplicación: aunque alguien
+manipule la app desde su navegador, no puede validar su propia verificación,
+aprobar su propia propuesta ni corregir una ficha si no es administrador.
+
 ### Cambiar de administrador
 **Administración → Perfiles → Transferir administración**. Hay **uno solo**: al
 transferirlo, vos dejás de serlo. Al administrador no se lo puede eliminar sin
@@ -251,7 +261,8 @@ Las maneja Supabase y **nadie puede verlas**, ni vos. Si alguien la olvida:
 | Cuentas, roles, aprobaciones | Base compartida |
 | Favoritos, notas personales, valor de U.B. | Base compartida, atados a tu cuenta: los tenés igual desde cualquier computadora |
 | Catálogo de códigos, CIE-10, SURGE, abreviaturas | Dentro del archivo de la app |
-| **Verificaciones, propuestas y correcciones de ficha** | **Todavía locales.** Las tablas ya existen en la base; falta conectarlas. Mientras tanto siguen viajando con «Exportar correcciones para la base» |
+| Correcciones de ficha, verificaciones y propuestas | Base compartida: lo que corrige o verifica uno lo ve el resto al entrar |
+| Registro de actividad (pestaña **Registro**) | Sólo en cada computadora: es el rastro de lo que se hizo desde ahí |
 
 ---
 
