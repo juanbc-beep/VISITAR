@@ -107,13 +107,18 @@ venías trabajando.
 
 ## Parte 3 — Publicar la app (5 minutos)
 
-> **Este paso es obligatorio antes de publicar.** Si GitHub Pages no está
-> habilitado, el despliegue falla con *«Get Pages site failed»* y GitHub manda un
-> correo de error por cada intento.
+La primera vez que corras la acción, ella misma enciende GitHub Pages. No hace
+falta tocar nada antes.
+
+Si esa primera corrida igual falla con *«Get Pages site failed»*, es que tu cuenta
+no le permite a las acciones cambiar esa configuración. En ese caso se hace a mano,
+una sola vez:
 
 1. En el repositorio → **Settings** → **Pages**.
 2. En **Source**, elegí **GitHub Actions**. Guardá.
-3. La dirección va a ser:
+3. Volvé a correr la acción.
+
+La dirección va a ser:
 
 ```
 https://juanbc-beep.github.io/VISITAR/
@@ -223,7 +228,7 @@ Las maneja Supabase y **nadie puede verlas**, ni vos. Si alguien la olvida:
 | No aparece el cartel de «Instalar» | Sólo aparece en Chrome, Edge o navegadores derivados, y sólo con `https://`. En Firefox la app funciona igual pero no se instala |
 | «La cuenta todavía no está confirmada por correo» | Faltó desactivar *Confirm email* en el paso 1.3 |
 | Los cambios no llegan al equipo | La publicación es manual: **Actions → Publicar el manual → Run workflow**. Si la acción falla, ahí dice por qué |
-| «Get Pages site failed» al publicar | Falta el paso 3: **Settings → Pages → Source: GitHub Actions** |
+| «Get Pages site failed» al publicar | La acción no pudo encender Pages sola: hacelo a mano en **Settings → Pages → Source: GitHub Actions** y volvé a correrla |
 
 Para diagnosticar desde adentro de la app: `F12` → consola → escribí
 `NBUNube.pendientes()` y presioná Enter. Si contesta con números, la base
