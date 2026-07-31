@@ -1,21 +1,21 @@
 # Publica la carpeta web/ en GitHub Pages.
 #
-# SOLO SE EJECUTA A MANO. La publicación automática en cada push quedó apagada:
-# mientras GitHub Pages no esté habilitado en el repositorio, el despliegue falla
-# y manda un correo de error por cada cambio subido.
+# Se publica solo cada vez que cambia la app, y tambien a mano cuando haga falta.
 #
-# ANTES DE LA PRIMERA PUBLICACION, una sola vez y a mano:
-#   Settings -> Pages -> Build and deployment -> Source: GitHub Actions.
-# No se puede automatizar (ver el comentario en el paso configure-pages).
-# Para publicar: pestaña Actions -> «Publicar el manual» -> Run workflow.
-# Para volver a publicar en cada push, descomentar el bloque «push:» de abajo.
+# Estuvo en manual un tiempo porque GitHub Pages no estaba habilitado y cada push
+# terminaba en un correo de «all jobs have failed». Eso ya esta resuelto: Pages
+# quedo configurado en Settings -> Pages -> Source: GitHub Actions.
+#
+# El filtro «paths» es lo que evita que vuelvan los correos por nada: un cambio en
+# docs/ o en scripts/ no toca lo que ve el equipo, asi que no dispara publicacion.
+# Para volver al modo manual, comentar el bloque «push:».
 name: Publicar el manual
 
 on:
   workflow_dispatch:
-  # push:
-  #   branches: [claude/unified-medical-codes-manual-o9nw1w]
-  #   paths: ['web/**', '.github/workflows/pages.yml']
+  push:
+    branches: [claude/unified-medical-codes-manual-o9nw1w]
+    paths: ['web/**', '.github/workflows/pages.yml']
 
 permissions:
   contents: read

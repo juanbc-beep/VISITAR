@@ -141,18 +141,24 @@ Se hace **una sola vez**. La dirección va a ser:
 https://juanbc-beep.github.io/VISITAR/
 ```
 
-### Cómo publicar una versión
+### Cómo se publica una versión
 
-La publicación es **manual, a propósito**: así nada se despliega sin que vos lo
-decidas y no llegan correos de error por cambios de trabajo.
+**Se publica sola.** Cada vez que cambia la app, la acción corre y en un minuto la
+versión nueva está en línea; a cada persona le aparece el cartel «Hay una versión
+nueva del manual», que se actualiza cuando ella lo decide.
+
+Sólo dispara cuando cambia lo que el equipo efectivamente ve — la carpeta `web/` o
+la propia acción. Un cambio en `docs/` o en `scripts/` no publica nada, así que no
+llegan correos por trabajo interno.
+
+**También se puede publicar a mano**, por ejemplo para reponer una versión sin
+haber tocado nada:
 
 1. Pestaña **Actions** → **Publicar el manual** (menú izquierdo).
 2. Botón **Run workflow** → **Run workflow**.
-3. En un minuto la versión nueva está en línea, y a cada persona le aparece el
-   cartel «Hay una versión nueva del manual».
 
-Si más adelante preferís que se publique solo en cada cambio, descomentá el bloque
-`push:` de `.github/workflows/pages.yml`.
+Si en algún momento querés volver al modo manual, comentá el bloque `push:` de
+`.github/workflows/pages.yml`.
 
 ---
 
@@ -261,7 +267,7 @@ Las maneja Supabase y **nadie puede verlas**, ni vos. Si alguien la olvida:
 | No aparece el cartel de «Instalar» | Sólo aparece en Chrome, Edge o navegadores derivados, y sólo con `https://`. En Firefox la app funciona igual pero no se instala |
 | «La cuenta todavía no está confirmada por correo» | Faltó desactivar *Confirm email* en el paso 1.3 |
 | Al crear la cuenta: **«Unexpected failure, please check server logs»** | Es un error 500 de Supabase Auth: se cayó el trigger de alta. Corré de nuevo `docs/supabase.sql` completo — las versiones anteriores del archivo tenían el control de «un solo admin» sin `security definer` y fallaba con *permission denied* justo al confirmar el alta |
-| Los cambios no llegan al equipo | La publicación es manual: **Actions → Publicar el manual → Run workflow**. Si la acción falla, ahí dice por qué |
+| Los cambios no llegan al equipo | Fijate en **Actions** si la última corrida salió verde. Si el cambio fue fuera de `web/`, no publica a propósito: forzalo con **Run workflow** |
 | «Get Pages site failed» al publicar | La acción no pudo encender Pages sola: hacelo a mano en **Settings → Pages → Source: GitHub Actions** y volvé a correrla |
 
 Para diagnosticar desde adentro de la app: `F12` → consola → escribí
