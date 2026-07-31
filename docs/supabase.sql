@@ -285,11 +285,65 @@ $$;
 -- ---------------------------------------------------------------------
 -- 9. EL PRIMER ADMINISTRADOR
 --    El trigger da de alta a todos como pendientes, incluida la primera
---    cuenta. Después de registrarte por primera vez en la app, corré esto
---    UNA VEZ con tu correo para habilitarte y quedar como administrador.
+--    cuenta, así que hay que habilitar una a mano UNA sola vez.
 --
---    reemplazá el correo y descomentá:
+--    Por qué esto es una función y no un simple UPDATE: en el SQL Editor no
+--    hay sesión iniciada, así que auth.uid() es NULL y es_admin() da falso.
+--    El guardia del punto 4 entonces revierte «rol» y «estado» en silencio:
+--    la consola contesta «UPDATE 1» y la cuenta sigue pendiente. La función
+--    apaga el guardia por el tiempo que dura la transacción, y como en
+--    PostgreSQL el DDL también es transaccional, si algo falla el guardia
+--    vuelve solo: no puede quedar apagado.
 --
--- update public.perfiles set rol = 'admin', estado = 'activo'
---  where id = (select id from auth.users where email = 'vos@visitar.com.ar');
+--    Se corre así, una vez, con tu correo:
+--
+--      select public.hacerme_admin('vos@visitar.com.ar');
+--
+--    Abajo se le quita el permiso a las cuentas de la app: sólo se puede
+--    llamar desde el SQL Editor, nunca desde el navegador.
 -- ---------------------------------------------------------------------
+create or replace function public.hacerme_admin(correo text) returns text
+  language plpgsql security definer set search_path = public as $$
+declare
+  uid uuid; nom text; otro text;
+begin
+  select u.id,
+         coalesce(nullif(trim(u.raw_user_meta_data ->> 'nombre'), ''),
+                  split_part(u.email, '@', 1))
+    into uid, nom
+    from auth.users u
+   where lower(u.email) = lower(trim(correo));
+
+  if uid is null then
+    raise exception 'No hay ninguna cuenta con el correo «%». Creala primero desde la app, después corré esto.', correo;
+  end if;
+
+  select p.nombre into otro
+    from public.perfiles p
+   where p.rol = 'admin' and p.estado = 'activo' and p.id <> uid;
+  if otro is not null then
+    raise exception 'Ya hay un administrador activo (%). Hay uno solo: transferilo desde la app, en Administración → Perfiles → Transferir administración.', otro;
+  end if;
+
+  alter table public.perfiles disable trigger perfiles_guardia;
+
+  -- El insert cubre el caso de haberse registrado ANTES de correr este
+  -- archivo: ahí el trigger de alta todavía no existía y no hay fila.
+  insert into public.perfiles (id, nombre, rol, estado)
+       values (uid, nom, 'admin', 'activo')
+  on conflict (id) do update set rol = 'admin', estado = 'activo';
+
+  -- Sin esto el ALTER de abajo falla con «pending trigger events»: el
+  -- control de «un solo admin» es diferido y quedó encolado por el insert.
+  -- Adelantarlo también hace que, si algo estuviera mal, el error salte acá
+  -- adentro y se deshaga todo junto.
+  set constraints public.perfiles_un_admin immediate;
+
+  alter table public.perfiles enable trigger perfiles_guardia;
+
+  return 'Listo: «' || correo || '» quedó como administrador activo. Ya podés entrar a la app.';
+end $$;
+
+-- Sólo desde la consola de Supabase. Ninguna cuenta de la app puede llamarla.
+revoke all on function public.hacerme_admin(text) from public;
+revoke all on function public.hacerme_admin(text) from anon, authenticated;

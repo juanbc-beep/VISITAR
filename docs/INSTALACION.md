@@ -162,18 +162,32 @@ El sistema no tiene un administrador de fábrica: **la primera cuenta también n
 pendiente**, y hay que habilitarla a mano una única vez.
 
 1. Entrá a la dirección de la app.
-2. **No tengo cuenta todavía → crearla**. Poné tu nombre, tu correo de trabajo y
-   una contraseña.
-3. Va a decir que quedó pendiente. Es lo esperado.
-4. Volvé a Supabase → **SQL Editor** → **New query** y corré esto **cambiando el
-   correo por el tuyo**:
+2. Vas a ver **Entrar al manual**. Abajo, el enlace
+   **«No tengo cuenta todavía → crearla»**.
+3. Completá **nombre y apellido**, **correo** y **contraseña** (mínimo 6),
+   repetila, y **Crear mi cuenta**.
+4. Aparece: *«Tu cuenta … quedó pendiente de aprobación»*. **Es lo esperado**, no
+   es un error. Dejá esa pantalla y seguí.
+5. Volvé a Supabase → **SQL Editor** → **New query**, y corré esto **cambiando el
+   correo por el que acabás de usar**:
 
 ```sql
-update public.perfiles set rol = 'admin', estado = 'activo'
- where id = (select id from auth.users where email = 'vos@visitar.com.ar');
+select public.hacerme_admin('vos@visitar.com.ar');
 ```
 
-5. Volvé a la app y entrá. Ya sos el administrador.
+   Tiene que contestar: *«Listo: … quedó como administrador activo»*. Si dice que
+   no encuentra la cuenta, es que el correo no coincide con el del alta.
+
+6. Volvé a la app, **Volver al inicio**, y entrá con ese correo y contraseña. Ya
+   sos el administrador.
+
+> **Por qué una función y no un `update` a mano.** El `update` directo **no
+> funciona**, y lo peor es que *parece* funcionar: la consola contesta
+> `Success / UPDATE 1` y la cuenta sigue pendiente. Es el guardia
+> anti-autopromoción haciendo su trabajo — en el SQL Editor no hay sesión
+> iniciada, así que para la base «no sos» el administrador y te revierte los dos
+> campos. `hacerme_admin()` levanta el guardia sólo durante esa transacción, y no
+> se la puede llamar desde el navegador: las cuentas de la app no tienen permiso.
 
 **Esto se hace una sola vez.** De acá en adelante todas las altas las aprobás
 desde la app.
@@ -241,7 +255,9 @@ Las maneja Supabase y **nadie puede verlas**, ni vos. Si alguien la olvida:
 |---|---|
 | «Sin conexión con la nube de la empresa» | Las claves del paso 2 están mal pegadas (fijate que la URL no tenga barra al final ni espacios), o el proyecto de Supabase está pausado (se pausa solo tras una semana sin uso; se reactiva desde el panel) |
 | No encontrás la Project URL en el panel | **Settings → Data API** (las claves están aparte, en **Settings → API Keys**). El botón **Connect** de la barra superior te da las dos juntas. Y siempre podés leerla de la barra de direcciones: ver 1.4. Es única de tu proyecto: nadie te la puede pasar |
-| Se creó la cuenta pero no aparece en Perfiles | Falta correr el SQL del paso 1.2, o tu cuenta no quedó como `admin` (paso 4.4) |
+| Se creó la cuenta pero no aparece en Perfiles | Falta correr el SQL del paso 1.2, o tu cuenta no quedó como `admin` (paso 4.5) |
+| Corriste el `update … set rol='admin'` y seguís entrando como pendiente | Ese `update` no sirve aunque diga *Success*: lo revierte el guardia. Usá `select public.hacerme_admin('tu@correo');` (paso 4.5) |
+| `hacerme_admin` dice que ya hay un administrador activo | Hay uno solo. Se cambia desde la app: **Administración → Perfiles → Transferir administración** |
 | No aparece el cartel de «Instalar» | Sólo aparece en Chrome, Edge o navegadores derivados, y sólo con `https://`. En Firefox la app funciona igual pero no se instala |
 | «La cuenta todavía no está confirmada por correo» | Faltó desactivar *Confirm email* en el paso 1.3 |
 | Los cambios no llegan al equipo | La publicación es manual: **Actions → Publicar el manual → Run workflow**. Si la acción falla, ahí dice por qué |
