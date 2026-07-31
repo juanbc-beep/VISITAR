@@ -52,15 +52,33 @@ un paso de más que sólo trae problemas.
 
 ### 1.4 Copiar la dirección del proyecto y la clave pública
 
-1. Engranaje **Settings** (abajo a la izquierda) → **API Keys**.
-   *(Si no lo encontrás, los mismos datos están en el botón **Connect**, arriba a
-   la derecha.)*
-2. Anotá los dos valores:
+Son **dos** valores y Supabase los tiene en **dos pantallas distintas**:
 
-| Qué copiar | Dónde dice | Cómo se ve |
+| Qué copiar | Dónde está | Cómo se ve |
 |---|---|---|
-| **Project URL** | arriba de todo | `https://abcdefghijklmnop.supabase.co` |
-| **Clave pública** | *Publishable key* o *anon public* | `sb_publishable_…` o `eyJhbGciOi…` |
+| **Project URL** | **Settings** → **Data API**, arriba de todo | `https://abcdefghijklmnop.supabase.co` |
+| **Clave pública** | **Settings** → **API Keys** | `sb_publishable_…` o `eyJhbGciOi…` |
+
+**El atajo:** el botón **Connect**, en la barra de arriba del proyecto, te muestra
+los dos juntos. En la solapa *App Frameworks* aparecen así:
+
+```
+NEXT_PUBLIC_SUPABASE_URL=https://abcdefghijklmnop.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=sb_publishable_...
+```
+
+Los nombres en mayúsculas son de otro framework: ignoralos y copiá lo que va
+después de cada `=`.
+
+**Si el menú cambió de lugar**, la URL se puede deducir sin buscarla. Mirá la
+barra de direcciones estando dentro del proyecto:
+
+```
+https://supabase.com/dashboard/project/abcdefghijklmnop
+                                       └─── tu identificador ───┘
+```
+
+Ese código es tu proyecto, y la URL es `https://` + ese código + `.supabase.co`.
 
 > **Sobre el nombre de la clave:** Supabase la renombró. Los proyectos viejos la
 > muestran como **anon public** (arranca con `eyJhbGciOi…`) y los nuevos como
@@ -222,7 +240,7 @@ Las maneja Supabase y **nadie puede verlas**, ni vos. Si alguien la olvida:
 | Síntoma | Causa habitual |
 |---|---|
 | «Sin conexión con la nube de la empresa» | Las claves del paso 2 están mal pegadas (fijate que la URL no tenga barra al final ni espacios), o el proyecto de Supabase está pausado (se pausa solo tras una semana sin uso; se reactiva desde el panel) |
-| No encontrás la Project URL en el panel | **Settings → API Keys**, arriba de todo. También aparece en el botón **Connect** de la barra superior. Es única de tu proyecto: nadie te la puede pasar |
+| No encontrás la Project URL en el panel | **Settings → Data API** (las claves están aparte, en **Settings → API Keys**). El botón **Connect** de la barra superior te da las dos juntas. Y siempre podés leerla de la barra de direcciones: ver 1.4. Es única de tu proyecto: nadie te la puede pasar |
 | Se creó la cuenta pero no aparece en Perfiles | Falta correr el SQL del paso 1.2, o tu cuenta no quedó como `admin` (paso 4.4) |
 | No aparece el cartel de «Instalar» | Sólo aparece en Chrome, Edge o navegadores derivados, y sólo con `https://`. En Firefox la app funciona igual pero no se instala |
 | «La cuenta todavía no está confirmada por correo» | Faltó desactivar *Confirm email* en el paso 1.3 |
