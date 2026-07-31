@@ -1,4 +1,4 @@
-/* Manual Inteligente NBU — VISITAR SRL
+/* Manual Inteligente — VISITAR SRL
    Service worker: hace que la app funcione sin internet y que se actualice sola
    cuando el administrador publica una versión nueva.
 
@@ -9,7 +9,7 @@
 
    Diseñado por Juan Pablo Besada. */
 
-const VERSION = 'nbu-2026-07-29';
+const VERSION = 'nbu-2026-07-31';
 const CACHE   = 'manual-nbu-' + VERSION;
 
 const SHELL = [

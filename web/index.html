@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Manual Inteligente NBU · Códigos Bioquímicos</title>
+<title>Manual Inteligente · VISITAR SRL</title>
 <meta name="description" content="Centro de respaldo de VISITAR SRL: códigos, prestaciones, obligaciones de cobertura y cómo se carga cada solicitud.">
 <meta name="theme-color" content="#0d7a86">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Manual NBU">
+<meta name="apple-mobile-web-app-title" content="Manual VISITAR">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
@@ -1026,7 +1026,7 @@ mark.hl{background:var(--accent-soft);color:var(--accent-ink);border-radius:3px;
     <div class="brand">
       <div class="logo" id="brandLogo">VISITAR</div>
       <div>
-        <h1>Manual Inteligente NBU</h1>
+        <h1>Manual Inteligente</h1>
         <p>Laboratorio (NBU) · Prestaciones médicas (PMO) · Nomenclador Único</p>
       </div>
     </div>
@@ -1143,7 +1143,7 @@ mark.hl{background:var(--accent-soft);color:var(--accent-ink);border-radius:3px;
 <footer class="autoria">
   <span class="au-t">Diseñado por</span>
   <span class="au-n">Juan Pablo Besada</span>
-  <span class="au-p">Manual Inteligente NBU · VISITAR SRL</span>
+  <span class="au-p">Manual Inteligente · VISITAR SRL</span>
 </footer>
 
 <div class="scrim" id="scrim"></div>
@@ -2049,7 +2049,7 @@ el('expCsv').addEventListener('click',()=>{
 });
 el('expPrint').addEventListener('click',()=>{
   const prev=state.limit;state.limit=lastResults.length;render();
-  el('printHead').innerHTML=`<h2>Manual NBU — Listado de prácticas</h2><p>${lastResults.length} prácticas · ${new Date().toLocaleDateString('es-AR')}${esc(activeFilterText())}</p><p>Diseñado por Juan Pablo Besada</p>`;
+  el('printHead').innerHTML=`<h2>Manual Inteligente — Listado de prácticas</h2><p>${lastResults.length} prácticas · ${new Date().toLocaleDateString('es-AR')}${esc(activeFilterText())}</p><p>Diseñado por Juan Pablo Besada</p>`;
   window.print();
   state.limit=prev;render();
 });
@@ -2321,7 +2321,7 @@ function informeTexto(){
     if(nodos.length){L.push(''); L.push('HALLAZGOS');
       nodos.forEach(n=>L.push('  - '+n.textContent.replace(/\s+/g,' ').trim()));}
   }
-  L.push(''); L.push('Generado con el Manual Inteligente NBU — diseñado por Juan Pablo Besada.');
+  L.push(''); L.push('Generado con el Manual Inteligente — diseñado por Juan Pablo Besada.');
   L.push('Verificar contra la normativa vigente.');
   return L.join('\n');
 }
