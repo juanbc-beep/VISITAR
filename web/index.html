@@ -896,20 +896,48 @@ body.tour-on{overscroll-behavior:none}
 </style>
 <style id="auth-css">
 /* ===== acceso, perfiles, admin, sync ===== */
-#gate{position:fixed;inset:0;z-index:1000;background:linear-gradient(160deg,var(--bg),var(--surface-3));display:flex;align-items:center;justify-content:center;padding:24px;overflow:auto}
+/* align-items:center recorta la parte de arriba de la tarjeta cuando no entra
+   en la pantalla, y encima ese pedazo queda fuera del alcance del scroll. Con
+   flex-start + margin:auto queda centrada igual, pero se puede llegar a todo. */
+#gate{position:fixed;inset:0;z-index:1000;background:linear-gradient(160deg,var(--bg),var(--surface-3));display:flex;align-items:flex-start;justify-content:center;padding:24px;overflow:auto}
 #gate[hidden]{display:none!important}
-.gcard{width:100%;max-width:420px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 26px 22px}
+.gcard{width:100%;max-width:420px;margin:auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 26px 22px}
 .gcard .glogo{width:52px;height:52px;border-radius:13px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;letter-spacing:.5px;font-size:15px;margin-bottom:14px}
 .gcard h2{font-size:19px;margin:0 0 3px;color:var(--ink)}
 .gcard .gsub{font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.45}
 .gcard label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);font-weight:700;margin:12px 0 5px}
-.gcard input[type=text],.gcard input[type=password]{width:100%;padding:10px 12px;border:1px solid var(--line-2);border-radius:var(--radius-sm);background:var(--surface-2);color:var(--ink);font:inherit;font-size:14px}
-.gcard input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
-.gbtn{width:100%;margin-top:18px;padding:11px;border:none;border-radius:var(--radius-sm);background:var(--accent);color:#fff;font:inherit;font-weight:700;font-size:14px;cursor:pointer}
+/* Todos los campos, no una lista de tipos: al sumar el correo (type=email) quedó
+   fuera del selector y se veía como un campo crudo del navegador, 185x21 al lado
+   de uno de 366x43. Cualquier tipo nuevo hereda el estilo sin tocar nada. */
+.gcard input{width:100%;padding:11px 12px;border:1px solid var(--line-2);border-radius:var(--radius-sm);
+  background:var(--surface-2);color:var(--ink);font:inherit;font-size:14px;line-height:1.35;
+  -webkit-appearance:none;appearance:none;transition:border-color .13s,box-shadow .13s}
+.gcard input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);background:var(--surface)}
+.gcard input::placeholder{color:var(--faint)}
+/* Por debajo de 16px iOS hace zoom al enfocar y descuadra la pantalla entera. */
+@media (max-width:620px){.gcard input{font-size:16px;padding:12px}}
+/* Ver la contraseña. En el mostrador se escribe rápido y a ciegas; sin esto, el
+   único camino ante un error es borrar todo y empezar de nuevo. */
+.gpass{position:relative}
+.gpass input{padding-right:46px}
+.gpass .gojo{position:absolute;right:5px;top:50%;transform:translateY(-50%);width:36px;height:36px;
+  display:grid;place-items:center;border:none;background:none;color:var(--faint);border-radius:8px;padding:0}
+.gpass .gojo:hover{color:var(--accent);background:var(--surface-3)}
+.gpass .gojo:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.gbtn{width:100%;margin-top:18px;padding:11px;border:none;border-radius:var(--radius-sm);background:var(--accent);color:var(--sobre-acento);font:inherit;font-weight:700;font-size:14px;cursor:pointer;transition:background .13s}
 .gbtn:hover{background:var(--accent-ink)}
+.gbtn:disabled{opacity:.62;cursor:default}
+.gbtn:disabled:hover{background:var(--accent)}
+.gbtn:focus-visible,.gback:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* Pista de recuperación: no hay autoservicio, la contraseña la repone el
+   administrador desde Supabase. Decirlo evita el intento a ciegas. */
+.gayuda{font-size:11.5px;color:var(--faint);text-align:center;margin-top:10px;line-height:1.45}
 .gbtn.sec{background:var(--surface-2);color:var(--ink);border:1px solid var(--line-2)}
 .gbtn.sec:hover{background:var(--surface-3)}
 .gerr{color:var(--exc);font-size:12.5px;margin-top:12px;min-height:16px;font-weight:600}
+/* Sin esto reservaba 28px en blanco entre el último campo y el botón, y el
+   formulario se veía desarmado justo cuando NO hay ningún problema. */
+.gerr:empty{min-height:0;margin-top:0}
 .gprofiles{display:flex;flex-direction:column;gap:8px;margin:6px 0 4px;max-height:260px;overflow:auto}
 .pchip{display:flex;align-items:center;gap:11px;padding:11px 13px;border:1px solid var(--line-2);border-radius:var(--radius-sm);background:var(--surface-2);cursor:pointer;text-align:left;font:inherit;color:var(--ink);width:100%}
 .pchip:hover{border-color:var(--accent);background:var(--accent-soft)}
@@ -3506,7 +3534,31 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
   const gate=el('gate');
   function showGate(v){renderGate(v);gate.hidden=false;}
   function hideGate(){gate.hidden=true;}
-  function field(id,label,type){return `<label for="${id}">${label}</label><input id="${id}" type="${type||'text'}" autocomplete="off">`;}
+  const OJO_VER='<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>';
+  const OJO_TAPAR='<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9.9 5.2A10.6 10.6 0 0 1 12 5c6.5 0 10 7 10 7a18 18 0 0 1-3.2 4.2M6.5 6.6A18 18 0 0 0 2 12s3.5 7 10 7c2 0 3.7-.6 5.1-1.5"/><path d="M3 3l18 18"/></svg>';
+  /* «opts» trae lo que cambia el teclado del celular y habilita el gestor de
+     contraseñas: sin autocomplete el navegador no ofrece guardar ni completar, y
+     sin autocapitalize el teclado arranca en mayúscula justo sobre el correo. */
+  function field(id,label,type,opts){
+    const o=opts||{}, t=type||'text';
+    const attrs=[`autocomplete="${o.ac||'off'}"`];
+    if(o.im)attrs.push(`inputmode="${o.im}"`);
+    if(t==='email')attrs.push('autocapitalize="none"','autocorrect="off"','spellcheck="false"');
+    const input=`<input id="${id}" type="${t}" ${attrs.join(' ')}>`;
+    const lab=`<label for="${id}">${label}</label>`;
+    if(t!=='password')return lab+input;
+    return `${lab}<div class="gpass">${input}<button type="button" class="gojo" data-ver="${id}"`+
+      ` aria-label="Mostrar la contraseña" aria-pressed="false">${OJO_VER}</button></div>`;
+  }
+  function verContrasena(b){
+    const i=el(b.dataset.ver); if(!i)return;
+    const mostrar=i.type==='password';
+    i.type=mostrar?'text':'password';
+    b.innerHTML=mostrar?OJO_TAPAR:OJO_VER;
+    b.setAttribute('aria-pressed',mostrar?'true':'false');
+    b.setAttribute('aria-label',mostrar?'Ocultar la contraseña':'Mostrar la contraseña');
+    try{const n=i.value.length;i.focus();i.setSelectionRange(n,n);}catch(e){}
+  }
   function renderGate(v){
     gView=v;
     let html='';
@@ -3604,21 +3656,22 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
         <div class="glogo brand${CONTENT.page.logo?' hasimg':''}">${logoInner()}</div>
         <h2>Entrar al manual</h2>
         <div class="gsub">Con tu correo de trabajo y tu contraseña. La misma cuenta te sirve en cualquier computadora.</div>
-        ${field('nbMail','Correo','email')}
-        ${field('nbPass','Contraseña','password')}
+        ${field('nbMail','Correo','email',{ac:'username',im:'email'})}
+        ${field('nbPass','Contraseña','password',{ac:'current-password'})}
         <div class="gerr" id="gErr"></div>
         <button class="gbtn" id="nbGo">Entrar</button>
         <button class="gback" id="nbNew">No tengo cuenta todavía → crearla</button>
+        <div class="gayuda">¿Olvidaste la contraseña? Pedile al administrador que te la reponga.</div>
       </div>`;
     } else if(v==='nubeAlta'){
       html=`<div class="gcard">
         <div class="glogo">+</div>
         <h2>Crear mi cuenta</h2>
         <div class="gsub">La cuenta queda <b>pendiente</b> hasta que la apruebe el administrador. Usá tu correo de trabajo: es con lo que te va a identificar.</div>
-        ${field('naNom','Tu nombre y apellido')}
-        ${field('naMail','Correo','email')}
-        ${field('naPass','Contraseña (mínimo 6)','password')}
-        ${field('naPass2','Repetir contraseña','password')}
+        ${field('naNom','Tu nombre y apellido','text',{ac:'name'})}
+        ${field('naMail','Correo','email',{ac:'username',im:'email'})}
+        ${field('naPass','Contraseña (mínimo 6)','password',{ac:'new-password'})}
+        ${field('naPass2','Repetir contraseña','password',{ac:'new-password'})}
         <div class="gerr" id="gErr"></div>
         <button class="gbtn" id="naGo">Crear mi cuenta</button>
         <button class="gback" id="naBack">← Volver</button>
@@ -3649,7 +3702,12 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
     if(card){const au=document.createElement('div');au.className='au-gate';
       au.innerHTML='Diseñado por <b>Juan Pablo Besada</b>';card.appendChild(au);}
     wireGate(v);
-    const first=gate.querySelector('input');if(first)setTimeout(()=>first.focus(),40);
+    gate.querySelectorAll('.gojo').forEach(b=>b.addEventListener('click',()=>verContrasena(b)));
+    // Para que el lector de pantalla anuncie el error sin tener que ir a buscarlo.
+    const eb=el('gErr'); if(eb){eb.setAttribute('role','alert');eb.setAttribute('aria-live','assertive');}
+    // En el celular, enfocar solo levanta el teclado y tapa la tarjeta apenas se abre.
+    const first=gate.querySelector('input');
+    if(first&&matchMedia('(pointer:fine)').matches)setTimeout(()=>first.focus(),40);
   }
   const gv=id=>{const e=el(id);return e?e.value.trim():'';};
   const gerr=m=>{const e=el('gErr');if(e)e.textContent=m||'';};
