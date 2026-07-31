@@ -3267,7 +3267,11 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
       if(/User already registered|already been registered/i.test(s))return 'Ya existe una cuenta con ese correo.';
       if(/Password should be at least/i.test(s))return 'La contraseña debe tener al menos 6 caracteres.';
       if(/Unable to validate email|invalid format/i.test(s))return 'El correo no tiene un formato válido.';
-      if(/Email not confirmed/i.test(s))return 'La cuenta todavía no está confirmada por correo.';
+      /* No lo puede resolver quien lo lee: es la confirmación por correo de
+         Supabase, que va por un carril aparte de la aprobación del
+         administrador. Una cuenta puede estar aprobada y aun así no entrar. */
+      if(/Email not confirmed/i.test(s))
+        return 'Falta confirmar esta cuenta por correo. Es un ajuste del panel de la empresa, no algo tuyo: avisale al administrador.';
       if(/rate limit|too many/i.test(s))return 'Demasiados intentos. Esperá un momento.';
       /* Estos tres no son errores de quien usa la app: son interruptores del panel de
          Supabase. Sin traducirlos, el equipo veía un texto en inglés que no le decía
