@@ -53,6 +53,26 @@
    problema, y distinguir una copia legítima de una alterada. */
 window.NBU_BUILD = { commit: "local", fecha: "" };
 
+/* El enlace de «restablecer contraseña» vuelve con los datos de la sesión en el
+   # de la dirección. Se lee ACÁ, lo más temprano posible: más abajo el # se usa
+   para abrir códigos y se limpia, y para entonces el enlace ya no existiría. */
+window.NBU_RECUPERAR = (function(){
+  try{
+    var h = (location.hash || '').replace(/^#/, '');
+    if(!h) return null;
+    var p = new URLSearchParams(h);
+    var limpiar = function(){ history.replaceState(null, '', location.pathname + location.search); };
+    // Enlace vencido o ya usado: Supabase lo devuelve como error, no como sesión.
+    if(p.get('error') || p.get('error_code')){
+      limpiar();
+      return { error: p.get('error_description') || p.get('error') || 'enlace inválido' };
+    }
+    if(p.get('type') !== 'recovery' || !p.get('access_token')) return null;
+    limpiar();
+    return { access_token: p.get('access_token'), refresh_token: p.get('refresh_token') || '' };
+  }catch(e){ return null; }
+})();
+
 /* ===================================================================
    NUBE DE LA EMPRESA — lo completa el administrador UNA sola vez.
    Instrucciones paso a paso en docs/INSTALACION.md
@@ -3267,7 +3287,14 @@ try{const s=localStorage.getItem('nbu-theme');if(s)applyTheme(s);}catch(e){}
 el('filterToggle').addEventListener('click',()=>el('rail').classList.toggle('on'));
 
 /* ---------- deep link ---------- */
-window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(h&&BYCODE[h])openCode(h);});
+window.addEventListener('hashchange',()=>{
+  const h=location.hash.slice(1);
+  /* Si la app ya estaba abierta, el enlace del correo cambia sólo el # y el
+     navegador no recarga: el lector que está arriba de todo nunca correría y el
+     enlace se perdería en silencio. Recargar hace que lo lea. */
+  if(/(^|&)type=recovery(&|$)/.test(h)||/(^|&)error(_code)?=/.test(h))return location.reload();
+  if(h&&BYCODE[h])openCode(h);
+});
 
 applyMode();
 render();
@@ -3385,6 +3412,22 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
       async entrar(correo,pass){
         await token({email:correo,password:pass},'password');
         return await this.miPerfil();
+      },
+      /* Restablecer contraseña, sin que el administrador tenga que entrar al
+         panel de Supabase cada vez que alguien se la olvida. */
+      async recuperar(correo){
+        const r=await fetch(`${URL_}/auth/v1/recover`,{method:'POST',headers:hdrBase(),
+          body:JSON.stringify({email:correo})});
+        return await leer(r);
+      },
+      // Con «token» viene del enlace del correo; sin él, es alguien ya adentro.
+      async cambiarPass(nueva,token){
+        const t=token||(ses&&ses.access_token);
+        if(!t)throw new Error('No hay una sesión válida para cambiar la contraseña.');
+        const r=await fetch(`${URL_}/auth/v1/user`,{method:'PUT',
+          headers:Object.assign(hdrBase(),{'Authorization':'Bearer '+t}),
+          body:JSON.stringify({password:nueva})});
+        return await leer(r);
       },
       async salir(){
         try{if(ses)await fetch(`${URL_}/auth/v1/logout`,{method:'POST',headers:hdrAuth()});}catch(e){}
@@ -3776,7 +3819,31 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
         <div class="gerr" id="gErr"></div>
         <button class="gbtn" id="nbGo">Entrar</button>
         <button class="gback" id="nbNew">No tengo cuenta todavía → crearla</button>
-        <div class="gayuda">¿Olvidaste la contraseña? Pedile al administrador que te la reponga.</div>
+        <button class="gback" id="nbOlvide">Me olvidé la contraseña</button>
+      </div>`;
+    } else if(v==='nubeOlvide'){
+      html=`<div class="gcard">
+        <div class="glogo brand${logoValido(CONTENT.page.logo)?' hasimg':''}">${logoInner()}</div>
+        <h2>Restablecer la contraseña</h2>
+        <div class="gsub">Poné tu correo de trabajo y te llega un enlace para elegir una nueva. Dura una hora y sirve una sola vez.</div>
+        ${field('olMail','Correo','email',{ac:'username',im:'email'})}
+        <div class="gerr" id="gErr"></div>
+        <button class="gbtn" id="olGo">Enviarme el enlace</button>
+        <button class="gback" id="olBack">← Volver</button>
+      </div>`;
+    } else if(v==='nubeNuevaPass'){
+      const errRec=(window.NBU_RECUPERAR||{}).error;
+      html=`<div class="gcard">
+        <div class="glogo brand${logoValido(CONTENT.page.logo)?' hasimg':''}">${logoInner()}</div>
+        <h2>${errRec?'El enlace ya no sirve':'Elegí tu contraseña nueva'}</h2>
+        ${errRec
+          ? `<div class="gsub">Los enlaces duran una hora y se usan una sola vez. Pedí uno nuevo desde <b>Me olvidé la contraseña</b>.</div>
+             <button class="gbtn" id="npVolver">Volver al inicio</button>`
+          : `<div class="gsub">Escribila dos veces. Al guardar quedás dentro del manual.</div>
+             ${field('cpUna','Contraseña nueva (mínimo 6)','password',{ac:'new-password'})}
+             ${field('cpDos','Repetirla','password',{ac:'new-password'})}
+             <div class="gerr" id="gErr"></div>
+             <button class="gbtn" id="cpGo">Guardar y entrar</button>`}
       </div>`;
     } else if(v==='nubeAlta'){
       html=`<div class="gcard">
@@ -3902,6 +3969,41 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
       };
       el('nbGo').addEventListener('click',go);onEnter(go);
       el('nbNew').addEventListener('click',()=>renderGate('nubeAlta'));
+      el('nbOlvide').addEventListener('click',()=>{gate._mail=gv('nbMail');renderGate('nubeOlvide');});
+    } else if(v==='nubeOlvide'){
+      if(gate._mail)el('olMail').value=gate._mail;
+      const go=async()=>{
+        const m=gv('olMail');
+        if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m))return gerr('Revisá el correo.');
+        const b=el('olGo');b.disabled=true;b.textContent='Enviando…';gerr('');
+        try{ await NUBE.recuperar(m);
+          /* Contesta lo mismo exista o no la cuenta: si dijera «ese correo no
+             está registrado», cualquiera podría averiguar quién trabaja acá. */
+          b.textContent='Listo';
+          el('gErr').style.color='var(--inc)';
+          gerr('Si esa cuenta existe, te llegó un correo con el enlace. Revisá también el correo no deseado.');
+        }catch(e){ gerr(e.message); b.disabled=false; b.textContent='Enviarme el enlace'; }
+      };
+      el('olGo').addEventListener('click',go);onEnter(go);
+      el('olBack').addEventListener('click',()=>renderGate('nubeLogin'));
+    } else if(v==='nubeNuevaPass'){
+      if(el('npVolver'))el('npVolver').addEventListener('click',()=>{window.NBU_RECUPERAR=null;renderGate('nubeLogin');});
+      if(el('cpGo')){
+        const go=async()=>{
+          const p1=gv('cpUna'),p2=gv('cpDos');
+          if(p1.length<6)return gerr('La contraseña debe tener al menos 6 caracteres.');
+          if(p1!==p2)return gerr('Las contraseñas no coinciden.');
+          const b=el('cpGo');b.disabled=true;b.textContent='Guardando…';gerr('');
+          try{
+            const tok=(window.NBU_RECUPERAR||{}).access_token;
+            await NUBE.cambiarPass(p1,tok);
+            window.NBU_RECUPERAR=null;
+            toast('Contraseña actualizada');
+            renderGate('nubeLogin');
+          }catch(e){ gerr(e.message); b.disabled=false; b.textContent='Guardar y entrar'; }
+        };
+        el('cpGo').addEventListener('click',go);onEnter(go);
+      }
     } else if(v==='nubeAlta'){
       const go=async()=>{
         const nm=gv('naNom'),m=gv('naMail'),p1=gv('naPass'),p2=gv('naPass2');
@@ -4803,9 +4905,15 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
     /* Modo empresa: la identidad la da la nube. Si ya había sesión en esta máquina se
        vuelve a entrar sola; si la cuenta fue rechazada o todavía está pendiente, se
        muestra la pantalla que corresponde en vez de dejar entrar. */
-    showGate('nubeLogin');
-    if(NUBE.hay()){
-      NUBE.miPerfil().then(pf=>{ if(pf)entrarConNube(pf); }).catch(()=>{});
+    /* Si se entró por el enlace del correo, esa pantalla manda sobre todo lo
+       demás: no tiene sentido intentar reanudar una sesión vieja cuando la
+       persona vino justamente porque no puede entrar. */
+    if(window.NBU_RECUPERAR){ showGate('nubeNuevaPass'); }
+    else {
+      showGate('nubeLogin');
+      if(NUBE.hay()){
+        NUBE.miPerfil().then(pf=>{ if(pf)entrarConNube(pf); }).catch(()=>{});
+      }
     }
   } else if(!AUTH.company){showGate('setup');}
   else{showGate('company');}

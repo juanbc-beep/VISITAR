@@ -50,6 +50,21 @@ un paso de más que sólo trae problemas.
 1. **Authentication** → **Sign In / Providers** → **Email**.
 2. Desactivá **Confirm email**. Guardá.
 
+### 1.3 bis Decirle a Supabase cuál es la dirección de la app
+
+**Sin este paso, el enlace para restablecer la contraseña lleva a `localhost` y
+el navegador contesta «No se puede acceder».** Supabase viene apuntando a una
+dirección de desarrollo y hay que corregirla.
+
+1. **Authentication** → **URL Configuration**.
+2. En **Site URL** poné exactamente:
+
+```
+https://juanbc-beep.github.io/VISITAR/
+```
+
+3. En **Redirect URLs** → **Add URL**, agregá la misma dirección.
+
 ### 1.4 Copiar la dirección del proyecto y la clave pública
 
 Son **dos** valores y Supabase los tiene en **dos pantallas distintas**:
@@ -258,8 +273,14 @@ transferirlo, vos dejás de serlo. Al administrador no se lo puede eliminar sin
 transferir primero el rol.
 
 ### Contraseñas
-Las maneja Supabase y **nadie puede verlas**, ni vos. Si alguien la olvida:
-**Authentication → Users** en Supabase, y desde ahí se envía un restablecimiento.
+Las maneja Supabase y **nadie puede verlas**, ni vos.
+
+Si alguien la olvida, **lo resuelve solo**: en la pantalla de ingreso, **Me
+olvidé la contraseña** → pone su correo → le llega un enlace → elige una nueva.
+El enlace dura una hora y sirve una sola vez. No tenés que intervenir.
+
+Para que eso funcione tiene que estar hecho el paso **1.3 bis**; si no, el
+enlace lleva a `localhost` y no abre nada.
 
 ---
 
@@ -290,6 +311,7 @@ Las maneja Supabase y **nadie puede verlas**, ni vos. Si alguien la olvida:
 | Volviste a encender **Enable Email provider** y reaparecieron los correos de confirmación | *Confirm email* se enciende junto con el proveedor: viene activado de fábrica. Hay que volver a apagarlo |
 | Al crear la cuenta: **«Unexpected failure, please check server logs»** | Es un error 500 de Supabase Auth: se cayó el trigger de alta. Corré de nuevo `docs/supabase.sql` completo — las versiones anteriores del archivo tenían el control de «un solo admin» sin `security definer` y fallaba con *permission denied* justo al confirmar el alta |
 | Los cambios no llegan al equipo | Fijate en **Actions** si la última corrida salió verde. Si el cambio fue fuera de `web/`, no publica a propósito: forzalo con **Run workflow** |
+| El enlace del correo para restablecer la contraseña lleva a `localhost` | Falta el paso **1.3 bis**: **Authentication → URL Configuration → Site URL** tiene que ser la dirección de la app, no `localhost` |
 | «Get Pages site failed» al publicar | La acción no pudo encender Pages sola: hacelo a mano en **Settings → Pages → Source: GitHub Actions** y volvé a correrla |
 
 Para diagnosticar desde adentro de la app: `F12` → consola → escribí
