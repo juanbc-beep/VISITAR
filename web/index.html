@@ -3,6 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Segunda barrera. No impide que aparezca un agujero nuevo: impide que sirva
+     de algo. Lo que más importa es «connect-src»: aunque alguien lograra
+     ejecutar código acá adentro, el navegador no lo deja mandar nada a otro
+     servidor, y sin poder sacar los datos el robo no se completa.
+     «frame-ancestors» queda afuera porque no funciona en una etiqueta meta:
+     sólo como cabecera HTTP, y GitHub Pages no deja poner cabeceras. Es un
+     riesgo residual conocido, no un olvido. -->
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  script-src 'self' 'unsafe-inline';
+  style-src 'self' 'unsafe-inline';
+  img-src 'self' data: blob:;
+  font-src 'self' data:;
+  connect-src 'self' https://gavfxnoigomxbteagneu.supabase.co;
+  form-action 'none';
+  base-uri 'none';
+  object-src 'none'">
 <title>Manual Inteligente · VISITAR SRL</title>
 <meta name="description" content="Centro de respaldo de VISITAR SRL: códigos, prestaciones, obligaciones de cobertura y cómo se carga cada solicitud.">
 <meta name="theme-color" content="#0d7a86">
@@ -3424,7 +3441,18 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
   function resetIdle(){if(!current)return;clearTimeout(idleT);idleT=setTimeout(()=>{if(current){current=null;editMode=false;document.body.classList.remove('editmode-on');vigilarCuentas(false);toast('Sesión cerrada por inactividad');renderGate(NUBE.activa?'nubeLogin':'profiles');gate.hidden=false;}},IDLE_MS);}
   ['mousemove','keydown','click','touchstart'].forEach(ev=>document.addEventListener(ev,()=>{if(current)resetIdle();},{passive:true}));
 
-  function logoInner(){return CONTENT.page.logo?`<img src="${CONTENT.page.logo}" alt="VISITAR SRL">`:'VISITAR';}
+  /* El logo no es un dato de confianza: viaja en la fila de ajustes de la base y
+     además entra por «Restaurar respaldo», que acepta cualquier archivo. Sin
+     escapar, un valor como  x" onerror="…"  se ejecuta dentro de la app, y desde
+     ahí se lee la sesión guardada en el navegador. Se escapa Y se exige que sea
+     una imagen embebida: ninguna otra cosa tiene por qué estar en este campo.
+     SVG queda afuera a propósito: es el único formato que puede traer código. */
+  const LOGO_OK=/^data:image\/(png|jpeg|gif|webp|bmp);base64,[A-Za-z0-9+/=\s]+$/i;
+  const logoValido=s=>typeof s==='string'&&s.length<3e6&&LOGO_OK.test(s);
+  function logoInner(){
+    return logoValido(CONTENT.page.logo)
+      ? `<img src="${E(CONTENT.page.logo)}" alt="VISITAR SRL">` : 'VISITAR';
+  }
 
   /* ---- cifrado opcional de la sincronización (AES-GCM) ---- */
   const ENC_SALT=enc.encode('visitar-nbu-sync-v1');
@@ -3585,7 +3613,7 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
     Object.keys(CONTENT.codes).forEach(applyCode);
     if(H1)H1.textContent=CONTENT.page.title||DEF.title;
     if(SUB)SUB.textContent=CONTENT.page.subtitle||DEF.subtitle;
-    const bl=el('brandLogo');if(bl){bl.classList.toggle('hasimg',!!CONTENT.page.logo);bl.innerHTML=logoInner();}
+    const bl=el('brandLogo');if(bl){bl.classList.toggle('hasimg',logoValido(CONTENT.page.logo));bl.innerHTML=logoInner();}
   }
 
   /* ---- Supabase sync (REST + polling) ---- */
@@ -3680,7 +3708,7 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
     let html='';
     if(v==='setup'){
       html=`<div class="gcard">
-        <div class="glogo brand${CONTENT.page.logo?' hasimg':''}">${logoInner()}</div>
+        <div class="glogo brand${logoValido(CONTENT.page.logo)?' hasimg':''}">${logoInner()}</div>
         <h2>Configurar el acceso</h2>
         <div class="gsub">Primera vez en este equipo. Creá el <b>acceso de la empresa</b> (usuario compartido) y tu <b>perfil administrador</b>.</div>
         <div style="font-weight:800;font-size:11px;letter-spacing:.7px;text-transform:uppercase;color:var(--accent-ink);margin-top:6px">Acceso de la empresa</div>
@@ -3695,7 +3723,7 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
       </div>`;
     } else if(v==='join'){
       html=`<div class="gcard">
-        <div class="glogo brand${CONTENT.page.logo?' hasimg':''}">${logoInner()}</div>
+        <div class="glogo brand${logoValido(CONTENT.page.logo)?' hasimg':''}">${logoInner()}</div>
         <h2>Conectar a la nube</h2>
         <div class="gsub">Pegá los datos de Supabase de tu empresa para descargar los perfiles ya creados.</div>
         ${field('jUrl','URL del proyecto (https://xxx.supabase.co)')}
@@ -3707,7 +3735,7 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
       </div>`;
     } else if(v==='company'){
       html=`<div class="gcard">
-        <div class="glogo brand${CONTENT.page.logo?' hasimg':''}">${logoInner()}</div>
+        <div class="glogo brand${logoValido(CONTENT.page.logo)?' hasimg':''}">${logoInner()}</div>
         <h2>Acceso de la empresa</h2>
         <div class="gsub">Ingresá el usuario y la contraseña que comparte el equipo.</div>
         ${field('cUser','Usuario')}
@@ -3727,7 +3755,7 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
           <span><span class="pnm">${E(p.name)}</span><span class="prole">Administrativo</span></span>
         </button>`).join(''):`<div class="gsub" style="text-align:center;padding:8px 0">Todavía no hay perfiles. Creá el tuyo.</div>`;
       html=`<div class="gcard">
-        <div class="glogo brand${CONTENT.page.logo?' hasimg':''}">${logoInner()}</div>
+        <div class="glogo brand${logoValido(CONTENT.page.logo)?' hasimg':''}">${logoInner()}</div>
         <h2>¿Quién sos?</h2>
         <div class="gsub">Elegí tu perfil para cargar tus favoritos, o creá uno nuevo.</div>
         <div class="gprofiles">${list}</div>
@@ -3740,7 +3768,7 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
       </div>`;
     } else if(v==='adminlogin'){
       html=`<div class="gcard">
-        <div class="glogo brand${CONTENT.page.logo?' hasimg':''}">${logoInner()}</div>
+        <div class="glogo brand${logoValido(CONTENT.page.logo)?' hasimg':''}">${logoInner()}</div>
         <h2>Acceso administrador</h2>
         <div class="gsub">Ingresá tu nombre de administrador y tu contraseña.</div>
         ${field('alName','Nombre de administrador')}
@@ -3769,7 +3797,7 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
       </div>`;
     } else if(v==='nubeLogin'){
       html=`<div class="gcard">
-        <div class="glogo brand${CONTENT.page.logo?' hasimg':''}">${logoInner()}</div>
+        <div class="glogo brand${logoValido(CONTENT.page.logo)?' hasimg':''}">${logoInner()}</div>
         <h2>Entrar al manual</h2>
         <div class="gsub">Con tu correo de trabajo y tu contraseña. La misma cuenta te sirve en cualquier computadora.</div>
         ${field('nbMail','Correo','email',{ac:'username',im:'email'})}
@@ -4144,8 +4172,8 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
       p.innerHTML=`<div class="ahint">Editá los textos generales de la página. El contenido de cada código (nombre, normas, auditoría, asociaciones) se edita desde su ficha con el botón <b>✎ Editar ficha</b> (activá el <b>modo edición</b> en la barra superior).</div>
         <label>Logo de la empresa (PNG/JPG/SVG)</label>
         <div style="display:flex;align-items:center;gap:12px;margin-top:4px">
-          <div class="logo${CONTENT.page.logo?' hasimg':''}" style="height:44px">${logoInner()}</div>
-          <input id="pgLogo" type="file" accept="image/*" style="border:none;padding:0;background:none;flex:1">
+          <div class="logo${logoValido(CONTENT.page.logo)?' hasimg':''}" style="height:44px">${logoInner()}</div>
+          <input id="pgLogo" type="file" accept="image/png,image/jpeg,image/gif,image/webp" style="border:none;padding:0;background:none;flex:1">
           ${CONTENT.page.logo?'<button class="minibtn danger" id="pgLogoDel">Quitar</button>':''}
         </div>
         <div class="ahint">Se muestra en la barra superior y en las pantallas de acceso. Recomendado: fondo transparente, alto ~80px.</div>
@@ -4160,7 +4188,9 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
       el('pgLogo').addEventListener('change',e=>{
         const f=e.target.files[0];if(!f)return;
         if(f.size>400000)return toast('Imagen muy grande (máx. 400 KB)',true);
-        const rd=new FileReader();rd.onload=()=>{CONTENT.page.logo=rd.result;logEdit('cambió el logo');persistContent();guardarAjustesNube();applyContent();renderPane();toast('Logo actualizado');};rd.readAsDataURL(f);
+        const rd=new FileReader();rd.onload=()=>{
+          if(!logoValido(rd.result))return toast('Ese archivo no sirve como logo. Usá PNG, JPG, GIF o WEBP.',true);
+          CONTENT.page.logo=rd.result;logEdit('cambió el logo');persistContent();guardarAjustesNube();applyContent();renderPane();toast('Logo actualizado');};rd.readAsDataURL(f);
       });
       if(el('pgLogoDel'))el('pgLogoDel').addEventListener('click',()=>{delete CONTENT.page.logo;persistContent();guardarAjustesNube();applyContent();renderPane();toast('Logo quitado');});
       p.querySelectorAll('[data-goto2]').forEach(b=>b.addEventListener('click',()=>{closeAdmin();openCode(b.dataset.goto2);}));
