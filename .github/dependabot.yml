@@ -1,0 +1,15 @@
+# Avisa cuando una accion de la publicacion tiene version nueva.
+#
+# Importa porque las acciones se fijan por identificador de commit: sin esto
+# quedarian congeladas para siempre, incluso ante un parche de seguridad. Con
+# esto llega un pull request con el identificador nuevo y se revisa antes de
+# aceptarlo, que es justo lo contrario de que cambie sola bajo los pies.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 3
+    commit-message:
+      prefix: "acciones"

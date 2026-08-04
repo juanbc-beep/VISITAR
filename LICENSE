@@ -1,0 +1,63 @@
+Manual Inteligente Unificado de Códigos Médicos
+Copyright (c) 2026 Juan Pablo Besada — VISITAR SRL
+Todos los derechos reservados.
+
+AUTORÍA
+-------
+Esta aplicación, su base de datos unificada de códigos, las relaciones entre
+nomencladores, las reglas de auditoría por práctica y la totalidad de su
+código fuente fueron diseñados y desarrollados por Juan Pablo Besada para
+VISITAR SRL.
+
+El repositorio es de acceso público para que la aplicación pueda publicarse y
+para que su funcionamiento sea auditable. Acceso público no es licencia de
+uso: nada de lo que sigue queda autorizado por el solo hecho de poder leer
+este código.
+
+QUÉ NO ESTÁ PERMITIDO
+---------------------
+Sin autorización previa y por escrito del titular, no se permite:
+
+  a) usar esta aplicación, total o parcialmente, en otra organización;
+  b) copiar, adaptar, traducir o crear obras derivadas;
+  c) redistribuirla, publicarla en otra dirección o incorporarla a otro
+     producto, con o sin fines comerciales;
+  d) extraer la base de datos de códigos, las equivalencias entre
+     nomencladores o las reglas de auditoría para usarlas por separado;
+  e) remover, alterar u ocultar los avisos de autoría de esta obra, ni los
+     que la aplicación muestra en pantalla.
+
+QUÉ SÍ ESTÁ PERMITIDO
+---------------------
+  - Leer el código para auditarlo, verificar qué hace con los datos y
+    comprobar que la versión publicada corresponde a este repositorio.
+  - Usar la aplicación al personal de VISITAR SRL con cuenta habilitada.
+  - Citar fragmentos con atribución, con fines de estudio o revisión.
+
+FUENTES NORMATIVAS
+------------------
+Los textos de leyes, decretos y resoluciones citados son normativa pública y
+no son objeto de esta reserva. Sí lo son su selección, su ordenamiento, su
+vinculación con cada código y las reglas de auditoría derivadas, que
+constituyen trabajo propio.
+
+SIN GARANTÍA
+------------
+La aplicación se provee "tal como está". Es una herramienta de consulta y
+respaldo: no reemplaza la lectura de la norma vigente ni la decisión
+profesional de quien audita o factura. El titular no responde por daños
+derivados de su uso.
+
+VERIFICAR EL ORIGEN
+-------------------
+La versión legítima se publica únicamente en:
+
+    https://juanbc-beep.github.io/VISITAR/
+
+desde el repositorio https://github.com/juanbc-beep/VISITAR mediante su acción
+de publicación. Cada versión publicada queda sellada con el identificador del
+commit que la generó, visible dentro de la aplicación en
+Administración → Nube. Una copia que no coincida con ese registro no proviene
+del autor.
+
+Contacto para autorizaciones: el titular, a través de VISITAR SRL.

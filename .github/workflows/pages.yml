@@ -34,6 +34,18 @@ jobs:
       url: ${{ steps.deploy.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          # El token del checkout queda escrito en .git/config y cualquier paso
+          # posterior podria leerlo. No lo necesitamos despues de clonar.
+          persist-credentials: false
+
+      # Sello de origen: deja escrito en la app de que commit salio. Permite
+      # verificar que lo publicado corresponde a este repositorio.
+      - name: Sellar el origen de la version
+        run: |
+          FECHA=$(date -u +%Y-%m-%d)
+          sed -i "s|window.NBU_BUILD = { commit: \"[^\"]*\", fecha: \"[^\"]*\" }|window.NBU_BUILD = { commit: \"${GITHUB_SHA:0:12}\", fecha: \"${FECHA}\" }|" web/index.html
+          grep -n "NBU_BUILD" web/index.html | head -1
 
       # El navegador decide si hay version nueva comparando sw.js byte a byte.
       # Si la version quedara fija, un cambio en index.html no lo despertaria y
