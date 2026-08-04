@@ -4202,16 +4202,16 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
     } else if(aTab==='registro'){
       const log=CONTENT.log||[];
       const fmt=t=>{const d=new Date(t);return d.toLocaleDateString('es-AR')+' '+d.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});};
-      p.innerHTML=`<div class="ahint">Registro de ediciones de contenido (quién cambió qué y cuándo). Se comparte y respalda junto con el resto.</div>
+      p.innerHTML=`<div class="ahint">Registro de ediciones hechas <b>desde esta computadora</b> (quién cambió qué y cuándo). No se comparte con el equipo: es el rastro local, útil para reconstruir qué pasó acá.</div>
         ${log.length?log.map(e=>`<div class="arow"><div class="grow2"><div class="pnm">${E(e.who||'—')} · <span style="font-weight:500;color:var(--ink-2)">${E(e.action)}</span>${e.code?` <span class="mono" style="color:var(--accent-ink)">${E(e.code)}</span>`:''}</div><div class="pmeta">${fmt(e.t)}</div></div></div>`).join(''):'<div class="ahint">Todavía no hay cambios registrados.</div>'}
         ${log.length?'<button class="minibtn danger" id="logClear" style="margin-top:10px">Vaciar registro</button>':''}`;
       if(el('logClear'))el('logClear').addEventListener('click',()=>{if(confirm('¿Vaciar el registro de cambios?')){CONTENT.log=[];persistContent();renderPane();}});
     } else if(aTab==='respaldo'){
-      p.innerHTML=`<div class="ahint">Descargá un respaldo con perfiles y ediciones, o restauralo en otra computadora. (Con la nube activada esto es automático; el respaldo sirve igual como copia de seguridad.)</div>
+      p.innerHTML=`<div class="ahint">Descargá una copia de seguridad con los perfiles y las ediciones de esta computadora. Con la base de la empresa configurada, las correcciones, verificaciones y propuestas ya viven allá y no dependen de este archivo: esto es una copia extra, no el respaldo principal.</div>
         <button class="minibtn" id="bkExp" style="margin-top:10px">⬇ Descargar respaldo (.json)</button>
         <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--line)">
           <div class="pmeta" style="font-weight:700;color:var(--ink);font-size:13.5px">Correcciones de contenido</div>
-          <div class="ahint">Las correcciones que hacés en las fichas viven en esta instalación. Exportalas para que se incorporen a la base como fuente propia y dejen de depender de este equipo: el archivo va a <b>data/correcciones_curadas.json</b> del repositorio. No incluye perfiles ni contraseñas.</div>
+          <div class="ahint">Las correcciones ya se comparten con el equipo a través de la base. Esta exportación sirve para otra cosa: incorporarlas al repositorio como fuente propia, en <b>data/correcciones_curadas.json</b>, para que viajen dentro del propio archivo de la app. No incluye perfiles ni contraseñas.</div>
           <button class="minibtn" id="bkCorr">⬇ Exportar correcciones para la base</button>
           <span id="bkCorrN" class="ahint" style="margin-left:8px"></span>
         </div>
