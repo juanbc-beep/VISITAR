@@ -4228,8 +4228,24 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
             : 'Copia local o de prueba: no lleva sello de publicación. La versión oficial se sirve desde <span class="mono">juanbc-beep.github.io/VISITAR/</span>.'}
           <div style="margin-top:6px;color:var(--faint)">Diseñado por <b>Juan Pablo Besada</b> · VISITAR SRL · Todos los derechos reservados.</div>
         </div>
-        <div class="ahint"><b>Sincronización automática con Supabase</b> (gratis). Con esto, los perfiles, favoritos y ediciones se comparten entre todas las computadoras. Solo funciona con el archivo abierto directamente o alojado en la web (no dentro del Artefacto de Claude).</div>
-        <div class="syncdot" id="syncDot" style="margin:10px 0"></div>
+        ${NUBE.activa?`
+        <div class="ahint"><b>Base compartida de la empresa.</b> Es la que estás usando ahora: cuentas, aprobaciones, correcciones, verificaciones y propuestas.</div>
+        <div class="arow" style="display:block">
+          <div><b>Proyecto</b> · <span class="mono">${E((window.NBU_NUBE||{}).url||'')}</span></div>
+          <div style="margin-top:4px"><b>Entraste como</b> · ${E(NUBE.correo()||'—')}
+            ${current&&current.role==='admin'?'<span class="adminbadge" style="margin-left:6px">administrador</span>':''}</div>
+          <div style="margin-top:4px"><b>Contenido del equipo</b> · <span id="nbEstado">leyendo…</span></div>
+        </div>
+        <div style="margin-top:12px"><button class="minibtn" id="nbProbar">Probar la conexión</button></div>
+        <div id="nbMsg" class="ahint" style="min-height:16px;margin-top:8px"></div>
+        <div class="ahint" style="margin-top:14px;color:var(--faint)">Se configura una sola vez editando <span class="mono">web/index.html</span>; el paso a paso está en <span class="mono">docs/INSTALACION.md</span>. Las reglas de acceso viven en <span class="mono">docs/supabase.sql</span> y las hace cumplir la base, no esta pantalla.</div>
+        `:`
+        <div class="ahint"><b>Mecanismo antiguo de sincronización.</b> Quedó de antes de que la app tuviera cuentas propias.
+          <b style="color:var(--exc)">No lo uses para datos del equipo:</b> guarda todo en una tabla abierta, sin cuentas ni permisos,
+          donde cualquiera con la dirección puede leer y escribir. La forma correcta es cargar la base de la empresa
+          siguiendo <span class="mono">docs/INSTALACION.md</span>.</div>
+        <div class="syncdot" id="syncDot" style="margin:10px 0"></div>`}
+        ${!NUBE.activa?`
         <label>URL del proyecto</label><input id="syUrl" type="text" placeholder="https://xxxxx.supabase.co" value="${E(SYNC.url)}">
         <label>Clave pública (anon key)</label><input id="syKey" type="password" placeholder="eyJhbGciOi..." value="${E(SYNC.key)}">
         <label>Clave de cifrado <span style="color:var(--inc)">(recomendada)</span></label><input id="syEnc" type="password" placeholder="frase secreta de la empresa" value="${E(SYNC.encPass||'')}">
@@ -4254,7 +4270,28 @@ create policy "kv_all" on kv for all
           <div class="ahint" style="margin-top:8px">3. En <b>Project Settings → API</b> copiá el <b>Project URL</b> y la <b>anon public key</b>, pegalos arriba y tocá <b>Activar</b>.<br>
           4. En las otras computadoras, en la pantalla de acceso elegí <b>“conectar a la nube”</b> y pegá los mismos datos.</div>
           <div class="ahint" style="color:var(--urg)">Nota de seguridad: la clave pública queda visible en el archivo. Es un espacio interno de la empresa; no guardes en él información sensible de pacientes.</div>
-        </details>`;
+        </details>`:''}`;
+      if(NUBE.activa){
+        /* Estado de verdad: se pregunta a la base, no se lee una preferencia
+           guardada. El panel viejo decía «desactivada» mientras la app estaba
+           andando contra la nube, que es la peor forma de informar. */
+        const contar=async()=>{
+          const e=el('nbEstado'); if(!e)return;
+          try{
+            const [c,v,pr]=await Promise.all([NUBE.correcciones(),NUBE.verificaciones(),NUBE.propuestas()]);
+            e.innerHTML=`<span class="aok">✓ ${c.length} correcci${c.length===1?'ón':'ones'} · `+
+              `${v.length} verificaci${v.length===1?'ón':'ones'} · ${pr.length} propuesta${pr.length===1?'':'s'} pendiente${pr.length===1?'':'s'}</span>`;
+          }catch(err){ e.innerHTML='<span class="aerrt">✕ '+E(err.message)+'</span>'; }
+        };
+        contar();
+        el('nbProbar').addEventListener('click',async()=>{
+          const m=el('nbMsg'); m.innerHTML='Probando…';
+          try{ await NUBE.miPerfil(); await contar();
+            m.innerHTML='<span class="aok">✓ La base responde y tu cuenta está habilitada.</span>'; }
+          catch(err){ m.innerHTML='<span class="aerrt">✕ '+E(err.message)+'</span>'; }
+        });
+        return;
+      }
       renderSyncDot(el('syncDot'));
       el('syTest').addEventListener('click',async()=>{SYNC.url=gv('syUrl');SYNC.key=gv('syKey');el('syMsg').innerHTML='Probando…';try{await testConn();el('syMsg').innerHTML='<span class="aok">✓ Conexión correcta</span>';}catch(e){el('syMsg').innerHTML='<span class="aerrt">✕ '+E(e.message)+'</span>';}});
       el('syEnable').addEventListener('click',async()=>{
