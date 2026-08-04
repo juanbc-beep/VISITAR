@@ -1704,7 +1704,12 @@ function renderRapidos(){
   cont.hidden=false;
   const tab=(id,txt,n)=>`<button class="rtab${rapMod===id?' on':''}" data-rap="${id}"${n?'':' disabled'}>${txt}</button>`;
   cont.innerHTML=`<div class="rlbl">${tab('fav','★ Frecuentes',favs.length)}${tab('rec','⟲ Vistos hoy',rec.length)}${tab('eq','👥 Del equipo',eq.length||(esAdmin?1:0))}`+
-    (rapMod==='eq'&&esAdmin?`<button class="rtab" id="rapPub" style="margin-left:auto;color:var(--gestion)" title="Reemplaza la lista del equipo por tus favoritos actuales">Publicar los míos</button>`:'')+
+    /* Estaba sólo dentro de la solapa del equipo, y ahí no lo encontraba nadie:
+       la intención de compartir aparece mirando los favoritos propios, no una
+       solapa vacía. Se muestra en las dos. */
+    (esAdmin&&(rapMod==='eq'||(rapMod==='fav'&&favs.length))
+      ? `<button class="rtab" id="rapPub" style="margin-left:auto;color:var(--gestion)" title="Reemplaza la lista del equipo por tus favoritos actuales">👥 Compartir con el equipo</button>`
+      : '')+
     `</div><div class="rgrid">`+
     lista.map(c=>`<button class="rcard" data-code="${esc(c._key)}">
       <span class="rc">${esc(c.code)}</span><span class="rn" title="${esc(c.nombre)}">${esc(c.nombre)}</span>
@@ -4068,14 +4073,13 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
     if(nubeContenido)cargarContenidoNube().catch(()=>{});
   }
   function renderAdmin(){
-    /* «Empresa» era el usuario y la contraseña únicos que compartía todo el
-       equipo, de cuando la app no tenía cuentas personales. Con la nube cada
-       uno entra con lo suyo y esa clave común no se usa para nada: dejarla a la
-       vista sólo invita a cambiar algo que no tiene efecto. */
-    const tabs=[['perfiles','Perfiles'],['propuestas','Pendientes']]
-      .concat(NUBE.activa?[]:[['empresa','Empresa']])
-      .concat([['contenido','Textos'],['nube','Nube'],['registro','Registro'],['respaldo','Respaldo']]);
-    if(NUBE.activa&&aTab==='empresa')aTab='perfiles';
+    /* Sin «Empresa»: era el usuario y la contraseña únicos que compartía todo
+       el equipo, de cuando la app no tenía cuentas personales. Con la nube cada
+       uno entra con lo suyo y esa clave común no interviene en nada. En modo
+       local se sigue definiendo al configurar el acceso por primera vez. */
+    const tabs=[['perfiles','Perfiles'],['propuestas','Pendientes'],
+      ['contenido','Textos'],['nube','Nube'],['registro','Registro'],['respaldo','Respaldo']];
+    if(aTab==='empresa')aTab='perfiles';
     abox.innerHTML=`
       <button class="icon-btn close-x" id="aClose" style="position:absolute;top:16px;right:16px" aria-label="Cerrar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
       <h3>Administración</h3>
@@ -4232,17 +4236,6 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
         renderPane(); if(state.view==='list')render();
         toast(b.dataset.pact==='ok'?'Propuesta publicada':'Propuesta descartada');
       }));
-    } else if(aTab==='empresa'){
-      p.innerHTML=`<label>Usuario de la empresa</label><input id="eUser" type="text" value="${E(AUTH.company?AUTH.company.user:'')}">
-        <label>Nueva contraseña de la empresa (dejar vacío para no cambiar)</label><input id="ePass" type="password" autocomplete="off">
-        <button class="minibtn" id="eSave" style="margin-top:14px">Guardar cambios</button>
-        <div class="ahint" style="margin-top:14px">El acceso de la empresa es compartido por todo el equipo. Al cambiarlo, avisá al personal.</div>`;
-      el('eSave').addEventListener('click',async()=>{
-        const u=gv('eUser');if(!u)return toast('El usuario no puede quedar vacío',true);
-        AUTH.company.user=u;const np=gv('ePass');
-        if(np){if(np.length<4)return toast('Contraseña muy corta',true);const h=await mkHash(np);AUTH.company.hash=h.hash;AUTH.company.salt=h.salt;AUTH.company.it=h.it;}
-        persistAuth();toast('Acceso de la empresa actualizado');el('ePass').value='';
-      });
     } else if(aTab==='contenido'){
       p.innerHTML=`<div class="ahint">Editá los textos generales de la página. El contenido de cada código (nombre, normas, auditoría, asociaciones) se edita desde su ficha con el botón <b>✎ Editar ficha</b> (activá el <b>modo edición</b> en la barra superior).</div>
         <label>Logo de la empresa (PNG/JPG/SVG)</label>
