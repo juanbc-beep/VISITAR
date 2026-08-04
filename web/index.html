@@ -993,9 +993,21 @@ body.tour-on{overscroll-behavior:none}
 .gbtn:disabled{opacity:.62;cursor:default}
 .gbtn:disabled:hover{background:var(--accent)}
 .gbtn:focus-visible,.gback:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-/* Pista de recuperación: no hay autoservicio, la contraseña la repone el
-   administrador desde Supabase. Decirlo evita el intento a ciegas. */
-.gayuda{font-size:11.5px;color:var(--faint);text-align:center;margin-top:10px;line-height:1.45}
+/* Dos caminos distintos, tratados distinto. «Olvidé la contraseña» es seguir
+   donde estabas: va pegado al campo, chico y discreto. «Crear cuenta» es
+   empezar de cero: va abajo, separado por una línea. Puestos uno debajo del
+   otro y con el mismo peso, se leían como si fueran lo mismo. */
+.golvide{display:block;margin:7px 0 0 auto;background:none;border:none;padding:2px 0;
+  font:inherit;font-size:12px;color:var(--muted);cursor:pointer;text-decoration:underline;
+  text-decoration-style:dotted;text-underline-offset:3px}
+.golvide:hover{color:var(--accent)}
+.golvide:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:5px}
+.galta{margin-top:18px;padding-top:14px;border-top:1px solid var(--line);
+  text-align:center;font-size:13px;color:var(--muted)}
+.galta button{background:none;border:none;padding:0;font:inherit;font-weight:700;
+  color:var(--accent-ink);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.galta button:hover{color:var(--accent)}
+.galta button:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:5px}
 .gbtn.sec{background:var(--surface-2);color:var(--ink);border:1px solid var(--line-2)}
 .gbtn.sec:hover{background:var(--surface-3)}
 .gerr{color:var(--exc);font-size:12.5px;margin-top:12px;min-height:16px;font-weight:600}
@@ -3816,10 +3828,10 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
         <div class="gsub">Con tu correo de trabajo y tu contraseña. La misma cuenta te sirve en cualquier computadora.</div>
         ${field('nbMail','Correo','email',{ac:'username',im:'email'})}
         ${field('nbPass','Contraseña','password',{ac:'current-password'})}
+        <button type="button" class="golvide" id="nbOlvide">Me olvidé la contraseña</button>
         <div class="gerr" id="gErr"></div>
         <button class="gbtn" id="nbGo">Entrar</button>
-        <button class="gback" id="nbNew">No tengo cuenta todavía → crearla</button>
-        <button class="gback" id="nbOlvide">Me olvidé la contraseña</button>
+        <div class="galta">¿Todavía no tenés cuenta? <button type="button" id="nbNew">Crearla</button></div>
       </div>`;
     } else if(v==='nubeOlvide'){
       html=`<div class="gcard">
