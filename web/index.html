@@ -1686,22 +1686,40 @@ function renderRapidos(){
   const limpio=!state.q&&!state.seccion.size&&!state.grupo.size&&!state.flags.size
                &&state.view==='list'&&!['CIE','ABR','SURGE','ALL'].includes(state.mode);
   const favs=[...FAVS].map(k=>BYCODE[k]).filter(c=>c&&c.nomenclador===state.mode).slice(0,8);
+  const P=window.NBUProfile||{};
+  const esAdmin=!!(P.active&&P.active()&&P.active().role==='admin');
+  const eq=((P.favsEquipo&&P.favsEquipo())||[])
+    .map(k=>BYCODE[k]).filter(c=>c&&c.nomenclador===state.mode).slice(0,8);
   /* Los últimos códigos abiertos valen tanto como los marcados a mano: reflejan lo que
      se está cargando ahora, sin que nadie los haya tenido que señalar. */
   const rec=((window.NBUProfile&&NBUProfile.recent&&NBUProfile.recent())||[])
     .map(k=>BYCODE[k]).filter(c=>c&&c.nomenclador===state.mode).slice(0,8);
-  if(!limpio||(!favs.length&&!rec.length)){cont.hidden=true;cont.innerHTML='';return;}
-  if(!favs.length)rapMod='rec'; if(!rec.length)rapMod='fav';
-  const lista=rapMod==='rec'?rec:favs;
+  if(!limpio||(!favs.length&&!rec.length&&!eq.length)){cont.hidden=true;cont.innerHTML='';return;}
+  // Si la pestaña elegida quedó vacía, se cae a la primera que tenga algo.
+  // Para el administrador la del equipo cuenta como disponible aunque esté
+  // vacía: es ahí donde publica la primera lista.
+  const hay={fav:favs.length,rec:rec.length,eq:eq.length||(esAdmin?1:0)};
+  if(!hay[rapMod])rapMod=['fav','rec','eq'].find(k=>hay[k])||'fav';
+  const lista=rapMod==='rec'?rec:(rapMod==='eq'?eq:favs);
   cont.hidden=false;
   const tab=(id,txt,n)=>`<button class="rtab${rapMod===id?' on':''}" data-rap="${id}"${n?'':' disabled'}>${txt}</button>`;
-  cont.innerHTML=`<div class="rlbl">${tab('fav','★ Frecuentes',favs.length)}${tab('rec','⟲ Vistos hoy',rec.length)}</div><div class="rgrid">`+
+  cont.innerHTML=`<div class="rlbl">${tab('fav','★ Frecuentes',favs.length)}${tab('rec','⟲ Vistos hoy',rec.length)}${tab('eq','👥 Del equipo',eq.length||(esAdmin?1:0))}`+
+    (rapMod==='eq'&&esAdmin?`<button class="rtab" id="rapPub" style="margin-left:auto;color:var(--gestion)" title="Reemplaza la lista del equipo por tus favoritos actuales">Publicar los míos</button>`:'')+
+    `</div><div class="rgrid">`+
     lista.map(c=>`<button class="rcard" data-code="${esc(c._key)}">
       <span class="rc">${esc(c.code)}</span><span class="rn" title="${esc(c.nombre)}">${esc(c.nombre)}</span>
       <span class="rt">${c.muestra&&c.muestra.length?muestraTag(c):''}${c.lateralidad?`<span class="tag t-lat">${esc(c.lateralidad)}</span>`:''}</span>
-    </button>`).join('')+`</div>`;
+    </button>`).join('')
+    +(rapMod==='eq'&&!eq.length?`<div class="ahint" style="grid-column:1/-1">Todavía no hay una lista del equipo.${esAdmin?' Marcá tus favoritos y tocá <b>Publicar los míos</b>.':' La arma el administrador.'}</div>`:'')
+    +`</div>`;
   cont.querySelectorAll('.rcard').forEach(b=>b.addEventListener('click',()=>openCode(b.dataset.code)));
-  cont.querySelectorAll('.rtab').forEach(b=>b.addEventListener('click',()=>{rapMod=b.dataset.rap;renderRapidos();}));
+  cont.querySelectorAll('.rtab[data-rap]').forEach(b=>b.addEventListener('click',()=>{rapMod=b.dataset.rap;renderRapidos();}));
+  const pub=document.getElementById('rapPub');
+  if(pub)pub.addEventListener('click',()=>{
+    if(!FAVS.size)return toast('No tenés favoritos marcados todavía.',true);
+    if(!confirm('¿Publicar tus '+FAVS.size+' favoritos como los del equipo?\n\nReemplaza la lista actual. Los favoritos personales de cada uno no se tocan.'))return;
+    if(P.publicarFavs([...FAVS])){renderRapidos();toast('Favoritos del equipo actualizados');}
+  });
 }
 function render(){
   renderChips();
@@ -3549,8 +3567,16 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
       {id:p.id,t:ms(p.creada),por:quien(p.autor),texto:p.texto});});
 
     CONTENT.codes=codes; CONTENT.verif=verif; CONTENT.propuestas=propuestas;
+    // Los conteos salen de lo mismo que se acaba de leer, así el número del
+    // aviso y las listas del panel no pueden contradecirse.
+    if(current&&current.role==='admin'){
+      cuNube=(perfiles||[]).filter(x=>(x.estado||'')==='pendiente').length;
+      verNube=Object.values(verif).filter(v=>v.estado==='pendiente').length;
+      prNube=(props||[]).length;
+    }
     const a=(Array.isArray(aj)?aj[0]:aj)||{};
     if(a.contenido&&a.contenido.page)CONTENT.page=a.contenido.page;
+    if(a.contenido&&a.contenido.equipo)CONTENT.equipo=a.contenido.equipo;
     save(KEY.content,CONTENT);
     nubeContenido=true;
     applyContent(); refreshStats(); render(); renderPane(); actualizarPendientes();
@@ -3561,7 +3587,7 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
      se cambian de a uno cada muchos meses y no vale la pena una tabla. */
   function guardarAjustesNube(){
     if(!nubeContenido)return;
-    NUBE.guardarAjustes({page:CONTENT.page}).catch(err=>
+    NUBE.guardarAjustes({page:CONTENT.page,equipo:CONTENT.equipo||{}}).catch(err=>
       toast('No se pudieron guardar los textos para el equipo: '+err.message,true));
   }
 
@@ -3577,11 +3603,16 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
   /* Lo que espera al administrador no puede vivir dentro de un panel de ajustes: si no
      se ve, no se revisa. Cuando hay algo pendiente aparece en la barra superior con el
      número, y lleva directo a la pestaña. */
-  let cuNube=0;   // cuentas pendientes en la nube, refrescadas aparte (el conteo es remoto)
+  // Conteos remotos. En modo nube NO se pueden calcular sobre lo que este equipo
+  // tiene cargado: una solicitud hecha en otra computadora llegó después de que
+  // esta persona entrara, y el aviso tiene que aparecer igual, sin recargar.
+  let cuNube=0, verNube=0, prNube=0;
   function contarPendientes(){
+    if(NUBE.activa)
+      return {v:verNube,pr:prNube,cu:cuNube,total:verNube+prNube+cuNube};
     const v=Object.values(CONTENT.verif||{}).filter(x=>x.estado==='pendiente').length;
     const pr=Object.values(CONTENT.propuestas||{}).reduce((n,l)=>n+l.length,0);
-    const cu=NUBE.activa?cuNube:AUTH.profiles.filter(x=>x.estado==='pendiente').length;
+    const cu=AUTH.profiles.filter(x=>x.estado==='pendiente').length;
     return {v,pr,cu,total:v+pr+cu};
   }
   /* El administrador tiene que enterarse de un alta hecha en otra computadora sin
@@ -3590,12 +3621,19 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
   async function refrescarCuentasNube(){
     if(!NUBE.activa||!current||current.role!=='admin')return;
     try{const d=await NUBE.pendientes();const o=Array.isArray(d)?d[0]:d;
-      if(o&&typeof o.cuentas==='number'){cuNube=o.cuentas;actualizarPendientes();}}catch(e){}
+      if(o&&typeof o.cuentas==='number'){
+        cuNube=o.cuentas; verNube=o.verificaciones||0; prNube=o.propuestas||0;
+        actualizarPendientes();}}catch(e){}
   }
   function vigilarCuentas(on){
     clearInterval(cuT);cuT=null;
-    if(on&&NUBE.activa){refrescarCuentasNube();cuT=setInterval(refrescarCuentasNube,120000);}
+    if(on&&NUBE.activa){refrescarCuentasNube();cuT=setInterval(refrescarCuentasNube,60000);}
   }
+  /* Además del reloj: al volver a la pestaña. Es cuando alguien mira si le
+     llegó algo, y esperar hasta un minuto ahí se siente roto. */
+  document.addEventListener('visibilitychange',()=>{
+    if(!document.hidden&&current&&current.role==='admin')refrescarCuentasNube();
+  });
   function actualizarPendientes(){
     const b=el('pendBtn'); if(!b)return;
     const esAdmin=!!(current&&current.role==='admin');
@@ -4022,9 +4060,22 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
   function closeAdmin(){amodal.classList.remove('on');actualizarPendientes();devolverFoco();}
   amodal.addEventListener('click',e=>{if(e.target===amodal)closeAdmin();});
   let aTab='perfiles';
-  function openAdmin(t){aTab=t||aTab;renderAdmin();amodal.classList.add('on');tomarFoco(el('adminBox'));}
+  function openAdmin(t){
+    aTab=t||aTab;renderAdmin();amodal.classList.add('on');tomarFoco(el('adminBox'));
+    /* Se relee al abrir: el panel es donde se decide, y decidir sobre una lista
+       de hace media hora es peor que no verla. cargarContenidoNube vuelve a
+       dibujar el panel cuando termina. */
+    if(nubeContenido)cargarContenidoNube().catch(()=>{});
+  }
   function renderAdmin(){
-    const tabs=[['perfiles','Perfiles'],['propuestas','Pendientes'],['empresa','Empresa'],['contenido','Textos'],['nube','Nube'],['registro','Registro'],['respaldo','Respaldo']];
+    /* «Empresa» era el usuario y la contraseña únicos que compartía todo el
+       equipo, de cuando la app no tenía cuentas personales. Con la nube cada
+       uno entra con lo suyo y esa clave común no se usa para nada: dejarla a la
+       vista sólo invita a cambiar algo que no tiene efecto. */
+    const tabs=[['perfiles','Perfiles'],['propuestas','Pendientes']]
+      .concat(NUBE.activa?[]:[['empresa','Empresa']])
+      .concat([['contenido','Textos'],['nube','Nube'],['registro','Registro'],['respaldo','Respaldo']]);
+    if(NUBE.activa&&aTab==='empresa')aTab='perfiles';
     abox.innerHTML=`
       <button class="icon-btn close-x" id="aClose" style="position:absolute;top:16px;right:16px" aria-label="Cerrar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
       <h3>Administración</h3>
@@ -4843,6 +4894,17 @@ create policy "kv_all" on kv for all
        fila del usuario, no al bloque local de perfiles. */
     saveFavs:(arr)=>{if(current){current.favs=arr.slice();current.updated=Date.now();guardarPerfil();}},
     saveUB:(val)=>{if(current){current.ub=val;current.updated=Date.now();guardarPerfil();}},
+    /* Favoritos del equipo: una lista común que arma el administrador, para que
+       quien recién entra no empiece con la pantalla vacía y para que todos
+       tengan a mano lo mismo. No reemplaza los propios: conviven, se elige cuál
+       mirar, y marcar una estrella sigue tocando sólo los de uno. */
+    favsEquipo:()=>(((CONTENT.equipo||{}).favoritos)||[]).slice(),
+    publicarFavs:(arr)=>{
+      if(!(current&&current.role==='admin'))return false;
+      CONTENT.equipo=CONTENT.equipo||{}; CONTENT.equipo.favoritos=arr.slice();
+      logEdit('publicó los favoritos del equipo'); persistContent(); guardarAjustesNube();
+      return true;
+    },
     editFicha:editFicha,
     tour:startOnboard,
     recent:()=>current&&current.recent?current.recent:[],

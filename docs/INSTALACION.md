@@ -233,6 +233,15 @@ Cuando se publica una versión nueva de la app, a cada persona le aparece un car
 actualiza cuando la persona lo decide, para que no se le corte una consulta con un
 afiliado enfrente.
 
+### Favoritos del equipo
+Cada persona tiene sus favoritos y nadie se los toca. Aparte hay una **lista del
+equipo**, que armás vos: marcá los códigos que más se usan y tocá **Publicar los
+míos** en la solapa **👥 Del equipo** de los accesos rápidos.
+
+Es opcional para cada uno: la solapa está al lado de «★ Frecuentes» y se mira
+cuando conviene. Sirve sobre todo para que quien recién entra no arranque con la
+pantalla vacía.
+
 ### Verificaciones y propuestas
 Un administrativo puede **pedir que se verifique** una ficha y **proponer cómo se
 carga** una práctica. Las dos cosas quedan pendientes hasta que las aprobás vos,
@@ -259,6 +268,7 @@ Las maneja Supabase y **nadie puede verlas**, ni vos. Si alguien la olvida:
 | Dato | Dónde vive |
 |---|---|
 | Cuentas, roles, aprobaciones | Base compartida |
+| Favoritos del equipo (lista común) | Base compartida, la publica el administrador |
 | Favoritos, notas personales, valor de U.B. | Base compartida, atados a tu cuenta: los tenés igual desde cualquier computadora |
 | Catálogo de códigos, CIE-10, SURGE, abreviaturas | Dentro del archivo de la app |
 | Correcciones de ficha, verificaciones y propuestas | Base compartida: lo que corrige o verifica uno lo ve el resto al entrar |
