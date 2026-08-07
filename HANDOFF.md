@@ -1,7 +1,13 @@
 # TRASPASO DE SESIÓN — Manual Inteligente Unificado (VISITAR SRL)
 
-> Documento para retomar el trabajo en una sesión nueva sobre **el mismo artefacto**.
-> Última actualización: 2026-07-28 (commit `7bbaa70`, 63 commits).
+> Documento para retomar el trabajo en una sesión nueva sobre **la misma app**.
+> Última actualización: 2026-08-05 (commit `f66b55e`, 99 commits).
+>
+> **Lo más importante que cambió desde el traspaso anterior:** la app dejó de ser un
+> archivo que cada uno guarda en su computadora y pasó a ser una **aplicación de empresa
+> publicada, con cuentas reales y base compartida**. Si venís del HANDOFF viejo, leé
+> primero la sección 1 bis: buena parte de lo que decía sobre acceso y sincronización
+> ya no aplica.
 
 ---
 
@@ -11,19 +17,38 @@
 |---|---|
 | **Repo** | `juanbc-beep/VISITAR` (dir. de trabajo `/home/user/VISITAR`) |
 | **Rama de desarrollo** | `claude/unified-medical-codes-manual-o9nw1w` (⚠️ NO pushear a otra rama) |
-| **Artefacto publicado** | https://claude.ai/code/artifact/85d149a9-9bfb-478b-b817-3d039a335f1f |
-| **Archivo de la app** | `web/index.html` — HTML **autocontenido** (~1,35 MB) |
+| **App en producción** | **https://juanbc-beep.github.io/VISITAR/** ← la que usa el equipo |
+| **Base de datos** | Supabase, proyecto `gavfxnoigomxbteagneu` (South America / São Paulo) |
+| **Artefacto** | https://claude.ai/code/artifact/85d149a9-9bfb-478b-b817-3d039a335f1f — **ya no se usa**, ver 1 bis |
+| **Archivo de la app** | `web/index.html` — HTML **autocontenido** (~1,4 MB) |
+| **Licencia** | `LICENSE` — reserva de derechos a nombre de Juan Pablo Besada / VISITAR SRL |
 | **Usuario** | Experto en auditoría médica y facturación en VISITAR SRL |
 | **Autoría a mostrar** | «Diseñado por **Juan Pablo Besada**» (ver punto 6.11) |
 | **Idioma de trabajo** | Español (Argentina) |
 
-**Para republicar el artefacto** (misma URL): copiar `web/index.html` al scratchpad como
-`nbu_artifact.html` y llamar a la herramienta Artifact pasando `url` =
-`https://claude.ai/code/artifact/85d149a9-9bfb-478b-b817-3d039a335f1f`, con
-`favicon: 🩺`. **Siempre la misma URL**, nunca crear una nueva.
+---
 
-> Si la publicación devuelve **409 (conflicto)**: hacer `WebFetch` de la URL primero para
-> traer la versión publicada, comparar contra el repo y recién entonces republicar.
+## 1 bis. ⚠️ Cómo se entrega el trabajo ahora (cambió por completo)
+
+**Publicar = hacer push.** La acción `.github/workflows/pages.yml` corre sola con cada
+cambio en `web/**` y en menos de un minuto la versión nueva está en
+`https://juanbc-beep.github.io/VISITAR/`. No hay que hacer nada más.
+
+**El artefacto de Claude quedó fuera de uso.** No sirve para probar: el entorno de
+claude.ai **bloquea todo pedido a servidores externos**, así que no puede hablar con
+Supabase y **no se puede ni iniciar sesión**. El usuario perdió tiempo con esto. Si querés
+mostrarle un cambio visual, mandale **capturas**; si querés que lo pruebe, que use la
+dirección de producción.
+
+**Sello de origen.** La acción escribe el commit que generó cada versión en
+`window.NBU_BUILD`, visible en la app en **Administración → Nube**. Sirve para saber qué
+está usando alguien cuando reporta un problema.
+
+### Lo que el usuario tiene que hacer en Supabase (ya hecho, no repetir)
+Documentado paso a paso en **`docs/INSTALACION.md`**. Resumen de lo que ya está
+configurado: tablas y reglas (`docs/supabase.sql`), *Confirm email* **apagado**,
+*Site URL* y *Redirect URLs* apuntando a la dirección de producción, y su cuenta promovida
+a administrador con `select public.hacerme_admin('…')`.
 
 ---
 
@@ -83,13 +108,29 @@ que tiene al afiliado enfrente? Si sólo sirve para auditar facturación, es sec
 ### Estructura
 ```
 /home/user/VISITAR
-├── web/index.html                  # LA APP (autocontenida; DB embebida comprimida)
+├── web/
+│   ├── index.html                  # LA APP (autocontenida; DB embebida comprimida)
+│   ├── sw.js                       # service worker (offline + aviso de versión nueva)
+│   ├── manifest.webmanifest        # para instalarla como aplicación
+│   └── icons/                      # generados con un codificador PNG propio (no hay PIL)
+├── docs/
+│   ├── supabase.sql                # tablas, reglas RLS y funciones — LA SEGURIDAD VIVE ACÁ
+│   └── INSTALACION.md              # guía del administrador, paso a paso
+├── .github/
+│   ├── workflows/pages.yml         # publica web/ y sella la versión con el commit
+│   └── dependabot.yml              # avisa cuando una acción tiene versión nueva
 ├── data/                           # fuentes + JSON intermedios + nbu_db.json (12 MB)
 │   ├── lateralidad_curada.json     # ← dato de la casa (ver 3.1)
-│   └── correcciones_curadas.json   # ← dato de la casa (ver 3.1)
-├── scripts/                        # parsers + ensamblador + inyector
+│   ├── correcciones_curadas.json   # ← dato de la casa (ver 3.1)
+│   └── nbu_reval_2024.json         # U.B. 2024 recuperadas (ver abajo)
+├── LICENSE                         # reserva de derechos
 ├── README.md                       # documentación funcional
 └── HANDOFF.md                      # este documento
+
+⚠️ `data/nbu_reval_2024.json` existe porque el `nbu_reval.txt` original **nunca se versionó**:
+rebuildear la base sin él borraba en silencio la U.B. 2024 de 50 códigos. Se recuperó desde
+la base ya commiteada. Si aparece otra fuente sin versionar, versionarla antes de tocar el
+pipeline.
 ```
 
 ### Cómo se compila la base
@@ -144,21 +185,42 @@ No hay framework. Se valida con **Playwright** (Node) desde el scratchpad:
 import pkg from '/opt/node22/lib/node_modules/playwright/index.js';
 const { chromium } = pkg;   // playwright NO está en node_modules del repo
 ```
-Para pasar el acceso en los tests (crea empresa + perfil administrador de una):
-```js
-await p.fill('#suUser','emp'); await p.fill('#suPass','1234');
-await p.fill('#suName','Ana'); await p.fill('#suPPass','1234');
-await p.click('#suGo'); await p.waitForTimeout(1200);
-await p.evaluate(()=>{['onboard','tour'].forEach(i=>document.getElementById(i)?.classList.remove('on'));
-  localStorage.setItem('nbu-onboarded','1');document.getElementById('scrim')?.classList.remove('on');});
-```
-⚠️ El overlay del recorrido guiado es **`#tour`** (antes `#onboard`); ambos se cierran por
-las dudas. Si no se cierran, **interceptan todos los clics** y los tests fallan raro.
 
-**Suite de regresión** (en el scratchpad; recrearla si se perdió):
-`test_cuentas`, `test_tour`, `test_pend`, `test_carga`, `test_muestra`, `test_busq`,
-`test_cob`, `test_ux2`, `test_smoke`, `test_pleg`, `test_vacio`, `test_imp`, `test_autoria`.
-Al 2026-07-28 pasan **todas, sin errores JS**.
+**⚠️ La app ya no arranca en modo local: arranca pidiendo cuenta contra Supabase, y desde
+este entorno la red a Supabase está bloqueada.** Para probar hay que **simular Supabase**
+interceptando con `ctx.route(HOST+'/**', …)` y respondiendo a mano `/auth/v1/token`,
+`/rest/v1/perfiles`, `/rest/v1/rpc/*`, `/rest/v1/{correcciones,verificaciones,propuestas,ajustes}`.
+El simulador vive en `e2e.mjs` del scratchpad; **recrearlo si se perdió** (está descrito
+en los commits `c159cfe` y `91a95d6`).
+
+Claves del simulador, aprendidas a los golpes:
+- **La identidad es de cada sesión, la base es compartida.** `servidor(quien, db)`: si la
+  identidad queda fija, «el administrador» entra como el administrativo y las pruebas
+  mienten sin fallar.
+- Servir la app por **http://** (no `file://`), porque el service worker no corre en
+  `file://`. Un `python3 -m http.server` en el scratchpad alcanza.
+- **El service worker cachea**: si probás dos archivos distintos en el mismo puerto, sirve
+  el primero para cualquier navegación. Usar **un puerto por variante**.
+- Saltar el recorrido guiado con
+  `ctx.addInitScript(()=>localStorage.setItem('nbu-onboarded','1'))`; si no, `#tour`
+  intercepta todos los clics.
+- Varias funciones internas (`BYCODE`, `toggleFav`, `CONTENT`) **no son alcanzables** desde
+  `page.evaluate`: interactuar por la interfaz o por `window.NBUProfile`.
+- La tira de accesos rápidos se redibuja con `render()`; tocar una estrella no la
+  refresca. Forzarlo escribiendo y borrando en `#q`.
+
+**Reglas de la base**: se prueban aparte, en un **PostgreSQL 16 local** (`/usr/lib/postgresql/16/bin`),
+con una maqueta del esquema `auth` de Supabase. **Tiene que incluir el rol
+`supabase_auth_admin` como dueño de `auth.users`**: sin eso no aparece la clase de fallo
+que rompió el alta de cuentas (ver 9). Correr `initdb` como el usuario `postgres` y dar
+permiso de recorrido a los directorios padre del socket.
+
+**Suite de regresión** (scratchpad; recrearla si se perdió):
+`login` (ingreso + violaciones CSP) · `simul` (dos personas a la vez, avisos al
+administrador) · `flujo3` (propuesta → aprobación por el panel real) · `fidelidad`
+(corrección que borra la norma a propósito) · `favs` (favoritos del equipo) ·
+`nube` (pestaña de estado) · `recup` + `recup2` (restablecer contraseña) ·
+`nubelocal` (modo local). Al 2026-08-05 pasan todas, sin errores de página.
 
 ---
 
@@ -194,9 +256,8 @@ Ordenada de arriba hacia abajo por lo que el agente necesita primero:
    relaciones, frecuencia/seriado, sinónimos y abreviaturas, **obligación de cobertura**,
    SURGE, CIE-10, normativa, origen, notas personales.
 5. **Comparador** de dos códigos lado a lado con diferencias resaltadas.
-6. **Impresión**: `body.imp-ficha` imprime sólo la ficha, y `imprimirComprobante()` genera
-   un **comprobante para el afiliado** (qué presentar, sin datos internos: no muestra U.B.,
-   ni valores, ni normas).
+6. **Impresión**: `body.imp-ficha` imprime sólo la ficha. El **comprobante para el
+   afiliado** se eliminó por pedido del usuario: *«eso no lo hacemos desde acá»*.
 
 ### 4.1 Verificación de fichas (dos pasos)
 - Un **administrativo** que contrastó la ficha contra la fuente toca
@@ -217,25 +278,82 @@ algo esperando**. `contarPendientes()` devuelve `{v, pr, cu, total}`:
 corresponde. El título dice, por ejemplo:
 *«Pendientes de revisar: 1 cuenta · 2 verificaciones · 1 propuesta»*.
 
-### 4.4 Acceso, cuentas y perfiles
-- Acceso de **empresa** (usuario compartido) + **perfiles individuales**.
-- **PBKDF2/SHA-256** (310.000 iteraciones, salt por registro), bloqueo por intentos
-  fallidos, auto-logout por inactividad (25 min).
-- **Alta de cuenta con aprobación** (último trabajo hecho):
-  `administrativo → crea cuenta → estado 'pendiente' → administrador aprueba → puede entrar`.
-  La cuenta pendiente **no aparece** en la lista de perfiles (si apareciera, la persona
-  intentaría entrar sin entender el rechazo); en su lugar hay un aviso al pie con cuántas
-  esperan. Pantalla `'espera'` del gate: *«Cuenta creada … pendiente de aprobación»*.
-  `enterProfile()` **bloquea** una cuenta pendiente aunque la contraseña sea correcta.
-- **Administrador único**: el botón de rol **transfiere** la administración (con confirm y
-  aviso de que dejás de serlo), no suma un segundo admin; y **el administrador no se puede
-  eliminar** — primero hay que transferir el rol.
-- **Panel de administración** (`openAdmin`), pestañas:
-  `Perfiles · Pendientes · Empresa · Textos · Nube · Registro · Respaldo`.
-- **Sincronización Supabase** opcional (REST + polling) con cifrado **AES-GCM** por
-  passphrase. ⚠️ La anon key es pública → **no cargar datos de pacientes**.
-  ⚠️ **No funciona dentro del artefacto**: la CSP bloquea el fetch a Supabase. Sirve sólo
-  si el HTML se sirve desde otro lado.
+### 4.4 Acceso, cuentas y contenido compartido ⚠️ REESCRITO POR COMPLETO
+
+**Ya no hay «acceso de empresa» ni perfiles locales en producción.** Cada persona entra
+con **su correo y su contraseña**, contra **Supabase Auth**. El módulo `NUBE` (IIFE dentro
+de `web/index.html`, expuesto como `window.NBUNube`) es todo el cliente: no usa la
+librería de Supabase, son `fetch` contra la API REST.
+
+**El estado inicial lo pone la base, no el cliente.** Un trigger sobre `auth.users` crea el
+perfil en `estado='pendiente'`; el administrador aprueba desde **Perfiles**. Un usuario no
+puede ascenderse aunque manipule la app: lo revierte el trigger `perfiles_guardia`.
+
+**Hay un solo administrador**, garantizado por un *constraint trigger* diferido. Se cambia
+con **Transferir administración**, nunca sumando un segundo.
+
+**Qué vive en la base compartida** (`docs/supabase.sql`):
+
+| Tabla | Quién lee | Quién escribe |
+|---|---|---|
+| `perfiles` | cualquier cuenta activa | cada uno lo suyo; rol y estado sólo el admin |
+| `correcciones` | activos | **sólo el admin** |
+| `verificaciones` | activos | pedir: cualquier activo (por función) · validar: sólo admin |
+| `propuestas` | activos | crear: cualquier activo · resolver: sólo admin |
+| `ajustes` | activos | sólo el admin (textos, logo y **favoritos del equipo**) |
+
+Funciones de apoyo: `es_admin()`, `es_activo()`, `pendientes()`, `transferir_admin()`,
+`hacerme_admin()` (arranque, sólo desde el SQL Editor), `pedir_verificacion()` y
+`validar_verificacion()`.
+
+⚠️ **Por qué las verificaciones van por función y no por escritura directa:** verificar una
+ficha ya verificada es un `UPDATE`, y habilitar `UPDATE` a un no-admin sobre esa tabla le
+abriría también la puerta a auto-validarse. La función pone estado, autor y fechas del
+lado del servidor.
+
+⚠️ **`correcciones.datos`** guarda la corrección **exacta**. Las columnas sueltas no
+distinguen «no toqué la norma» de «la dejé vacía a propósito» —las dos llegan como nulo— y
+al releer reaparecía una norma que el administrador había borrado.
+
+**Cómo se sincroniza en la app:** `cargarContenidoNube()` lee las cuatro tablas al entrar,
+al abrir el panel y después de cada escritura (`enNube()` reintenta la lectura incluso
+cuando falla, para que la pantalla nunca muestre algo que las reglas rechazaron). Los
+contadores de pendientes salen de la base (`pendientes()`), se refrescan cada minuto y al
+volver a la pestaña — calcularlos sobre lo cargado localmente fue un bug real: una
+solicitud hecha después de que el administrador entrara no le aparecía nunca.
+
+**Lo que sigue siendo local**: el **registro de actividad** (pestaña Registro) y el
+respaldo `.json`. Está dicho en la interfaz.
+
+**Modo local**: si `window.NBU_NUBE` queda vacío, la app arranca como antes (acceso de
+empresa + perfiles en el navegador). Se conserva **a propósito**, como red de contención si
+Supabase no responde. No tiene panel de configuración: la pestaña Nube sólo lo informa.
+
+### 4.4 bis Restablecer la contraseña (autogestionado)
+**Me olvidé la contraseña** → `POST /auth/v1/recover` → correo → el enlace vuelve con la
+sesión en el `#` de la dirección.
+
+⚠️ Tres cosas que hicieron falta y no son obvias:
+1. El `#` ya estaba tomado para abrir códigos, así que el enlace se lee en
+   **`window.NBU_RECUPERAR`, arriba de todo el archivo**, antes de que nada lo limpie.
+2. Si la app **ya estaba abierta**, el enlace cambia sólo el `#` y el navegador no recarga:
+   el `hashchange` lo detecta y fuerza `location.reload()`.
+3. El pedido contesta **lo mismo exista o no la cuenta**: decir «ese correo no está
+   registrado» dejaría averiguar quién trabaja en la empresa.
+
+Requiere *Site URL* y *Redirect URLs* configurados en Supabase; si no, el enlace lleva a
+`localhost`.
+
+### 4.4 ter Favoritos del equipo
+Lista común que publica el administrador (**👥 Compartir con el equipo**, en la tira de
+accesos rápidos). Vive en `ajustes.contenido.equipo.favoritos`, así que la regla que ya
+existía alcanza. **Es opcional y no toca los favoritos personales**: cada uno elige qué
+solapa mirar.
+
+### 4.4 quater PWA
+`web/manifest.webmanifest` + `web/sw.js` + iconos. Instalable, abre sin internet.
+La versión nueva **se aplica sola al abrir** si nadie tocó nada todavía; si la app está en
+uso, aparece el cartel y decide la persona. Una sola recarga automática por pestaña.
 
 ### 4.5 Recorrido guiado (onboarding)
 `pasosTour()` — **20 pasos** para el administrativo, **23** para el administrador (suma
@@ -292,7 +410,8 @@ Funciones: `initValidator()`, `runCase()`, `renderCase()`, `renderFacturacion()`
 5. Pushear **solo** a `claude/unified-medical-codes-manual-o9nw1w`.
 6. **No crear PR** salvo pedido explícito.
 7. **Republicar siempre en la misma URL del artefacto**, con `favicon: 🩺`.
-8. No cargar datos sensibles de pacientes (la anon key de Supabase es pública).
+8. **No cargar datos de pacientes en la base.** La clave publicable es pública a propósito;
+   lo que protege los datos son las reglas RLS, no esconderla.
 9. Dominio `ais.paho.org` **bloqueado** por política de red — no reintentar ni rodear.
 10. Servidores MCP **Adobe** y **Whimsical** requieren autorización → no disponibles.
 11. **La autoría debe quedar registrada en lugar visible**: «Diseñado por **Juan Pablo
@@ -302,7 +421,17 @@ Funciones: `initValidator()`, `runCase()`, `renderCase()`, `renderFacturacion()`
     impresión del listado y de las dos auditorías, y el informe copiable.
 12. **Odontología está oculto**: `NOMEN_OCULTOS = new Set(['ODO'])`. Los 79 códigos siguen
     en la base (no se borraron), pero no se listan ni se buscan. VISITAR no lo usa.
-13. **Regla de nombres de laboratorio** dictada por el usuario:
+13. **No mandar el enlace del artefacto.** No puede hablar con Supabase, así que ahí no se
+    puede ni entrar. Para probar, la dirección de producción; para mostrar, capturas.
+14. **No inventar identificadores ni valores que no se puedan verificar** (los SHA de las
+    acciones de GitHub quedaron pendientes por esto: la red del entorno bloquea GitHub).
+15. **La secret key de Supabase no se usa y no debe salir del panel.** El usuario la pegó
+    una vez en el chat; se le pidió rotarla. Verificado que **nunca** entró al repositorio.
+16. **El código no se puede cifrar** y no hay que intentarlo: es una app web, corre en el
+    navegador. Lo que protege la autoría es `LICENSE` + el sello de origen (1 bis).
+17. **Redacción rioplatense.** El usuario corrigió «que te la reponga» por sonar acartonado.
+    Escribir como habla alguien del rubro en Argentina, no traducir del inglés.
+18. **Regla de nombres de laboratorio** dictada por el usuario:
     **`-emia` = en sangre** (glucemia, uremia) · **`-uria` = en orina** (hematuria,
     glucosuria). Se aplica en `assemble.py` (`MUESTRA_TEXTO`, sufijos) y se muestra como
     etiqueta de color en la fila y en la ficha, con filtros «en sangre» / «en orina».
@@ -311,7 +440,7 @@ Funciones: `initValidator()`, `runCase()`, `renderCase()`, `renderFacturacion()`
 
 ---
 
-## 7. Historial de trabajo (63 commits)
+## 7. Historial de trabajo (99 commits)
 
 **Base y nomencladores**
 1. Catálogo NBU (PMO + Prácticas Especiales) e inteligencia (sinonimias, abreviaturas,
@@ -368,11 +497,84 @@ Funciones: `initValidator()`, `runCase()`, `renderCase()`, `renderFacturacion()`
 28. `7bbaa70` **Alta de cuentas con aprobación del administrador** y administrador único
     (punto 4.4).
 
+
+**De archivo suelto a aplicación de empresa** *(commits `3bb720a`…`f66b55e`, 36 tandas)*
+
+*Interfaz y contenido*
+29. `3bb720a` Rastro para volver dentro de la ficha; etiquetas en dos niveles (las de
+    decisión con color, las de estado del dato en gris).
+30. `74e8d0a` **Color propio por tipo de muestra** (7 tipos, no sólo sangre y orina): a
+    pedido del usuario, *«único y relaciones deben estar con color»*.
+31. `0896446` + `c318505` **Glosario y marco normativo**: se quitaron `N8337/N8332/N8327`,
+    se agregaron los enlaces oficiales a 22 normas, y el **Anexo I de la Res. 201/02**
+    pasó a reconstruirse entero (`scripts/parse_pmo_anexo1.py`) en vez de recortar frases
+    sueltas sin marco de referencia.
+32. `149b74a` + `f160a24` + `1925ddb` **Recorrido guiado**: bloquea el scroll, mueve la
+    página él mismo, funciona en toda resolución, y se movió a animación por `rAF` porque
+    el usuario lo describió como *«totalmente tosco»*.
+33. `f7cb990` + `66196d1` **Accesibilidad**: contraste, foco y trampa de foco en diálogos,
+    `aria-live`, encabezados reales en la ficha, objetivos táctiles de 24 px, salto al
+    contenido, `prefers-reduced-motion`.
+34. `3437657` **Se quita el comprobante para el afiliado** (regla del usuario).
+35. `b84b405` **Sale «NBU» del nombre de la app**: cubre cinco nomencladores, no uno.
+36. `a0a8e2b` **La pantalla de ingreso estaba rota**: el campo de correo (`type=email`) no
+    entraba en el selector de estilos y se dibujaba crudo, 185×21 al lado de uno de 366×43.
+    De paso, `autocomplete`, teclado del celular, 16 px para que iOS no haga zoom, ver la
+    contraseña, y estado deshabilitado.
+37. `f66b55e` **Se separan «crear cuenta» y «olvidé la contraseña»**: estaban con el mismo
+    peso, uno debajo del otro, y se leían como lo mismo.
+
+*Infraestructura*
+38. `ede215d` **Cuentas compartidas en la nube y PWA**: `docs/supabase.sql`,
+    `docs/INSTALACION.md`, manifest, service worker e iconos.
+39. `d9aa335` → `297f091` Habilitar GitHub Pages **no se puede automatizar** (el token de
+    las acciones no tiene permiso); queda como paso manual documentado.
+40. `9a9cb2c` **App conectada al proyecto real** de Supabase.
+41. `2144b5e` → `29f15e3` Publicación: manual mientras Pages fallaba, automática de nuevo
+    una vez resuelto, con filtro de rutas para que `docs/` no dispare correos.
+42. `4c96f3e` **La versión nueva se aplica sola al abrir** + la acción sella la versión del
+    service worker con el commit.
+43. `c159cfe` **Correcciones, verificaciones y propuestas pasan a la base compartida** — el
+    último pedazo del trabajo en equipo que vivía en cada computadora.
+44. `dfb92aa` Avisos al administrador **en tiempo real**; favoritos del equipo; se saca la
+    pestaña Empresa.
+45. `59f3c5a` + `156cc74` + `36f7751` **Limpieza de lo obsoleto**: la pestaña Nube decía
+    «desactivada» mientras la app corría contra la nube, y el panel viejo seguía enseñando
+    a crear una tabla abierta a cualquiera. Se eliminó la sincronización `kv` entera con su
+    cifrado AES (161 líneas).
+46. `91a95d6` **Restablecer contraseña autogestionado** (4.4 bis).
+
+*Seguridad y autoría*
+47. `3eaa50f` **XSS almacenado en el logo** cerrado + **Content-Security-Policy**.
+48. `a7c379b` **`LICENSE`**, encabezado de copyright, **sello de origen** y endurecimiento
+    de la publicación (`persist-credentials: false`, dependabot).
+
 ---
 
 ## 8. Pendientes y sugerencias abiertas
 
+### ⚠️ Lo primero que hay que preguntar al retomar
+
+El usuario recibió una lista de mejoras y **todavía no eligió**. Sus dos prioridades
+recomendadas fueron: **relaciones diagnóstico → práctica** (sólo 45 de 11.581 códigos las
+tienen; es la consulta más frecuente en el mostrador) y **poner este HANDOFF al día**
+(hecho). Antes de arrancar cualquier cosa, preguntar por dónde quiere seguir.
+
+### Pendientes concretos, con dueño
+
+| Qué | De quién depende |
+|---|---|
+| **Fijar las acciones de GitHub por SHA** en vez de por etiqueta | mío, necesita una sesión con red a GitHub |
+| **Segundo factor** en GitHub y Supabase, y **proteger la rama** | del usuario; se le pidió dos veces |
+| **Rotar la secret key** de Supabase | del usuario |
+| **Cerrar las altas** cuando el equipo esté completo, subir el mínimo de contraseña | del usuario |
+| **Las 119 prácticas «fuera del PMO»** que están en nuestra sección PMO | criterio del usuario |
+| **Las 113 prácticas del Excel** que no están en la base (comparación de julio) | decisión conjunta |
+
 ### Propuesto y NO construido (por orden de utilidad para el usuario de carga)
+- **Editar una propuesta antes de publicarla** (hoy se publica el texto tal cual).
+- **Historial por ficha**: quién la corrigió, cuándo y qué decía antes.
+- **Registro de actividad compartido** (hoy es de cada computadora).
 - **Intérprete de orden médica**: pegar el texto de la orden y que devuelva los códigos
   candidatos. Es la que más le ahorra al mostrador.
 - **Vista mostrador simplificada**: sólo lo que hay que responderle al afiliado.
@@ -448,6 +650,23 @@ Funciones: `initValidator()`, `runCase()`, `renderCase()`, `renderFacturacion()`
 | CIE-10 con capítulos '?' y descripciones fragmentadas | Rangos de capítulo extendidos + guard `is_frag` + normalización final |
 | `isquemia` etiquetada como determinación en sangre | `MUESTRA_SUF_EXCL` |
 
+### Nube, seguridad y publicación (esta etapa) — los que más costaron
+
+| Problema | Causa real y solución |
+|---|---|
+| **El alta de cuentas fallaba** con «Unexpected failure, please check server logs» | `un_solo_admin()` era la **única función del SQL sin `security definer`**. Es un *constraint trigger* diferido: corre al confirmar la transacción y con los permisos de quien confirma, que en un alta es el rol interno de Supabase Auth, sin lectura sobre `public.perfiles`. Moría con *permission denied* y Auth devolvía un 500 genérico. **No se reproduce si la maqueta de prueba no incluye el rol `supabase_auth_admin`** |
+| **El `update` para hacerse administrador «funcionaba» y no hacía nada** | `perfiles_guardia` revierte rol y estado cuando `es_admin()` da falso, y en el SQL Editor `auth.uid()` es NULL. La consola contesta `UPDATE 1` y la cuenta sigue pendiente. Se reemplazó por `hacerme_admin()`, que apaga el guardia sólo dentro de su transacción. Necesita `set constraints … immediate` antes del `ALTER`, o falla con *pending trigger events* |
+| **El aviso «hay una versión nueva» no salía NUNCA** | El service worker devolvía la respuesta cacheada a la página y **después** intentaba clonarla para compararla; clonar una respuesta ya leída lanza excepción y un `.catch()` se la tragaba. La copia se saca **antes** de devolverla |
+| **El cartel de «Instalar» era invisible** | `#swbar` en `z-index:120` contra `#gate` en `1000`, con fondo opaco a pantalla completa. Aparece en la primera visita, que es justo cuando se ve el ingreso: nadie lo habría visto |
+| **XSS almacenado en el logo** | `logoInner()` interpolaba `CONTENT.page.logo` en un `src` sin escapar. Dejó de ser dato de confianza al pasar a la nube (y entra también por «Restaurar respaldo»). Se escapa **y** se exige que sea imagen embebida; SVG queda afuera por ser el único formato que puede traer código |
+| **Una solicitud del administrativo no le llegaba al administrador** | El contador se calculaba sobre lo cargado en esa computadora, que era de cuando esa persona inició sesión. Ahora sale de `pendientes()`, y se refresca al volver a la pestaña, cada minuto y al abrir el panel |
+| «Get Pages site failed» × 6 | GitHub Pages nunca se había habilitado. **No se puede automatizar**: `enablement: true` falla con *Resource not accessible by integration* |
+| «Email logins are disabled» | Al reactivar el proveedor de correo, *Confirm email* se enciende con él. Son dos interruptores distintos |
+| Cuenta aprobada que igual no entra | Son **dos puertas**: `perfiles.estado` (nuestra) y `auth.users.email_confirmed_at` (de Supabase). Apagar *Confirm email* no confirma hacia atrás |
+| El enlace de restablecer llevaba a `localhost` | *Site URL* de Supabase por defecto. Pero además la app no sabía leer el enlace: ver 4.4 bis |
+| Al probar, «Ana» entraba como administradora | El simulador tenía la identidad fija. **La identidad es por sesión, la base es compartida** |
+| Al probar dos variantes en el mismo puerto, se servía siempre la primera | El service worker cachea y usa `index.html` como respaldo de cualquier navegación. Un puerto por variante |
+
 ### App y UI
 | Problema | Solución aplicada |
 |---|---|
@@ -481,3 +700,13 @@ Funciones: `initValidator()`, `runCase()`, `renderCase()`, `renderFacturacion()`
    pipeline, y **vuelve al repo** por el exportador (3.1).
 6. **Correr la suite de Playwright completa** antes de commitear: los cambios de UI rompen
    tests lejanos.
+7. **Reproducir el fallo antes de arreglarlo, y con la maqueta completa.** Los dos bugs más
+   caros de esta etapa (el alta de cuentas y el `update` que no actualizaba) se escondían
+   porque la prueba corría con permisos de más. Una maqueta que no distingue roles no
+   prueba reglas de acceso: las confirma por casualidad.
+8. **Desconfiar de la propia medición antes que del código.** Varias veces el «bug» era del
+   instrumento: el analizador de contraste leía mal un formato de color, el simulador tenía
+   la identidad fija, una prueba tocaba la tecla después de que llegara el mensaje. Cuando
+   algo no cierra, revisar primero cómo se está midiendo.
+9. **Un texto que describe mal dónde están los datos es peor que no tenerlo**, porque se le
+   cree. Al mover algo de lugar, buscar los carteles que hablaban de eso.
