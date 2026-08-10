@@ -1,8 +1,27 @@
 {
- "_nota": "Correcciones de contenido hechas por auditoría desde el panel de administración de la app (✎ Editar ficha) y exportadas con «Exportar correcciones para la base». Tienen prioridad sobre lo que arma el pipeline: son dato de la casa, no inferido. Reemplazar este archivo por el que descarga la app.",
+ "_nota": "Correcciones de contenido hechas por auditoría desde el panel de administración de la app (✎ Editar ficha) y exportadas con «Exportar correcciones para la base». Tienen prioridad sobre lo que arma el pipeline: son dato de la casa, no inferido. Reemplazar este archivo por el que descarga la app. · Incluye 3 normas recuperadas del PDF de CUBRA (2026-08): la base las tenía cortadas por una fuga entre columnas.",
  "_uso": "Por cada código se aceptan: nombre, norma {trabajo, interpretacion}, auditoria [líneas], asoc_extra (cómo se carga en VISITAR). Corregir el nombre además da por resuelta la marca «denominación a confirmar». En «verificaciones» va {codigo: {fecha, por}}: qué fichas se contrastaron contra la fuente y cuándo.",
  "generado": null,
  "por": null,
- "codigos": {},
+ "codigos": {
+  "660298": {
+   "norma": {
+    "trabajo": "- Comprende la realización de: Examen Macroscópico: aspecto, volumen, licuefacción, viscosidad y pH. Examen Microscópico: Recuento en cámara de espermatozoides y de células redondas. Motilidad espermática, Test de aglutinación, Test de eosina, Morfología de Kruger, Tinción de peroxidasa. No incluye Química Seminal (dosaje de: ácido cítrico, fosfatasa ácida prostática, fructosa).",
+    "interpretacion": "No incluye los códigos: 660167, 660355, 665478. Incluye los códigos: 664868, 664775."
+   }
+  },
+  "660933": {
+   "norma": {
+    "trabajo": "- Comprende la determinación cualitativa y/o cuantitativa de VDRL o USR.",
+    "interpretacion": ""
+   }
+  },
+  "661142": {
+   "norma": {
+    "trabajo": "- Comprende la realización de: HEPATITIS B, Ac. Anti- IgG / Totales (HBc IgG/Totales) - HEPATITIS B, Antígeno de Superficie (Ag.HBs ) - HEPATITIS C, Ac. anti- IgG (HCV Ac IgG) – BRUCELOSIS (HUDDLESSON o ROSA DE BENGALA) - CHAGAS (HAI y ELISA o HAI e IFI) - ANTICUERPOS ANTI HIV (1 y 2) y p24 - HTLV-I / II – SIFILIS – GRUPO SANGUÍNEO y FACTOR Rh - con detección de o variedad Dµ (variante VI de Tippett). COOMBS INDIRECTA (entre dador y receptor) e IRREGULARES ANTICUERPOS (Cualitativo).",
+    "interpretacion": "Incluye determinaciones de los ítems: 661080, 661086, 661095, 660494, 660245 (660242+660243), 666275, 666537, 660933, 660433, 660813, 660186 y 666898.-"
+   }
+  }
+ },
  "verificaciones": {}
 }
