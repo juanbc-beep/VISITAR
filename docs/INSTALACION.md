@@ -257,6 +257,21 @@ Es opcional para cada uno: la solapa está al lado de «★ Frecuentes» y se mi
 cuando conviene. Sirve sobre todo para que quien recién entra no arranque con la
 pantalla vacía.
 
+### Observaciones sobre una práctica
+Cuando algo hay que saberlo **antes de cargar** —«esta obra social la está
+rechazando», «pedir la orden con el diagnóstico escrito»— lo dejás anotado en la
+propia ficha: **Observación del administrador → Dejar una observación**.
+
+Desde ese momento:
+
+- aparece **en el resultado de la búsqueda**, debajo del código, sin que nadie
+  tenga que abrir la ficha;
+- a cada administrativo le suena una **campanita** en la barra superior con
+  cuántas hay nuevas **para él**, y se apaga cuando las lee;
+- la escribís, la cambiás o la quitás cuando la situación cambia.
+
+Sólo vos podés escribirlas. El resto las lee.
+
 ### Verificaciones y propuestas
 Un administrativo puede **pedir que se verifique** una ficha y **proponer cómo se
 carga** una práctica. Las dos cosas quedan pendientes hasta que las aprobás vos,
@@ -293,6 +308,7 @@ enlace lleva a `localhost` y no abre nada.
 | Favoritos, notas personales, valor de U.B. | Base compartida, atados a tu cuenta: los tenés igual desde cualquier computadora |
 | Catálogo de códigos, CIE-10, SURGE, abreviaturas | Dentro del archivo de la app |
 | Correcciones de ficha, verificaciones y propuestas | Base compartida: lo que corrige o verifica uno lo ve el resto al entrar |
+| Observaciones del administrador por práctica | Base compartida; cada persona tiene su propia marca de «hasta acá las vi» |
 | Registro de actividad (pestaña **Registro**) | Sólo en cada computadora: es el rastro de lo que se hizo desde ahí |
 
 ---

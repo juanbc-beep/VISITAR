@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-jC3JJBHXbjX8iiA43cpbzYByT1l9deMhU3vRQr5t8W4=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-Ge+QJOGIhsXvl2q/AiFo1URDw1ooPfZaZ817dj89ZKo=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -557,6 +557,31 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
 .saltar:focus{top:0}
 .tag.t-meta{background:transparent;border:1px solid var(--line);color:var(--faint);font-weight:600;padding:1px 5px}
 .row:hover .tag.t-meta{border-color:var(--line-2);color:var(--muted)}
+/* Aviso del administrador dentro del resultado. Ámbar, no rojo: es algo que
+   hay que tener en cuenta, no un error de la ficha. */
+.robs{display:flex;align-items:flex-start;gap:7px;margin-top:6px;padding:6px 9px;
+  border-radius:7px;background:#efe4c4;border:1px solid color-mix(in srgb,var(--gestion) 40%,transparent);
+  font-size:12.5px;line-height:1.4;color:var(--ink-2);text-align:left}
+:root[data-theme="dark"] .robs{background:#2e2811}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .robs{background:#2e2811}}
+.robs-i{flex-shrink:0;width:16px;height:16px;border-radius:50%;background:var(--gestion);
+  color:#fff;font-weight:800;font-size:11px;line-height:16px;text-align:center;margin-top:1px}
+/* El mismo aviso dentro de la ficha, arriba de todo. */
+.obsbox{background:#efe4c4;border:1.5px solid color-mix(in srgb,var(--gestion) 45%,transparent);
+  border-radius:var(--radius);padding:12px 14px;margin-bottom:12px}
+:root[data-theme="dark"] .obsbox{background:#2e2811}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .obsbox{background:#2e2811}}
+.obsbox.vacia{background:none;border-style:dashed}
+.obsbox .obs-h{display:flex;align-items:center;gap:8px;font-weight:800;font-size:11px;
+  letter-spacing:.5px;text-transform:uppercase;color:var(--gestion)}
+.obsbox .obs-m{margin-left:auto;font-weight:600;letter-spacing:0;text-transform:none;
+  font-size:11.5px;color:var(--muted)}
+.obsbox .obs-t{font-size:13.5px;line-height:1.5;color:var(--ink-2);margin-top:7px;white-space:pre-wrap}
+.obsbox textarea{width:100%;min-height:74px;resize:vertical;margin-top:8px;font:inherit;font-size:13px;
+  padding:9px 11px;line-height:1.5;border:1px solid var(--line-2);border-radius:var(--radius-sm);
+  background:var(--surface);color:var(--ink)}
+.obsbox textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.obsbox .obs-btns{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
 .rright{text-align:right;flex-shrink:0}
 .rub{font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-size:16px;font-weight:700;color:var(--ink)}
 .rub small{font-size:10px;color:var(--faint);font-weight:600;display:block;letter-spacing:.4px;margin-top:1px}
@@ -1126,6 +1151,10 @@ mark.hl{background:var(--accent-soft);color:var(--accent-ink);border-radius:3px;
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg>
         <span class="pendn" id="pendN">0</span>
       </button>
+      <button class="icon-btn pendbtn" id="obsBtn" title="Observaciones nuevas del administrador" aria-label="Observaciones nuevas del administrador" hidden>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+        <span class="pendn" id="obsN">0</span>
+      </button>
       <button class="icon-btn" id="adminBtn" title="Administración" aria-label="Administración" hidden>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1V21a2 2 0 0 1-4 0v-.1A1.6 1.6 0 0 0 7 19.4a1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0-1.1-2.7H1a2 2 0 0 1 0-4h.1A1.6 1.6 0 0 0 2.6 7a1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3H7a1.6 1.6 0 0 0 1-1.5V1a2 2 0 0 1 4 0v.1a1.6 1.6 0 0 0 2.7 1.1l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8V7a1.6 1.6 0 0 0 1.5 1H23a2 2 0 0 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/></svg>
       </button>
@@ -1649,6 +1678,15 @@ function ubDisplay(c){
    qué equivalencia tiene en el Único—.
    ESTADO DE LA BASE (en gris): sólo cuentan cómo quedó cargado el dato de este manual.
    Son «valores ✓» y «2024», y no le cambian nada al agente que atiende. */
+/* La observación del administrador se lee en el propio resultado, sin abrir la
+   ficha: es un aviso para antes de cargar («esta obra social la rechaza», «pedir
+   orden con diagnóstico»), y si hay que abrir algo para enterarse, llega tarde. */
+function obsLinea(code){
+  const o=(window.NBUProfile&&NBUProfile.obsDe)?NBUProfile.obsDe(code):null;
+  if(!o||!o.texto)return '';
+  const t=o.texto.length>150?o.texto.slice(0,150)+'…':o.texto;
+  return `<div class="robs" title="${esc(o.texto)}"><span class="robs-i">!</span>${esc(t)}</div>`;
+}
 function rowHTML(c){
   const dec=[],met=[];
   if(c.cobertura_pmo)dec.push(`<span class="tag t-cob">${c.cobertura_tipo==='observacion'?'observación de cobertura':'obligación de cobertura'}</span>`);
@@ -1671,6 +1709,7 @@ function rowHTML(c){
       <div class="rname">${hlList(c.nombre)}</div>
       <div class="rmeta"><span class="badge ${SEC_CLASS[c.seccion]}">${SEC_LABEL[c.seccion]}</span>
       <span class="rgrupo">${esc(c.grupo)}</span>${dec.join('')}${met.join('')}</div>
+      ${obsLinea(c._key)}
     </div>
     <div class="rright">${ubDisplay(c)}</div>
   </button>`;
@@ -2478,6 +2517,27 @@ function verifEstado(code){
   const dias=Math.floor((Date.now()-desde)/86400000);
   return {estado:dias>VERIF_DIAS?'vieja':'ok',v,dias};
 }
+/* La observación en la ficha, arriba de todo: si el administrador dejó dicho
+   algo sobre esta práctica, tiene que leerse antes que cualquier otra cosa.
+   Para el administrador, el mismo bloque es el editor. */
+function obsFichaHTML(code){
+  const P=window.NBUProfile||{};
+  if(!P.active||!P.active())return '';
+  const o=P.obsDe?P.obsDe(code):null;
+  const admin=!!(P.active()&&P.active().role==='admin');
+  if(!o&&!admin)return '';
+  const fecha=o?new Date(o.t).toLocaleDateString('es-AR'):'';
+  return `<div class="obsbox${o?'':' vacia'}" id="obsBox">
+    <div class="obs-h"><span class="robs-i">!</span> Observación del administrador
+      ${o?`<span class="obs-m">${esc(o.por||'—')} · ${fecha}</span>`:''}</div>
+    ${o?`<div class="obs-t" id="obsTexto">${esc(o.texto)}</div>`:''}
+    ${admin?`<div class="obs-ed" hidden><textarea id="obsArea" placeholder="Lo que el equipo tiene que saber antes de cargar esta práctica…">${o?esc(o.texto):''}</textarea>
+       <div class="obs-btns"><button class="minibtn" id="obsGuardar">Guardar</button>
+       <button class="minibtn" id="obsCancelar">Cancelar</button></div></div>
+      <div class="obs-btns" id="obsAcc"><button class="minibtn" id="obsEditar">${o?'✎ Editar':'+ Dejar una observación'}</button>
+      ${o?`<button class="minibtn danger" id="obsQuitar">Quitar</button>`:''}</div>`:''}
+  </div>`;
+}
 function verifHTML(code){
   if(!(window.NBUProfile&&NBUProfile.active()))return '';
   const {estado,v,dias}=verifEstado(code);
@@ -2697,6 +2757,7 @@ function openCode(code,origen){
         <button class="minibtn" id="dImp">🖨 Imprimir ficha</button>
       </div>
       ${(window.NBUProfile&&NBUProfile.canEdit())?`<div class="dedit"><button class="minibtn" id="editFichaBtn">✎ Editar ficha</button></div>`:''}
+      ${obsFichaHTML(code)}
       ${veredictoHTML(c)}
       ${verifHTML(code)}
       ${(window.NBUProfile&&NBUProfile.active())?`<div class="dnote"><textarea id="dNote" placeholder="Tu nota personal para este código (privada de tu perfil)…">${esc(note)}</textarea></div>`:''}
@@ -3001,6 +3062,29 @@ function openCode(code,origen){
   const pc=el('propCancel');
   if(pc)pc.addEventListener('click',()=>{el('propForm').hidden=true;el('propTxt').value='';});
   const ef=el('editFichaBtn');if(ef)ef.addEventListener('click',()=>window.NBUProfile&&NBUProfile.editFicha(code));
+  /* Observación del administrador: el mismo bloque se lee y se edita, sin abrir
+     otra ventana. Guardar redibuja el listado, porque el aviso también sale ahí. */
+  (function(){
+    const caja=el('obsBox'); if(!caja)return;
+    const ed=caja.querySelector('.obs-ed'), acc=el('obsAcc');
+    const mostrar=(editando)=>{ if(ed)ed.hidden=!editando; if(acc)acc.hidden=editando;
+      const t=el('obsTexto'); if(t)t.hidden=editando; };
+    const bE=el('obsEditar'); if(bE)bE.addEventListener('click',()=>{mostrar(true);
+      const a=el('obsArea'); if(a){a.focus();a.setSelectionRange(a.value.length,a.value.length);}});
+    const bC=el('obsCancelar'); if(bC)bC.addEventListener('click',()=>mostrar(false));
+    const bG=el('obsGuardar'); if(bG)bG.addEventListener('click',()=>{
+      const txt=(el('obsArea')||{}).value||'';
+      if(!txt.trim())return toast('Escribí la observación o usá «Quitar».',true);
+      NBUProfile.guardarObs(code,txt);
+      toast('Observación guardada · la ve todo el equipo');
+      if(state.view==='list')render(); openCode(code);
+    });
+    const bQ=el('obsQuitar'); if(bQ)bQ.addEventListener('click',()=>{
+      if(!confirm('¿Quitar la observación de este código?\n\nDeja de verla todo el equipo.'))return;
+      NBUProfile.guardarObs(code,''); toast('Observación quitada');
+      if(state.view==='list')render(); openCode(code);
+    });
+  })();
   const av=el('dAddVal');if(av)av.addEventListener('click',()=>addToValidator(c.code));
   const im=el('dImp');
   if(im)im.addEventListener('click',()=>{
@@ -3504,6 +3588,17 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
          body:JSON.stringify({estado:estado,resuelta_por:(perfil&&perfil.id)||null,
            resuelta_en:new Date().toISOString()})}),
 
+      /* Observaciones del administrador sobre una práctica. Las escribe él,
+         las lee todo el equipo, y cada uno tiene su propia marca de «hasta acá
+         vi» para saber qué le quedó nuevo. */
+      observaciones:()=>api('/rest/v1/observaciones?select=*&order=actualizada.desc',{method:'GET'}),
+      guardarObservacion:(codigo,texto)=>api('/rest/v1/observaciones',
+        {method:'POST',headers:{'Prefer':'resolution=merge-duplicates,return=minimal'},
+         body:JSON.stringify({codigo:codigo,texto:texto,
+           autor:(perfil&&perfil.id)||null,actualizada:new Date().toISOString()})}),
+      borrarObservacion:(codigo)=>api('/rest/v1/observaciones?codigo=eq.'+encodeURIComponent(codigo),
+        {method:'DELETE',headers:{'Prefer':'return=minimal'}}),
+
       ajustes:()=>api('/rest/v1/ajustes?select=contenido&id=eq.1',{method:'GET'}),
       guardarAjustes:(contenido)=>api('/rest/v1/ajustes?id=eq.1',
         {method:'PATCH',headers:{'Prefer':'return=minimal'},
@@ -3579,13 +3674,15 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
      En modo local (sin nube configurada) nada de esto se activa y la app sigue
      funcionando como antes, con todo guardado en el navegador. */
   let nubeContenido=false;      // true cuando CONTENT viene de la base
+  let obsNuevas=0;              // observaciones sin ver por esta persona
   let nombrePorId={};           // uuid -> nombre, para mostrar quién hizo qué
 
   async function cargarContenidoNube(){
     if(!(NUBE.activa&&current&&current._nube))return false;
-    const [perfiles,corr,ver,props,aj]=await Promise.all([
+    const [perfiles,corr,ver,props,aj,obs]=await Promise.all([
       NUBE.listar().catch(()=>[]),          // sólo para poner nombres a los uuid
-      NUBE.correcciones(), NUBE.verificaciones(), NUBE.propuestas(), NUBE.ajustes()]);
+      NUBE.correcciones(), NUBE.verificaciones(), NUBE.propuestas(), NUBE.ajustes(),
+      NUBE.observaciones()]);
     nombrePorId={}; (perfiles||[]).forEach(p=>{nombrePorId[p.id]=p.nombre;});
     const quien=id=>id?(nombrePorId[id]||'—'):'';
     const ms=s=>s?Date.parse(s):0;
@@ -3613,6 +3710,16 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
     const propuestas={};
     (props||[]).forEach(p=>{(propuestas[p.codigo]=propuestas[p.codigo]||[]).push(
       {id:p.id,t:ms(p.creada),por:quien(p.autor),texto:p.texto});});
+
+    const observ={};
+    (obs||[]).forEach(o=>{observ[o.codigo]={texto:o.texto,por:quien(o.autor),t:ms(o.actualizada)};});
+    CONTENT.obs=observ;
+    /* Cuántas hay nuevas PARA ESTA PERSONA: las que cambiaron después de la
+       última vez que las miró. El administrador las escribe, así que a él no se
+       le avisa de lo suyo. */
+    const vistas=(NUBE.perfil()&&NUBE.perfil().obs_vistas)?Date.parse(NUBE.perfil().obs_vistas):0;
+    obsNuevas=(current&&current.role==='admin')?0
+      :Object.values(observ).filter(o=>o.t>vistas).length;
 
     CONTENT.codes=codes; CONTENT.verif=verif; CONTENT.propuestas=propuestas;
     // Los conteos salen de lo mismo que se acaba de leer, así el número del
@@ -3683,6 +3790,16 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
     if(!document.hidden&&current&&current.role==='admin')refrescarCuentasNube();
   });
   function actualizarPendientes(){
+    /* Aviso de observaciones: es para los administrativos, no para quien las
+       escribe. Va al lado del de pendientes, con el mismo tratamiento. */
+    const ob=el('obsBtn');
+    if(ob){
+      const hay=!!(current&&current.role!=='admin'&&obsNuevas>0);
+      ob.hidden=!hay;
+      if(hay){ el('obsN').textContent=obsNuevas>99?'99+':String(obsNuevas);
+        ob.title=obsNuevas===1?'El administrador dejó 1 observación nueva'
+                              :`El administrador dejó ${obsNuevas} observaciones nuevas`; }
+    }
     const b=el('pendBtn'); if(!b)return;
     const esAdmin=!!(current&&current.role==='admin');
     const {v,pr,cu,total}=contarPendientes();
@@ -3692,6 +3809,35 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
     b.title=`Pendientes de revisar: ${cu} cuenta${cu!==1?'s':''} · ${v} ${v===1?'verificación':'verificaciones'} · ${pr} propuesta${pr!==1?'s':''}`;
   }
   el('pendBtn').addEventListener('click',()=>{refrescarCuentasNube();openAdmin(contarPendientes().cu?'perfiles':'propuestas');});
+  el('obsBtn').addEventListener('click',()=>{
+    const vistas=(NUBE.perfil()&&NUBE.perfil().obs_vistas)?Date.parse(NUBE.perfil().obs_vistas):0;
+    const nuevas=Object.entries(CONTENT.obs||{})
+      .map(([c,o])=>Object.assign({code:c},o)).filter(o=>o.t>vistas).sort((a,b)=>b.t-a.t);
+    verObservaciones(nuevas);
+  });
+
+  /* Lista de las observaciones nuevas. Se abre desde la campanita, y al cerrarla
+     quedan por vistas: si siguieran marcadas como nuevas después de haberlas
+     leído, el aviso perdería sentido en dos días. */
+  function verObservaciones(lista){
+    const m=el('adminModal'), caja=el('adminBox');
+    caja.innerHTML=`
+      <button class="icon-btn close-x" id="obsX" style="position:absolute;top:16px;right:16px" aria-label="Cerrar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      <h3>Observaciones del administrador</h3>
+      <div class="asub">${lista.length===1?'Hay 1 aviso nuevo':`Hay ${lista.length} avisos nuevos`} sobre estas prácticas. Tocá el código para abrir la ficha.</div>
+      ${lista.map(o=>{const c=BYCODE[o.code];
+        return `<div class="arow" style="align-items:flex-start">
+          <div class="grow2">
+            <button class="minibtn" data-obsir="${E(o.code)}" style="margin-bottom:6px"><span class="mono">${E(c?c.code:o.code)}</span> ${E(c?c.nombre.slice(0,52):'')}</button>
+            <div style="font-size:13px;color:var(--ink-2);white-space:pre-wrap">${E(o.texto)}</div>
+            <div class="pmeta">${E(o.por||'—')} · ${new Date(o.t).toLocaleDateString('es-AR')}</div>
+          </div></div>`;}).join('')}`;
+    m.classList.add('on'); tomarFoco(caja);
+    caja.querySelectorAll('[data-obsir]').forEach(b=>b.addEventListener('click',()=>{
+      closeAdmin(); openCode(b.dataset.obsir);}));
+    el('obsX').addEventListener('click',closeAdmin);
+    window.NBUProfile.marcarObsVistas();
+  }
 
   /* ---- toast ---- */
   let toastEl=null;
@@ -4870,6 +5016,29 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
        quien recién entra no empiece con la pantalla vacía y para que todos
        tengan a mano lo mismo. No reemplaza los propios: conviven, se elige cuál
        mirar, y marcar una estrella sigue tocando sólo los de uno. */
+    /* Observaciones del administrador. obsDe() la usa el listado y la ficha;
+       las tres siguientes, sólo el administrador. */
+    obsDe:(code)=>((CONTENT.obs||{})[code]||null),
+    obsNuevas:()=>obsNuevas,
+    obsTodas:()=>Object.entries(CONTENT.obs||{})
+      .map(([c,o])=>Object.assign({code:c},o)).sort((a,b)=>b.t-a.t),
+    guardarObs:(code,texto)=>{
+      if(!(current&&current.role==='admin'))return false;
+      CONTENT.obs=CONTENT.obs||{};
+      const t=(texto||'').trim();
+      if(t){CONTENT.obs[code]={texto:t,por:current.name||'',t:Date.now()};}
+      else delete CONTENT.obs[code];
+      logEdit(t?'dejó una observación':'quitó la observación',code); persistContent();
+      if(nubeContenido)enNube(t?NUBE.guardarObservacion(code,t):NUBE.borrarObservacion(code),
+        t?'guardar la observación':'quitar la observación');
+      return true;
+    },
+    /* «Ya las vi»: se guarda la fecha en el perfil, así la marca viaja con la
+       persona y no con la computadora. */
+    marcarObsVistas:()=>{
+      obsNuevas=0; actualizarPendientes();
+      if(nubeContenido)NUBE.guardarMio({obs_vistas:new Date().toISOString()}).catch(()=>{});
+    },
     favsEquipo:()=>(((CONTENT.equipo||{}).favoritos)||[]).slice(),
     publicarFavs:(arr)=>{
       if(!(current&&current.role==='admin'))return false;

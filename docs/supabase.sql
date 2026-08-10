@@ -171,6 +171,27 @@ create table if not exists public.correcciones (
 -- de la base reaparecería una norma que el administrador había borrado.
 alter table public.correcciones add column if not exists datos jsonb;
 
+-- OBSERVACIONES ---------------------------------------------------------
+-- Aviso del administrador sobre una práctica: «esta obra social la está
+-- rechazando», «pedir orden con diagnóstico», lo que haya que saber antes de
+-- cargarla. No corrige la ficha: la acompaña.
+--
+-- Tabla propia y no una columna de «correcciones» por dos razones: lleva su
+-- propia fecha, que es lo que permite decirle a cada persona qué es nuevo para
+-- ella; y una corrección se publica una vez, mientras que una observación se
+-- escribe, se cambia y se levanta según cómo venga la semana.
+create table if not exists public.observaciones (
+  codigo       text primary key,
+  texto        text not null,
+  autor        uuid references public.perfiles(id) on delete set null,
+  actualizada  timestamptz not null default now()
+);
+comment on table public.observaciones is 'Avisos del administrador por práctica. Los ve todo el equipo.';
+
+-- Hasta cuándo vio las observaciones cada persona. Con esto la app sabe
+-- cuántas hay nuevas para ELLA, sin que el administrador tenga que avisar.
+alter table public.perfiles add column if not exists obs_vistas timestamptz;
+
 -- Verificaciones: las solicita un administrativo, las valida el administrador.
 create table if not exists public.verificaciones (
   codigo         text primary key,
@@ -235,6 +256,16 @@ create policy correcciones_ver on public.correcciones for select to authenticate
 
 drop policy if exists correcciones_escribir on public.correcciones;
 create policy correcciones_escribir on public.correcciones for all to authenticated
+  using (public.es_admin()) with check (public.es_admin());
+
+-- OBSERVACIONES -------------------------------------------------------
+drop policy if exists obs_ver on public.observaciones;
+create policy obs_ver on public.observaciones for select to authenticated
+  using (public.es_activo());
+
+-- Escribirlas es del administrador: son instrucciones para el equipo.
+drop policy if exists obs_escribir on public.observaciones;
+create policy obs_escribir on public.observaciones for all to authenticated
   using (public.es_admin()) with check (public.es_admin());
 
 -- VERIFICACIONES ------------------------------------------------------
