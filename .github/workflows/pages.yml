@@ -9,6 +9,13 @@
 # El filtro «paths» es lo que evita que vuelvan los correos por nada: un cambio en
 # docs/ o en scripts/ no toca lo que ve el equipo, asi que no dispara publicacion.
 # Para volver al modo manual, comentar el bloque «push:».
+#
+# Las acciones van fijadas por identificador de commit, no por etiqueta: una
+# etiqueta como «v7» se puede mover, y quien controlara esa accion apuntaria a
+# otro codigo con permiso para publicar en la direccion del equipo. El
+# identificador señala un contenido exacto y no se puede reapuntar. El comentario
+# al lado dice a que version corresponde, y es lo que Dependabot usa para avisar
+# cuando hay una nueva.
 name: Publicar el manual
 
 on:
@@ -33,7 +40,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           # El token del checkout queda escrito en .git/config y cualquier paso
           # posterior podria leerlo. No lo necesitamos despues de clonar.
@@ -75,9 +82,9 @@ jobs:
       # integration». Crear el sitio pide permisos de administrador del
       # repositorio, y el GITHUB_TOKEN automatico nunca los tiene. No se puede
       # evitar el paso manual de Settings -> Pages -> Source: GitHub Actions.
-      - uses: actions/configure-pages@v6
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6
+      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
         with:
           path: web
       - id: deploy
-        uses: actions/deploy-pages@v5
+        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5
