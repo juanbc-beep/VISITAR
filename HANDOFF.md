@@ -88,17 +88,18 @@ que tiene al afiliado enfrente? Si sólo sirve para auditar facturación, es sec
 
 | Relación | Cobertura |
 |---|---|
-| Códigos con **abreviaturas posibles** | 1.022 |
-| Códigos con **tipo de muestra** (sangre/orina) | 776 (703 por texto + 73 por sufijo) |
+| Códigos con **abreviaturas posibles** | 1.044 |
+| Códigos con **tipo de muestra** (sangre/orina) | 821 (705 por texto + 73 por sufijo + 43 heredados del gemelo del NBU) |
 | Códigos con **diagnósticos CIE-10** relacionados | 242 |
 | Códigos con **cobertura** | 115 → 106 *obligación* + 9 *observación* |
 | Códigos con **lateralidad** | 130 (109 del OCR + 21 curados por auditoría) |
 | Códigos con **normativa** relacionada | 61 |
 | Códigos con **vínculo SURGE** | 60 |
 | Códigos con **tope PMO** | 38 |
-| Pares **-emia / -uria** vinculados | 25 |
+| Pares **-emia / -uria** vinculados | 26 |
 | Único **sin equivalencia** (agrupados aparte) | 79 |
 | Marcador del Único separado del título | 1.724 |
+| Laboratorio del Único **emparejado con el NBU** (uno a uno) | 1.694 |
 | **Marcas de calidad** | 84 `titulo_revisar` · 139 `texto_truncado` · 1 `sin_denominacion` |
 
 ---
@@ -140,6 +141,33 @@ pipeline.
    `web/index.html` dentro de `<script id="nbu-db-gz" type="text/plain">`.
    La app la descomprime al cargar con `DecompressionStream('gzip')` en un IIFE async.
 
+### 3.0 ⚠️ El Único de laboratorio es el NBU con otro número
+
+Las **1.694** prácticas de laboratorio del Único son las mismas del NBU con otro código
+(`U64660163` ↔ `660163`). Están **dos veces en la base**, así que todo lo que se agregue de
+un lado hay que llevarlo al otro o las dos pantallas empiezan a decir cosas distintas —que
+es exactamente lo que reportó el usuario.
+
+`scripts/propagar_al_unico.py` es el que lo mantiene parejo. Corre **al final** de
+`assemble.py` (después del tipo de muestra, de las siglas y de las correcciones curadas) y
+también se puede correr solo sobre una base ya armada:
+
+```bash
+python3 scripts/propagar_al_unico.py data/nbu_db.json
+```
+
+Tres reglas que **no** se cruzan, y conviene no «arreglarlas»:
+- **La valorización no se toca.** El Único trae su propia U.B. de la planilla de VISITAR y
+  en 101 prácticas no coincide con la del NBU: eso es el convenio, no un error. La U.B. del
+  NBU va aparte, en `nbu_valor`, y la ficha la muestra rotulada como referencia.
+- **El tipo de muestra no se pisa.** Se hereda sólo si el Único no tiene ninguno. Cuando los
+  dos nombres indican muestras **sin nada en común** (6 casos) queda un renglón de auditoría
+  «Revisar la equivalencia»: ahí el problema es el mapeo, no la ficha.
+- **El nombre y la sección propios se respetan.** De qué parte del NBU viene la práctica
+  (`Prácticas Especiales`, `PMO`) va en `nbu_seccion_label` y se ve como cartel aparte.
+
+Lo que vive en la **nube** (observaciones) no se resuelve acá sino en la app: ver 4.6.
+
 ### 3.1 ⚠️ Patrón «dato curado con prioridad» (importante)
 
 Hay conocimiento que **sólo tiene el usuario** y que ninguna fuente resuelve. Ese dato
@@ -177,7 +205,8 @@ Si el scratchpad está vacío, hay que regenerar los intermedios corriendo los p
 `parse_catalog.py`, `parse_intel.py`, `parse_pmo.py`, `parse_pmo_cobertura.py`,
 `parse_nn.py`, `parse_odo.py`, `ocr_nn.py`, `parse_unico.py`, `parse_unico_lab.py`,
 `parse_cie10.py`, `parse_cie10_detalle.py`, `parse_cie10_tabular.py`,
-`cie10_relaciones.py`, `parse_abreviaturas.py`, `parse_surge.py`.
+`cie10_relaciones.py`, `parse_abreviaturas.py`, `parse_surge.py`, `parse_nbu_normas.py`.
+Y dos que no son parsers: `propagar_al_unico.py` (punto 3.0) y `sellar_csp.py`.
 
 ### Testing
 No hay framework. Se valida con **Playwright** (Node) desde el scratchpad:
@@ -361,6 +390,27 @@ Pendientes, Modo edición y Administración). Es un **spotlight**: recorta el el
 con `box-shadow: 0 0 0 9999px` y ubica el globo al lado. Varios pasos tienen `antes:` que
 prepara la pantalla (abre el rail, abre una ficha, carga un caso en la Mesa de trabajo).
 Se puede volver a ver desde **Glosario y leyes → Ver tutorial de uso**.
+
+### 4.6 Observaciones del administrador — una sola por práctica
+
+El administrador deja una observación en la ficha; se ve **debajo del código en el listado**
+(`.robs`, sin abrir nada) y arriba de todo en la ficha, y a los administrativos les suena una
+campanita hasta que la marcan como vista (`perfiles.obs_vistas`).
+
+⚠️ La observación es **de la práctica, no del código**. Como el mismo análisis está con su
+número del NBU y con el del Único, en `web/index.html` hay un índice `GEMELO` (armado de las
+equivalencias, **uno a uno**: ningún código del NBU tiene más de un gemelo) y:
+
+- `obsDe(code)` busca por el código pedido y, si no hay, **por el gemelo**;
+- `claveObs(code)` la guarda siempre **del lado del NBU**, y al guardar **borra la del
+  gemelo** si quedaba una vieja: si sobrevivieran las dos, la ficha del Único seguiría
+  mostrando la vieja y no habría forma de darse cuenta;
+- la ficha avisa «Se ve también en el código X»: sin eso, alguien la escribe de nuevo del
+  otro lado creyendo que falta.
+
+Esto vale para las observaciones —contenido de la nube—. **Las verificaciones no se
+comparten**: contrastan los valores de una ficha contra su fuente, y la fuente del Único (la
+planilla de VISITAR) no es la del NBU.
 
 ### Vistas
 **Listado** (filtros por sección/grupo/reglas, favoritos, CSV/PDF) · **Árbol de módulos**
@@ -616,6 +666,14 @@ tienen; es la consulta más frecuente en el mostrador) y **poner este HANDOFF al
   planilla no trae leyenda. Se guardan literales, sin interpretar.
 - **La lateralidad está relevada sólo en oftalmología**; el mismo dato existe en otros
   capítulos del Nacional.
+- **6 equivalencias Único↔NBU dudosas por el tipo de muestra**: los dos nombres indican
+  materiales sin nada en común (`60660192` creatinina orina vs. sangre, `60660307` etanol,
+  `64665691` haemophilus, `64667076` levodopa, `64668332` pesticidas, `64669990` zinc). Cada
+  ficha lo dice en auditoría. Hay que decidir con la planilla en la mano si la equivalencia
+  está mal puesta o si el nombre del Único está mal copiado.
+- **101 prácticas con U.B. distinta entre el Único y el NBU**: es el convenio de la empresa,
+  no un error. La ficha muestra las dos y aclara cuál es cuál. Confirmar con el usuario si
+  alguna de esas diferencias sí es un error de carga.
 
 ### Mejoras de datos ofrecidas y no ejecutadas
 - Ampliar las **relaciones CIE-10 ↔ prácticas** (hoy 45 curadas + sugerencias por texto).

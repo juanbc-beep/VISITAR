@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Assemble the unified intelligent NBU database from catalog.json + intel.json (+ 2024 overlay)."""
-import json, re, sys, unicodedata
+import json, os, re, sys, unicodedata
 from collections import defaultdict
 
 catalog = json.load(open("catalog.json"))
@@ -1573,7 +1573,11 @@ db = {
 MUESTRA_TEXTO = [
     ("orina", r"\b(?:en\s+)?orina\b|\burinari|\bmicci|\bdiuresis\b"),
     ("sangre", r"\bs[ée]ric[ao]\b|\bsuero\b|\bplasm|\ben\s+sangre\b|\bsangu[ií]ne|\bhem[aá]tic"),
-    ("materia fecal", r"materia\s+fecal|\bheces\b|\bcoprol|\bmat\.?\s*fecal"),
+    # «M.F.» con los dos puntos: abreviatura de materia fecal en la denominación
+    # («CLEARENCE de … - M.F. / sérica»). Se pide el punto para no tomar iniciales
+    # sueltas; contrastado contra los 6.346 nombres, las 5 coincidencias son todas
+    # materia fecal.
+    ("materia fecal", r"materia\s+fecal|\bheces\b|\bcoprol|\bmat\.?\s*fecal|\bm\.\s*f\."),
     ("líquido cefalorraquídeo", r"cefalorraqu|\bl\.?c\.?r\.?\b"),
     ("semen", r"\bsemen\b|\besperm"),
     ("saliva", r"\bsaliva\b"),
@@ -1682,6 +1686,14 @@ for _code, _v in (CORR.get("verificaciones") or {}).items():
     verif_n += 1
 if verif_n:
     print(f"Fichas verificadas: {verif_n}", file=sys.stderr)
+
+# ---------- el laboratorio del Único hereda todo lo que muestra el NBU ----------
+# Va al final a propósito: el tipo de muestra y las siglas sugeridas se calculan
+# más arriba, y las correcciones de auditoría pisan todo. Si esto corriera antes,
+# el Único heredaría una ficha del NBU que después cambia.
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from propagar_al_unico import propagar as _propagar_unico
+_propagar_unico(records, log=sys.stderr)
 
 # ---------- guarda final: ninguna ficha sin denominación ----------
 # Alguna prestación llega con el título destruido en la fuente (p. ej. 130303, que
