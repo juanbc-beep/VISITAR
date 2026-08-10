@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-zCKkYnqrCvogqHg4D5NCHWhKeSskisEXIOCWUKi737s=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-9dROTBXhW6FfpfC0DXw3mCnMa+AzBWmelg05jbyMDQg=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -112,6 +112,11 @@ window.NBU_NUBE = {
   --new:#0d7a86; --new-soft:#d6ecee;
   --pmo:#0d7a86; --pe:#7a4bd6; --gestion:#8a6d1f;
   --shadow:0 1px 2px rgba(19,32,41,.06),0 8px 28px rgba(19,32,41,.10);
+  /* El logo de la empresa está dibujado para fondo claro. En claro apoya directo
+     sobre la pantalla y no necesita nada; en oscuro necesita su propio fondo
+     blanco, con aire alrededor, o el contorno blanco de la cruz se pierde contra
+     el fondo. Las tres variables son lo único que cambia entre un tema y otro. */
+  --logo-plato:transparent; --logo-aire:2px; --logo-gate-aire:0;
   --radius:11px; --radius-sm:8px;
   --font-ui:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   --font-mono:ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,monospace;
@@ -131,6 +136,7 @@ window.NBU_NUBE = {
     --new:#2cb6c3; --new-soft:#123037;
     --pmo:#2cb6c3; --pe:#a985ea; --gestion:#d3ad55;
     --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 34px rgba(0,0,0,.44);
+    --logo-plato:#ffffff; --logo-aire:4px 9px; --logo-gate-aire:15px 14px;
   }
 }
 :root[data-theme="light"]{
@@ -143,6 +149,7 @@ window.NBU_NUBE = {
   --exc:#b3261e; --exc-soft:#f8dedb; --incd:#6d34c4; --incd-soft:#e7ddf7;
   --new:#0d7a86; --new-soft:#d6ecee; --pmo:#0d7a86; --pe:#7a4bd6; --gestion:#8a6d1f;
   --shadow:0 1px 2px rgba(19,32,41,.06),0 8px 28px rgba(19,32,41,.10);
+  --logo-plato:transparent; --logo-aire:2px; --logo-gate-aire:0;
 }
 :root[data-theme="dark"]{
   --bg:#0c1317; --surface:#141e25; --surface-2:#1a262e; --surface-3:#202e37;
@@ -154,6 +161,7 @@ window.NBU_NUBE = {
   --exc:#e9736a; --exc-soft:#3a1a18; --incd:#a985ea; --incd-soft:#241634;
   --new:#2cb6c3; --new-soft:#123037; --pmo:#2cb6c3; --pe:#a985ea; --gestion:#d3ad55;
   --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 34px rgba(0,0,0,.44);
+  --logo-plato:#ffffff; --logo-aire:4px 9px; --logo-gate-aire:15px 14px;
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -444,10 +452,17 @@ header{
   background:linear-gradient(150deg,var(--accent),var(--accent-ink));
   display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:12.5px;letter-spacing:.6px;
   box-shadow:0 2px 8px color-mix(in srgb,var(--accent) 40%,transparent)}
-.logo.hasimg{padding:2px;background:none;width:auto;box-shadow:none}
-.logo.hasimg img{height:34px;width:auto;max-width:150px;object-fit:contain;display:block}
+.logo.hasimg{padding:var(--logo-aire);background:var(--logo-plato);width:auto;box-shadow:none}
+/* La imagen ocupa lo que deje el aire, no una altura fija: así el mismo plato
+   blanco sirve en la cabecera normal (38px), en la compacta (32px) y en la vista
+   previa del panel (44px), sin que se desborde en ninguna. */
+.logo.hasimg img{height:100%;width:auto;max-width:150px;object-fit:contain;display:block}
 .gcard .glogo.brand{width:auto;height:auto;padding:0;font-size:16px;letter-spacing:.8px;background:none;box-shadow:none}
-.gcard .glogo.brand.hasimg{background:none;padding:0;margin-bottom:16px}
+/* En la pantalla de ingreso el plato no se ajusta al logo: ocupa el ancho de los
+   campos que están abajo. Un rectángulo del ancho del formulario se lee como
+   parte del diseño; uno recortado alrededor del dibujo, como un parche. */
+.gcard .glogo.brand.hasimg{background:var(--logo-plato);padding:var(--logo-gate-aire);
+  margin-bottom:16px;width:100%;border-radius:var(--radius-sm)}
 .gcard .glogo.brand img{height:auto;width:100%;max-width:160px;max-height:74px;object-fit:contain;display:block}
 .brand h1{font-size:15px;font-weight:700;margin:0;letter-spacing:-.2px;line-height:1.15}
 .brand p{font-size:11.5px;margin:0;color:var(--muted);letter-spacing:.2px}
@@ -4447,7 +4462,10 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
       p.innerHTML=`<div class="ahint">Editá los textos generales de la página. El contenido de cada código (nombre, normas, auditoría, asociaciones) se edita desde su ficha con el botón <b>✎ Editar ficha</b> (activá el <b>modo edición</b> en la barra superior).</div>
         <label>Logo de la empresa (PNG/JPG/SVG)</label>
         <div style="display:flex;align-items:center;gap:12px;margin-top:4px">
-          <div class="logo${logoValido(CONTENT.page.logo)?' hasimg':''}" style="height:44px">${logoInner()}</div>
+          <!-- «hasimg» siempre: la vista previa muestra una imagen sí o sí, la que
+               cargó la empresa o la de fábrica. Sin la clase quedaba el recuadro
+               celeste de fondo y el dibujo sin medida, a tamaño natural. -->
+          <div class="logo hasimg" style="height:44px">${logoInner()}</div>
           <input id="pgLogo" type="file" accept="image/png,image/jpeg,image/gif,image/webp" style="border:none;padding:0;background:none;flex:1">
           ${CONTENT.page.logo?'<button class="minibtn danger" id="pgLogoDel">Quitar</button>':''}
         </div>
