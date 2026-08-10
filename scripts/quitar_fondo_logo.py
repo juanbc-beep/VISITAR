@@ -1,3 +1,21 @@
+#!/usr/bin/env python3
+"""Deja transparente el fondo de los logos que se embeben en la app.
+
+Los archivos originales (data/logo_visitar_iso.png y logo_visitar_completo.png)
+vienen sobre blanco. Mientras ese blanco estuvo dentro de la imagen, en modo
+oscuro el logo se veía como un cuadrado blanco recortado sobre el fondo oscuro,
+y quitar la caja del CSS no alcanzaba.
+
+Se usa cuando haya que regenerar los logos; el resultado se embebe en
+web/index.html como data URI, en LOGO_ISO y LOGO_COMPLETO.
+
+    from quitar_fondo_logo import recortar, sin_fondo
+    im = sin_fondo(recortar('data/logo_visitar_iso.png'))
+
+Para el peso conviene guardarlos con  im.quantize(colors=64,
+method=Image.FASTOCTREE): en un logo de colores planos se ve idéntico y
+comprime mejor que la paleta común, incluso llevando canal de transparencia.
+"""
 from PIL import Image, ImageChops
 from collections import deque
 import io, sys
