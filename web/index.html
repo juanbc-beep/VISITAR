@@ -21,6 +21,8 @@
 <meta name="author" content="Juan Pablo Besada">
 <meta name="copyright" content="© 2026 Juan Pablo Besada — VISITAR SRL. Todos los derechos reservados.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- No filtrar la dirección de la app a ningún sitio externo. -->
+<meta name="referrer" content="no-referrer">
 <!-- Segunda barrera. No impide que aparezca un agujero nuevo: impide que sirva
      de algo. Lo que más importa es «connect-src»: aunque alguien lograra
      ejecutar código acá adentro, el navegador no lo deja mandar nada a otro
@@ -30,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'unsafe-inline';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-jC3JJBHXbjX8iiA43cpbzYByT1l9deMhU3vRQr5t8W4=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;

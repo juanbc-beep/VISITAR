@@ -421,17 +421,22 @@ Funciones: `initValidator()`, `runCase()`, `renderCase()`, `renderFacturacion()`
     impresión del listado y de las dos auditorías, y el informe copiable.
 12. **Odontología está oculto**: `NOMEN_OCULTOS = new Set(['ODO'])`. Los 79 códigos siguen
     en la base (no se borraron), pero no se listan ni se buscan. VISITAR no lo usa.
-13. **No mandar el enlace del artefacto.** No puede hablar con Supabase, así que ahí no se
+13. ⚠️ **Después de tocar `web/index.html`, correr `python3 scripts/sellar_csp.py`.**
+    La política de seguridad lleva la **huella** de cada script en lugar de
+    `'unsafe-inline'`. Si el archivo cambia y la huella no, **el navegador se niega a
+    ejecutar la app entera**. La acción de publicación lo vuelve a sellar sola, así que
+    olvidarse nunca llega al equipo — pero sí rompe la copia local y el artefacto.
+14. **No mandar el enlace del artefacto.** No puede hablar con Supabase, así que ahí no se
     puede ni entrar. Para probar, la dirección de producción; para mostrar, capturas.
-14. **No inventar identificadores ni valores que no se puedan verificar** (los SHA de las
+15. **No inventar identificadores ni valores que no se puedan verificar** (los SHA de las
     acciones de GitHub quedaron pendientes por esto: la red del entorno bloquea GitHub).
-15. **La secret key de Supabase no se usa y no debe salir del panel.** El usuario la pegó
+16. **La secret key de Supabase no se usa y no debe salir del panel.** El usuario la pegó
     una vez en el chat; se le pidió rotarla. Verificado que **nunca** entró al repositorio.
-16. **El código no se puede cifrar** y no hay que intentarlo: es una app web, corre en el
+17. **El código no se puede cifrar** y no hay que intentarlo: es una app web, corre en el
     navegador. Lo que protege la autoría es `LICENSE` + el sello de origen (1 bis).
-17. **Redacción rioplatense.** El usuario corrigió «que te la reponga» por sonar acartonado.
+18. **Redacción rioplatense.** El usuario corrigió «que te la reponga» por sonar acartonado.
     Escribir como habla alguien del rubro en Argentina, no traducir del inglés.
-18. **Regla de nombres de laboratorio** dictada por el usuario:
+19. **Regla de nombres de laboratorio** dictada por el usuario:
     **`-emia` = en sangre** (glucemia, uremia) · **`-uria` = en orina** (hematuria,
     glucosuria). Se aplica en `assemble.py` (`MUESTRA_TEXTO`, sufijos) y se muestra como
     etiqueta de color en la fila y en la ficha, con filtros «en sangre» / «en orina».
