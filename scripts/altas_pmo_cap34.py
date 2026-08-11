@@ -66,11 +66,14 @@ def altas(records, log=None, base=""):
         # ficha explica de dónde sale cada parte.
         if d.get("sigue_a"):
             ant = records.get(d["sigue_a"])
+            cola = (" y su denominación se compone con la de esa práctica."
+                    if d.get("nombre_practica") else ".")
+            # El guión de cierre sólo si sigue texto: si no, la línea terminaba
+            # en « — .», que se lee como un renglón cortado.
             r["auditoria"].append(
                 "En el Nomenclador Nacional viene a continuación de " + d["sigue_a"] +
-                (" — " + ant["nombre"] + " — " if ant else " ") +
-                ("y su denominación se compone con la de esa práctica."
-                 if d.get("nombre_practica") else "."))
+                (" — " + ant["nombre"] + (" —" if cola != "." else "") if ant else "") +
+                cola)
             if ant:
                 r["relaciones"]["incluido_en"] = [d["sigue_a"]]
         if d.get("titulo_revisar"):

@@ -1427,7 +1427,9 @@ _abr_n = 0
 for _k, _r in records.items():
     _name = _norm(_r["nombre"])
     _found = []
-    for _w in set(w for w in _name.split() if len(w) >= 4):
+    # ordenado: con un set, cada corrida devolvía las mismas siglas en distinto
+    # orden y 88 fichas «cambiaban» en el diff sin haber cambiado nada.
+    for _w in sorted(set(w for w in _name.split() if len(w) >= 4)):
         for _s, _ab in _sig_by_word.get(_w, []):
             if _s in _name and _ab not in _found:
                 _found.append(_ab)
@@ -1687,14 +1689,7 @@ for _code, _v in (CORR.get("verificaciones") or {}).items():
 if verif_n:
     print(f"Fichas verificadas: {verif_n}", file=sys.stderr)
 
-# ---------- capítulo 34: lo que el PMO no imprime pero el Nacional sí ----------
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from altas_pmo_cap34 import altas as _altas_cap34
-_altas_cap34(records, log=sys.stderr)
-from alcance_cap34 import alcances as _alcance_cap34
-_alcance_cap34(records, log=sys.stderr)
-
-# ---------- capítulo 34 del PMO: denominaciones releídas del PDF ----------
+# ---------- denominaciones releídas del PDF del PMO ----------
 # La limpieza de títulos de sección (clean_pmo_name) le saca al nombre la palabra
 # con la que arranca cuando coincide con un encabezado del catálogo. Eso está bien
 # para «Radiología radioscopía simple», donde el encabezado se coló, y está mal
@@ -1720,7 +1715,23 @@ for _code, _t in (PMOTIT.get("codigos") or {}).items():
     _r.pop("titulo_revisar", None)
     _tit_n += 1
 if _tit_n:
-    print(f"PMO capítulo 34: denominaciones corregidas desde el PDF: {_tit_n}", file=sys.stderr)
+    print(f"PMO: denominaciones corregidas desde el PDF: {_tit_n}", file=sys.stderr)
+
+# ---------- capítulo 34: lo que el PMO no imprime pero el Nacional sí ----------
+# Va DESPUÉS de las denominaciones corregidas, no antes. Estos dos módulos escriben
+# avisos que citan el nombre de la práctica de al lado —«se carga ADEMÁS del 340201
+# — radiología del cráneo, cara, senos paranasales o cavum —»—, y corriendo primero
+# citaban el nombre roto: «ADEMÁS del 340201 — del cráneo, cara…». El aviso salía
+# nombrando una práctica que no se encuentra buscándola.
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from altas_pmo_cap34 import altas as _altas_cap34
+_altas_cap34(records, log=sys.stderr)
+from alcance_cap34 import alcances as _alcance_cap34
+_alcance_cap34(records, log=sys.stderr)
+
+# ---------- cómo puede venir escrita la práctica en la orden ----------
+from pedida_como import aplicar as _pedida_como
+_pedida_como(records, log=sys.stderr)
 
 # ---------- el laboratorio del Único hereda todo lo que muestra el NBU ----------
 # Va al final a propósito: el tipo de muestra y las siglas sugeridas se calculan
@@ -1744,7 +1755,11 @@ for _k, _r in records.items():
 if _sin_denom:
     print(f"fichas sin denominación en la fuente: {_sin_denom}", file=sys.stderr)
 
-json.dump(db, open("nbu_db.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+# Compacto: indentado son 12,3 MB contra 9,9 MB, y 40 KB más de descarga para el
+# que abre el manual. Nadie lee 6.372 fichas en un diff de todos modos; para mirar
+# una está la ficha en la app y `python3 -m json.tool`.
+json.dump(db, open("nbu_db.json", "w", encoding="utf-8"), ensure_ascii=False,
+          separators=(",", ":"))
 print(f"CIE-10: {len(CIE10.get('codigos', {}))} diagnósticos · {len(CIE10.get('relaciones', {}))} con prácticas relacionadas", file=sys.stderr)
 
 # report

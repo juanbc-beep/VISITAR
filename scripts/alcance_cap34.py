@@ -32,6 +32,13 @@ ARREGLOS = [
     (r"\bocusalj?\b", "oclusal"), (r"\bfrentey\b", "frente y"), (r"\bcona sin\b", "con o sin"),
     (r"\bre lleno\b", "relleno"), (r"\bdeCOLON\b", "de colon"),
 ]
+# El OCR de este renglón viene tan roto que la limpieza automática no alcanza, y
+# el texto es normativo: se transcribió a mano contra el PDF. Sólo texto ya
+# impreso, nada agregado. El OCR crudo se guarda igual, al lado.
+ALCANCE_CURADO = {
+    "341003": "La tomografía axial reforzada de controles, con o sin inyección de sustancia de contraste",
+}
+
 CAT = re.compile(r"[.\s]*([A-Z])[*#]?\s*$")          # la letra de categoría del Nacional
 LEY = re.compile(r"T?e?x?t?[a-z]*\s*re[a-z]*\s*(?:por|pot|pore)?\s*e?l?\s*PM[OoD0]\s*[\]\|]?", re.I)
 ENC = re.compile(r"P\.?M\.?O\.?\s*DE\s*PRACTICAS\s*ESPECIALIZADAS\s*CON\s*NOMENCLADOR\s*NACIONAL"
@@ -76,9 +83,26 @@ def alcances(records, log=None, base=""):
             cat = m.group(1); txt = txt[:m.start()].strip(" .,")
         if not txt:
             continue
-        r["alcance_nn"] = {"texto": txt[0].upper() + txt[1:], "categoria": cat,
+        texto = ALCANCE_CURADO.get(code) or (txt[0].upper() + txt[1:])
+        r["alcance_nn"] = {"texto": texto, "categoria": cat,
                            "ocr": re.sub(r"\s+", " ", partes[-1]).strip(), "revisar": True}
         n += 1
+
+    # Diez fichas mostraban el cartel naranja de «denominación a confirmar» con el
+    # nombre perfectamente legible: «Radiología tórax», «sialografía», las
+    # tomografías. La marca venía del armado original, de cuando el título se había
+    # recompuesto, y quedó pegada. Un aviso que sale sin motivo enseña a ignorar los
+    # avisos. Se saca sólo donde no hay OCR guardado: las que sí lo tienen vienen de
+    # las altas del Nacional y dependen de una sola fuente dañada, así que se quedan.
+    quitadas = 0
+    for code, r in records.items():
+        if (r.get("nomenclador") == "PMO" and code.startswith("34")
+                and r.get("titulo_revisar") and not r.get("titulo_origen")):
+            r.pop("titulo_revisar", None)
+            quitadas += 1
+    if log and quitadas:
+        print(f"Capítulo 34: marcas de «denominación a confirmar» sin fundamento retiradas {quitadas}",
+              file=log)
 
     # Los pares: el código de la exposición siguiente es independiente y se carga
     # ADEMÁS del de la práctica. No es «está incluido en»: es un código más en la

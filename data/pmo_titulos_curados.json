@@ -1,5 +1,5 @@
 {
- "_nota": "Denominaciones del Catálogo de Prestaciones del PMO releídas del renglón impreso en data/pmo.pdf con scripts/parse_pmo_titulos.py y contrastadas una por una contra ese renglón. Se corrigen tres cosas: nombres empezados por la mitad porque la limpieza de títulos de sección se llevaba puesta la primera palabra; palabras partidas por el corte de renglón que quedaron con el guión adentro; y basura pegada al final (números de página, el arranque del código siguiente). Cada capítulo se revisó con el usuario antes de aplicarlo.",
+ "_nota": "Denominaciones del Catálogo de Prestaciones del PMO releídas del renglón impreso en data/pmo.pdf con scripts/parse_pmo_titulos.py y contrastadas una por una contra ese renglón. Se corrigen tres cosas: nombres empezados por la mitad porque la limpieza de títulos de sección se llevaba puesta la primera palabra; palabras partidas por el corte de renglón que quedaron con el guión adentro; y basura pegada al final (números de página, el arranque del código siguiente). Cada capítulo se revisó con el usuario antes de aplicarlo. · Segunda tanda (2026-08): los 39 casos que quedaban de la lista de 159, en 16 capítulos chicos. Se aplicaron 15; 23 quedaron como estaban —la base era la correcta y el que venía cortado o con texto de otra práctica pegado era el renglón del PDF, y en 5 de esos el texto era idéntico palabra por palabra, o sea un falso positivo del comparador—; 1 (130101, «sacrococcigeo»/«sacrocoxígeo») quedó a decisión de auditoría. Aviso para leer estas comparaciones: la planilla del Único comparte erratas con la base («Incuye», «pleuraparietal», «radial»), así que cuando esas dos coinciden contra el PDF y el Nacional, eso es una fuente y no dos.",
  "fuente": "Catálogo de Prestaciones del PMO — Res. 201/2002 S.S. Salud (data/pmo.pdf)",
  "codigos": {
   "340201": {
@@ -142,10 +142,15 @@
    "capitulo": "12"
   },
   "010302": {
-   "nombre": "tratamiento quirúrgico lesiones adquiridas del complejo vertebromeningeomedular",
-   "antes": "tratamiento quirúrgico lesiones adquiridas del comple- jo vertebromeningeomedular",
+   "nombre": "tratamiento quirúrgico de las lesiones adquiridas del complejo vertebromeningeomedular",
+   "antes": "tratamiento quirúrgico lesiones adquiridas del complejo vertebromeningeomedular",
+   "por": "Ya se había corregido antes (palabra partida); esto es una segunda pasada sobre ese resultado. Faltaba «de las». Lo traen la planilla del Único y el Nacional.",
    "capitulo": "01",
-   "motivo": "palabra partida"
+   "previo": {
+    "nombre": "tratamiento quirúrgico lesiones adquiridas del complejo vertebromeningeomedular",
+    "antes": "tratamiento quirúrgico lesiones adquiridas del comple- jo vertebromeningeomedular",
+    "motivo": "palabra partida"
+   }
   },
   "010508": {
    "nombre": "neurólisis química o bloqueo antiálgico de nervio periférico",
@@ -214,10 +219,15 @@
    "motivo": "palabra partida"
   },
   "130301": {
-   "nombre": "atención del paciente con quemaduras de segundo y tercer grado",
-   "antes": "atención del paciente con quemaduras de segundo y ter- cer grado",
+   "nombre": "Atención del paciente con quemaduras de 2° y 3° grado, hasta el 5% de superficie corporal",
+   "antes": "atención del paciente con quemaduras de segundo y tercer grado",
+   "por": "Ya se había corregido antes (palabra partida); esto es una segunda pasada sobre ese resultado. Faltaba el «hasta el 5% de superficie corporal», que es lo único que la distingue del 130302 y del 130303: la misma quemadura con otra extensión y otro arancel.",
    "capitulo": "13",
-   "motivo": "palabra partida"
+   "previo": {
+    "nombre": "atención del paciente con quemaduras de segundo y tercer grado",
+    "antes": "atención del paciente con quemaduras de segundo y ter- cer grado",
+    "motivo": "palabra partida"
+   }
   },
   "260403": {
    "nombre": "Prueba de estímulo hipotálamo-hipofisiaria con determinación de FSH",
@@ -274,10 +284,15 @@
    "motivo": "número de página"
   },
   "060105": {
-   "nombre": "mastoplastia",
-   "antes": "mastoplastia 8",
+   "nombre": "Mastoplastia unilateral",
+   "antes": "mastoplastia",
+   "por": "Ya se había corregido antes (número de página); esto es una segunda pasada sobre ese resultado. Decía sólo «mastoplastia», sin lo que la separa del 060106, que es la bilateral. El Único y el Nacional traen «unilateral».",
    "capitulo": "06",
-   "motivo": "número de página"
+   "previo": {
+    "nombre": "mastoplastia",
+    "antes": "mastoplastia 8",
+    "motivo": "número de página"
+   }
   },
   "080506": {
    "nombre": "operaciones radicales para megacolon",
@@ -368,6 +383,78 @@
    "antes": "fotocoagulación con yag láser",
    "capitulo": "02",
    "motivo": "tenía el nombre del 020901; el renglón impreso y la planilla del Único coinciden en éste"
+  },
+  "010208": {
+   "nombre": "Craneotomía exploradora, con o sin biopsia, evacuación de colección intracerebral, epidural, subdural",
+   "antes": "Craneotomía exploradora, con o sin biopsia, evacuación de colección intracerebral, epídural,subdural",
+   "por": "El acento de «epídural» y la coma sin espacio venían del renglón del PDF. El Nacional imprime «epidural, subdural».",
+   "capitulo": "01"
+  },
+  "010701": {
+   "nombre": "Ventriculografía por inyección de medio contraste ( líquido o gaseoso ). Incluye trepanación",
+   "antes": "Ventriculografía por inyección de medio contraste ( líquido o gaseoso ). Incuye trepanación",
+   "por": "«Incuye» por «Incluye». El Nacional imprime «Incluye trepanación». La planilla del Único arrastra la misma errata, señal de que sale del mismo texto.",
+   "capitulo": "01"
+  },
+  "050101": {
+   "nombre": "Resección de pleura parietal, costillas, músculos intercostales. (como única operación )",
+   "antes": "Resección de pleuraparietal, costillas, músculos intercostales. (como única operación )",
+   "por": "«pleuraparietal» sin espacio. El renglón del PDF y el Nacional imprimen «pleura parietal».",
+   "capitulo": "05"
+  },
+  "060101": {
+   "nombre": "Mastectomía radical (resección del pectoral mayor, pectoral menor y vaciamiento axilar). Incluye la e",
+   "antes": "Mastectomía radial (resección del pectoral mayor, pectoral menor y vaciamiento axilar). Incluye la e",
+   "por": "Decía «Mastectomía radial», que no existe como cirugía. El PDF del PMO y el Nacional imprimen «MASTECTOMIA RADICAL», y el propio paréntesis —resección del pectoral mayor, pectoral menor y vaciamiento axilar— es la definición de una mastectomía radical.",
+   "capitulo": "06"
+  },
+  "150107": {
+   "nombre": "Citología exfoliativa hormonal",
+   "antes": "de un papanicolau años, en el marco de un programa de rastreo masivo. Citología exfoliativa hormonal",
+   "por": "Traía pegado adelante el texto de cobertura del papanicolau. El PDF, el Único y el Nacional coinciden en la denominación.",
+   "capitulo": "15"
+  },
+  "170110": {
+   "nombre": "Cardioversión - no en U.T.I.",
+   "antes": "cardioversión- no enu.t.i.",
+   "por": "«cardioversión- no enu.t.i.»: el guión y los espacios habían quedado mal en el renglón. Sólo tipografía; la práctica es la misma.",
+   "capitulo": "17"
+  },
+  "180106": {
+   "nombre": "Ecografía mamaria, uni o bilateral",
+   "antes": "Ecografia Mamaria U o B",
+   "por": "«U o B» es la abreviatura de «uni o bilateral» y así no se entiende ni se encuentra buscando. El PDF y el Nacional la imprimen desarrollada.",
+   "capitulo": "18"
+  },
+  "220101": {
+   "nombre": "Colposcopía",
+   "antes": "Colposcopía la",
+   "por": "«Colposcopía la»: el «la» venía del renglón de al lado.",
+   "capitulo": "22"
+  },
+  "250102": {
+   "nombre": "kinesioterapia",
+   "antes": "fisioterapia",
+   "por": "Decía «fisioterapia», igual que el 250101. Son dos prácticas distintas —auditoría de VISITAR lo confirma— y el 250102 es kinesioterapia: lo dicen el PDF, el Único y el Nacional, que imprime el alcance de fisioterapia y a continuación KINESIOTERAPIA.",
+   "capitulo": "25"
+  },
+  "290203": {
+   "nombre": "Tratamiento del blefarospasmo con toxina botulínica",
+   "antes": "medicación predisponente etc.) Tratamiento del blefarospasmo con toxina botulínica",
+   "por": "Traía pegado adelante el final del texto de cobertura del 290202.",
+   "capitulo": "29"
+  },
+  "350310": {
+   "nombre": "Braquiterapia, terapia de contacto",
+   "antes": "nificación, colimadores y dosimetría braquiterapia, terapia de contacto",
+   "por": "Traía pegado adelante el final del nombre del 350301.",
+   "capitulo": "35"
+  },
+  "661155": {
+   "nombre": "Test rápido de fauces",
+   "antes": "digo 661145. test rápido de fauces",
+   "por": "Traía pegado adelante «digo 661145.», el final de «código 661145».",
+   "capitulo": "66"
   }
  }
 }
