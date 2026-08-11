@@ -3,40 +3,36 @@
  "fuente": "Nomenclador Nacional de Prestaciones Médicas (OCR, data/nn_values.json) + planilla del Nomenclador Único",
  "codigos": {
   "340202": {
-   "nombre": "radiología del cráneo, cara, senos paranasales o cavum — por exposición subsiguiente",
+   "nombre": "por exposición subsiguiente",
    "titulo_revisar": false,
    "ocr": "exto refirado pore PMOPor exposicion subsigufente.B",
    "unico": "Por exposición subsiguiente.B",
    "pagina_nn": 49,
-   "sigue_a": "340201",
-   "nombre_practica": "radiología del cráneo, cara, senos paranasales o cavum"
+   "sigue_a": "340201"
   },
   "340206": {
-   "nombre": "ortopantomografía (panorámica de cara o cráneo) — por exposición subsiguiente",
+   "nombre": "por exposición subsiguiente",
    "titulo_revisar": false,
    "ocr": "extoretirado porelPMOPorexposicion subsigufente.",
    "unico": "Por exposición subsiguiente.I",
    "pagina_nn": 49,
-   "sigue_a": "340205",
-   "nombre_practica": "ortopantomografía (panorámica de cara o cráneo)"
+   "sigue_a": "340205"
   },
   "340208": {
-   "nombre": "telerradiografía de cráneo y/o perfil facial — por exposición subsiguiente",
+   "nombre": "por exposición subsiguiente",
    "titulo_revisar": false,
    "ocr": "exto retirado porel PMOPor exposicion subsigufente.G",
    "unico": "Por exposición subsiguiente.G",
    "pagina_nn": 49,
-   "sigue_a": "340207",
-   "nombre_practica": "telerradiografía de cráneo y/o perfil facial"
+   "sigue_a": "340207"
   },
   "340210": {
-   "nombre": "radiología de raquis (columna) — por exposición subsiguiente",
+   "nombre": "por exposición subsiguiente",
    "titulo_revisar": false,
    "ocr": "extorefrado pore PMPor exposicion subsiguiente.B",
    "unico": "Por exposición subsiguiente.B",
    "pagina_nn": 49,
-   "sigue_a": "340209",
-   "nombre_practica": "radiología de raquis (columna)"
+   "sigue_a": "340209"
   },
   "340212": {
    "nombre": "por exposición subsiguiente",
@@ -47,40 +43,36 @@
    "sigue_a": "340211"
   },
   "340217": {
-   "nombre": "artrografía — por exposición subsiguiente",
+   "nombre": "por exposición subsiguiente",
    "titulo_revisar": false,
    "ocr": "exto refrado pore PMOPor exposicion subsiguiente.A",
    "unico": null,
    "pagina_nn": 49,
-   "sigue_a": "340216",
-   "nombre_practica": "artrografía"
+   "sigue_a": "340216"
   },
   "340302": {
-   "nombre": "Radiología tórax — por exposición subsiguiente",
+   "nombre": "por exposición subsiguiente",
    "titulo_revisar": false,
    "ocr": "SALUD ENESTACONDICION. exto retirado pot el PMOPor exposicion subsigufente.A",
    "unico": "Por exposición subsiguiente.A",
    "pagina_nn": 50,
-   "sigue_a": "340301",
-   "nombre_practica": "Radiología tórax"
+   "sigue_a": "340301"
   },
   "340422": {
-   "nombre": "radiología simple de abdomen — por exposición subsiguiente",
+   "nombre": "por exposición subsiguiente",
    "titulo_revisar": false,
    "ocr": "P.M.O.DE PRACTICAS ESPECIALIZADASCON NOMENCLADOR NACIONAL extorefrado potelPMOPor exposicion susigufente.A",
    "unico": "Por exposición subsiguiente. A*",
    "pagina_nn": 52,
-   "sigue_a": "340421",
-   "nombre_practica": "radiología simple de abdomen"
+   "sigue_a": "340421"
   },
   "340506": {
-   "nombre": "pielografía ascendente — por exposición subsiguiente",
+   "nombre": "por exposición subsiguiente",
    "titulo_revisar": false,
    "ocr": "PIELOGRAFIAASCENDENTE. extoretrado pore PMOPorexposicion subsiguiente.B",
    "unico": "Por exposición subsiguiente. B",
    "pagina_nn": 52,
-   "sigue_a": "340505",
-   "nombre_practica": "pielografía ascendente"
+   "sigue_a": "340505"
   },
   "340218": {
    "nombre": "una placa (apical)",

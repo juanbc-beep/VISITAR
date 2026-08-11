@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-wtlc1Bhuq+IC5pSBxcmASOx9y3N1EqMyrh0zDsX4kTo=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-x/3/L0mdEYDsF8z5LvcOgTOkt/02p3rz2mxyk8ZTSTI=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -551,6 +551,16 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
 /* Por encima de la pantalla de ingreso (#gate, z-index 1000). Con 120 quedaba
    tapado justo cuando más falta hace: el cartel de «Instalar» aparece en la
    primera visita, y en la primera visita lo que se ve es el ingreso. */
+#swload{position:fixed;inset:0;z-index:2100;display:flex;align-items:center;justify-content:center;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(2px);opacity:0;transition:opacity .18s}
+#swload.on{opacity:1}
+#swload .swl-box{display:flex;align-items:center;gap:14px;max-width:400px;margin:0 20px;padding:18px 20px;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+#swload .swl-box b{display:block;font-size:15px;color:var(--ink)}
+#swload .swl-box span{display:block;margin-top:3px;font-size:12.5px;color:var(--muted);line-height:1.45}
+#swload .swl-sp{width:26px;height:26px;flex-shrink:0;border:3px solid var(--line-2);border-top-color:var(--accent);
+  border-radius:50%;animation:bootspin .8s linear infinite}
+@media print{#swload{display:none}}
 #swbar{position:fixed;left:50%;bottom:18px;transform:translate(-50%,120%);z-index:1100;
   display:flex;align-items:center;gap:10px;max-width:min(560px,92vw);
   padding:10px 12px 10px 16px;border-radius:99px;border:1px solid var(--line-2);
@@ -1289,6 +1299,9 @@ mark.hl{background:var(--accent-soft);color:var(--accent-ink);border-radius:3px;
   <div class="box" id="modalBox" role="dialog" aria-modal="true" aria-label="Glosario y marco normativo"></div>
 </div>
 
+<!-- La base viaja aparte, en nbu_db.bin (ver scripts/inject_db.py). Este bloque
+     queda vacío a propósito: con «--embebido» se llena y la app pasa a ser un
+     archivo único. -->
 <!-- La base viaja aparte, en nbu_db.bin (ver scripts/inject_db.py). Este bloque
      queda vacío a propósito: con «--embebido» se llena y la app pasa a ser un
      archivo único. -->
@@ -5612,19 +5625,35 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       const nuevo=reg.installing;if(!nuevo)return;
       nuevo.addEventListener('statechange',()=>{
         if(nuevo.state!=='installed'||!navigator.serviceWorker.controller)return;
-        if(reciénAbierta())return nuevo.postMessage('SKIP_WAITING');   // se aplica sola
-        aviso('Hay una versión nueva del manual.',()=>{nuevo.postMessage('SKIP_WAITING');},'Actualizar');
+        if(reciénAbierta()){actualizando();return nuevo.postMessage('SKIP_WAITING');}  // se aplica sola
+        aviso('Hay una versión nueva del manual.',()=>{actualizando();nuevo.postMessage('SKIP_WAITING');},'Actualizar');
       });
     });
   }).catch(()=>{});
   navigator.serviceWorker.addEventListener('message',e=>{
     if(!e.data||e.data.tipo!=='nueva-version')return;
-    if(reciénAbierta())return location.reload();
-    aviso('Hay una versión nueva del manual.',()=>location.reload(),'Actualizar');
+    if(reciénAbierta()){actualizando();return location.reload();}
+    aviso('Hay una versión nueva del manual.',()=>{actualizando();location.reload();},'Actualizar');
   });
+  /* Al aplicarse una versión nueva la app se reiniciaba sola y sin decir nada: el
+     administrativo veía la pantalla parpadear en medio de una consulta y no sabía
+     por qué. Ahora se avisa antes de recargar, y el cartel tapa la pantalla para
+     que quede claro que no es un error ni algo que hizo mal. Dura lo que tarda la
+     recarga, que es menos de un segundo. */
+  function actualizando(){
+    if(document.getElementById('swload'))return;
+    const d=document.createElement('div'); d.id='swload';
+    d.innerHTML='<div class="swl-box"><div class="swl-sp"></div>'+
+      '<div><b>Actualizando el manual</b><span>Se publicó una versión nueva. Vuelve en un segundo; no perdés nada de lo que estabas haciendo.</span></div></div>';
+    document.body.appendChild(d);
+    requestAnimationFrame(()=>d.classList.add('on'));
+  }
   let recargando=false;
   navigator.serviceWorker.addEventListener('controllerchange',()=>{
-    if(recargando)return;recargando=true;location.reload();
+    if(recargando)return;recargando=true;actualizando();
+    // Un instante para que el cartel llegue a verse: sin esto la recarga lo pisa
+    // y el aviso no cumple ninguna función.
+    setTimeout(()=>location.reload(),450);
   });
   // Botón de instalación: aparece sólo si el navegador todavía no la instaló.
   let prompt=null;
