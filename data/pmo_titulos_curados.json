@@ -362,6 +362,12 @@
    "antes": "cierre defectos septales tratamiento quirúrgico de aneurismas del cayado aórtico. Aneurisma disecante de aorta",
    "capitulo": "07",
    "motivo": "le venía pegado «cierre defectos septales», que es el 070206 · confirmado contra la planilla del Único"
+  },
+  "020902": {
+   "nombre": "fotocoagulación con láser only green",
+   "antes": "fotocoagulación con yag láser",
+   "capitulo": "02",
+   "motivo": "tenía el nombre del 020901; el renglón impreso y la planilla del Único coinciden en éste"
   }
  }
 }
