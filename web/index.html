@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-y2Ojb57VIu74cjq/K3bq56qXvWBSscFWmqKB0uYK8Q0=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-oLYHLHslr9IIGdS4zU8ayvcTFhOxOMq1f7aQta4lL+s=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -4600,6 +4600,16 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
         ? 'Descargá una copia del trabajo del equipo: fichas corregidas, verificaciones, propuestas, observaciones y favoritos compartidos, tal como están en la base de la empresa. <b>No incluye las cuentas</b> —viven en Supabase, con las contraseñas fuera del alcance de esta pantalla— ni reemplaza al respaldo de la propia base.'
         : 'Descargá una copia de seguridad con los perfiles y las ediciones de esta computadora. Sin base de la empresa configurada, este archivo es el único respaldo que existe: conviene bajarlo cada tanto.'}</div>
         <button class="minibtn" id="bkExp" style="margin-top:10px">⬇ Descargar respaldo (.json)</button>
+        ${nubeContenido?(()=>{
+          /* Sin respaldos automáticos en la base, esta copia es la única que hay.
+             Que dependa de que alguien se acuerde es el punto débil de todo el
+             asunto, así que al menos se ve desde cuándo no se baja una. */
+          const t=(CONTENT.equipo||{}).respaldo||0;
+          const dias=t?Math.floor((Date.now()-t)/86400000):null;
+          if(dias===null)return `<div class="ahint" style="color:var(--urg);margin-top:8px">⚠ Todavía nadie bajó una copia. La base no hace respaldos automáticos: si se pierde algo, no hay de dónde volver.</div>`;
+          if(dias>30)return `<div class="ahint" style="color:var(--urg);margin-top:8px">⚠ El último respaldo es de hace <b>${dias} días</b>. Conviene bajar uno nuevo.</div>`;
+          return `<div class="ahint" style="margin-top:8px">Último respaldo: ${dias===0?'hoy':dias===1?'ayer':'hace '+dias+' días'}.</div>`;
+        })():''}
         <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--line)">
           <div class="pmeta" style="font-weight:700;color:var(--ink);font-size:13.5px">Correcciones de contenido</div>
           <div class="ahint">Las correcciones ya se comparten con el equipo a través de la base. Esta exportación sirve para otra cosa: incorporarlas al repositorio como fuente propia, en <b>data/correcciones_curadas.json</b>, para que viajen dentro del propio archivo de la app. No incluye perfiles ni contraseñas.</div>
@@ -4607,15 +4617,18 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
           <span id="bkCorrN" class="ahint" style="margin-left:8px"></span>
         </div>
         ${nubeContenido
-        /* Restaurar no se ofrece con la nube encendida, y no es por prudencia: no
-           funciona. Escribe sólo en este navegador, no toca la base, y en cuanto
-           alguien recarga vuelve todo a lo que dice la base. Probado: se restaura
-           una versión vieja, se ve en pantalla, se recarga y reaparece la del
-           equipo. Un botón que parece hacer algo y no lo hace es peor que no
-           tenerlo, sobre todo en la pantalla que uno usa cuando algo salió mal. */
+        /* Restaurar escribe en la base, no sólo en este navegador: hasta que lo
+           hizo, era un botón que parecía funcionar y no funcionaba —se restauraba,
+           se veía en pantalla, alguien recargaba y volvía todo—. En el plan
+           gratuito de Supabase no hay respaldos automáticos, así que este archivo
+           es la única copia que existe del trabajo del equipo y tiene que poder
+           volver. Por eso se compara primero y se aplica después: nada se escribe
+           hasta que el administrador vea qué cambiaría. */
         ? `<div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--line)">
-             <div class="pmeta" style="font-weight:700;color:var(--ink);font-size:13.5px">Restaurar</div>
-             <div class="ahint">Desde acá no se restaura nada: el contenido del equipo manda desde la base y volvería a imponerse en cuanto alguien recargue. Para deshacer un cambio puntual, abrí la ficha y usá <b>✎ Editar ficha → Restaurar original</b>, que sí lo corrige para todos. Para volver atrás algo grande, se hace desde los respaldos de Supabase (Database → Backups).</div>
+             <div class="pmeta" style="font-weight:700;color:var(--ink);font-size:13.5px">Restaurar el trabajo del equipo</div>
+             <div class="ahint">Elegí un respaldo bajado antes y te muestro <b>qué cambiaría</b> en la base. Nada se escribe hasta que lo confirmes. No toca las cuentas ni los pedidos en curso —verificaciones y propuestas—, sólo las fichas corregidas, las observaciones y los textos.</div>
+             <input id="bkImp" type="file" accept="application/json,.json" style="border:none;padding:6px 0;background:none">
+             <div id="bkPrev"></div>
            </div>`
         : `<label style="margin-top:16px">Restaurar desde archivo</label>
         <input id="bkImp" type="file" accept="application/json,.json" style="border:none;padding:6px 0;background:none">
@@ -4664,14 +4677,111 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
         const blob=new Blob([JSON.stringify(doc,null,1)],{type:'application/json'});
         const a=document.createElement('a');a.href=URL.createObjectURL(blob);
         a.download='NBU_respaldo_'+new Date().toISOString().slice(0,10)+'.json';a.click();
+        // Queda anotado en la base, no en esta computadora: el aviso tiene que
+        // seguir al equipo, no al navegador donde se bajó la copia.
+        if(nubeContenido){CONTENT.equipo=CONTENT.equipo||{};CONTENT.equipo.respaldo=Date.now();
+          guardarAjustesNube();renderPane();}
         toast('Respaldo descargado');
       });
       if(el('bkImp'))el('bkImp').addEventListener('change',e=>{
         const f=e.target.files[0];if(!f)return;const rd=new FileReader();
-        rd.onload=()=>{try{const d=JSON.parse(rd.result);if(d.auth){AUTH=d.auth;save(KEY.auth,AUTH);}if(d.content){CONTENT=d.content;save(KEY.content,CONTENT);}applyContent();persistAuth();persistContent();renderPane();render();toast('Respaldo restaurado');}catch(err){toast('Archivo inválido',true);}};
+        rd.onload=()=>{try{
+          const d=JSON.parse(rd.result);
+          if(!d||typeof d!=='object'||!d.content)throw new Error('no parece un respaldo del manual');
+          if(nubeContenido)return previaRestaurar(d,f.name);
+          if(d.auth){AUTH=d.auth;save(KEY.auth,AUTH);}
+          CONTENT=d.content;save(KEY.content,CONTENT);
+          applyContent();persistAuth();persistContent();renderPane();render();toast('Respaldo restaurado');
+        }catch(err){toast('Ese archivo no sirve: '+err.message,true);}};
         rd.readAsText(f);
       });
     }
+  }
+
+  /* ============ RESTAURAR EL TRABAJO DEL EQUIPO ============
+     El plan gratuito de Supabase no hace respaldos automáticos: el archivo que
+     baja el administrador es la única copia que existe. Restaurar tiene que
+     escribir en la base —si no, no restaura nada— y por eso va en dos tiempos:
+     primero se dice exactamente qué cambiaría, y recién si lo confirma se aplica.
+     Las cuentas no se tocan (viven en Supabase, con las contraseñas fuera de
+     alcance) y los pedidos en curso tampoco: una verificación pendiente o una
+     propuesta sin resolver son conversaciones abiertas, no contenido. */
+  function difRestaurar(d){
+    const D=d.content||{}, A=CONTENT;
+    const mismo=(a,b)=>JSON.stringify(a==null?null:a)===JSON.stringify(b==null?null:b);
+    const dif=(campoD,campoA)=>{
+      const N=campoD||{}, V=campoA||{}, r={vuelven:[],agregan:[],quitan:[]};
+      Object.keys(N).forEach(k=>{ if(!(k in V))r.agregan.push(k); else if(!mismo(N[k],V[k]))r.vuelven.push(k); });
+      Object.keys(V).forEach(k=>{ if(!(k in N))r.quitan.push(k); });
+      return r;
+    };
+    return {fichas:dif(D.codes,A.codes), obs:dif(D.obs,A.obs),
+            textos:!mismo(D.page||{},A.page||{}),
+            favs:!mismo((D.equipo||{}).favoritos||[],(A.equipo||{}).favoritos||[])};
+  }
+  function previaRestaurar(d,nombreArchivo){
+    const caja=el('bkPrev'); if(!caja)return;
+    const D=difRestaurar(d);
+    const total=D.fichas.vuelven.length+D.fichas.agregan.length+D.fichas.quitan.length
+               +D.obs.vuelven.length+D.obs.agregan.length+D.obs.quitan.length
+               +(D.textos?1:0)+(D.favs?1:0);
+    if(!total){
+      caja.innerHTML=`<div class="ahint" style="margin-top:8px;color:var(--inc)">La base ya está igual que ese respaldo: no hay nada que restaurar.</div>`;
+      return;
+    }
+    const lista=(arr)=>arr.slice(0,8).map(c=>`<span class="mono">${E(c)}</span>`).join(', ')+(arr.length>8?` y ${arr.length-8} más`:'');
+    const bloque=(sing,plur,r)=>{
+      const q=(n)=>`<b>${n}</b> ${n===1?sing:plur}`, u=(n,a,b)=>n===1?a:b;
+      return [
+      r.vuelven.length?`<div>· ${q(r.vuelven.length)} ${u(r.vuelven.length,'volvería','volverían')} a la versión del respaldo: ${lista(r.vuelven)}</div>`:'',
+      r.agregan.length?`<div>· ${q(r.agregan.length)} ${u(r.agregan.length,'se agregaría','se agregarían')}: ${lista(r.agregan)}</div>`:'',
+      r.quitan.length?`<div style="color:var(--urg)">· ${q(r.quitan.length)} que hoy ${u(r.quitan.length,'está','están')} en la base <b>no ${u(r.quitan.length,'figura','figuran')}</b> en el respaldo y ${u(r.quitan.length,'se borraría','se borrarían')}: ${lista(r.quitan)}</div>`:''
+      ].join('');};
+    caja.innerHTML=`<div class="par-card" style="margin-top:10px">
+      <div style="font-weight:700;margin-bottom:6px">Esto es lo que cambiaría en la base</div>
+      <div style="font-size:13px;line-height:1.6">
+        ${bloque('ficha corregida','fichas corregidas',D.fichas)}
+        ${bloque('observación','observaciones',D.obs)}
+        ${D.textos?'<div>· Volverían los <b>textos y el logo</b> del respaldo</div>':''}
+        ${D.favs?'<div>· Volverían los <b>favoritos del equipo</b> del respaldo</div>':''}
+      </div>
+      <div class="ahint" style="margin-top:8px">Respaldo del ${E((d.generado||'').slice(0,10)||'—')}${d.por?' · lo bajó '+E(d.por):''} · archivo <b>${E(nombreArchivo||'')}</b>. Las cuentas, las verificaciones y las propuestas quedan como están.</div>
+      <div class="obs-btns" style="margin-top:8px">
+        <button class="minibtn danger" id="bkGo">Restaurar en la base</button>
+        <button class="minibtn" id="bkNo">Cancelar</button>
+      </div>
+      <div id="bkEstado" class="ahint"></div>
+    </div>`;
+    el('bkNo').addEventListener('click',()=>{caja.innerHTML='';const i=el('bkImp');if(i)i.value='';});
+    el('bkGo').addEventListener('click',()=>{
+      if(!confirm(`Vas a escribir en la base de la empresa.\n\n${total} cambio${total!==1?'s':''} para todo el equipo, ahora mismo.\n\n¿Seguimos?`))return;
+      aplicarRestaurar(d,D);
+    });
+  }
+  async function aplicarRestaurar(d,D){
+    const D2=d.content||{}, est=el('bkEstado'), boton=el('bkGo');
+    if(boton)boton.disabled=true;
+    const tareas=[];
+    D.fichas.vuelven.concat(D.fichas.agregan).forEach(c=>tareas.push(()=>NUBE.guardarCorreccion(c,(D2.codes||{})[c])));
+    D.fichas.quitan.forEach(c=>tareas.push(()=>NUBE.borrarCorreccion(c)));
+    D.obs.vuelven.concat(D.obs.agregan).forEach(c=>tareas.push(()=>NUBE.guardarObservacion(c,((D2.obs||{})[c]||{}).texto||'')));
+    D.obs.quitan.forEach(c=>tareas.push(()=>NUBE.borrarObservacion(c)));
+    if(D.textos||D.favs)tareas.push(()=>NUBE.guardarAjustes({
+      page:D.textos?(D2.page||{}):(CONTENT.page||{}),
+      equipo:D.favs?(D2.equipo||{}):(CONTENT.equipo||{})}));
+    let hechas=0; const fallos=[];
+    for(const t of tareas){
+      try{ await t(); }catch(err){ fallos.push(err.message); }
+      hechas++;
+      if(est)est.textContent=`Restaurando… ${hechas} de ${tareas.length}`;
+    }
+    /* Se relee la base entera en vez de confiar en lo que acabamos de mandar: si
+       una regla rechazó algo, lo que vale es lo que quedó del otro lado. */
+    logEdit('restauró un respaldo en la base');
+    await cargarContenidoNube().catch(()=>{});
+    renderPane();
+    if(fallos.length)toast(`Se restauraron ${tareas.length-fallos.length} de ${tareas.length}. Falló: ${fallos[0]}`,true);
+    else toast(`Restaurado: ${tareas.length} cambio${tareas.length!==1?'s':''} en la base`);
   }
   function profAction(act,id){
     const pr=AUTH.profiles.find(x=>x.id===id);if(!pr)return;

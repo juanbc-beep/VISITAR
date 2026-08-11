@@ -417,6 +417,34 @@ con `box-shadow: 0 0 0 9999px` y ubica el globo al lado. Varios pasos tienen `an
 prepara la pantalla (abre el rail, abre una ficha, carga un caso en la Mesa de trabajo).
 Se puede volver a ver desde **Glosario y leyes → Ver tutorial de uso**.
 
+### 4.7 Respaldo y restauración ⚠️ el plan de Supabase es gratuito: NO hay respaldos automáticos
+
+Verificado con el usuario: en **Database → Backups** le ofrece contratar el plan. O sea
+que **el archivo que baja el administrador es la única copia que existe** del trabajo del
+equipo. Eso manda sobre todo lo demás de esta pantalla.
+
+- **⬇ Descargar respaldo** — lleva `content` completo (fichas corregidas, verificaciones,
+  propuestas, observaciones, favoritos del equipo, textos). **No lleva las cuentas**: viven
+  en Supabase y las contraseñas no están al alcance de la app. El nombre incluye la fecha.
+  Cada descarga deja anotado el día en `ajustes.contenido.equipo.respaldo`, y la pestaña
+  avisa en rojo si nadie bajó ninguna o si la última tiene más de 30 días.
+- **⬇ Exportar correcciones para la base** — es otra cosa: el JSON curado para
+  `data/correcciones_curadas.json` del repositorio (ver 3.1).
+- **Restaurar** — **escribe en la base**, en dos tiempos: `difRestaurar()` compara el
+  archivo contra lo que hay y `previaRestaurar()` muestra qué cambiaría (cuántas vuelven,
+  cuántas se agregan, cuántas **se borrarían** por no figurar en el respaldo, con los
+  códigos a la vista). Recién con la confirmación, `aplicarRestaurar()` manda los cambios y
+  vuelve a leer la base entera —lo que vale es lo que quedó del otro lado, no lo que
+  mandamos—. **No toca** cuentas, verificaciones ni propuestas: las dos últimas son pedidos
+  en curso, conversaciones abiertas, no contenido. Probado: se pisa una ficha, se borra
+  otra, se agrega una tercera, se restaura, y la base queda como el respaldo con la
+  verificación y la propuesta intactas; aplicarlo dos veces dice «no hay nada que
+  restaurar».
+
+⚠️ Antes de esto, «Restaurar» **no restauraba nada**: escribía sólo en el navegador y a la
+primera recarga volvía todo. Si aparece algo parecido en otra pantalla, medirlo así —
+cambiar, recargar, mirar.
+
 ### 4.6 Observaciones del administrador — una sola por práctica
 
 El administrador deja una observación en la ficha; se ve **debajo del código en el listado**
