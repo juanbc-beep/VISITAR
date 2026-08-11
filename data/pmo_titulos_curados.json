@@ -232,10 +232,10 @@
    "motivo": "palabra partida"
   },
   "260406": {
-   "nombre": "Prueba de estímulo gonadal conHGG con determinación de testosterona",
-   "antes": "Prueba de estímulo gonadal conHGG con determina- ción de testosterona",
+   "nombre": "Prueba de estímulo gonadal con HGG con determinación de testosterona",
+   "antes": "Prueba de estímulo gonadal conHGG con determinación de testosterona",
    "capitulo": "26",
-   "motivo": "palabra partida"
+   "motivo": "faltaba el espacio en «con HGG» · confirmado contra el Nomenclador Único y el Nacional"
   },
   "310125": {
    "nombre": "tratamiento de lesiones otorrinolaringológicas por medios físicos o químicos",
@@ -320,6 +320,24 @@
    "antes": "plástica de la órbita con o sin injerto de piel enucleación o evisceración del globo ocular",
    "capitulo": "02",
    "motivo": "confirmado contra el Nomenclador Único y el Nacional"
+  },
+  "260201": {
+   "nombre": "Centellograma de cerebro",
+   "antes": "en cavidades serosas Centellograma de cerebro",
+   "capitulo": "26",
+   "motivo": "le venía pegada la cola del 260137 · confirmado contra el Nomenclador Único y el Nacional"
+  },
+  "260234": {
+   "nombre": "Estudio función ventricular izquierda y perfusión miocárdica con spect reposo y esfuerzo c/ mibi tc 99m",
+   "antes": "código 260231 Estudio función ventricular izquierda y perfusión miocárdica con spect reposo y esfuerzo c/ mibi tc 99m",
+   "capitulo": "26",
+   "motivo": "le venía pegado «código 260231» · confirmado contra el Nomenclador Único y el Nacional"
+  },
+  "260231": {
+   "nombre": "Spect cardíaco-coronario estudio de perfusión con talio 201 esfuerzo y redistribución",
+   "antes": "Spect cardíacocoronario estudio de perfusión con talio 201 esfuerzo y redistribución",
+   "capitulo": "26",
+   "motivo": "faltaba el guión de cardíaco-coronario · confirmado contra el Nomenclador Único y el Nacional"
   }
  }
 }
