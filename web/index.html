@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-0NvVNrftY5BEKdj0vWiQqKCQXQRejwtj/XOGEHcOTyY=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-wtlc1Bhuq+IC5pSBxcmASOx9y3N1EqMyrh0zDsX4kTo=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1289,6 +1289,12 @@ mark.hl{background:var(--accent-soft);color:var(--accent-ink);border-radius:3px;
   <div class="box" id="modalBox" role="dialog" aria-modal="true" aria-label="Glosario y marco normativo"></div>
 </div>
 
+<!-- La base viaja aparte, en nbu_db.bin (ver scripts/inject_db.py). Este bloque
+     queda vacío a propósito: con «--embebido» se llena y la app pasa a ser un
+     archivo único. -->
+<!-- La base viaja aparte, en nbu_db.bin (ver scripts/inject_db.py). Este bloque
+     queda vacío a propósito: con «--embebido» se llena y la app pasa a ser un
+     archivo único. -->
 <!-- La base viaja aparte, en nbu_db.bin (ver scripts/inject_db.py). Este bloque
      queda vacío a propósito: con «--embebido» se llena y la app pasa a ser un
      archivo único. -->
@@ -2678,6 +2684,9 @@ function comoSeCargaHTML(c){
   const pasos=[]; const R=c.relaciones||{};
   const chips=ks=>`<div class="cg-cods">${ks.map(k=>{const t=BYCODE[k];
     return `<button class="cg-cod" ${t?`data-goto="${esc(k)}"`:''} title="${esc(t?t.nombre:'código externo')}">${esc(t?t.code:k)}</button>`;}).join('')}</div>`;
+  /* La exposición de más tiene su propio código y se carga aparte. Es la
+     diferencia entre facturar «frente y perfil» completo o facturar de menos, así
+     que va como paso de la carga y no escondido en las normas. */
   // 1. qué se carga y en qué cantidad
   let cant='<b>1</b>';
   if(c.lateralidad==='Bilateral')cant='<b>1</b> — el código comprende ambos ojos';
@@ -2685,6 +2694,12 @@ function comoSeCargaHTML(c){
   else if(c.seriado)cant=`hasta <b>×${c.seriado.max}</b> (seriado)`;
   pasos.push(`<li>Cargar <b>${esc(c.code)}</b> — cantidad ${cant}${
     c.muestra&&c.muestra.length?`.<br>Verificá que la orden pida la determinación <b>en ${esc(c.muestra.join(' o '))}</b>`:''}</li>`);
+  // La exposición de más: código propio, se carga aparte.
+  if(c.exposicion_siguiente&&BYCODE[c.exposicion_siguiente])
+    pasos.push(`<li>Si el estudio lleva <b>más de una exposición</b> —frente y perfil, comparativas—, cada exposición adicional se carga <b>aparte</b>: no está comprendida en este código.${chips([c.exposicion_siguiente])}</li>`);
+  if(c.exposicion_de&&BYCODE[c.exposicion_de])
+    pasos.push(`<li>Este código va <b>además</b> del de la práctica, una vez por cada exposición que exceda la primera.${chips([c.exposicion_de])}</li>`);
+
   // 2. lo que NO va por separado
   if((R.incluye||[]).length)
     pasos.push(`<li class="no"><b>No cargar por separado</b>: ya están comprendidas en este código.${chips(R.incluye)}</li>`);
@@ -2770,7 +2785,7 @@ function veredictoHTML(c){
    equivalencia arrancaba abierta y del lado del PMO plegada, así que desde
    Prestaciones Médicas parecía que la equivalencia no existía. Existe en 1.183
    de las 1.221 prestaciones; lo que faltaba era verla. */
-const SEC_ABIERTAS=/Obligación de cobertura|Cuándo corresponde|Valorización|Lateralidad|Tipo de muestra|Equivalencia|También en Nomenclador Único|Sistema Único de Reintegro|Norma mínima de trabajo/i;
+const SEC_ABIERTAS=/Obligación de cobertura|Cuándo corresponde|Valorización|Lateralidad|Tipo de muestra|Qué abarca este código|Equivalencia|También en Nomenclador Único|Sistema Único de Reintegro|Norma mínima de trabajo/i;
 function plegState(){try{return JSON.parse(localStorage.getItem('nbu-secs'))||{};}catch(e){return {};}}
 function plegSave(o){try{localStorage.setItem('nbu-secs',JSON.stringify(o));}catch(e){}}
 function plegarSecciones(d){
@@ -2888,6 +2903,19 @@ function openCode(code,origen){
         <div class="dnote-acc"><button class="minibtn" id="dNoteShare" ${note?'':'disabled'}>↑ Compartir con el equipo</button>
         <span class="ahint">Tu nota la ves sólo vos. Compartirla la manda como propuesta para que el administrador la publique.</span></div></div>`:''}
     </div>`;
+
+  /* Qué abarca el código. El Nomenclador Nacional lo imprime al lado de cada
+     práctica —«primera exposición», «tres posiciones, comparativas», «mínimo 3
+     placas por estudio»— y el Catálogo del PMO retiró ese renglón, así que nunca
+     llegaba a la ficha: se veía «Rx de tórax» sin saber que cubre una sola
+     exposición. Es lo que decide si hay que cargar un código más. */
+  if(c.alcance_nn&&c.alcance_nn.texto){
+    html+=`<div class="sec"><div class="slabel">Qué abarca este código</div>
+      <div class="freq-note">
+        <span class="seriado-b">${esc(c.alcance_nn.texto)}</span>${c.alcance_nn.categoria?` <span class="pill">categoría ${esc(c.alcance_nn.categoria)}</span>`:''}
+        <div style="margin-top:7px;font-size:11.5px;color:var(--faint);font-style:italic">Texto del Nomenclador Nacional que el Catálogo del PMO no reproduce. La transcripción viene de un original con lectura dañada: confirmala antes de apoyarte en ella.</div>
+      </div></div>`;
+  }
 
   // Tipo de muestra y su par que se presta a confusión.
   if(c.muestra&&c.muestra.length){

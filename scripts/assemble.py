@@ -1691,6 +1691,8 @@ if verif_n:
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from altas_pmo_cap34 import altas as _altas_cap34
 _altas_cap34(records, log=sys.stderr)
+from alcance_cap34 import alcances as _alcance_cap34
+_alcance_cap34(records, log=sys.stderr)
 
 # ---------- capítulo 34 del PMO: denominaciones releídas del PDF ----------
 # La limpieza de títulos de sección (clean_pmo_name) le saca al nombre la palabra
