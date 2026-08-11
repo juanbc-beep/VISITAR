@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-lOwj7MGOcQpaPt4mgaj/Cu38uokIpBXPNqBkd9DZGhw=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-ZToC30J9kqKVXsHYSmi1aJ6syrVsBq2nsWBEeTRN7Uo=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -485,6 +485,11 @@ header{
   color:var(--ink-2);display:grid;place-items:center;transition:.15s}
 .icon-btn:hover{background:var(--surface-3);border-color:var(--line-2);color:var(--accent)}
 .stats{display:flex;gap:10px;padding:0 20px 12px;max-width:1500px;margin:0 auto;flex-wrap:wrap}
+/* El contador de favoritos es un botón: mismo aspecto que el chip para no meter
+   ruido en la barra, pero se toca y filtra. */
+.statbtn{cursor:pointer;font:inherit;transition:.13s}
+.statbtn:hover{border-color:var(--accent);color:var(--accent-ink)}
+.statbtn.on{border-color:var(--accent);background:var(--accent-soft);color:var(--accent-ink)}
 .stat{display:flex;align-items:baseline;gap:7px;padding:5px 12px;background:var(--surface-2);
   border:1px solid var(--line);border-radius:999px;font-size:12px;color:var(--muted)}
 .stat b{font-family:var(--font-mono);font-size:13.5px;color:var(--ink);font-weight:700}
@@ -1577,11 +1582,26 @@ function starBtn(code){return `<span class="star${FAVS.has(code)?' on':''}" data
 
 /* ---------- stats + control de valor U.B. ---------- */
 function refreshStats(){
-  const pills=[
-    ['★ Fav.',FAVS.size]
-  ].map(([k,v])=>`<span class="stat">${k} <b>${v.toLocaleString('es-AR')}</b></span>`).join('');
+  /* Los favoritos dejaron de ser un número al costado y pasaron a ser el botón que
+     los abre: el que atiende los marca para volver a ellos, y volver era andar
+     cambiando de nomenclador a ver dónde había quedado cada uno. */
+  const verFavs=state.mode==='ALL'&&state.flags.has('fav');
+  const pills=`<button class="stat statbtn${verFavs?' on':''}" id="favBtn" type="button" title="${
+    verFavs?'Volver al listado':'Ver todos tus favoritos, de todos los nomencladores'}">★ Fav. <b>${FAVS.size.toLocaleString('es-AR')}</b></button>`;
   el('stats').innerHTML=
     `<span class="stat ubctl">Valor U.B. <span class="ubsign">$</span><input id="ubv" type="number" min="0" step="0.01" placeholder="—" value="${ubValue||''}"><span class="ubclr" id="ubclr" title="Borrar" hidden>×</span></span>`+pills;
+  el('favBtn').addEventListener('click',()=>{
+    if(state.flags.has('fav')&&state.mode==='ALL'){
+      state.flags.delete('fav'); setMode(modoPrevioFavs||'NBU');
+    }else{
+      if(!FAVS.size)return toast('Todavía no marcaste favoritos. Tocá la estrella de una práctica.',true);
+      modoPrevioFavs=['CIE','ABR','SURGE','ALL'].includes(state.mode)?null:state.mode;
+      state.q=''; el('q').value=''; document.body.classList.remove('buscando');
+      state.seccion.clear(); state.grupo.clear(); state.flags.clear(); state.flags.add('fav');
+      state.limit=400; setMode('ALL');
+    }
+    render();
+  });
   const inp=el('ubv');
   el('ubclr').hidden=!(ubValue>0);
   inp.addEventListener('input',()=>{
@@ -1752,7 +1772,11 @@ function passFlags(c){
     if(f==='pcr'&&!c.flags.pcr)return false;
     if(f==='con_rel'&&!hasRel(c))return false;
     if(f==='new2024'&&c.valor.ub_actualizado_2024==null)return false;
-    if(f==='fav'&&!FAVS.has(c.code))return false;
+    /* FAVS guarda la clave interna (_key), que en el Único lleva una U adelante:
+       comparar contra c.code hacía que los favoritos del Único se guardaran y se
+       vieran con la estrella marcada, pero nunca pasaran el filtro. Cuatro
+       favoritos marcados y sólo dos en la lista. */
+    if(f==='fav'&&!FAVS.has(c._key))return false;
     if(f==='recientes'&&!(window.NBUProfile&&NBUProfile.recent&&NBUProfile.recent().includes(c._key)))return false;
     if(f==='nota'&&!(window.NBUProfile&&NBUProfile.getNote&&NBUProfile.getNote(c._key)))return false;
     if(f==='seriado'&&!((c.frecuencia&&c.frecuencia.length)||c.seriado))return false;
@@ -1879,6 +1903,7 @@ function renderChips(){
    favoritos, por perfil, a un clic y sin buscar. Sólo cuando no hay búsqueda ni
    filtros activos, para no competir con los resultados. */
 let rapMod='fav';
+let modoPrevioFavs=null;   // a qué nomenclador volver al salir de la vista de favoritos
 function renderRapidos(){
   const cont=el('rapidos');
   const limpio=!state.q&&!state.seccion.size&&!state.grupo.size&&!state.flags.size
@@ -2021,6 +2046,36 @@ function cablearSinResultados(){
 function renderAll(){
   const terms=norm(state.q).split(/\s+/).filter(Boolean);
   lastResults=[];el('listExport').style.display='none';
+  /* Los favoritos de una persona no viven todos en el mismo nomenclador: marca un
+     análisis del NBU, una prestación del PMO y su equivalente del Único. Verlos
+     por separado, un nomenclador por vez, obliga a acordarse dónde quedó cada uno.
+     Acá se listan todos juntos, sin escribir nada. */
+  if(!terms.length&&state.flags.has('fav')){
+    const favs=[...FAVS].map(k=>BYCODE[k]).filter(c=>c&&!ocultoNom(c.nomenclador));
+    lastResults=favs;
+    el('count').innerHTML=`<b>${favs.length}</b> favorito${favs.length!==1?'s':''} en todos los nomencladores`;
+    ajustarCabecera(); anunciar(`${favs.length} favoritos`);
+    el('moreBtn').hidden=true;
+    el('listExport').style.display=favs.length?'':'none';
+    if(!favs.length){
+      el('list').innerHTML=`<div class="empty"><b>Todavía no marcaste favoritos</b>Tocá la estrella de una práctica y la vas a encontrar acá, sin importar de qué nomenclador sea.</div>`;
+      return;
+    }
+    const porNom={};
+    favs.forEach(c=>{(porNom[c.nomenclador]=porNom[c.nomenclador]||[]).push(c);});
+    el('list').innerHTML=[['NBU','Laboratorio (NBU)'],['PMO','Prestaciones médicas (PMO)'],
+      ['ODO','Odontología'],['UNICO','Nomenclador Único']]
+      .filter(([nm])=>porNom[nm]&&porNom[nm].length)
+      .map(([nm,lbl])=>`<div class="allgroup"><span class="allglbl">${esc(lbl)}</span><span class="allgn">${porNom[nm].length}</span></div>`+
+        porNom[nm].map(rowHTML).join('')).join('');
+    kbIdx=-1;
+    el('list').querySelectorAll('.row').forEach(r=>r.addEventListener('click',e=>{
+      const st=e.target.closest('.star');
+      if(st){e.stopPropagation();toggleFav(st.dataset.fav);refreshStats();render();return;}
+      if(r.dataset.code)openCode(r.dataset.code);
+    }));
+    return;
+  }
   if(!terms.length){
     el('count').textContent='';
     el('list').innerHTML=`<div class="empty"><b>Buscá en todo el manual</b>Escribí un código, práctica, diagnóstico o sigla y te muestro las coincidencias en todos los nomencladores (NBU, PMO, Único), CIE-10 y abreviaturas médicas a la vez.</div>`;
