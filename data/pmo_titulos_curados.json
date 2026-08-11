@@ -338,6 +338,18 @@
    "antes": "Spect cardíacocoronario estudio de perfusión con talio 201 esfuerzo y redistribución",
    "capitulo": "26",
    "motivo": "faltaba el guión de cardíaco-coronario · confirmado contra el Nomenclador Único y el Nacional"
+  },
+  "080107": {
+   "nombre": "tratamiento de la atresia esofágica, con o sin fístula en un tiempo",
+   "antes": "tratamiento atresia esofágica Normativa",
+   "capitulo": "08",
+   "motivo": "le sobraba «Normativa» al final y le faltaba el resto del nombre · confirmado contra el Nomenclador Único y el Nacional"
+  },
+  "080804": {
+   "nombre": "escisión córporocaudal, esplenopancreatectomía córporocaudal",
+   "antes": "escisión corporocaudal esplenopancreatectomía Normativa Nº 1/2002 - S.S.SALUD",
+   "capitulo": "08",
+   "motivo": "le sobraba «Normativa Nº 1/2002 - S.S.SALUD» al final · confirmado contra el Nomenclador Único y el Nacional"
   }
  }
 }
