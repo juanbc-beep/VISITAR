@@ -487,13 +487,16 @@ El administrador deja una observación en la ficha; se ve **debajo del código e
 (`.robs`, sin abrir nada) y arriba de todo en la ficha, y a los administrativos les suena una
 campanita hasta que la marcan como vista (`perfiles.obs_vistas`).
 
-⚠️ La observación es **de la práctica, no del código**. Como el mismo análisis está con su
-número del NBU y con el del Único, en `web/index.html` hay un índice `GEMELO` (armado de las
-equivalencias, **uno a uno**: ningún código del NBU tiene más de un gemelo) y:
+⚠️ La observación es **de la práctica, no del código**. La misma práctica está en más de un
+nomenclador —el laboratorio del Único es el NBU con otro número, y sus prestaciones médicas
+son las del PMO—, así que en `web/index.html` hay un índice `EQGRUPO` que agrupa todos los
+códigos equivalentes. Se arma con **las dos puntas** de la equivalencia (la del Único hacia
+el otro nomenclador y la del otro hacia el Único), porque hay prácticas del PMO con más de
+un equivalente en el Único y la observación tiene que llegar a todas. Entonces:
 
 - `obsDe(code)` busca por el código pedido y, si no hay, **por el gemelo**;
-- `claveObs(code)` la guarda siempre **del lado del NBU**, y al guardar **borra la del
-  gemelo** si quedaba una vieja: si sobrevivieran las dos, la ficha del Único seguiría
+- `claveObs(code)` la guarda siempre en el mismo código del grupo —nunca en el del Único
+  si hay otro—, y al guardar **borra las de los demás** si quedaba alguna vieja: si sobrevivieran las dos, la ficha del Único seguiría
   mostrando la vieja y no habría forma de darse cuenta;
 - la ficha avisa «Se ve también en el código X»: sin eso, alguien la escribe de nuevo del
   otro lado creyendo que falta.

@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-x/3/L0mdEYDsF8z5LvcOgTOkt/02p3rz2mxyk8ZTSTI=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-lOwj7MGOcQpaPt4mgaj/Cu38uokIpBXPNqBkd9DZGhw=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1370,24 +1370,40 @@ const norm = s => (s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
 // precompute search haystack
 CODES.forEach(c=>{ c._h = norm([c.code,c._key,c.nombre,...(c.sinonimos||[]),...(c.abreviaturas||[])].join(' ')); });
 
-/* El laboratorio del Único es el NBU con otro número: cada análisis está dos veces
-   en la base. Lo que el administrador deja dicho sobre la práctica vale para las
-   dos fichas, así que se guarda una sola vez y se lee desde cualquiera de los dos
-   códigos. Pedirle que se acuerde de escribir lo mismo dos veces es pedirle que
-   tarde o temprano queden distintas.
-   La correspondencia es uno a uno: ningún código del NBU tiene más de un gemelo. */
-const GEMELO={};
-CODES.forEach(c=>{
-  const eq=c.equivalencia;
-  if(c.nomenclador==='UNICO'&&eq&&eq.target_nom==='NBU'&&eq.key&&BYCODE[eq.key]){
-    GEMELO[c._key]=eq.key; GEMELO[eq.key]=c._key;
-  }
-});
-/* Sobre cuál de los dos se escribe: siempre el del NBU, que es el que manda. Así
-   una observación vieja guardada del lado del Único se sigue leyendo (por el
-   gemelo) y las nuevas no se duplican. */
-const claveObs=k=>(BYCODE[k]&&BYCODE[k].nomenclador==='UNICO'&&GEMELO[k])?GEMELO[k]:k;
-
+/* La misma práctica está en más de un nomenclador: el laboratorio del Único es el
+   NBU con otro número, y las prestaciones médicas del Único son las del PMO. Si
+   son equivalentes tienen que decir lo mismo, así que lo que el administrador
+   deja dicho vale para todo el grupo: se guarda una vez y se lee desde cualquiera
+   de sus códigos. Pedirle que se acuerde de repetirlo en cada nomenclador es
+   pedirle que tarde o temprano queden distintos.
+   Los grupos se arman con las dos puntas de la equivalencia —la del Único hacia
+   el otro nomenclador y la del otro hacia el Único— porque hay prácticas del PMO
+   con más de un equivalente en el Único, y la observación tiene que llegar a
+   todas. */
+const EQGRUPO={};
+(function(){
+  const pad={};
+  const find=k=>{while(pad[k]&&pad[k]!==k)k=pad[k];return k;};
+  const une=(a,b)=>{const ra=find(a),rb=find(b);if(ra!==rb)pad[ra]=rb;};
+  CODES.forEach(c=>{ if(!pad[c._key])pad[c._key]=c._key;
+    const eq=c.equivalencia;
+    if(eq&&eq.key&&BYCODE[eq.key])une(c._key,eq.key);
+    (c.equivalencia_unico||[]).forEach(u=>{ if(u.unico_key&&BYCODE[u.unico_key])une(c._key,u.unico_key); });
+  });
+  const g={};
+  CODES.forEach(c=>{const r=find(c._key);(g[r]=g[r]||[]).push(c._key);});
+  Object.keys(g).forEach(r=>{ const ks=g[r]; if(ks.length>1)ks.forEach(k=>{EQGRUPO[k]=ks;}); });
+})();
+/* Los demás códigos del grupo, sin el propio. */
+const otrosDelGrupo=k=>(EQGRUPO[k]||[]).filter(x=>x!==k);
+/* Sobre cuál se escribe: siempre el mismo, y nunca el del Único si hay otro.
+   Así una observación vieja guardada en cualquiera se sigue leyendo —por el
+   grupo— y las nuevas no se duplican. */
+const claveObs=k=>{
+  const g=EQGRUPO[k]; if(!g)return k;
+  const peso=x=>(BYCODE[x].nomenclador==='UNICO'?'1':'0')+'|'+BYCODE[x].code;
+  return g.slice().sort((a,b)=>peso(a)<peso(b)?-1:1)[0];
+};
 /* ============================================================
    Búsqueda tolerante
    La orden médica llega escrita a mano, abreviada y con errores de tipeo, así que
@@ -2654,8 +2670,10 @@ function obsFichaHTML(code){
   // La misma práctica está con su código del NBU y con el del Único. La
   // observación es una sola y se ve en las dos fichas; conviene que se vea escrito,
   // para que nadie la escriba de nuevo del otro lado creyendo que falta.
-  const g=GEMELO[code], gc=g&&BYCODE[g];
-  const doble=gc?`<div class="obs-m" style="margin-top:4px">Se ve también en el código <b>${esc(gc.code)}</b> del ${gc.nomenclador==='NBU'?'NBU':'Nomenclador Único'}: es la misma práctica.</div>`:'';
+  const otros=otrosDelGrupo(code).map(k=>BYCODE[k]).filter(Boolean);
+  const nomb={NBU:'NBU',PMO:'Prestaciones Médicas',UNICO:'Nomenclador Único',ODO:'Odontología'};
+  const doble=otros.length?`<div class="obs-m" style="margin-top:4px">Se ve también en ${otros.length===1?'el código':'los códigos'} ${
+    otros.map(x=>`<b>${esc(x.code)}</b> (${esc(nomb[x.nomenclador]||x.nomenclador)})`).join(', ')}: es la misma práctica.</div>`:'';
   return `<div class="obsbox${o?'':' vacia'}" id="obsBox">
     <div class="obs-h"><span class="robs-i">!</span> Observación del administrador
       ${o?`<span class="obs-m">${esc(o.por||'—')} · ${fecha}</span>`:''}</div>
@@ -4017,7 +4035,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   /* Lo que puede cambiarle el contenido a una ficha desde la base. */
   const huella=k=>JSON.stringify([(CONTENT.codes||{})[k]||null,(CONTENT.obs||{})[k]||null,
     (CONTENT.verif||{})[k]||null,(CONTENT.propuestas||{})[k]||null,
-    GEMELO[k]?[(CONTENT.codes||{})[GEMELO[k]]||null,(CONTENT.obs||{})[GEMELO[k]]||null]:null]);
+    otrosDelGrupo(k).map(x=>[(CONTENT.codes||{})[x]||null,(CONTENT.obs||{})[x]||null])]);
 
   /* Título, subtítulo y logo de la empresa. Van juntos en una sola fila, porque
      se cambian de a uno cada muchos meses y no vale la pena una tabla. */
@@ -5464,7 +5482,10 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
        es la misma y la observación tiene que leerse por los dos lados. */
     obsDe:(code)=>{
       const o=CONTENT.obs||{};
-      return o[code]||(GEMELO[code]?o[GEMELO[code]]:null)||null;
+      if(o[code])return o[code];
+      const g=otrosDelGrupo(code);
+      for(let i=0;i<g.length;i++)if(o[g[i]])return o[g[i]];
+      return null;
     },
     obsNuevas:()=>obsNuevas,
     obsTodas:()=>Object.entries(CONTENT.obs||{})
@@ -5475,14 +5496,13 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       const t=(texto||'').trim();
       // Se guarda del lado del NBU y se limpia el gemelo: si quedaran las dos, la
       // ficha del Único seguiría mostrando la vieja y nadie sabría por qué.
-      const k=claveObs(code), otro=(GEMELO[k]&&GEMELO[k]!==k)?GEMELO[k]:null;
-      const sobra=otro&&(CONTENT.obs[otro]!=null);
+      const k=claveObs(code), sobran=otrosDelGrupo(k).filter(x=>CONTENT.obs[x]!=null);
       if(t){CONTENT.obs[k]={texto:t,por:current.name||'',t:Date.now()};}
       else delete CONTENT.obs[k];
-      if(sobra)delete CONTENT.obs[otro];
+      sobran.forEach(x=>{delete CONTENT.obs[x];});
       logEdit(t?'dejó una observación':'quitó la observación',k); persistContent();
       if(nubeContenido)
-        enNube((sobra?NUBE.borrarObservacion(otro):Promise.resolve())
+        enNube(sobran.reduce((p,x)=>p.then(()=>NUBE.borrarObservacion(x)),Promise.resolve())
                  .then(()=>t?NUBE.guardarObservacion(k,t):NUBE.borrarObservacion(k)),
                t?'guardar la observación':'quitar la observación');
       return true;
