@@ -140,6 +140,168 @@
    "nombre": "artroscopia de hombro",
    "antes": "Cirugía artroscópica artroscopia de hombro",
    "capitulo": "12"
+  },
+  "010302": {
+   "nombre": "tratamiento quirúrgico lesiones adquiridas del complejo vertebromeningeomedular",
+   "antes": "tratamiento quirúrgico lesiones adquiridas del comple- jo vertebromeningeomedular",
+   "capitulo": "01",
+   "motivo": "palabra partida"
+  },
+  "010508": {
+   "nombre": "neurólisis química o bloqueo antiálgico de nervio periférico",
+   "antes": "neurólisis química o bloqueo antiálgico de nervio peri- férico",
+   "capitulo": "01",
+   "motivo": "palabra partida"
+  },
+  "030105": {
+   "nombre": "incisión y drenaje de aurícula. Sutura del pabellón auricular",
+   "antes": "incisión y drenaje de aurícula. Sutura del pabellón auri- cular",
+   "capitulo": "03",
+   "motivo": "palabra partida"
+  },
+  "030601": {
+   "nombre": "laringuectomía radical con vaciamiento de cuello. Operación comando de laringe",
+   "antes": "laringuectomía radical con vaciamiento de cuello. Ope- ración comando de laringe",
+   "capitulo": "03",
+   "motivo": "palabra partida"
+  },
+  "030807": {
+   "nombre": "biopsia de glándula salival extracción incisional de cálculos salivales",
+   "antes": "biopsia de glándula salival extracción incisional de cál- culos salivales",
+   "capitulo": "03",
+   "motivo": "palabra partida"
+  },
+  "031005": {
+   "nombre": "queiloplastia de Bernard Borow Abbe Eastlander o similar",
+   "antes": "queiloplastia de Bernard Borow Abbe Eastlander o si- milar",
+   "capitulo": "03",
+   "motivo": "palabra partida"
+  },
+  "070603": {
+   "nombre": "derivación by-pass de vasos periféricos con injerto venoso o sintético",
+   "antes": "derivación by-pass de vasos periféricos con injerto ve- noso o sintético",
+   "capitulo": "07",
+   "motivo": "palabra partida"
+  },
+  "080723": {
+   "nombre": "papilotomía y esfinterotomía endoscópica con extracción de litos y/o biopsia",
+   "antes": "papilotomía y esfinterotomía endoscópica con extrac- ción de litos y/o biopsia",
+   "capitulo": "08",
+   "motivo": "palabra partida"
+  },
+  "100504": {
+   "nombre": "orquidopexia unilateral cualquier técnica con o sin tratamiento de hernia concomitante",
+   "antes": "orquidopexia unilateral cualquier técnica con o sin tra- tamiento de hernia concomitante",
+   "capitulo": "10",
+   "motivo": "palabra partida"
+  },
+  "100603": {
+   "nombre": "epididimovasostomía anastomosis de conducto deferente",
+   "antes": "epididimovasostomía anastomosis de conducto defe- rente",
+   "capitulo": "10",
+   "motivo": "palabra partida"
+  },
+  "110402": {
+   "nombre": "evacuación uterina 2º trimestre del embarazo con mecanismo de parto",
+   "antes": "evacuación uterina 2º trimestre del embarazo con meca- nismo de parto",
+   "capitulo": "11",
+   "motivo": "palabra partida"
+  },
+  "121716": {
+   "nombre": "PMD]Displasia de cadera sinluxacion,tratamiento quirurgico (Salter,Pemberton,C",
+   "antes": "PMD]Displasia de cadera sinluxacion,tratamiento quirurgico (Salter,Pember- ton,C",
+   "capitulo": "12",
+   "motivo": "palabra partida"
+  },
+  "130301": {
+   "nombre": "atención del paciente con quemaduras de segundo y tercer grado",
+   "antes": "atención del paciente con quemaduras de segundo y ter- cer grado",
+   "capitulo": "13",
+   "motivo": "palabra partida"
+  },
+  "260403": {
+   "nombre": "Prueba de estímulo hipotálamo-hipofisiaria con determinación de FSH",
+   "antes": "Prueba de estímulo hipotálamo-hipofisiaria con deter- minación de FSH",
+   "capitulo": "26",
+   "motivo": "palabra partida"
+  },
+  "260404": {
+   "nombre": "Prueba de estímulo hipotálamo-hipofisiaria con determinación de LH",
+   "antes": "Prueba de estímulo hipotálamo-hipofisiaria con deter- minación de LH",
+   "capitulo": "26",
+   "motivo": "palabra partida"
+  },
+  "260406": {
+   "nombre": "Prueba de estímulo gonadal conHGG con determinación de testosterona",
+   "antes": "Prueba de estímulo gonadal conHGG con determina- ción de testosterona",
+   "capitulo": "26",
+   "motivo": "palabra partida"
+  },
+  "310125": {
+   "nombre": "tratamiento de lesiones otorrinolaringológicas por medios físicos o químicos",
+   "antes": "tratamiento de lesiones otorrinolaringológicas por me- dios físicos o químicos",
+   "capitulo": "31",
+   "motivo": "palabra partida"
+  },
+  "330301": {
+   "nombre": "talleres de actividades grupales para prevención primaria y secundaria",
+   "antes": "talleres de actividades grupales para prevención prima- ria y secundaria",
+   "capitulo": "33",
+   "motivo": "palabra partida"
+  },
+  "030606": {
+   "nombre": "laringotomía mediana e inferior laringofisura-tirotomia-cricotirotomía-laringorafía",
+   "antes": "laringotomía mediana e inferior laringofisura-tirotomia- cricotirotomía-laringorafía",
+   "capitulo": "03",
+   "motivo": "espacio después del guión"
+  },
+  "260232": {
+   "nombre": "Spect cardiaco-coronario estudio de perfusion con talio 201 dipiridamoly redistribucion:igualesindi",
+   "antes": "Spect cardiaco- coronario estudio de perfusion con talio 201 dipiridamoly redistribucion:igualesindi",
+   "capitulo": "26",
+   "motivo": "espacio después del guión"
+  },
+  "010217": {
+   "nombre": "cirugía de la hipertensión congénita endocraneana por fibra óptica",
+   "antes": "cirugía de la hipertensión congénita endocraneana por fibra óptica 5",
+   "capitulo": "01",
+   "motivo": "número de página"
+  },
+  "030609": {
+   "nombre": "microcirugía de laringe con láser",
+   "antes": "microcirugía de laringe con láser 7",
+   "capitulo": "03",
+   "motivo": "número de página"
+  },
+  "060105": {
+   "nombre": "mastoplastia",
+   "antes": "mastoplastia 8",
+   "capitulo": "06",
+   "motivo": "número de página"
+  },
+  "080506": {
+   "nombre": "operaciones radicales para megacolon",
+   "antes": "operaciones radicales para megacolon 10",
+   "capitulo": "08",
+   "motivo": "número de página"
+  },
+  "110311": {
+   "nombre": "biopsia de vagina punción de fondo de saco de douglas",
+   "antes": "biopsia de vagina punción de fondo de saco de douglas 12",
+   "capitulo": "11",
+   "motivo": "número de página"
+  },
+  "210105": {
+   "nombre": "análisis cromosómico de cariotipo con bandas G",
+   "antes": "análisis cromosómico de cariotipo con bandas G 16",
+   "capitulo": "21",
+   "motivo": "número de página"
+  },
+  "260211": {
+   "nombre": "Centellograma de tiroides",
+   "antes": "Centellograma de tiroides 17",
+   "capitulo": "26",
+   "motivo": "número de página"
   }
  }
 }
