@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-e4d9rlVrfTcE1UASXiJZq6etbOtEswIwY1etie3CIQM=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-cIsWYmbx9cKdRuI0Dt/PHCfuyG/+IGFJSPMw2ZcThzs=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -304,8 +304,17 @@ html,body{margin:0;padding:0}
 .prop-box textarea{width:100%;min-height:70px;resize:vertical;border:1px solid var(--line-2);border-radius:var(--radius-sm);
   background:var(--surface);color:var(--ink);font:inherit;font-size:13px;padding:9px 11px;line-height:1.5}
 .prop-box textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
-.prop-pend{font-size:12px;color:var(--gestion);background:#efe4c4;border-radius:6px;padding:6px 9px;margin-top:7px}
+.prop-pend{font-size:12px;color:var(--gestion);background:#efe4c4;border-radius:6px;padding:8px 10px;margin-top:7px}
 :root[data-theme="dark"] .prop-pend{background:#2e2811}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .prop-pend{background:#2e2811}}
+/* Lo que escribió un compañero y el administrador todavía no aprobó. Se ve, pero
+   se ve distinto: si tuviera el mismo peso que lo confirmado, alguien lo cargaría
+   creyendo que es norma. El aviso va antes del texto, no después. */
+.prop-pend .pp-h{font-weight:800}
+.prop-pend .pp-av{color:var(--ink-2);margin:3px 0 6px;line-height:1.45}
+.prop-pend .pp-t{background:var(--surface);border:1px dashed color-mix(in srgb,var(--gestion) 45%,transparent);
+  border-radius:6px;padding:7px 9px;margin-top:5px;color:var(--ink-2);font-size:12.5px;white-space:pre-wrap;line-height:1.5}
+.prop-pend .pp-t .pmeta{margin-top:4px}
 /* ---------- autoría ----------
    Queda en la app, no en los textos editables del panel: es un dato de autoría, no
    contenido configurable. */
@@ -1172,7 +1181,7 @@ mark.hl{background:var(--accent-soft);color:var(--accent-ink);border-radius:3px;
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg>
         <span class="pendn" id="pendN">0</span>
       </button>
-      <button class="icon-btn pendbtn" id="obsBtn" title="Observaciones nuevas del administrador" aria-label="Observaciones nuevas del administrador" hidden>
+      <button class="icon-btn pendbtn" id="obsBtn" title="Novedades desde la última vez que entraste" aria-label="Novedades desde la última vez que entraste" hidden>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
         <span class="pendn" id="obsN">0</span>
       </button>
@@ -2922,7 +2931,11 @@ function openCode(code,origen){
       <div class="cg-h">▶ Cómo se carga esta solicitud</div>
       ${pasos.length?`<ol>${pasos.join('')}</ol>`:'<div style="font-size:13px;color:var(--muted)">Todavía no hay pasos cargados para esta práctica.</div>'}
       ${nota?`<div class="cg-nota"><span class="nl">✎ Cómo se carga en VISITAR</span><div class="nt">${linkCodes(esc(nota))}</div></div>`:''}
-      ${pend.length?`<div class="prop-pend">✎ Hay ${pend.length} propuesta${pend.length!==1?'s':''} esperando aprobación del administrador.</div>`:''}
+      ${pend.length?`<div class="prop-pend">
+        <div class="pp-h">✎ ${pend.length===1?'Un compañero contó':`${pend.length} compañeros contaron`} cómo se carga — <b>sin confirmar</b></div>
+        <div class="pp-av">Lo escribió alguien del equipo y el administrador todavía no lo aprobó. <b>No es norma:</b> si vas a cargar con esto, confirmalo antes.</div>
+        ${pend.map(p=>`<div class="pp-t">${linkCodes(esc(p.texto))}<div class="pmeta">${esc(p.por||'—')} · ${new Date(p.t).toLocaleDateString('es-AR')}</div></div>`).join('')}
+      </div>`:''}
       ${puedeProponer?`<div class="prop-box">
         <button class="minibtn" id="propAbrir">✎ ${nota?'Proponer una corrección':'Contar cómo se carga acá'}</button>
         <div id="propForm" hidden style="margin-top:8px">
@@ -3890,12 +3903,34 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     const observ={};
     (obs||[]).forEach(o=>{observ[o.codigo]={texto:o.texto,por:quien(o.autor),t:ms(o.actualizada)};});
     CONTENT.obs=observ;
-    /* Cuántas hay nuevas PARA ESTA PERSONA: las que cambiaron después de la
-       última vez que las miró. El administrador las escribe, así que a él no se
-       le avisa de lo suyo. */
+    /* Qué pasó desde la última vez que esta persona miró: observaciones nuevas y
+       fichas que se corrigieron. Lo propio no cuenta —nadie necesita que le
+       avisen de lo que acaba de hacer— y el administrador no recibe aviso: para
+       él está la campana de pendientes, que es otra cosa. */
     const vistas=(NUBE.perfil()&&NUBE.perfil().obs_vistas)?Date.parse(NUBE.perfil().obs_vistas):0;
-    obsNuevas=(current&&current.role==='admin')?0
-      :Object.values(observ).filter(o=>o.t>vistas).length;
+    const mio=(NUBE.perfil()&&NUBE.perfil().id)||'';
+
+    /* Actividad del equipo. No hace falta una tabla nueva ni que nadie escriba
+       nada: cada fila de la base ya dice quién la tocó y cuándo. Se arma acá y
+       sirve para las dos cosas que faltaban — el aviso de «qué pasó desde la
+       última vez» y el registro compartido, que hasta ahora era el de cada
+       computadora y como registro de un equipo no servía. */
+    const act=[];
+    (corr||[]).forEach(r=>{const e={t:ms(r.actualizado),quien:quien(r.autor),que:'corrigió la ficha',code:r.codigo,autor:r.autor||''};
+      if(e.t)act.push(e);});
+    (obs||[]).forEach(o=>{const e={t:ms(o.actualizada),quien:quien(o.autor),que:'dejó una observación',code:o.codigo,detalle:o.texto||'',autor:o.autor||''};
+      if(e.t)act.push(e);});
+    (ver||[]).forEach(r=>{
+      if(ms(r.solicitada_en))act.push({t:ms(r.solicitada_en),quien:quien(r.solicitada_por),que:'pidió verificar',code:r.codigo,autor:r.solicitada_por||''});
+      if(ms(r.validada_en))act.push({t:ms(r.validada_en),quien:quien(r.validada_por),que:'validó la verificación',code:r.codigo,autor:r.validada_por||''});});
+    (props||[]).forEach(x=>{const e={t:ms(x.creada),quien:quien(x.autor),que:'contó cómo se carga',code:x.codigo,detalle:x.texto||'',autor:x.autor||''};
+      if(e.t)act.push(e);});
+    CONTENT.actividad=act.sort((a,b)=>b.t-a.t).slice(0,300);
+    /* Lo que le importa a quien atiende: lo que le cambia lo que dice la ficha.
+       Que alguien haya pedido una verificación es trámite, no novedad. */
+    CONTENT.novedades=act.filter(e=>e.t>vistas&&e.autor!==mio&&
+      (e.que==='dejó una observación'||e.que==='corrigió la ficha'));
+    obsNuevas=(current&&current.role==='admin')?0:CONTENT.novedades.length;
 
     CONTENT.codes=codes; CONTENT.verif=verif; CONTENT.propuestas=propuestas;
     // Los conteos salen de lo mismo que se acaba de leer, así el número del
@@ -3992,8 +4027,8 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       const hay=!!(current&&current.role!=='admin'&&obsNuevas>0);
       ob.hidden=!hay;
       if(hay){ el('obsN').textContent=obsNuevas>99?'99+':String(obsNuevas);
-        ob.title=obsNuevas===1?'El administrador dejó 1 observación nueva'
-                              :`El administrador dejó ${obsNuevas} observaciones nuevas`; }
+        ob.title=obsNuevas===1?'Hay 1 novedad desde la última vez que entraste'
+                              :`Hay ${obsNuevas} novedades desde la última vez que entraste`; }
     }
     const b=el('pendBtn'); if(!b)return;
     const esAdmin=!!(current&&current.role==='admin');
@@ -4004,29 +4039,32 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     b.title=`Pendientes de revisar: ${cu} cuenta${cu!==1?'s':''} · ${v} ${v===1?'verificación':'verificaciones'} · ${pr} propuesta${pr!==1?'s':''}`;
   }
   el('pendBtn').addEventListener('click',()=>{refrescarCuentasNube();openAdmin(contarPendientes().cu?'perfiles':'propuestas');});
-  el('obsBtn').addEventListener('click',()=>{
-    const vistas=(NUBE.perfil()&&NUBE.perfil().obs_vistas)?Date.parse(NUBE.perfil().obs_vistas):0;
-    const nuevas=Object.entries(CONTENT.obs||{})
-      .map(([c,o])=>Object.assign({code:c},o)).filter(o=>o.t>vistas).sort((a,b)=>b.t-a.t);
-    verObservaciones(nuevas);
-  });
+  el('obsBtn').addEventListener('click',()=>verNovedades(CONTENT.novedades||[]));
 
-  /* Lista de las observaciones nuevas. Se abre desde la campanita, y al cerrarla
-     quedan por vistas: si siguieran marcadas como nuevas después de haberlas
-     leído, el aviso perdería sentido en dos días. */
-  function verObservaciones(lista){
+  /* Qué pasó desde la última vez. Se abre desde la campanita y al cerrarla queda
+     por visto: si siguiera marcado como nuevo después de haberlo leído, el aviso
+     perdería sentido en dos días. Antes esto mostraba sólo las observaciones;
+     ahora también las fichas que alguien corrigió, que es lo otro que cambia lo
+     que la persona va a leer cuando busque esa práctica. */
+  function verNovedades(lista){
     const m=el('adminModal'), caja=el('adminBox');
+    const f=t=>{const d=new Date(t), hoy=new Date();
+      const mismo=d.toDateString()===hoy.toDateString();
+      return mismo?('hoy '+d.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'}))
+                  :d.toLocaleDateString('es-AR');};
     caja.innerHTML=`
       <button class="icon-btn close-x" id="obsX" style="position:absolute;top:16px;right:16px" aria-label="Cerrar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
-      <h3>Observaciones del administrador</h3>
-      <div class="asub">${lista.length===1?'Hay 1 aviso nuevo':`Hay ${lista.length} avisos nuevos`} sobre estas prácticas. Tocá el código para abrir la ficha.</div>
-      ${lista.map(o=>{const c=BYCODE[o.code];
+      <h3>Qué pasó desde la última vez</h3>
+      <div class="asub">${lista.length===1?'Hay 1 novedad':`Hay ${lista.length} novedades`} sobre estas prácticas. Tocá el código para abrir la ficha.</div>
+      ${lista.length?lista.map(o=>{const c=BYCODE[o.code];
+        const obs=o.que==='dejó una observación';
         return `<div class="arow" style="align-items:flex-start">
           <div class="grow2">
             <button class="minibtn" data-obsir="${E(o.code)}" style="margin-bottom:6px"><span class="mono">${E(c?c.code:o.code)}</span> ${E(c?c.nombre.slice(0,52):'')}</button>
-            <div style="font-size:13px;color:var(--ink-2);white-space:pre-wrap">${E(o.texto)}</div>
-            <div class="pmeta">${E(o.por||'—')} · ${new Date(o.t).toLocaleDateString('es-AR')}</div>
-          </div></div>`;}).join('')}`;
+            <div class="pmeta" style="margin-bottom:3px">${obs?'<span class="robs-i">!</span> Observación del administrador':'Ficha corregida'} · ${E(o.quien)} · ${f(o.t)}</div>
+            ${o.detalle?`<div style="font-size:13px;color:var(--ink-2);white-space:pre-wrap">${E(o.detalle)}</div>`:''}
+          </div></div>`;}).join('')
+        :'<div class="ahint">No hay novedades. Cuando el administrador deje una observación o corrija una ficha, te va a aparecer acá.</div>'}`;
     m.classList.add('on'); tomarFoco(caja);
     caja.querySelectorAll('[data-obsir]').forEach(b=>b.addEventListener('click',()=>{
       closeAdmin(); openCode(b.dataset.obsir);}));
@@ -4673,10 +4711,29 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     } else if(aTab==='registro'){
       const log=CONTENT.log||[];
       const fmt=t=>{const d=new Date(t);return d.toLocaleDateString('es-AR')+' '+d.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});};
-      p.innerHTML=`<div class="ahint">Registro de ediciones hechas <b>desde esta computadora</b> (quién cambió qué y cuándo). No se comparte con el equipo: es el rastro local, útil para reconstruir qué pasó acá.</div>
-        ${log.length?log.map(e=>`<div class="arow"><div class="grow2"><div class="pnm">${E(e.who||'—')} · <span style="font-weight:500;color:var(--ink-2)">${E(e.action)}</span>${e.code?` <span class="mono" style="color:var(--accent-ink)">${E(e.code)}</span>`:''}</div><div class="pmeta">${fmt(e.t)}</div></div></div>`).join(''):'<div class="ahint">Todavía no hay cambios registrados.</div>'}
-        ${log.length?'<button class="minibtn danger" id="logClear" style="margin-top:10px">Vaciar registro</button>':''}`;
-      if(el('logClear'))el('logClear').addEventListener('click',()=>{if(confirm('¿Vaciar el registro de cambios?')){CONTENT.log=[];persistContent();renderPane();}});
+      /* Hasta ahora el registro era el de cada computadora, y como registro de un
+         equipo no servía: para saber quién corrigió qué había que adivinar en qué
+         máquina mirar. La actividad compartida no necesita una tabla nueva: cada
+         fila de la base ya guarda quién la tocó y cuándo, así que se arma leyendo
+         lo que ya está. El registro local queda debajo, porque tiene cosas que la
+         base no guarda (cambios de textos, del logo, restauraciones). */
+      const act=CONTENT.actividad||[];
+      p.innerHTML=`${nubeContenido?`<div class="ahint">Lo que hizo el equipo, salga de la computadora que salga. Sale de la propia base: quién dejó cada observación, quién corrigió cada ficha, quién pidió y quién validó cada verificación.</div>
+        ${act.length?act.slice(0,120).map(e=>{const c=BYCODE[e.code];
+          return `<div class="arow"><div class="grow2">
+            <div class="pnm">${E(e.quien)} · <span style="font-weight:500;color:var(--ink-2)">${E(e.que)}</span>${e.code?` <button class="minibtn" data-actir="${E(e.code)}" style="padding:1px 7px;font-size:11.5px"><span class="mono">${E(c?c.code:e.code)}</span></button>`:''}</div>
+            ${e.detalle?`<div class="pmeta" style="white-space:pre-wrap">${E(e.detalle.slice(0,120))}${e.detalle.length>120?'…':''}</div>`:''}
+            <div class="pmeta">${fmt(e.t)}</div></div></div>`;}).join('')
+          :'<div class="ahint">Todavía no hay actividad registrada en la base.</div>'}
+        <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--line)">
+          <div class="pmeta" style="font-weight:700;color:var(--ink);font-size:13.5px">Sólo en esta computadora</div>`:''}
+        <div class="ahint">${nubeContenido?'Cambios que la base no guarda —textos, logo, restauraciones— hechos desde acá.':'Registro de ediciones hechas <b>desde esta computadora</b> (quién cambió qué y cuándo). No se comparte con el equipo: es el rastro local, útil para reconstruir qué pasó acá.'}</div>
+        ${log.length?log.map(e=>`<div class="arow"><div class="grow2"><div class="pnm">${E(e.who||'—')} · <span style="font-weight:500;color:var(--ink-2)">${E(e.action)}</span>${e.code?` <span class="mono" style="color:var(--accent-ink)">${E(e.code)}</span>`:''}</div><div class="pmeta">${fmt(e.t)}</div></div></div>`).join(''):'<div class="ahint">Todavía no hay cambios registrados acá.</div>'}
+        ${log.length?'<button class="minibtn danger" id="logClear" style="margin-top:10px">Vaciar el registro de esta computadora</button>':''}
+        ${nubeContenido?'</div>':''}`;
+      p.querySelectorAll('[data-actir]').forEach(b=>b.addEventListener('click',()=>{
+        closeAdmin(); openCode(b.dataset.actir);}));
+      if(el('logClear'))el('logClear').addEventListener('click',()=>{if(confirm('¿Vaciar el registro de esta computadora?\n\nLo que está en la base no se toca.')){CONTENT.log=[];persistContent();renderPane();}});
     } else if(aTab==='respaldo'){
       /* Con la base de la empresa encendida, este respaldo no lleva las cuentas:
          viven en Supabase y desde acá no se pueden leer las contraseñas. Sí lleva

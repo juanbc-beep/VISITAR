@@ -417,6 +417,42 @@ con `box-shadow: 0 0 0 9999px` y ubica el globo al lado. Varios pasos tienen `an
 prepara la pantalla (abre el rail, abre una ficha, carga un caso en la Mesa de trabajo).
 Se puede volver a ver desde **Glosario y leyes → Ver tutorial de uso**.
 
+### 4.8 Lo que el equipo comparte, y por dónde
+
+| Qué | De quién a quién | Cómo viaja |
+|---|---|---|
+| **Observaciones** | administrador → todos | tabla `observaciones`, una por práctica (ver 4.6) |
+| **Fichas corregidas** | administrador → todos | tabla `correcciones` |
+| **Propuestas** («contá cómo se carga») | cualquiera → administrador **y ahora también → todos**, marcadas *sin confirmar* | tabla `propuestas` |
+| **Verificaciones** | cualquiera pide, el administrador valida | tabla `verificaciones` |
+| **Favoritos del equipo** | administrador → todos | `ajustes.contenido.equipo.favoritos` |
+| **Nota personal** | privada, **con botón para mandarla como propuesta** | columna `notas` del perfil |
+| **Una ficha / un caso** | de una persona a otra | **en la dirección**, no en la base |
+
+Tres cosas que se resolvieron sin tocar el esquema de Supabase, y conviene no
+«mejorarlas» agregando tablas:
+
+- **Actividad del equipo** (`CONTENT.actividad`): cada fila de la base ya guarda
+  autor y fecha, así que el registro compartido se arma leyendo lo que ya está.
+  Antes el registro era el de cada computadora y como registro de un equipo no
+  servía. El local sigue abajo, porque tiene lo que la base no guarda (textos,
+  logo, restauraciones).
+- **«Qué pasó desde la última vez»** (`CONTENT.novedades`): la campanita dejó de
+  ser sólo de observaciones. Filtra la actividad por `perfiles.obs_vistas` —la
+  marca que ya existía—, saca lo propio y se queda con lo que le cambia la ficha
+  a quien atiende: observaciones y correcciones. Las verificaciones son trámite,
+  no novedad.
+- **Pasar una ficha o un caso**: van en el `#` de la dirección
+  (`#660475`, `#caso=660475 660102 x3&modo=autorizacion`). Un caso es de quien lo
+  está mirando; guardarlo dejaría cientos de casos viejos de todo el mundo. En
+  celular usa `navigator.share` (o sea WhatsApp) y en escritorio copia el enlace.
+
+⚠️ **Propuestas visibles al equipo**: se ven con el texto completo pero con aviso
+antes del texto —«sin confirmar», «no es norma»—, recuadro punteado y color de
+gestión. La regla es que lo no confirmado **nunca** se vea igual que lo
+confirmado: si tuviera el mismo peso, alguien cargaría con eso creyendo que es
+norma. No aparecen en el listado de resultados, sólo dentro de la ficha.
+
 ### 4.7 Respaldo y restauración ⚠️ el plan de Supabase es gratuito: NO hay respaldos automáticos
 
 Verificado con el usuario: en **Database → Backups** le ofrece contratar el plan. O sea
