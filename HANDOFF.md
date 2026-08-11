@@ -20,7 +20,7 @@
 | **App en producción** | **https://juanbc-beep.github.io/VISITAR/** ← la que usa el equipo |
 | **Base de datos** | Supabase, proyecto `gavfxnoigomxbteagneu` (South America / São Paulo) |
 | **Artefacto** | https://claude.ai/code/artifact/85d149a9-9bfb-478b-b817-3d039a335f1f — **ya no se usa**, ver 1 bis |
-| **Archivo de la app** | `web/index.html` — HTML **autocontenido** (~1,4 MB) |
+| **Archivos de la app** | `web/index.html` (380 KB) + `web/nbu_db.bin` (776 KB, la base comprimida) |
 | **Licencia** | `LICENSE` — reserva de derechos a nombre de Juan Pablo Besada / VISITAR SRL |
 | **Usuario** | Experto en auditoría médica y facturación en VISITAR SRL |
 | **Autoría a mostrar** | «Diseñado por **Juan Pablo Besada**» (ver punto 6.11) |
@@ -54,8 +54,8 @@ a administrador con `select public.hacerme_admin('…')`.
 
 ## 2. Qué es la app — y para qué la usa el usuario
 
-Un **manual inteligente unificado de códigos médicos argentinos**, en un único archivo
-HTML que funciona **sin servidor y sin internet**.
+Un **manual inteligente unificado de códigos médicos argentinos**, que funciona **sin
+internet** una vez instalado.
 
 ### ⚠️ Para qué NO es (aclarado explícitamente por el usuario)
 
@@ -110,7 +110,8 @@ que tiene al afiliado enfrente? Si sólo sirve para auditar facturación, es sec
 ```
 /home/user/VISITAR
 ├── web/
-│   ├── index.html                  # LA APP (autocontenida; DB embebida comprimida)
+│   ├── index.html                  # LA APP (código + estilos; la base va aparte)
+│   ├── nbu_db.bin                  # la base, gzip (ver 3.0 bis)
 │   ├── sw.js                       # service worker (offline + aviso de versión nueva)
 │   ├── manifest.webmanifest        # para instalarla como aplicación
 │   └── icons/                      # generados con un codificador PNG propio (no hay PIL)
@@ -137,9 +138,34 @@ pipeline.
 ### Cómo se compila la base
 1. **Parsers** (`scripts/parse_*.py`) → JSON intermedios en `data/`.
 2. **`scripts/assemble.py`** → une todo en `nbu_db.json` (6.346 códigos + datasets).
-3. **`scripts/inject_db.py`** → comprime la DB (**gzip + base64**) y la embebe en
-   `web/index.html` dentro de `<script id="nbu-db-gz" type="text/plain">`.
-   La app la descomprime al cargar con `DecompressionStream('gzip')` en un IIFE async.
+3. **`scripts/inject_db.py`** → comprime la DB con gzip y la deja en `web/nbu_db.bin`.
+   La app la busca al arrancar y la descomprime con `DecompressionStream('gzip')`.
+
+### 3.0 bis ⚠️ La base viaja aparte, y se puede volver atrás
+
+`inject_db.py` tiene dos modos y la app soporta los dos sin tocar nada:
+
+```bash
+python3 scripts/inject_db.py              # publicación: escribe web/nbu_db.bin
+python3 scripts/inject_db.py --embebido   # un solo archivo: la mete en el HTML
+```
+
+`loadDB()` usa la base embebida si la encuentra y, si no, pide `nbu_db.bin`. Volver
+al archivo único es correr el segundo comando, sellar la CSP y publicar.
+
+**Lo que este cambio NO era.** Se hizo pensando que ahorraba ~19% de descarga. Medido
+después: por la red son **891 KB contra 900 KB, 1%**. GitHub Pages comprime el HTML al
+servirlo y recupera casi todo el engorde del base64. Lo que sí gana, y por eso quedó:
+
+- **El repositorio y los diff.** `index.html` pasó de 1,41 MB a 380 KB. Antes cada
+  cambio de una línea de código reescribía un renglón base64 de 1 MB y el diff era
+  ilegible; ahora se lee. La base sólo cambia cuando cambia la base.
+- **En el equipo del usuario**: 1,15 MB guardados en vez de 1,41 MB.
+- **Arranque**: medido, no cambia (mediana 1.053 ms contra 1.058 ms, n=8 cada uno).
+
+⚠️ Después de cambiar de modo hay que correr `scripts/sellar_csp.py`, y el service
+worker tiene que seguir listando `nbu_db.bin` en `SHELL` o la app abre sin datos
+cuando no hay señal. La acción de publicar verifica las dos cosas y corta si faltan.
 
 ### 3.0 ⚠️ El Único de laboratorio es el NBU con otro número
 

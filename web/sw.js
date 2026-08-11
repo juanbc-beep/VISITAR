@@ -12,8 +12,11 @@
 const VERSION = 'nbu-2026-07-31';
 const CACHE   = 'manual-nbu-' + VERSION;
 
+/* «nbu_db.bin» es la base de códigos, que desde ahora viaja aparte del index.html.
+   Va en la instalación y no en la primera navegación: si esperáramos a que alguien
+   la pida, la primera vez sin señal la app abriría sin datos. */
 const SHELL = [
-  '.', 'index.html', 'manifest.webmanifest',
+  '.', 'index.html', 'nbu_db.bin', 'manifest.webmanifest',
   'icons/icon-32.png', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/maskable-512.png'
 ];
 

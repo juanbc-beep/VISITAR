@@ -69,13 +69,24 @@ jobs:
       - name: Sellar la politica de seguridad con la huella de cada script
         run: python3 scripts/sellar_csp.py web/index.html
 
-      - name: Verificar que la app sea un archivo válido
+      # La base viaja aparte del index.html (ver scripts/inject_db.py). Publicar sin
+      # ella deja una app que abre y no muestra ni una practica, asi que se corta
+      # aca antes que el equipo se encuentre con eso.
+      - name: Verificar que la app este completa
         run: |
           test -f web/index.html || { echo "Falta web/index.html"; exit 1; }
           test -f web/sw.js || { echo "Falta el service worker"; exit 1; }
           test -f web/manifest.webmanifest || { echo "Falta el manifest"; exit 1; }
           python3 -c "import json;json.load(open('web/manifest.webmanifest'))"
-          echo "Tamaño de la app: $(du -h web/index.html | cut -f1)"
+          grep -q "nbu_db.bin" web/sw.js || { echo "El service worker no guarda la base"; exit 1; }
+          if [ -s web/nbu_db.bin ]; then
+            python3 -c "import gzip,json,sys;json.load(gzip.open('web/nbu_db.bin'));print('base aparte OK')"
+          else
+            grep -q 'id="nbu-db-gz" type="text/plain">[A-Za-z0-9+/]' web/index.html \
+              || { echo "No esta la base: ni web/nbu_db.bin ni embebida en el HTML"; exit 1; }
+            echo "base embebida en el HTML"
+          fi
+          echo "Tamaño: index.html $(du -h web/index.html | cut -f1) · base $(du -h web/nbu_db.bin 2>/dev/null | cut -f1 || echo '—')"
 
       # Probado y descartado: con «enablement: true» la accion intenta crear el
       # sitio de Pages sola y GitHub se lo niega con «Resource not accessible by

@@ -236,7 +236,8 @@ scripts/
   parse_pmo.py          # Parser del Catálogo PMO (2 columnas) -> pmo_catalog.json
   assemble.py           # Une NBU + PMO, clasifica, cruza 66xxxx, genera reglas -> nbu_db.json
 web/
-  index.html            # Aplicación web autocontenida (base embebida)
+  index.html            # Aplicación web (código y estilos)
+  nbu_db.bin            # La base de códigos, comprimida (gzip)
 ```
 
 ## Modelo de datos (`nbu_db.json`)
@@ -280,10 +281,11 @@ python3 scripts/assemble.py        # -> nbu_db.json   (usa nbu_reval.txt para el
 Luego se embebe la base **comprimida** dentro de `web/index.html`:
 
 ```bash
-python3 scripts/inject_db.py   # gzip + base64 de data/nbu_db.json -> bloque <script id="nbu-db-gz">
+python3 scripts/inject_db.py   # gzip de data/nbu_db.json -> web/nbu_db.bin
+# python3 scripts/inject_db.py --embebido   # variante de un solo archivo
 ```
 
-El navegador la descomprime al abrir (`DecompressionStream`), manteniendo el archivo único y offline pero
+El navegador la descomprime al abrir (`DecompressionStream`) y el service worker la guarda junto con la app, así funciona sin internet, pero
 ~11× más liviano.
 
 ## Notas y alcance
