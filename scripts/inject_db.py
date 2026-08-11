@@ -28,7 +28,11 @@ BIN  = "web/nbu_db.bin"
 # Content-Encoding por su cuenta, el navegador descomprime solo y la app se
 # encuentra con un texto donde esperaba un gzip. Así nadie interpreta nada.
 
-BLOQUE = re.compile(r'<script id="nbu-db(?:-gz)?"[^>]*>.*?</script>', re.S)
+# El comentario de arriba entra en la búsqueda: si no, cada corrida en modo
+# «aparte» lo volvía a escribir sin borrar el anterior y el HTML se llenaba de
+# copias del mismo párrafo.
+BLOQUE = re.compile(r'(?:<!-- La base viaja aparte,.*?-->\s*)*'
+                    r'<script id="nbu-db(?:-gz)?"[^>]*>.*?</script>', re.S)
 VACIO  = ('<!-- La base viaja aparte, en nbu_db.bin (ver scripts/inject_db.py). Este bloque\n'
           '     queda vacío a propósito: con «--embebido» se llena y la app pasa a ser un\n'
           '     archivo único. -->\n'

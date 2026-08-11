@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-9I0pEMgbnjJZ6MieeUidcdpYDmiS+XjYObrenQnYMV8=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-8fwUes7SvF3kp2BmI9GcdxDYCEJd+BfKjpocTXPFXdk=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1313,51 +1313,6 @@ mark.hl{background:var(--accent-soft);color:var(--accent-ink);border-radius:3px;
 <!-- La base viaja aparte, en nbu_db.bin (ver scripts/inject_db.py). Este bloque
      queda vacío a propósito: con «--embebido» se llena y la app pasa a ser un
      archivo único. -->
-<!-- La base viaja aparte, en nbu_db.bin (ver scripts/inject_db.py). Este bloque
-     queda vacío a propósito: con «--embebido» se llena y la app pasa a ser un
-     archivo único. -->
-<!-- La base viaja aparte, en nbu_db.bin (ver scripts/inject_db.py). Este bloque
-     queda vacío a propósito: con «--embebido» se llena y la app pasa a ser un
-     archivo único. -->
-<!-- La base viaja aparte, en nbu_db.bin (ver scripts/inject_db.py). Este bloque
-     queda vacío a propósito: con «--embebido» se llena y la app pasa a ser un
-     archivo único. -->
-<!-- La base viaja aparte, en nbu_db.bin (ver scripts/inject_db.py). Este bloque
-     queda vacío a propósito: con «--embebido» se llena y la app pasa a ser un
-     archivo único. -->
-<!-- La base viaja aparte, en nbu_db.bin (ver scripts/inject_db.py). Este bloque
-     queda vacío a propósito: con «--embebido» se llena y la app pasa a ser un
-     archivo único. -->
-<!-- La base viaja aparte, en nbu_db.bin (ver scripts/inject_db.py). Este bloque
-     queda vacío a propósito: con «--embebido» se llena y la app pasa a ser un
-     archivo único. -->
-<!-- La base viaja aparte, en nbu_db.bin (ver scripts/inject_db.py). Este bloque
-     queda vacío a propósito: con «--embebido» se llena y la app pasa a ser un
-     archivo único. -->
-<!-- La base viaja aparte, en nbu_db.bin (ver scripts/inject_db.py). Este bloque
-     queda vacío a propósito: con «--embebido» se llena y la app pasa a ser un
-     archivo único. -->
-<!-- La base viaja aparte, en nbu_db.bin (ver scripts/inject_db.py). Este bloque
-     queda vacío a propósito: con «--embebido» se llena y la app pasa a ser un
-     archivo único. -->
-<!-- La base viaja aparte, en nbu_db.bin (ver scripts/inject_db.py). Este bloque
-     queda vacío a propósito: con «--embebido» se llena y la app pasa a ser un
-     archivo único. -->
-<!-- La base viaja aparte, en nbu_db.bin (ver scripts/inject_db.py). Este bloque
-     queda vacío a propósito: con «--embebido» se llena y la app pasa a ser un
-     archivo único. -->
-<!-- La base viaja aparte, en nbu_db.bin (ver scripts/inject_db.py). Este bloque
-     queda vacío a propósito: con «--embebido» se llena y la app pasa a ser un
-     archivo único. -->
-<!-- La base viaja aparte, en nbu_db.bin (ver scripts/inject_db.py). Este bloque
-     queda vacío a propósito: con «--embebido» se llena y la app pasa a ser un
-     archivo único. -->
-<!-- La base viaja aparte, en nbu_db.bin (ver scripts/inject_db.py). Este bloque
-     queda vacío a propósito: con «--embebido» se llena y la app pasa a ser un
-     archivo único. -->
-<!-- La base viaja aparte, en nbu_db.bin (ver scripts/inject_db.py). Este bloque
-     queda vacío a propósito: con «--embebido» se llena y la app pasa a ser un
-     archivo único. -->
 <script id="nbu-db-gz" type="text/plain"></script>
 <script>
 (async()=>{
@@ -1920,10 +1875,19 @@ function muestraTag(c){
 }
 function esc(s){return (s||'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));}
 function hlList(s){
-  let out=esc(s);
-  const terms=(state.q||'').trim().split(/\s+/).filter(t=>t.length>=2);
-  terms.forEach(t=>{const re=new RegExp('('+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');out=out.replace(re,'<mark class="hl">$1</mark>');});
-  return out;
+  const out=esc(s);
+  const terms=(state.q||'').trim().split(/\s+/).filter(t=>t.length>=2)
+    .map(t=>t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
+  if(!terms.length)return out;
+  /* Una sola pasada con todos los términos juntos. Marcándolos de a uno, el
+     segundo término buscaba dentro de lo que había dejado el primero: con «la»,
+     encontraba la «la» de class="hl" y partía el HTML en la mitad del atributo.
+     En pantalla salía «lass="hl">» metido adentro del nombre de la práctica.
+     Un replace global no vuelve a mirar lo que él mismo escribió, así que en una
+     pasada el problema no existe. Los más largos primero, para que «hepatitis b»
+     no quede marcado a pedazos por «b». */
+  const re=new RegExp('('+terms.sort((x,y)=>y.length-x.length).join('|')+')','gi');
+  return out.replace(re,'<mark class="hl">$1</mark>');
 }
 
 function renderChips(){
