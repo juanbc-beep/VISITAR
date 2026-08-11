@@ -350,6 +350,18 @@
    "antes": "escisión corporocaudal esplenopancreatectomía Normativa Nº 1/2002 - S.S.SALUD",
    "capitulo": "08",
    "motivo": "le sobraba «Normativa Nº 1/2002 - S.S.SALUD» al final · confirmado contra el Nomenclador Único y el Nacional"
+  },
+  "070105": {
+   "nombre": "cambio de generador marcapaso definitivo. Recolocación",
+   "antes": "endocavitario cambio de generador marcapaso definitivo. Recolocación",
+   "capitulo": "07",
+   "motivo": "le venía pegado «endocavitario», cola del código anterior · confirmado contra la planilla del Único"
+  },
+  "070207": {
+   "nombre": "tratamiento quirúrgico de aneurismas del cayado aórtico. Aneurisma disecante de aorta",
+   "antes": "cierre defectos septales tratamiento quirúrgico de aneurismas del cayado aórtico. Aneurisma disecante de aorta",
+   "capitulo": "07",
+   "motivo": "le venía pegado «cierre defectos septales», que es el 070206 · confirmado contra la planilla del Único"
   }
  }
 }
