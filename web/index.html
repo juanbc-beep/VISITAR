@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-9dROTBXhW6FfpfC0DXw3mCnMa+AzBWmelg05jbyMDQg=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-ePlynoV7TyvyRj5HaBOUwnrudySD5aw2ZlDLAI7zg2k=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -3737,6 +3737,7 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
 
   async function cargarContenidoNube(){
     if(!(NUBE.activa&&current&&current._nube))return false;
+    const antesFicha=currentCode?huella(currentCode):'';
     const [perfiles,corr,ver,props,aj,obs]=await Promise.all([
       NUBE.listar().catch(()=>[]),          // sólo para poner nombres a los uuid
       NUBE.correcciones(), NUBE.verificaciones(), NUBE.propuestas(), NUBE.ajustes(),
@@ -3793,8 +3794,27 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
     save(KEY.content,CONTENT);
     nubeContenido=true;
     applyContent(); refreshStats(); render(); renderPane(); actualizarPendientes();
+    /* Si hay una ficha abierta, redibujarla. Al entrar con un código en la
+       dirección —un enlace que alguien pasó, o la app recordando dónde estabas—
+       la ficha se dibuja antes de que llegue el contenido del equipo, y quedaba
+       mostrando el texto sin corregir hasta cerrarla y volver a abrirla.
+       Sólo cuando de verdad cambió algo de ESA ficha: redibujar por redibujar le
+       mueve la pantalla a alguien que está leyendo. */
+    if(currentCode&&el('drawer').classList.contains('on')&&
+       (primeraNube||huella(currentCode)!==antesFicha))
+      openCode(currentCode);
+    primeraNube=false;
     return true;
   }
+  /* La primera vez se redibuja siempre: al entrar con un código en la dirección la
+     ficha se dibuja antes de que llegue nada del equipo, así que comparar el antes
+     con el después no alcanza —los dos son lo mismo, y lo desactualizado es lo que
+     quedó en pantalla, no el dato. */
+  let primeraNube=true;
+  /* Lo que puede cambiarle el contenido a una ficha desde la base. */
+  const huella=k=>JSON.stringify([(CONTENT.codes||{})[k]||null,(CONTENT.obs||{})[k]||null,
+    (CONTENT.verif||{})[k]||null,(CONTENT.propuestas||{})[k]||null,
+    GEMELO[k]?[(CONTENT.codes||{})[GEMELO[k]]||null,(CONTENT.obs||{})[GEMELO[k]]||null]:null]);
 
   /* Título, subtítulo y logo de la empresa. Van juntos en una sola fila, porque
      se cambian de a uno cada muchos meses y no vale la pena una tabla. */
@@ -4541,7 +4561,15 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
         ${log.length?'<button class="minibtn danger" id="logClear" style="margin-top:10px">Vaciar registro</button>':''}`;
       if(el('logClear'))el('logClear').addEventListener('click',()=>{if(confirm('¿Vaciar el registro de cambios?')){CONTENT.log=[];persistContent();renderPane();}});
     } else if(aTab==='respaldo'){
-      p.innerHTML=`<div class="ahint">Descargá una copia de seguridad con los perfiles y las ediciones de esta computadora. Con la base de la empresa configurada, las correcciones, verificaciones y propuestas ya viven allá y no dependen de este archivo: esto es una copia extra, no el respaldo principal.</div>
+      /* Con la base de la empresa encendida, este respaldo no lleva las cuentas:
+         viven en Supabase y desde acá no se pueden leer las contraseñas. Sí lleva
+         el trabajo del equipo —fichas corregidas, verificaciones, propuestas,
+         observaciones, favoritos compartidos—, que es lo que en verdad conviene
+         tener guardado aparte. Decirlo importa: el texto anterior prometía «los
+         perfiles» y el archivo venía con cero. */
+      p.innerHTML=`<div class="ahint">${nubeContenido
+        ? 'Descargá una copia del trabajo del equipo: fichas corregidas, verificaciones, propuestas, observaciones y favoritos compartidos, tal como están en la base de la empresa. <b>No incluye las cuentas</b> —viven en Supabase, con las contraseñas fuera del alcance de esta pantalla— ni reemplaza al respaldo de la propia base.'
+        : 'Descargá una copia de seguridad con los perfiles y las ediciones de esta computadora. Sin base de la empresa configurada, este archivo es el único respaldo que existe: conviene bajarlo cada tanto.'}</div>
         <button class="minibtn" id="bkExp" style="margin-top:10px">⬇ Descargar respaldo (.json)</button>
         <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--line)">
           <div class="pmeta" style="font-weight:700;color:var(--ink);font-size:13.5px">Correcciones de contenido</div>
@@ -4549,9 +4577,20 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
           <button class="minibtn" id="bkCorr">⬇ Exportar correcciones para la base</button>
           <span id="bkCorrN" class="ahint" style="margin-left:8px"></span>
         </div>
-        <label style="margin-top:16px">Restaurar desde archivo</label>
+        ${nubeContenido
+        /* Restaurar no se ofrece con la nube encendida, y no es por prudencia: no
+           funciona. Escribe sólo en este navegador, no toca la base, y en cuanto
+           alguien recarga vuelve todo a lo que dice la base. Probado: se restaura
+           una versión vieja, se ve en pantalla, se recarga y reaparece la del
+           equipo. Un botón que parece hacer algo y no lo hace es peor que no
+           tenerlo, sobre todo en la pantalla que uno usa cuando algo salió mal. */
+        ? `<div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--line)">
+             <div class="pmeta" style="font-weight:700;color:var(--ink);font-size:13.5px">Restaurar</div>
+             <div class="ahint">Desde acá no se restaura nada: el contenido del equipo manda desde la base y volvería a imponerse en cuanto alguien recargue. Para deshacer un cambio puntual, abrí la ficha y usá <b>✎ Editar ficha → Restaurar original</b>, que sí lo corrige para todos. Para volver atrás algo grande, se hace desde los respaldos de Supabase (Database → Backups).</div>
+           </div>`
+        : `<label style="margin-top:16px">Restaurar desde archivo</label>
         <input id="bkImp" type="file" accept="application/json,.json" style="border:none;padding:6px 0;background:none">
-        <div class="ahint" style="color:var(--urg);margin-top:6px">Restaurar reemplaza los perfiles y ediciones de este equipo.</div>`;
+        <div class="ahint" style="color:var(--urg);margin-top:6px">Restaurar reemplaza los perfiles y ediciones de esta computadora.</div>`}`;
       (function(){
         // Sólo lo que realmente cambió respecto del original, y sin datos de acceso:
         // este archivo se versiona en el repositorio.
@@ -4588,10 +4627,17 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
         });
       })();
       el('bkExp').addEventListener('click',()=>{
-        const blob=new Blob([JSON.stringify({auth:AUTH,content:CONTENT},null,1)],{type:'application/json'});
-        const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='NBU_respaldo.json';a.click();
+        // La fecha en el nombre: un respaldo sin fecha se pisa solo en la carpeta
+        // de descargas y no hay forma de saber cuál es cuál.
+        const doc={generado:new Date().toISOString(),por:(current&&current.name)||'',
+                   origen:nubeContenido?'base de la empresa':'esta computadora',
+                   auth:AUTH,content:CONTENT};
+        const blob=new Blob([JSON.stringify(doc,null,1)],{type:'application/json'});
+        const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+        a.download='NBU_respaldo_'+new Date().toISOString().slice(0,10)+'.json';a.click();
+        toast('Respaldo descargado');
       });
-      el('bkImp').addEventListener('change',e=>{
+      if(el('bkImp'))el('bkImp').addEventListener('change',e=>{
         const f=e.target.files[0];if(!f)return;const rd=new FileReader();
         rd.onload=()=>{try{const d=JSON.parse(rd.result);if(d.auth){AUTH=d.auth;save(KEY.auth,AUTH);}if(d.content){CONTENT=d.content;save(KEY.content,CONTENT);}applyContent();persistAuth();persistContent();renderPane();render();toast('Respaldo restaurado');}catch(err){toast('Archivo inválido',true);}};
         rd.readAsText(f);
