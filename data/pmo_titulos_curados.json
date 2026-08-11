@@ -302,6 +302,24 @@
    "antes": "Centellograma de tiroides 17",
    "capitulo": "26",
    "motivo": "número de página"
+  },
+  "110215": {
+   "nombre": "escisión local de lesión de cuello, electrocoagulación o cauterización química, biopsia de cuello",
+   "antes": "local de lesión de cuello, electrocoagulación o cauterización química, biopsia de cuello",
+   "capitulo": "11",
+   "motivo": "confirmado contra el Nomenclador Único y el Nacional"
+  },
+  "110305": {
+   "nombre": "colporrafia posterior con reconstrucción del esfínter del ano",
+   "antes": "colporrafia posterior con reconstrucción del esfínter del",
+   "capitulo": "11",
+   "motivo": "confirmado contra el Nomenclador Único y el Nacional"
+  },
+  "020106": {
+   "nombre": "enucleación o evisceración del globo ocular con o sin implante",
+   "antes": "plástica de la órbita con o sin injerto de piel enucleación o evisceración del globo ocular",
+   "capitulo": "02",
+   "motivo": "confirmado contra el Nomenclador Único y el Nacional"
   }
  }
 }

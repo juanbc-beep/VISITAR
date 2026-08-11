@@ -251,12 +251,28 @@ es la exposición va en el paso de la carga y en la auditoría.
 ### 3.5 Lo que este cotejo dejó ver y NO se tocó
 
 `data/pmo_titulos_a_revisar.json` — **159 denominaciones** del PMO donde la base y
-el renglón impreso no coinciden, con las dos versiones al lado. Varias son
-**corrimientos de un renglón**: probado, `020106` tiene en la base el nombre de
-`020105` y el suyo está en `020107`. Es peligroso en un manual de auditoría, pero
-aplicar 159 cambios a ciegas puede romper los que hoy están bien: hay que ir por
-capítulo mostrándole los cambios al usuario, como se hizo con las normas del NBU.
-Por capítulo: 12 (23 casos), 03 (17), 11 (16), 26 (14), 08 y 10 (13).
+el renglón impreso no coinciden, con las dos versiones al lado. Se van revisando
+por capítulo y las corregidas quedan en `data/pmo_titulos_curados.json` (62 hasta
+ahora: capítulos 34, 12, 03 y la pasada mecánica).
+
+⚠️ **No son 159 defectos, y el renglón impreso solo no alcanza para decidir.** Dos
+correcciones al criterio con el que se armó esta lista:
+
+- En buena parte de los casos **la base es MÁS completa** que el renglón: el
+  nombre sigue en otra columna y el lector lo corta. En el capítulo 03, de 17
+  casos sólo 6 eran defectos.
+- **El método bueno es cruzar tres fuentes**: la base, la planilla del
+  Nomenclador Único y el OCR del Nacional (`data/nn_values.json`). Con eso se
+  resolvió el capítulo 11, donde el PDF parecía mostrar un corrimiento de once
+  códigos y **no lo había**: el nombre de `110211` se derrama sobre el renglón del
+  `110212` y el lector asigna todo al código anterior. El Único y el Nacional
+  coinciden con la base.
+
+⚠️ **Corrección de un dato que estuvo escrito acá:** se afirmó que `020106` tenía
+el nombre de `020105` y que el corrimiento seguía en `020107` y `020108`. Con las
+tres fuentes: **sólo `020106` estaba mal** —arrancaba con un pedazo del nombre
+anterior pegado— y `020107` y `020108` siempre estuvieron bien. No era un
+corrimiento, era un fragmento pegado adelante. Ya está corregido.
 
 ### 3.1 ⚠️ Patrón «dato curado con prioridad» (importante)
 
