@@ -1,7 +1,7 @@
 # TRASPASO DE SESIÓN — Manual Inteligente Unificado (VISITAR SRL)
 
 > Documento para retomar el trabajo en una sesión nueva sobre **la misma app**.
-> Última actualización: 2026-08-05 (commit `f66b55e`, 99 commits).
+> Última actualización: 2026-08-11 (commit `f6bf67c`, 126 commits).
 >
 > **Lo más importante que cambió desde el traspaso anterior:** la app dejó de ser un
 > archivo que cada uno guarda en su computadora y pasó a ser una **aplicación de empresa
@@ -74,9 +74,9 @@ que tiene al afiliado enfrente? Si sólo sirve para auditar facturación, es sec
 
 | Dataset | Cantidad |
 |---|---|
-| **Códigos totales** | **6.346** |
+| **Códigos totales** | **6.372** |
 | — NBU (laboratorio/bioquímica) | 1.815 |
-| — PMO / Prestaciones médicas | 1.221 |
+| — PMO / Prestaciones médicas | 1.247 (26 altas del capítulo 34, ver 3.4) |
 | — Nomenclador Único (VISITAR) | 3.231 |
 | — Odontología | 79 (**oculto en la app**, ver 6.12) |
 | **CIE-10** (diagnósticos) | **11.581** en 21 capítulos |
@@ -100,7 +100,9 @@ que tiene al afiliado enfrente? Si sólo sirve para auditar facturación, es sec
 | Único **sin equivalencia** (agrupados aparte) | 79 |
 | Marcador del Único separado del título | 1.724 |
 | Laboratorio del Único **emparejado con el NBU** (uno a uno) | 1.694 |
-| **Marcas de calidad** | 84 `titulo_revisar` · 139 `texto_truncado` · 1 `sin_denominacion` |
+| **Marcas de calidad** | 99 `titulo_revisar` · 139 `texto_truncado` · 1 `sin_denominacion` |
+| Capítulo 34 con **alcance del Nacional** (qué abarca el código) | 96 |
+| Pares **práctica / exposición subsiguiente** | 10 |
 
 ---
 
@@ -137,7 +139,7 @@ pipeline.
 
 ### Cómo se compila la base
 1. **Parsers** (`scripts/parse_*.py`) → JSON intermedios en `data/`.
-2. **`scripts/assemble.py`** → une todo en `nbu_db.json` (6.346 códigos + datasets).
+2. **`scripts/assemble.py`** → une todo en `nbu_db.json` (6.372 códigos + datasets).
 3. **`scripts/inject_db.py`** → comprime la DB con gzip y la deja en `web/nbu_db.bin`.
    La app la busca al arrancar y la descomprime con `DecompressionStream('gzip')`.
 
@@ -194,6 +196,68 @@ Tres reglas que **no** se cruzan, y conviene no «arreglarlas»:
 
 Lo que vive en la **nube** (observaciones) no se resuelve acá sino en la app: ver 4.6.
 
+### 3.4 ⚠️ Capítulo 34 del PMO (radiología): tres defectos y su arreglo
+
+Los reportó el usuario uno atrás del otro y cada uno tenía una causa distinta.
+Documentado con detalle porque el mismo patrón puede estar en otros capítulos.
+
+**a) Nombres empezados por la mitad.** `clean_pmo_name()` le saca al nombre la
+palabra inicial cuando coincide con un título de sección del catálogo, porque el
+parser viejo los absorbía. Arregla «Radiología radioscopía simple» y **rompe**
+«radiología del cráneo, cara, senos paranasales o cavum», donde esa palabra es la
+práctica. No hay regla que distinga los dos casos: hay que mirar la fuente.
+`scripts/parse_pmo_titulos.py` la relee —palabras a la derecha del código, en su
+renglón y en los de continuación, cortando cuando el salto entre renglones supera
+el alto normal, si no se lleva puesto el anexo de cobertura— y las 21
+denominaciones corregidas quedan en `data/pmo_titulos_curados.json`.
+
+**b) Prestaciones que faltaban enteras.** El catálogo del PMO no imprime todas
+las del capítulo: 26, entre ellas **todas las exposiciones subsiguientes**,
+figuran sólo en el Nomenclador Nacional, con la leyenda «Texto retirado por el
+PMO». Se dan de alta desde `data/pmo_cap34_faltantes.json` con
+`scripts/altas_pmo_cap34.py`, y **cada ficha dice en la primera línea de auditoría
+que el PMO no la incluye**: esconderlas es peor (el agente concluye que el código
+no existe) y mostrarlas sin la aclaración también (las carga creyendo que tienen
+cobertura obligatoria). El alta resolvió además 8 equivalencias del Único que
+apuntaban a un código inexistente.
+
+**c) El alcance del código, que no llegaba nunca.** El Nacional imprime al lado
+de cada práctica qué abarca —«primera exposición», «tres posiciones,
+comparativas», «mínimo 3 placas por estudio»— en el mismo renglón que el PMO
+retiró. `scripts/alcance_cap34.py` lo rescata para 96 códigos y lo muestra en una
+sección propia. **El OCR de esas páginas está dañado**: el texto se limpia de los
+errores que se repiten y se muestra siempre marcado como transcripción a
+confirmar, con el original guardado al lado.
+
+⚠️ **La regla del nomenclador, relevada por el usuario** (vale para todo el
+capítulo, no sólo para lo que ya está cargado):
+
+> Si la exposición tiene **código propio**, ese código se carga **aparte**. Si las
+> posiciones **no** tienen código propio, son el **alcance** del código puntual.
+
+Una «Rx de tórax frente y perfil» se carga con `340301` **más** `340302`. En
+cambio `340204` no tiene código de exposición siguiente: su propio texto dice que
+abarca «tres posiciones, comparativas». Los 10 pares llevan el aviso como **paso
+de la carga**, no escondido entre las normas. Estuvo mal una versión: se cargó
+`340302` como «incluido en» `340301`, que dice lo contrario —si estuviera
+incluido no habría que cargarlo— y lleva a facturar de menos.
+
+⚠️ **Los nombres no se componen.** Se probó llamar al `340210` «radiología de
+raquis (columna) — por exposición subsiguiente» para distinguirlos en un listado y
+el usuario lo rechazó con razón: el `340210` **no es** la radiografía de raquis,
+es un código propio. Cada código se llama como lo llama la fuente; de qué práctica
+es la exposición va en el paso de la carga y en la auditoría.
+
+### 3.5 Lo que este cotejo dejó ver y NO se tocó
+
+`data/pmo_titulos_a_revisar.json` — **159 denominaciones** del PMO donde la base y
+el renglón impreso no coinciden, con las dos versiones al lado. Varias son
+**corrimientos de un renglón**: probado, `020106` tiene en la base el nombre de
+`020105` y el suyo está en `020107`. Es peligroso en un manual de auditoría, pero
+aplicar 159 cambios a ciegas puede romper los que hoy están bien: hay que ir por
+capítulo mostrándole los cambios al usuario, como se hizo con las normas del NBU.
+Por capítulo: 12 (23 casos), 03 (17), 11 (16), 26 (14), 08 y 10 (13).
+
 ### 3.1 ⚠️ Patrón «dato curado con prioridad» (importante)
 
 Hay conocimiento que **sólo tiene el usuario** y que ninguna fuente resuelve. Ese dato
@@ -231,8 +295,10 @@ Si el scratchpad está vacío, hay que regenerar los intermedios corriendo los p
 `parse_catalog.py`, `parse_intel.py`, `parse_pmo.py`, `parse_pmo_cobertura.py`,
 `parse_nn.py`, `parse_odo.py`, `ocr_nn.py`, `parse_unico.py`, `parse_unico_lab.py`,
 `parse_cie10.py`, `parse_cie10_detalle.py`, `parse_cie10_tabular.py`,
-`cie10_relaciones.py`, `parse_abreviaturas.py`, `parse_surge.py`, `parse_nbu_normas.py`.
-Y dos que no son parsers: `propagar_al_unico.py` (punto 3.0) y `sellar_csp.py`.
+`cie10_relaciones.py`, `parse_abreviaturas.py`, `parse_surge.py`, `parse_nbu_normas.py`,
+`parse_pmo_titulos.py` (punto 3.4).
+Y los que no son parsers: `propagar_al_unico.py` (3.0), `altas_pmo_cap34.py` y
+`alcance_cap34.py` (3.4), `inject_db.py` (3.0 bis) y `sellar_csp.py`.
 
 ### Testing
 No hay framework. Se valida con **Playwright** (Node) desde el scratchpad:
@@ -410,12 +476,69 @@ solapa mirar.
 La versión nueva **se aplica sola al abrir** si nadie tocó nada todavía; si la app está en
 uso, aparece el cartel y decide la persona. Una sola recarga automática por pestaña.
 
+⚠️ Al aplicarse, `actualizando()` muestra un cartel a pantalla completa —«Actualizando el
+manual… no perdés nada de lo que estabas haciendo»— y **espera 450 ms antes de recargar**.
+Sin esa pausa la propia recarga lo pisa y el aviso no cumple ninguna función. Antes de esto
+la app se reiniciaba sola y sin decir nada, y el administrativo no sabía por qué.
+
 ### 4.5 Recorrido guiado (onboarding)
 `pasosTour()` — **20 pasos** para el administrativo, **23** para el administrador (suma
 Pendientes, Modo edición y Administración). Es un **spotlight**: recorta el elemento real
 con `box-shadow: 0 0 0 9999px` y ubica el globo al lado. Varios pasos tienen `antes:` que
 prepara la pantalla (abre el rail, abre una ficha, carga un caso en la Mesa de trabajo).
 Se puede volver a ver desde **Glosario y leyes → Ver tutorial de uso**.
+
+### 4.6 Observaciones del administrador — una sola por práctica
+
+El administrador deja una observación en la ficha; se ve **debajo del código en el listado**
+(`.robs`, sin abrir nada) y arriba de todo en la ficha, y a los administrativos les suena una
+campanita hasta que la marcan como vista (`perfiles.obs_vistas`).
+
+⚠️ La observación es **de la práctica, no del código**. La misma práctica está en más de un
+nomenclador —el laboratorio del Único es el NBU con otro número, y sus prestaciones médicas
+son las del PMO—, así que en `web/index.html` hay un índice `EQGRUPO` que agrupa todos los
+códigos equivalentes. Se arma con **las dos puntas** de la equivalencia (la del Único hacia
+el otro nomenclador y la del otro hacia el Único), porque hay prácticas del PMO con más de
+un equivalente en el Único y la observación tiene que llegar a todas. Entonces:
+
+- `obsDe(code)` busca por el código pedido y, si no hay, **por el gemelo**;
+- `claveObs(code)` la guarda siempre en el mismo código del grupo —nunca en el del Único
+  si hay otro—, y al guardar **borra las de los demás** si quedaba alguna vieja: si sobrevivieran las dos, la ficha del Único seguiría
+  mostrando la vieja y no habría forma de darse cuenta;
+- la ficha avisa «Se ve también en el código X»: sin eso, alguien la escribe de nuevo del
+  otro lado creyendo que falta.
+
+Esto vale para las observaciones —contenido de la nube—. **Las verificaciones no se
+comparten**: contrastan los valores de una ficha contra su fuente, y la fuente del Único (la
+planilla de VISITAR) no es la del NBU.
+
+### 4.7 Respaldo y restauración ⚠️ el plan de Supabase es gratuito: NO hay respaldos automáticos
+
+Verificado con el usuario: en **Database → Backups** le ofrece contratar el plan. O sea
+que **el archivo que baja el administrador es la única copia que existe** del trabajo del
+equipo. Eso manda sobre todo lo demás de esta pantalla.
+
+- **⬇ Descargar respaldo** — lleva `content` completo (fichas corregidas, verificaciones,
+  propuestas, observaciones, favoritos del equipo, textos). **No lleva las cuentas**: viven
+  en Supabase y las contraseñas no están al alcance de la app. El nombre incluye la fecha.
+  Cada descarga deja anotado el día en `ajustes.contenido.equipo.respaldo`, y la pestaña
+  avisa en rojo si nadie bajó ninguna o si la última tiene más de 30 días.
+- **⬇ Exportar correcciones para la base** — es otra cosa: el JSON curado para
+  `data/correcciones_curadas.json` del repositorio (ver 3.1).
+- **Restaurar** — **escribe en la base**, en dos tiempos: `difRestaurar()` compara el
+  archivo contra lo que hay y `previaRestaurar()` muestra qué cambiaría (cuántas vuelven,
+  cuántas se agregan, cuántas **se borrarían** por no figurar en el respaldo, con los
+  códigos a la vista). Recién con la confirmación, `aplicarRestaurar()` manda los cambios y
+  vuelve a leer la base entera —lo que vale es lo que quedó del otro lado, no lo que
+  mandamos—. **No toca** cuentas, verificaciones ni propuestas: las dos últimas son pedidos
+  en curso, conversaciones abiertas, no contenido. Probado: se pisa una ficha, se borra
+  otra, se agrega una tercera, se restaura, y la base queda como el respaldo con la
+  verificación y la propuesta intactas; aplicarlo dos veces dice «no hay nada que
+  restaurar».
+
+⚠️ Antes de esto, «Restaurar» **no restauraba nada**: escribía sólo en el navegador y a la
+primera recarga volvía todo. Si aparece algo parecido en otra pantalla, medirlo así —
+cambiar, recargar, mirar.
 
 ### 4.8 Lo que el equipo comparte, y por dónde
 
@@ -452,58 +575,6 @@ antes del texto —«sin confirmar», «no es norma»—, recuadro punteado y co
 gestión. La regla es que lo no confirmado **nunca** se vea igual que lo
 confirmado: si tuviera el mismo peso, alguien cargaría con eso creyendo que es
 norma. No aparecen en el listado de resultados, sólo dentro de la ficha.
-
-### 4.7 Respaldo y restauración ⚠️ el plan de Supabase es gratuito: NO hay respaldos automáticos
-
-Verificado con el usuario: en **Database → Backups** le ofrece contratar el plan. O sea
-que **el archivo que baja el administrador es la única copia que existe** del trabajo del
-equipo. Eso manda sobre todo lo demás de esta pantalla.
-
-- **⬇ Descargar respaldo** — lleva `content` completo (fichas corregidas, verificaciones,
-  propuestas, observaciones, favoritos del equipo, textos). **No lleva las cuentas**: viven
-  en Supabase y las contraseñas no están al alcance de la app. El nombre incluye la fecha.
-  Cada descarga deja anotado el día en `ajustes.contenido.equipo.respaldo`, y la pestaña
-  avisa en rojo si nadie bajó ninguna o si la última tiene más de 30 días.
-- **⬇ Exportar correcciones para la base** — es otra cosa: el JSON curado para
-  `data/correcciones_curadas.json` del repositorio (ver 3.1).
-- **Restaurar** — **escribe en la base**, en dos tiempos: `difRestaurar()` compara el
-  archivo contra lo que hay y `previaRestaurar()` muestra qué cambiaría (cuántas vuelven,
-  cuántas se agregan, cuántas **se borrarían** por no figurar en el respaldo, con los
-  códigos a la vista). Recién con la confirmación, `aplicarRestaurar()` manda los cambios y
-  vuelve a leer la base entera —lo que vale es lo que quedó del otro lado, no lo que
-  mandamos—. **No toca** cuentas, verificaciones ni propuestas: las dos últimas son pedidos
-  en curso, conversaciones abiertas, no contenido. Probado: se pisa una ficha, se borra
-  otra, se agrega una tercera, se restaura, y la base queda como el respaldo con la
-  verificación y la propuesta intactas; aplicarlo dos veces dice «no hay nada que
-  restaurar».
-
-⚠️ Antes de esto, «Restaurar» **no restauraba nada**: escribía sólo en el navegador y a la
-primera recarga volvía todo. Si aparece algo parecido en otra pantalla, medirlo así —
-cambiar, recargar, mirar.
-
-### 4.6 Observaciones del administrador — una sola por práctica
-
-El administrador deja una observación en la ficha; se ve **debajo del código en el listado**
-(`.robs`, sin abrir nada) y arriba de todo en la ficha, y a los administrativos les suena una
-campanita hasta que la marcan como vista (`perfiles.obs_vistas`).
-
-⚠️ La observación es **de la práctica, no del código**. La misma práctica está en más de un
-nomenclador —el laboratorio del Único es el NBU con otro número, y sus prestaciones médicas
-son las del PMO—, así que en `web/index.html` hay un índice `EQGRUPO` que agrupa todos los
-códigos equivalentes. Se arma con **las dos puntas** de la equivalencia (la del Único hacia
-el otro nomenclador y la del otro hacia el Único), porque hay prácticas del PMO con más de
-un equivalente en el Único y la observación tiene que llegar a todas. Entonces:
-
-- `obsDe(code)` busca por el código pedido y, si no hay, **por el gemelo**;
-- `claveObs(code)` la guarda siempre en el mismo código del grupo —nunca en el del Único
-  si hay otro—, y al guardar **borra las de los demás** si quedaba alguna vieja: si sobrevivieran las dos, la ficha del Único seguiría
-  mostrando la vieja y no habría forma de darse cuenta;
-- la ficha avisa «Se ve también en el código X»: sin eso, alguien la escribe de nuevo del
-  otro lado creyendo que falta.
-
-Esto vale para las observaciones —contenido de la nube—. **Las verificaciones no se
-comparten**: contrastan los valores de una ficha contra su fuente, y la fuente del Único (la
-planilla de VISITAR) no es la del NBU.
 
 ### Vistas
 **Listado** (filtros por sección/grupo/reglas, favoritos, CSV/PDF) · **Árbol de módulos**
@@ -588,7 +659,25 @@ Funciones: `initValidator()`, `runCase()`, `renderCase()`, `renderFacturacion()`
 
 ---
 
-## 7. Historial de trabajo (99 commits)
+## 7. Historial de trabajo (126 commits)
+
+**Lo hecho en esta última tanda (2026-08-10 y 11)** — el detalle está en los mensajes de
+cada commit, que explican el porqué y no sólo el qué:
+
+- El **Único hereda todo lo que muestra el NBU** (3.0): siglas, sinónimos, tipo de muestra,
+  sección de origen. 1.694 fichas.
+- **Logo sobre blanco en tema oscuro**, con el rectángulo del ancho de los campos en la
+  pantalla de ingreso.
+- **Respaldo**: «Restaurar» no restauraba nada con la nube encendida; ahora escribe en la
+  base mostrando antes qué cambiaría, y avisa si hace más de 30 días que nadie baja copia
+  (ver 4.7 — el plan de Supabase es el gratuito y **no hay respaldos automáticos**).
+- **La base viaja aparte** del `index.html` (3.0 bis).
+- **Pasar una ficha o un caso a un compañero**, y **compartir la nota propia** con el equipo.
+- **«Qué pasó desde la última vez»**, **propuestas visibles marcadas «sin confirmar»** y
+  **registro del equipo** (4.8).
+- **Capítulo 34 del PMO**: denominaciones, altas y alcance (3.4).
+- **Cartel «Actualizando el manual»**: antes se reiniciaba sola y sin decir nada.
+- **La observación llega a todos los códigos equivalentes** (4.6), no sólo al gemelo del NBU.
 
 **Base y nomencladores**
 1. Catálogo NBU (PMO + Prácticas Especiales) e inteligencia (sinonimias, abreviaturas,
@@ -703,10 +792,23 @@ Funciones: `initValidator()`, `runCase()`, `renderCase()`, `renderFacturacion()`
 
 ### ⚠️ Lo primero que hay que preguntar al retomar
 
-El usuario recibió una lista de mejoras y **todavía no eligió**. Sus dos prioridades
-recomendadas fueron: **relaciones diagnóstico → práctica** (sólo 45 de 11.581 códigos las
-tienen; es la consulta más frecuente en el mostrador) y **poner este HANDOFF al día**
-(hecho). Antes de arrancar cualquier cosa, preguntar por dónde quiere seguir.
+Lo último que se estuvo trabajando es el **Nomenclador de Prestaciones Médicas**, capítulo
+por capítulo, con el usuario reportando y midiendo contra la fuente (ver 3.4 y 3.5). El
+siguiente paso natural es **la lista de 159 denominaciones a revisar** (3.5), de a un
+capítulo y mostrándole los cambios antes de aplicarlos.
+
+Dos propuestas suyas quedaron abiertas y él las nombró:
+
+- **Cobertura**: hoy 6.231 de 6.372 fichas dicen «COBERTURA: Sin dato» —el 98%— y es la
+  primera pregunta del mostrador. El usuario **frenó esto a propósito**: «aún no tengo un
+  Excel donde indique esto si tiene cobertura, esto no». **No inventar nada acá**; esperar
+  la fuente.
+- **Relaciones diagnóstico → práctica**: sólo 45 de 11.581 CIE-10 las tienen. Es la
+  consulta más frecuente en el mostrador y sigue siendo la mejora de datos más grande.
+
+Y una que quedó a mitad de camino: en la Mesa de trabajo, **avisar cuando se carga una
+radiografía sola y la orden pedía dos posiciones**. Necesita saber si la cantidad de
+posiciones llega en el texto de la solicitud; se le preguntó y no contestó todavía.
 
 ### Pendientes concretos, con dueño
 
@@ -718,6 +820,10 @@ tienen; es la consulta más frecuente en el mostrador) y **poner este HANDOFF al
 | **Cerrar las altas** cuando el equipo esté completo, subir el mínimo de contraseña | del usuario |
 | **Las 119 prácticas «fuera del PMO»** que están en nuestra sección PMO | criterio del usuario |
 | **Las 113 prácticas del Excel** que no están en la base (comparación de julio) | decisión conjunta |
+| **159 denominaciones del PMO a cotejar** con el renglón impreso (3.5) | de a un capítulo, con su visto |
+| **17 títulos del capítulo 34 «a confirmar»** y 2 ilegibles (`340803`, `340813`) | del usuario, o de otra planilla |
+| **Redacción del aviso «sin confirmar»** en las propuestas visibles al equipo | del usuario (se publicó una versión y ofreció cambiarla) |
+| **Volver la base adentro del `index.html`** si prefiere el archivo único (3.0 bis) | del usuario |
 
 ### Propuesto y NO construido (por orden de utilidad para el usuario de carga)
 - **Editar una propuesta antes de publicarla** (hoy se publica el texto tal cual).
@@ -784,6 +890,19 @@ tienen; es la consulta más frecuente en el mostrador) y **poner este HANDOFF al
 ## 9. Errores conocidos ya resueltos (no repetir)
 
 ### Datos y pipeline
+- **Una limpieza que rompe otra cosa.** `clean_pmo_name()` le sacaba «Radiología» al arranque
+  del nombre: arregla los títulos de sección que se colaron y rompe las prácticas que se
+  llaman así. Antes de generalizar una limpieza por lista de palabras, mirar contra qué
+  fuente se está limpiando (3.4).
+- **Un nombre que no está no es lo mismo que un nombre truncado.** Las exposiciones
+  subsiguientes del capítulo 34 no estaban mal escritas: faltaban, porque el catálogo del
+  PMO no las imprime. Cuando el usuario dice «faltan», medir si están antes de arreglar
+  cómo se ven.
+- **No componer denominaciones.** Se probó llamar al `340210` «radiología de raquis
+  (columna) — por exposición subsiguiente» y está mal: es un código propio, no una variante.
+- **`incluido_en` dice lo contrario de «se carga además».** Usar esa relación para el par
+  práctica/exposición llevaba a facturar de menos.
+
 | Problema | Solución aplicada |
 |---|---|
 | Título del Único con la **observación pegada** (`60660902`, `60660833`) | Los parsers separan **nombre / marcador / observación** en campos propios. La ficha los muestra por separado |
