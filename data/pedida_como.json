@@ -1,0 +1,207 @@
+{
+ "_nota": "Cómo puede venir escrita una práctica en la orden médica. Sale del Excel de laboratorio de VISITAR: prácticas que parecían faltar y en realidad ya estaban en el manual con otra redacción. El usuario revisó las 113 una por una y marcó cuáles son la misma práctica. No cambia la denominación oficial: se suma como nombre alternativo, y por ese nombre también se encuentra buscando.",
+ "fuente": "Excel de laboratorio de VISITAR, revisado por auditoría (agosto 2026)",
+ "codigos": {
+  "661045": {
+   "pedida_como": [
+    "CKMB",
+    "C.P.K. MB"
+   ],
+   "nota": null
+  },
+  "664623": {
+   "pedida_como": [
+    "ANTICUERPOS ANTI ENA (SSA SSB SM RNP)"
+   ],
+   "nota": null
+  },
+  "666898": {
+   "pedida_como": [
+    "ANTICUERPO ANTI N LIKE"
+   ],
+   "nota": null
+  },
+  "668999": {
+   "pedida_como": [
+    "ANTICUERPOS ANTI SCL 70",
+    "ANTI SCL 70"
+   ],
+   "nota": null
+  },
+  "669742": {
+   "pedida_como": [
+    "ANTICUERPOS TSH"
+   ],
+   "nota": null
+  },
+  "661135": {
+   "pedida_como": [
+    "DIFENIL HICLANTOINA",
+    "PRIMIDONA",
+    "ETOSUXIMIDA",
+    "VALPROATO"
+   ],
+   "nota": null
+  },
+  "669588": {
+   "pedida_como": [
+    "TOXO IGM-IFI"
+   ],
+   "nota": null
+  },
+  "U64666922": {
+   "pedida_como": [
+    "ANTIC.ANTI JO-I"
+   ],
+   "nota": null
+  },
+  "663239": {
+   "pedida_como": [
+    "CA 21-1/72-4 C/U"
+   ],
+   "nota": "En el Excel de la empresa estas dos prácticas figuran juntas bajo un solo renglón, «CA 21-1/72-4 C/U», pero son dos códigos distintos y cada uno se carga por separado."
+  },
+  "663247": {
+   "pedida_como": [
+    "CA 21-1/72-4 C/U"
+   ],
+   "nota": "En el Excel de la empresa estas dos prácticas figuran juntas bajo un solo renglón, «CA 21-1/72-4 C/U», pero son dos códigos distintos y cada uno se carga por separado."
+  },
+  "666589": {
+   "pedida_como": [
+    "IgA SECRETORIA- ID"
+   ],
+   "nota": null
+  },
+  "667597": {
+   "pedida_como": [
+    "MOFEG-E",
+    "M.O.P.E.G."
+   ],
+   "nota": null
+  },
+  "661065": {
+   "pedida_como": [
+    "FRUCTOSAMINA-PROT. SERICA GLICOSILADA"
+   ],
+   "nota": null
+  },
+  "661136": {
+   "pedida_como": [
+    "NITRAZEPAN",
+    "DIAZEPAN"
+   ],
+   "nota": null
+  },
+  "661100": {
+   "pedida_como": [
+    "HIDATIDOSIS DOBLE DIFUSO DDS ID ARCO 5"
+   ],
+   "nota": null
+  },
+  "666585": {
+   "pedida_como": [
+    "IGA SECRECION (SALIVA Y LAGRIMAS)"
+   ],
+   "nota": null
+  },
+  "661125": {
+   "pedida_como": [
+    "MARCADOR PARA TUBO DIGESTIVO CA 19-9"
+   ],
+   "nota": null
+  },
+  "662717": {
+   "pedida_como": [
+    "NEISSERIA MENINGITIDIS AC-FC"
+   ],
+   "nota": null
+  },
+  "661110": {
+   "pedida_como": [
+    "HIV 1 SIDA WERTERN BLOT TEST:IB"
+   ],
+   "nota": null
+  },
+  "665632": {
+   "pedida_como": [
+    "PROTEINA TRANSP. DE ESTEROIDES (SHBG)",
+    "G.L.A.E. (S.H.B.G.)"
+   ],
+   "nota": null
+  },
+  "669110": {
+   "pedida_como": [
+    "ANTI SM",
+    "ANTIC.ANTI SM"
+   ],
+   "nota": null
+  },
+  "661011": {
+   "pedida_como": [
+    "CD 4(IFDM)"
+   ],
+   "nota": null
+  },
+  "661015": {
+   "pedida_como": [
+    "CD 8"
+   ],
+   "nota": null
+  },
+  "665896": {
+   "pedida_como": [
+    "ANTICUERPO ANTI E (ANTI HBC)"
+   ],
+   "nota": null
+  },
+  "666930": {
+   "pedida_como": [
+    "ANTIC. ANTI LA"
+   ],
+   "nota": null
+  },
+  "660749": {
+   "pedida_como": [
+    "PLOMBEMIA"
+   ],
+   "nota": null
+  },
+  "663512": {
+   "pedida_como": [
+    "CD 3"
+   ],
+   "nota": null
+  },
+  "667486": {
+   "pedida_como": [
+    "DOSAJE DE METHOTREXATE"
+   ],
+   "nota": null
+  },
+  "661180": {
+   "pedida_como": [
+    "PHADIRECT-ESTREPT BETA RAPIDO"
+   ],
+   "nota": null
+  },
+  "663025": {
+   "pedida_como": [
+    "BETA CROSSLAPS/SUERO"
+   ],
+   "nota": null
+  },
+  "666264": {
+   "pedida_como": [
+    "HIV DNA CUALITATIVO PCR"
+   ],
+   "nota": null
+  },
+  "661160": {
+   "pedida_como": [
+    "TORCH"
+   ],
+   "nota": null
+  }
+ }
+}
