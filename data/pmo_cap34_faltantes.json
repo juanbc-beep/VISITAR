@@ -1,0 +1,206 @@
+{
+ "_nota": "Códigos del capítulo 34 que están en el Nomenclador Nacional y NO en el Catálogo de Prestaciones del PMO. El Nacional los imprime con la leyenda «Texto retirado por el PMO»: existen como prestación pero el PMO no los incluyó. Faltaban por completo en la base, entre ellos todas las exposiciones subsiguientes de radiología. La denominación se transcribe del OCR del Nacional (data/nn_values.json) y, donde el Único trae la misma prestación, se contrasta contra su planilla. Las que dependen de una sola fuente dañada quedan marcadas «denominación a confirmar» para que se corrijan desde la ficha.",
+ "fuente": "Nomenclador Nacional de Prestaciones Médicas (OCR, data/nn_values.json) + planilla del Nomenclador Único",
+ "codigos": {
+  "340202": {
+   "nombre": "radiología del cráneo, cara, senos paranasales o cavum — por exposición subsiguiente",
+   "titulo_revisar": false,
+   "ocr": "exto refirado pore PMOPor exposicion subsigufente.B",
+   "unico": "Por exposición subsiguiente.B",
+   "pagina_nn": 49,
+   "sigue_a": "340201",
+   "nombre_practica": "radiología del cráneo, cara, senos paranasales o cavum"
+  },
+  "340206": {
+   "nombre": "ortopantomografía (panorámica de cara o cráneo) — por exposición subsiguiente",
+   "titulo_revisar": false,
+   "ocr": "extoretirado porelPMOPorexposicion subsigufente.",
+   "unico": "Por exposición subsiguiente.I",
+   "pagina_nn": 49,
+   "sigue_a": "340205",
+   "nombre_practica": "ortopantomografía (panorámica de cara o cráneo)"
+  },
+  "340208": {
+   "nombre": "telerradiografía de cráneo y/o perfil facial — por exposición subsiguiente",
+   "titulo_revisar": false,
+   "ocr": "exto retirado porel PMOPor exposicion subsigufente.G",
+   "unico": "Por exposición subsiguiente.G",
+   "pagina_nn": 49,
+   "sigue_a": "340207",
+   "nombre_practica": "telerradiografía de cráneo y/o perfil facial"
+  },
+  "340210": {
+   "nombre": "radiología de raquis (columna) — por exposición subsiguiente",
+   "titulo_revisar": false,
+   "ocr": "extorefrado pore PMPor exposicion subsiguiente.B",
+   "unico": "Por exposición subsiguiente.B",
+   "pagina_nn": 49,
+   "sigue_a": "340209",
+   "nombre_practica": "radiología de raquis (columna)"
+  },
+  "340212": {
+   "nombre": "por exposición subsiguiente",
+   "titulo_revisar": false,
+   "ocr": "extorefrado porePMOPor exposicion subsiguiente.A",
+   "unico": "Por exposición subsiguiente.A",
+   "pagina_nn": 49,
+   "sigue_a": "340211"
+  },
+  "340217": {
+   "nombre": "artrografía — por exposición subsiguiente",
+   "titulo_revisar": false,
+   "ocr": "exto refrado pore PMOPor exposicion subsiguiente.A",
+   "unico": null,
+   "pagina_nn": 49,
+   "sigue_a": "340216",
+   "nombre_practica": "artrografía"
+  },
+  "340302": {
+   "nombre": "Radiología tórax — por exposición subsiguiente",
+   "titulo_revisar": false,
+   "ocr": "SALUD ENESTACONDICION. exto retirado pot el PMOPor exposicion subsigufente.A",
+   "unico": "Por exposición subsiguiente.A",
+   "pagina_nn": 50,
+   "sigue_a": "340301",
+   "nombre_practica": "Radiología tórax"
+  },
+  "340422": {
+   "nombre": "radiología simple de abdomen — por exposición subsiguiente",
+   "titulo_revisar": false,
+   "ocr": "P.M.O.DE PRACTICAS ESPECIALIZADASCON NOMENCLADOR NACIONAL extorefrado potelPMOPor exposicion susigufente.A",
+   "unico": "Por exposición subsiguiente. A*",
+   "pagina_nn": 52,
+   "sigue_a": "340421",
+   "nombre_practica": "radiología simple de abdomen"
+  },
+  "340506": {
+   "nombre": "pielografía ascendente — por exposición subsiguiente",
+   "titulo_revisar": false,
+   "ocr": "PIELOGRAFIAASCENDENTE. extoretrado pore PMOPorexposicion subsiguiente.B",
+   "unico": "Por exposición subsiguiente. B",
+   "pagina_nn": 52,
+   "sigue_a": "340505",
+   "nombre_practica": "pielografía ascendente"
+  },
+  "340218": {
+   "nombre": "una placa (apical)",
+   "titulo_revisar": true,
+   "ocr": "P.M.O.DE PRACTICAS ESPECIALIZADASCON NOMENCLADOR NACIONAL extrefrado pore PMOUna placa(apical）.A",
+   "unico": null,
+   "pagina_nn": 50
+  },
+  "340219": {
+   "nombre": "una placa (oclusal)",
+   "titulo_revisar": true,
+   "ocr": "exoreirado pore PMOUna placa ocusalj.A",
+   "unico": null,
+   "pagina_nn": 50
+  },
+  "340220": {
+   "nombre": "semiseriada hasta 7 (siete) placas",
+   "titulo_revisar": true,
+   "ocr": "Teto rerado por el PMO Semiseriada hasta 7 (siete)placas.A",
+   "unico": null,
+   "pagina_nn": 50
+  },
+  "340221": {
+   "nombre": "seriada de 7 (siete) a 14 (catorce) placas",
+   "titulo_revisar": true,
+   "ocr": "Textorefiradopor e PMO Seriada de7(siete)a14(catorce)placas.A APARATORESPIRATORIO",
+   "unico": null,
+   "pagina_nn": 50
+  },
+  "340410": {
+   "nombre": "colon por enema y evacuado (mínimo 5 placas), por estudio",
+   "titulo_revisar": true,
+   "ocr": "exto retrado porePMO|Rx Colon por enema y evocuado. (minimo 5 placus) por estudio.C#",
+   "unico": null,
+   "pagina_nn": 51
+  },
+  "340417": {
+   "nombre": "colangiografía operatoria, por cada placa subsiguiente",
+   "titulo_revisar": true,
+   "ocr": "COLANGIOGRAFIAOPERATORIA. etoretrado pore PMOColangiografia operatorfa,por coda placa subsiguiente.A",
+   "unico": null,
+   "pagina_nn": 51,
+   "sigue_a": "340416"
+  },
+  "340608": {
+   "nombre": "radiografía del embarazo, directa de abdomen",
+   "titulo_revisar": true,
+   "ocr": "extorefrado pote PMORadiografia delembarazo,directa de abdomen.C",
+   "unico": null,
+   "pagina_nn": 53
+  },
+  "340617": {
+   "nombre": "esplenoportografía, por cada exposición subsiguiente y hasta 4 exposiciones",
+   "titulo_revisar": true,
+   "ocr": "exeirado or e PMo]Esplenoportografia por cadu exposicion subsiguientey hasta 4exposicio nes.B",
+   "unico": null,
+   "pagina_nn": 54
+  },
+  "340801": {
+   "nombre": "control radioscópico para colocación de marcapaso transitorio con electrodo endocavitario",
+   "titulo_revisar": true,
+   "ocr": "ANGIOCARDIORRADIOLOGIA Texlotetirado porel PMO]Control radioscopico para colocacion de marcopaso transitorio con elec- trodo endocavitario.D",
+   "unico": null,
+   "pagina_nn": 53
+  },
+  "340802": {
+   "nombre": "control radioscópico para colocación de marcapaso definitivo con electrodo endocavitario",
+   "titulo_revisar": true,
+   "ocr": "P.M.O.DE PRACTICAS ESPECIALIZADAS CON NOMENCLADOR NACIONAL extoretiradaporel PMoControl radioscopico para colocacion demarcapaso definitivo con electro doendocavitario.D",
+   "unico": null,
+   "pagina_nn": 54
+  },
+  "340809": {
+   "nombre": "aortografía por punción lumbar, por cada exposición subsiguiente y hasta 4 exposiciones",
+   "titulo_revisar": true,
+   "ocr": "extoreliato pore PMOAortografia por puncion lumbar,por cada exposicion subsiguienteyhasta 4exposiciones.B",
+   "unico": null,
+   "pagina_nn": 54
+  },
+  "340815": {
+   "nombre": "cavografía (por cada exposición subsiguiente y hasta 4 exposiciones)",
+   "titulo_revisar": true,
+   "ocr": "exto refirado pore PMO] Cavografia (por cada exposicion subsigufentey hasta4exposiciones).B",
+   "unico": null,
+   "pagina_nn": 54
+  },
+  "340819": {
+   "nombre": "flebografía selectiva de afluentes abdominales o torácicos de la vena cava, por exposición subsiguiente y hasta 4 exposiciones",
+   "titulo_revisar": true,
+   "ocr": "exlorefradoporePMO]Flebografia selectiva de affuentes abdominaleso toracico deldvena cava, por exposicion subsiguientey hasta 4exposiciones.D",
+   "unico": null,
+   "pagina_nn": 54
+  },
+  "340821": {
+   "nombre": "flebografía de miembro superior o inferior, por cada exposición subsiguiente y hasta 4 exposiciones",
+   "titulo_revisar": true,
+   "ocr": "extoreirado porel PMoFlebografia demiembro superior o inferior.Por cada exposicion subsi- guiente y hasta 4exposiciones.B",
+   "unico": null,
+   "pagina_nn": 55
+  },
+  "340906": {
+   "nombre": "radiografía en quirófano o habitación, exposiciones subsiguientes, cada una",
+   "titulo_revisar": true,
+   "ocr": "exreirado porel PMORadiografia en quiofano ohabitacion,exposicionessubsigufentes,cada LG.A",
+   "unico": null,
+   "pagina_nn": 55
+  },
+  "340909": {
+   "nombre": "radiografía a domicilio, en radio urbano, exposición subsiguiente, por cada una",
+   "titulo_revisar": true,
+   "ocr": "exdo refirado por el PMO Radiografia a domfcilio,en radio urbano,exposicion subsiguiente,par codaune.A",
+   "unico": null,
+   "pagina_nn": 55
+  },
+  "341003": {
+   "nombre": "T.A.C. cerebral de control",
+   "titulo_revisar": true,
+   "ocr": "exlo refirado por el PMO T.A.C.Cerebraldecontrol.1 extorefradoporelPMoLa tomografiaaxialreforzuda decontroles con o sit inyeccian de sustamcia de constraste.",
+   "unico": null,
+   "pagina_nn": 56
+  }
+ }
+}

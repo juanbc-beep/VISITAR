@@ -1687,6 +1687,11 @@ for _code, _v in (CORR.get("verificaciones") or {}).items():
 if verif_n:
     print(f"Fichas verificadas: {verif_n}", file=sys.stderr)
 
+# ---------- capítulo 34: lo que el PMO no imprime pero el Nacional sí ----------
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from altas_pmo_cap34 import altas as _altas_cap34
+_altas_cap34(records, log=sys.stderr)
+
 # ---------- capítulo 34 del PMO: denominaciones releídas del PDF ----------
 # La limpieza de títulos de sección (clean_pmo_name) le saca al nombre la palabra
 # con la que arranca cuando coincide con un encabezado del catálogo. Eso está bien
