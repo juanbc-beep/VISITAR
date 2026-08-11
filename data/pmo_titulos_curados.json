@@ -1,5 +1,5 @@
 {
- "_nota": "Denominaciones del capítulo 34 (Radiología / Diagnóstico por imágenes) del Catálogo de Prestaciones del PMO, releídas del renglón impreso en data/pmo.pdf con scripts/parse_pmo_titulos.py y contrastadas una por una contra ese renglón. Corrigen nombres que habían quedado empezados por la mitad porque la limpieza de títulos de sección se llevaba puesta la palabra «radiología», que en estos estudios es parte de la denominación.",
+ "_nota": "Denominaciones del Catálogo de Prestaciones del PMO releídas del renglón impreso en data/pmo.pdf con scripts/parse_pmo_titulos.py y contrastadas una por una contra ese renglón. Se corrigen tres cosas: nombres empezados por la mitad porque la limpieza de títulos de sección se llevaba puesta la primera palabra; palabras partidas por el corte de renglón que quedaron con el guión adentro; y basura pegada al final (números de página, el arranque del código siguiente). Cada capítulo se revisó con el usuario antes de aplicarlo.",
  "fuente": "Catálogo de Prestaciones del PMO — Res. 201/2002 S.S. Salud (data/pmo.pdf)",
  "codigos": {
   "340201": {
@@ -85,6 +85,61 @@
   "341010": {
    "nombre": "Tomografía Axial Computada torácica",
    "antes": "pancreática Tomografía Axial Computada torácica"
+  },
+  "120501": {
+   "nombre": "resección total de escápula, húmero, isquión, ilión",
+   "antes": "Reseccion total de huesos: Escápula, húmero isquion.ilion",
+   "capitulo": "12"
+  },
+  "120502": {
+   "nombre": "resección total de coxal fémur tibia húmero maxilar superior inferior",
+   "antes": "resección total de coxal fémur tibia húmero maxilar superior inferior resección total de cúbito radio peroné carpo",
+   "capitulo": "12"
+  },
+  "120304": {
+   "nombre": "reducción osteosíntesis esternón costilla clavícula escápula rótula",
+   "antes": "reducción osteosíntesis esternón costilla clavícula es- cápula rótula",
+   "capitulo": "12"
+  },
+  "121003": {
+   "nombre": "artoplastia hombro codo muñeca cuello de pie témporomandibular",
+   "antes": "artoplastia hombro codo muñeca cuello de pie témporo- mandibular",
+   "capitulo": "12"
+  },
+  "121204": {
+   "nombre": "escisión o incisión biopsia drenaje o extracción de depósitos",
+   "antes": "escisión o incisión biopsia drenaje o extracción de de- pósitos",
+   "capitulo": "12"
+  },
+  "121718": {
+   "nombre": "tratamiento quirúrgico de la luxación traumática inveterada de cadera",
+   "antes": "tratamiento quirúrgico de la luxación traumática invete- rada de cadera",
+   "capitulo": "12"
+  },
+  "121601": {
+   "nombre": "interescapulotorácica",
+   "antes": "Amputaciones y desarticulaciones interescapulotorácica",
+   "capitulo": "12"
+  },
+  "121701": {
+   "nombre": "discectomía cervical dorsal o lumbar",
+   "antes": "Procedimientos combinados discectomía cervical dorsal o lumbar",
+   "capitulo": "12"
+  },
+  "121702": {
+   "nombre": "discectomía cervical dorsal lumbar con artrodesis",
+   "antes": "discectomía cervical dorsal lumbar con artrodesis 13",
+   "capitulo": "12"
+  },
+  "121901": {
+   "nombre": "fronda articular para maxilares",
+   "antes": "Yesos, vendajes y tracciones continuas fronda articular para maxilares",
+   "capitulo": "12"
+  },
+  "122001": {
+   "nombre": "artroscopia de hombro",
+   "antes": "Cirugía artroscópica artroscopia de hombro",
+   "capitulo": "12"
   }
  }
 }
