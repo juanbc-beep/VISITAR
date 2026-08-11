@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-ZToC30J9kqKVXsHYSmi1aJ6syrVsBq2nsWBEeTRN7Uo=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-RFNCcywLvfNLuxqNNABoDTtUF3MymDzsEkTfTzNEAUA=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -489,7 +489,13 @@ header{
    ruido en la barra, pero se toca y filtra. */
 .statbtn{cursor:pointer;font:inherit;transition:.13s}
 .statbtn:hover{border-color:var(--accent);color:var(--accent-ink)}
-.statbtn.on{border-color:var(--accent);background:var(--accent-soft);color:var(--accent-ink)}
+/* Encendido va relleno y no apenas teñido: al lado está el campo del valor de
+   U.B., que lleva el color de acento por ser un campo. Si el botón se pintara
+   igual, no habría forma de saber cuál de los dos está elegido. */
+.statbtn.on{border-color:var(--accent);background:var(--accent);color:var(--sobre-acento);
+  box-shadow:0 2px 8px color-mix(in srgb,var(--accent) 38%,transparent)}
+.statbtn.on b{color:var(--sobre-acento)}
+.statbtn.on:hover{color:var(--sobre-acento)}
 .stat{display:flex;align-items:baseline;gap:7px;padding:5px 12px;background:var(--surface-2);
   border:1px solid var(--line);border-radius:999px;font-size:12px;color:var(--muted)}
 .stat b{font-family:var(--font-mono);font-size:13.5px;color:var(--ink);font-weight:700}
@@ -1601,6 +1607,12 @@ function refreshStats(){
       state.limit=400; setMode('ALL');
     }
     render();
+    /* Repintar la barra: sin esto el botón se quedaba con el aspecto de siempre y
+       el único chip encendido era el del valor de U.B. —que está pintado con el
+       color de acento porque es un campo, no porque esté seleccionado—, así que
+       la pantalla decía que lo elegido era la U.B. cuando lo elegido eran los
+       favoritos. */
+    refreshStats();
   });
   const inp=el('ubv');
   el('ubclr').hidden=!(ubValue>0);
