@@ -1,0 +1,801 @@
+{
+ "_nota": "Denominaciones del Catálogo PMO donde lo que dice la base y lo que dice el renglón impreso no coinciden. NO están corregidas: varias son corrimientos de un renglón (el nombre de un código quedó en el de al lado) y otras son ruido del PDF. Cada una necesita ojo humano contra data/pmo.pdf.",
+ "generado": "scripts/parse_pmo_titulos.py",
+ "casos": [
+  {
+   "codigo": "010205",
+   "en_la_base": "Tractotomía espinotalámica, trigeminal o mesencefálica. Cingulectomías o similares",
+   "en_el_pdf": "tractotomía espinotalámica trigeminal o mesencefálica"
+  },
+  {
+   "codigo": "010208",
+   "en_la_base": "Craneotomía exploradora, con o sin biopsia, evacuación de colección intracerebral, epídural,subdural",
+   "en_el_pdf": "craneotomía exploradora"
+  },
+  {
+   "codigo": "010217",
+   "en_la_base": "cirugía de la hipertensión congénita endocraneana por fibra óptica 5",
+   "en_el_pdf": "cirugía de la hipertensión congénita endocraneana por fibra óptica"
+  },
+  {
+   "codigo": "010302",
+   "en_la_base": "tratamiento quirúrgico lesiones adquiridas del comple- jo vertebromeningeomedular",
+   "en_el_pdf": "tratamiento quirúrgico lesiones adquiridas del complejo vertebromeningeomedular"
+  },
+  {
+   "codigo": "010508",
+   "en_la_base": "neurólisis química o bloqueo antiálgico de nervio peri- férico",
+   "en_el_pdf": "neurólisis química o bloqueo antiálgico de nervio periférico"
+  },
+  {
+   "codigo": "010701",
+   "en_la_base": "Ventriculografía por inyección de medio contraste ( líquido o gaseoso ). Incuye trepanación",
+   "en_el_pdf": "ventriculografía por inyección de un medio de contraste"
+  },
+  {
+   "codigo": "020101",
+   "en_la_base": "Exenteración del contenido orbitario ( no incluye injerto de piel )",
+   "en_el_pdf": "exenteración del contenido orbitario"
+  },
+  {
+   "codigo": "020103",
+   "en_la_base": "Orbitotomía con escisión de lesión de órbita, con extracción de cuerpo extraño, con exploración, bio",
+   "en_el_pdf": "orbitotomía con escisión de lesión de órbita, exploración, extracción de cuerpo extraño, biopsia, drenaje"
+  },
+  {
+   "codigo": "020105",
+   "en_la_base": "Reparación plástica de la órbita con o sin injerto de piel. Incluye toma del mismo",
+   "en_el_pdf": "reparación plástica de la órbita con o sin injerto de piel enucleación o evisceración del globo ocular"
+  },
+  {
+   "codigo": "020106",
+   "en_la_base": "plástica de la órbita con o sin injerto de piel enucleación o evisceración del globo ocular",
+   "en_el_pdf": "aspiración, lavado e implante del vítreo"
+  },
+  {
+   "codigo": "020107",
+   "en_la_base": "aspiración, lavado e implante del vítreo",
+   "en_el_pdf": "vitrectomía"
+  },
+  {
+   "codigo": "020108",
+   "en_la_base": "vitrectomía",
+   "en_el_pdf": "tratamiento quirúrgico correctivo del estrabismo"
+  },
+  {
+   "codigo": "020109",
+   "en_la_base": "tratamiento quirúrgico correctivo del estrabismo",
+   "en_el_pdf": "operación de Humnelshein suplantamiento del recto externo por el recto superior y"
+  },
+  {
+   "codigo": "020110",
+   "en_la_base": "operación de Humnelshein suplantamiento del recto externo por el recto superior y recto inferior y variantes",
+   "en_el_pdf": "recto inferior y variantes"
+  },
+  {
+   "codigo": "020301",
+   "en_la_base": "Conjuntivoplastia ( injerto libre de conjuntiva o membrana mucosa del labio. Operación colgajo: Flap",
+   "en_el_pdf": "conjuntivoplastia"
+  },
+  {
+   "codigo": "020701",
+   "en_la_base": "Extracción del cristalino ( cataratas )",
+   "en_el_pdf": "extracción del cristalino"
+  },
+  {
+   "codigo": "020801",
+   "en_la_base": "dacriocistorrinostomia fistulizacion de saco lagrimal en cavidad nasal, plombaje. Operación plástica",
+   "en_el_pdf": "dacriocistorrinostomía fistulización de saco lagrimal en cavidad nasal, plombaje"
+  },
+  {
+   "codigo": "020902",
+   "en_la_base": "fotocoagulación con yag láser",
+   "en_el_pdf": "fotocoagulación con láser only green de cobertura en los siguientes casos: maculares"
+  },
+  {
+   "codigo": "030102",
+   "en_la_base": "Otoplastia o reconstrucción del pabellón (cucurucho, ansiforme, lóbulo defecto o similares)",
+   "en_el_pdf": "otoplastia o reconstrucción del pabellón ansiforme o defecto similar"
+  },
+  {
+   "codigo": "030105",
+   "en_la_base": "incisión y drenaje de aurícula. Sutura del pabellón auri- cular",
+   "en_el_pdf": "incisión y drenaje de aurícula. Sutura del pabellón auricular"
+  },
+  {
+   "codigo": "030109",
+   "en_la_base": "Escisión de lesión local de conducto auditivo externo. Incisión y drenaje de conducto auditivo exter",
+   "en_el_pdf": "escisión de lesión local de conducto auditivo externo. Biopsia de oído externo"
+  },
+  {
+   "codigo": "030501",
+   "en_la_base": "Cierre de fístula meníngea (craneorrino) por vía transinual",
+   "en_el_pdf": "cierre de fístula meníngea"
+  },
+  {
+   "codigo": "030516",
+   "en_la_base": "Cirugía de la fosa pterigomaxilar (exploración, escisión de tumor, etc)",
+   "en_el_pdf": "cirugía de la fosa pterigomaxilar explor"
+  },
+  {
+   "codigo": "030601",
+   "en_la_base": "laringuectomía radical con vaciamiento de cuello. Ope- ración comando de laringe",
+   "en_el_pdf": "laringuectomía radical con vaciamiento de cuello. Operación comando de laringe"
+  },
+  {
+   "codigo": "030606",
+   "en_la_base": "laringotomía mediana e inferior laringofisura-tirotomia- cricotirotomía-laringorafía",
+   "en_el_pdf": "laringotomía mediana e inferior laringofisura-tirotomiacricotirotomía-laringorafía"
+  },
+  {
+   "codigo": "030609",
+   "en_la_base": "microcirugía de laringe con láser 7",
+   "en_el_pdf": "microcirugía de laringe con láser"
+  },
+  {
+   "codigo": "030705",
+   "en_la_base": "Operación comando de encía o de trígono retromolar (escisión de lesión primaria, más vaciamiento gan",
+   "en_el_pdf": "operación comando de encía o de trígono retromolar, más vaciamiento ganglionar cervical"
+  },
+  {
+   "codigo": "030807",
+   "en_la_base": "biopsia de glándula salival extracción incisional de cál- culos salivales",
+   "en_el_pdf": "biopsia de glándula salival extracción incisional de cálculos salivales"
+  },
+  {
+   "codigo": "030901",
+   "en_la_base": "Operación comando piso de boca (escisión de lesión primaria y vaciamiento ganglionar cervical)",
+   "en_el_pdf": "operación comando piso de boca"
+  },
+  {
+   "codigo": "031003",
+   "en_la_base": "Queiloplastia uni o bilateral con palatoplastia",
+   "en_el_pdf": "queiloplastia con palatoplastia"
+  },
+  {
+   "codigo": "031004",
+   "en_la_base": "Resección de labio (por escisión amplia de tumor maligno y sutural). Escisión en cuña (como única op",
+   "en_el_pdf": "resección de labio. Escisión en cuña"
+  },
+  {
+   "codigo": "031005",
+   "en_la_base": "queiloplastia de Bernard Borow Abbe Eastlander o si- milar",
+   "en_el_pdf": "queiloplastia de Bernard Borow Abbe Eastlander o similar"
+  },
+  {
+   "codigo": "031101",
+   "en_la_base": "Operación comado de lengua (escisión de lesión primaria y vaciamiento ganglionar cervical)",
+   "en_el_pdf": "operación comando de lengua"
+  },
+  {
+   "codigo": "031301",
+   "en_la_base": "Amigdalectomía, adenoidectomía o amígdalo-adenoidectomía",
+   "en_el_pdf": "amigdalectomía adenoidectomía"
+  },
+  {
+   "codigo": "031307",
+   "en_la_base": "Escisión de divertículo faringoesofágico.Escisión de lesión local de faringe, de fístula branquial y",
+   "en_el_pdf": "escisión de divertículo faringoesofágico, o de lesión local de faringe"
+  },
+  {
+   "codigo": "050101",
+   "en_la_base": "Resección de pleuraparietal, costillas, músculos intercostales. (como única operación )",
+   "en_el_pdf": "resección de pleura parietal costillas, músculos"
+  },
+  {
+   "codigo": "050203",
+   "en_la_base": "Traqueorrafia por acceso cervical (sutura de tráquea-cierre de traqueostomía o fístula traqueal)",
+   "en_el_pdf": "traqueorrafia, sutura, cierre de traqueostomía o fístula traqueal"
+  },
+  {
+   "codigo": "050409",
+   "en_la_base": "Punción biopsia de pleura o pulmón con agujas especiales -Vim-Sylverman, Coper o similares",
+   "en_el_pdf": "punción biopsia de pleura o pulmón con aguja de vimsilverman, coper o similares"
+  },
+  {
+   "codigo": "060101",
+   "en_la_base": "Mastectomía radial (resección del pectoral mayor, pectoral menor y vaciamiento axilar). Incluye la e",
+   "en_el_pdf": "mastectomía radical"
+  },
+  {
+   "codigo": "060105",
+   "en_la_base": "mastoplastia 8",
+   "en_el_pdf": "mastoplastia"
+  },
+  {
+   "codigo": "060108",
+   "en_la_base": "Escisión local de lesión de mama (quiste, fibroadenoma o tejido mamario aberrante) de lesión de cond",
+   "en_el_pdf": "escisión local de lesión de mama, de conducto de pezón"
+  },
+  {
+   "codigo": "070101",
+   "en_la_base": "Septostomía interauricular (Blalock Halon) Cardiotomía (con exploración , con extracción de cuerpo e",
+   "en_el_pdf": "septostomía interauricular"
+  },
+  {
+   "codigo": "070105",
+   "en_la_base": "endocavitario cambio de generador marcapaso definitivo. Recolocación",
+   "en_el_pdf": "cambio de generador marcapaso definitivo. Recolocación plástica de bolsillo de marcapaso"
+  },
+  {
+   "codigo": "070206",
+   "en_la_base": "Cierre defectos septales (auriculares y/o ventriculares). Plásticas valvulares únicas o múltiples. A",
+   "en_el_pdf": "cierre defectos septales"
+  },
+  {
+   "codigo": "070207",
+   "en_la_base": "cierre defectos septales tratamiento quirúrgico de aneurismas del cayado aórtico. Aneurisma disecante de aorta",
+   "en_el_pdf": "tratamiento quirúrgico de aneurismas del cayado aórtico. Aneurisma disecante de aorta"
+  },
+  {
+   "codigo": "070209",
+   "en_la_base": "Derivación (By-Pass) aorto coronaria única, doble o triple. (Incluye toma del injerto venoso)",
+   "en_el_pdf": "derivación (by-pass) aorto coronario"
+  },
+  {
+   "codigo": "070301",
+   "en_la_base": "Cirugía de los grandes troncos arteriovenosos de la cavidad torácica anastomosis, injertos, embolect",
+   "en_el_pdf": "cirugía en los grandes troncos arteriovenosos de la cavidad torácica"
+  },
+  {
+   "codigo": "070408",
+   "en_la_base": "Cirugía de la vena cava: Ligadura, cerclaje; clips sutura; trombectomía",
+   "en_el_pdf": "cirugía de la vena cava"
+  },
+  {
+   "codigo": "070501",
+   "en_la_base": "Cirugía de la arteria carótida o de la vertebral: Tromboendarterectomía; endarterectomia, embolectom",
+   "en_el_pdf": "cirugía de la arteria carótida o de la vertebral tromboendarterectomía embolectomía"
+  },
+  {
+   "codigo": "070601",
+   "en_la_base": "embolectomia en arterias perifericas de miembros",
+   "en_el_pdf": "embolectomía en arterias periféricas"
+  },
+  {
+   "codigo": "070603",
+   "en_la_base": "derivación by-pass de vasos periféricos con injerto ve- noso o sintético",
+   "en_el_pdf": "derivación by-pass de vasos periféricos con injerto venoso o sintético"
+  },
+  {
+   "codigo": "080101",
+   "en_la_base": "Esofaguectomía total Tipo Lewis-Siewert-McKeann) con reconstruccion C/S linfadenectomia",
+   "en_el_pdf": "esofaguectomía total"
+  },
+  {
+   "codigo": "080107",
+   "en_la_base": "tratamiento atresia esofágica Normativa",
+   "en_el_pdf": "tratamiento atresia esofágica"
+  },
+  {
+   "codigo": "080110",
+   "en_la_base": "Esofagotomía o esofagorrafía de esófago cervical (exploradora extracción de cuerpo extraño, herida",
+   "en_el_pdf": "esofagotomía o esofagorafía de esófago cervical"
+  },
+  {
+   "codigo": "080302",
+   "en_la_base": "Gastrectomía subtotal o regastrectomía (con o sin vagotomía)",
+   "en_el_pdf": "gastrectomía subtotal o regastrectomía con o sin"
+  },
+  {
+   "codigo": "080506",
+   "en_la_base": "operaciones radicales para megacolon 10",
+   "en_el_pdf": "operaciones radicales para megacolon"
+  },
+  {
+   "codigo": "080613",
+   "en_la_base": "Esfinterotomía o esfinterectomía (como única operacion)",
+   "en_el_pdf": "esfinterotomía como única operación"
+  },
+  {
+   "codigo": "080701",
+   "en_la_base": "Lobectomia hepática. Hepatectomia derecha o izquierda",
+   "en_el_pdf": "lobectomía hepática"
+  },
+  {
+   "codigo": "080710",
+   "en_la_base": "Sección de ampolla Vater, transduodenal. Papilotomía : con o sin colecistectomía o coledocotomía",
+   "en_el_pdf": "sección de ampolla de Vater transduodenal"
+  },
+  {
+   "codigo": "080711",
+   "en_la_base": "Coledocotomía (como único tratamiento)",
+   "en_el_pdf": "coledocotomía único tratamiento"
+  },
+  {
+   "codigo": "080723",
+   "en_la_base": "papilotomía y esfinterotomía endoscópica con extrac- ción de litos y/o biopsia",
+   "en_el_pdf": "papilotomía y esfinterotomía endoscópica con extracción de litos y/o biopsia"
+  },
+  {
+   "codigo": "080803",
+   "en_la_base": "Escisión local de lesión de páncreas ( adenoma-secuestrectomía). Drenaje de seudo quiste",
+   "en_el_pdf": "escisión local lesión páncreas adenoma"
+  },
+  {
+   "codigo": "080804",
+   "en_la_base": "escisión corporocaudal esplenopancreatectomía Normativa Nº 1/2002 - S.S.SALUD",
+   "en_el_pdf": "escisión corporocaudal esplenopancreatectomía"
+  },
+  {
+   "codigo": "080901",
+   "en_la_base": "Esplenectomía (como única intervención)",
+   "en_el_pdf": "esplenectomía única intervención"
+  },
+  {
+   "codigo": "090101",
+   "en_la_base": "Linfadenectomía cervical, axilar o inguinal radical, unilateral (como única operación)",
+   "en_el_pdf": "linfadenectomía cervical axilar o inguinal unilateral"
+  },
+  {
+   "codigo": "090102",
+   "en_la_base": "Linfadenectomía cervical, axilar o inguinal radical, bilateral (como única operación)",
+   "en_el_pdf": "linfadenectomía cervical axilar inguinal radical bilateral"
+  },
+  {
+   "codigo": "100101",
+   "en_la_base": "nefrectomia total",
+   "en_el_pdf": "nefrectomía total cualquier vía utilizada"
+  },
+  {
+   "codigo": "100109",
+   "en_la_base": "biopsia renal percutanea pielografia percutanea",
+   "en_el_pdf": "biopsia renal percutánea pielografía percutánea"
+  },
+  {
+   "codigo": "100110",
+   "en_la_base": "Plastia de la unión ureteropiélica. Pieloplastia. Plastias del uréter. Plastia de la unión urétero-v",
+   "en_el_pdf": "plastia unión ureteropiélica"
+  },
+  {
+   "codigo": "100201",
+   "en_la_base": "cistectomia total con derivación ureteral a asa delgada o colon, o neovejiga, Bricker",
+   "en_el_pdf": "cistectomía total con derivación ureteral a asa delgada o colon, o neovejiga"
+  },
+  {
+   "codigo": "100203",
+   "en_la_base": "Cistectomía parcial (diverticulectomía-resección del cuello vesical-denervación vesical-reducción ve",
+   "en_el_pdf": "cistectomía parcial diverticulectomía resección de cuello vesical"
+  },
+  {
+   "codigo": "100306",
+   "en_la_base": "Electrocoagulación o resección endoscópica de tumores uretrales, Veru Montanum o valvas",
+   "en_el_pdf": "electrocoagulación endoscópica de tumores uretrales"
+  },
+  {
+   "codigo": "100501",
+   "en_la_base": "Orquidectomía unilateral completa con vaciamiento ganglionar intraabdominal",
+   "en_el_pdf": "orquidectomía unilateral completa con vaciamiento"
+  },
+  {
+   "codigo": "100504",
+   "en_la_base": "orquidopexia unilateral cualquier técnica con o sin tra- tamiento de hernia concomitante",
+   "en_el_pdf": "orquidopexia unilateral cualquier técnica con o sin tratamiento de hernia concomitante"
+  },
+  {
+   "codigo": "100509",
+   "en_la_base": "Drenaje de absceso testicular, escisión de lesión local de testículo",
+   "en_el_pdf": "drenaje de absceso testicular lesión local de testículo"
+  },
+  {
+   "codigo": "100603",
+   "en_la_base": "epididimovasostomía anastomosis de conducto defe- rente",
+   "en_el_pdf": "epididimovasostomía anastomosis de conducto deferente"
+  },
+  {
+   "codigo": "100701",
+   "en_la_base": "Amputación radical o parcial de pene con vaciamiento ganglionar",
+   "en_el_pdf": "amputación radical, parcial de pene con vaciamiento"
+  },
+  {
+   "codigo": "100709",
+   "en_la_base": "Postioplastia (fimosis) incluye frenulotomía. Escisión de cuerda ventral",
+   "en_el_pdf": "postioplastia fimosis - incluye frenulotomía"
+  },
+  {
+   "codigo": "101102",
+   "en_la_base": "tratamiento endoscópico de lesiones de próstata y vejiga por medios físicos y químicos",
+   "en_el_pdf": "tratamiento endoscópico de lesiones de próstata y vejifísicos y químicos de cobertura en los siguientes casos: de tejido proveniente de la glándula que ocupa la luz síntomas u obstrucción al vaciamiento de la vejiga."
+  },
+  {
+   "codigo": "110101",
+   "en_la_base": "Resección cuneiforme de ovarios. Extirpación de ovario. Ooforoplastía (implantación de ovario en úte",
+   "en_el_pdf": "cirugía sobre anexos"
+  },
+  {
+   "codigo": "110201",
+   "en_la_base": "Histerectomía radical; colpoanexohisterectomía total ampliada. (Operación de Werthein o de Meigs)",
+   "en_el_pdf": "histerectomía radical colpoanexohisterectomía total"
+  },
+  {
+   "codigo": "110211",
+   "en_la_base": "raspado uterino diagnóstico con o sin biopsia de cuello o aspiración endometrial para citología exfoliativa",
+   "en_el_pdf": "raspado uterino diagnóstico con o sin biopsia de cuello o aspiración endometrial"
+  },
+  {
+   "codigo": "110212",
+   "en_la_base": "amputación de cuello traquelectomía, traqueloplastia",
+   "en_el_pdf": "para citología exfoliativa"
+  },
+  {
+   "codigo": "110213",
+   "en_la_base": "conización de cuello",
+   "en_el_pdf": "amputación de cuello traquelectomía, traqueloplastia"
+  },
+  {
+   "codigo": "110214",
+   "en_la_base": "traquelorrafia fuera del parto cerclaje de cuello uterino",
+   "en_el_pdf": "conización de cuello"
+  },
+  {
+   "codigo": "110215",
+   "en_la_base": "local de lesión de cuello, electrocoagulación o cauterización química, biopsia de cuello",
+   "en_el_pdf": "traquelorrafia fuera del parto cerclaje de cuello uterino"
+  },
+  {
+   "codigo": "110216",
+   "en_la_base": "colocación de aplicadores para radioterapia extra o intrauterino",
+   "en_el_pdf": "escisión local de lesión de cuello, electrocoagulación o cauterización química, biopsia de cuello"
+  },
+  {
+   "codigo": "110217",
+   "en_la_base": "colocación de dispositivo intrauterino",
+   "en_el_pdf": "colocación de aplicadores para radioterapia extra o intrauterino"
+  },
+  {
+   "codigo": "110219",
+   "en_la_base": "conización de cuello por leep",
+   "en_el_pdf": "colocación de dispositivo intrauterino"
+  },
+  {
+   "codigo": "110301",
+   "en_la_base": "tratamiento quirúrgico de la agenesia vaginal",
+   "en_el_pdf": "conización de cuello por leep"
+  },
+  {
+   "codigo": "110303",
+   "en_la_base": "Colporrafia anterior y/o posterior, con o sin amputación de cuello, con o sin corrección de retrover",
+   "en_el_pdf": "tratamiento quirúrgico de la agenesia vaginal"
+  },
+  {
+   "codigo": "110304",
+   "en_la_base": "colporrafia por herida o desgarro fuera del parto",
+   "en_el_pdf": "colporrafia anterior y/o posterior con o sin amputación de cuello, incluye tratamiento de la incontinencia de orina"
+  },
+  {
+   "codigo": "110305",
+   "en_la_base": "colporrafia posterior con reconstrucción del esfínter del",
+   "en_el_pdf": "colporrafia por herida o desgarro fuera del parto"
+  },
+  {
+   "codigo": "110311",
+   "en_la_base": "biopsia de vagina punción de fondo de saco de douglas 12",
+   "en_el_pdf": "biopsia de vagina punción de fondo de saco de douglas"
+  },
+  {
+   "codigo": "110402",
+   "en_la_base": "evacuación uterina 2º trimestre del embarazo con meca- nismo de parto",
+   "en_el_pdf": "evacuación uterina 2º trimestre del embarazo con mecanismo de parto"
+  },
+  {
+   "codigo": "120303",
+   "en_la_base": "Reducción y osteosintesis Cúbito radio, tercio inferior, uno o más huesos del carpo, primer metacarp",
+   "en_el_pdf": "reducción osteosíntesis cubito radio tercio inferior carpo primer metacarpo - tarso maxilares"
+  },
+  {
+   "codigo": "120304",
+   "en_la_base": "reducción osteosíntesis esternón costilla clavícula es- cápula rótula",
+   "en_el_pdf": "reducción osteosíntesis esternón costilla clavícula escápula rótula"
+  },
+  {
+   "codigo": "120305",
+   "en_la_base": "Reducción y osteosintesis Metacarpiano (excepto el primer metacarpiano)o metatarsiano falanges (de u",
+   "en_el_pdf": "reducción osteosíntesis metacarpianos excepto el primero, metatarsiano, falanges, malar, propio de la nariz"
+  },
+  {
+   "codigo": "120501",
+   "en_la_base": "Reseccion total de huesos: Escápula, húmero isquion.ilion",
+   "en_el_pdf": "resección total de escápula húmero isquión ilión"
+  },
+  {
+   "codigo": "120502",
+   "en_la_base": "resección total de coxal fémur tibia húmero maxilar superior inferior resección total de cúbito radio peroné carpo",
+   "en_el_pdf": "resección total de coxal fémur tibia húmero maxilar superior inferior"
+  },
+  {
+   "codigo": "120503",
+   "en_la_base": "Reseccion total de huesos: Cúbito, radio, peroné, carpo(uno o más huesos), astrágalo y/o calcaneo",
+   "en_el_pdf": "resección total de cúbito radio peroné carpo astragalo calcáneo tarso costillas malar"
+  },
+  {
+   "codigo": "121003",
+   "en_la_base": "artoplastia hombro codo muñeca cuello de pie témporo- mandibular",
+   "en_el_pdf": "artoplastia hombro codo muñeca cuello de pie témporomandibular"
+  },
+  {
+   "codigo": "121104",
+   "en_la_base": "Artrodesis: Esterno-clavicular, muñeca, tarso (simple, tibiotarsiana), tarso, metatarsiana, sínfisi",
+   "en_el_pdf": "artrodesis esterno clavicular muñeca tarso tibiotarsal tarsometatarsiana sinfisis pubiana"
+  },
+  {
+   "codigo": "121204",
+   "en_la_base": "escisión o incisión biopsia drenaje o extracción de de- pósitos",
+   "en_el_pdf": "escisión o incisión biopsia drenaje o extracción de depósitos"
+  },
+  {
+   "codigo": "121401",
+   "en_la_base": "Miectomías, (miositis oscificante, hipertrofias, neoplastias) con vaciamiento de celda muscular o ex",
+   "en_el_pdf": "miectomías con vaciamiento de celda muscular"
+  },
+  {
+   "codigo": "121501",
+   "en_la_base": "Exploración, drenaje, extracción, Incisión, escisión, biopsia, tenotomía, fasciotomía",
+   "en_el_pdf": "exploración drenaje extracción incisión, biopsia, tenotomía, fasciotomía"
+  },
+  {
+   "codigo": "121502",
+   "en_la_base": "Reparación y sutura (tenorrafia) de tendón flexor de la muñeca o de dedo de la mano",
+   "en_el_pdf": "reparación y sutura tenorrafia de tendón de la muñeca o de dedo de la mano"
+  },
+  {
+   "codigo": "121503",
+   "en_la_base": "Tenoplastia con alargamiento o acortamiento o injerto o transferancia tendinosa de tendón flexor de",
+   "en_el_pdf": "tenoplastia con alargamiento o acortamiento o injerto tendón flexor de la muñeca o dedo"
+  },
+  {
+   "codigo": "121505",
+   "en_la_base": "Tenoplastia con alargamiento o acortamiento o injerto o transferencia de tendón extensor de la muñec",
+   "en_el_pdf": "tenoplastia con alargamiento o acortamiento o injerto de tendón extensor de la muñeca o dedo"
+  },
+  {
+   "codigo": "121601",
+   "en_la_base": "Amputaciones y desarticulaciones interescapulotorácica",
+   "en_el_pdf": "interescapulotorácica"
+  },
+  {
+   "codigo": "121701",
+   "en_la_base": "Procedimientos combinados discectomía cervical dorsal o lumbar",
+   "en_el_pdf": "discectomía cervical dorsal o lumbar"
+  },
+  {
+   "codigo": "121702",
+   "en_la_base": "discectomía cervical dorsal lumbar con artrodesis 13",
+   "en_el_pdf": "discectomía cervical dorsal lumbar con artrodesis"
+  },
+  {
+   "codigo": "121703",
+   "en_la_base": "Tratamiento quirúrgico de la elevación congénita de escápula",
+   "en_el_pdf": "tratamiento quirúrgico elevación congénita de escápula"
+  },
+  {
+   "codigo": "121705",
+   "en_la_base": "Operaciones en el hueco supraclavicular por síndrome del escaleno (resección de costilla cervical su",
+   "en_el_pdf": "operaciones en el hueco supraclavicular"
+  },
+  {
+   "codigo": "121707",
+   "en_la_base": "Dupuytren: Aponeurotomía (fasciotomía subcutanea)",
+   "en_el_pdf": "aponeurectomía palmar parcial o total con o sin injerto"
+  },
+  {
+   "codigo": "121718",
+   "en_la_base": "tratamiento quirúrgico de la luxación traumática invete- rada de cadera",
+   "en_el_pdf": "tratamiento quirúrgico de la luxación traumática inveterada de cadera"
+  },
+  {
+   "codigo": "121901",
+   "en_la_base": "Yesos, vendajes y tracciones continuas fronda articular para maxilares",
+   "en_el_pdf": "fronda articular para maxilares"
+  },
+  {
+   "codigo": "122001",
+   "en_la_base": "Cirugía artroscópica artroscopia de hombro",
+   "en_el_pdf": "artroscopia de hombro"
+  },
+  {
+   "codigo": "130101",
+   "en_la_base": "Escisión de quiste dermoideo sacrococcigeo",
+   "en_el_pdf": "escisión de quiste dermoideo sacrocoxígeo"
+  },
+  {
+   "codigo": "130301",
+   "en_la_base": "atención del paciente con quemaduras de segundo y ter- cer grado",
+   "en_el_pdf": "atención del paciente con quemaduras de segundo y tercer grado"
+  },
+  {
+   "codigo": "130304",
+   "en_la_base": "Escisión de escaras postquemaduras y/o curación del paciente quemado en quirófano con anestesia gene",
+   "en_el_pdf": "escisión de escaras postquemaduras curación pacientes con quemaduras en quirófano bajo anestesia general"
+  },
+  {
+   "codigo": "150101",
+   "en_la_base": "Biopsia por incisión o por punción. Ganglio, lesión de piel, trozo de ovario, cilindro de hígado,etc",
+   "en_el_pdf": "biopsia por incisión o por punción"
+  },
+  {
+   "codigo": "150107",
+   "en_la_base": "de un papanicolau años, en el marco de un programa de rastreo masivo. Citología exfoliativa hormonal",
+   "en_el_pdf": "Citología exfoliativa hormonal."
+  },
+  {
+   "codigo": "150201",
+   "en_la_base": "receptores hormonales con técnica inmunohistoquímica para cáncer de mama",
+   "en_el_pdf": "receptores hormonales con técnica inmunohistoquímica de mama de cobertura en los siguientes casos: indicación o no de terapia hormonal (tamoxifeno) y nivel de respuesta pronóstico (especialmente en neoplasias con meganglionares"
+  },
+  {
+   "codigo": "150202",
+   "en_la_base": "anticuerpos monoclonales con técnica inmunohistoquímica para tumores",
+   "en_el_pdf": "anticuerpos monoclonales con técnica inmunohistopara tumores"
+  },
+  {
+   "codigo": "170104",
+   "en_la_base": "electrocardiograma de holter -24 hs- 1 canal",
+   "en_el_pdf": "— Pacientes con episodios frecuentes de taquicardias que reelectrocardiograma de holter -24 hs1 canal"
+  },
+  {
+   "codigo": "170110",
+   "en_la_base": "cardioversión- no enu.t.i.",
+   "en_el_pdf": "— Pacientes en quienes el diagnóstico no está claro luego del anácardioversiónno enu.t.i."
+  },
+  {
+   "codigo": "170118",
+   "en_la_base": "electrocardiograma de holter -24 horas- más de 1 canal",
+   "en_el_pdf": "empleo electrocardiograma de holter -24 horasmás de 1 canal"
+  },
+  {
+   "codigo": "170120",
+   "en_la_base": "monitoreo ambulatorio de tensión arterial (presurometría)",
+   "en_el_pdf": "monitoreo ambulatorio de tensión arterial las catecolaminas puedan enmascarar una anormalidad del QT (presurometría) 7. En pacientes con complejos ventriculares prematuros, duplas"
+  },
+  {
+   "codigo": "170201",
+   "en_la_base": "Estudio electrofisiologico del Haz de Hiss: con pruebas terapéutica y de estimulacion",
+   "en_el_pdf": "y TVNS. estudio electrofisiológico del Haz de Hiss: iguales indi- — Pacientes con otros factores de riesgo de futuros eventos caciones que el código arrítmicos tales como baja FEVI, ECG de señal promediada po"
+  },
+  {
+   "codigo": "170202",
+   "en_la_base": "estudio electrofisiológico completo cardíaco con Pruebas terapéuticas y de estimulación",
+   "en_el_pdf": "estudio electrofisiológico completo cardíaco con Pruesitivo y TVNS o registros holter en los cuales un EEF pueda ser considerado para evaluación de riesgo y para la guía de la terabas terapéuticas y de estimulación péutica en pacientes con TV inducible. de cobertura en los siguientes casos: — Pacientes sintomáticos con EV unifocales, duplas y TVNS de la función del Nódulo Sinusal que son candidatos a ablación por catéter. sintomáticos en los cuales la disfunción del Nódulo 8. En pacientes con WOLF-PARKINSON-WHITE (DNS) se sospecha como causa de síntomas pero que la — Pacientes que están siendo evaluados para una ablación o entre arritmias y síntomas no fue claramente establecida cirugía de haz accesorio una evaluación apropiada. — Pacientes con preexitación ventricular que sobrevivieron a un con DNS documentada en los cuales la evaluación paro cardíaco o que padecen síncope inexplicable. AV o VA o la susceptibilidad a arritmias pueden — Pacientes sintomáticos en quienes determinar la arritmia o a la selección más apropiada de la modalidad de conocer propiedades de la vía accesoria y el sistema de conducción normal ayudarían a determinar el tratamiento apropiado. con bradiarritmias documentadas — Paciente asintomáticos con antecedentes familiares de muerte para determinar si esas anormalidades súbita o con preexitación pero sin arritmias espontáneas, que a enfermedad intrínseca, disfunción autonómica o desarrolla actividades de riesgo y en los cuales se desea conocer de drogas que permitan seleccionar entre diferentes oppropiedades de la vía accesoria o si pueden inducirse taquicardias, terapéuticas. ayudaría a dar recomendaciones para sus actividades o bien para sintomáticos con bradiarritmias conocidas para evaseleccionar tratamientos. potenciales arritmias como causante de los síntomas. — Pacientes con preexitación ventricular que van a ser someticon BAVs adquiridos dos a cirugía cardíaca por otras razones. sintomáticos en los cuales se sospecha un bloqueo His 9. En pacientes con síncope inexplicable como causa de los síntomas y no pudo ser establecido. — Pacientes con sospecha de enfermedad cardíaca y síncope que con BAV de 2 ó 3 tratado con MCP, que permanece permanece inexplicable luego de evaluaciones apropiadas y en quien se sospecha otra arritmia como causa de 10. En pacientes sobrevivientes de un paro cardíaco — Sin evidencia de un IAM transmural con BAV de 2 ó 3 en los cuales conocer el sitio del — Los que los han padecido a más de 48 hs. de haber sufrido un o sus mecanismos o su respuesta a fármacos o a otras"
+  },
+  {
+   "codigo": "180106",
+   "en_la_base": "Ecografia Mamaria U o B",
+   "en_el_pdf": "ecografía mamaria bilateral"
+  },
+  {
+   "codigo": "180302",
+   "en_la_base": "ecocardiograma de stress físico y/o farmacológico (c/ imagen digitalizada)",
+   "en_el_pdf": "ecocardiograma de stress físico y/o farmacológico (c/ digitalizada) de cobertura en los siguientes casos: diferencial de isquemia miocárdica con ergometría"
+  },
+  {
+   "codigo": "210105",
+   "en_la_base": "análisis cromosómico de cariotipo con bandas G 16",
+   "en_el_pdf": "análisis cromosómico de cariotipo con bandas G"
+  },
+  {
+   "codigo": "220101",
+   "en_la_base": "Colposcopía la",
+   "en_el_pdf": "Colposcopía"
+  },
+  {
+   "codigo": "250102",
+   "en_la_base": "fisioterapia",
+   "en_el_pdf": "kinesioterapia"
+  },
+  {
+   "codigo": "260136",
+   "en_la_base": "tratamiento paliativo con P32 de cancer de mama con metastasis oseas",
+   "en_el_pdf": "tratamiento paliativo con P32 de cáncer de mama con metástasis óseas"
+  },
+  {
+   "codigo": "260137",
+   "en_la_base": "tratamiento con P32 o Au198 por diseminacion tumoral en cavidades serosas",
+   "en_el_pdf": "tratamiento con P32 o Au198 por diseminación tumoral en cavidades serosas"
+  },
+  {
+   "codigo": "260201",
+   "en_la_base": "en cavidades serosas Centellograma de cerebro",
+   "en_el_pdf": "Centellograma de cerebro"
+  },
+  {
+   "codigo": "260211",
+   "en_la_base": "Centellograma de tiroides 17",
+   "en_el_pdf": "Centellograma de tiroides"
+  },
+  {
+   "codigo": "260231",
+   "en_la_base": "Spect cardíacocoronario estudio de perfusión con talio 201 esfuerzo y redistribución",
+   "en_el_pdf": "Spect cardíacocoronario estudio de perfusión con talio 260508Centellograma óseo 201 esfuerzo y redistribución 260510centellografía de articulaciones 260511Centellograma de tiroides de cobertura en los siguientes casos: 260512Centellograma de tiroides y mediastino o tejido reemplazado por transplante (corazón), Organo 260513barrido-total para carcinoma de tiroides reemplazado por transplante (válvula del corazón), Or260514Centellograma de paratiroides tejido reemplazado por otro medio (válvula del corazón), 260515Centellograma de glándulas salivares mitral 260516Centellograma de pulmón mitral reumática, Estenosis mitral con insuficiencia, 260517Centellograma hepático de la válvula mitral 260518Centellograma del pool vascular hepático aórtica reumática, Insuficiencia aórtica reumática, Es260519Centellograma de páncreas con insuficiencia aórtica reumática. 260520Centellograma de bazo de la válvula aórtica, Aterosclerosis coronaria, 260521Centellograma renal bilateral del corazón, Enfermedad isquémica del corazón, 260522Centellograma del pool vascular renal endomiocárdica, Cardiomiopatía hipertrófica obstructiva, 260523Centellograma de placenta endocárdica, Cardiomiopatía, Hemibloqueo de 260524Centellograma vías linfáticas abdominoinguinales, del haz de Hiss, Bloqueo de la rama izquierda, axilares y/o mediastinales de la rama derecha del haz de Hiss, Taquicardia paroxística 260525angiografía radioisotópica por área Taquicardia paroxística ventricular, Taquicardia 260526estudio dinámico renal Paro cardíaco, Disritmia cardíaca 260527radiocardiograma del corazón izquierdo, Insuficiencia cardíaca, Mio260528perfusión sanguínea miocárdica con radioisótopos Degeneración miocárdica 260529flebografía radioisotópica por áreas safenas, femorales, funcionales consecutivos a cirugía cardiovascular, ilíacas, humeral de cuerda tendinosa, Rotura de músculo papilar, Compli260531dinámica del tránsito esófago gástrico de otro dispositivo, prótesis e injerto vasculares. 260532dinámica tránsito intestinal"
+  },
+  {
+   "codigo": "260232",
+   "en_la_base": "Spect cardiaco- coronario estudio de perfusion con talio 201 dipiridamoly redistribucion:igualesindi",
+   "en_el_pdf": "Spect cardiaco-coronario estudio de perfusión con talio Nefrología 201 dipiridamol y redistribución: iguales indicaciones 270101hemohemodiálisis con riñón artificial en insuficiencia que el código aguda"
+  },
+  {
+   "codigo": "260234",
+   "en_la_base": "código 260231 Estudio función ventricular izquierda y perfusión miocárdica con spect reposo y esfuerzo c/ mibi tc 99m",
+   "en_el_pdf": "Estudio función ventricular izquierda y perfusión 270104hemodiálisis peritoneal continua ambulatoria miocárdica con spect reposo y esfuerzo c/ mibi tc 99m: 270201evaluación pretrasplante renal en receptor iguales indicaciones que el código 270202evaluación pretrasplante renal en dador"
+  },
+  {
+   "codigo": "260402",
+   "en_la_base": "Prueba de freno de la secreción de somatotrofina con determinación de somatrotofina",
+   "en_el_pdf": "Prueba de freno de la secreción de somatotrofina con 280101espirometría determinación de somatrotofina 280102espirometría antes y después de broncodilatadores"
+  },
+  {
+   "codigo": "260403",
+   "en_la_base": "Prueba de estímulo hipotálamo-hipofisiaria con deter- minación de FSH",
+   "en_el_pdf": "Prueba de estímulo hipotálamo-hipofisiaria con deter280103broncoespirometría minación de FSH 280104traqueoscopía"
+  },
+  {
+   "codigo": "260404",
+   "en_la_base": "Prueba de estímulo hipotálamo-hipofisiaria con deter- minación de LH",
+   "en_el_pdf": "Prueba de estímulo hipotálamo-hipofisiaria con deter280105broncoscopía con instrumental rígido minación de LH 280106broncofibroscopía"
+  },
+  {
+   "codigo": "260405",
+   "en_la_base": "Prueba de estimulo gonadal con hormona gonatropa corionica HGG con determinación deestrogenos totale",
+   "en_el_pdf": "Prueba de estímulo gonadal con hormona gonatropa 280107curva de flujo volumen con o sin espirometría coriónica HGG con determinación de estrógenos totales 280108determinación de volúmenes pulmonares"
+  },
+  {
+   "codigo": "260406",
+   "en_la_base": "Prueba de estímulo gonadal conHGG con determina- ción de testosterona",
+   "en_el_pdf": "Prueba de estímulo gonadal conHGG con determina280109estudio de mecánica pulmonar ción de testosterona 280110análisis de gases en aire espirado y sangre arteriovenosa"
+  },
+  {
+   "codigo": "260407",
+   "en_la_base": "Prueba de estímulo con TRH con determinación de TSH y tiroxina plasmática",
+   "en_el_pdf": "Prueba de estímulo con TRH con determinación de TSH 280111capacidad pulmonar total y volumen residual (técnica de y tiroxina plasmática dilución por helio)"
+  },
+  {
+   "codigo": "260409",
+   "en_la_base": "estímulo hipotálamo hipofisiario con determinación de ACTH",
+   "en_el_pdf": "estímulo hipotálamo hipofisiario con determinación de 280301ablación de lesiones broncopulmonares por vía ACTH endoscópica por métodos físicos o químicos"
+  },
+  {
+   "codigo": "290202",
+   "en_la_base": "Polisomnografía con oximetria nocturna en adultos con Presión Positiva Continua en la Vía Aérea",
+   "en_el_pdf": "Polisomnografía con oximetria nocturna en adultos con Positiva Continua en la Vía Aérea de cobertura si cumple los siguientes criterios: alto impacto de los síntomas en la vida diaria sospecha de apnea del sueño a utilizar Presión Positiva Continua en la Vía Aé"
+  },
+  {
+   "codigo": "290203",
+   "en_la_base": "medicación predisponente etc.) Tratamiento del blefarospasmo con toxina botulínica",
+   "en_el_pdf": "Tratamiento del blefarospasmo con toxina botulínica"
+  },
+  {
+   "codigo": "310125",
+   "en_la_base": "tratamiento de lesiones otorrinolaringológicas por me- dios físicos o químicos",
+   "en_el_pdf": "tratamiento de lesiones otorrinolaringológicas por medios físicos o químicos"
+  },
+  {
+   "codigo": "330301",
+   "en_la_base": "talleres de actividades grupales para prevención prima- ria y secundaria",
+   "en_el_pdf": "talleres de actividades grupales para prevención primaria y secundaria"
+  },
+  {
+   "codigo": "342009",
+   "en_la_base": "Resonancia Magnética Nuclear hepatobiliar esplénica pancreática",
+   "en_el_pdf": "Resonancia Magnética Nuclear hepatobiliar esplénica Asistencia en consultorio, domicilio e internación pancreática 400101internación en terapia intensiva"
+  },
+  {
+   "codigo": "342012",
+   "en_la_base": "Resonancia Magnética Nuclear de otras regiones encefálicas",
+   "en_el_pdf": "Resonancia Magnética Nuclear de otras regiones 420303interconsulta especializada en internación encefálicas 420501internación domiciliaria de cobertura en los siguientes casos: de lesión orgánica ( tumores cerebrales, malformaciones) Prestaciones sanatoriales y de enfermería"
+  },
+  {
+   "codigo": "350301",
+   "en_la_base": "tratamiento con acelerador lineal incluye simulación, planificación, colimadores y dosimetría",
+   "en_el_pdf": "tratamiento con acelerador lineal incluye simulación, pla660002acetonuria nificación, colimadores y dosimetría 660004acidimetría gástrica curva de"
+  },
+  {
+   "codigo": "350310",
+   "en_la_base": "nificación, colimadores y dosimetría braquiterapia, terapia de contacto",
+   "en_el_pdf": "braquiterapia, terapia de contacto 660005ácido base, estado"
+  },
+  {
+   "codigo": "661155",
+   "en_la_base": "digo 661145. test rápido de fauces",
+   "en_el_pdf": "test rápido de fauces"
+  }
+ ]
+}

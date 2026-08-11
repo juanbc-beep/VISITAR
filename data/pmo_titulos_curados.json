@@ -1,0 +1,90 @@
+{
+ "_nota": "Denominaciones del capítulo 34 (Radiología / Diagnóstico por imágenes) del Catálogo de Prestaciones del PMO, releídas del renglón impreso en data/pmo.pdf con scripts/parse_pmo_titulos.py y contrastadas una por una contra ese renglón. Corrigen nombres que habían quedado empezados por la mitad porque la limpieza de títulos de sección se llevaba puesta la palabra «radiología», que en estos estudios es parte de la denominación.",
+ "fuente": "Catálogo de Prestaciones del PMO — Res. 201/2002 S.S. Salud (data/pmo.pdf)",
+ "codigos": {
+  "340201": {
+   "nombre": "radiología del cráneo, cara, senos paranasales o cavum",
+   "antes": "del cráneo, cara, senos paranasales o cavum"
+  },
+  "340203": {
+   "nombre": "radiología temporal o agujeros ópticos, comparativos",
+   "antes": "temporal o agujeros ópticos, comparativos"
+  },
+  "340204": {
+   "nombre": "radiología articulación temporomandibular",
+   "antes": "articulación temporomandibular"
+  },
+  "340209": {
+   "nombre": "radiología de raquis (columna)",
+   "antes": "de raquis (columna)"
+  },
+  "340211": {
+   "nombre": "radiología hombro, húmero, pelvis, cadera y fémur",
+   "antes": "hombro, húmero, pelvis, cadera y fémur"
+  },
+  "340213": {
+   "nombre": "radiología antebrazo, codo, mano, rodilla, pie, pierna, tobillo y pie",
+   "antes": "antebrazo, codo, mano, rodilla, pie, pierna, tobillo y pie 19"
+  },
+  "340214": {
+   "nombre": "medición comparativa de miembros inferiores (ortorradiografía)",
+   "antes": "medición comparativa de miembros inferiores"
+  },
+  "340215": {
+   "nombre": "radiología ampliada o macrorradiografía",
+   "antes": "ampliada o macrorradiografía artrografía"
+  },
+  "340403": {
+   "nombre": "radiología seriada gastroduodenal",
+   "antes": "seriada gastroduodenal"
+  },
+  "340404": {
+   "nombre": "radiología seriada gastroduodenal, técnica doble contraste",
+   "antes": "seriada gastroduodenal, técnica doble contraste"
+  },
+  "340405": {
+   "nombre": "radiología seriada esofagogastroduodenal",
+   "antes": "seriada esofagogastroduodenal"
+  },
+  "340407": {
+   "nombre": "radiología tránsito intestino delgado o cólon",
+   "antes": "tránsito intestino delgado o cólon"
+  },
+  "340408": {
+   "nombre": "radiología seriada ileocecoapendicular",
+   "antes": "seriada ileocecoapendicular"
+  },
+  "340409": {
+   "nombre": "radiología colon por enema y evacuado",
+   "antes": "colon por enema y evacuado"
+  },
+  "340411": {
+   "nombre": "radiología colon por enema e insuflado",
+   "antes": "colon por enema e insuflado"
+  },
+  "340412": {
+   "nombre": "radiología colon por enema evacuado y doble contraste",
+   "antes": "colon por enema evacuado y doble contraste"
+  },
+  "340421": {
+   "nombre": "radiología simple de abdomen",
+   "antes": "simple de abdomen"
+  },
+  "340501": {
+   "nombre": "radiología simple de árbol urinario",
+   "antes": "simple de árbol urinario"
+  },
+  "340820": {
+   "nombre": "flebografía de miembro superior o inferior",
+   "antes": "flebografia de miembro superior o inferior"
+  },
+  "341008": {
+   "nombre": "Tomografía Axial Computada completa de abdomen",
+   "antes": "Tomografia Axial Computadacompleta de abdomen"
+  },
+  "341010": {
+   "nombre": "Tomografía Axial Computada torácica",
+   "antes": "pancreática Tomografía Axial Computada torácica"
+  }
+ }
+}

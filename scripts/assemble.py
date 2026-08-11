@@ -1687,6 +1687,34 @@ for _code, _v in (CORR.get("verificaciones") or {}).items():
 if verif_n:
     print(f"Fichas verificadas: {verif_n}", file=sys.stderr)
 
+# ---------- capítulo 34 del PMO: denominaciones releídas del PDF ----------
+# La limpieza de títulos de sección (clean_pmo_name) le saca al nombre la palabra
+# con la que arranca cuando coincide con un encabezado del catálogo. Eso está bien
+# para «Radiología radioscopía simple», donde el encabezado se coló, y está mal
+# para «radiología del cráneo, cara, senos paranasales o cavum», donde esa palabra
+# ES la práctica: 16 estudios del capítulo 34 quedaban empezados por la mitad y
+# buscar «radiología» en Prestaciones Médicas no encontraba nada.
+# Se corrige con el renglón impreso, releído por scripts/parse_pmo_titulos.py y
+# contrastado uno por uno. Va acá y no dentro de clean_pmo_name porque no hay
+# regla que distinga los dos casos: hay que mirar la fuente.
+try:
+    PMOTIT = json.load(open("data/pmo_titulos_curados.json", encoding="utf-8"))
+except FileNotFoundError:
+    try:
+        PMOTIT = json.load(open("pmo_titulos_curados.json", encoding="utf-8"))
+    except FileNotFoundError:
+        PMOTIT = {"codigos": {}}
+_tit_n = 0
+for _code, _t in (PMOTIT.get("codigos") or {}).items():
+    _r = records.get(_code)
+    if not _r or not (_t.get("nombre") or "").strip():
+        continue
+    _r["nombre"] = _t["nombre"]
+    _r.pop("titulo_revisar", None)
+    _tit_n += 1
+if _tit_n:
+    print(f"PMO capítulo 34: denominaciones corregidas desde el PDF: {_tit_n}", file=sys.stderr)
+
 # ---------- el laboratorio del Único hereda todo lo que muestra el NBU ----------
 # Va al final a propósito: el tipo de muestra y las siglas sugeridas se calculan
 # más arriba, y las correcciones de auditoría pisan todo. Si esto corriera antes,

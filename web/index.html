@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-cIsWYmbx9cKdRuI0Dt/PHCfuyG/+IGFJSPMw2ZcThzs=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-0NvVNrftY5BEKdj0vWiQqKCQXQRejwtj/XOGEHcOTyY=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1289,6 +1289,9 @@ mark.hl{background:var(--accent-soft);color:var(--accent-ink);border-radius:3px;
   <div class="box" id="modalBox" role="dialog" aria-modal="true" aria-label="Glosario y marco normativo"></div>
 </div>
 
+<!-- La base viaja aparte, en nbu_db.bin (ver scripts/inject_db.py). Este bloque
+     queda vacío a propósito: con «--embebido» se llena y la app pasa a ser un
+     archivo único. -->
 <!-- La base viaja aparte, en nbu_db.bin (ver scripts/inject_db.py). Este bloque
      queda vacío a propósito: con «--embebido» se llena y la app pasa a ser un
      archivo único. -->
@@ -2759,8 +2762,12 @@ function veredictoHTML(c){
    sumó porque estaba plegada y con un título que no decía lo que había adentro
    («texto oficial»): el administrador la dio por vacía y reportó que faltaba el
    dato. Es la regla que define qué comprende la práctica; si hay que abrirla
-   para saber que existe, no cumple su función. */
-const SEC_ABIERTAS=/Obligación de cobertura|Cuándo corresponde|Valorización|Lateralidad|Tipo de muestra|Equivalencia|Sistema Único de Reintegro|Norma mínima de trabajo/i;
+   para saber que existe, no cumple su función.
+   «También en Nomenclador Único» se sumó por lo mismo: del lado del Único la
+   equivalencia arrancaba abierta y del lado del PMO plegada, así que desde
+   Prestaciones Médicas parecía que la equivalencia no existía. Existe en 1.183
+   de las 1.221 prestaciones; lo que faltaba era verla. */
+const SEC_ABIERTAS=/Obligación de cobertura|Cuándo corresponde|Valorización|Lateralidad|Tipo de muestra|Equivalencia|También en Nomenclador Único|Sistema Único de Reintegro|Norma mínima de trabajo/i;
 function plegState(){try{return JSON.parse(localStorage.getItem('nbu-secs'))||{};}catch(e){return {};}}
 function plegSave(o){try{localStorage.setItem('nbu-secs',JSON.stringify(o));}catch(e){}}
 function plegarSecciones(d){
