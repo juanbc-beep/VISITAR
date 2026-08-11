@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-oLYHLHslr9IIGdS4zU8ayvcTFhOxOMq1f7aQta4lL+s=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-e4d9rlVrfTcE1UASXiJZq6etbOtEswIwY1etie3CIQM=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -909,6 +909,9 @@ aside{top:calc(var(--hh,128px) + 10px);max-height:calc(100vh - var(--hh,128px) -
   .consultarow .cbtn small{display:none}
   .consultarow .cbtn b{font-size:12.5px}
   header.compact .consultarow{padding-bottom:6px}
+  /* Mientras se busca algo puntual, estas dos filas se corren: son 94 px que en
+     una pantalla de teléfono valen dos resultados más. Vuelven al borrar. */
+  body.buscando .consultarow,body.buscando #stats{display:none}
 }
 /* ---------- franja de veredicto en la ficha ---------- */
 .veredicto{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:8px;margin-top:12px}
@@ -1108,6 +1111,9 @@ mark.hl{background:var(--accent-soft);color:var(--accent-ink);border-radius:3px;
 .dactions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
 .dactions .minibtn{flex:0 0 auto}
 .dnote{margin-top:6px}
+.dnote-acc{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px}
+.dnote-acc .ahint{margin:0;font-size:11.5px}
+.dnote-acc .minibtn[disabled]{opacity:.45;cursor:default}
 .dnote textarea{width:100%;min-height:56px;resize:vertical;border:1px solid var(--line-2);border-radius:var(--radius-sm);background:var(--surface-2);color:var(--ink);font:inherit;font-size:13px;padding:8px 10px;line-height:1.5}
 .dnote textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
 .kbd{display:inline-block;min-width:16px;text-align:center;font-family:var(--font-mono);font-size:11px;background:var(--surface-3);border:1px solid var(--line-2);border-bottom-width:2px;border-radius:5px;padding:1px 5px;color:var(--ink-2)}
@@ -1672,11 +1678,19 @@ medirCabecera();
 
 el('clearFilters').addEventListener('click',()=>{
   state.seccion.clear();state.grupo.clear();state.flags.clear();state.q='';el('q').value='';
+  document.body.classList.remove('buscando');
   document.querySelectorAll('.opt.on').forEach(o=>o.classList.remove('on'));state.limit=80;render();
 });
 
 /* ---------- search ---------- */
-let t;el('q').addEventListener('input',e=>{clearTimeout(t);t=setTimeout(()=>{state.q=e.target.value.trim();state.limit=80;render();},110);});
+/* En el celular la cabecera se comía 412 px de 844: el primer resultado
+   arrancaba por la mitad de la pantalla y se veían cuatro prácticas. Mientras se
+   está buscando algo concreto, «Consulta rápida» y la fila del valor de U.B. no
+   se usan, así que se pliegan y el listado sube. Al borrar la búsqueda vuelven.
+   No se saca nada: se corre de en medio mientras estorba. */
+let t;el('q').addEventListener('input',e=>{
+  document.body.classList.toggle('buscando',!!e.target.value.trim());
+  clearTimeout(t);t=setTimeout(()=>{state.q=e.target.value.trim();state.limit=80;render();},110);});
 
 /* ---------- filtering ---------- */
 function hasRel(c){return c.relaciones&&(c.relaciones.incluye.length||c.relaciones.no_incluye.length||c.relaciones.incluido_en.length);}
@@ -2315,6 +2329,7 @@ function initValidator(){
       <div class="vrow">
         <div class="vfield"><label for="vub">Valor de la U.B. ($) — opcional</label><input id="vub" type="number" min="0" step="0.01" placeholder="ej: 850" value="${ubValue||''}"></div>
         <button class="vbtn ghost" id="vclear">Limpiar</button>
+        <button class="vbtn ghost" id="vshare">↗ Pasar el caso</button>
         <button class="vbtn" id="vrun">Analizar caso</button>
       </div>
       <div class="vmode-toggle" role="tablist" aria-label="Tipo de auditoría">
@@ -2330,6 +2345,17 @@ function initValidator(){
   setHint();
   el('vrun').addEventListener('click',runCase);
   el('vclear').addEventListener('click',()=>{el('vcodes').value='';el('vub').value='';el('vresults').innerHTML='';caseData=null;});
+  /* El caso —los códigos de una orden— es la unidad de trabajo real del
+     mostrador, y hasta ahora terminaba en un mensaje suelto: «fijate el hemograma
+     y los otros cuatro». El enlace le abre al otro la misma Mesa con los mismos
+     códigos y el mismo tipo de auditoría. Van en la dirección, no en la base:
+     un caso es de quien lo está mirando, no del equipo. */
+  el('vshare').addEventListener('click',()=>{
+    const cods=(el('vcodes').value||'').trim();
+    if(!cods)return toast('Escribí o pegá los códigos del caso primero',true);
+    compartir(el('vshare'),'Caso para revisar en el Manual Inteligente',
+      enlaceA('caso='+encodeURIComponent(cods.replace(/\s+/g,' '))+'&modo='+state.vmode));
+  });
   el('vcodes').addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter')runCase();});
   el('vresults').addEventListener('click',e=>{const g=e.target.closest('[data-code]');if(g&&BYCODE[g.dataset.code])openCode(g.dataset.code);
     const s=e.target.closest('[data-surge2]');if(s){setMode('SURGE');openSurge(s.dataset.surge2);}
@@ -2831,6 +2857,7 @@ function openCode(code,origen){
       <div class="dactions">
         ${c.nomenclador==='NBU'?`<button class="minibtn" id="dAddVal">➕ Al validador</button>`:''}
         <button class="minibtn" id="dCopy">⧉ Copiar código</button>
+        <button class="minibtn" id="dShare">↗ Pasar a un compañero</button>
         <button class="minibtn" id="dCmp">⇄ Comparar</button>
         <button class="minibtn" id="dImp">🖨 Imprimir ficha</button>
       </div>
@@ -2838,7 +2865,9 @@ function openCode(code,origen){
       ${obsFichaHTML(code)}
       ${veredictoHTML(c)}
       ${verifHTML(code)}
-      ${(window.NBUProfile&&NBUProfile.active())?`<div class="dnote"><textarea id="dNote" placeholder="Tu nota personal para este código (privada de tu perfil)…">${esc(note)}</textarea></div>`:''}
+      ${(window.NBUProfile&&NBUProfile.active())?`<div class="dnote"><textarea id="dNote" placeholder="Tu nota personal para este código (privada de tu perfil)…">${esc(note)}</textarea>
+        <div class="dnote-acc"><button class="minibtn" id="dNoteShare" ${note?'':'disabled'}>↑ Compartir con el equipo</button>
+        <span class="ahint">Tu nota la ves sólo vos. Compartirla la manda como propuesta para que el administrador la publique.</span></div></div>`:''}
     </div>`;
 
   // Tipo de muestra y su par que se presta a confusión.
@@ -3181,7 +3210,47 @@ function openCode(code,origen){
   });
   const cm=el('dCmp');if(cm)cm.addEventListener('click',()=>{cmpToggle(code);toast(cmp.length===1?'Elegí el segundo código para comparar':'Comparando');});
   const cp=el('dCopy');if(cp)cp.addEventListener('click',()=>{const t=c.code;try{navigator.clipboard&&navigator.clipboard.writeText(t);}catch(e){}cp.textContent='Copiado ✓';setTimeout(()=>{cp.textContent='⧉ Copiar código';},1400);});
-  const nt=el('dNote');if(nt)nt.addEventListener('input',()=>{if(window.NBUProfile&&NBUProfile.setNote)NBUProfile.setNote(code,nt.value);});
+  const sh=el('dShare');if(sh)sh.addEventListener('click',()=>compartir(sh,
+    `${c.code} — ${c.nombre}`, enlaceA(code)));
+  /* La nota personal era una pared: lo que uno descubre sobre cómo se carga una
+     práctica quedaba guardado en su propio perfil y el de al lado lo volvía a
+     pelear solo. Compartirla la manda por el canal que ya existe —la propuesta,
+     que publica el administrador—, sin tener que escribirla de nuevo. */
+  const nt=el('dNote');
+  if(nt)nt.addEventListener('input',()=>{
+    if(window.NBUProfile&&NBUProfile.setNote)NBUProfile.setNote(code,nt.value);
+    const bs=el('dNoteShare'); if(bs)bs.disabled=!nt.value.trim();
+  });
+  const ns=el('dNoteShare');
+  if(ns)ns.addEventListener('click',()=>{
+    const txt=(nt.value||'').trim();
+    if(!txt)return;
+    if(!confirm('Se le manda al administrador para que la publique para todo el equipo.\n\nTu nota sigue siendo tuya: no se borra.'))return;
+    if(NBUProfile.proponerNota(code,txt)){
+      ns.textContent='Mandada ✓'; ns.disabled=true;
+      setTimeout(()=>{if(currentCode===code)openCode(code);},1200);
+    }
+  });
+}
+/* Pasarle algo a un compañero. En el celular abre el menú de compartir del
+   teléfono —o sea, WhatsApp, que es por donde se hablan de verdad—; en la
+   computadora copia el enlace, que es lo único que se puede hacer sin pedir
+   permisos raros. El enlace abre la misma pantalla en el equipo del otro: la
+   cuenta se la sigue pidiendo la app, esto no comparte ningún dato. */
+function enlaceA(hash){
+  const u=location.origin+location.pathname;
+  return (location.protocol==='file:'?'https://juanbc-beep.github.io/VISITAR/':u)+'#'+hash;
+}
+function compartir(boton,titulo,url){
+  const listo=(txt)=>{const t=boton.textContent;boton.textContent=txt;setTimeout(()=>{boton.textContent=t;},1600);};
+  if(navigator.share){
+    navigator.share({title:titulo,text:titulo,url:url}).catch(()=>{});
+    return;
+  }
+  try{
+    navigator.clipboard.writeText(titulo+'\n'+url).then(()=>listo('Enlace copiado ✓'),
+      ()=>toast('No se pudo copiar el enlace',true));
+  }catch(e){ toast('No se pudo copiar el enlace',true); }
 }
 function addToValidator(code){
   state.view='validator';render();
@@ -3478,13 +3547,32 @@ window.addEventListener('hashchange',()=>{
      navegador no recarga: el lector que está arriba de todo nunca correría y el
      enlace se perdería en silencio. Recargar hace que lo lea. */
   if(/(^|&)type=recovery(&|$)/.test(h)||/(^|&)error(_code)?=/.test(h))return location.reload();
+  if(/^caso=/.test(h))return abrirCaso(h);
   if(h&&BYCODE[h])openCode(h);
 });
+
+/* Un caso que alguien pasó: abre la Mesa con esos códigos y ese tipo de
+   auditoría, y lo analiza. Si el enlace trae cualquier cosa, no pasa nada:
+   los códigos que no existen ya los marca el propio análisis. */
+function abrirCaso(h){
+  const p=new URLSearchParams(h);
+  const cods=(p.get('caso')||'').trim();
+  if(!cods)return false;
+  state.view='validator'; render();
+  const ta=el('vcodes'); if(!ta)return false;
+  const modo=p.get('modo')==='autorizacion'?'autorizacion':'facturacion';
+  const bm=el('validator').querySelector(`.vmbtn[data-vmode="${modo}"]`);
+  if(bm&&state.vmode!==modo)bm.click();
+  ta.value=cods; el('vrun').click();
+  toast('Caso abierto — te lo pasó un compañero');
+  return true;
+}
 
 applyMode();
 render();
 const initial=location.hash.slice(1);
-if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode=BYCODE[initial].nomenclador;applyMode();render();openCode(initial);}
+if(/^caso=/.test(initial))abrirCaso(initial);
+else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode=BYCODE[initial].nomenclador;applyMode();render();openCode(initial);}
 
 /* ============================================================
    Perfiles · Administrador · Sincronización (Supabase)
@@ -5319,6 +5407,7 @@ if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state.mode
       // Se pinta primero y se manda después: la pantalla responde al instante y
       // la relectura de la base corrige si algo no entró.
       if(nubeContenido)enNube(NUBE.crearPropuesta(code,texto),'guardar la propuesta');
+      return true;
     },
     propuestasDe:(code)=>((CONTENT.propuestas||{})[code]||[]),
     /* Verificación: un centro de respaldo vale por la confianza que genera, y hoy
