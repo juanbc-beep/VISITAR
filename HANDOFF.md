@@ -591,6 +591,36 @@ médico» no son lo mismo y si se parecieran, ninguno significaría nada.
 error real («la base todavía no acepta los roles médicos») y `pendientes()` sin la clave
 `medicas` no pisa el conteo calculado del lado del cliente.
 
+### 4.5 quater ⚠️ Avisos del linter de Supabase — NO seguir la receta al pie de la letra
+
+El linter marca **«SECURITY DEFINER Function … Revoke EXECUTE»** en las 13 funciones.
+**Hacer eso a secas deja la app afuera.** Probado contra PostgreSQL 16 local:
+
+```
+revoke execute on function public.es_admin() from public, anon, authenticated;
+→ insert en «correcciones» siendo administrador:
+  ERROR: permission denied for function es_admin
+```
+
+Una expresión de policy se evalúa **con los permisos de quien hace la consulta**, no con los
+del dueño de la tabla. Sin EXECUTE para `authenticated`, toda policy que llame a `es_admin()`
+deja de poder evaluarse.
+
+Lo correcto está en **`docs/supabase_permisos_funciones.sql`**:
+- a **`anon`** se le saca todo (las 13);
+- a **`authenticated`** se le deja sólo lo que la app necesita: las 5 de apoyo que usan las
+  policies (`es_activo`, `es_admin`, `es_medico`, `es_medico_admin`, `valida_medico`) y las 4
+  RPC (`pendientes`, `transferir_admin`, `pedir_verificacion`, `validar_verificacion`);
+- las **4 de trigger** (`perfil_nuevo`, `perfil_guardia`, `un_solo_admin`,
+  `correcciones_guardia`) se le sacan a todos. **Un trigger no comprueba EXECUTE para
+  dispararse** — también probado: el guardia siguió recortando la fila con el permiso
+  revocado.
+- `alter default privileges … revoke execute on functions from public` para que la próxima
+  función no nazca abierta.
+
+Quedan **9 avisos que no se bajan y están bien así**: son justo las que `authenticated` tiene
+que poder ejecutar. Cada una controla por dentro quién la llama.
+
 ### 4.6 Observaciones del administrador — una sola por práctica
 
 El administrador deja una observación en la ficha; se ve **debajo del código en el listado**
