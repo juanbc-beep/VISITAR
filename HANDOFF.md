@@ -545,10 +545,34 @@ Ahora la clave es `nbu-onboarded:<idDeUsuario>` (`claveOnb()` / `yaVioOnboarding
 `marcarOnboarding()`), con **migración**: la primera persona que entra después de actualizar
 conserva su estado y no se le repite; de ahí en más cada uno tiene la suya.
 
-**Los médicos tienen recorrido propio** (`pasosEsencialesMedico()`): 5 pasos para el médico
-administrativo, 6 para el administrador (suma el de la campana y su panel de una pestaña). No
-es el del administrativo con pasos de menos — entra a otra cosa, así que el paso central es el
-bloque de revisión médica y su botón, no el buscador ni el valor de la U.B.
+**Los médicos tienen recorrido propio, los DOS.**
+- Esencial (`pasosEsencialesMedico()`): **5 pasos** el médico administrativo, **6** el
+  administrador. No es el del administrativo con pasos de menos — entra a otra cosa, así que
+  el paso central es el bloque de revisión médica y su botón.
+- Completo (`pasosTour()`): **22 / 24 pasos** contra 24 del administrativo. Se arma
+  **filtrando y metiendo**, no copiando la lista: los pasos marcados `noMed:true` se caen
+  (valor de la U.B., contá cómo se carga, comparar/copiar, Mesa de trabajo, informe) y entran
+  tres de revisión médica antes de «cómo se carga», más dos de panel al final para el
+  administrador. Si mañana cambia un paso compartido, cambia para los dos.
+  ⚠️ El paso del panel va **al final**: su `antes` cierra el cajón, y en el medio dejaba a los
+  pasos siguientes hablando de una ficha que ya no estaba en pantalla.
+
+### 4.5 bis 3 Dr. / Dra. — se pregunta, no se adivina
+
+`pedirTrato()`. **No se puede deducir del nombre**, y no es una limitación técnica: adivinar
+el género por el nombre es un error que la persona ve escrito todos los días y frente a todo
+el equipo. «Alex», «Cruz», «Trinidad», «Guadalupe» no dicen nada, y en los que «parecen»
+decirlo la app se equivocaría igual.
+
+Así que se pregunta **una vez, con un toque**, la primera vez que entra con un rol médico —
+no en el alta, porque cuando alguien crea la cuenta todavía no sabe que va a ser médico (el
+rol se lo da el administrador después). Tres opciones: `Dr.` / `Dra.` / sin tratamiento.
+
+Se guarda en **`perfiles.nombre`**, la columna que ya existe y que se muestra en todos lados:
+cero cambios de esquema, y el tratamiento viaja solo a la firma de la revisión, al chip de la
+cuenta, al registro de actividad y al panel. `RE_TRATO` / `sinTrato()` / `tieneTrato()` para no
+duplicarlo si ya lo tiene. La elección de «sin tratamiento» se recuerda en
+`nbu-trato:<id>` para no volver a preguntar.
 
 ### 4.5 ter ⚠️ CUATRO TIPOS DE CUENTA (roles médicos)
 

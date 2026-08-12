@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-/PvDVfxmKL7vBsttltOd8P7jm8gRmMJ4DkaJ0f1iSQc=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-f3gq+0rLYhYaUQf+6d5Q6owj2aLXDCKhAjs+yhoMGjU=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1219,6 +1219,19 @@ body.tour-on{overscroll-behavior:none}
 /* admin panel (reuse modal styles) */
 #adminModal{position:fixed;inset:0;z-index:900;background:rgba(19,32,41,.44);display:none;align-items:flex-start;justify-content:center;padding:40px 18px;overflow:auto}
 #adminModal.on{display:flex}
+/* Se pregunta UNA vez, al entrar, y no en el formulario de alta: quien crea la
+   cuenta todavía no sabe que va a ser médico —el rol se lo da el administrador
+   después—, así que ahí la pregunta no tendría sentido. */
+#tratoModal{position:fixed;inset:0;z-index:940;background:rgba(19,32,41,.5);display:none;align-items:center;justify-content:center;padding:24px;overflow:auto}
+#tratoModal.on{display:flex}
+.tratobox{max-width:440px}
+.trato-op{display:flex;gap:9px;margin:16px 0 4px;flex-wrap:wrap}
+.trato-op button{flex:1 1 0;min-width:96px;border:1.5px solid var(--line-2);background:var(--surface);
+  color:var(--ink);border-radius:10px;padding:14px 10px;font:inherit;font-size:16px;font-weight:700;
+  cursor:pointer;transition:border-color .14s,background .14s,color .14s}
+.trato-op button:hover{border-color:var(--med);background:color-mix(in srgb,var(--med) 10%,transparent);color:var(--med)}
+.trato-op button small{display:block;font-size:11.5px;font-weight:500;color:var(--muted);margin-top:3px}
+.trato-op button:hover small{color:var(--med)}
 .adminbox{width:100%;max-width:680px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;position:relative}
 .adminbox h3{font-size:18px;margin:0 0 4px;color:var(--ink)}
 .adminbox .asub{font-size:12.5px;color:var(--muted);margin-bottom:16px}
@@ -1279,6 +1292,7 @@ mark.hl{background:var(--accent-soft);color:var(--accent-ink);border-radius:3px;
 <style>@keyframes bootspin{to{transform:rotate(360deg)}}</style>
 <div id="gate" hidden></div>
 <div id="adminModal"><div class="adminbox" id="adminBox" role="dialog" aria-modal="true" aria-label="Administración"></div></div>
+<div id="tratoModal"><div class="adminbox tratobox" id="tratoBox" role="dialog" aria-modal="true" aria-label="Cómo te firmamos"></div></div>
 <div id="onboard"><div class="obcard" id="onboardCard"></div></div>
 <div id="tour"><div id="tourHole"></div><div id="tourTip"></div></div>
 <div id="pista" role="status" aria-live="polite"></div>
@@ -4972,6 +4986,10 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     vigilarCuentas(adm);
     resetIdle();
     maybeOnboard();
+    /* Después del recorrido, no antes: dos cosas al mismo tiempo la primera vez
+       que entrás es una de más. Si el recorrido está corriendo, espera. */
+    if(tCorriendo){const t0=setInterval(()=>{if(!tCorriendo){clearInterval(t0);pedirTrato();}},700);}
+    else pedirTrato();
   }
 
   /* ============ ADMIN PANEL ============ */
@@ -5660,16 +5678,19 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   }
   function pasosTour(){
     const admin=!!(current&&current.role==='admin');
+    const med=soyMedico(), valida=validaMedico();
     const P=[
       {sel:null,t:'Bienvenido al Manual Inteligente',
-       d:'Este es el <b>centro de respaldo</b>: acá verificás códigos, prestaciones, obligaciones de cobertura y cómo se carga cada solicitud. La carga en sí se hace en los sistemas de siempre. Es el recorrido completo: son unos cinco minutos y te muestra dónde está cada cosa.'},
+       d:med
+         ? 'Este es el <b>centro de respaldo</b> del equipo: acá se verifica qué se cubre, cuánto vale y cómo se carga cada solicitud. Vos entrás a lo que el equipo administrativo no tiene cómo saber — <b>el criterio médico</b> — y de paso ves todo lo demás. Es el recorrido completo: unos cuatro minutos.'
+         : 'Este es el <b>centro de respaldo</b>: acá verificás códigos, prestaciones, obligaciones de cobertura y cómo se carga cada solicitud. La carga en sí se hace en los sistemas de siempre. Es el recorrido completo: son unos cinco minutos y te muestra dónde está cada cosa.'},
       {sel:'#q',t:'Buscador',
        d:'Escribí un <b>código, el nombre de la práctica, un sinónimo o una sigla</b>. Tolera errores de tipeo: «emograma» encuentra HEMOGRAMA. Y busca también por el nombre que la práctica tiene en el otro nomenclador.'},
       {sel:'.modeswitch',t:'Nomencladores',selAlt:'.modesel',
        d:'Elegís dónde buscar: <b>Laboratorio (NBU)</b>, <b>Prestaciones médicas (PMO)</b> o <b>Único</b>. «Buscar en todo» consulta los tres a la vez, más diagnósticos y siglas.'},
       {sel:'.consultarow',t:'Consulta rápida',
        d:'Tres apartados de apoyo: <b>Diagnósticos CIE-10</b> para el diagnóstico que justifica la práctica, <b>Abreviaturas</b> para descifrar cómo viene escrita la orden, y <b>SURGE</b> con las patologías de reintegro y su documentación.'},
-      {sel:'.ubctl',t:'Valor de la Unidad Bioquímica',
+      {sel:'.ubctl',t:'Valor de la Unidad Bioquímica',noMed:true,
        d:'Cargá acá el <b>valor de la U.B.</b> y la app calcula el arancel en pesos en el listado, en la ficha y en la Mesa de trabajo. Queda guardado en tu perfil.'},
       {sel:'#fFlags',t:'Filtros, en tres bloques',antes:async()=>{el('rail')&&el('rail').classList.add('on');await esperar(120);},
        d:'<b>Para decidir</b> junta lo que cambia la carga: obligación de cobertura, sangre u orina, urgencia, desuso. <b>Mi trabajo</b> son tus favoritos, lo visto hace poco y el estado de verificación. <b>Estado del dato</b> es cómo quedó cargado en este manual.'},
@@ -5692,17 +5713,17 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
        antes:async()=>{if(navPila.length)atrasFicha();await esperar(200);},
        d:admin?'Podés <b>marcar la ficha como verificada</b>, y también <b>validar</b> las que verificó un administrativo. La verificación vence a los 180 días, porque la normativa cambia.'
               :'Si contrastaste la ficha contra la fuente, tocá <b>Solicitar verificación</b>. Queda pendiente hasta que <b>un administrador la valide</b>.'},
-      {sel:'#propAbrir',t:'Contá cómo se carga acá',
+      {sel:'#propAbrir',t:'Contá cómo se carga acá',noMed:true,
        d:'Lo que sabés sobre cómo se carga esta práctica <b>en el sistema de VISITAR</b> no está en ningún nomenclador. Escribilo una vez: un administrador lo aprueba y queda publicado para todo el equipo.'},
-      {sel:'#dCmp',t:'Comparar, copiar e imprimir',
+      {sel:'#dCmp',t:'Comparar, copiar e imprimir',noMed:true,
        d:'<b>Comparar</b> pone dos códigos lado a lado con las diferencias resaltadas, útil cuando dudás entre parecidos. Al lado tenés copiar el código, <b>imprimir la ficha</b> completa y la estrella para marcarla como favorita.'},
       {sel:'#rapidos',t:'Lo que usás todo el tiempo',
        antes:async()=>{closeDrawer();await esperar(160);
          if(!FAVS.size){['660475','660481'].forEach(k=>{if(!FAVS.has(k))toggleFav(k);});render();await esperar(120);}},
        d:'Dos solapas arriba del listado: <b>Frecuentes</b> son las que marcaste con la estrella, y <b>Vistos hoy</b> las últimas fichas que abriste. Esa segunda se llena sola con lo que estás cargando ahora.'},
-      {sel:'.vtab[data-view="validator"]',t:'Mesa de trabajo',
+      {sel:'.vtab[data-view="validator"]',t:'Mesa de trabajo',noMed:true,
        d:'Pegás <b>todos los códigos de un caso</b> y te los analiza junto. En modo <b>autorización</b> arma la documentación a pedirle al afiliado; en <b>facturación</b> detecta doble facturación, cantidades mal cargadas y códigos inexistentes.'},
-      {sel:'#vCopy',t:'Informe para pegar',
+      {sel:'#vCopy',t:'Informe para pegar',noMed:true,
        antes:async()=>{state.view='validator';render();await esperar(140);
          el('vcodes').value='661000 660475';el('vrun').click();await esperar(220);},
        d:'Deja el análisis en <b>texto listo para pegar</b> en el sistema donde llevan el caso: prácticas, obligaciones de cobertura y documentación a solicitar. También podés bajarlo en CSV o PDF.'},
@@ -5729,7 +5750,40 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
        d:'Perfiles del equipo y aprobación de cuentas, textos y logo, respaldo, y <b>exportar las correcciones y verificaciones</b> como archivo, para archivarlas o llevarlas a otro sistema. Con la nube configurada ya se comparten solas: esto es una copia, no el medio de transporte.'});
     P.push({sel:null,t:'Listo',
       d:'Podés volver a ver este recorrido cuando quieras desde el botón <b>Ver tutorial</b>, arriba del panel de Glosario y marco normativo.'});
-    return P;
+    if(!med)return P;
+    /* El recorrido de un médico es el mismo manual —tiene que conocerlo entero,
+       porque es sobre lo que opina— menos lo que no le toca, más lo suyo. Se
+       arma filtrando y metiendo pasos, y no copiando la lista entera: si mañana
+       cambia un paso compartido, cambia para los dos. */
+    const M=P.filter(x=>!x.noMed);
+    const iFicha=M.findIndex(x=>x.sel==='.carga');
+    const propios=[
+      {sel:'.revmed',t:valida?'Acá escribís la revisión médica':'Acá dejás tu aporte médico',
+       antes:async()=>{if(!el('drawer').classList.contains('on')){openCode('660475');await esperar(300);}},
+       d:valida
+         ? 'Es lo primero de la ficha, arriba de «cómo se carga» y de la valorización, porque es lo que decide si la práctica corresponde. El botón publica <b>en el acto</b>, firmado con tu nombre: sos vos quien las valida.'
+         : 'Es lo primero de la ficha, arriba de «cómo se carga» y de la valorización. Lo que escribas queda como <b>aporte sin confirmar</b> hasta que un médico administrador lo dé por bueno; recién ahí pasa a ser norma para el equipo.'},
+      {sel:'.revmed',t:'Corregirla y levantarla',
+       d:valida
+         ? 'Desde la misma ficha: <b>✎ Editar</b> corrige el texto —se refirma con tu nombre y la fecha de hoy— y <b>Levantar</b> la saca de la ficha si dejó de valer. No hace falta entrar a ningún panel.'
+         : 'Si una revisión ya publicada quedó incompleta, el mismo botón te deja <b>proponer una corrección</b>: la revisa un médico administrador antes de reemplazar la que está.'},
+      {sel:'.revmed',t:'Y se lee sin abrir la ficha',
+       d:'Publicada, la revisión aparece <b>en el resultado del listado</b>, debajo del nombre de la práctica, en verde. Es a propósito: si hay que abrir la ficha para enterarse de que algo no corresponde, se enteraron tarde.'}
+    ];
+    M.splice(iFicha>=0?iFicha:M.length-1, 0, ...propios);
+    /* El panel va al final, con los demás pasos de panel, y no en el medio de la
+       ficha: su «antes» cierra el cajón y dejaba a los pasos siguientes hablando
+       de una ficha que ya no estaba en pantalla. */
+    if(valida){
+      const iFin=M.findIndex(x=>x.t==='Listo');
+      M.splice(iFin>=0?iFin:M.length, 0,
+        {sel:'#adminBtn',t:'Tu panel: una sola pestaña',
+         antes:async()=>{closeDrawer();await esperar(220);},
+         d:'<b>Revisión médica</b>, y nada más. Ahí confirmás o descartás los aportes de los médicos administrativos, y ves las publicadas por si hay que levantar alguna. Las cuentas, los textos, la nube y el respaldo son del administrador general: no aparecen porque no son tuyos.'},
+        {sel:'#pendBtn',t:'Cuándo te avisa',forzar:true,
+         d:'Cuando un médico administrativo deja un aporte, te aparece el número acá. Sólo cuenta <b>lo médico</b>: las cuentas por aprobar y las verificaciones administrativas son del administrador general, y mostrarte un número que no podés bajar sería mentirte.'});
+    }
+    return M;
   }
 
   let tIdx=0,tPasos=[],tCorriendo=false;
@@ -5755,6 +5809,55 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   }
   function marcarOnboarding(){try{localStorage.setItem(claveOnb(),'1');}catch(e){}}
   function maybeOnboard(){ if(yaVioOnboarding())return; startOnboard('esencial'); }
+
+  /* ---- Dr. / Dra. ----
+     No se puede deducir del nombre. «Alex», «Cruz», «Trinidad», «Guadalupe» y un
+     montón más no dicen nada, y en los que «parecen» decirlo la app se
+     equivocaría igual: adivinar el género por el nombre es exactamente la clase
+     de error que no se puede reparar después, porque la persona ve su nombre mal
+     escrito todos los días y frente a todo el equipo.
+     Así que no se adivina: se pregunta UNA vez, con un toque, la primera vez que
+     entra con un rol médico. No en el alta —cuando alguien crea la cuenta
+     todavía no sabe que va a ser médico, el rol se lo da el administrador
+     después— y no en un menú que haya que ir a buscar.
+     Se guarda en «perfiles.nombre», que es la columna que ya existe y la que se
+     muestra en todos lados: cero cambios de esquema y el tratamiento viaja solo
+     a la firma de la revisión, al chip de la cuenta, al registro y al panel. */
+  const RE_TRATO=/^\s*(dra?\.?)\s+/i;
+  const sinTrato=n=>String(n||'').replace(RE_TRATO,'').trim();
+  const tieneTrato=n=>RE_TRATO.test(String(n||''));
+  const claveTrato=()=>'nbu-trato:'+((current&&current.id)||'anon');
+  function pedirTrato(){
+    if(!current||!soyMedico())return;
+    if(tieneTrato(current.name))return;                 // ya lo tiene
+    try{ if(localStorage.getItem(claveTrato()))return; }catch(e){}   // ya eligió no ponerlo
+    const m=el('tratoModal'), box=el('tratoBox'); if(!m||!box)return;
+    const base=sinTrato(current.name);
+    box.innerHTML=`<h3>¿Cómo te firmamos?</h3>
+      <div class="asub">Va adelante de tu nombre en las revisiones médicas que publiques y en todo lo que firmes. Lo elegís una vez y lo podés cambiar cuando quieras desde tu perfil.</div>
+      <div class="trato-op">
+        <button data-trato="Dr.">Dr. <small>${E(base)}</small></button>
+        <button data-trato="Dra.">Dra. <small>${E(base)}</small></button>
+        <button data-trato="">Sin tratamiento <small>${E(base)}</small></button>
+      </div>`;
+    m.classList.add('on');
+    box.querySelectorAll('[data-trato]').forEach(b=>b.addEventListener('click',async()=>{
+      const t=b.dataset.trato;
+      m.classList.remove('on');
+      try{ localStorage.setItem(claveTrato(),'1'); }catch(e){}
+      if(!t)return;                                     // eligió no usar tratamiento
+      const nuevo=(t+' '+base).trim();
+      current.name=nuevo;
+      el('acctNm').textContent=nuevo;
+      if(NUBE.activa&&current._nube){
+        try{ await NUBE.cambiar(current.id,{nombre:nuevo}); }
+        catch(e){ toast('No se pudo guardar el tratamiento: '+e.message,true); }
+      } else { const pr=AUTH.profiles.find(x=>x.id===current.id);
+               if(pr){pr.name=nuevo;pr.updated=Date.now();persistAuth();} }
+      toast('Ahora firmás como '+nuevo);
+      renderPane();
+    }));
+  }
 
   /* ============ Pistas: lo nuevo se explica donde aparece ============
      El tutorial dejó de ser el lugar donde se anuncian las funciones nuevas: por
