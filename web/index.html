@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-SyoRkZUVPU/EfhpJJ1GE/qy0ZY0QSR9r5MTNzvb82/s=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-ENfsQB/oKFBJsXkieb6o+ODuYWp/5YAZrKGC0IcaFK4=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -315,6 +315,23 @@ html,body{margin:0;padding:0}
 .prop-pend .pp-t{background:var(--surface);border:1px dashed color-mix(in srgb,var(--gestion) 45%,transparent);
   border-radius:6px;padding:7px 9px;margin-top:5px;color:var(--ink-2);font-size:12.5px;white-space:pre-wrap;line-height:1.5}
 .prop-pend .pp-t .pmeta{margin-top:4px}
+/* ---------- revisión médica ----------
+   El token va con los tres estados como el resto: claro por defecto, y
+   redefinido para «oscuro del sistema» y para «oscuro elegido a mano». */
+:root{--med:#2e7d5b}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--med:#6ee7a8}}
+:root[data-theme="light"]{--med:#2e7d5b}:root[data-theme="dark"]{--med:#6ee7a8}
+   Verde clínico, distinto del ámbar de las propuestas y del azul de la
+   verificación: son tres cosas que dicen cosas distintas y si se parecen, la
+   persona deja de leer cuál es cuál. */
+.revmed{border:1px solid color-mix(in srgb,var(--med) 34%,transparent);
+  background:color-mix(in srgb,var(--med) 7%,transparent);
+  border-left:3px solid var(--med);border-radius:8px;padding:10px 12px}
+.revmed .rm-h{font-size:12px;font-weight:800;letter-spacing:.3px;color:var(--med)}
+.revmed .rm-t{margin-top:5px;font-size:13px;line-height:1.55;color:var(--ink);white-space:pre-wrap}
+.revmed .rm-m{margin-top:5px;font-size:11.5px;color:var(--muted)}
+.revmed .rm-pend{margin-top:9px;padding-top:9px;border-top:1px dashed color-mix(in srgb,var(--med) 30%,transparent)}
+.revmed .rm-ph{font-size:12px;font-weight:800;color:var(--gestion)}
+.revmed .rm-pa{font-size:12px;color:var(--ink-2);margin:3px 0 4px;line-height:1.45}
 /* ---------- autoría ----------
    Queda en la app, no en los textos editables del panel: es un dato de autoría, no
    contenido configurable. */
@@ -1938,7 +1955,7 @@ function renderRapidos(){
                &&state.view==='list'&&!['CIE','ABR','SURGE','ALL'].includes(state.mode);
   const favs=[...FAVS].map(k=>BYCODE[k]).filter(c=>c&&c.nomenclador===state.mode).slice(0,8);
   const P=window.NBUProfile||{};
-  const esAdmin=!!(P.active&&P.active()&&P.active().role==='admin');
+  const esAdmin=!!(P.esDuenio&&P.esDuenio());
   const eq=((P.favsEquipo&&P.favsEquipo())||[])
     .map(k=>BYCODE[k]).filter(c=>c&&c.nomenclador===state.mode).slice(0,8);
   /* Los últimos códigos abiertos valen tanto como los marcados a mano: reflejan lo que
@@ -2747,7 +2764,7 @@ function obsFichaHTML(code){
   const P=window.NBUProfile||{};
   if(!P.active||!P.active())return '';
   const o=P.obsDe?P.obsDe(code):null;
-  const admin=!!(P.active()&&P.active().role==='admin');
+  const admin=!!(P.puedeObservar&&P.puedeObservar());
   if(!o&&!admin)return '';
   const fecha=o?new Date(o.t).toLocaleDateString('es-AR'):'';
   // La misma práctica está con su código del NBU y con el del Único. La
@@ -2771,7 +2788,7 @@ function obsFichaHTML(code){
 function verifHTML(code){
   if(!(window.NBUProfile&&NBUProfile.active()))return '';
   const {estado,v,dias}=verifEstado(code);
-  const esAdmin=!!(NBUProfile.active()&&NBUProfile.active().role==='admin');
+  const esAdmin=!!(NBUProfile.esDuenio&&NBUProfile.esDuenio());
   const f=t=>new Date(t).toLocaleDateString('es-AR');
   let txt,cls=estado;
   if(estado==='sin'){txt='<b>Sin verificar.</b> Nadie contrastó esta ficha contra la fuente.';cls='';}
@@ -3077,7 +3094,11 @@ function openCode(code,origen){
     const pasos=comoSeCargaHTML(c);
     const nota=c.asoc_extra||null;
     const puedeProponer=!!(window.NBUProfile&&NBUProfile.active());
-    const pend=(window.NBUProfile&&NBUProfile.propuestasDe)?NBUProfile.propuestasDe(code):[];
+    const todasPend=(window.NBUProfile&&NBUProfile.propuestasDe)?NBUProfile.propuestasDe(code):[];
+    // Los aportes médicos sin confirmar van con los demás avisos médicos, no acá:
+    // «lo escribió un compañero» y «lo escribió un médico» no pesan igual.
+    const pend=todasPend.filter(x=>!x.medica);
+    const soyMed=!!(window.NBUProfile&&NBUProfile.esMedico&&NBUProfile.esMedico());
     if(!pasos.length&&!nota&&!puedeProponer)return;
     html+=`<div class="sec"><div class="carga">
       <div class="cg-h">▶ Cómo se carga esta solicitud</div>
@@ -3089,13 +3110,37 @@ function openCode(code,origen){
         ${pend.map(p=>`<div class="pp-t">${linkCodes(esc(p.texto))}<div class="pmeta">${esc(p.por||'—')} · ${new Date(p.t).toLocaleDateString('es-AR')}</div></div>`).join('')}
       </div>`:''}
       ${puedeProponer?`<div class="prop-box">
-        <button class="minibtn" id="propAbrir">✎ ${nota?'Proponer una corrección':'Contar cómo se carga acá'}</button>
+        <button class="minibtn" id="propAbrir">✎ ${soyMed?'Dejar un aporte médico':(nota?'Proponer una corrección':'Contar cómo se carga acá')}</button>
         <div id="propForm" hidden style="margin-top:8px">
-          <textarea id="propTxt" placeholder="Ej.: se carga con modalidad ambulatoria; hay que adjuntar la orden escaneada; si es control post-quirúrgico va con el código del módulo…"></textarea>
-          <div style="display:flex;gap:7px;margin-top:7px"><button class="minibtn" id="propEnviar">Enviar propuesta</button>
+          <textarea id="propTxt" placeholder="${soyMed?'Ej.: qué incluye realmente la práctica; con qué diagnósticos se corresponde; cuándo NO está indicada; cómo leer el término del glosario…':'Ej.: se carga con modalidad ambulatoria; hay que adjuntar la orden escaneada; si es control post-quirúrgico va con el código del módulo…'}"></textarea>
+          <div style="display:flex;gap:7px;margin-top:7px"><button class="minibtn" id="propEnviar">${soyMed?'Enviar aporte':'Enviar propuesta'}</button>
           <button class="minibtn" id="propCancel">Cancelar</button></div>
-          <div class="ahint" style="font-size:11.5px">La revisa un administrador antes de quedar publicada para todos.</div>
+          <div class="ahint" style="font-size:11.5px">${soyMed?'La da por buena un médico administrador antes de quedar publicada como revisión médica.':'La revisa un administrador antes de quedar publicada para todos.'}</div>
         </div></div>`:''}
+    </div></div>`;
+  })();
+
+  /* ---- Revisión médica ----
+     Va inmediatamente después de «cómo se carga» y antes de todo lo demás,
+     porque es lo que le falta a quien atiende para decidir: si la práctica se
+     corresponde con el diagnóstico, qué incluye de verdad, cuándo no está
+     indicada. Sello propio, distinto del de verificación: «contrasté la ficha
+     contra la fuente» y «esto es correcto desde lo médico» no son lo mismo, y
+     mezclarlos haría que ninguno de los dos signifique nada. */
+  (function(){
+    const P=window.NBUProfile||{};
+    const rev=P.revisionDe?P.revisionDe(claveObs(code)):null;
+    const pendMed=(P.propuestasDe?P.propuestasDe(code):[]).filter(x=>x.medica);
+    if(!rev&&!pendMed.length)return;
+    html+=`<div class="sec"><div class="revmed">
+      ${rev?`<div class="rm-h">🩺 Revisión médica</div>
+        <div class="rm-t">${linkCodes(esc(rev.texto||''))}</div>
+        <div class="rm-m">Dada por buena por <b>${esc(rev.por||'—')}</b>${rev.de?` · la escribió ${esc(rev.de)}`:''}${rev.t?` · ${new Date(rev.t).toLocaleDateString('es-AR')}`:''}</div>`:''}
+      ${pendMed.length?`<div class="rm-pend">
+        <div class="rm-ph">🩺 ${pendMed.length===1?'Un médico dejó un aporte':`${pendMed.length} médicos dejaron aportes`} — <b>sin confirmar</b></div>
+        <div class="rm-pa">Lo escribió un médico administrativo y un médico administrador todavía no lo dio por bueno. <b>No es norma todavía:</b> si vas a cargar con esto, confirmalo antes.</div>
+        ${pendMed.map(x=>`<div class="rm-t">${linkCodes(esc(x.texto))}<div class="rm-m">${esc(x.por||'—')} · ${new Date(x.t).toLocaleDateString('es-AR')}</div></div>`).join('')}
+      </div>`:''}
     </div></div>`;
   })();
 
@@ -3854,6 +3899,12 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       activa,
       hay:()=>!!ses,
       perfil:()=>perfil,
+      /* Para diagnosticar desde la consola, y para que las pruebas puedan pedirle
+         a la base lo que la interfaz no ofrece: un permiso sólo está probado si
+         se lo intenta saltear. No otorga nada — el token es el mismo con el que
+         ya trabaja la app. */
+      url:()=>URL_,
+      headers:()=>hdrAuth(),
       correo:()=>ses&&ses.user&&ses.user.email||'',
 
       async registrar(nombre,correo,pass){
@@ -3966,6 +4017,50 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   window.NBUNube=NUBE;
   let current=null, companyAuthed=false, editMode=false, gView='';
 
+  /* ============ Los cuatro tipos de cuenta ============
+     Mismo vocabulario que el CHECK de public.perfiles, para no mantener dos
+     diccionarios que se desincronizan. «user» era el valor viejo del modo local
+     y se sigue aceptando al leer, para que ningún perfil guardado quede afuera.
+
+       admin         Administrador general. Uno solo, es el dueño del manual:
+                     cuentas, roles, textos, logo, respaldo, restaurar.
+       medico_admin  Médico administrador. Valida lo médico y nada más. NO ve
+                     cuentas, ni configuración, ni respaldo: ése es el límite
+                     que pidió la dirección y el que impone la base.
+       medico        Médico administrativo. Aporta lo médico; no valida.
+       usuario       Administrativo. Como hasta ahora.
+
+     OJO: esto es la interfaz, no la seguridad. Lo que de verdad impide que un
+     médico administrador toque una cuenta son las policies de Supabase
+     (docs/supabase_roles_medicos.sql). Acá sólo se decide qué mostrar: sin esa
+     migración corrida, la app pide lo que no puede y la base contesta que no. */
+  const ROLES={
+    admin:       {label:'Administrador general', corto:'Administrador', badge:'admin'},
+    medico_admin:{label:'Médico administrador',  corto:'Médico admin.', badge:'medico'},
+    medico:      {label:'Médico administrativo', corto:'Médico',        badge:'medico'},
+    usuario:     {label:'Administrativo',        corto:'Administrativo',badge:''}
+  };
+  const ROL_VALIDO=r=>(r==='admin'||r==='medico_admin'||r==='medico')?r:'usuario';
+  const rolLabel=r=>(ROLES[ROL_VALIDO(r)]||ROLES.usuario).label;
+  /* Capacidades, en un solo lugar. Preguntar «¿es admin?» desparramado por la
+     app fue lo que hizo que sumar un rol tocara treinta lugares. */
+  const CAP={
+    // El dueño del manual: cuentas, roles, textos, logo, respaldo, restaurar.
+    duenio:      p=>!!(p&&p.role==='admin'),
+    // Valida lo médico: el médico administrador y, por encima, el general.
+    validaMedico:p=>!!(p&&(p.role==='admin'||p.role==='medico_admin')),
+    // Aporta lo médico: cualquiera de los dos roles médicos.
+    esMedico:    p=>!!(p&&(p.role==='medico'||p.role==='medico_admin')),
+    // Puede escribir el aviso por práctica (observaciones).
+    observa:     p=>!!(p&&(p.role==='admin'||p.role==='medico_admin')),
+    // Edita la ficha entera. Sólo el general: al médico la base le revierte
+    // todo lo que no sea la revisión médica.
+    editaFicha:  p=>!!(p&&p.role==='admin')
+  };
+  const esDuenio    =()=>CAP.duenio(current);
+  const validaMedico=()=>CAP.validaMedico(current);
+  const soyMedico   =()=>CAP.esMedico(current);
+
   const H1=document.querySelector('header h1'), SUB=document.querySelector('header .brand p');
   const DEF={title:H1?H1.textContent:'',subtitle:SUB?SUB.textContent:''};
 
@@ -4031,6 +4126,8 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   let nubeContenido=false;      // true cuando CONTENT viene de la base
   let obsNuevas=0;              // observaciones sin ver por esta persona
   let nombrePorId={};           // uuid -> nombre, para mostrar quién hizo qué
+  let rolPorId={};              // uuid -> rol, para saber si un aporte es médico
+  const esRolMedico=r=>r==='medico'||r==='medico_admin';
 
   async function cargarContenidoNube(){
     if(!(NUBE.activa&&current&&current._nube))return false;
@@ -4039,7 +4136,8 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       NUBE.listar().catch(()=>[]),          // sólo para poner nombres a los uuid
       NUBE.correcciones(), NUBE.verificaciones(), NUBE.propuestas(), NUBE.ajustes(),
       NUBE.observaciones()]);
-    nombrePorId={}; (perfiles||[]).forEach(p=>{nombrePorId[p.id]=p.nombre;});
+    nombrePorId={}; rolPorId={};
+    (perfiles||[]).forEach(p=>{nombrePorId[p.id]=p.nombre; rolPorId[p.id]=ROL_VALIDO(p.rol);});
     const quien=id=>id?(nombrePorId[id]||'—'):'';
     const ms=s=>s?Date.parse(s):0;
 
@@ -4065,7 +4163,8 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
 
     const propuestas={};
     (props||[]).forEach(p=>{(propuestas[p.codigo]=propuestas[p.codigo]||[]).push(
-      {id:p.id,t:ms(p.creada),por:quien(p.autor),texto:p.texto});});
+      {id:p.id,t:ms(p.creada),por:quien(p.autor),texto:p.texto,
+       medica:esRolMedico(rolPorId[p.autor]),rol:rolPorId[p.autor]||'usuario'});});
 
     const observ={};
     (obs||[]).forEach(o=>{observ[o.codigo]={texto:o.texto,por:quien(o.autor),t:ms(o.actualizada)};});
@@ -4097,15 +4196,20 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
        Que alguien haya pedido una verificación es trámite, no novedad. */
     CONTENT.novedades=act.filter(e=>e.t>vistas&&e.autor!==mio&&
       (e.que==='dejó una observación'||e.que==='corrigió la ficha'));
-    obsNuevas=(current&&current.role==='admin')?0:CONTENT.novedades.length;
+    obsNuevas=esDuenio()?0:CONTENT.novedades.length;
 
     CONTENT.codes=codes; CONTENT.verif=verif; CONTENT.propuestas=propuestas;
     // Los conteos salen de lo mismo que se acaba de leer, así el número del
     // aviso y las listas del panel no pueden contradecirse.
-    if(current&&current.role==='admin'){
-      cuNube=(perfiles||[]).filter(x=>(x.estado||'')==='pendiente').length;
-      verNube=Object.values(verif).filter(v=>v.estado==='pendiente').length;
-      prNube=(props||[]).length;
+    if(esDuenio()||validaMedico()){
+      const duenio=esDuenio();
+      cuNube =duenio?(perfiles||[]).filter(x=>(x.estado||'')==='pendiente').length:0;
+      verNube=duenio?Object.values(verif).filter(v=>v.estado==='pendiente').length:0;
+      // Una propuesta la cierra quien puede juzgarla: si la escribió un médico es
+      // médica, y si no, administrativa. Sale del rol del autor, que ya está acá.
+      const medicas=(props||[]).filter(x=>esRolMedico(rolPorId[x.autor])).length;
+      prNube =duenio?((props||[]).length-medicas):0;
+      medNube=validaMedico()?medicas:0;
     }
     const a=(Array.isArray(aj)?aj[0]:aj)||{};
     if(a.contenido&&a.contenido.page)CONTENT.page=a.contenido.page;
@@ -4158,23 +4262,30 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   // Conteos remotos. En modo nube NO se pueden calcular sobre lo que este equipo
   // tiene cargado: una solicitud hecha en otra computadora llegó después de que
   // esta persona entrara, y el aviso tiene que aparecer igual, sin recargar.
-  let cuNube=0, verNube=0, prNube=0;
+  let cuNube=0, verNube=0, prNube=0, medNube=0;
   function contarPendientes(){
     if(NUBE.activa)
-      return {v:verNube,pr:prNube,cu:cuNube,total:verNube+prNube+cuNube};
-    const v=Object.values(CONTENT.verif||{}).filter(x=>x.estado==='pendiente').length;
-    const pr=Object.values(CONTENT.propuestas||{}).reduce((n,l)=>n+l.length,0);
-    const cu=AUTH.profiles.filter(x=>x.estado==='pendiente').length;
-    return {v,pr,cu,total:v+pr+cu};
+      return {v:verNube,pr:prNube,cu:cuNube,med:medNube,total:verNube+prNube+cuNube+medNube};
+    const duenio=esDuenio();
+    const todas=Object.values(CONTENT.propuestas||{}).reduce((a,l)=>a.concat(l),[]);
+    const med=validaMedico()?todas.filter(x=>x.medica).length:0;
+    const v =duenio?Object.values(CONTENT.verif||{}).filter(x=>x.estado==='pendiente').length:0;
+    const pr=duenio?(todas.length-todas.filter(x=>x.medica).length):0;
+    const cu=duenio?AUTH.profiles.filter(x=>x.estado==='pendiente').length:0;
+    return {v,pr,cu,med,total:v+pr+cu+med};
   }
   /* El administrador tiene que enterarse de un alta hecha en otra computadora sin
      recargar nada: se relee al entrar, al abrir el panel y cada dos minutos. */
   let cuT=null;
   async function refrescarCuentasNube(){
-    if(!NUBE.activa||!current||current.role!=='admin')return;
+    if(!NUBE.activa||!(esDuenio()||validaMedico()))return;
     try{const d=await NUBE.pendientes();const o=Array.isArray(d)?d[0]:d;
       if(o&&typeof o.cuentas==='number'){
         cuNube=o.cuentas; verNube=o.verificaciones||0; prNube=o.propuestas||0;
+        // «medicas» sólo existe después de correr la migración de los roles
+        // médicos; sin ella el resumen viene sin la clave y no se toca el conteo
+        // que ya se calculó del lado de la app.
+        if(typeof o.medicas==='number')medNube=o.medicas;
         actualizarPendientes();}}catch(e){}
   }
   function vigilarCuentas(on){
@@ -4184,14 +4295,14 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   /* Además del reloj: al volver a la pestaña. Es cuando alguien mira si le
      llegó algo, y esperar hasta un minuto ahí se siente roto. */
   document.addEventListener('visibilitychange',()=>{
-    if(!document.hidden&&current&&current.role==='admin')refrescarCuentasNube();
+    if(!document.hidden&&esDuenio())refrescarCuentasNube();
   });
   function actualizarPendientes(){
     /* Aviso de observaciones: es para los administrativos, no para quien las
        escribe. Va al lado del de pendientes, con el mismo tratamiento. */
     const ob=el('obsBtn');
     if(ob){
-      const hay=!!(current&&current.role!=='admin'&&obsNuevas>0);
+      const hay=!!(current&&!esDuenio()&&obsNuevas>0);
       ob.hidden=!hay;
       if(hay){ el('obsN').textContent=obsNuevas>99?'99+':String(obsNuevas);
         ob.title=obsNuevas===1?'Hay 1 novedad desde la última vez que entraste'
@@ -4200,14 +4311,23 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       if(hay&&window.NBUPistas)NBUPistas.revisar();
     }
     const b=el('pendBtn'); if(!b)return;
-    const esAdmin=!!(current&&current.role==='admin');
-    const {v,pr,cu,total}=contarPendientes();
-    b.hidden=!(esAdmin&&total>0);
+    const {v,pr,cu,med,total}=contarPendientes();
+    // La campana la ve quien tiene algo que decidir. Al médico administrador le
+    // llegan los aportes médicos y nada más: las cuentas y las verificaciones no
+    // son suyas, y mostrarle un número que no puede bajar sería mentirle.
+    b.hidden=!((esDuenio()||validaMedico())&&total>0);
     if(b.hidden)return;
     el('pendN').textContent=total>99?'99+':String(total);
-    b.title=`Pendientes de revisar: ${cu} cuenta${cu!==1?'s':''} · ${v} ${v===1?'verificación':'verificaciones'} · ${pr} propuesta${pr!==1?'s':''}`;
+    const partes=[];
+    if(cu) partes.push(`${cu} cuenta${cu!==1?'s':''}`);
+    if(v)  partes.push(`${v} ${v===1?'verificación':'verificaciones'}`);
+    if(pr) partes.push(`${pr} propuesta${pr!==1?'s':''}`);
+    if(med)partes.push(`${med} ${med===1?'aporte médico':'aportes médicos'}`);
+    b.title='Pendientes de revisar: '+(partes.join(' · ')||'nada');
   }
-  el('pendBtn').addEventListener('click',()=>{refrescarCuentasNube();openAdmin(contarPendientes().cu?'perfiles':'propuestas');});
+  el('pendBtn').addEventListener('click',()=>{refrescarCuentasNube();
+    const c=contarPendientes();
+    openAdmin(!esDuenio()?'medicas':(c.cu?'perfiles':(c.pr?'propuestas':(c.med?'medicas':'propuestas'))));});
   el('obsBtn').addEventListener('click',()=>verNovedades(CONTENT.novedades||[]));
 
   /* Qué pasó desde la última vez. Se abre desde la campanita y al cerrarla queda
@@ -4339,7 +4459,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       const list=visibles.length?visibles.map(p=>`
         <button class="pchip" data-pid="${p.id}">
           <span class="pav">${E((p.name||'?').slice(0,1).toUpperCase())}</span>
-          <span><span class="pnm">${E(p.name)}</span><span class="prole">Administrativo</span></span>
+          <span><span class="pnm">${E(p.name)}</span><span class="prole">${E(rolLabel(p.role))}</span></span>
         </button>`).join(''):`<div class="gsub" style="text-align:center;padding:8px 0">Todavía no hay perfiles. Creá el tuyo.</div>`;
       html=`<div class="gcard">
         <div class="glogo brand hasimg">${logoInner('gate')}</div>
@@ -4520,7 +4640,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         if(p1!==p2)return gerr('Las contraseñas no coinciden.');
         const ph=await mkHash(p1);
         // La cuenta nace pendiente: la habilita el administrador.
-        const prof={id:uid(),name:nm,role:'user',estado:'pendiente',hash:ph.hash,salt:ph.salt,it:ph.it,
+        const prof={id:uid(),name:nm,role:'usuario',estado:'pendiente',hash:ph.hash,salt:ph.salt,it:ph.it,
                     favs:[],ub:null,created:Date.now(),updated:Date.now()};
         AUTH.profiles.push(prof);persistAuth();
         gate._nuevo=nm; renderGate('espera');
@@ -4594,9 +4714,11 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   }
 
   /* Traduce la fila de public.perfiles al perfil que ya entiende el resto de la app,
-     para no tener que duplicar toda la interfaz por venir de la nube. */
+     para no tener que duplicar toda la interfaz por venir de la nube.
+     «role» se guarda tal cual viene: los cuatro valores son los mismos que
+     acepta el CHECK de la base, así no hay dos vocabularios que mantener. */
   function perfilDesdeNube(p){
-    return {id:p.id,name:p.nombre,role:p.rol==='admin'?'admin':'user',estado:p.estado,
+    return {id:p.id,name:p.nombre,role:ROL_VALIDO(p.rol),estado:p.estado,
             favs:p.favoritos||[],notes:p.notas||{},recent:p.recientes||[],
             ub:(p.ub!=null?Number(p.ub):null),_nube:true};
   }
@@ -4615,7 +4737,12 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     FAVS.clear();(p.favs||[]).forEach(x=>FAVS.add(x));
     ubValue=(p.ub!=null?p.ub:0);
     el('acctChip').hidden=false;el('acctNm').textContent=p.name;el('acctAv').textContent=(p.name||'?').slice(0,1).toUpperCase();
-    const adm=p.role==='admin';el('adminBtn').hidden=!adm;el('editModeBtn').hidden=!adm;
+    /* El panel lo abre también el médico administrador, pero con una sola
+       pestaña; el modo edición de la ficha sigue siendo del administrador
+       general, porque toca la denominación y las normas. */
+    el('adminBtn').hidden=!(CAP.duenio(p)||CAP.validaMedico(p));
+    el('editModeBtn').hidden=!CAP.editaFicha(p);
+    const adm=CAP.duenio(p);
     applyContent();refreshStats();applyMode();render();hideGate();actualizarPendientes();
     /* El contenido del equipo se trae después de mostrar la app: si la nube
        tardara, se entra igual y se ve la copia guardada de la última vez. */
@@ -4643,13 +4770,19 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
        el equipo, de cuando la app no tenía cuentas personales. Con la nube cada
        uno entra con lo suyo y esa clave común no interviene en nada. En modo
        local se sigue definiendo al configurar el acceso por primera vez. */
-    const tabs=[['perfiles','Perfiles'],['propuestas','Pendientes'],
-      ['contenido','Textos'],['nube','Nube'],['registro','Registro'],['respaldo','Respaldo']];
-    if(aTab==='empresa')aTab='perfiles';
+    /* El panel del médico administrador es UNA pestaña. No es una versión
+       recortada del panel del administrador general con los botones grises:
+       cuentas, textos, logo, nube y respaldo no son suyos, y mostrárselos
+       apagados sólo invita a preguntar por qué no andan. */
+    const tabs=esDuenio()
+      ? [['perfiles','Perfiles'],['propuestas','Pendientes'],['medicas','Revisión médica'],
+         ['contenido','Textos'],['nube','Nube'],['registro','Registro'],['respaldo','Respaldo']]
+      : [['medicas','Revisión médica']];
+    if(!tabs.some(t=>t[0]===aTab))aTab=tabs[0][0];
     abox.innerHTML=`
       <button class="icon-btn close-x" id="aClose" style="position:absolute;top:16px;right:16px" aria-label="Cerrar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
       <h3>Administración</h3>
-      <div class="asub">Perfil actual: <b>${E(current?current.name:'')}</b> · administrador</div>
+      <div class="asub">Perfil actual: <b>${E(current?current.name:'')}</b> · ${E(rolLabel(current&&current.role).toLowerCase())}</div>
       <div class="atabs">${tabs.map(([k,l])=>`<button class="atab${aTab===k?' on':''}" data-t="${k}">${l}</button>`).join('')}</div>
       <div id="aPane"></div>`;
     el('aClose').addEventListener('click',closeAdmin);
@@ -4678,16 +4811,34 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
           <button class="minibtn danger" data-nact="no" data-id="${E(x.id)}">Rechazar</button>
         </div>`).join('')+'<div style="height:14px"></div>':'')+
       resto.map(x=>`<div class="arow"${x.estado==='rechazado'?' style="opacity:.6"':''}>
-        <span class="pav">${av(x.nombre)}</span>
+        <span class="pav"${esRolMedico(x.rol)?' style="background:var(--med)"':''}>${av(x.nombre)}</span>
         <div class="grow2"><div class="pnm">${E(x.nombre)}${x.id===yo.id?' <span style="color:var(--muted);font-weight:500">(vos)</span>':''}</div>
-          <div class="pmeta">${x.rol==='admin'?'Administrador':'Administrativo'}${x.estado==='rechazado'?' · rechazada':''} · ${(x.favoritos||[]).length} favoritos</div></div>
+          <div class="pmeta">${E(rolLabel(x.rol))}${x.estado==='rechazado'?' · rechazada':''} · ${(x.favoritos||[]).length} favoritos</div></div>
         ${x.estado==='rechazado'
           ? `<button class="minibtn" data-nact="ok" data-id="${E(x.id)}">Habilitar</button>`
-          : `<button class="minibtn" data-nact="rol" data-id="${E(x.id)}">${x.rol==='admin'?'Es el administrador':'Transferir administración'}</button>`}
+          : (x.rol==='admin'
+              ? `<span class="pmeta" style="white-space:nowrap">Es el administrador</span>`
+              : `<select class="minibtn" data-rolsel="${E(x.id)}" title="Tipo de cuenta" style="padding:6px 8px">
+                   ${['usuario','medico','medico_admin'].map(r=>`<option value="${r}"${ROL_VALIDO(x.rol)===r?' selected':''}>${E(ROLES[r].label)}</option>`).join('')}
+                 </select>
+                 <button class="minibtn" data-nact="rol" data-id="${E(x.id)}">Transferir administración</button>`)}
         <button class="minibtn danger" data-nact="del" data-id="${E(x.id)}"${x.rol==='admin'?' disabled title="No se puede eliminar al administrador"':''}>Eliminar</button>
       </div>`).join('')+
       `<div class="ahint" style="margin-top:12px">Las contraseñas las maneja la nube: nadie, ni vos, puede verlas. Si alguien la olvida, que cree la cuenta de nuevo o restablecela desde el panel de Supabase.</div>`;
 
+    /* Cambiar el tipo de cuenta. «Transferir administración» sigue aparte porque es
+       otra cosa: hay un solo administrador general y cederlo te deja sin serlo. */
+    p.querySelectorAll('[data-rolsel]').forEach(sel=>sel.addEventListener('change',async()=>{
+      const id=sel.dataset.rolsel, rol=sel.value;
+      const f=filas.find(x=>x.id===id)||{};
+      if(rol==='medico_admin'&&!confirm(`¿Hacer a "${f.nombre}" médico administrador?\n\nVa a poder dar por buenas las revisiones médicas y escribir avisos por práctica.\nNO va a poder tocar cuentas, textos, logo, respaldo ni la administración.`)){
+        sel.value=ROL_VALIDO(f.rol); return; }
+      try{ await NUBE.cambiar(id,{rol}); toast(`${f.nombre}: ${rolLabel(rol).toLowerCase()}`); paneNube(p); }
+      catch(e){ sel.value=ROL_VALIDO(f.rol);
+        toast(/violates check constraint|perfiles_rol_check/i.test(e.message)
+          ? 'La base todavía no acepta los roles médicos. Falta correr docs/supabase_roles_medicos.sql en el panel de Supabase.'
+          : e.message, true); }
+    }));
     p.querySelectorAll('[data-nact]').forEach(b=>b.addEventListener('click',async()=>{
       const id=b.dataset.id, acc=b.dataset.nact, f=filas.find(x=>x.id===id)||{};
       try{
@@ -4729,11 +4880,21 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         <div class="arow">
           <span class="pav">${E((pr.name||'?').slice(0,1).toUpperCase())}</span>
           <div class="grow2"><div class="pnm">${E(pr.name)}${current&&pr.id===current.id?' <span style="color:var(--muted);font-weight:500">(vos)</span>':''}</div>
-            <div class="pmeta">${pr.role==='admin'?'Administrador':'Administrativo'} · ${(pr.favs||[]).length} favoritos</div></div>
-          <button class="minibtn" data-act="role" data-id="${pr.id}">${pr.role==='admin'?'Es el administrador':'Transferir administración'}</button>
+            <div class="pmeta">${E(rolLabel(pr.role))} · ${(pr.favs||[]).length} favoritos</div></div>
+          ${pr.role==='admin'?'<span class="pmeta" style="white-space:nowrap">Es el administrador</span>'
+            :`<select class="minibtn" data-rolloc="${pr.id}" title="Tipo de cuenta" style="padding:6px 8px">
+                ${['usuario','medico','medico_admin'].map(r=>`<option value="${r}"${ROL_VALIDO(pr.role)===r?' selected':''}>${E(ROLES[r].label)}</option>`).join('')}
+              </select>
+              <button class="minibtn" data-act="role" data-id="${pr.id}">Transferir administración</button>`}
           <button class="minibtn" data-act="reset" data-id="${pr.id}">Contraseña</button>
           <button class="minibtn danger" data-act="del" data-id="${pr.id}">Eliminar</button>
         </div>`).join('')+`<button class="minibtn" id="aAddProf" style="margin-top:6px">+ Crear perfil aprobado</button>`;
+      p.querySelectorAll('[data-rolloc]').forEach(sel=>sel.addEventListener('change',()=>{
+        const pr=AUTH.profiles.find(x=>x.id===sel.dataset.rolloc); if(!pr)return;
+        pr.role=ROL_VALIDO(sel.value); pr.updated=Date.now(); persistAuth();
+        if(current&&current.id===pr.id)current.role=pr.role;
+        renderPane(); toast(`${pr.name}: ${rolLabel(pr.role).toLowerCase()}`);
+      }));
       p.querySelectorAll('[data-cact]').forEach(b=>b.addEventListener('click',()=>{
         const pr=AUTH.profiles.find(x=>x.id===b.dataset.id); if(!pr)return;
         if(b.dataset.cact==='ok'){pr.estado='activo';pr.updated=Date.now();persistAuth();toast(`Cuenta de ${pr.name} habilitada`);}
@@ -4746,10 +4907,10 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         const nm=prompt('Nombre del nuevo perfil:');if(!nm)return;
         if(AUTH.profiles.some(x=>x.name.toLowerCase()===nm.trim().toLowerCase()))return toast('Ya existe ese nombre',true);
         const pw=prompt('Contraseña inicial (mín. 4):');if(!pw||pw.length<4)return toast('Contraseña muy corta',true);
-        const ph=await mkHash(pw);AUTH.profiles.push({id:uid(),name:nm.trim(),role:'user',estado:'activo',hash:ph.hash,salt:ph.salt,it:ph.it,favs:[],ub:null,created:Date.now(),updated:Date.now()});persistAuth();renderPane();toast('Perfil creado');
+        const ph=await mkHash(pw);AUTH.profiles.push({id:uid(),name:nm.trim(),role:'usuario',estado:'activo',hash:ph.hash,salt:ph.salt,it:ph.it,favs:[],ub:null,created:Date.now(),updated:Date.now()});persistAuth();renderPane();toast('Perfil creado');
       });
     } else if(aTab==='propuestas'){
-      const props=window.NBUProfile.propuestasTodas();
+      const props=window.NBUProfile.propuestasTodas('admin');
       const pv=window.NBUProfile.verifPendientes();
       // Verificaciones que un administrativo solicitó y esperan validación.
       p.innerHTML=`<div class="ahint"><b>Verificaciones a validar (${pv.length}).</b> Un administrativo contrastó la ficha contra la fuente; recién vale cuando la valida un administrador.</div>`+
@@ -4802,6 +4963,51 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         renderPane(); if(state.view==='list')render();
         toast(b.dataset.pact==='ok'?'Propuesta publicada':'Propuesta descartada');
       }));
+    } else if(aTab==='medicas'){
+      /* Lo que un administrativo no tiene cómo saber: si la práctica se
+         corresponde con el diagnóstico, qué incluye de verdad, cómo se lee el
+         glosario. El médico administrativo lo escribe, el médico administrador lo
+         da por bueno. Misma regla que del otro lado: uno observa, otro valida. */
+      const props=window.NBUProfile.propuestasTodas('medicas');
+      const revs=Object.entries(CONTENT.codes||{})
+        .filter(([c,o])=>o&&o.revision_medica).map(([c,o])=>({code:c,r:o.revision_medica}))
+        .sort((a,b)=>(b.r.t||0)-(a.r.t||0));
+      p.innerHTML=`<div class="ahint"><b>Aportes médicos a revisar (${props.length}).</b> Los escribe un médico administrativo. Al darlos por buenos quedan publicados en la ficha como <b>revisión médica</b>, con tu nombre y la fecha, y los ve todo el equipo.</div>`+
+        (props.length?props.map(pr=>{const c=BYCODE[pr.code];
+          return `<div class="arow" style="align-items:flex-start">
+            <div class="grow2">
+              <div class="pnm"><span class="mono" style="color:var(--accent-ink)">${E(c?c.code:pr.code)}</span> ${E(c?c.nombre.slice(0,54):'')}</div>
+              <div style="font-size:13px;color:var(--ink-2);margin:5px 0;white-space:pre-wrap">${E(pr.texto)}</div>
+              <div class="pmeta">${E(pr.por||'—')} · ${E(rolLabel(pr.rol))} · ${new Date(pr.t).toLocaleDateString('es-AR')}</div>
+            </div>
+            <button class="minibtn" data-mact="ok" data-c="${E(pr.code)}" data-i="${pr.idx}" data-id="${E(pr.id||'')}">Dar por buena</button>
+            <button class="minibtn danger" data-mact="no" data-c="${E(pr.code)}" data-i="${pr.idx}" data-id="${E(pr.id||'')}">Descartar</button>
+          </div>`;}).join(''):'<div class="ahint">No hay aportes médicos esperando revisión.</div>')+
+        `<div class="ahint" style="margin-top:18px;padding-top:14px;border-top:1px solid var(--line)"><b>Revisiones médicas publicadas (${revs.length}).</b> Aparecen en la ficha con tu nombre. Se pueden levantar si dejaron de valer.</div>`+
+        (revs.length?revs.map(x=>{const c=BYCODE[x.code];
+          return `<div class="arow" style="align-items:flex-start">
+            <div class="grow2">
+              <div class="pnm"><span class="mono" style="color:var(--accent-ink)">${E(x.code)}</span> ${E(c?c.nombre.slice(0,54):'')}</div>
+              <div style="font-size:13px;color:var(--ink-2);margin:5px 0;white-space:pre-wrap">${E(x.r.texto||'')}</div>
+              <div class="pmeta">${E(x.r.por||'—')} · ${x.r.t?new Date(x.r.t).toLocaleDateString('es-AR'):''}</div>
+            </div>
+            <button class="minibtn danger" data-mquit="${E(x.code)}">Levantar</button>
+          </div>`;}).join(''):'')
+      ;
+      p.querySelectorAll('[data-mact]').forEach(b=>b.addEventListener('click',()=>{
+        const code=b.dataset.c, i=+b.dataset.i, id=b.dataset.id||'';
+        const ok=b.dataset.mact==='ok';
+        if(window.NBUProfile.resolverMedica(code,i,id,ok)){
+          renderPane(); if(state.view==='list')render();
+          toast(ok?'Revisión médica publicada':'Aporte descartado');
+        }
+      }));
+      p.querySelectorAll('[data-mquit]').forEach(b=>b.addEventListener('click',()=>{
+        if(!confirm('¿Levantar la revisión médica de esta ficha?'))return;
+        if(window.NBUProfile.quitarRevision(b.dataset.mquit)){
+          renderPane(); if(state.view==='list')render(); toast('Revisión levantada');
+        }
+      }));
     } else if(aTab==='contenido'){
       p.innerHTML=`<div class="ahint">Editá los textos generales de la página. El contenido de cada código (nombre, normas, auditoría, asociaciones) se edita desde su ficha con el botón <b>✎ Editar ficha</b> (activá el <b>modo edición</b> en la barra superior).</div>
         <label>Logo de la empresa (PNG/JPG/SVG)</label>
@@ -4845,7 +5051,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         <div class="arow" style="display:block">
           <div><b>Proyecto</b> · <span class="mono">${E((window.NBU_NUBE||{}).url||'')}</span></div>
           <div style="margin-top:4px"><b>Entraste como</b> · ${E(NUBE.correo()||'—')}
-            ${current&&current.role==='admin'?'<span class="adminbadge" style="margin-left:6px">administrador</span>':''}</div>
+            ${current?`<span class="adminbadge" style="margin-left:6px">${E(rolLabel(current.role).toLowerCase())}</span>`:''}</div>
           <div style="margin-top:4px"><b>Contenido del equipo</b> · <span id="nbEstado">leyendo…</span></div>
         </div>
         <div style="margin-top:12px"><button class="minibtn" id="nbProbar">Probar la conexión</button></div>
@@ -5103,7 +5309,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       // Hay un solo administrador: el botón transfiere el rol en vez de sumar otro.
       if(pr.role==='admin')return toast('Es el administrador. Transferí el rol a otra cuenta para cambiarlo.',true);
       if(!confirm(`¿Transferir la administración a "${pr.name}"?\n\nVas a dejar de ser administrador: sólo puede haber uno.`))return;
-      AUTH.profiles.forEach(x=>{if(x.role==='admin'){x.role='user';x.updated=Date.now();}});
+      AUTH.profiles.forEach(x=>{if(x.role==='admin'){x.role='usuario';x.updated=Date.now();}});
       pr.role='admin';pr.estado='activo';pr.updated=Date.now();persistAuth();
       if(current){const sigo=current.role==='admin';el('adminBtn').hidden=!sigo;el('editModeBtn').hidden=!sigo;
         if(!sigo){editMode=false;document.body.classList.remove('editmode-on');closeAdmin();toast('Transferiste la administración');}}
@@ -5712,7 +5918,15 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   }
   window.NBUProfile={
     active:()=>current,
-    canEdit:()=>!!(current&&current.role==='admin'&&editMode),
+    canEdit:()=>!!(CAP.editaFicha(current)&&editMode),
+    /* Capacidades, para que el resto de la app no tenga que saber cómo se
+       llaman los roles. Esto no otorga nada: lo que se puede escribir de
+       verdad lo deciden las policies de Supabase. */
+    esDuenio:()=>esDuenio(),
+    validaMedico:()=>validaMedico(),
+    esMedico:()=>soyMedico(),
+    puedeObservar:()=>CAP.observa(current),
+    rolLabel:(r)=>rolLabel(r!==undefined?r:(current&&current.role)),
     /* guardarPerfil() y no persistAuth(): con la nube encendida lo personal va a la
        fila del usuario, no al bloque local de perfiles. */
     saveFavs:(arr)=>{if(current){current.favs=arr.slice();current.updated=Date.now();guardarPerfil();}},
@@ -5736,7 +5950,9 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     obsTodas:()=>Object.entries(CONTENT.obs||{})
       .map(([c,o])=>Object.assign({code:c},o)).sort((a,b)=>b.t-a.t),
     guardarObs:(code,texto)=>{
-      if(!(current&&current.role==='admin'))return false;
+      // El médico administrador también: «esta práctica necesita el diagnóstico en
+      // la orden» es justo lo que un administrativo no tiene cómo saber.
+      if(!CAP.observa(current))return false;
       CONTENT.obs=CONTENT.obs||{};
       const t=(texto||'').trim();
       // Se guarda del lado del NBU y se limpia el gemelo: si quedaran las dos, la
@@ -5760,7 +5976,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     },
     favsEquipo:()=>(((CONTENT.equipo||{}).favoritos)||[]).slice(),
     publicarFavs:(arr)=>{
-      if(!(current&&current.role==='admin'))return false;
+      if(!esDuenio())return false;
       CONTENT.equipo=CONTENT.equipo||{}; CONTENT.equipo.favoritos=arr.slice();
       logEdit('publicó los favoritos del equipo'); persistContent(); guardarAjustesNube();
       return true;
@@ -5775,15 +5991,54 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
        cabeza de la gente con experiencia queda escrito una vez para todos. */
     proponerNota:(code,texto)=>{
       CONTENT.propuestas=CONTENT.propuestas||{};
+      // «medica» no es una tabla nueva: sale del rol de quien la escribe, que la
+      // app ya conoce. Un aporte de un médico lo cierra un médico administrador;
+      // uno de un administrativo lo seguís cerrando vos.
+      const med=soyMedico();
       (CONTENT.propuestas[code]=CONTENT.propuestas[code]||[]).push(
-        {t:Date.now(),por:(current&&current.name)||'',texto:texto});
-      logEdit('propuso cómo se carga',code); persistContent();
+        {t:Date.now(),por:(current&&current.name)||'',texto:texto,medica:med});
+      logEdit(med?'dejó un aporte médico':'propuso cómo se carga',code); persistContent();
       // Se pinta primero y se manda después: la pantalla responde al instante y
       // la relectura de la base corrige si algo no entró.
       if(nubeContenido)enNube(NUBE.crearPropuesta(code,texto),'guardar la propuesta');
       return true;
     },
     propuestasDe:(code)=>((CONTENT.propuestas||{})[code]||[]),
+    /* Dar por buena una revisión médica, o descartarla. La revisión publicada va
+       adentro de la corrección de la ficha, en «revision_medica». Del lado del
+       servidor, un trigger no le deja al médico administrador tocar nada más de
+       esa fila: si intentara cambiar la denominación o la norma, la base se lo
+       revierte. Acá no se confía en eso para decidir qué mostrar, pero es lo que
+       hace que el límite sea real y no un botón escondido. */
+    resolverMedica:(code,idx,id,aprueba)=>{
+      if(!validaMedico())return false;
+      const lista=(CONTENT.propuestas||{})[code]||[];
+      const pr=lista[idx]; if(!pr)return false;
+      let ov=null;
+      if(aprueba){
+        ov=Object.assign({},CONTENT.codes[code]||{},{revision_medica:{
+          texto:pr.texto, por:(current&&current.name)||'', de:pr.por||'',
+          t:Date.now()}});
+        CONTENT.codes[code]=ov; logEdit('dio por buena una revisión médica',code); applyCode(code);
+      } else logEdit('descartó un aporte médico',code);
+      lista.splice(idx,1); if(!lista.length)delete CONTENT.propuestas[code];
+      persistContent();
+      if(nubeContenido&&id){
+        const guardar=aprueba
+          ? NUBE.resolverPropuesta(id,'aprobada').then(()=>NUBE.guardarCorreccion(code,ov))
+          : NUBE.resolverPropuesta(id,'rechazada');
+        enNube(guardar,aprueba?'publicar la revisión médica':'descartar el aporte');
+      }
+      return true;
+    },
+    quitarRevision:(code)=>{
+      if(!validaMedico())return false;
+      const o=Object.assign({},CONTENT.codes[code]||{}); delete o.revision_medica;
+      CONTENT.codes[code]=o; logEdit('levantó la revisión médica',code); applyCode(code);
+      persistContent();
+      if(nubeContenido)enNube(NUBE.guardarCorreccion(code,o),'levantar la revisión médica');
+      return true;
+    },
     /* Verificación: un centro de respaldo vale por la confianza que genera, y hoy
        nada decía cuándo se había contrastado una ficha contra la fuente. */
     /* La verificación la puede solicitar un administrativo, pero sólo vale una vez
@@ -5808,8 +6063,15 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       .filter(([,v])=>v.estado==='pendiente')
       .map(([c,v])=>Object.assign({code:c},v)).sort((a,b)=>b.t-a.t),
     verifTotal:()=>Object.values(CONTENT.verif||{}).filter(v=>v.estado!=='pendiente').length,
-    propuestasTodas:()=>{const o=[];Object.entries(CONTENT.propuestas||{}).forEach(([c,l])=>
-      l.forEach((p,i)=>o.push(Object.assign({code:c,idx:i},p))));return o.sort((a,b)=>b.t-a.t);},
+    propuestasTodas:(tipo)=>{const o=[];Object.entries(CONTENT.propuestas||{}).forEach(([c,l])=>
+      l.forEach((p,i)=>o.push(Object.assign({code:c,idx:i},p))));
+      const f=tipo==='medicas'?o.filter(x=>x.medica)
+             :tipo==='admin'  ?o.filter(x=>!x.medica):o;
+      return f.sort((a,b)=>b.t-a.t);},
+    /* La revisión médica publicada de una ficha. Vive dentro de la corrección,
+       en «datos», que ya es jsonb libre: no hizo falta una tabla ni una columna. */
+    revisionDe:(code)=>{const o=(CONTENT.codes||{})[code];
+      return (o&&o.revision_medica)?o.revision_medica:null;},
     getNote:(code)=>current&&current.notes?(current.notes[code]||''):'',
     setNote:(code,txt)=>{if(!current)return;current.notes=current.notes||{};if(txt&&txt.trim())current.notes[code]=txt.trim();else delete current.notes[code];current.updated=Date.now();persistAuthSoon();}
   };

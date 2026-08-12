@@ -497,12 +497,86 @@ manual… no perdés nada de lo que estabas haciendo»— y **espera 450 ms ante
 Sin esa pausa la propia recarga lo pisa y el aviso no cumple ninguna función. Antes de esto
 la app se reiniciaba sola y sin decir nada, y el administrativo no sabía por qué.
 
-### 4.5 Recorrido guiado (onboarding)
-`pasosTour()` — **20 pasos** para el administrativo, **23** para el administrador (suma
-Pendientes, Modo edición y Administración). Es un **spotlight**: recorta el elemento real
-con `box-shadow: 0 0 0 9999px` y ubica el globo al lado. Varios pasos tienen `antes:` que
-prepara la pantalla (abre el rail, abre una ficha, carga un caso en la Mesa de trabajo).
-Se puede volver a ver desde **Glosario y leyes → Ver tutorial de uso**.
+### 4.5 Recorrido guiado (onboarding) — DOS recorridos
+
+`pasosEsenciales()` — **7 pasos, 174 palabras, 52 s.** Es el que corre la **primera vez**.
+`pasosTour()` — **24 pasos** (27 para el administrador). Es el completo, y sólo sale desde
+**Glosario y leyes → ▶ Ver tutorial**; el último paso del esencial lo ofrece con un enlace.
+
+Los dos son un **spotlight**: recortan el elemento real con `box-shadow: 0 0 0 9999px` y
+ubican el globo al lado. Varios pasos tienen `antes:` que prepara la pantalla.
+
+⚠️ **El tutorial NO es donde se anuncian las funciones nuevas.** Eso fue lo que lo llevó de
+15 a 27 pasos, prometiendo dos minutos y tardando cuatro y medio. Una función nueva se
+explica con una **pista** (§ 4.5 bis) o por la campanita de novedades.
+
+### 4.5 bis Pistas contextuales
+
+`PISTAS` + `mostrarPista(id, sel)`. Un cartel chico, sin fondo oscuro, anclado al bloque que
+explica, **una sola vez**. Hoy son tres: `pedida` (los nombres alternativos y que el buscador
+los encuentra), `propuesta` (lo escribió un compañero y **no es norma**) y `novedades` (qué es
+la campanita).
+
+Reglas que costaron encontrarlas: aparece **sólo si el bloque está de verdad a la vista**
+(`aLaVista()` pide 70 px o el 60 % del alto — con «asoma 4 px» el cartel tapaba media ficha
+para señalar algo que todavía no se leía); **una por vez**; **nunca durante el recorrido**;
+**«Entendido»** la da por vista y **«Después»** no. La marca va en `localStorage`, por usuario
+(`nbu-pista:<id>:<pista>`) y **no** en el perfil de la nube: el usuario pidió expresamente no
+tocar el esquema de Supabase por un cartelito.
+
+### 4.5 ter ⚠️ CUATRO TIPOS DE CUENTA (roles médicos)
+
+| | Administrador general | Médico administrador | Médico administrativo | Administrativo |
+|---|---|---|---|---|
+| valor en `perfiles.rol` | `admin` | `medico_admin` | `medico` | `usuario` |
+| cuántos | **uno solo** (trigger) | varios | varios | varios |
+| buscar, favoritos, notas | ✔ | ✔ | ✔ | ✔ |
+| pedir verificación | ✔ | ✔ | ✔ | ✔ |
+| proponer «cómo se carga» | ✔ | — | **aporte médico** | ✔ |
+| dar por buena una revisión médica | ✔ | ✔ | ✗ | ✗ |
+| aviso por práctica (observaciones) | ✔ | ✔ | ✗ | ✗ |
+| validar verificación administrativa | ✔ | ✗ | ✗ | ✗ |
+| editar la ficha (modo edición) | ✔ | ✗ | ✗ | ✗ |
+| cuentas, roles, transferir | ✔ | ✗ | ✗ | ✗ |
+| textos, logo, nube, respaldo | ✔ | ✗ | ✗ | ✗ |
+
+Regla que pidió el usuario, textual: **«el médico administrador NO puede tener el mismo poder
+que el administrador general, que soy yo»**. Y la simetría: en los dos carriles, *el
+administrativo observa y el administrador valida*.
+
+**⚠️ ESTO NO SE PUEDE HACER SÓLO EN LA APP.** `perfiles.rol` tenía
+`check (rol in ('usuario','admin'))`: la base **rechaza** un rol médico. Y todos los permisos
+de escritura eran `es_admin()`. Como la clave publicable es pública por diseño, un permiso
+dibujado sólo en el navegador no es un permiso. Por eso hay migración:
+**`docs/supabase_roles_medicos.sql`**, que se corre una vez en el SQL Editor del panel.
+Es idempotente y **no agrega tablas ni columnas**: cambia el CHECK, suma dos funciones y
+reescribe policies.
+
+Piezas clave:
+- `es_medico_admin()`, `es_medico()`, `valida_medico()` — mismo patrón `security definer` que
+  `es_admin()`, si no las policies de `perfiles` entran en recursión de RLS.
+- **`correcciones_guardia()`** — el trigger que hace real el límite. Al médico administrador
+  le revierte `nombre`, `norma`, `auditoria` y `asoc_extra` al valor anterior; **lo único que
+  le sobrevive es `datos->'revision_medica'`**. Mismo patrón que `perfiles_guardia`.
+- `prop_resolver` — el médico administrador sólo cierra propuestas cuyo **autor es médico**.
+- `pendientes()` — sigue devolviendo `json` (nada de cambiarle el tipo de retorno) y suma la
+  clave `medicas`. Se le sacó el `where es_admin()` final, que hacía que no devolviera ninguna
+  fila a quien no fuera administrador.
+
+Del lado de la app: `ROLES`, `ROL_VALIDO()`, `rolLabel()` y **`CAP`** — todas las capacidades
+en un solo objeto. Preguntar `role==='admin'` desparramado por treinta lugares fue lo que hizo
+que sumar un rol tocara toda la app; ahora se pregunta `CAP.duenio(p)`, `CAP.validaMedico(p)`,
+`CAP.observa(p)`, `CAP.editaFicha(p)`.
+
+**Dónde vive la revisión médica:** dentro de `correcciones.datos.revision_medica`
+`{texto, por, de, t}`. `datos` ya era `jsonb` libre → **cero cambios de esquema**. Se muestra
+en la ficha en su propio bloque `.revmed` (token `--med`, verde clínico), separado a propósito
+de la verificación administrativa: «contrasté contra la fuente» y «esto es correcto desde lo
+médico» no son lo mismo y si se parecieran, ninguno significaría nada.
+
+**Si la migración todavía no se corrió**, la app no se rompe: el desplegable de rol muestra el
+error real («la base todavía no acepta los roles médicos») y `pendientes()` sin la clave
+`medicas` no pisa el conteo calculado del lado del cliente.
 
 ### 4.6 Observaciones del administrador — una sola por práctica
 
