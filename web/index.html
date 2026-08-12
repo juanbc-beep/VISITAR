@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-f3gq+0rLYhYaUQf+6d5Q6owj2aLXDCKhAjs+yhoMGjU=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-7Nd24MADAwD9Cmg2GyMOL6DYvPrLxfhr4UkacVSq8rE=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -369,6 +369,17 @@ html,body{margin:0;padding:0}
 .revmed .rm-nota{font-size:11.5px;color:var(--muted)}
 /* Sin confirmar: mismo formato, otra temperatura. Punteado y ámbar, que es el
    color que la app ya usa para «esto todavía no lo aprobó nadie». */
+/* Una consulta abierta. Azul del acento: no es un aviso ni una norma, es una
+   pregunta esperando respuesta, y merece su propio color. */
+.revmed.consulta{border-color:color-mix(in srgb,var(--accent) 40%,transparent);
+  border-left-color:var(--accent);border-style:dashed;border-left-style:solid;
+  background:var(--accent-soft);box-shadow:none}
+.revmed.consulta .rm-tit{color:var(--accent-ink)}
+.revmed.consulta .rm-ic{display:inline-flex;align-items:center;justify-content:center;
+  width:17px;height:17px;border-radius:50%;background:var(--accent);color:#fff;
+  font-size:11px;font-weight:800}
+.revmed.consulta .rm-t{font-size:13.5px;color:var(--ink-2)}
+.revmed.consulta .rm-firma{border-top-color:color-mix(in srgb,var(--accent) 26%,transparent)}
 .revmed.pend{border-color:color-mix(in srgb,var(--gestion) 45%,transparent);
   border-left-color:var(--gestion);border-style:dashed;border-left-style:solid;
   background:color-mix(in srgb,var(--gestion) 8%,transparent);box-shadow:none}
@@ -2873,13 +2884,14 @@ function revMedHTML(code){
   const pendMed=(P.propuestasDe?P.propuestasDe(code):[]).filter(x=>x.medica);
   const puedeEditar=!!(P.validaMedico&&P.validaMedico());
   const soyMed=!!(P.esMedico&&P.esMedico());
+  const consultas=(P.propuestasDe?P.propuestasDe(code):[]).filter(x=>x.consulta);
   const f=t=>t?new Date(t).toLocaleDateString('es-AR'):'';
   /* Para un médico, escribir la revisión ES la tarea. El botón estaba enterrado
      al final de «cómo se carga», que además es la caja administrativa: había que
      bajar toda la ficha para encontrar lo único que vino a hacer. Ahora el bloque
      aparece siempre que entre un médico —aunque no haya nada escrito— y con la
      acción arriba de todo. */
-  if(!rev&&!pendMed.length&&!soyMed)return '';
+  if(!rev&&!pendMed.length&&!soyMed&&!consultas.length)return '';
   const rotulo=(P.validaMedico&&P.validaMedico())
     ? (rev?'✎ Corregir la revisión':'🩺 Escribir la revisión médica')
     : (rev?'✎ Proponer una corrección':'🩺 Dejar un aporte médico');
@@ -2895,11 +2907,11 @@ function revMedHTML(code){
       </div>
     </div>`:'';
   /* Sin nada escrito todavía: el bloque es la invitación, no un cartel vacío. */
-  if(!rev&&!pendMed.length)return `<section class="revmed vacia" aria-label="Revisión médica">
+  if(!rev&&!pendMed.length)return (soyMed?`<section class="revmed vacia" aria-label="Revisión médica">
     <div class="rm-h"><span class="rm-tit"><span class="rm-ic" aria-hidden="true">🩺</span> Revisión médica</span></div>
     <div class="rm-nada">Esta práctica todavía no tiene criterio médico cargado. Si sabés con qué diagnósticos se corresponde, qué incluye de verdad o cuándo no está indicada, escribilo acá: lo va a leer todo el equipo antes de cargarla.</div>
     ${accionMed}
-  </section>`;
+  </section>`:'')+bloqueConsultas(consultas,soyMed,f);
   /* Dos contenedores separados y no uno con una línea adentro: lo confirmado y
      lo que todavía no lo está no son dos párrafos del mismo aviso. */
   let out='';
@@ -2928,7 +2940,21 @@ function revMedHTML(code){
       <div class="rm-firma">${esc(x.por||'—')}${x.t?` · ${f(x.t)}`:''}</div>`).join('')}
   </section>`;
   if(soyMed&&!rev)out+=`<section class="revmed vacia">${accionMed}</section>`;
+  out+=bloqueConsultas(consultas,soyMed,f);
   return out;
+}
+
+/* Lo que el equipo preguntó y todavía no tiene respuesta. Se ve para todos: si
+   un compañero ya preguntó lo mismo, saberlo evita la segunda consulta, y quien
+   está por cargar se entera de que hay una duda abierta antes de cargar. */
+function bloqueConsultas(consultas,soyMed,f){
+  if(!consultas.length)return '';
+  return `<section class="revmed consulta" aria-label="Consultas al médico">
+    <div class="rm-h"><span class="rm-tit"><span class="rm-ic" aria-hidden="true">?</span> ${consultas.length===1?'El equipo preguntó':consultas.length+' preguntas del equipo'} — sin responder</span></div>
+    ${soyMed?'<div class="rm-aviso">Te están preguntando por esta práctica. Al escribir la revisión médica queda contestada.</div>':''}
+    ${consultas.map(x=>`<div class="rm-t">${linkCodes(esc(x.texto))}</div>
+      <div class="rm-firma">${esc(x.por||'—')}${x.t?` · ${f(x.t)}`:''}</div>`).join('')}
+  </section>`;
 }
 
 function obsFichaHTML(code){
@@ -3299,6 +3325,13 @@ function openCode(code,origen){
       </div>`:''}
       ${puedeProponer?`<div class="prop-box">
         <button class="minibtn" id="propAbrir">✎ ${publicoYa?'Escribir la revisión médica':(soyMed?'Dejar un aporte médico':(nota?'Proponer una corrección':'Contar cómo se carga acá'))}</button>
+        ${!soyMed?`<button class="minibtn" id="consAbrir" title="Preguntarle al médico si esta práctica corresponde">🩺 Consultar al médico</button>
+        <div id="consForm" hidden style="margin-top:8px">
+          <textarea id="consTxt" placeholder="Ej.: ¿esta práctica corresponde con el diagnóstico que trae la orden? ¿hace falta pedir algo más?"></textarea>
+          <div style="display:flex;gap:7px;margin-top:7px"><button class="minibtn" id="consEnviar">Enviar la consulta</button>
+          <button class="minibtn" id="consCancel">Cancelar</button></div>
+          <div class="ahint" style="font-size:11.5px">Le llega a los médicos del equipo. Cuando contestan, la respuesta queda publicada en esta ficha como revisión médica y la ve todo el equipo.</div>
+        </div>`:''}
         <div id="propForm" hidden style="margin-top:8px">
           <textarea id="propTxt" placeholder="${soyMed?'Ej.: qué incluye realmente la práctica; con qué diagnósticos se corresponde; cuándo NO está indicada; cómo leer el término del glosario…':'Ej.: se carga con modalidad ambulatoria; hay que adjuntar la orden escaneada; si es control post-quirúrgico va con el código del módulo…'}"></textarea>
           <div style="display:flex;gap:7px;margin-top:7px"><button class="minibtn" id="propEnviar">${publicoYa?'Publicar':(soyMed?'Enviar aporte':'Enviar propuesta')}</button>
@@ -3566,6 +3599,22 @@ function openCode(code,origen){
   });
   const pc=el('propCancel');
   if(pc)pc.addEventListener('click',()=>{el('propForm').hidden=true;el('propTxt').value='';});
+  /* Consultar al médico. El circuito de vuelta: hasta ahora el médico escribía y
+     el equipo leía, y quien no entendía si una práctica correspondía no tenía
+     cómo levantar la mano. */
+  const ca=el('consAbrir');
+  if(ca)ca.addEventListener('click',()=>{const f=el('consForm');f.hidden=!f.hidden;
+    if(!f.hidden)el('consTxt').focus();});
+  const cc=el('consCancel');
+  if(cc)cc.addEventListener('click',()=>{el('consForm').hidden=true;el('consTxt').value='';});
+  const ce=el('consEnviar');
+  if(ce)ce.addEventListener('click',()=>{
+    const t=el('consTxt').value.trim();
+    if(!t)return toast('Escribí la consulta primero',true);
+    window.NBUProfile.consultar(code,t);
+    toast('Consulta enviada — te contestan en esta misma ficha');
+    if(state.view==='list')render(); openCode(code);
+  });
   const ef=el('editFichaBtn');if(ef)ef.addEventListener('click',()=>window.NBUProfile&&NBUProfile.editFicha(code));
   /* Observación del administrador: el mismo bloque se lee y se edita, sin abrir
      otra ventana. Guardar redibuja el listado, porque el aviso también sale ahí. */
@@ -4206,9 +4255,20 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         {method:'DELETE',headers:{'Prefer':'return=minimal'}}),
 
       propuestas:()=>api('/rest/v1/propuestas?select=*&estado=eq.pendiente&order=creada.desc',{method:'GET'}),
-      crearPropuesta:(codigo,texto)=>api('/rest/v1/propuestas',
-        {method:'POST',headers:{'Prefer':'return=minimal'},
-         body:JSON.stringify({codigo:codigo,texto:texto,autor:(perfil&&perfil.id)||null})}),
+      /* «tipo» distingue una propuesta de carga de una consulta al médico. Si la
+         base todavía no tiene la columna —migración sin correr— se manda sin
+         ella y la fila entra igual, como propuesta de carga. */
+      crearPropuesta:(codigo,texto,tipo)=>{
+        const fila={codigo:codigo,texto:texto,autor:(perfil&&perfil.id)||null};
+        if(tipo)fila.tipo=tipo;
+        return api('/rest/v1/propuestas',
+          {method:'POST',headers:{'Prefer':'return=minimal'},body:JSON.stringify(fila)})
+          .catch(e=>{ if(tipo&&/tipo/i.test(e.message)){
+              delete fila.tipo;
+              return api('/rest/v1/propuestas',
+                {method:'POST',headers:{'Prefer':'return=minimal'},body:JSON.stringify(fila)});
+            } throw e; });
+      },
       resolverPropuesta:(id,estado)=>api('/rest/v1/propuestas?id=eq.'+encodeURIComponent(id),
         {method:'PATCH',headers:{'Prefer':'return=minimal'},
          body:JSON.stringify({estado:estado,resuelta_por:(perfil&&perfil.id)||null,
@@ -4384,7 +4444,9 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     const propuestas={};
     (props||[]).forEach(p=>{(propuestas[p.codigo]=propuestas[p.codigo]||[]).push(
       {id:p.id,t:ms(p.creada),por:quien(p.autor),texto:p.texto,
-       medica:esRolMedico(rolPorId[p.autor]),rol:rolPorId[p.autor]||'usuario'});});
+       consulta:p.tipo==='consulta',
+       medica:p.tipo!=='consulta'&&esRolMedico(rolPorId[p.autor]),
+       rol:rolPorId[p.autor]||'usuario'});});
 
     const observ={};
     (obs||[]).forEach(o=>{observ[o.codigo]={texto:o.texto,por:quien(o.autor),t:ms(o.actualizada)};});
@@ -4427,9 +4489,11 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       verNube=duenio?Object.values(verif).filter(v=>v.estado==='pendiente').length:0;
       // Una propuesta la cierra quien puede juzgarla: si la escribió un médico es
       // médica, y si no, administrativa. Sale del rol del autor, que ya está acá.
-      const medicas=(props||[]).filter(x=>esRolMedico(rolPorId[x.autor])).length;
+      // Lo médico es lo que escribió un médico MÁS lo que el equipo preguntó.
+      const medicas=(props||[]).filter(x=>x.tipo==='consulta'||esRolMedico(rolPorId[x.autor])).length;
       prNube =duenio?((props||[]).length-medicas):0;
-      medNube=validaMedico()?medicas:0;
+      medNube =validaMedico()?medicas:0;
+      consNube=validaMedico()?(props||[]).filter(x=>x.tipo==='consulta').length:0;
     }
     const a=(Array.isArray(aj)?aj[0]:aj)||{};
     if(a.contenido&&a.contenido.page)CONTENT.page=a.contenido.page;
@@ -4482,7 +4546,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   // Conteos remotos. En modo nube NO se pueden calcular sobre lo que este equipo
   // tiene cargado: una solicitud hecha en otra computadora llegó después de que
   // esta persona entrara, y el aviso tiene que aparecer igual, sin recargar.
-  let cuNube=0, verNube=0, prNube=0, medNube=0;
+  let cuNube=0, verNube=0, prNube=0, medNube=0, consNube=0;
   /* Publicar una revisión médica. Un solo camino para los dos casos: el médico
      administrador aprobando el aporte de otro, y el médico administrador
      escribiendo el suyo. Con «deferido» la escritura en la nube la maneja quien
@@ -4494,20 +4558,37 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     logEdit(de?'dio por buena una revisión médica':'publicó una revisión médica',code);
     applyCode(code);
     if(deferido)return ov;
+    cerrarConsultas(code);
     persistContent();
     if(nubeContenido)enNube(NUBE.guardarCorreccion(code,ov),'publicar la revisión médica');
     return true;
   }
+  /* Publicar la revisión ES la respuesta. Si las consultas quedaran abiertas, el
+     médico tendría que ir a cerrarlas a mano una por una y el contador le
+     mentiría hasta que se acordara. */
+  function cerrarConsultas(code){
+    const lista=(CONTENT.propuestas||{})[code]||[];
+    const abiertas=lista.filter(x=>x.consulta);
+    if(!abiertas.length)return;
+    CONTENT.propuestas[code]=lista.filter(x=>!x.consulta);
+    if(!CONTENT.propuestas[code].length)delete CONTENT.propuestas[code];
+    if(nubeContenido)abiertas.forEach(x=>{ if(x.id)
+      enNube(NUBE.resolverPropuesta(x.id,'aprobada'),'cerrar la consulta'); });
+    logEdit(abiertas.length===1?'contestó una consulta':'contestó '+abiertas.length+' consultas',code);
+  }
   function contarPendientes(){
     if(NUBE.activa)
-      return {v:verNube,pr:prNube,cu:cuNube,med:medNube,total:verNube+prNube+cuNube+medNube};
+      return {v:verNube,pr:prNube,cu:cuNube,med:medNube-consNube,cons:consNube,
+              total:verNube+prNube+cuNube+medNube};
     const duenio=esDuenio();
     const todas=Object.values(CONTENT.propuestas||{}).reduce((a,l)=>a.concat(l),[]);
-    const med=validaMedico()?todas.filter(x=>x.medica).length:0;
+    const esMed=x=>x.medica||x.consulta;
+    const cons=validaMedico()?todas.filter(x=>x.consulta).length:0;
+    const med=validaMedico()?(todas.filter(esMed).length-cons):0;
     const v =duenio?Object.values(CONTENT.verif||{}).filter(x=>x.estado==='pendiente').length:0;
-    const pr=duenio?(todas.length-todas.filter(x=>x.medica).length):0;
+    const pr=duenio?(todas.length-todas.filter(esMed).length):0;
     const cu=duenio?AUTH.profiles.filter(x=>x.estado==='pendiente').length:0;
-    return {v,pr,cu,med,total:v+pr+cu+med};
+    return {v,pr,cu,med,cons,total:v+pr+cu+med+cons};
   }
   /* El administrador tiene que enterarse de un alta hecha en otra computadora sin
      recargar nada: se relee al entrar, al abrir el panel y cada dos minutos. */
@@ -4546,7 +4627,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       if(hay&&window.NBUPistas)NBUPistas.revisar();
     }
     const b=el('pendBtn'); if(!b)return;
-    const {v,pr,cu,med,total}=contarPendientes();
+    const {v,pr,cu,med,cons,total}=contarPendientes();
     // La campana la ve quien tiene algo que decidir. Al médico administrador le
     // llegan los aportes médicos y nada más: las cuentas y las verificaciones no
     // son suyas, y mostrarle un número que no puede bajar sería mentirle.
@@ -4557,7 +4638,9 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     if(cu) partes.push(`${cu} cuenta${cu!==1?'s':''}`);
     if(v)  partes.push(`${v} ${v===1?'verificación':'verificaciones'}`);
     if(pr) partes.push(`${pr} propuesta${pr!==1?'s':''}`);
-    if(med)partes.push(`${med} ${med===1?'aporte médico':'aportes médicos'}`);
+    // Una consulta no es un aporte: hay alguien esperando para poder cargar.
+    if(cons)partes.push(`${cons} ${cons===1?'consulta del equipo':'consultas del equipo'}`);
+    if(med) partes.push(`${med} ${med===1?'aporte médico':'aportes médicos'}`);
     b.title='Pendientes de revisar: '+(partes.join(' · ')||'nada');
   }
   el('pendBtn').addEventListener('click',()=>{refrescarCuentasNube();
@@ -5208,10 +5291,26 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
          glosario. El médico administrativo lo escribe, el médico administrador lo
          da por bueno. Misma regla que del otro lado: uno observa, otro valida. */
       const props=window.NBUProfile.propuestasTodas('medicas');
+      const cons=window.NBUProfile.propuestasTodas('consultas');
       const revs=Object.entries(CONTENT.codes||{})
         .filter(([c,o])=>o&&o.revision_medica).map(([c,o])=>({code:c,r:o.revision_medica}))
         .sort((a,b)=>(b.r.t||0)-(a.r.t||0));
-      p.innerHTML=`<div class="ahint"><b>Aportes médicos a revisar (${props.length}).</b> Los escribe un médico administrativo. Al darlos por buenos quedan publicados en la ficha como <b>revisión médica</b>, con tu nombre y la fecha, y los ve todo el equipo.</div>`+
+      p.innerHTML=
+        /* Las consultas van PRIMERO: hay alguien esperando para poder cargar una
+           práctica. Un aporte de otro médico puede esperar un día; una consulta
+           frena a una persona que tiene la orden en la mano. */
+        `<div class="ahint"><b>Consultas del equipo (${cons.length}).</b> Alguien no entendió si la práctica corresponde y preguntó. Se contestan escribiendo la revisión médica en la ficha: al publicarla, la consulta queda cerrada.</div>`+
+        (cons.length?cons.map(x=>{const c=BYCODE[x.code];
+          return `<div class="arow" style="align-items:flex-start;border-color:color-mix(in srgb,var(--accent) 40%,transparent);background:var(--accent-soft)">
+            <div class="grow2">
+              <div class="pnm"><span class="mono" style="color:var(--accent-ink)">${E(c?c.code:x.code)}</span> ${E(c?c.nombre.slice(0,54):'')}</div>
+              <div style="font-size:13px;color:var(--ink-2);margin:5px 0;white-space:pre-wrap">${E(x.texto)}</div>
+              <div class="pmeta">Preguntó ${E(x.por||'—')} · ${new Date(x.t).toLocaleDateString('es-AR')}</div>
+            </div>
+            <button class="minibtn" data-cons="ir" data-c="${E(x.code)}">Contestar en la ficha</button>
+            <button class="minibtn danger" data-cons="no" data-c="${E(x.code)}" data-i="${x.idx}" data-id="${E(x.id||'')}">Cerrar sin responder</button>
+          </div>`;}).join(''):'<div class="ahint">No hay consultas esperando respuesta.</div>')+
+        `<div class="ahint" style="margin-top:18px;padding-top:14px;border-top:1px solid var(--line)"><b>Aportes médicos a revisar (${props.length}).</b> Los escribe un médico administrativo. Al darlos por buenos quedan publicados en la ficha como <b>revisión médica</b>, con tu nombre y la fecha, y los ve todo el equipo.</div>`+
         (props.length?props.map(pr=>{const c=BYCODE[pr.code];
           return `<div class="arow" style="align-items:flex-start">
             <div class="grow2">
@@ -5233,6 +5332,13 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
             <button class="minibtn danger" data-mquit="${E(x.code)}">Levantar</button>
           </div>`;}).join(''):'')
       ;
+      p.querySelectorAll('[data-cons]').forEach(b=>b.addEventListener('click',()=>{
+        if(b.dataset.cons==='ir'){ closeAdmin(); openCode(b.dataset.c); return; }
+        if(!confirm('¿Cerrar esta consulta sin responderla?\n\nQuien preguntó no va a recibir una revisión médica.'))return;
+        if(window.NBUProfile.resolverMedica(b.dataset.c,+b.dataset.i,b.dataset.id||'',false)){
+          renderPane(); if(state.view==='list')render(); toast('Consulta cerrada');
+        }
+      }));
       p.querySelectorAll('[data-mact]').forEach(b=>b.addEventListener('click',()=>{
         const code=b.dataset.c, i=+b.dataset.i, id=b.dataset.id||'';
         const ok=b.dataset.mact==='ok';
@@ -6401,8 +6507,9 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       const pr=lista[idx]; if(!pr)return false;
       let ov=null;
       if(aprueba)ov=publicarRevision(code,pr.texto,(current&&current.name)||'',pr.por||'',true);
-      else logEdit('descartó un aporte médico',code);
+      else logEdit(pr.consulta?'cerró una consulta sin responder':'descartó un aporte médico',code);
       lista.splice(idx,1); if(!lista.length)delete CONTENT.propuestas[code];
+      if(aprueba)cerrarConsultas(code);
       persistContent();
       if(nubeContenido&&id){
         const guardar=aprueba
@@ -6454,9 +6561,22 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     verifTotal:()=>Object.values(CONTENT.verif||{}).filter(v=>v.estado!=='pendiente').length,
     propuestasTodas:(tipo)=>{const o=[];Object.entries(CONTENT.propuestas||{}).forEach(([c,l])=>
       l.forEach((p,i)=>o.push(Object.assign({code:c,idx:i},p))));
-      const f=tipo==='medicas'?o.filter(x=>x.medica)
-             :tipo==='admin'  ?o.filter(x=>!x.medica):o;
+      const f=tipo==='medicas'  ?o.filter(x=>x.medica)
+             :tipo==='consultas'?o.filter(x=>x.consulta)
+             :tipo==='admin'    ?o.filter(x=>!x.medica&&!x.consulta):o;
       return f.sort((a,b)=>b.t-a.t);},
+    /* Preguntarle al médico. Hasta ahora el circuito iba en un solo sentido: el
+       médico escribía y el equipo leía. Si un administrativo no entiende si una
+       práctica corresponde al diagnóstico, no tenía cómo levantar la mano. */
+    consultar:(code,texto)=>{
+      CONTENT.propuestas=CONTENT.propuestas||{};
+      (CONTENT.propuestas[code]=CONTENT.propuestas[code]||[]).push(
+        {t:Date.now(),por:(current&&current.name)||'',texto:texto,consulta:true});
+      logEdit('le preguntó al médico',code); persistContent();
+      if(nubeContenido)enNube(NUBE.crearPropuesta(code,texto,'consulta'),'enviar la consulta');
+      return true;
+    },
+    consultasDe:(code)=>((CONTENT.propuestas||{})[code]||[]).filter(x=>x.consulta),
     /* La revisión médica publicada de una ficha. Vive dentro de la corrección,
        en «datos», que ya es jsonb libre: no hizo falta una tabla ni una columna. */
     revisionDe:(code)=>{const o=(CONTENT.codes||{})[code];
