@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-+EgXjjiiycoJ8Vye7jBXevxLu5i6OjlUfrfqWABrQhE=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-RuQThvxEDHSK+wEinjobkFPkgn9f/WnI/QyUz0tOlpY=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -320,30 +320,61 @@ html,body{margin:0;padding:0}
    redefinido para «oscuro del sistema» y para «oscuro elegido a mano». */
 :root{--med:#2e7d5b}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--med:#6ee7a8}}
 :root[data-theme="light"]{--med:#2e7d5b}:root[data-theme="dark"]{--med:#6ee7a8}
-   Verde clínico, distinto del ámbar de las propuestas y del azul de la
+/* Verde clínico, distinto del ámbar de las propuestas y del azul de la
    verificación: son tres cosas que dicen cosas distintas y si se parecen, la
    persona deja de leer cuál es cuál. */
-.revmed{border:1.5px solid color-mix(in srgb,var(--med) 45%,transparent);
-  background:color-mix(in srgb,var(--med) 9%,transparent);
-  border-left:5px solid var(--med);border-radius:var(--radius);padding:13px 16px}
-.revmed.con{box-shadow:0 1px 3px color-mix(in srgb,var(--med) 18%,transparent)}
-.revmed .rm-h{display:flex;align-items:center;gap:7px;flex-wrap:wrap;
-  font-size:13.5px;font-weight:800;letter-spacing:.2px;color:var(--med)}
-.revmed .rm-ic{font-size:15px}
+.revmed{
+  /* Contenedor propio y despegado. El margen es la mitad del diseño: pegado a la
+     observación del administrador se leían como un solo bloque de dos colores, y
+     el criterio del médico dejaba de ser una cosa aparte. */
+  margin:0 0 20px;padding:16px 18px 14px;
+  border:1.5px solid color-mix(in srgb,var(--med) 42%,transparent);
+  border-left:5px solid var(--med);
+  border-radius:var(--radius);
+  background:color-mix(in srgb,var(--med) 7%,transparent);
+  box-shadow:0 1px 2px color-mix(in srgb,var(--med) 14%,transparent)}
+.revmed .rm-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:9px}
+.revmed .rm-tit{display:inline-flex;align-items:center;gap:7px;
+  font-size:11.5px;font-weight:800;letter-spacing:.9px;text-transform:uppercase;color:var(--med)}
+.revmed .rm-ic{font-size:14px;letter-spacing:0}
 .revmed .rm-acc{margin-left:auto;display:flex;gap:6px}
-.revmed .rm-t{margin-top:7px;font-size:14px;line-height:1.6;color:var(--ink);white-space:pre-wrap}
-.revmed .rm-m{margin-top:6px;font-size:11.5px;color:var(--muted)}
-.revmed .rm-ed{margin-top:9px}
-.revmed .rm-ed textarea{width:100%;box-sizing:border-box;border:1px solid var(--line);
-  border-radius:8px;background:var(--surface);color:var(--ink);font:inherit;font-size:13px;
-  padding:9px 11px;line-height:1.5}
+/* Los botones no compiten con el texto: son del tamaño de una etiqueta y sólo se
+   pintan al pasar por encima. Lo que tiene que leerse es el criterio, no ellos. */
+.revmed .rm-b{border:1px solid color-mix(in srgb,var(--med) 34%,transparent);
+  background:var(--surface);color:var(--ink-2);border-radius:6px;
+  padding:4px 9px;font:inherit;font-size:11.5px;font-weight:600;cursor:pointer;
+  transition:background .14s,color .14s,border-color .14s}
+.revmed .rm-b:hover{background:color-mix(in srgb,var(--med) 14%,transparent);
+  border-color:var(--med);color:var(--med)}
+.revmed .rm-b.del:hover{background:color-mix(in srgb,var(--urg) 12%,transparent);
+  border-color:var(--urg);color:var(--urg)}
+/* EL TEXTO ES EL PUNTO. Más grande que el cuerpo de la ficha, con aire entre
+   renglones y en tinta plena: es un criterio clínico, no una nota al pie. */
+.revmed .rm-t{font-size:15px;line-height:1.65;color:var(--ink);white-space:pre-wrap;
+  max-width:62ch}
+.revmed .rm-t + .rm-t{margin-top:10px}
+/* La firma es una firma: separada por una línea, como al pie de un informe. */
+.revmed .rm-firma{margin-top:12px;padding-top:10px;
+  border-top:1px solid color-mix(in srgb,var(--med) 24%,transparent);
+  font-size:11.5px;color:var(--muted)}
+.revmed .rm-firma b{color:var(--ink-2);font-weight:700}
+.revmed .rm-ed{margin-top:12px}
+.revmed .rm-ed textarea{width:100%;box-sizing:border-box;border:1px solid var(--line-2);
+  border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);
+  font:inherit;font-size:14px;padding:11px 13px;line-height:1.6;resize:vertical}
 .revmed .rm-ed textarea:focus{outline:none;border-color:var(--med);
-  box-shadow:0 0 0 3px color-mix(in srgb,var(--med) 18%,transparent)}
-.revmed .rm-eb{display:flex;gap:7px;margin-top:7px}
-.revmed .rm-pend{margin-top:11px;padding-top:11px;border-top:1px dashed color-mix(in srgb,var(--med) 32%,transparent)}
-.revmed .rm-ph{font-size:12.5px;font-weight:800;color:var(--gestion)}
-.revmed .rm-pa{font-size:12px;color:var(--ink-2);margin:3px 0 4px;line-height:1.45}
-.revmed .rm-pend .rm-t{font-size:13px;color:var(--ink-2)}
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--med) 20%,transparent)}
+.revmed .rm-eb{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.revmed .rm-nota{font-size:11.5px;color:var(--muted)}
+/* Sin confirmar: mismo formato, otra temperatura. Punteado y ámbar, que es el
+   color que la app ya usa para «esto todavía no lo aprobó nadie». */
+.revmed.pend{border-color:color-mix(in srgb,var(--gestion) 45%,transparent);
+  border-left-color:var(--gestion);border-style:dashed;border-left-style:solid;
+  background:color-mix(in srgb,var(--gestion) 8%,transparent);box-shadow:none}
+.revmed.pend .rm-tit{color:var(--gestion)}
+.revmed.pend .rm-t{font-size:14px;color:var(--ink-2)}
+.revmed.pend .rm-firma{border-top-color:color-mix(in srgb,var(--gestion) 24%,transparent)}
+.revmed .rm-aviso{font-size:12.5px;line-height:1.5;color:var(--ink-2);margin-bottom:11px}
 /* ---------- autoría ----------
    Queda en la app, no en los textos editables del panel: es un dato de autoría, no
    contenido configurable. */
@@ -2813,26 +2844,33 @@ function revMedHTML(code){
   const puedeEditar=!!(P.validaMedico&&P.validaMedico());
   if(!rev&&!pendMed.length)return '';
   const f=t=>t?new Date(t).toLocaleDateString('es-AR'):'';
-  return `<div class="sec"><div class="revmed${rev?' con':''}">
-    ${rev?`<div class="rm-h"><span class="rm-ic">🩺</span> Revisión médica
-        ${puedeEditar?`<span class="rm-acc">
-          <button class="minibtn" id="rmEdit" title="Corregir el texto de esta revisión">✎ Editar</button>
-          <button class="minibtn danger" id="rmDel" title="Levantar esta revisión de la ficha">Levantar</button>
-        </span>`:''}</div>
-      <div class="rm-t">${linkCodes(esc(rev.texto||''))}</div>
-      <div class="rm-m">Dada por buena por <b>${esc(rev.por||'—')}</b>${rev.de&&rev.de!==rev.por?` · la escribió ${esc(rev.de)}`:''}${rev.t?` · ${f(rev.t)}`:''}</div>
-      ${puedeEditar?`<div class="rm-ed" id="rmBox" hidden>
-        <textarea id="rmArea" rows="5"></textarea>
-        <div class="rm-eb"><button class="minibtn" id="rmGuardar">Guardar</button>
-        <button class="minibtn" id="rmCancelar">Cancelar</button></div>
-        <div class="ahint" style="font-size:11.5px">Queda firmada con tu nombre y la fecha de hoy.</div>
-      </div>`:''}`:''}
-    ${pendMed.length?`<div class="rm-pend">
-      <div class="rm-ph">🩺 ${pendMed.length===1?'Un médico dejó un aporte':`${pendMed.length} médicos dejaron aportes`} — <b>sin confirmar</b></div>
-      <div class="rm-pa">Lo escribió un médico administrativo y un médico administrador todavía no lo dio por bueno. <b>No es norma todavía:</b> si vas a cargar con esto, confirmalo antes.</div>
-      ${pendMed.map(x=>`<div class="rm-t">${linkCodes(esc(x.texto))}<div class="rm-m">${esc(x.por||'—')} · ${f(x.t)}</div></div>`).join('')}
+  /* Dos contenedores separados y no uno con una línea adentro: lo confirmado y
+     lo que todavía no lo está no son dos párrafos del mismo aviso. */
+  let out='';
+  if(rev)out+=`<section class="revmed" aria-label="Revisión médica">
+    <div class="rm-h">
+      <span class="rm-tit"><span class="rm-ic" aria-hidden="true">🩺</span> Revisión médica</span>
+      ${puedeEditar?`<span class="rm-acc">
+        <button class="rm-b" id="rmEdit" title="Corregir el texto de esta revisión">✎ Editar</button>
+        <button class="rm-b del" id="rmDel" title="Levantar esta revisión de la ficha">Levantar</button>
+      </span>`:''}
+    </div>
+    <div class="rm-t">${linkCodes(esc(rev.texto||''))}</div>
+    <div class="rm-firma">Dada por buena por <b>${esc(rev.por||'—')}</b>${rev.de&&rev.de!==rev.por?` · la escribió ${esc(rev.de)}`:''}${rev.t?` · ${f(rev.t)}`:''}</div>
+    ${puedeEditar?`<div class="rm-ed" id="rmBox" hidden>
+      <textarea id="rmArea" rows="6"></textarea>
+      <div class="rm-eb"><button class="minibtn" id="rmGuardar">Guardar</button>
+      <button class="minibtn" id="rmCancelar">Cancelar</button>
+      <span class="rm-nota">Queda firmada con tu nombre y la fecha de hoy.</span></div>
     </div>`:''}
-  </div></div>`;
+  </section>`;
+  if(pendMed.length)out+=`<section class="revmed pend" aria-label="Aportes médicos sin confirmar">
+    <div class="rm-h"><span class="rm-tit"><span class="rm-ic" aria-hidden="true">🩺</span> ${pendMed.length===1?'Un aporte médico':pendMed.length+' aportes médicos'} — sin confirmar</span></div>
+    <div class="rm-aviso">Lo escribió un médico administrativo y un médico administrador todavía no lo dio por bueno. <b>Todavía no es norma:</b> si vas a cargar con esto, confirmalo antes.</div>
+    ${pendMed.map(x=>`<div class="rm-t">${linkCodes(esc(x.texto))}</div>
+      <div class="rm-firma">${esc(x.por||'—')}${x.t?` · ${f(x.t)}`:''}</div>`).join('')}
+  </section>`;
+  return out;
 }
 
 function obsFichaHTML(code){

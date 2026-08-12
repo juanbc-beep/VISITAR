@@ -588,7 +588,18 @@ que sumar un rol tocara toda la app; ahora se pregunta `CAP.duenio(p)`, `CAP.val
 - `revMedHTML(code)` → **la primera sección de la ficha**, arriba de la observación del
   administrador, de la valorización y de «cómo se carga». No es un detalle de ubicación:
   saber cómo cargar algo que no había que pedir no sirve de nada. Bloque `.revmed`, token
-  `--med` (verde clínico), borde izquierdo de 5 px.
+  **Contenedor propio** (`<section class="revmed">`, `margin-bottom:20px`): pegado a la
+  observación del administrador los dos se leían como un solo bloque de dos colores. Lo
+  confirmado y lo pendiente son **dos `<section>` separadas**, no una con una línea adentro.
+  Texto a 15 px con `line-height:1.65` y tinta plena —es un criterio clínico, no una nota al
+  pie—, la firma abajo separada por una línea, y los botones de editar/levantar como
+  etiquetas que sólo se pintan al pasar por encima, para que no le compitan al texto.
+
+  ⚠️ Esta regla estuvo **muerta desde el primer commit de roles** por un comentario CSS mal
+  cerrado justo arriba (el `/*` se consumió al insertar el token `--med`): el parser se comía
+  el bloque `.revmed{…}` entero y sólo sobrevivían las reglas hijas `.revmed .rm-*`. Se veía
+  «casi bien», que es lo peor que puede pasar. Si algún día un bloque no toma estilos y sus
+  hijos sí, mirá el comentario de arriba antes que la regla.
 - `revMedLinea(code)` → **en el resultado del listado**, junto a `obsLinea()`. Mismo motivo
   que la observación: si hay que abrir la ficha para enterarse de que la práctica no
   corresponde al diagnóstico, ya se cargó mal. Ámbar = aviso administrativo, verde = médico.
