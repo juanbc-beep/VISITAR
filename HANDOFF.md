@@ -532,7 +532,8 @@ tocar el esquema de Supabase por un cartelito.
 | cuántos | **uno solo** (trigger) | varios | varios | varios |
 | buscar, favoritos, notas | ✔ | ✔ | ✔ | ✔ |
 | pedir verificación | ✔ | ✔ | ✔ | ✔ |
-| proponer «cómo se carga» | ✔ | — | **aporte médico** | ✔ |
+| proponer «cómo se carga» | ✔ | — | — | ✔ |
+| escribir un aporte médico | ✔ | **✔, publica en el acto** | ✔, queda pendiente | ✗ |
 | dar por buena una revisión médica | ✔ | ✔ | ✗ | ✗ |
 | aviso por práctica (observaciones) | ✔ | ✔ | ✗ | ✗ |
 | validar verificación administrativa | ✔ | ✗ | ✗ | ✗ |
@@ -544,6 +545,13 @@ Regla que pidió el usuario, textual: **«el médico administrador NO puede tene
 que el administrador general, que soy yo»**. Y la simetría: en los dos carriles, *el
 administrativo observa y el administrador valida*.
 
+El médico administrador **hace todo lo que hace el médico administrativo y además valida**.
+Por eso su aporte **se publica en el acto** en vez de caer en su propia bandeja para que se lo
+apruebe a sí mismo: es la misma regla que ya rige la verificación («si la marca un
+administrador, él mismo es el validador y queda validada de una»). Los dos caminos —aprobar el
+aporte de otro y escribir el propio— pasan por `publicarRevision()`, para que no haya dos
+formas de escribir lo mismo.
+
 **⚠️ ESTO NO SE PUEDE HACER SÓLO EN LA APP.** `perfiles.rol` tenía
 `check (rol in ('usuario','admin'))`: la base **rechaza** un rol médico. Y todos los permisos
 de escritura eran `es_admin()`. Como la clave publicable es pública por diseño, un permiso
@@ -551,6 +559,11 @@ dibujado sólo en el navegador no es un permiso. Por eso hay migración:
 **`docs/supabase_roles_medicos.sql`**, que se corre una vez en el SQL Editor del panel.
 Es idempotente y **no agrega tablas ni columnas**: cambia el CHECK, suma dos funciones y
 reescribe policies.
+
+⚠️ **Son dos archivos y no se pisan.** `supabase.sql` es la instalación **desde cero** (ya
+incluye los cuatro roles); `supabase_roles_medicos.sql` es **sólo la diferencia**, para el
+proyecto que ya está andando. Los dos dejan la base en el mismo estado. En el proyecto vivo se
+corre **únicamente el segundo**.
 
 Piezas clave:
 - `es_medico_admin()`, `es_medico()`, `valida_medico()` — mismo patrón `security definer` que

@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-ENfsQB/oKFBJsXkieb6o+ODuYWp/5YAZrKGC0IcaFK4=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-SNkEZHScFrFiisMaThgkBVCb3HhT+xPfvEJH2sIPacQ=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -3099,6 +3099,8 @@ function openCode(code,origen){
     // «lo escribió un compañero» y «lo escribió un médico» no pesan igual.
     const pend=todasPend.filter(x=>!x.medica);
     const soyMed=!!(window.NBUProfile&&NBUProfile.esMedico&&NBUProfile.esMedico());
+    // El médico administrador publica directo: su aporte no espera a nadie.
+    const publicoYa=soyMed&&!!(window.NBUProfile.validaMedico&&NBUProfile.validaMedico());
     if(!pasos.length&&!nota&&!puedeProponer)return;
     html+=`<div class="sec"><div class="carga">
       <div class="cg-h">▶ Cómo se carga esta solicitud</div>
@@ -3110,12 +3112,13 @@ function openCode(code,origen){
         ${pend.map(p=>`<div class="pp-t">${linkCodes(esc(p.texto))}<div class="pmeta">${esc(p.por||'—')} · ${new Date(p.t).toLocaleDateString('es-AR')}</div></div>`).join('')}
       </div>`:''}
       ${puedeProponer?`<div class="prop-box">
-        <button class="minibtn" id="propAbrir">✎ ${soyMed?'Dejar un aporte médico':(nota?'Proponer una corrección':'Contar cómo se carga acá')}</button>
+        <button class="minibtn" id="propAbrir">✎ ${publicoYa?'Escribir la revisión médica':(soyMed?'Dejar un aporte médico':(nota?'Proponer una corrección':'Contar cómo se carga acá'))}</button>
         <div id="propForm" hidden style="margin-top:8px">
           <textarea id="propTxt" placeholder="${soyMed?'Ej.: qué incluye realmente la práctica; con qué diagnósticos se corresponde; cuándo NO está indicada; cómo leer el término del glosario…':'Ej.: se carga con modalidad ambulatoria; hay que adjuntar la orden escaneada; si es control post-quirúrgico va con el código del módulo…'}"></textarea>
-          <div style="display:flex;gap:7px;margin-top:7px"><button class="minibtn" id="propEnviar">${soyMed?'Enviar aporte':'Enviar propuesta'}</button>
+          <div style="display:flex;gap:7px;margin-top:7px"><button class="minibtn" id="propEnviar">${publicoYa?'Publicar':(soyMed?'Enviar aporte':'Enviar propuesta')}</button>
           <button class="minibtn" id="propCancel">Cancelar</button></div>
-          <div class="ahint" style="font-size:11.5px">${soyMed?'La da por buena un médico administrador antes de quedar publicada como revisión médica.':'La revisa un administrador antes de quedar publicada para todos.'}</div>
+          <div class="ahint" style="font-size:11.5px">${publicoYa?'Queda publicada en el acto como revisión médica, con tu nombre: sos vos quien las valida.'
+            :(soyMed?'La da por buena un médico administrador antes de quedar publicada como revisión médica.':'La revisa un administrador antes de quedar publicada para todos.')}</div>
         </div></div>`:''}
     </div></div>`;
   })();
@@ -3390,9 +3393,13 @@ function openCode(code,origen){
   const pe=el('propEnviar');
   if(pe)pe.addEventListener('click',()=>{
     const t=el('propTxt').value.trim();
-    if(!t)return toast('Escribí la propuesta primero',true);
-    NBUProfile.proponerNota(code,t);
-    toast('Propuesta enviada — la revisa un administrador');
+    const P=window.NBUProfile||{};
+    const med=!!(P.esMedico&&P.esMedico()), val=!!(P.validaMedico&&P.validaMedico());
+    if(!t)return toast(med?'Escribí el aporte primero':'Escribí la propuesta primero',true);
+    P.proponerNota(code,t);
+    toast(med&&val ? 'Revisión médica publicada'
+        : med      ? 'Aporte enviado — lo revisa un médico administrador'
+                   : 'Propuesta enviada — la revisa un administrador');
     openCode(code);
   });
   const pc=el('propCancel');
@@ -4263,6 +4270,21 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   // tiene cargado: una solicitud hecha en otra computadora llegó después de que
   // esta persona entrara, y el aviso tiene que aparecer igual, sin recargar.
   let cuNube=0, verNube=0, prNube=0, medNube=0;
+  /* Publicar una revisión médica. Un solo camino para los dos casos: el médico
+     administrador aprobando el aporte de otro, y el médico administrador
+     escribiendo el suyo. Con «deferido» la escritura en la nube la maneja quien
+     llama, porque ahí va encadenada al cierre de la propuesta. */
+  function publicarRevision(code,texto,por,de,deferido){
+    const ov=Object.assign({},CONTENT.codes[code]||{},
+      {revision_medica:{texto:texto,por:por,de:de||'',t:Date.now()}});
+    CONTENT.codes[code]=ov;
+    logEdit(de?'dio por buena una revisión médica':'publicó una revisión médica',code);
+    applyCode(code);
+    if(deferido)return ov;
+    persistContent();
+    if(nubeContenido)enNube(NUBE.guardarCorreccion(code,ov),'publicar la revisión médica');
+    return true;
+  }
   function contarPendientes(){
     if(NUBE.activa)
       return {v:verNube,pr:prNube,cu:cuNube,med:medNube,total:verNube+prNube+cuNube+medNube};
@@ -5990,6 +6012,14 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
        las aprueba. Es el mecanismo por el que el conocimiento que hoy vive en la
        cabeza de la gente con experiencia queda escrito una vez para todos. */
     proponerNota:(code,texto)=>{
+      /* El médico administrador hace lo mismo que el administrativo Y ADEMÁS
+         valida. Cuando el aporte lo escribe él, no tiene sentido mandárselo a su
+         propia bandeja para que se lo apruebe a sí mismo: se publica de una,
+         firmado por él. Es la misma regla que ya rige la verificación —«si la
+         marca un administrador, él mismo es el validador y queda validada de
+         una»—, y hacerlo distinto acá sería una vuelta de más sin nada a cambio. */
+      if(validaMedico()&&soyMedico())
+        return publicarRevision(code,texto,(current&&current.name)||'','');
       CONTENT.propuestas=CONTENT.propuestas||{};
       // «medica» no es una tabla nueva: sale del rol de quien la escribe, que la
       // app ya conoce. Un aporte de un médico lo cierra un médico administrador;
@@ -6015,12 +6045,8 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       const lista=(CONTENT.propuestas||{})[code]||[];
       const pr=lista[idx]; if(!pr)return false;
       let ov=null;
-      if(aprueba){
-        ov=Object.assign({},CONTENT.codes[code]||{},{revision_medica:{
-          texto:pr.texto, por:(current&&current.name)||'', de:pr.por||'',
-          t:Date.now()}});
-        CONTENT.codes[code]=ov; logEdit('dio por buena una revisión médica',code); applyCode(code);
-      } else logEdit('descartó un aporte médico',code);
+      if(aprueba)ov=publicarRevision(code,pr.texto,(current&&current.name)||'',pr.por||'',true);
+      else logEdit('descartó un aporte médico',code);
       lista.splice(idx,1); if(!lista.length)delete CONTENT.propuestas[code];
       persistContent();
       if(nubeContenido&&id){

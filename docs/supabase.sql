@@ -5,6 +5,11 @@
 --  Se ejecuta UNA VEZ, entero, desde Supabase → SQL Editor → New query.
 --  Es idempotente: se puede volver a correr sin romper nada.
 --
+--  ⚠️ ESTE ARCHIVO ES LA INSTALACIÓN DESDE CERO. En el proyecto que ya está
+--  andando, los roles médicos se agregaron con supabase_roles_medicos.sql, que
+--  es sólo la diferencia. Los dos dejan la base en el mismo estado: este de un
+--  saque, aquél sobre lo que ya existía. NO hace falta correr los dos.
+--
 --  Qué guarda esta base:
 --    · cuentas del equipo y su estado de aprobación
 --    · verificaciones de ficha y propuestas de «cómo se carga acá»
@@ -27,7 +32,8 @@
 create table if not exists public.perfiles (
   id           uuid primary key references auth.users on delete cascade,
   nombre       text not null,
-  rol          text not null default 'usuario' check (rol in ('usuario','admin')),
+  rol          text not null default 'usuario'
+                 check (rol in ('usuario','admin','medico','medico_admin')),
   estado       text not null default 'pendiente' check (estado in ('pendiente','activo','rechazado')),
   favoritos    jsonb not null default '[]'::jsonb,
   notas        jsonb not null default '{}'::jsonb,
@@ -39,7 +45,8 @@ create table if not exists public.perfiles (
 
 comment on table  public.perfiles          is 'Cuentas del equipo. estado=pendiente hasta que el administrador la habilita.';
 comment on column public.perfiles.estado   is 'pendiente | activo | rechazado';
-comment on column public.perfiles.rol      is 'usuario | admin. Hay un solo admin (lo garantiza un trigger).';
+comment on column public.perfiles.rol      is
+  'usuario (administrativo) | medico (médico administrativo) | medico_admin (médico administrador) | admin (administrador general, uno solo — lo garantiza un trigger)';
 
 -- ---------------------------------------------------------------------
 -- 2. FUNCIONES DE APOYO
@@ -59,6 +66,33 @@ create or replace function public.es_activo() returns boolean
     select 1 from public.perfiles
     where id = auth.uid() and estado = 'activo');
 $$;
+
+-- Los dos roles médicos. El médico administrador hace todo lo que hace el
+-- médico administrativo Y ADEMÁS valida lo que ellos escriben.
+create or replace function public.es_medico_admin() returns boolean
+  language sql stable security definer set search_path = public as $$
+  select exists (
+    select 1 from public.perfiles
+    where id = auth.uid() and rol = 'medico_admin' and estado = 'activo');
+$$;
+
+create or replace function public.es_medico() returns boolean
+  language sql stable security definer set search_path = public as $$
+  select exists (
+    select 1 from public.perfiles
+    where id = auth.uid() and rol in ('medico','medico_admin') and estado = 'activo');
+$$;
+
+-- Quién da por buena una revisión médica: el médico administrador y, por encima
+-- de todo, el administrador general.
+create or replace function public.valida_medico() returns boolean
+  language sql stable security definer set search_path = public as $$
+  select public.es_admin() or public.es_medico_admin();
+$$;
+
+grant execute on function public.es_medico_admin() to authenticated;
+grant execute on function public.es_medico()       to authenticated;
+grant execute on function public.valida_medico()   to authenticated;
 
 -- ---------------------------------------------------------------------
 -- 3. ALTA DE CUENTA
@@ -224,6 +258,41 @@ create table if not exists public.ajustes (
 insert into public.ajustes (id) values (1) on conflict (id) do nothing;
 
 -- ---------------------------------------------------------------------
+-- 6 bis. EL LÍMITE DEL MÉDICO ADMINISTRADOR
+--    Abrirle «correcciones» sin más le daría la ficha entera: denominación,
+--    norma y líneas de auditoría, que es exactamente el poder del administrador
+--    general. Este guardia deja pasar UNA sola cosa cuando quien escribe es
+--    médico administrador: la revisión médica, en datos->'revision_medica'.
+--    Todo lo demás vuelve al valor anterior, del lado del servidor. Mismo patrón
+--    que «perfiles_guardia», que impide que alguien se cambie el rol solo.
+-- ---------------------------------------------------------------------
+create or replace function public.correcciones_guardia() returns trigger
+  language plpgsql security definer set search_path = public as $$
+declare viejo public.correcciones%rowtype;
+begin
+  if public.es_admin() then
+    return new;
+  end if;
+  if not public.es_medico_admin() then
+    raise exception 'Sólo el administrador o un médico administrador pueden tocar las correcciones.';
+  end if;
+  select * into viejo from public.correcciones where codigo = new.codigo;
+  new.nombre     := viejo.nombre;
+  new.norma      := viejo.norma;
+  new.auditoria  := viejo.auditoria;
+  new.asoc_extra := viejo.asoc_extra;
+  new.datos := coalesce(viejo.datos, '{}'::jsonb)
+               || jsonb_build_object('revision_medica',
+                    coalesce(new.datos -> 'revision_medica', 'null'::jsonb));
+  return new;
+end $$;
+
+drop trigger if exists correcciones_limite_medico on public.correcciones;
+create trigger correcciones_limite_medico
+  before insert or update on public.correcciones
+  for each row execute function public.correcciones_guardia();
+
+-- ---------------------------------------------------------------------
 -- 7. RLS — quién ve y quién toca qué
 --    Regla general: una cuenta PENDIENTE no ve nada más que su propio
 --    perfil. Recién aprobada empieza a leer el contenido del equipo.
@@ -256,7 +325,9 @@ create policy correcciones_ver on public.correcciones for select to authenticate
 
 drop policy if exists correcciones_escribir on public.correcciones;
 create policy correcciones_escribir on public.correcciones for all to authenticated
-  using (public.es_admin()) with check (public.es_admin());
+  using (public.es_admin() or public.es_medico_admin())
+  with check (public.es_admin() or public.es_medico_admin());
+  -- lo que el médico administrador puede cambiar lo acota «correcciones_guardia»
 
 -- OBSERVACIONES -------------------------------------------------------
 drop policy if exists obs_ver on public.observaciones;
@@ -266,7 +337,8 @@ create policy obs_ver on public.observaciones for select to authenticated
 -- Escribirlas es del administrador: son instrucciones para el equipo.
 drop policy if exists obs_escribir on public.observaciones;
 create policy obs_escribir on public.observaciones for all to authenticated
-  using (public.es_admin()) with check (public.es_admin());
+  using (public.es_admin() or public.es_medico_admin())
+  with check (public.es_admin() or public.es_medico_admin());
 
 -- VERIFICACIONES ------------------------------------------------------
 drop policy if exists verif_ver on public.verificaciones;
@@ -298,7 +370,18 @@ create policy prop_crear on public.propuestas for insert to authenticated
 
 drop policy if exists prop_resolver on public.propuestas;
 create policy prop_resolver on public.propuestas for update to authenticated
-  using (public.es_admin()) with check (public.es_admin());
+  using (
+    public.es_admin()
+    or (public.es_medico_admin() and exists (
+          select 1 from public.perfiles p
+          where p.id = public.propuestas.autor and p.rol in ('medico','medico_admin')))
+  )
+  with check (
+    public.es_admin()
+    or (public.es_medico_admin() and exists (
+          select 1 from public.perfiles p
+          where p.id = public.propuestas.autor and p.rol in ('medico','medico_admin')))
+  );
 
 drop policy if exists prop_borrar on public.propuestas;
 create policy prop_borrar on public.propuestas for delete to authenticated
@@ -366,13 +449,33 @@ grant execute on function public.validar_verificacion(text) to authenticated;
 --    Cuántas cuentas, verificaciones y propuestas están esperando. Se
 --    consulta con un solo llamado en vez de tres.
 -- ---------------------------------------------------------------------
+-- Contesta SIEMPRE, con ceros en lo que no le toca ver a quien pregunta. Antes
+-- terminaba en «where es_admin()» y no devolvía ninguna fila a los demás, así
+-- que el médico administrador no se enteraba de sus aportes pendientes.
 create or replace function public.pendientes() returns json
   language sql stable security definer set search_path = public as $$
   select json_build_object(
-    'cuentas',       (select count(*) from public.perfiles       where estado = 'pendiente'),
-    'verificaciones',(select count(*) from public.verificaciones where estado = 'pendiente'),
-    'propuestas',    (select count(*) from public.propuestas     where estado = 'pendiente'))
-  where public.es_admin();
+    'cuentas',        case when public.es_admin()
+                        then (select count(*) from public.perfiles where estado = 'pendiente')
+                        else 0 end,
+    'verificaciones', case when public.es_admin()
+                        then (select count(*) from public.verificaciones where estado = 'pendiente')
+                        else 0 end,
+    -- Las propuestas se reparten por el rol de quien las escribió: las
+    -- administrativas son del administrador general, las médicas del médico
+    -- administrador.
+    'propuestas',     case when public.es_admin()
+                        then (select count(*) from public.propuestas p
+                                left join public.perfiles a on a.id = p.autor
+                               where p.estado = 'pendiente'
+                                 and coalesce(a.rol,'usuario') not in ('medico','medico_admin'))
+                        else 0 end,
+    'medicas',        case when public.valida_medico()
+                        then (select count(*) from public.propuestas p
+                                join public.perfiles a on a.id = p.autor
+                               where p.estado = 'pendiente'
+                                 and a.rol in ('medico','medico_admin'))
+                        else 0 end);
 $$;
 
 -- ---------------------------------------------------------------------
