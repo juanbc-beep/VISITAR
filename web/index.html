@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-8fwUes7SvF3kp2BmI9GcdxDYCEJd+BfKjpocTXPFXdk=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-ZIUtI3OFitQADaS39aRWZrxYFD23UTV+NHRK4UhSNCo=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -984,6 +984,9 @@ body.tour-on{overscroll-behavior:none}
 #tourTip .tt-prog{font-size:11.5px;color:var(--faint);white-space:nowrap}
 #tourTip .tt-x{background:none;border:none;color:var(--muted);font:inherit;font-size:12.5px;cursor:pointer;padding:4px}
 #tourTip .tt-x:hover{color:var(--ink)}
+#tourTip .tt-extra{display:block;width:100%;margin-top:9px;padding:7px 4px 0;text-align:center;
+  color:var(--accent);font-weight:600;border-top:1px solid var(--line)}
+#tourTip .tt-extra:hover{color:var(--accent-ink)}
 #tourTip.centro{top:50%!important;left:50%!important;transform:translate(-50%,-50%);width:min(430px,calc(100vw - 28px))}
 /* En pantallas angostas el globo se apoya abajo y ocupa el ancho: al lado del elemento
    no entra, y buscarle lugar terminaba tapando justo lo que se quería señalar. */
@@ -5130,11 +5133,47 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
      están en pantalla —el selector de celular, los botones de administrador— se saltan
      solos. */
   const esperar=ms=>new Promise(r=>setTimeout(r,ms));
+  /* ---- El recorrido de la primera vez ----
+     El completo son 27 pasos y 912 palabras: cuatro minutos y medio de lectura,
+     aunque su primer paso prometiera dos minutos. Nadie los aguanta, y el que lo
+     salta a la mitad se pierde también lo que sí importaba.
+     Acá quedan sólo las seis cosas que no se descubren solas o que se hacen mal si
+     nadie avisa: buscar en el nomenclador equivocado devuelve cero resultados y
+     parece que la práctica no existe; sin el valor de la U.B. no se ve un peso en
+     ningún lado; el color de las etiquetas es el idioma visual de toda la app; y el
+     veredicto con «cómo se carga» son la razón por la que la app existe.
+     El resto —la Mesa de trabajo, imprimir, el glosario— son botones que dicen lo
+     que hacen. Y lo que importa pero no en el minuto uno —verificar, proponer,
+     novedades— se entiende mejor cuando aparece que cuatro minutos antes.
+     El recorrido largo no se toca: sigue entero detrás de «▶ Ver tutorial». */
+  function pasosEsenciales(){
+    return [
+      {sel:null,t:'Qué vas a encontrar acá',
+       d:'Verificás si una práctica <b>se cubre</b>, <b>cuánto vale</b> y <b>cómo se carga</b>. La carga la seguís haciendo en el sistema de siempre. Esto lleva menos de un minuto.'},
+      {sel:'#q',t:'Buscá como te llegó la orden',
+       d:'Código, nombre, sigla, o el nombre con el que te la pidieron. Tolera errores de tipeo: «emograma» encuentra HEMOGRAMA.'},
+      {sel:'.modeswitch',selAlt:'.modesel',t:'Si no aparece, mirá el nomenclador',
+       d:'<b>Laboratorio</b>, <b>Prestaciones médicas</b> y <b>Único</b> son listados distintos. Que no aparezca acá no quiere decir que no exista: probá con <b>Buscar en todo</b>.'},
+      {sel:'.ubctl',t:'Poné el valor de la U.B.',
+       d:'Con ese número la app te muestra el <b>arancel en pesos</b> en el listado, en la ficha y en la Mesa de trabajo. Queda guardado en tu cuenta.'},
+      {sel:'#list .row',t:'Si la fila tiene color, hay algo para mirar',
+       d:'Las etiquetas <b>en color</b> avisan lo que cambia la carga: cobertura, muestra, urgencia, desuso. Las <b>grises</b> sólo dicen cómo quedó cargado el dato.'},
+      {sel:'.veredicto',t:'La respuesta corta, y cómo se carga',
+       antes:async()=>{openCode('660475');await esperar(260);},
+       d:'Arriba de la ficha: <b>si se cubre</b>, <b>cuánto vale</b>, <b>si requiere autorización</b> y <b>qué cantidad</b>. Más abajo, los pasos para cargarla.'},
+      {sel:null,t:'Listo, ya podés trabajar',
+       antes:async()=>{closeDrawer();await esperar(160);},
+       d:'El resto de la app se explica sola. Si en algún momento querés la vuelta completa —Mesa de trabajo, verificaciones, glosario y marco normativo— la tenés en <b>▶ Ver tutorial</b>, arriba del panel de Glosario.',
+       extra:{txt:'Ver ahora el recorrido completo →',
+              fn:()=>{try{localStorage.setItem('nbu-onboarded','1');}catch(e){}
+                      closeDrawer(); startOnboard();}}}
+    ];
+  }
   function pasosTour(){
     const admin=!!(current&&current.role==='admin');
     const P=[
       {sel:null,t:'Bienvenido al Manual Inteligente',
-       d:'Este es el <b>centro de respaldo</b>: acá verificás códigos, prestaciones, obligaciones de cobertura y cómo se carga cada solicitud. La carga en sí se hace en los sistemas de siempre. El recorrido lleva dos minutos y te muestra dónde está cada cosa.'},
+       d:'Este es el <b>centro de respaldo</b>: acá verificás códigos, prestaciones, obligaciones de cobertura y cómo se carga cada solicitud. La carga en sí se hace en los sistemas de siempre. Es el recorrido completo: son unos cinco minutos y te muestra dónde está cada cosa.'},
       {sel:'#q',t:'Buscador',
        d:'Escribí un <b>código, el nombre de la práctica, un sinónimo o una sigla</b>. Tolera errores de tipeo: «emograma» encuentra HEMOGRAMA. Y busca también por el nombre que la práctica tiene en el otro nomenclador.'},
       {sel:'.modeswitch',t:'Nomencladores',selAlt:'.modesel',
@@ -5190,7 +5229,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       {sel:'#acctChip',t:'Tu perfil',
        d:'Tus <b>favoritos, notas y valor de U.B.</b> quedan guardados en tu cuenta, así que los encontrás igual desde cualquier computadora. Desde este botón cerrás sesión cuando se sienta otra persona.'},
       {sel:null,t:'Instalala en tu computadora',
-       d:'Si abrís el manual desde el navegador te va a ofrecer <b>instalarlo como aplicación</b>: queda con su propio ícono y su ventana, y <b>abre sin internet</b> con toda la base adentro. Cuando se publique una versión nueva vas a ver un cartel para actualizar; no se reinicia sola, decidís vos cuándo.'}
+       d:'Si abrís el manual desde el navegador te va a ofrecer <b>instalarlo como aplicación</b>: queda con su propio ícono y su ventana, y <b>abre sin internet</b> con toda la base adentro. Cuando se publica una versión nueva: si <b>recién abriste</b> el manual se actualiza sola —vas a ver el cartel «Actualizando el manual» y vuelve en un segundo—; si <b>ya venías trabajando</b> te pregunta antes, para no moverte la pantalla en medio de una consulta.'}
     ];
     if(admin)P.push(
       {sel:'#pendBtn',t:'Pendientes de revisar',forzar:true,
@@ -5205,7 +5244,8 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   }
 
   let tIdx=0,tPasos=[],tCorriendo=false;
-  function maybeOnboard(){try{if(localStorage.getItem('nbu-onboarded'))return;}catch(e){}startOnboard();}
+  // La primera vez corre el esencial; «▶ Ver tutorial» corre el completo.
+  function maybeOnboard(){try{if(localStorage.getItem('nbu-onboarded'))return;}catch(e){}startOnboard('esencial');}
 
   /* ---- El recorrido manda sobre la pantalla ----
      Mientras corre, la persona no scrollea: scrollea el recorrido. Antes se podía
@@ -5342,9 +5382,10 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     });
   }
 
-  async function startOnboard(){
+  async function startOnboard(cual){
     tCorriendo=true;
-    tPasos=pasosTour(); tIdx=0;                 // volver a pedirlo reinicia desde el principio
+    tPasos=(cual==='esencial')?pasosEsenciales():pasosTour();
+    tIdx=0;                                     // volver a pedirlo reinicia desde el principio
     el('onboard').classList.remove('on');
     el('tour').classList.add('on');
     document.body.classList.add('tour-on');
@@ -5439,10 +5480,14 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         ${tIdx>0?'<button class="tt-x" id="tPrev">← Atrás</button>':''}
         <button class="gbtn" id="tNext">${ultimo?'Terminar':'Siguiente'}</button>
         ${!ultimo?'<button class="tt-x" id="tSkip">Saltar</button>':''}
-      </div>`;
+      </div>
+      ${paso.extra?`<button class="tt-x tt-extra" id="tExtra">${paso.extra.txt}</button>`:''}`;
     el('tNext').addEventListener('click',()=>{if(ultimo)endOnboard();else{tIdx++;pintarPaso();}});
     if(el('tPrev'))el('tPrev').addEventListener('click',()=>{tIdx--;pintarPaso();});
     if(el('tSkip'))el('tSkip').addEventListener('click',endOnboard);
+    // Enlace al pie de la tarjeta: hoy lo usa el último paso del recorrido esencial
+    // para ofrecer el completo sin obligar a ir a buscarlo al panel de Glosario.
+    if(el('tExtra'))el('tExtra').addEventListener('click',()=>paso.extra.fn());
 
     if(paso.antes){try{await paso.antes();}catch(e){}}
     if(mio!==tSecuencia)return;                  // ya se avanzó a otro paso
@@ -5589,7 +5634,8 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       return true;
     },
     editFicha:editFicha,
-    tour:startOnboard,
+    // Sin argumento: el completo. El esencial sólo lo lanza la primera vez.
+    tour:()=>startOnboard(),
     recent:()=>current&&current.recent?current.recent:[],
     pushRecent:(code)=>{if(!current)return;const r=current.recent=current.recent||[];const i=r.indexOf(code);if(i>=0)r.splice(i,1);r.unshift(code);if(r.length>30)r.length=30;current.updated=Date.now();persistAuthSoon();},
     /* Propuestas de "cómo se carga": cualquier agente las escribe, un administrador
