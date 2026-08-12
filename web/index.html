@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-SNkEZHScFrFiisMaThgkBVCb3HhT+xPfvEJH2sIPacQ=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-+EgXjjiiycoJ8Vye7jBXevxLu5i6OjlUfrfqWABrQhE=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -323,15 +323,27 @@ html,body{margin:0;padding:0}
    Verde clínico, distinto del ámbar de las propuestas y del azul de la
    verificación: son tres cosas que dicen cosas distintas y si se parecen, la
    persona deja de leer cuál es cuál. */
-.revmed{border:1px solid color-mix(in srgb,var(--med) 34%,transparent);
-  background:color-mix(in srgb,var(--med) 7%,transparent);
-  border-left:3px solid var(--med);border-radius:8px;padding:10px 12px}
-.revmed .rm-h{font-size:12px;font-weight:800;letter-spacing:.3px;color:var(--med)}
-.revmed .rm-t{margin-top:5px;font-size:13px;line-height:1.55;color:var(--ink);white-space:pre-wrap}
-.revmed .rm-m{margin-top:5px;font-size:11.5px;color:var(--muted)}
-.revmed .rm-pend{margin-top:9px;padding-top:9px;border-top:1px dashed color-mix(in srgb,var(--med) 30%,transparent)}
-.revmed .rm-ph{font-size:12px;font-weight:800;color:var(--gestion)}
+.revmed{border:1.5px solid color-mix(in srgb,var(--med) 45%,transparent);
+  background:color-mix(in srgb,var(--med) 9%,transparent);
+  border-left:5px solid var(--med);border-radius:var(--radius);padding:13px 16px}
+.revmed.con{box-shadow:0 1px 3px color-mix(in srgb,var(--med) 18%,transparent)}
+.revmed .rm-h{display:flex;align-items:center;gap:7px;flex-wrap:wrap;
+  font-size:13.5px;font-weight:800;letter-spacing:.2px;color:var(--med)}
+.revmed .rm-ic{font-size:15px}
+.revmed .rm-acc{margin-left:auto;display:flex;gap:6px}
+.revmed .rm-t{margin-top:7px;font-size:14px;line-height:1.6;color:var(--ink);white-space:pre-wrap}
+.revmed .rm-m{margin-top:6px;font-size:11.5px;color:var(--muted)}
+.revmed .rm-ed{margin-top:9px}
+.revmed .rm-ed textarea{width:100%;box-sizing:border-box;border:1px solid var(--line);
+  border-radius:8px;background:var(--surface);color:var(--ink);font:inherit;font-size:13px;
+  padding:9px 11px;line-height:1.5}
+.revmed .rm-ed textarea:focus{outline:none;border-color:var(--med);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--med) 18%,transparent)}
+.revmed .rm-eb{display:flex;gap:7px;margin-top:7px}
+.revmed .rm-pend{margin-top:11px;padding-top:11px;border-top:1px dashed color-mix(in srgb,var(--med) 32%,transparent)}
+.revmed .rm-ph{font-size:12.5px;font-weight:800;color:var(--gestion)}
 .revmed .rm-pa{font-size:12px;color:var(--ink-2);margin:3px 0 4px;line-height:1.45}
+.revmed .rm-pend .rm-t{font-size:13px;color:var(--ink-2)}
 /* ---------- autoría ----------
    Queda en la app, no en los textos editables del panel: es un dato de autoría, no
    contenido configurable. */
@@ -628,6 +640,15 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .robs{background:#2e2811}}
 .robs-i{flex-shrink:0;width:16px;height:16px;border-radius:50%;background:var(--gestion);
   color:#fff;font-weight:800;font-size:11px;line-height:16px;text-align:center;margin-top:1px}
+/* La revisión médica en el resultado del listado. Verde clínico, para que no se
+   confunda con el aviso administrativo, que es ámbar. */
+.rmed-l{display:flex;align-items:flex-start;gap:7px;margin-top:6px;padding:6px 9px;
+  border-radius:7px;background:color-mix(in srgb,var(--med) 12%,transparent);
+  border:1px solid color-mix(in srgb,var(--med) 40%,transparent);
+  font-size:12.5px;line-height:1.4;color:var(--ink-2);text-align:left}
+.rmed-l b{color:var(--med)}
+.rmed-l.pend{border-style:dashed;color:var(--gestion);font-weight:700}
+.rmed-i{flex-shrink:0;font-size:12px;line-height:1.4}
 /* El mismo aviso dentro de la ficha, arriba de todo. */
 .obsbox{background:#efe4c4;border:1.5px solid color-mix(in srgb,var(--gestion) 45%,transparent);
   border-radius:var(--radius);padding:12px 14px;margin-bottom:12px}
@@ -1873,6 +1894,20 @@ function obsLinea(code){
   const t=o.texto.length>150?o.texto.slice(0,150)+'…':o.texto;
   return `<div class="robs" title="${esc(o.texto)}"><span class="robs-i">!</span>${esc(t)}</div>`;
 }
+/* La revisión médica también se lee en el resultado, sin abrir la ficha, y por
+   el mismo motivo que la observación: si hay que abrir algo para enterarse de
+   que la práctica no corresponde al diagnóstico, ya se cargó mal. Va con el
+   verde clínico y el estetoscopio, para que se distinga de un vistazo del aviso
+   administrativo, que es ámbar. */
+function revMedLinea(code){
+  const P=window.NBUProfile||{};
+  const r=P.revisionDe?P.revisionDe(code):null;
+  const pend=(P.propuestasDe?P.propuestasDe(code):[]).filter(x=>x.medica).length;
+  if(!r&&!pend)return '';
+  if(!r)return `<div class="rmed-l pend" title="Un médico dejó un aporte que todavía no fue confirmado."><span class="rmed-i">🩺</span>${pend===1?'Un aporte médico sin confirmar':pend+' aportes médicos sin confirmar'}</div>`;
+  const t=(r.texto||'').length>150?r.texto.slice(0,150)+'…':(r.texto||'');
+  return `<div class="rmed-l" title="${esc(r.texto||'')}"><span class="rmed-i">🩺</span><span><b>Revisión médica.</b> ${esc(t)}</span></div>`;
+}
 function rowHTML(c){
   const dec=[],met=[];
   if(c.cobertura_pmo)dec.push(`<span class="tag t-cob">${c.cobertura_tipo==='observacion'?'observación de cobertura':'obligación de cobertura'}</span>`);
@@ -1895,6 +1930,7 @@ function rowHTML(c){
       <div class="rname">${hlList(c.nombre)}</div>
       <div class="rmeta"><span class="badge ${SEC_CLASS[c.seccion]}">${SEC_LABEL[c.seccion]}</span>
       <span class="rgrupo">${esc(c.grupo)}</span>${dec.join('')}${met.join('')}</div>
+      ${revMedLinea(c._key)}
       ${obsLinea(c._key)}
     </div>
     <div class="rright">${ubDisplay(c)}</div>
@@ -2760,6 +2796,45 @@ function verifEstado(code){
 /* La observación en la ficha, arriba de todo: si el administrador dejó dicho
    algo sobre esta práctica, tiene que leerse antes que cualquier otra cosa.
    Para el administrador, el mismo bloque es el editor. */
+/* ---- Revisión médica ----
+   Va ARRIBA DE TODO, antes de «cómo se carga» y de la valorización. No es un
+   detalle de ubicación: es lo que le falta a quien atiende para decidir si la
+   práctica corresponde. Saber cómo cargar algo que no había que pedir no sirve
+   de nada, así que primero va lo médico y después el trámite.
+
+   Sello propio, distinto del de verificación: «contrasté la ficha contra la
+   fuente» y «esto es correcto desde lo médico» no son lo mismo, y mezclarlos
+   haría que ninguno de los dos signifique nada. */
+function revMedHTML(code){
+  const P=window.NBUProfile||{};
+  if(!P.active||!P.active())return '';
+  const rev=P.revisionDe?P.revisionDe(claveObs(code)):null;
+  const pendMed=(P.propuestasDe?P.propuestasDe(code):[]).filter(x=>x.medica);
+  const puedeEditar=!!(P.validaMedico&&P.validaMedico());
+  if(!rev&&!pendMed.length)return '';
+  const f=t=>t?new Date(t).toLocaleDateString('es-AR'):'';
+  return `<div class="sec"><div class="revmed${rev?' con':''}">
+    ${rev?`<div class="rm-h"><span class="rm-ic">🩺</span> Revisión médica
+        ${puedeEditar?`<span class="rm-acc">
+          <button class="minibtn" id="rmEdit" title="Corregir el texto de esta revisión">✎ Editar</button>
+          <button class="minibtn danger" id="rmDel" title="Levantar esta revisión de la ficha">Levantar</button>
+        </span>`:''}</div>
+      <div class="rm-t">${linkCodes(esc(rev.texto||''))}</div>
+      <div class="rm-m">Dada por buena por <b>${esc(rev.por||'—')}</b>${rev.de&&rev.de!==rev.por?` · la escribió ${esc(rev.de)}`:''}${rev.t?` · ${f(rev.t)}`:''}</div>
+      ${puedeEditar?`<div class="rm-ed" id="rmBox" hidden>
+        <textarea id="rmArea" rows="5"></textarea>
+        <div class="rm-eb"><button class="minibtn" id="rmGuardar">Guardar</button>
+        <button class="minibtn" id="rmCancelar">Cancelar</button></div>
+        <div class="ahint" style="font-size:11.5px">Queda firmada con tu nombre y la fecha de hoy.</div>
+      </div>`:''}`:''}
+    ${pendMed.length?`<div class="rm-pend">
+      <div class="rm-ph">🩺 ${pendMed.length===1?'Un médico dejó un aporte':`${pendMed.length} médicos dejaron aportes`} — <b>sin confirmar</b></div>
+      <div class="rm-pa">Lo escribió un médico administrativo y un médico administrador todavía no lo dio por bueno. <b>No es norma todavía:</b> si vas a cargar con esto, confirmalo antes.</div>
+      ${pendMed.map(x=>`<div class="rm-t">${linkCodes(esc(x.texto))}<div class="rm-m">${esc(x.por||'—')} · ${f(x.t)}</div></div>`).join('')}
+    </div>`:''}
+  </div></div>`;
+}
+
 function obsFichaHTML(code){
   const P=window.NBUProfile||{};
   if(!P.active||!P.active())return '';
@@ -3003,6 +3078,13 @@ function openCode(code,origen){
   if(c.marcador_unico)dbadges.push(`<span class="tag t-unico" title="Marcador de clasificación de la planilla del Nomenclador Único (texto literal de la fuente).">${esc(c.marcador_unico)}</span>`);
   if(c.lateralidad)dbadges.push(`<span class="tag t-lat" title="Observación de lateralidad del Nomenclador Nacional.">${esc(c.lateralidad)}</span>`);
 
+  /* Las acciones administrativas —al validador, copiar el código, pasarlo a un
+     compañero, comparar— son de quien carga la prestación. Un médico entra a
+     otra cosa: a decir si la práctica se corresponde con el diagnóstico. Se las
+     sacamos para que no tenga que saltearlas cada vez. Imprimir queda: sirve
+     igual para llevarse la ficha a una junta. */
+  const esAdministrativo=!(window.NBUProfile&&NBUProfile.esMedico&&NBUProfile.esMedico());
+  const admin=esAdministrativo;
   const previo=navPila.length?BYCODE[navPila[navPila.length-1]]:null;
   let html=`<div class="dhead">
     <div style="min-width:0">
@@ -3020,13 +3102,14 @@ function openCode(code,origen){
       <h2 class="dname">${esc(c.nombre)}${(c._orig&&c._orig.nombre!==c.nombre)?'<span class="ovr-badge">editado</span>':(c.correccion_curada?'<span class="ovr-badge" title="Corregida por auditoría e incorporada a la base.">verificada</span>':'')}</h2>
       <div class="dbadges">${dbadges.join('')}</div>
       <div class="dactions">
-        ${c.nomenclador==='NBU'?`<button class="minibtn" id="dAddVal">➕ Al validador</button>`:''}
+        ${admin?`${c.nomenclador==='NBU'?`<button class="minibtn" id="dAddVal">➕ Al validador</button>`:''}
         <button class="minibtn" id="dCopy">⧉ Copiar código</button>
         <button class="minibtn" id="dShare">↗ Pasar a un compañero</button>
-        <button class="minibtn" id="dCmp">⇄ Comparar</button>
+        <button class="minibtn" id="dCmp">⇄ Comparar</button>`:''}
         <button class="minibtn" id="dImp">🖨 Imprimir ficha</button>
       </div>
       ${(window.NBUProfile&&NBUProfile.canEdit())?`<div class="dedit"><button class="minibtn" id="editFichaBtn">✎ Editar ficha</button></div>`:''}
+      ${revMedHTML(code)}
       ${obsFichaHTML(code)}
       ${veredictoHTML(c)}
       ${verifHTML(code)}
@@ -3120,30 +3203,6 @@ function openCode(code,origen){
           <div class="ahint" style="font-size:11.5px">${publicoYa?'Queda publicada en el acto como revisión médica, con tu nombre: sos vos quien las valida.'
             :(soyMed?'La da por buena un médico administrador antes de quedar publicada como revisión médica.':'La revisa un administrador antes de quedar publicada para todos.')}</div>
         </div></div>`:''}
-    </div></div>`;
-  })();
-
-  /* ---- Revisión médica ----
-     Va inmediatamente después de «cómo se carga» y antes de todo lo demás,
-     porque es lo que le falta a quien atiende para decidir: si la práctica se
-     corresponde con el diagnóstico, qué incluye de verdad, cuándo no está
-     indicada. Sello propio, distinto del de verificación: «contrasté la ficha
-     contra la fuente» y «esto es correcto desde lo médico» no son lo mismo, y
-     mezclarlos haría que ninguno de los dos signifique nada. */
-  (function(){
-    const P=window.NBUProfile||{};
-    const rev=P.revisionDe?P.revisionDe(claveObs(code)):null;
-    const pendMed=(P.propuestasDe?P.propuestasDe(code):[]).filter(x=>x.medica);
-    if(!rev&&!pendMed.length)return;
-    html+=`<div class="sec"><div class="revmed">
-      ${rev?`<div class="rm-h">🩺 Revisión médica</div>
-        <div class="rm-t">${linkCodes(esc(rev.texto||''))}</div>
-        <div class="rm-m">Dada por buena por <b>${esc(rev.por||'—')}</b>${rev.de?` · la escribió ${esc(rev.de)}`:''}${rev.t?` · ${new Date(rev.t).toLocaleDateString('es-AR')}`:''}</div>`:''}
-      ${pendMed.length?`<div class="rm-pend">
-        <div class="rm-ph">🩺 ${pendMed.length===1?'Un médico dejó un aporte':`${pendMed.length} médicos dejaron aportes`} — <b>sin confirmar</b></div>
-        <div class="rm-pa">Lo escribió un médico administrativo y un médico administrador todavía no lo dio por bueno. <b>No es norma todavía:</b> si vas a cargar con esto, confirmalo antes.</div>
-        ${pendMed.map(x=>`<div class="rm-t">${linkCodes(esc(x.texto))}<div class="rm-m">${esc(x.por||'—')} · ${new Date(x.t).toLocaleDateString('es-AR')}</div></div>`).join('')}
-      </div>`:''}
     </div></div>`;
   })();
 
@@ -3425,6 +3484,37 @@ function openCode(code,origen){
     const bQ=el('obsQuitar'); if(bQ)bQ.addEventListener('click',()=>{
       if(!confirm('¿Quitar la observación de este código?\n\nDeja de verla todo el equipo.'))return;
       NBUProfile.guardarObs(code,''); toast('Observación quitada');
+      if(state.view==='list')render(); openCode(code);
+    });
+  })();
+  /* Editar y levantar la revisión médica, desde la ficha misma. Antes esto sólo
+     estaba en el panel: para corregir una coma había que salir de la ficha,
+     abrir Administración y buscarla en una lista. Quien la escribió está mirando
+     la ficha cuando se da cuenta de que quedó mal. */
+  (function(){
+    const P=window.NBUProfile||{};
+    const bE=el('rmEdit');
+    if(bE)bE.addEventListener('click',()=>{
+      const rev=P.revisionDe?P.revisionDe(claveObs(code)):null; if(!rev)return;
+      const caja=el('rmBox'); if(!caja)return;
+      caja.hidden=false;
+      const a=el('rmArea'); if(a){a.value=rev.texto||'';a.focus();a.setSelectionRange(a.value.length,a.value.length);}
+      bE.hidden=true;
+    });
+    const bG=el('rmGuardar'); if(bG)bG.addEventListener('click',()=>{
+      const txt=((el('rmArea')||{}).value||'').trim();
+      if(!txt)return toast('Escribí el texto o usá «Levantar».',true);
+      P.editarRevision(claveObs(code),txt);
+      toast('Revisión médica actualizada');
+      if(state.view==='list')render(); openCode(code);
+    });
+    const bC=el('rmCancelar'); if(bC)bC.addEventListener('click',()=>{
+      const caja=el('rmBox'); if(caja)caja.hidden=true;
+      const b=el('rmEdit'); if(b)b.hidden=false;
+    });
+    const bD=el('rmDel'); if(bD)bD.addEventListener('click',()=>{
+      if(!confirm('¿Levantar la revisión médica de esta ficha?\n\nDeja de verla todo el equipo.'))return;
+      P.quitarRevision(claveObs(code)); toast('Revisión levantada');
       if(state.view==='list')render(); openCode(code);
     });
   })();
@@ -6056,6 +6146,14 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         enNube(guardar,aprueba?'publicar la revisión médica':'descartar el aporte');
       }
       return true;
+    },
+    /* Corregir el texto de una revisión ya publicada. Se refirma con quien la
+       edita y la fecha de hoy: si dice «dada por buena por» tiene que ser cierto
+       para el texto que se está leyendo, no para uno anterior. */
+    editarRevision:(code,texto)=>{
+      if(!validaMedico())return false;
+      const o=CONTENT.codes[code]||{}, prev=o.revision_medica||{};
+      return publicarRevision(code,texto,(current&&current.name)||'',prev.de||'');
     },
     quitarRevision:(code)=>{
       if(!validaMedico())return false;

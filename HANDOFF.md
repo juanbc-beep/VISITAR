@@ -582,10 +582,30 @@ que sumar un rol tocara toda la app; ahora se pregunta `CAP.duenio(p)`, `CAP.val
 `CAP.observa(p)`, `CAP.editaFicha(p)`.
 
 **Dónde vive la revisión médica:** dentro de `correcciones.datos.revision_medica`
-`{texto, por, de, t}`. `datos` ya era `jsonb` libre → **cero cambios de esquema**. Se muestra
-en la ficha en su propio bloque `.revmed` (token `--med`, verde clínico), separado a propósito
-de la verificación administrativa: «contrasté contra la fuente» y «esto es correcto desde lo
-médico» no son lo mismo y si se parecieran, ninguno significaría nada.
+`{texto, por, de, t}`. `datos` ya era `jsonb` libre → **cero cambios de esquema**.
+
+**Dónde se ve, y por qué ahí:**
+- `revMedHTML(code)` → **la primera sección de la ficha**, arriba de la observación del
+  administrador, de la valorización y de «cómo se carga». No es un detalle de ubicación:
+  saber cómo cargar algo que no había que pedir no sirve de nada. Bloque `.revmed`, token
+  `--med` (verde clínico), borde izquierdo de 5 px.
+- `revMedLinea(code)` → **en el resultado del listado**, junto a `obsLinea()`. Mismo motivo
+  que la observación: si hay que abrir la ficha para enterarse de que la práctica no
+  corresponde al diagnóstico, ya se cargó mal. Ámbar = aviso administrativo, verde = médico.
+- Se mantiene separada de la verificación administrativa: «contrasté contra la fuente» y
+  «esto es correcto desde lo médico» no son lo mismo y si se parecieran, ninguno significaría
+  nada.
+
+**Editar y levantar desde la ficha misma** (`rmEdit` / `rmDel` → `editarRevision()` /
+`quitarRevision()`), no sólo desde el panel: quien la escribió está mirando la ficha cuando se
+da cuenta de que quedó mal, y mandarlo a Administración a buscarla en una lista era una vuelta
+de más. Al editar se **refirma** con quien edita y la fecha de hoy — si dice «dada por buena
+por» tiene que ser cierto del texto que se está leyendo.
+
+**La ficha de un médico no muestra las acciones administrativas** (`Al validador`, `Copiar
+código`, `Pasar a un compañero`, `Comparar`). Un médico entra a decir si la práctica se
+corresponde con el diagnóstico, no a cargarla. **Imprimir ficha queda** para los cuatro roles:
+sirve para llevársela a una junta.
 
 **Si la migración todavía no se corrió**, la app no se rompe: el desplegable de rol muestra el
 error real («la base todavía no acepta los roles médicos») y `pendientes()` sin la clave
