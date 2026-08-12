@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-ZIUtI3OFitQADaS39aRWZrxYFD23UTV+NHRK4UhSNCo=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-SyoRkZUVPU/EfhpJJ1GE/qy0ZY0QSR9r5MTNzvb82/s=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -987,6 +987,27 @@ body.tour-on{overscroll-behavior:none}
 #tourTip .tt-extra{display:block;width:100%;margin-top:9px;padding:7px 4px 0;text-align:center;
   color:var(--accent);font-weight:600;border-top:1px solid var(--line)}
 #tourTip .tt-extra:hover{color:var(--accent-ink)}
+
+/* ---- Pistas: una función nueva se explica donde aparece, no en el tutorial ----
+   Sin fondo oscuro ni bloqueo: la persona está trabajando y esto no la interrumpe,
+   sólo le cuenta qué es eso que acaba de aparecer. Se ve una vez. */
+#pista{position:fixed;z-index:1150;width:min(320px,calc(100vw - 24px));background:var(--surface);
+  border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;
+  padding:12px 14px;box-shadow:0 14px 34px rgba(8,15,20,.22);display:none;
+  animation:pistaIn .22s ease-out}
+#pista.on{display:block}
+@keyframes pistaIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){#pista{animation:none}}
+#pista .pi-n{font-size:10px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:var(--accent)}
+#pista h5{margin:4px 0 5px;font-size:14px;font-weight:700;color:var(--ink);line-height:1.3}
+#pista p{margin:0;font-size:12.5px;line-height:1.5;color:var(--ink-2)}
+#pista p b{color:var(--ink)}
+#pista .pi-nav{display:flex;align-items:center;gap:8px;margin-top:11px}
+#pista .pi-ok{flex:1;background:var(--accent);color:var(--sobre-acento);border:none;border-radius:7px;
+  padding:8px;font:inherit;font-size:12.5px;font-weight:700;cursor:pointer}
+#pista .pi-ok:hover{filter:brightness(1.06)}
+#pista .pi-x{background:none;border:none;color:var(--muted);font:inherit;font-size:11.5px;cursor:pointer;padding:5px}
+#pista .pi-x:hover{color:var(--ink)}
 #tourTip.centro{top:50%!important;left:50%!important;transform:translate(-50%,-50%);width:min(430px,calc(100vw - 28px))}
 /* En pantallas angostas el globo se apoya abajo y ocupa el ancho: al lado del elemento
    no entra, y buscarle lugar terminaba tapando justo lo que se quería señalar. */
@@ -1175,6 +1196,7 @@ mark.hl{background:var(--accent-soft);color:var(--accent-ink);border-radius:3px;
 <div id="adminModal"><div class="adminbox" id="adminBox" role="dialog" aria-modal="true" aria-label="Administración"></div></div>
 <div id="onboard"><div class="obcard" id="onboardCard"></div></div>
 <div id="tour"><div id="tourHole"></div><div id="tourTip"></div></div>
+<div id="pista" role="status" aria-live="polite"></div>
 <header>
   <div class="hbar">
     <div class="brand">
@@ -3211,7 +3233,7 @@ function openCode(code,origen){
      «CREATINFOSFOQUINASA, ISOENZIMA MB». Sin esto, quien atiende busca el nombre
      que le trajeron y no encuentra nada. Se busca también por estos nombres. */
   if(c.pedida_como&&c.pedida_como.length){
-    html+=`<div class="sec"><div class="slabel">Puede venir solicitada como</div>
+    html+=`<div class="sec" id="secPedida"><div class="slabel">Puede venir solicitada como</div>
       <div class="chipset">${c.pedida_como.map(x=>`<span class="pill" style="border-color:color-mix(in srgb,var(--accent) 34%,transparent);color:var(--accent-ink)">${esc(x)}</span>`).join('')}</div>
       <div style="margin-top:6px;font-size:11.5px;color:var(--faint);font-style:italic">Nombres con los que la orden puede pedir esta misma práctica, relevados por auditoría de VISITAR.</div></div>`;
   }
@@ -3384,6 +3406,8 @@ function openCode(code,origen){
       setTimeout(()=>{if(currentCode===code)openCode(code);},1200);
     }
   });
+  // Ficha ya pintada: si trae algo que se explica solo la primera vez, se explica.
+  if(window.NBUPistas)NBUPistas.revisar();
 }
 /* Pasarle algo a un compañero. En el celular abre el menú de compartir del
    teléfono —o sea, WhatsApp, que es por donde se hablan de verdad—; en la
@@ -3419,6 +3443,9 @@ function closeDrawer(){
   navPila=[];el('drawer').classList.remove('on');el('scrim').classList.remove('on');
   if(location.hash)history.replaceState(null,'',location.pathname+location.search);
   devolverFoco();
+  // La pista de la ficha se va con la ficha; y sin ficha delante puede tocarle
+  // el turno a la de novedades.
+  if(window.NBUPistas)NBUPistas.revisar();
 }
 /* La ficha se declara como diálogo (role=dialog, aria-modal) pero el foco se quedaba
    en el buscador: un lector de pantalla anunciaba la apertura y seguía leyendo el
@@ -4169,6 +4196,8 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       if(hay){ el('obsN').textContent=obsNuevas>99?'99+':String(obsNuevas);
         ob.title=obsNuevas===1?'Hay 1 novedad desde la última vez que entraste'
                               :`Hay ${obsNuevas} novedades desde la última vez que entraste`; }
+      // La campanita aparece sola cuando hay algo; la primera vez, se explica.
+      if(hay&&window.NBUPistas)NBUPistas.revisar();
     }
     const b=el('pendBtn'); if(!b)return;
     const esAdmin=!!(current&&current.role==='admin');
@@ -5247,6 +5276,108 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   // La primera vez corre el esencial; «▶ Ver tutorial» corre el completo.
   function maybeOnboard(){try{if(localStorage.getItem('nbu-onboarded'))return;}catch(e){}startOnboard('esencial');}
 
+  /* ============ Pistas: lo nuevo se explica donde aparece ============
+     El tutorial dejó de ser el lugar donde se anuncian las funciones nuevas: por
+     eso había llegado a 27 pasos. Estas tres se explican solas, la primera vez que
+     la persona las tiene delante, que es cuando la explicación sirve.
+
+     La marca de «ya la vio» va en localStorage y no en el perfil de la nube: el
+     perfil tiene columnas fijas y sumar una para esto sería tocar el esquema de
+     Supabase por un cartelito. Va por usuario y no por computadora a secas, así
+     dos administrativos que comparten la máquina no se pisan; el costo de que uno
+     la vea de nuevo en otra computadora es ver un cartel una vez más. */
+  const PISTAS={
+    pedida:{t:'La orden puede venir escrita distinto',
+      d:'El médico pide <b>CKMB</b> y en el manual la práctica figura como CREATINFOSFOQUINASA, ISOENZIMA MB. Acá están los nombres con los que puede llegar la orden, relevados por auditoría — y <b>el buscador también los encuentra</b>: podés escribir el nombre tal como te lo trajeron.'},
+    propuesta:{t:'Esto lo escribió un compañero, no es norma',
+      d:'Alguien del equipo contó cómo se carga esta práctica y <b>el administrador todavía no lo aprobó</b>. Te lo mostramos porque suele ser lo que necesitás, pero <b>confirmalo antes de cargar con eso</b>. Cuando lo aprueban, deja de tener el aviso.'},
+    novedades:{t:'Acá te avisamos qué cambió',
+      d:'Cuando el administrador corrige una ficha o deja una observación sobre una práctica, te aparece <b>el número de novedades desde la última vez que entraste</b>. Tocá la campanita para verlas y saltar a la ficha.'}
+  };
+  const pistaClave=(id)=>'nbu-pista:'+((current&&current.id)||'-')+':'+id;
+  function pistaVista(id){try{return !!localStorage.getItem(pistaClave(id));}catch(e){return true;}}
+  function marcarPista(id){try{localStorage.setItem(pistaClave(id),'1');}catch(e){}}
+  let pistaActiva=null, pistaAncla=null;
+  function cerrarPista(marcando){
+    if(pistaActiva&&marcando)marcarPista(pistaActiva);
+    pistaActiva=null; pistaAncla=null; el('pista').classList.remove('on');
+  }
+  /* «A la vista» no es asomar cuatro píxeles por el borde: con eso la pista salía
+     tapando media ficha para señalar un bloque que todavía no se leía. Se pide que
+     se vea un pedazo con el que la persona pueda reconocer de qué se le habla. */
+  const aLaVista=(n)=>{
+    const r=n.getBoundingClientRect();
+    if(r.width<2||r.height<2)return false;
+    const visible=Math.min(r.bottom,innerHeight)-Math.max(r.top,0);
+    return visible>=Math.min(70,r.height*0.6);
+  };
+  /* Debajo del elemento si entra; si no, arriba; y si tampoco, apoyada al pie de la
+     pantalla. Nunca encima de lo que está explicando. */
+  function ubicarPista(n){
+    const p=el('pista'), r=n.getBoundingClientRect(), m=10;
+    const a=p.getBoundingClientRect();
+    let top=r.bottom+m;
+    if(top+a.height>innerHeight-8){
+      top=(r.top-a.height-m>=8)?r.top-a.height-m:Math.max(8,innerHeight-a.height-8);
+    }
+    let left=Math.min(Math.max(8,r.left),innerWidth-a.width-8);
+    p.style.top=Math.round(top)+'px'; p.style.left=Math.round(left)+'px';
+  }
+  /* Una por vez y nunca durante el recorrido: la persona ya está leyendo otra cosa. */
+  function mostrarPista(id,sel){
+    if(tCorriendo||pistaActiva||pistaVista(id))return false;
+    const def=PISTAS[id]; if(!def)return false;
+    const n=document.querySelector(sel);
+    // Todavía no la tiene delante: la ficha es larga y esta sección puede estar
+    // más abajo. No se explica algo que la persona no está mirando; cuando baje
+    // y aparezca, el propio scroll vuelve a llamar acá.
+    if(!n||!aLaVista(n))return false;
+    pistaActiva=id; pistaAncla=n;
+    const p=el('pista');
+    p.innerHTML=`<span class="pi-n">Novedad</span><h5>${def.t}</h5><p>${def.d}</p>
+      <div class="pi-nav"><button class="pi-ok" id="piOk">Entendido</button>
+      <button class="pi-x" id="piLuego">Después</button></div>`;
+    p.classList.add('on');
+    ubicarPista(n);
+    el('piOk').addEventListener('click',()=>cerrarPista(true));
+    // «Después» no la marca: vuelve a aparecer, porque puede que esta vez estuviera
+    // en el medio de algo. La que se entendió se cierra con «Entendido».
+    el('piLuego').addEventListener('click',()=>cerrarPista(false));
+    return true;
+  }
+  addEventListener('keydown',e=>{if(e.key==='Escape'&&pistaActiva)cerrarPista(false);});
+  /* Al scrollear, la pista abierta sigue a su elemento y se cierra si éste se fue
+     de pantalla; y si no hay ninguna abierta, se prueba de nuevo, porque puede que
+     recién ahora la persona haya llegado a la sección que explica. Sin marcarla
+     como vista: se cierra porque dejó de estar a la vista, no porque se entendió. */
+  let pistaT=null;
+  function alScrollear(){
+    if(pistaActiva){
+      if(!pistaAncla||!aLaVista(pistaAncla))return cerrarPista(false);
+      return ubicarPista(pistaAncla);
+    }
+    clearTimeout(pistaT); pistaT=setTimeout(revisarPistas,180);
+  }
+  addEventListener('scroll',alScrollear,{passive:true,capture:true});
+  addEventListener('resize',alScrollear,{passive:true});
+  /* Las pistas de la ficha se van con la ficha: si sigue flotando sobre el listado
+     ya no está explicando nada. */
+  function revisarPistas(){
+    if(pistaActiva){
+      const abierta=document.querySelector('.drawer.on');
+      if((pistaActiva==='pedida'||pistaActiva==='propuesta')&&!abierta)cerrarPista(false);
+      return;
+    }
+    if(document.querySelector('.drawer.on')){
+      if(mostrarPista('propuesta','.prop-pend'))return;   // el aviso primero: es el que evita cargar mal
+      if(mostrarPista('pedida','#secPedida'))return;
+      return;
+    }
+    const ob=el('obsBtn');
+    if(ob&&!ob.hidden)mostrarPista('novedades','#obsBtn');
+  }
+  window.NBUPistas={revisar:()=>setTimeout(revisarPistas,340),cerrar:()=>cerrarPista(false)};
+
   /* ---- El recorrido manda sobre la pantalla ----
      Mientras corre, la persona no scrollea: scrollea el recorrido. Antes se podía
      mover la página con la rueda y el recorte se quedaba clavado donde estaba,
@@ -5383,6 +5514,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   }
 
   async function startOnboard(cual){
+    cerrarPista(false);                         // el recorrido manda: dos carteles a la vez, no
     tCorriendo=true;
     tPasos=(cual==='esencial')?pasosEsenciales():pasosTour();
     tIdx=0;                                     // volver a pedirlo reinicia desde el principio
