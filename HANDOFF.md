@@ -510,6 +510,17 @@ ubican el globo al lado. Varios pasos tienen `antes:` que prepara la pantalla.
 15 a 27 pasos, prometiendo dos minutos y tardando cuatro y medio. Una función nueva se
 explica con una **pista** (§ 4.5 bis) o por la campanita de novedades.
 
+**El botón del médico es el elemento principal de la ficha.** `revMedHTML()` dibuja el bloque
+**aunque no haya nada cargado** cuando entra un médico (`.revmed.vacia`), con el botón
+`.rm-mk` —verde, sólido, 14 px— arriba de todo. Antes su única entrada estaba al final de
+«cómo se carga», dentro de la caja administrativa: había que bajar la ficha entera para llegar
+a lo único que vino a hacer. Y el médico **ya no ve** esa caja (`puedeProponer` excluye a los
+médicos): su canal es el médico, tenerlo en los dos lados era pedirle que eligiera entre dos
+cajas que decían casi lo mismo.
+
+`.revmed` y `.obsbox` llevan `margin-top:18px` — quedaban tocando la fila de botones de la
+ficha.
+
 ### 4.5 bis Pistas contextuales
 
 `PISTAS` + `mostrarPista(id, sel)`. Un cartel chico, sin fondo oscuro, anclado al bloque que
@@ -523,6 +534,21 @@ para señalar algo que todavía no se leía); **una por vez**; **nunca durante e
 **«Entendido»** la da por vista y **«Después»** no. La marca va en `localStorage`, por usuario
 (`nbu-pista:<id>:<pista>`) y **no** en el perfil de la nube: el usuario pidió expresamente no
 tocar el esquema de Supabase por un cartelito.
+
+### 4.5 bis 2 ⚠️ El onboarding es POR PERSONA, no por navegador
+
+`nbu-onboarded` era **una sola marca global** en `localStorage`. Consecuencia: la segunda
+cuenta que entraba en la misma computadora no veía el recorrido — justo el caso de un médico
+que se suma al equipo y entra donde ya trabajó otro.
+
+Ahora la clave es `nbu-onboarded:<idDeUsuario>` (`claveOnb()` / `yaVioOnboarding()` /
+`marcarOnboarding()`), con **migración**: la primera persona que entra después de actualizar
+conserva su estado y no se le repite; de ahí en más cada uno tiene la suya.
+
+**Los médicos tienen recorrido propio** (`pasosEsencialesMedico()`): 5 pasos para el médico
+administrativo, 6 para el administrador (suma el de la campana y su panel de una pestaña). No
+es el del administrativo con pasos de menos — entra a otra cosa, así que el paso central es el
+bloque de revisión médica y su botón, no el buscador ni el valor de la U.B.
 
 ### 4.5 ter ⚠️ CUATRO TIPOS DE CUENTA (roles médicos)
 
