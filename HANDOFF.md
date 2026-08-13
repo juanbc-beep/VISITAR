@@ -872,8 +872,38 @@ son los que el Nacional imprime completos en negrita (nada retirado) y los marca
 AGREGADO POR EL P.M.O.», que por definición no están en el Nacional. Que un capítulo quede
 con menos textos que códigos es lo normal, no una transcripción a medias.
 
-Páginas conocidas (del inventario de faltantes): 07 → 39‑47, 08 → 48‑56, 12 → 69‑81,
-14 → 89, 17 → 92‑95, 18 → 96‑97, 24 → 110‑112, 30 → 127‑129, 31 → 129‑130, 36 → 143‑144.
+#### ▶ POR DÓNDE SEGUIR (pausado el 13/8/2026, se retoma el martes 18/8)
+
+`data/paginas_nn.json` tiene **dónde empieza y termina cada capítulo en el PDF**, sacado por
+OCR. Ya está: no hay que volver a buscarlo a mano.
+
+    cap 02: 18–23   cap 03: 24–32   cap 04: 33      cap 05: 34–36   cap 06: 37
+    cap 07: 38–46   cap 08: 47–55   cap 09: 56      cap 10: 57–63   cap 11: 64–67
+    cap 12: 68–80   cap 13: 81–83   cap 14: 88      cap 15: 89      cap 16: 90
+    cap 17: 91–94   cap 18: 95–96   cap 20: 97–99   cap 21: 100     cap 22: 101–102
+    cap 23: 103–108 cap 24: 109–111 cap 29: 125     cap 30: 126–127 cap 31: 128–129
+    cap 33: 130–131
+
+⚠️ El índice llegó hasta la página 139; **faltan 35, 36, 38 y el 66**. Para completarlo:
+`scripts/` no lo tiene — está en el scratchpad de la sesión, que se recicla. Se vuelve a sacar
+con `rapidocr_onnxruntime` contando códigos `NN.NN.NN` por página (≈9 s por página).
+
+**Receta por capítulo**, unos 10 minutos cada uno:
+
+1. Renderizar las páginas con `pypdfium2` a `scale=2.3` y **leerlas como imagen**.
+2. Transcribir los recuadros a `data/alcance_nn_pmo.json` bajo el capítulo, respetando la
+   ortografía impresa.
+3. `python3 scripts/alcance_nn_pmo.py && python3 scripts/inject_db.py`
+4. El script avisa qué códigos del JSON no están en la base y verifica que ningún nombre se
+   haya movido.
+
+**Orden sugerido** (por códigos cubiertos por página leída): 12 (146), 08 (123), 03 (118),
+10 (82), 07 (82), 11 (49), 13 (30), 20 (25), 24 (21), 17 (20), 31 (19), 30 (18), 18 (22),
+02 (51), 05 (23), 29 (14), 22 (13), 33 (13), 15 (12), 06 (12), 04 (11), 09 (8), 21 (14),
+16 (5), 19 (3), 14 (1), 32 (1).
+
+⚠️ El **23 (hemoterapia, páginas 103‑108)** sigue esperando decisión clínica: se superpone con
+el NBU bajo otra numeración. No transcribirlo sin que los médicos definan.
 
 ### 4.5 nonies La sigla `NN` — norma del Nacional que el P.M.O. retiró
 
