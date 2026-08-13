@@ -397,6 +397,194 @@
      "alcance": "Por hora su utilizacion"
     }
    ]
+  },
+  "27": {
+   "titulo": "Nefrología",
+   "norma": [],
+   "codigos": [
+    {
+     "code": "270101",
+     "nombre": "Hemodiálisis con riñón artificial en insuficiencia aguda",
+     "honorarios": 40,
+     "gastos": 440,
+     "total": 63.25,
+     "coseguro": 100.0,
+     "grupo": "Nefrología",
+     "alcance": "Por sesión"
+    },
+    {
+     "code": "270102",
+     "nombre": "Hemodiálisis con riñón artificial en insuficiencia crónica",
+     "honorarios": 20,
+     "gastos": 440,
+     "total": 58.6,
+     "coseguro": 100.0,
+     "grupo": "Nefrología",
+     "alcance": "Por cada sesion"
+    },
+    {
+     "code": "270103",
+     "nombre": "Hemodiálisis peritoneal",
+     "honorarios": 20,
+     "gastos": 220,
+     "total": 31.62,
+     "coseguro": 100.0,
+     "grupo": "Nefrología"
+    },
+    {
+     "code": "270104",
+     "nombre": "Hemodiálisis peritoneal continua ambulatoria",
+     "coseguro": 100.0,
+     "grupo": "Nefrología",
+     "agregado_pmo": true
+    },
+    {
+     "code": "270201",
+     "nombre": "Evaluación pretrasplante renal en receptor",
+     "coseguro": 100.0,
+     "grupo": "Nefrología",
+     "agregado_pmo": true
+    },
+    {
+     "code": "270202",
+     "nombre": "Evaluación pretrasplante renal en dador",
+     "coseguro": 100.0,
+     "grupo": "Nefrología",
+     "agregado_pmo": true
+    }
+   ],
+   "normas_sueltas": {
+    "270101": "La cobertura sera del 100% siendo requisito indispensable la inscripcion de los pacientes en el INCUCAI dentro de los primeros 30 dias de iniciado el tratamiento.",
+    "270102": "La cobertura sera del 100% siendo requisito indispensable la inscripcion de los pacientes en el INCUCAI dentro de los primeros 30 dias de iniciado el tratamiento.",
+    "270103": "La cobertura sera del 100% siendo requisito indispensable la inscripcion de los pacientes en el INCUCAI dentro de los primeros 30 dias de iniciado el tratamiento."
+   }
+  },
+  "28": {
+   "titulo": "Neumonología",
+   "norma": [],
+   "codigos": [
+    {
+     "code": "280101",
+     "nombre": "Espirometría",
+     "honorarios": 7.5,
+     "gastos": 18,
+     "total": 3.95,
+     "coseguro": 50.0,
+     "grupo": "Neumonología",
+     "alcance": "comprende: capacidad vital forzada, flujo espiratorio forzado, flujo medio forzado"
+    },
+    {
+     "code": "280102",
+     "nombre": "Espirometría antes y después de broncodilatadores",
+     "honorarios": 12,
+     "gastos": 18,
+     "total": 5.0,
+     "coseguro": 50.0,
+     "grupo": "Neumonología",
+     "alcance": "(incluye broncodilatadores)"
+    },
+    {
+     "code": "280103",
+     "nombre": "Broncoespirometría",
+     "honorarios": 15,
+     "gastos": 45,
+     "total": 9.01,
+     "coseguro": 50.0,
+     "grupo": "Neumonología"
+    },
+    {
+     "code": "280104",
+     "nombre": "Traqueoscopia",
+     "honorarios": 9,
+     "gastos": 20,
+     "total": 4.55,
+     "coseguro": 50.0,
+     "grupo": "Neumonología"
+    },
+    {
+     "code": "280105",
+     "nombre": "Broncoscopia con instrumental rígido",
+     "honorarios": 37.5,
+     "gastos": 70,
+     "total": 17.3,
+     "coseguro": 250.0,
+     "grupo": "Neumonología"
+    },
+    {
+     "code": "280106",
+     "nombre": "Broncofibroscopia",
+     "honorarios": 45,
+     "gastos": 342,
+     "total": 52.4,
+     "coseguro": 250.0,
+     "grupo": "Neumonología"
+    },
+    {
+     "code": "280107",
+     "nombre": "Curva de flujo volumen con o sin espirometría",
+     "honorarios": 7.5,
+     "gastos": 10,
+     "total": 2.97,
+     "coseguro": 50.0,
+     "grupo": "Neumonología"
+    },
+    {
+     "code": "280108",
+     "nombre": "Determinación de volúmenes pulmonares",
+     "honorarios": 12,
+     "gastos": 20,
+     "total": 5.24,
+     "coseguro": 50.0,
+     "grupo": "Neumonología",
+     "alcance": "(comprende capacidad vital, capacidad inspiratoria, volumen residual funcional, capacidad pulmonar total y volumen de reserva espiratoria)"
+    },
+    {
+     "code": "280109",
+     "nombre": "Estudio de mecánica pulmonar",
+     "honorarios": 18,
+     "gastos": 20,
+     "total": 6.64,
+     "coseguro": 50.0,
+     "grupo": "Neumonología",
+     "alcance": "(comprende distensibilidad pulmonar estatica y dinamica -compliance- resistencia de las vias aereas, conductancia y coeficiente de retraccion elastica)"
+    },
+    {
+     "code": "280110",
+     "nombre": "Análisis de gases en aire espirado y en sangre arteriovenosa",
+     "honorarios": 18,
+     "gastos": 20,
+     "total": 6.64,
+     "coseguro": 50.0,
+     "grupo": "Neumonología",
+     "alcance": "(comprende relacion VD/VT, diferencia arterial de oxigeno y calculo de corto circuito arteriovenoso pulmonar o Shunt. Incluye esta prestacion determinacion de oxigeno y CO2 en aire espirado y sangre arteriovenosa)"
+    },
+    {
+     "code": "280111",
+     "nombre": "Capacidad pulmonar total y volumen residual, técnica de dilución por helio",
+     "coseguro": 50.0,
+     "grupo": "Neumonología",
+     "agregado_pmo": true
+    },
+    {
+     "code": "280201",
+     "nombre": "Lavado alveolar",
+     "coseguro": 250.0,
+     "grupo": "Otros de neumonología",
+     "agregado_pmo": true
+    },
+    {
+     "code": "280301",
+     "nombre": "Ablación de lesiones broncopulmonares por vía endoscópica por métodos físicos o químicos",
+     "coseguro": 250.0,
+     "grupo": "Otros de neumonología",
+     "agregado_pmo": true
+    }
+   ],
+   "normas_sueltas": {
+    "280104": "Los estudios endoscopicos traqueobronquiales incluyen dentro del arancel consignado, eventual toma biopsica, extraccion de cuerpo extraño, instilaciones, irrigaciones, dilataciones, inserciones, escisiones, drenajes, aspiraciones, lavados, etc. Se facturara con unidad sanatorial otros gastos.",
+    "280105": "Los estudios endoscopicos traqueobronquiales incluyen dentro del arancel consignado, eventual toma biopsica, extraccion de cuerpo extraño, instilaciones, irrigaciones, dilataciones, inserciones, escisiones, drenajes, aspiraciones, lavados, etc. Se facturara con unidad sanatorial otros gastos.",
+    "280106": "Los estudios endoscopicos traqueobronquiales incluyen dentro del arancel consignado, eventual toma biopsica, extraccion de cuerpo extraño, instilaciones, irrigaciones, dilataciones, inserciones, escisiones, drenajes, aspiraciones, lavados, etc. Se facturara con unidad sanatorial otros gastos."
+   }
   }
  },
  "_cobertura_430106": "Obligación de cobertura en los siguientes casos: internación en menores de 15 años, a fin de asegurar una adecuada contención por parte de un familiar durante un momento crítico como es la internación y, sobre todo, en este grupo de personas."
