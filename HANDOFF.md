@@ -797,14 +797,14 @@ Cuando **no coinciden**, sale un aviso `.eqdif`: «la diferencia es del convenio
 Hoy pasa en **1 sola práctica** de 1.678 (`U64663254` 100 U.B. vs NBU `663254` 160 U.B.) — el
 comentario viejo del código hablaba de 101, así que el dato cambió y el aviso es barato.
 
-### 3.6 ⚠️ Capítulos 42 y 43: FALTABAN ENTEROS
+### 3.6 ⚠️ Capítulos 40, 41, 42, 43 y 44: FALTABAN ENTEROS
 
 Se descubrió buscando el capítulo 42 a pedido del usuario. **El 42 es CONSULTAS MÉDICAS**
 —consultorio, domicilio diurna/nocturna/emergencia, mayores de 65, atención en internación—
 y **no había ni un código** en el manual: la única consulta que existía era la odontológica.
 El **43** (prestaciones sanatoriales y de enfermería) tenía **1 de ~25**.
 
-Importados con `scripts/importar_cap42_43.py` desde `data/cap42_43_nn.json`, transcripto a
+Importados con `scripts/importar_capitulos_nn.py` desde `data/capitulos_nn.json`, transcripto a
 mano del PDF (páginas 145-150) por el mismo motivo que el capítulo 34: el OCR de esas páginas
 es igual de malo y acá hay **aranceles y coseguros**. **41 fichas nuevas.**
 
@@ -818,8 +818,20 @@ Dos decisiones del importador, las dos para no inventar:
   factura el día de ingreso, qué incluye la cama), no un requisito de autorización. Van a
   `auditoria`, que es donde se leen como lo que son.
 
-⚠️ **Siguen faltando los capítulos 40, 41 y 44** (terapia intensiva, unidad coronaria móvil),
-detectados en el mismo barrido y todavía sin importar.
+**También se importaron el 40 y el 41** (terapia intensiva, internación por 24 horas) y el
+**44** (unidad coronaria móvil). **47 fichas en total.**
+
+⚠️ **El 44 lo marca el propio original: «Capítulo del Nom.Nac. retirado por el PMO».** Existe
+en el Nacional pero quedó fuera del catálogo obligatorio, así que va con `en_catalogo_pmo:
+false` y un aviso en auditoría. La ficha no puede decir que es de cobertura obligatoria.
+
+⚠️ **Error propio, encontrado al releer:** en el capítulo 43 los valores están en la columna
+**Gastos** (marcador `up`/`og`), no en Honorarios — son prestaciones sanatoriales, no acto
+médico. Se habían cargado como honorarios y se corrigieron. En el 42 sí son honorarios, y en
+el 40 hay de las dos.
+
+El importador (`scripts/importar_capitulos_nn.py` + `data/capitulos_nn.json`) quedó
+**general**: para sumar otro capítulo alcanza con agregarlo al JSON.
 
 ### 4.6 Observaciones del administrador — una sola por práctica
 

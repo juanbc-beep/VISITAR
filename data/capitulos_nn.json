@@ -1,0 +1,403 @@
+{
+ "_": "Capítulos del Nomenclador Nacional con PMO que faltaban en la base, transcriptos a mano del PDF original. Los valores son los de las columnas «Honorarios», «Gastos», «Total Práctica» y «Coseguro Hasta», tal como están impresos.",
+ "_fuente": "data/NOMENCLADOR NACIONAL DE PRESTACIONES MEDICAS CON PMO-COMPRIMIDO.pdf",
+ "capitulos": {
+  "42": {
+   "titulo": "Asistencia en consultorio, domicilio e internación",
+   "norma": [
+    "A. El arancel previsto para las visitas en el código 42.01.01 y 42.02.03 corresponde a las realizadas dentro del radio urbano. Las visitas efectuadas fuera de ese radio, se facturaran con el adicional contemplado en el código 42.02.02.",
+    "B. Cuando a un beneficiario le efectuaran mas de cuatro (4) consultas y/o visitas en un mismo mes o mas de una consulta y/o visita en el mismo dia se debera adjuntar historia clinica junto a la facturacion de las consultas y/o visitas.",
+    "C. El codigo 42.01.03 comprende las consultas medicas requeridas en el consultorio personal del medico, fuera de los horarios programados, entre las 21 horas y las 7 horas y desde las 18 horas del sabado a las 24 horas del domingo y las 24 horas de los dias feriados. Excluye las consultas efectuadas en servicios de guardia o emergencia.",
+    "D. El codigo 42.02.03 comprende las visitas medicas realizadas en el domicilio habitual del paciente entre las 21 horas y las 7 horas y desde las 18 horas del sabado a las 24 horas del dia domingo y las 24 horas de los dias feriados.",
+    "E. El codigo 42.03.03 comprende la consulta ocasional realizada por un medico cuya especializacion sea afin con la patologia que presenta el paciente y solicitada por el medico responsable de la atencion en internacion."
+   ],
+   "codigos": [
+    {
+     "code": "420101",
+     "nombre": "Consulta en consultorio",
+     "honorarios": 10,
+     "total": 2.33
+    },
+    {
+     "code": "420101A",
+     "nombre": "Consulta en consultorio — generalistas",
+     "coseguro": 80.0
+    },
+    {
+     "code": "420101B",
+     "nombre": "Consulta en consultorio — médicos de familia",
+     "coseguro": 80.0
+    },
+    {
+     "code": "420101C",
+     "nombre": "Consulta en consultorio — pediatras",
+     "coseguro": 80.0
+    },
+    {
+     "code": "420101D",
+     "nombre": "Consulta en consultorio — tocoginecólogos",
+     "coseguro": 80.0
+    },
+    {
+     "code": "420101E",
+     "nombre": "Consulta en consultorio — médicos especialistas",
+     "coseguro": 150.0
+    },
+    {
+     "code": "420103",
+     "nombre": "Consulta médica en horario nocturno y/o días feriados",
+     "honorarios": 11,
+     "total": 2.56,
+     "alcance": "Consulta médica en horario nocturno y/o dias feriados"
+    },
+    {
+     "code": "420201",
+     "nombre": "Consulta en domicilio",
+     "honorarios": 12,
+     "total": 2.79,
+     "alcance": "Visita medica. Norma: Domiciliaria en todos sus tipos"
+    },
+    {
+     "code": "420201A",
+     "nombre": "Consulta en domicilio diurna (código verde)",
+     "coseguro": 250.0,
+     "alcance": "Incluye a los beneficiarios del PMI"
+    },
+    {
+     "code": "420201B",
+     "nombre": "Consulta en domicilio nocturna (código verde)",
+     "coseguro": 350.0,
+     "alcance": "Incluye a los beneficiarios del PMI"
+    },
+    {
+     "code": "420201C",
+     "nombre": "Consulta en domicilio, emergencia (código rojo)",
+     "coseguro": "EXENTO"
+    },
+    {
+     "code": "420201D",
+     "nombre": "Consulta en domicilio, mayores de 65 años",
+     "coseguro": 100.0
+    },
+    {
+     "code": "420202",
+     "nombre": "Adicional por recorrido fuera del radio urbano",
+     "honorarios": 3,
+     "total": 0.7,
+     "alcance": "Arancel por cada 10 km., recorridos fuera del radio urbano, se adicionara"
+    },
+    {
+     "code": "420203",
+     "nombre": "Visita médica en horario nocturno y/o días feriados",
+     "honorarios": 13,
+     "total": 3.02,
+     "alcance": "Visita medica en horario nocturno y/o dias feriados"
+    },
+    {
+     "code": "420301",
+     "nombre": "Atención médica en internación clínica o quirúrgica",
+     "honorarios": 10,
+     "total": 2.33,
+     "alcance": "por dia de internacion"
+    },
+    {
+     "code": "420303",
+     "nombre": "Interconsulta especializada en internación",
+     "honorarios": 12,
+     "total": 2.79
+    }
+   ]
+  },
+  "43": {
+   "titulo": "Prestaciones sanatoriales y de enfermería",
+   "norma": [
+    "INCLUYE: Uso de cama, ropa limpia, higienizacion del paciente, limpieza del ambiente, alimentacion y los medios necesarios para brindarle un ambiente confortable al paciente -ambiente climatizado-.",
+    "PERSONAL: Incluye asistencia del medico de guardia interno, atencion de las enfermeras y mucamas de piso.",
+    "EXCLUYE: Las consultas especializadas.",
+    "PRACTICAS INCLUIDAS: Las nebulizaciones y los gastos correspondientes a las punciones identificadas con los codigos 01.03.07, 09, 05.04.08 y 08.02.12 cuando los mismos se realicen durante la internacion.",
+    "FACTURACION: El dia de ingreso se factura con arancel completo en la facturacion, independientemente de la hora en que se haya producido el ingreso. El dia de egreso se excluye de la facturacion independientemente de la hora en que se haya producido, con la excepcion del alta por fallecimiento luego de las 11 horas, o cuando el alta a cargo de la obra social, que debio ser informada en la debida antelacion, se efectivice despues de las 11 horas. La obra social tendra derecho a solicitar protocolo sanatorial del periodo de internacion."
+   ],
+   "codigos": [
+    {
+     "code": "430101",
+     "nombre": "Cama en habitación de dos con baño privado",
+     "total": 32.11,
+     "grupo": "Internaciones",
+     "gastos": 57.0
+    },
+    {
+     "code": "430102",
+     "nombre": "Una cama en habitación de dos con baño intermedio",
+     "total": 24.23,
+     "grupo": "Internaciones",
+     "gastos": 43
+    },
+    {
+     "code": "430103",
+     "nombre": "Una cama en habitación de tres con baño incluido",
+     "total": 21.41,
+     "grupo": "Internaciones",
+     "gastos": 38
+    },
+    {
+     "code": "430104",
+     "nombre": "Una cama en habitación de más de tres con baño incluido",
+     "total": 19.16,
+     "grupo": "Internaciones",
+     "gastos": 34
+    },
+    {
+     "code": "430105",
+     "nombre": "Atención del recién nacido en habitación de la madre",
+     "total": 12.96,
+     "grupo": "Internaciones",
+     "alcance": "de la madre -ARNSHM y/o NURSERY",
+     "gastos": 23
+    },
+    {
+     "code": "430107",
+     "nombre": "Una cama para acompañante en habitación de dos camas con baño intermedio",
+     "total": 26.48,
+     "grupo": "Internaciones",
+     "gastos": 47
+    },
+    {
+     "code": "430108",
+     "nombre": "Cama para acompañante en habitación de tres camas con baño incluido",
+     "total": 23.1,
+     "grupo": "Internaciones",
+     "gastos": 41
+    },
+    {
+     "code": "430109",
+     "nombre": "Observación en guardia o piso hasta 8 horas",
+     "grupo": "Internaciones",
+     "agregado_pmo": true
+    },
+    {
+     "code": "430201",
+     "nombre": "Curaciones",
+     "total": 1.04,
+     "coseguro": 50.0,
+     "grupo": "Curaciones",
+     "gastos": 8.5
+    },
+    {
+     "code": "430202",
+     "nombre": "Curaciones en quemados",
+     "total": 3.07,
+     "coseguro": 50.0,
+     "grupo": "Curaciones",
+     "gastos": 25
+    },
+    {
+     "code": "430301",
+     "nombre": "Curación en consultorio externo, cada aplicación",
+     "total": 0.25,
+     "grupo": "Curaciones",
+     "alcance": "En consultorio externo, cada aplicacion",
+     "gastos": 2
+    },
+    {
+     "code": "430401",
+     "nombre": "Nebulización (incluido oxígeno)",
+     "total": 0.61,
+     "coseguro": 50.0,
+     "grupo": "Nebulizaciones",
+     "alcance": "con nebulizador",
+     "gastos": 5
+    },
+    {
+     "code": "430402",
+     "nombre": "Nebulización con respirador (incluido oxígeno)",
+     "total": 1.23,
+     "coseguro": 50.0,
+     "grupo": "Nebulizaciones",
+     "alcance": "o nebulizador ultrasonico",
+     "gastos": 10
+    },
+    {
+     "code": "430501",
+     "nombre": "Incubadora tipo isolette o similar",
+     "total": 14.65,
+     "grupo": "Incubadoras",
+     "alcance": "por dia",
+     "gastos": 26
+    },
+    {
+     "code": "430601",
+     "nombre": "Luminoterapia",
+     "total": 2.33,
+     "grupo": "Luminoterapia",
+     "alcance": "Por dia",
+     "gastos": 19
+    },
+    {
+     "code": "430901",
+     "nombre": "Recargo en internaciones especiales, por día",
+     "total": 11.27,
+     "grupo": "Recargo en internaciones especiales",
+     "alcance": "Por dia",
+     "gastos": 20
+    },
+    {
+     "code": "431001",
+     "nombre": "Material descartable en internación general",
+     "total": 2.82,
+     "grupo": "Prevención de enfermedades transmisibles",
+     "alcance": "Uso de material descartable (jeringas, agujas, guantes), en internacion general. Por dia de internacion",
+     "gastos": 5
+    },
+    {
+     "code": "431002",
+     "nombre": "Material descartable en terapia intensiva y cuidados especiales",
+     "total": 6.76,
+     "grupo": "Prevención de enfermedades transmisibles",
+     "alcance": "Uso de material descartable (jeringas, agujas, guantes), en terapia intensiva y cuidados especiales. Por dia de internacion en la unidad",
+     "gastos": 12
+    },
+    {
+     "code": "431101",
+     "nombre": "Consumo adicional de oxígeno en intervención quirúrgica con anestesia general",
+     "total": 4.51,
+     "grupo": "Consumo adicional de oxígeno",
+     "alcance": "Intervencion quirurgica con anestesia general. Por acto quirurgico",
+     "gastos": 8
+    },
+    {
+     "code": "431102",
+     "nombre": "Consumo adicional de oxígeno en intervención quirúrgica con circulación extracorpórea",
+     "total": 23.66,
+     "grupo": "Consumo adicional de oxígeno",
+     "alcance": "Intervencion quirurgica con circulacion extracorporea. Por acto quirurgico",
+     "gastos": 42
+    },
+    {
+     "code": "431103",
+     "nombre": "Asistencia respiratoria en terapia intensiva",
+     "total": 36.06,
+     "grupo": "Consumo adicional de oxígeno",
+     "alcance": "Por dia de internacion",
+     "gastos": 64
+    },
+    {
+     "code": "431104",
+     "nombre": "Asistencia respiratoria en cuidados especiales",
+     "total": 18.03,
+     "grupo": "Consumo adicional de oxígeno",
+     "alcance": "Por dia de internacion",
+     "gastos": 32
+    },
+    {
+     "code": "431105",
+     "nombre": "Asistencia respiratoria en neonatológica",
+     "total": 72.12,
+     "grupo": "Consumo adicional de oxígeno",
+     "alcance": "Por dia de internacion",
+     "gastos": 128
+    },
+    {
+     "code": "431106",
+     "nombre": "Monitoreo de presión endocraneana",
+     "grupo": "Consumo adicional de oxígeno",
+     "agregado_pmo": true
+    },
+    {
+     "code": "431107",
+     "nombre": "Oximetría por métodos no invasivos",
+     "grupo": "Consumo adicional de oxígeno",
+     "agregado_pmo": true
+    }
+   ],
+   "normas_sueltas": {
+    "430501": "Este gasto se podra facturar unicamente cuando la prestacion no se efectue en cuidados especiales o en terapia intensiva pediatrica.",
+    "430601": "Este gasto se podra facturar unicamente cuando la prestacion no se efectue en cuidados especiales o en terapia intensiva pediatrica.",
+    "430901": "Este codigo sera de aplicacion en los casos de grandes quemados, enfermos con incontinencias de esfinter y ano contra natura, cuando requieran un cuidado especial.",
+    "431001": "Estos codigos se facturaran por cada dia de internacion de acuerdo con las normas de internacion y unicamente en las internaciones clinicas, quirurgicas, obstetricas o pediatricas. Comprende exclusivamente el material descartable no reutilizable que se emplea en los inyectables -agujas, jeringas y guantes-. El codigo 43.10.01 se facturara junto con los codigos 43.01.01 al 04. El codigo 43.10.02 se facturara junto con los codigos 40.01.01 y 41.01.01.",
+    "430106": "INCLUYE: Uso de cama, ropa de cama y desayuno. En el caso de menores de diez años, los mismos tendran derecho a acompañante sin que medie autorizacion por parte de la Obra Social. En el caso de pacientes mayores de diez años, la Obra Social, por via de excepcion podra autorizar la presencia de un acompañante, cuando la gravedad del paciente lo requiera, debiendo ser prescripta por medico tratante, autorizada por la Obra Social y contar con la conformidad del medico director del establecimiento. AMPLIACION DE LA NORMA: No corresponde reconocer acompañante en el caso de un menor de 10 años mientras permanezca internado en terapia intensiva.",
+    "430105": "A. ATENCION DEL RECIEN NACIDO SANO EN HABITACION MATERNA RNSHM- Esta prestacion propende a que la atencion del recien nacido, al realizarse al lado de la madre, genere una mejor comunicacion de esta con el medico y la enfermera, desarrollando los conocimientos de puericultura necesarios. COMPRENDE: Uso de cuna, limpieza del ambiente, asistencia por personal especializado, cuidado del recien nacido (control de peso, respiracion, vigilancia de nutricion), cambio de ropa e higienizacion, alimentos especiales y/o artificiales. La habitacion debe permitir una adecuada circulacion, disponer de lavabo y estar destinada a obstetricia o ginecologia no infectada. Asimismo debe cumplimentar hoja de control con signos de alarma. B. NURSERY: Idem segundo parrafo COMPRENDE mas ambiente climatizado."
+   },
+   "_nota": "En este capítulo los valores están en la columna GASTOS (marcador «up»/«og»), no en Honorarios: son prestaciones sanatoriales, no acto médico. Se corrigió después de volver a mirar las páginas 146-150."
+  },
+  "40": {
+   "titulo": "Asistencia en consultorio, domicilio e internación",
+   "_nota": "El PDF titula un solo recuadro «40/41» para los dos capítulos; el 41 no lleva título propio.",
+   "norma": [],
+   "codigos": [
+    {
+     "code": "400101",
+     "nombre": "Internación en terapia intensiva",
+     "honorarios": 39.75,
+     "gastos": 196,
+     "total": 119.67,
+     "grupo": "Terapia intensiva",
+     "alcance": "Arancel global por cada 24 horas de atencion"
+    },
+    {
+     "code": "400102",
+     "nombre": "Control de presión por cateterismo cardíaco, primera determinación",
+     "honorarios": 8,
+     "gastos": 88,
+     "total": 12.65,
+     "grupo": "Terapia intensiva",
+     "alcance": "Control de presion, (por cateterismo cardiaco) en arteria y capilar pulmonar y/o medicion de volumen minuto por termodilucion (primera determinacion)"
+    },
+    {
+     "code": "400103",
+     "nombre": "Control de presión por cateterismo cardíaco, determinación subsiguiente",
+     "honorarios": 5,
+     "gastos": 22,
+     "total": 3.86,
+     "grupo": "Terapia intensiva",
+     "alcance": "Por determinacion subsiguiente y hasta un maximo de seis por 24 horas"
+    },
+    {
+     "code": "400104",
+     "nombre": "Determinación de consumo de oxígeno por métodos directos",
+     "honorarios": 8,
+     "gastos": 44,
+     "total": 7.26,
+     "grupo": "Terapia intensiva",
+     "alcance": "Determinacion de consumo de oxigeno por metodos directos"
+    }
+   ],
+   "normas_sueltas": {
+    "400101": "A partir del 1/5/89, por Res. 737/89 - MSAS, junto con este codigo se facturara el codigo 43.10.02. Ademas, por cada dia que se haya brindado asistencia respiratoria se facturara el codigo 43.11.03, o bien el 43.11.05 cuando se trate de terapia intensiva neonatologica."
+   }
+  },
+  "41": {
+   "titulo": "Asistencia en consultorio, domicilio e internación",
+   "_nota": "Comparte el recuadro «40/41» con el capítulo 40 y no trae título propio en el original.",
+   "norma": [],
+   "codigos": [
+    {
+     "code": "410101",
+     "nombre": "Internación, arancel global por cada 24 horas de atención",
+     "honorarios": 8.5,
+     "gastos": 90,
+     "total": 52.68,
+     "grupo": "Internación",
+     "alcance": "Arancel global por cada 24 horas de atencion"
+    }
+   ]
+  },
+  "44": {
+   "titulo": "Unidad coronaria móvil — unidad respiratoria móvil",
+   "retirado_pmo": true,
+   "_nota": "El original marca «Capítulo del Nom.Nac. retirado por el PMO» arriba del recuadro: está en el Nomenclador Nacional pero el PMO lo sacó del catálogo obligatorio.",
+   "norma": [],
+   "codigos": [
+    {
+     "code": "440101",
+     "nombre": "Unidad coronaria móvil / unidad respiratoria móvil, por hora",
+     "honorarios": 6,
+     "gastos": 88,
+     "total": 12.18,
+     "grupo": "Unidad coronaria móvil",
+     "alcance": "Por hora su utilizacion"
+    }
+   ]
+  }
+ },
+ "_cobertura_430106": "Obligación de cobertura en los siguientes casos: internación en menores de 15 años, a fin de asegurar una adecuada contención por parte de un familiar durante un momento crítico como es la internación y, sobre todo, en este grupo de personas."
+}

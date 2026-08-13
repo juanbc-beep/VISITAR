@@ -1,25 +1,34 @@
 #!/usr/bin/env python3
-"""Suma a la base los capítulos 42 y 43 del Nomenclador Nacional con PMO.
+"""Suma a la base los capítulos del Nomenclador Nacional que faltaban.
 
-Faltaban enteros. El 42 es CONSULTAS MÉDICAS —consultorio, domicilio, internación—
-y no había ninguna en el manual: un administrativo que tenía que cargar una
-consulta no la encontraba. El 43 son las prestaciones sanatoriales y de
-enfermería, y de sus ~25 códigos había uno solo, «cama para acompañante».
+Hoy son el 40, 41, 42, 43 y 44. Faltaban enteros:
 
-Los datos salen de data/cap42_43_nn.json, transcripto a mano del PDF original
+  40/41  Terapia intensiva e internación por 24 horas.
+  42     CONSULTAS MÉDICAS —consultorio, domicilio, internación—. No había
+         ninguna en el manual: un administrativo que tenía que cargar una
+         consulta médica no la encontraba.
+  43     Prestaciones sanatoriales y de enfermería. De ~25 códigos había uno.
+  44     Unidad coronaria móvil. ⚠️ El original lo marca «Capítulo del Nom.Nac.
+         retirado por el PMO»: existe en el Nacional pero está fuera del catálogo
+         obligatorio, y eso queda escrito en la ficha.
+
+Los datos salen de data/capitulos_nn.json, transcripto a mano del PDF original
 (páginas 145-150). El OCR de esas páginas es tan malo como el del capítulo 34, así
 que se leyeron a ojo por el mismo motivo: acá hay aranceles y coseguros, y
 adivinar un número no es una opción.
 
+Para sumar otro capítulo alcanza con agregarlo al JSON; el script no lo sabe de
+memoria.
+
 Se corre después de assemble.py, o suelto sobre data/nbu_db.json:
 
-    python3 scripts/importar_cap42_43.py
+    python3 scripts/importar_capitulos_nn.py
     python3 scripts/inject_db.py
 """
 import json, os, sys
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-FUENTE = os.path.join(BASE, "data", "cap42_43_nn.json")
+FUENTE = os.path.join(BASE, "data", "capitulos_nn.json")
 DB = os.path.join(BASE, "data", "nbu_db.json")
 
 SECCION = "PMO_MED"
@@ -28,7 +37,7 @@ NOM_FULL = ("Catálogo de Prestaciones del PMO — Programa Médico Obligatorio 
             "(Resolución 201/2002, S.S. Salud)")
 
 
-def ficha(c, cap, titulo, normas_cap, normas_sueltas):
+def ficha(c, cap, titulo, normas_cap, normas_sueltas, retirado=False):
     """Arma una ficha con la misma forma que las que ya están en la base.
 
        El valor NO va como U.B.: estos capítulos se arancelan por «unidades» de
@@ -41,17 +50,26 @@ def ficha(c, cap, titulo, normas_cap, normas_sueltas):
         aud.append("Alcance del Nomenclador Nacional: " + c["alcance"] + ".")
     if c.get("agregado_pmo"):
         aud.append("Código agregado por el P.M.O.")
+    if retirado:
+        # No es un detalle de archivo: significa que la práctica NO está en el
+        # catálogo obligatorio, así que la ficha no puede decir que sí lo está.
+        aud.append("⚠ Capítulo del Nomenclador Nacional RETIRADO POR EL P.M.O.: "
+                   "la práctica existe en el Nacional pero quedó fuera del catálogo "
+                   "de cobertura obligatoria. Confirmar contra el convenio aplicable.")
     for n in normas_cap:
         aud.append(n)
     if c["code"] in normas_sueltas:
         aud.append("Norma del código: " + normas_sueltas[c["code"]])
-    aud.append("Prestación incluida en el Catálogo de Prestaciones del PMO — "
-               "cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).")
+    if not retirado:
+        aud.append("Prestación incluida en el Catálogo de Prestaciones del PMO — "
+                   "cobertura obligatoria de los Agentes del Seguro de Salud (Res. 201/2002).")
     aud.append("Capítulo / especialidad: " + titulo + ".")
 
     partes = []
     if c.get("honorarios") is not None:
         partes.append("%s unidades de honorarios" % c["honorarios"])
+    if c.get("gastos") is not None:
+        partes.append("%s unidades de gastos" % c["gastos"])
     if c.get("total") is not None:
         partes.append("total práctica %s" % c["total"])
     if c.get("coseguro") is not None:
@@ -87,7 +105,7 @@ def ficha(c, cap, titulo, normas_cap, normas_sueltas):
         "auditoria": aud,
         "alcance_nn": ({"texto": c["alcance"], "categoria": None, "fuente": "original"}
                        if c.get("alcance") else None),
-        "en_catalogo_pmo": True,
+        "en_catalogo_pmo": not retirado,
     }
 
 
@@ -100,7 +118,8 @@ def main():
         normas = d.get("norma", [])
         sueltas = d.get("normas_sueltas", {})
         for c in d["codigos"]:
-            f = ficha(c, cap, d["titulo"], normas, sueltas)
+            f = ficha(c, cap, d["titulo"], normas, sueltas,
+                      retirado=bool(d.get("retirado_pmo")))
             if f["alcance_nn"] is None:
                 f.pop("alcance_nn")
             if c["code"] in cod:
@@ -115,7 +134,8 @@ def main():
                 nuevos += 1
     json.dump(db, open(DB, "w", encoding="utf-8"),
               ensure_ascii=False, separators=(",", ":"))
-    print("capítulos 42 y 43: %d fichas nuevas, %d completadas" % (nuevos, pisados))
+    print("capítulos %s: %d fichas nuevas, %d completadas"
+          % (", ".join(sorted(src["capitulos"])), nuevos, pisados))
     print("total de códigos en la base:", len(cod))
 
 
