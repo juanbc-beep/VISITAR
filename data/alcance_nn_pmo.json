@@ -1,0 +1,24 @@
+{
+ "_": "Los recuadros «Texto retirado por el PMO» del Nomenclador Nacional, para los códigos que YA están en la base. Transcriptos a mano del PDF (data/NOMENCLADOR NACIONAL DE PRESTACIONES MEDICAS CON PMO-COMPRIMIDO.pdf): ese PDF es un escaneo sin capa de texto y el OCR viene dañado, así que se leen a ojo. Se respeta la ortografía impresa —el original casi no acentúa y tiene erratas propias, como «cógido»—: es el texto normativo, no un descuido de transcripción. El número de página es el del ARCHIVO, no el impreso.",
+ "capitulos": {
+  "25": {
+   "titulo": "Rehabilitación médica",
+   "pags": [111, 112],
+   "norma": [
+    "NORMAS GENERALES: 1. Todas estas prácticas deberán ser autorizadas previamente por la auditoría médica o persona responsable de la obra social. 2. La obra social, solicitara la prescripción del médico tratante, para que los profesionales citados en el punto 3, puedan facturarlas.",
+    "NORMAS PARTICULARES DE CADA CODIGO: 1. Cuando se realice una o mas practicas del código 25.01.01 en una sesión, se deberá facturar una sola vez el valor del código. Cuando se realice una o mas practicas del cógido 25.01.02 en una sesión se deberá facturar una sola vez el código.",
+    "2. Cuando se realice una o mas practicas del código 25.01.01 y una o mas practicas del código 25.01.02, en una misma sesión se facturará la suma de los valores correspondientes a ambos códigos una sola vez.",
+    "3. Las obras sociales autorizaran hasta 30 sesiones anuales, pudiendo excederse ese limite con la evaluación de cada caso y teniendo en cuenta la necesidad por cada paciente, según patologia.",
+    "4. Para los puntos 1, 2 y 3, se entiende \"por sesión\", al conjunto de una o mas practicas realizadas en un acto Kinesico (en consultorio, domicilio o institución asistencial)"
+   ],
+   "codigos": {
+    "250101": "Agentes fisicos, horno de bier, rayos, infrarrojos, hidroterapia, parafina, fomentaciones, crioterapia, rayos ultravioletas, electroterapia en cualquiera de sus formas, onda corta, microondas, tracción cervical o pélvica, ultrasonido, iontoforesis, vibromasaje, por sesión",
+    "250102": "Terapia fisica o masajes, movilizacion pasiva o activa, reeducacion, ejercicios terapeuticos, gimnasia medica, fortalecimiento muscular rehabilitacion respiratoria por sesión",
+    "250103": "y por beneficiario",
+    "250104": "y por beneficiario",
+    "250105": "dinamica de amputados",
+    "250106": "al código correspondiente se le adicionara"
+   }
+  }
+ }
+}

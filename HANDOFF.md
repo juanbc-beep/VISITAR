@@ -797,6 +797,59 @@ Cuando **no coinciden**, sale un aviso `.eqdif`: «la diferencia es del convenio
 Hoy pasa en **1 sola práctica** de 1.678 (`U64663254` 100 U.B. vs NBU `663254` 160 U.B.) — el
 comentario viejo del código hablaba de 101, así que el dato cambió y el aviso es barato.
 
+### 3.8 ⚠️ EL HUECO GRANDE: la norma retirada del PMO falta en el 89% de las fichas
+
+El Nomenclador Nacional trae al lado de cada práctica un recuadro **«Texto retirado por el
+PMO»** —qué abarca el código, qué incluye, bajo qué reglas se factura—. El armado de la base
+sale del catálogo del PMO, así que ese renglón **no llegaba nunca a la ficha**.
+
+Estado al detectarlo (lo encontró el usuario, verificando 250101/250102 contra el papel):
+
+| | |
+|---|---|
+| códigos PMO en la base | **1.351** |
+| con la norma del Nacional | **156** (11%) |
+| **sin nada** | **1.195** |
+| capítulos enteros en cero | **30 de 41** |
+
+Los únicos con norma son los que se procesaron del PDF: **34** (transcripto a mano) y **26,
+27, 28, 40, 41, 42, 43, 44** (por `importar_capitulos_nn.py`). Todo el resto vino del pipeline
+viejo, que nunca leyó esos recuadros.
+
+⚠️ **El PDF es un escaneo sin capa de texto.** Verificado con `pypdfium2`:
+`get_textpage().get_text_range()` devuelve **0 caracteres** en todas las páginas probadas. Y el
+OCR de estas páginas viene destruido (ver 9.1). Así que no hay atajo: hay que leer a ojo.
+
+#### La maquinaria: `scripts/alcance_nn_pmo.py` + `data/alcance_nn_pmo.json`
+
+⚠️ **No confundir con `importar_capitulos_nn.py`**: aquél **crea** códigos de capítulos que
+faltaban enteros; éste **no crea nada**, le agrega la norma a códigos que ya están.
+
+Para sumar un capítulo alcanza con agregarlo al JSON. El script no sabe ninguno de memoria.
+
+- El texto por código va a `alcance_nn` con `fuente: "original"` — eso es lo que hace que la
+  ficha lo muestre **sin** el cartel de «transcripción sin confirmar», que es para lo que
+  quedó del OCR viejo.
+- La **norma de capítulo** va como líneas `Norma del código:` en la auditoría de **todas** las
+  fichas del capítulo, no sólo las que tienen texto propio: quien abre una ficha suelta tiene
+  que leer la regla que la gobierna sin saber que existe un encabezado de capítulo. Mismo
+  criterio que el material radioactivo del 26.
+- Termina comparando los 6.476 nombres y aborta si alguno se movió.
+
+⚠️ **Se respeta la ortografía impresa.** El original casi no acentúa y tiene erratas propias
+(«cógido» por «código», capítulo 25). No se corrigen: es el texto normativo y un auditor que
+compare contra el papel tiene que encontrar lo mismo.
+
+#### Avance
+
+| capítulo | páginas del archivo | estado |
+|---|---|---|
+| 25 · Rehabilitación médica | 111–112 | ✅ 6 textos + 5 normas |
+| los otros 29 | ~18–150 | pendiente |
+
+Páginas conocidas (del inventario de faltantes): 07 → 39‑47, 08 → 48‑56, 12 → 69‑81,
+14 → 89, 17 → 92‑95, 18 → 96‑97, 24 → 110‑112, 30 → 127‑129, 31 → 129‑130, 36 → 143‑144.
+
 ### 4.5 nonies La sigla `NN` — norma del Nacional que el P.M.O. retiró
 
 El Nomenclador Nacional trae, al lado de cada práctica, un recuadro que el Catálogo del
