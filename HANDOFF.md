@@ -840,12 +840,37 @@ Para sumar un capítulo alcanza con agregarlo al JSON. El script no sabe ninguno
 («cógido» por «código», capítulo 25). No se corrigen: es el texto normativo y un auditor que
 compare contra el papel tiene que encontrar lo mismo.
 
+#### La leyenda que define el recuadro (página 3 impresa, 12 del archivo)
+
+Está impresa en el PDF y conviene tenerla a mano, porque explica exactamente qué se está
+transcribiendo:
+
+> Los códigos de la primer columna corresponden **tanto al P.M.O. como al Nomenclador
+> Nacional**. Los códigos, textos y valores **excluidos del Nomenclador por el P.M.O.** se
+> indican con: `Texto retirado por el PMO`. Los textos en negrilla corresponden al Nomenclador
+> Nacional y **mantenidos** por el P.M.O. Los valores y unidades corresponden al Nomenclador
+> Nacional (valores a marzo/1991). Para una mejor orientación se mantuvieron las normas e
+> interpretaciones del Nomenclador Nacional.
+
+⚠️ De ahí sale una distinción que hay que respetar al transcribir: **bastardilla = retirado,
+negrita/versalita = mantenido**. El recuadro marca dónde empieza lo retirado, y sigue hasta
+donde vuelve la negrita. Un código puede tener **dos recuadros** (p. ej. `010304`, cordotomía:
+uno antes de «mielotomía comisural» y otro después).
+
 #### Avance
 
-| capítulo | páginas del archivo | estado |
-|---|---|---|
-| 25 · Rehabilitación médica | 111–112 | ✅ 6 textos + 5 normas |
-| los otros 29 | ~18–150 | pendiente |
+| capítulo | páginas del archivo | códigos | estado |
+|---|---|---|---|
+| 01 · Sistema nervioso | 12–17 | 69 | ✅ 33 textos |
+| 25 · Rehabilitación médica | 111–112 | 6 | ✅ 6 textos + 5 normas |
+| los otros 28 | ~18–150 | ~1.150 | pendiente |
+
+Cobertura: **195 de 1.351 (14%)**, desde 156 (11%).
+
+⚠️ **No todos los códigos llevan recuadro.** En el capítulo 01, 33 de 69. Los que no tienen
+son los que el Nacional imprime completos en negrita (nada retirado) y los marcados «CODIGO
+AGREGADO POR EL P.M.O.», que por definición no están en el Nacional. Que un capítulo quede
+con menos textos que códigos es lo normal, no una transcripción a medias.
 
 Páginas conocidas (del inventario de faltantes): 07 → 39‑47, 08 → 48‑56, 12 → 69‑81,
 14 → 89, 17 → 92‑95, 18 → 96‑97, 24 → 110‑112, 30 → 127‑129, 31 → 129‑130, 36 → 143‑144.

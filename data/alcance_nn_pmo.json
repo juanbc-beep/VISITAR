@@ -3,7 +3,10 @@
  "capitulos": {
   "25": {
    "titulo": "Rehabilitación médica",
-   "pags": [111, 112],
+   "pags": [
+    111,
+    112
+   ],
    "norma": [
     "NORMAS GENERALES: 1. Todas estas prácticas deberán ser autorizadas previamente por la auditoría médica o persona responsable de la obra social. 2. La obra social, solicitara la prescripción del médico tratante, para que los profesionales citados en el punto 3, puedan facturarlas.",
     "NORMAS PARTICULARES DE CADA CODIGO: 1. Cuando se realice una o mas practicas del código 25.01.01 en una sesión, se deberá facturar una sola vez el valor del código. Cuando se realice una o mas practicas del cógido 25.01.02 en una sesión se deberá facturar una sola vez el código.",
@@ -18,6 +21,53 @@
     "250104": "y por beneficiario",
     "250105": "dinamica de amputados",
     "250106": "al código correspondiente se le adicionara"
+   }
+  },
+  "01": {
+   "titulo": "Operaciones en el sistema nervioso",
+   "pags": [
+    12,
+    13,
+    14,
+    15,
+    16,
+    17
+   ],
+   "norma": [],
+   "codigos": {
+    "010101": "(craneo bifido) de las malformaciones de la charnela occipitoatloidea y otras malformaciones de la region.",
+    "010102": "(En uno o dos tiempos)",
+    "010103": "(Incluye eventual toma de injerto)",
+    "010104": "con elevacion o extraccion de fragmentos.",
+    "010105": "Parasitaria, etc. de huesos del craneo (con o sin compromiso de estructuras vecinas)",
+    "010201": "(apertura de las laminas terminales, ventriculo-cisterna magna y otras similares) Como unica operacion.",
+    "010202": "(ventriculoatriostomia) derivacion ventriculo peritoneal o similar. (Valvula de Puden, de Holster. de Hakin o similares) Como unica operación",
+    "010205": "Cingulectomias o similares.",
+    "010206": "Arteriovenosas intracraneales, aneurismas, malformaciones arteriovenosas, fistula carotido cavernosa.",
+    "010207": "(hematoma, hidroma, absceso, etc.).",
+    "010208": "con o sin biopsia, evacuacion de coleccion intracerebral, epidural, subdural y/o subaracnoidea, extraccion de cuerpo extraño,.",
+    "010209": "y/o meninges. Rinolicuorrea, otolicuorrea, neumocefalia, fistulas. Por craneotomia.",
+    "010210": "neoplasia benigna o maligna cualquiera fuera su ubicacion, con o sin lobectomia.",
+    "010211": "(Como unica operacion)",
+    "010212": "Como unica operacion.",
+    "010213": "Intervenciones estereotaxicas. (Por los diversos métodos)",
+    "010215": "terapéutica o diagnóstica.",
+    "010301": "(espina bifida con meningocele o mielomeningoceles, diastomiella, etc.).",
+    "010302": "(escision, exploracion, evacuaciones, liberacion de adherencias, cuerpo extraño). Lesiones unicas o multiples por la misma incision.",
+    "010304": "cordotomia anterolateral, cordotomia posterior.",
+    "010401": "(Por via temporal o posterior)",
+    "010403": "Abordaje por fosa posterior",
+    "010501": "(exploracion, neurorrafia, escision de neurona)",
+    "010502": "(exploracion, neurorrafia, escision de neurona)",
+    "010503": "radial, mediana, cubital femoral, ciatico, popliteo, tibial y peroneo.",
+    "010505": "(seccion ligamento anular anterior del carpo).",
+    "010506": "Escision de lesión tumoral de nervio periferico (neuroma de amputacion, neuroma de Morton, etc.). No mencionados en otros códigos.",
+    "010606": "(Simpatico cervical, toracico, lumbar, esplacmico y semilunar).",
+    "010701": "(liquido o gaseoso). Incluye trepanacion.",
+    "010702": "(Uni o bilateral)",
+    "010703": "(Por diseccion o puncion directa)",
+    "010704": "(cisternografia)",
+    "010705": "Mielografia."
    }
   }
  }
