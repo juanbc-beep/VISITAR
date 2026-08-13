@@ -843,6 +843,24 @@ que la base ya trae**. Se verificó: ACTH, aldosterona, cortisol, prolactina, in
 testosterona y tiroxina ya están como códigos `66xxxx`. Importarlo habría duplicado la misma
 práctica con dos códigos distintos.
 
+### 3.7 El contraste y el material radioactivo: dos modelos distintos
+
+Pregunta del usuario, respondida contra el PDF. **No hay un código aparte para el contraste**,
+pero el nomenclador lo trata de dos maneras según el estudio:
+
+- **TAC y RMN** → el contraste está **dentro del código**. `341001` es la TAC cerebral y
+  `341002` la «reforzada», que la norma define como «con inyeccion de substancia de contraste»;
+  `342001` es la RMN cerebral y `342002` la «con gadolinio». Se factura el código con
+  contraste, no el estudio más el contraste.
+- **Medicina nuclear / cámara gamma** → el material **NO está incluido**. Norma del capítulo 26,
+  impresa arriba del bloque: «El costo del material radioactivo, en todos los casos en que no
+  este aclarado, no se halla incluido en el honorario y se fijara de acuerdo con la lista de
+  precios oficiales que rige en la Comision Nacional de Energia Atomica».
+
+⚠️ Esa norma **no estaba en ninguna de las 110 fichas del capítulo 26** —ni en las 37 que ya
+existían ni en las 38 recién importadas— y es lo que decide cuánto se cobra. Se agregó a las
+110, **primera en la lista de auditoría**.
+
 ### 4.6 Observaciones del administrador — una sola por práctica
 
 El administrador deja una observación en la ficha; se ve **debajo del código en el listado**

@@ -589,7 +589,9 @@
   "26": {
    "titulo": "Medicina nuclear",
    "_nota": "Se importan 26.02, 26.04 y 26.05. NO se importa el 26.03 (determinaciones por radioinmunoensayo): el propio nomenclador dice que «estas determinaciones se efectuan por laboratorio por lo tanto su valor se establece en el Nomenclador Bioquimico», y ese nomenclador es el NBU que la base ya trae. Se verificó: ACTH, aldosterona, cortisol, prolactina, insulina, testosterona y tiroxina ya están como códigos 66xxxx.",
-   "norma": [],
+   "norma": [
+    "El costo del material radioactivo, en todos los casos en que no este aclarado, no se halla incluido en el honorario y se fijara de acuerdo con la lista de precios oficiales que rige en la Comision Nacional de Energia Atomica y se tomara como base el envio minimo que esta Comision efectua."
+   ],
    "codigos": [
     {
      "code": "260202",
