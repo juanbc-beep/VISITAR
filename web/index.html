@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-/GdZaYaKYZths9oLkENQDua/auI3LSvZ3sZKI4DiOGI=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-zvtpdXaE9KIZgdfVjHfVdz1zTgr0irjJjH9Vkq71hHY=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -408,6 +408,13 @@ html,body{margin:0;padding:0}
 .ab-ed textarea:focus{outline:none;border-color:var(--med);
   box-shadow:0 0 0 3px color-mix(in srgb,var(--med) 18%,transparent)}
 .ab-eb{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:7px}
+/* La norma retirada por el PMO, en la ficha. */
+.nn-card{background:color-mix(in srgb,var(--cob) 7%,transparent);
+  border:1px solid color-mix(in srgb,var(--cob) 34%,transparent);
+  border-left:4px solid var(--cob);border-radius:var(--radius);padding:13px 16px}
+.nn-card .nn-h{font-size:11px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:var(--cob)}
+.nn-card .nn-d{font-size:12px;color:var(--muted);margin-top:5px;line-height:1.5;max-width:64ch}
+.nn-card .nn-t{margin-top:10px;font-size:13.5px;line-height:1.6;color:var(--ink);white-space:pre-wrap}
 /* Saltar a la siguiente sin criterio, sin volver al listado. */
 .rm-sig{margin-top:12px;padding-top:11px;
   border-top:1px dashed color-mix(in srgb,var(--med) 30%,transparent);
@@ -678,6 +685,11 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
 .tag{font-size:10.5px;font-weight:700;padding:2px 6px;border-radius:5px;letter-spacing:.3px}
 .t-urg{background:var(--urg-soft);color:var(--urg)}
 .t-norma{background:var(--norma-soft);color:var(--norma)}
+/* NN — norma del Nacional retirada por el PMO. Contorno y no relleno: no es un
+   estado de la práctica como «urgencia» o «desuso», es un aviso de que hay algo
+   más para leer. */
+.t-nn{background:transparent;color:var(--cob);border:1px solid color-mix(in srgb,var(--cob) 45%,transparent);
+  padding:1px 5px;cursor:help}
 .t-desuso{background:var(--desuso-soft);color:var(--desuso)}
 .t-rel{background:var(--inc-soft);color:var(--inc)}
 .t-new{background:var(--new-soft);color:var(--new)}
@@ -2132,6 +2144,23 @@ function revMedLinea(code){
   const t=(r.texto||'').length>150?r.texto.slice(0,150)+'…':(r.texto||'');
   return `<div class="rmed-l" title="${esc(r.texto||'')}"><span class="rmed-i">🩺</span><span><b>Revisión médica.</b> ${esc(t)}</span></div>`;
 }
+/* ¿Este código tiene norma del Nacional retirada por el PMO?
+
+   Son las dos formas en que ese texto llegó a la base: «alcance_nn», que es
+   literalmente el renglón del recuadro «Texto retirado por el PMO», y las líneas
+   de auditoría que los importadores de capítulo escribieron desde el mismo
+   recuadro. Se pregunta por las dos porque el dato entró por dos caminos, no
+   porque sean cosas distintas. */
+const RE_NORMA_NN=/^(Alcance del Nomenclador Nacional|Norma del código):/;
+function normaNN(c){
+  if(!c)return null;
+  const alc=(c.alcance_nn&&c.alcance_nn.texto)?c.alcance_nn.texto:'';
+  const lineas=(c.auditoria||[]).filter(a=>RE_NORMA_NN.test(a))
+    .map(a=>a.replace(RE_NORMA_NN,'').trim());
+  if(!alc&&!lineas.length)return null;
+  return {alcance:alc, normas:lineas, cat:(c.alcance_nn&&c.alcance_nn.categoria)||''};
+}
+
 function rowHTML(c){
   const dec=[],met=[];
   if(c.cobertura_pmo)dec.push(`<span class="tag t-cob">${c.cobertura_tipo==='observacion'?'observación de cobertura':'obligación de cobertura'}</span>`);
@@ -2140,6 +2169,22 @@ function rowHTML(c){
   if(c.flags.desuso)dec.push('<span class="tag t-desuso"># desuso</span>');
   if(c.flags.urgencia)dec.push('<span class="tag t-urg">U</span>');
   if(c.flags.requiere_norma)dec.push('<span class="tag t-norma">N</span>');
+  /* La norma que el Nomenclador Nacional trae y el PMO retiró. No es lo mismo que
+     «requiere norma»: aquélla dice que hace falta una norma para autorizar, ésta
+     dice que HAY una norma escrita —qué abarca, qué incluye, cómo se factura— que
+     el catálogo del PMO sacó y que el manual sí conserva. Va con sigla propia
+     porque el administrativo tiene que saber que existe antes de cargar. */
+  (function(){
+    const nn=normaNN(c); if(!nn)return;
+    /* El texto retirado llegó de dos maneras y se lee en dos lugares distintos de
+       la ficha, así que la sigla dice adónde ir: si hay norma escrita va al bloque
+       propio, y si sólo hay alcance va a «Qué abarca». Prometer un bloque que no
+       existe sería peor que no poner la sigla. */
+    const t=nn.normas.length
+      ? 'Norma del Nomenclador Nacional que el P.M.O. retiró de su catálogo. El manual la conserva: abrí la ficha y leela antes de cargar.'
+      : 'Texto del Nomenclador Nacional que el P.M.O. retiró de su catálogo. Dice qué abarca este código: está en la ficha, en «Qué abarca este código».';
+    dec.push(`<span class="tag t-nn" title="${esc(t)}">NN</span>`);
+  })();
   if(c.seriado||(c.frecuencia&&c.frecuencia.length))dec.push('<span class="tag t-freq">seriado</span>');
   if(c.surge)dec.push('<span class="tag t-surge">SURGE</span>');
   if(hasRel(c))dec.push('<span class="tag t-rel">relaciones</span>');
@@ -3490,6 +3535,19 @@ function openCode(code,origen){
           <button class="minibtn" id="abCancel">Cancelar</button>
           <span class="rm-nota">Lo ve todo el equipo, firmado con tu nombre.</span></div>
         </div>`:''}
+      </div></div>`;
+  })();
+
+  /* La norma del Nacional que el PMO retiró, entera. Va después de «qué abarca»
+     porque es el mismo origen —el recuadro «Texto retirado por el PMO»— y se lee
+     seguido: primero qué cubre el código, después bajo qué reglas se factura. */
+  (function(){
+    const nn=normaNN(c); if(!nn||!nn.normas.length)return;
+    html+=`<div class="sec"><div class="slabel">Norma del Nomenclador Nacional · retirada por el P.M.O.</div>
+      <div class="nn-card">
+        <div class="nn-h">Texto retirado del catálogo del P.M.O.</div>
+        <div class="nn-d">El Nomenclador Nacional trae esta norma y el catálogo del P.M.O. no la reproduce. El manual la conserva porque es la que dice cómo se factura la práctica.</div>
+        ${nn.normas.map(t=>`<div class="nn-t">${linkCodes(esc(t))}</div>`).join('')}
       </div></div>`;
   })();
 

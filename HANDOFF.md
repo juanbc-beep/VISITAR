@@ -797,6 +797,58 @@ Cuando **no coinciden**, sale un aviso `.eqdif`: «la diferencia es del convenio
 Hoy pasa en **1 sola práctica** de 1.678 (`U64663254` 100 U.B. vs NBU `663254` 160 U.B.) — el
 comentario viejo del código hablaba de 101, así que el dato cambió y el aviso es barato.
 
+### 4.5 nonies La sigla `NN` — norma del Nacional que el P.M.O. retiró
+
+El Nomenclador Nacional trae, al lado de cada práctica, un recuadro que el Catálogo del
+P.M.O. **no reproduce**: qué abarca el código, qué incluye, cómo se factura. El manual sí lo
+conserva, pero hasta ahora había que abrir la ficha para enterarse de que existía.
+
+Ahora lleva sigla propia en el listado: **`NN`**, contorneada y no rellena —no es un estado
+de la práctica como «urgencia» o «desuso», es un aviso de que hay algo más para leer—.
+La decide `normaNN(c)`, que mira los **dos caminos por los que ese texto entró a la base**:
+
+| origen | dónde se guarda | se lee en la ficha |
+|---|---|---|
+| recuadro «Texto retirado por el P.M.O.» | `c.alcance_nn.texto` | sección **«Qué abarca este código»** |
+| norma de capítulo, cargada por los importadores | líneas de `c.auditoria` que empiezan con `Alcance del Nomenclador Nacional:` o `Norma del código:` | bloque propio **`.nn-card`** |
+
+⚠️ **No es lo mismo que la sigla `N`** (`flags.requiere_norma`). Aquélla dice que *hace falta*
+una norma para autorizar; ésta dice que *hay* una norma escrita y el manual la tiene.
+
+⚠️ **El `title` de la sigla cambia según el caso**, y tiene que seguir cambiando: donde hay
+norma escrita manda a abrir la ficha, y donde sólo hay alcance manda a «Qué abarca este
+código». Prometer un bloque que no existe sería peor que no poner la sigla —fue exactamente
+el error que tenía la primera versión, con 100 de los 156 códigos mandando a la nada—.
+
+Hoy: **156 códigos con sigla**, de los cuales **56 abren el `.nn-card`** (caps. 26, 27, 28,
+40‑44) y **100 traen sólo alcance** (cap. 34). Sobre 6.372, no ensucia el listado.
+
+### 4.5 decies Las equivalencias que habían quedado colgando
+
+`scripts/reparar_equivalencias.py`. El Único ya declaraba, para cada práctica, el código
+equivalente del P.M.O. — pero cuando se armó la base **esos códigos todavía no existían**
+(capítulos enteros que faltaban), así que la equivalencia se guardó con
+`destino_inexistente: true` y sin `key`: la ficha del Único decía «no está cargada como ficha
+propia todavía» y la del P.M.O. no mostraba nada. Era el caso de las espirometrías.
+
+Al importar los capítulos, esos destinos aparecieron. El script recorre las colgadas y donde
+el destino ya está: completa `key`/`desc` y saca la marca del lado Único, y agrega el
+`equivalencia_unico` recíproco del lado P.M.O./NBU.
+
+**No inventa equivalencias**: sólo usa las que la planilla del Único ya declaraba.
+
+Resultado: **60 reatadas · 8 ya tenían el enlace de vuelta · 153 siguen sin destino en la
+base**. Esas 153 apuntan a códigos de capítulos todavía no importados, así que **algunas
+fichas siguen sin la vista previa entre nomencladores** — se arreglan solas a medida que
+entren los capítulos que faltan, volviendo a correr el script.
+
+⚠️ Correr siempre `python3 scripts/inject_db.py` después.
+
+⚠️ **U.B. vacía no es un error en estos capítulos.** Neumonología, consultas y sanatoriales
+se facturan en unidades de honorarios y gastos, no en Unidad Bioquímica: se importaron con
+`valor.ub = null` a propósito, y `ubDe()` devuelve `null`. La tarjeta de equivalencia se ve
+igual, sin el chip de U.B.
+
 ### 3.6 ⚠️ Capítulos 40, 41, 42, 43 y 44: FALTABAN ENTEROS
 
 Se descubrió buscando el capítulo 42 a pedido del usuario. **El 42 es CONSULTAS MÉDICAS**
