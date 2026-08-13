@@ -1,0 +1,448 @@
+{
+ "_": "Capítulo 34 del Nomenclador Nacional, transcripto a mano del PDF original (páginas 132-142 del archivo, 122-132 impresas). Cada texto es el renglón «Texto retirado por el PMO» tal como está impreso, con su ortografía —el original no acentúa casi nada y tiene erratas propias, como «constraste» en 341003—. La letra final es la categoría del Nacional.",
+ "_sin_alcance": [
+  "342014"
+ ],
+ "codigos": {
+  "340101": {
+   "texto": "(como único estudio)",
+   "categoria": "A"
+  },
+  "340102": {
+   "texto": "(agregar al código correspondiente)",
+   "categoria": "D"
+  },
+  "340103": {
+   "texto": "(agregar al código correspondiente)",
+   "categoria": "D"
+  },
+  "340201": {
+   "texto": "primera exposición",
+   "categoria": "B"
+  },
+  "340202": {
+   "texto": "Por exposición subsiguiente",
+   "categoria": "B"
+  },
+  "340203": {
+   "texto": "por incidencia y por par",
+   "categoria": "B"
+  },
+  "340204": {
+   "texto": "tres posiciones, comparativas",
+   "categoria": "B"
+  },
+  "340205": {
+   "texto": "primera exposición",
+   "categoria": null
+  },
+  "340206": {
+   "texto": "Por exposición subsiguiente",
+   "categoria": "I"
+  },
+  "340207": {
+   "texto": "con cefalostato: primera exposición",
+   "categoria": "G"
+  },
+  "340208": {
+   "texto": "Por exposición subsiguiente",
+   "categoria": "G"
+  },
+  "340209": {
+   "texto": "primera exposición",
+   "categoria": "B"
+  },
+  "340210": {
+   "texto": "Por exposición subsiguiente",
+   "categoria": "B"
+  },
+  "340211": {
+   "texto": "primera exposición",
+   "categoria": "A"
+  },
+  "340212": {
+   "texto": "Por exposición subsiguiente",
+   "categoria": "A"
+  },
+  "340213": {
+   "texto": "muñeca dedos, dos por placa",
+   "categoria": "A"
+  },
+  "340214": {
+   "texto": "por estudio",
+   "categoria": "B"
+  },
+  "340216": {
+   "texto": "(sin honorario de especialista) primera exposición",
+   "categoria": "A"
+  },
+  "340217": {
+   "texto": "Por exposición subsiguiente",
+   "categoria": "A"
+  },
+  "340218": {
+   "texto": "Una placa (apical)",
+   "categoria": "A"
+  },
+  "340219": {
+   "texto": "Una placa (ocusal)",
+   "categoria": "A"
+  },
+  "340220": {
+   "texto": "Semiseriada hasta 7 (siete) placas",
+   "categoria": "A"
+  },
+  "340221": {
+   "texto": "Seriada de 7 (siete) a 14 (catorce) placas",
+   "categoria": "A"
+  },
+  "340301": {
+   "texto": "o telerradiografia con o sin trazado de diametros cardiacos, con o sin relleno esofagico, de primera exposicion",
+   "categoria": "A"
+  },
+  "340302": {
+   "texto": "Por exposicion subsiguiente",
+   "categoria": "A"
+  },
+  "340303": {
+   "texto": "(sin endoscopia, sin anestesia general) cada pulmon, minimo 4 exposiciones por estudio",
+   "categoria": "B"
+  },
+  "340304": {
+   "texto": "frente y perfil (sin honorario del especialista)",
+   "categoria": "B"
+  },
+  "340401": {
+   "texto": "por glandula y por lado: por estudio con un minimo de tres placas",
+   "categoria": "B"
+  },
+  "340402": {
+   "texto": "(como minimo 2 placas cuatro exposiciones) como unico estudio",
+   "categoria": "c #"
+  },
+  "340403": {
+   "texto": "Estomago y duodeno, estudio seriado (minimo 10 expos.) por estudio",
+   "categoria": "c #"
+  },
+  "340404": {
+   "texto": "Estomago y duodeno (minimo 12 exposiciones)",
+   "categoria": "c #"
+  },
+  "340405": {
+   "texto": "(minimo doce exposiciones) por estudio",
+   "categoria": "c #"
+  },
+  "340406": {
+   "texto": "(minimo 4 placas) por estudio (incluye sondaje duodenal)",
+   "categoria": "c #"
+  },
+  "340407": {
+   "texto": "de COLON. (minimo 3 placas) por estudio",
+   "categoria": "c #"
+  },
+  "340408": {
+   "texto": "(minimo 2 placas) por estudio",
+   "categoria": "C #"
+  },
+  "340409": {
+   "texto": "(minimo 3 placas) por estudio",
+   "categoria": "A #"
+  },
+  "340410": {
+   "texto": "Rx Colon por enema y evacuado. (minimo 5 placas) por estudio",
+   "categoria": "C #"
+  },
+  "340411": {
+   "texto": "tecnica de Fisher (minimo 6 placas) por estudio",
+   "categoria": "c #"
+  },
+  "340412": {
+   "texto": "(minimo 8 placas) tecnica de Malmo, por estudio",
+   "categoria": "c #"
+  },
+  "340413": {
+   "texto": "(minimo 3 placas) por estudio",
+   "categoria": "B #"
+  },
+  "340414": {
+   "texto": "(minimo 5 placas) por estudio",
+   "categoria": "B"
+  },
+  "340415": {
+   "texto": "(minimo 5 placas) por estudio",
+   "categoria": "B"
+  },
+  "340416": {
+   "texto": "(primera placa)",
+   "categoria": "A *"
+  },
+  "340417": {
+   "texto": "Colangiografia operatoria, por cada placa subsiguiente",
+   "categoria": "A *"
+  },
+  "340418": {
+   "texto": "(minimo 3 placas) por estudio",
+   "categoria": "A # *"
+  },
+  "340419": {
+   "texto": "(minimo 3 placas) por estudio (sin honorario de especialista)",
+   "categoria": "D #"
+  },
+  "340420": {
+   "texto": "uni o bilateral, (minimo 3 placas) por estudio (sin honorario del especial",
+   "categoria": "B"
+  },
+  "340421": {
+   "texto": "primera exposicion",
+   "categoria": "A *"
+  },
+  "340422": {
+   "texto": "Por exposicion subsiguiente",
+   "categoria": "A *"
+  },
+  "340501": {
+   "texto": "",
+   "categoria": "B"
+  },
+  "340502": {
+   "texto": "(minimo simple 3 placas) por estudio",
+   "categoria": "B"
+  },
+  "340503": {
+   "texto": "(minimo simple y 5 placas) por estudio",
+   "categoria": "B"
+  },
+  "340504": {
+   "texto": "(minimo simple y 5 placas) por estudio",
+   "categoria": "B"
+  },
+  "340505": {
+   "texto": "(sin honorarios del especialista) primera placa",
+   "categoria": "B"
+  },
+  "340506": {
+   "texto": "Por exposicion subsiguiente",
+   "categoria": "B"
+  },
+  "340507": {
+   "texto": "(minimo 2 placas) por estudio",
+   "categoria": "B"
+  },
+  "340508": {
+   "texto": "para detectar reflujo, etc. (minimo 4 placas) por estudio",
+   "categoria": "B"
+  },
+  "340601": {
+   "texto": "unicamente con mamografo original de fabrica con tubo de molibdeno y pelicula de grano fino, por lado, craneo-podal y perfil",
+   "categoria": "H"
+  },
+  "340602": {
+   "texto": "(unicamente con mamografo original de fabrica con tubo de molibdeno y pelicula de grano fino) por lado",
+   "categoria": "H"
+  },
+  "340603": {
+   "texto": "(con o sin mamografo) por lado, dos exposiciones por estudio",
+   "categoria": "B"
+  },
+  "340604": {
+   "texto": "(sin honorarios del especialista) (minimo 3 placas) por estudio",
+   "categoria": "c #"
+  },
+  "340605": {
+   "texto": "(sin honorarios del especialista) (minimo 3 placas) por estudio",
+   "categoria": "B"
+  },
+  "340606": {
+   "texto": "(sin honorarios del especialista) (minimo 6 placas) por estudio",
+   "categoria": "C"
+  },
+  "340607": {
+   "texto": "(minimo 2 placas) por estudio",
+   "categoria": "B"
+  },
+  "340608": {
+   "texto": "Radiografia del embarazo, directa de abdomen",
+   "categoria": "C"
+  },
+  "340701": {
+   "texto": "(minimo 6 placas) por estudio",
+   "categoria": "D"
+  },
+  "340702": {
+   "texto": "(minimo 6 placas) por estudio",
+   "categoria": "B"
+  },
+  "340703": {
+   "texto": "(minimo 6 placas) por estudio",
+   "categoria": "D"
+  },
+  "340704": {
+   "texto": "(por puncion directa) minimo 4 placas por estudio",
+   "categoria": "B"
+  },
+  "340705": {
+   "texto": "(minimo 8 placas) por estudio",
+   "categoria": "B"
+  },
+  "340706": {
+   "texto": "Cisternomielografia, radiculografia (minimo 4 placas) por estudio",
+   "categoria": "D"
+  },
+  "340707": {
+   "texto": "(minimo 2 placas) por estudio",
+   "categoria": "D"
+  },
+  "340801": {
+   "texto": "Control radioscopico para colocacion de marcapaso transitorio con electrodo endocavitario",
+   "categoria": "D"
+  },
+  "340802": {
+   "texto": "Control radioscopico para colocacion de marcapaso definitivo con electrodo endocavitario",
+   "categoria": "D"
+  },
+  "340803": {
+   "texto": "Control radiocopico para cateterismo derecho y/o izquierdo sin angiocardiografia",
+   "categoria": "D"
+  },
+  "340804": {
+   "texto": "(minimo 6 placas o 15 metros de pelicula) por estudio",
+   "categoria": "D #"
+  },
+  "340805": {
+   "texto": "(minimo 45 metros de pelicula) por estudio",
+   "categoria": "D #"
+  },
+  "340806": {
+   "texto": "comprende aortografia toracica selectiva de arterias y angioneumografia (minimo 12 placas o 30 metros de pelicula) por estudio",
+   "categoria": "D #"
+  },
+  "340807": {
+   "texto": "(minimo 6 placas o 15 metros de pelicula) por estudio",
+   "categoria": "D #"
+  },
+  "340808": {
+   "texto": "por puncion lumbar, primera exposicion",
+   "categoria": "B"
+  },
+  "340809": {
+   "texto": "Aortografia por puncion lumbar, por cada exposicion subsiguiente y hasta 4 exposiciones",
+   "categoria": "B"
+  },
+  "340810": {
+   "texto": "(por estudio completo cualquiera fuere el numero de placas y/o sesiones)",
+   "categoria": "D"
+  },
+  "340811": {
+   "texto": "(minimo 6 placas o 15 metros de pelicula)",
+   "categoria": "D #"
+  },
+  "340812": {
+   "texto": "(por puncion). Primera exposicion",
+   "categoria": "B"
+  },
+  "340813": {
+   "texto": "Arteriografias periferica de los miembros (por puncion) por cada exposicion subsiguiente y hasta 4 exposiciones",
+   "categoria": "B"
+  },
+  "340814": {
+   "texto": "(primera exposicion)",
+   "categoria": null
+  },
+  "340815": {
+   "texto": "Cavografia (por cada exposicion subsiguiente y hasta 4 exposiciones)",
+   "categoria": "B"
+  },
+  "340817": {
+   "texto": "Esplenoportografia por cada exposicion subsiguiente y hasta 4 exposiciones",
+   "categoria": "B"
+  },
+  "340818": {
+   "texto": "(cavografia selectiva por cateterismo) primera exposicion",
+   "categoria": "D #"
+  },
+  "340819": {
+   "texto": "Flebografia selectiva de afluentes abdominales o toracico de la vena cava, por exposicion subsiguiente y hasta 4 exposiciones",
+   "categoria": "D"
+  },
+  "340820": {
+   "texto": "Primera exposicion",
+   "categoria": "B"
+  },
+  "340821": {
+   "texto": "Flebografia de miembro superior o inferior. Por cada exposicion subsiguiente y hasta 4 exposiciones",
+   "categoria": "B"
+  },
+  "340822": {
+   "texto": "",
+   "categoria": "B"
+  },
+  "340901": {
+   "texto": "cualquiera sea la zona o sistema (minimo 5 placas) por estudio",
+   "categoria": "E"
+  },
+  "340902": {
+   "texto": "por estudio",
+   "categoria": "E"
+  },
+  "340903": {
+   "texto": "estudio completo (minimo 2 placas) por estudio",
+   "categoria": "A"
+  },
+  "340904": {
+   "texto": "(minimo 3 placas) por estudio, sin honorarios del especialista",
+   "categoria": "B"
+  },
+  "340905": {
+   "texto": "cualquiera fuera el estudio efectuado, excluido colangiografia operatoria, primera exposicion. A. Sin honorario si no esta presente el médico radiologo",
+   "categoria": null
+  },
+  "340906": {
+   "texto": "Radiografia en quirofano o habitacion, exposiciones subsiguientes, cada una",
+   "categoria": "A"
+  },
+  "340907": {
+   "texto": "y TV: por estudio cualquiera fuere el efectuado",
+   "categoria": "D"
+  },
+  "340908": {
+   "texto": "en radio urbano, cualquiera fuere el estudio efectuado, primera exposicion",
+   "categoria": "a"
+  },
+  "340909": {
+   "texto": "Radiografia a domicilio, en radio urbano, exposicion subsiguiente, por cada una",
+   "categoria": "A"
+  },
+  "341002": {
+   "texto": "La tomografía axial reforzada es con inyeccion de substancia de contraste",
+   "categoria": null
+  },
+  "341003": {
+   "texto": "La tomografía axial reforzada de control es con o sin inyeccion de sustancia de constraste",
+   "categoria": null
+  },
+  "341004": {
+   "texto": "",
+   "categoria": "I"
+  },
+  "341005": {
+   "texto": "",
+   "categoria": "I"
+  },
+  "341006": {
+   "texto": "",
+   "categoria": "I"
+  },
+  "341007": {
+   "texto": "",
+   "categoria": "I"
+  },
+  "341008": {
+   "texto": "",
+   "categoria": "I"
+  },
+  "341009": {
+   "texto": "suprarrenal, renal",
+   "categoria": "I"
+  }
+ }
+}

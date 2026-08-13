@@ -32,12 +32,33 @@ ARREGLOS = [
     (r"\bocusalj?\b", "oclusal"), (r"\bfrentey\b", "frente y"), (r"\bcona sin\b", "con o sin"),
     (r"\bre lleno\b", "relleno"), (r"\bdeCOLON\b", "de colon"),
 ]
-# El OCR de este renglón viene tan roto que la limpieza automática no alcanza, y
-# el texto es normativo: se transcribió a mano contra el PDF. Sólo texto ya
-# impreso, nada agregado. El OCR crudo se guarda igual, al lado.
-ALCANCE_CURADO = {
-    "341003": "La tomografía axial reforzada de controles, con o sin inyección de sustancia de contraste",
-}
+# ---------------------------------------------------------------------
+# LA TRANSCRIPCIÓN CONTRA EL PDF ORIGINAL manda sobre todo lo demás.
+#
+# El OCR de estas páginas venía destruido —«（ogregaralcodigo correspondiente）.D»,
+# «Zplacascuatroexposiciones»— y la limpieza de más abajo no da abasto: son
+# palabras pegadas y letras donde van números. Repararlo automáticamente es
+# adivinar, y acá hay cantidades de placas y de exposiciones que cambian lo que
+# se factura.
+#
+# Así que el capítulo 34 se leyó a mano del PDF (data/NOMENCLADOR NACIONAL DE
+# PRESTACIONES MEDICAS CON PMO-COMPRIMIDO.pdf, páginas 132-142 del archivo) y
+# quedó en data/alcance_nn_cap34.json. Cada texto es el renglón «Texto retirado
+# por el PMO» tal como está impreso, con su ortografía: el original casi no
+# acentúa y tiene erratas propias («constraste» en 341003). No se corrige nada de
+# eso — es el texto normativo, no un descuido de transcripción.
+#
+# Si el archivo no estuviera, se sigue con el OCR limpiado como antes.
+# ---------------------------------------------------------------------
+def _transcripcion(base=""):
+    for p in (os.path.join(base, "data/alcance_nn_cap34.json"),
+              "data/alcance_nn_cap34.json", "alcance_nn_cap34.json"):
+        try:
+            d = json.load(open(p, encoding="utf-8"))
+            return d.get("codigos", {}), set(d.get("_sin_alcance", []))
+        except FileNotFoundError:
+            continue
+    return {}, set()
 
 CAT = re.compile(r"[.\s]*([A-Z])[*#]?\s*$")          # la letra de categoría del Nacional
 LEY = re.compile(r"T?e?x?t?[a-z]*\s*re[a-z]*\s*(?:por|pot|pore)?\s*e?l?\s*PM[OoD0]\s*[\]\|]?", re.I)
@@ -65,8 +86,29 @@ def alcances(records, log=None, base=""):
             nn = None
     if not nn:
         return 0
+    curado, sin_alcance = _transcripcion(base)
     n = par = 0
+    # Primero lo transcripto del original: es lo que manda.
+    for code, v in curado.items():
+        r = records.get(code)
+        if not r or r.get("nomenclador") != "PMO":
+            continue
+        if not (v.get("texto") or "").strip():
+            r.pop("alcance_nn", None)          # el código sólo trae categoría
+            continue
+        r["alcance_nn"] = {"texto": v["texto"], "categoria": v.get("categoria"),
+                           "fuente": "original"}
+        n += 1
+    # 342014 traía la Norma del capítulo 35: el parser cruzó el límite de
+    # capítulo. No se corrige el texto, se saca — ese código no lleva alcance.
+    for code in sin_alcance:
+        r = records.get(code)
+        if r:
+            r.pop("alcance_nn", None)
+
     for code in sorted(k for k in nn if k.startswith("34")):
+        if code in curado or code in sin_alcance:
+            continue                           # ya resuelto contra el original
         r = records.get(code)
         if not r or r.get("nomenclador") != "PMO":
             continue
@@ -83,7 +125,7 @@ def alcances(records, log=None, base=""):
             cat = m.group(1); txt = txt[:m.start()].strip(" .,")
         if not txt:
             continue
-        texto = ALCANCE_CURADO.get(code) or (txt[0].upper() + txt[1:])
+        texto = txt[0].upper() + txt[1:]
         r["alcance_nn"] = {"texto": texto, "categoria": cat,
                            "ocr": re.sub(r"\s+", " ", partes[-1]).strip(), "revisar": True}
         n += 1

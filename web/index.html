@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-Irr0JoS/LObWZMFqVQ1O6n7m0hb+dtEvXxSYO0ubqX0=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-UbVLJ31PZQeud2m7smVeKzWexGaQC8dTacy180EkD4w=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1871,11 +1871,20 @@ const revisionPuesta=k=>!!(window.NBUProfile&&NBUProfile.revisionDe&&NBUProfile.
 window.pintarFiltros=()=>pintarFiltros();
 /* El rail se redibuja al entrar porque los grupos marcados «med» dependen de
    quién sos, y al arrancar todavía no hay nadie con la sesión abierta. */
+/* Desde que el capítulo 34 se transcribió del PDF original no queda ningún
+   alcance sin confirmar, así que el filtro no tendría nada que mostrar. Un
+   filtro que siempre da cero enseña a no mirar los filtros: se dibuja sólo si
+   de verdad hay algo pendiente, y vuelve solo el día que lo haya. */
+const hayAlcanceDudoso=()=>Object.values(BYCODE).some(c=>
+  c.alcance_nn&&c.alcance_nn.texto&&c.alcance_nn.fuente!=='original');
 function pintarFiltros(){
   const med=!!(window.NBUProfile&&NBUProfile.esMedico&&NBUProfile.esMedico());
   const puestos=new Set(state.flags);
+  const dudosos=hayAlcanceDudoso();
   el('fFlags').innerHTML=GRUPOS_FLAGS.filter(([,,solo])=>solo!=='med'||med).map(([t,lst])=>
-    `<div class="fsub">${t}</div>`+lst.map(([k,l])=>
+    `<div class="fsub">${t}</div>`+lst
+      .filter(([k])=>k!=='alcance_dudoso'||dudosos)
+      .map(([k,l])=>
       `<button class="opt${puestos.has(k)?' on':''}" data-f="flags" data-v="${k}"><span class="optrow"><span class="lbl">${l}</span></span></button>`).join('')
   ).join('');
   el('fFlags').querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>toggleOpt(b)));
@@ -2015,6 +2024,7 @@ function passFlags(c){
     if(f==='alcance_dudoso'){
       const P=window.NBUProfile||{};
       if(!(c.alcance_nn&&c.alcance_nn.texto))return false;
+      if(c.alcance_nn.fuente==='original')return false;   // ya vino del PDF original
       if(P.abarcaDe&&P.abarcaDe(c._key))return false;
     }
     if(f==='revision_atencion'){
@@ -2090,13 +2100,13 @@ function abarcaLinea(c){
   const txt=corr?corr.texto:((c.alcance_nn&&c.alcance_nn.texto)||'');
   if(!txt)return '';
   const t=txt.length>110?txt.slice(0,110)+'…':txt;
-  /* Los 96 vienen del OCR del Nomenclador Nacional con la lectura dañada —así
-     está marcado en el propio dato, «revisar: true»— y hasta que un médico no
-     los confirme NO se presentan como si fueran texto bueno. Decirlo en el
-     listado es lo mismo que ya hacía la ficha; lo que no se puede es que la
-     versión corta se lea con más autoridad que la larga. */
-  return `<div class="rabarca${corr?' ok':' dudoso'}" title="${esc(txt)}${corr?'':'\n\nTranscripción del Nomenclador Nacional sin confirmar: el original tiene la lectura dañada.'}">
-    <span class="rab-i">${corr?'✓':'▣'}</span><span><b>Abarca${corr?'':' (sin confirmar)'}:</b> ${esc(t)}</span></div>`;
+  /* «fuente: original» son los transcriptos a mano del PDF del Nomenclador
+     Nacional: ésos SÍ son el texto impreso y se muestran sin reparos. Lo que
+     quedara del OCR viejo sigue avisando que no está confirmado. */
+  const delOriginal=!!(c.alcance_nn&&c.alcance_nn.fuente==='original');
+  const firme=corr||delOriginal;
+  return `<div class="rabarca${corr?' ok':(firme?'':' dudoso')}" title="${esc(txt)}${firme?'':'\n\nTranscripción sin confirmar: el original tiene la lectura dañada.'}">
+    <span class="rab-i">${corr?'✓':'▣'}</span><span><b>Abarca${firme?'':' (sin confirmar)'}:</b> ${esc(t)}</span></div>`;
 }
 
 /* La revisión médica también se lee en el resultado, sin abrir la ficha, y por
@@ -3455,7 +3465,9 @@ function openCode(code,origen){
                :'<i style="color:var(--muted)">La fuente no trae el alcance de este código.</i>'}
         <div class="ab-pie">${corr
           ? `✎ Corregido por <b>${esc(corr.por||'—')}</b>${corr.t?` · ${new Date(corr.t).toLocaleDateString('es-AR')}`:''}${orig?`<br><span class="ab-orig">La fuente decía: «${esc(orig)}»</span>`:''}`
-          : 'Texto del Nomenclador Nacional que el Catálogo del PMO no reproduce. La transcripción viene de un original con lectura dañada: confirmala antes de apoyarte en ella.'}</div>
+          : (c.alcance_nn&&c.alcance_nn.fuente==='original')
+            ? 'Texto del Nomenclador Nacional que el Catálogo del PMO no reproduce, transcripto del original impreso. Se respeta su ortografía: el nomenclador casi no acentúa.'
+            : 'Texto del Nomenclador Nacional que el Catálogo del PMO no reproduce. La transcripción viene de un original con lectura dañada: confirmala antes de apoyarte en ella.'}</div>
         ${puede?`<div class="ab-acc"><button class="minibtn" id="abEditar">✎ ${corr?'Corregir de nuevo':'Corregir este texto'}</button>${corr?'<button class="minibtn danger" id="abQuitar">Volver a la fuente</button>':''}</div>
         <div class="ab-ed" id="abEd" hidden>
           <textarea id="abArea" rows="3" placeholder="Qué abarca de verdad este código: cuántas exposiciones, cuántas placas, si incluye o no el contraste…">${esc(texto)}</textarea>

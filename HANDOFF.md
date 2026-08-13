@@ -740,20 +740,32 @@ una alerta, es parte de lo que el código *es*; si compitiera con la observació
 —que sí son alertas— las tres dejarían de significar algo distinto. El ✓ verde marca las
 corregidas por un médico; el ▣ apagado, el texto crudo de la fuente.
 
-⚠️ **Los 96 vienen del OCR roto y NO se pueden arreglar solos.** Se investigó a pedido del
-usuario. El OCR llegó destruido de origen (`（ogregaralcodigo correspondiente）.D`,
-`unicamentecon mamografooriginaldefabrica`), **no lo rompió `_limpiar()`**, y el PDF del
-Nomenclador Nacional **no está en el repo** (sólo `pmo.pdf`, `cie10.pdf`, `surge.pdf`), así
-que no se puede re-OCR-ear.
+✅ **RESUELTO: el capítulo 34 se transcribió del PDF original.** El usuario aportó el
+Nomenclador Nacional escaneado (`data/NOMENCLADOR NACIONAL DE PRESTACIONES MEDICAS CON
+PMO-COMPRIMIDO.pdf`, 260 páginas, **sin capa de texto**). No hay OCR instalado en el entorno,
+así que las páginas del capítulo 34 (**132-142 del archivo**) se renderizaron con `pypdfium2`
+y se **leyeron a ojo**, una por una.
 
-Se probó un despegado automático por vocabulario y **produce texto peor** que el original
-(«incidenciaypor» → «incid enciay»): reconstruir estas líneas es adivinar, y hay números de
-placas de por medio que cambian lo que se factura. **No se toca el dato.**
+Resultado en `data/alcance_nn_cap34.json` (110 códigos) y aplicado a la base:
+- **88 de 96 textos estaban mal** y se corrigieron.
+- Errores que cambiaban lo que se factura: `Zplacas` era **2 placas**; `Meca dedos` era
+  **muñeca dedos**; `(ogregaralcodigo` era **(agregar al código**.
+- **5 alcances nuevos** que el OCR había perdido del todo.
+- ⚠️ **`342014` no lleva alcance**: lo que mostraba era la **Norma del capítulo 35**, que el
+  parser arrastró cruzando el límite de capítulo. Se quitó, no se corrigió.
 
-Lo que sí se hizo: el dato ya venía con `revisar: true` en los 96, así que la línea del
-listado dice **«Abarca (sin confirmar)»** en ámbar hasta que un médico la corrija —la versión
-corta no puede leerse con más autoridad que la ficha, que ya traía la advertencia— y hay un
-filtro **«▣ Alcance sin confirmar»** para que los médicos los trabajen: hoy da 96.
+La ortografía del original se respeta tal cual —casi no acentúa, y tiene erratas propias como
+«constraste» en 341003—: es texto normativo, no un descuido de transcripción.
+
+`alcance_cap34.py` carga ese JSON y **manda sobre el OCR**; si el archivo faltara, sigue con
+la limpieza vieja. Los alcances transcriptos llevan `fuente: "original"` y por eso el listado
+ya **no** los marca «sin confirmar», y el filtro «▣ Alcance sin confirmar» **se esconde solo**
+cuando no queda ninguno (hoy: ninguno).
+
+⚠️ **Lo que NO se hizo, y no hay que intentar:** reparar el OCR automáticamente. Se probó
+despegar palabras contra un vocabulario armado con las 6.372 denominaciones de la base y
+**produce texto peor** («incidenciaypor» → «incid enciay»). Con cantidades de placas de por
+medio, adivinar no es una opción.
 
 Migración: **`docs/supabase_alcance_medico.sql`**. Dos hallazgos que costaron:
 - El guardia ahora tiene **dos niveles**: al médico administrativo se le abre `correcciones`
