@@ -849,6 +849,30 @@ se facturan en unidades de honorarios y gastos, no en Unidad Bioquímica: se imp
 `valor.ub = null` a propósito, y `ubDe()` devuelve `null`. La tarjeta de equivalencia se ve
 igual, sin el chip de U.B.
 
+### 4.5 undecies Cinco equivalencias que el Único numeraba distinto
+
+`scripts/equivalencias_renumeradas.py`. En cinco prácticas la planilla del Único dice
+«equivale al código NNNNNN», ese número no existe en el Nomenclador Nacional, **y la
+práctica sí está en el Nacional con el mismo número que usa el Único**:
+
+| Único | la planilla decía | está en el Nacional como |
+|---|---|---|
+| 280111 Capacidad pulmonar total y volumen residual | 280207 ✗ | **280111** |
+| 280201 Lavado alveolar | 280208 ✗ | **280201** |
+| 280301 Ablación de lesiones broncopulmonares | 280209 ✗ | **280301** |
+| 260528 Perfusión sanguínea miocárdica | 260729 ✗ | **260528** |
+| 430601 Luminoterapia | 431604 ✗ | **430601** |
+
+⚠️ **NO se hace por regla automática «si el número coincide, atalo».** `U430102` coincide en
+número y la práctica es otra: el Único dice «cama en habitación individual (aislamiento)» y
+el Nacional dice «una cama en habitación de dos con baño». Atarla habría metido un error de
+facturación. La lista del script está escrita a mano, código por código, comparando el
+nombre de los dos lados.
+
+El número que declaraba la planilla queda guardado en `equivalencia.code_declarado` y en una
+línea de auditoría de las dos fichas: un auditor que compare contra el papel se va a
+encontrar con ese número y tiene que poder explicárselo.
+
 ### 3.6 ⚠️ Capítulos 40, 41, 42, 43 y 44: FALTABAN ENTEROS
 
 Se descubrió buscando el capítulo 42 a pedido del usuario. **El 42 es CONSULTAS MÉDICAS**
