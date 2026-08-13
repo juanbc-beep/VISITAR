@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-MRhzuGTuF+YqTpU0/hJT3SMyzDHR5WEJKyA1xPmuEA0=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-3OneAiQL2ev0/WmAVOivrjcVixabeYXPQpXvkwzDuxU=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -735,6 +735,14 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .robs{background:#2e2811}}
 .robs-i{flex-shrink:0;width:16px;height:16px;border-radius:50%;background:var(--gestion);
   color:#fff;font-weight:800;font-size:11px;line-height:16px;text-align:center;margin-top:1px}
+/* «Qué abarca» en el resultado. Sin fondo y en tinta apagada: es un dato del
+   código, no una alerta, y si compitiera con la observación o con la revisión
+   médica —que sí lo son— las tres dejarían de significar algo distinto. */
+.rabarca{display:flex;align-items:flex-start;gap:7px;margin-top:5px;
+  font-size:12px;line-height:1.4;color:var(--muted);text-align:left}
+.rabarca b{color:var(--ink-2);font-weight:700}
+.rabarca .rab-i{flex-shrink:0;color:var(--faint);font-size:11px;margin-top:1px}
+.rabarca.ok .rab-i{color:var(--med)}
 /* La revisión médica en el resultado del listado. Verde clínico, para que no se
    confunda con el aviso administrativo, que es ámbar. */
 .rmed-l{display:flex;align-items:flex-start;gap:7px;margin-top:6px;padding:6px 9px;
@@ -2027,6 +2035,25 @@ function obsLinea(code){
   const t=o.texto.length>150?o.texto.slice(0,150)+'…':o.texto;
   return `<div class="robs" title="${esc(o.texto)}"><span class="robs-i">!</span>${esc(t)}</div>`;
 }
+/* «Qué abarca este código» en el propio resultado. Es el dato que decide si hay
+   que cargar un código más —«primera exposición», «tres posiciones,
+   comparativas»— y enterarse recién al abrir la ficha llega tarde igual que con
+   la observación. Lo tienen 96 códigos de 6.372, así que no ensucia el listado:
+   donde aparece, es porque hay algo que saber.
+
+   Va antes de los avisos y no después: no es una alerta, es parte de lo que el
+   código ES. Los avisos son excepciones y quedan debajo, que es donde se leen
+   como excepciones. */
+function abarcaLinea(c){
+  const P=window.NBUProfile||{};
+  const corr=P.abarcaDe?P.abarcaDe(c._key):null;
+  const txt=corr?corr.texto:((c.alcance_nn&&c.alcance_nn.texto)||'');
+  if(!txt)return '';
+  const t=txt.length>110?txt.slice(0,110)+'…':txt;
+  return `<div class="rabarca${corr?' ok':''}" title="${esc(txt)}">
+    <span class="rab-i">${corr?'✓':'▣'}</span><span><b>Abarca:</b> ${esc(t)}</span></div>`;
+}
+
 /* La revisión médica también se lee en el resultado, sin abrir la ficha, y por
    el mismo motivo que la observación: si hay que abrir algo para enterarse de
    que la práctica no corresponde al diagnóstico, ya se cargó mal. Va con el
@@ -2063,6 +2090,7 @@ function rowHTML(c){
       <div class="rname">${hlList(c.nombre)}</div>
       <div class="rmeta"><span class="badge ${SEC_CLASS[c.seccion]}">${SEC_LABEL[c.seccion]}</span>
       <span class="rgrupo">${esc(c.grupo)}</span>${dec.join('')}${met.join('')}</div>
+      ${abarcaLinea(c)}
       ${revMedLinea(c._key)}
       ${obsLinea(c._key)}
     </div>

@@ -732,6 +732,14 @@ Nacional con la transcripción dañada y decide si hay que cargar un código má
 sabe si dice lo que tiene que decir no es quien factura. La ficha muestra el original debajo
 («La fuente decía: …») y se puede volver a él.
 
+**También se lee en el resultado del listado** (`abarcaLinea()`), como la observación y la
+revisión médica: es el dato que decide si hay que cargar un código más, y enterarse recién al
+abrir la ficha llega tarde. Lo tienen **96 códigos de 6.372**, así que no ensucia el listado —
+donde aparece, es porque hay algo que saber. Va **antes** de los dos avisos y sin fondo: no es
+una alerta, es parte de lo que el código *es*; si compitiera con la observación y la revisión
+—que sí son alertas— las tres dejarían de significar algo distinto. El ✓ verde marca las
+corregidas por un médico; el ▣ apagado, el texto crudo de la fuente.
+
 Migración: **`docs/supabase_alcance_medico.sql`**. Dos hallazgos que costaron:
 - El guardia ahora tiene **dos niveles**: al médico administrativo se le abre `correcciones`
   por primera vez, y si se le diera la fila entera podría publicar una revisión sin que nadie
