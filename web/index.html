@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-3OneAiQL2ev0/WmAVOivrjcVixabeYXPQpXvkwzDuxU=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-PmF/PcBWYpnWGJpGn5p6zEL4zDx0uT2d3LOCPCmoUMM=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -738,6 +738,36 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
 /* «Qué abarca» en el resultado. Sin fondo y en tinta apagada: es un dato del
    código, no una alerta, y si compitiera con la observación o con la revisión
    médica —que sí lo son— las tres dejarían de significar algo distinto. */
+/* ---------- registro compacto ----------
+   Un renglón por movimiento y no una tarjeta: con trescientos cambios, tres
+   renglones cada uno son quince mil píxeles de scroll para leer lo de ayer. */
+.lgdia{border-bottom:1px solid var(--line);padding:2px 0}
+.lgdia>summary{cursor:pointer;list-style:none;padding:7px 2px;font-size:11.5px;
+  font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);
+  display:flex;align-items:center;gap:8px;user-select:none}
+.lgdia>summary::-webkit-details-marker{display:none}
+.lgdia>summary::before{content:'▸';font-size:10px;color:var(--accent);transition:transform .16s}
+.lgdia[open]>summary::before{transform:rotate(90deg)}
+.lgdia>summary:hover{color:var(--accent)}
+.lgdia .lg-n{background:var(--surface-2);border-radius:9px;padding:1px 8px;
+  font-size:11px;font-weight:700;letter-spacing:0;color:var(--ink-2)}
+.lgline{display:flex;align-items:baseline;gap:9px;padding:4px 2px 4px 18px;
+  font-size:12.5px;line-height:1.45}
+.lgline:hover{background:var(--surface-2);border-radius:6px}
+.lg-h{font-family:var(--font-mono);font-size:11.5px;color:var(--faint);flex-shrink:0}
+.lg-q{font-weight:700;color:var(--ink)}
+.lg-a{color:var(--ink-2)}
+.lg-c{font-family:var(--font-mono);font-size:11.5px;font-weight:700;
+  background:var(--accent-soft);color:var(--accent-ink);border:1px solid transparent;
+  border-radius:5px;padding:1px 7px;cursor:pointer}
+.lg-c:hover{border-color:var(--accent)}
+.lg-c.est{cursor:default;background:none;color:var(--accent-ink);padding:1px 0}
+/* El detalle va en la MISMA línea y se corta con puntos suspensivos. Con
+   «flex:1 1 100%» se iba a un renglón propio y cada observación ocupaba el
+   doble, que es exactamente lo que se venía a arreglar. El texto entero queda
+   en el title, a un hover de distancia. */
+.lg-d{color:var(--muted);font-size:12px;flex:1 1 0;min-width:0;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .rabarca{display:flex;align-items:flex-start;gap:7px;margin-top:5px;
   font-size:12px;line-height:1.4;color:var(--muted);text-align:left}
 .rabarca b{color:var(--ink-2);font-weight:700}
@@ -5273,9 +5303,13 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
 
   /* ============ ADMIN PANEL ============ */
   const amodal=el('adminModal'),abox=el('adminBox');
-  function closeAdmin(){amodal.classList.remove('on');actualizarPendientes();devolverFoco();}
+  function closeAdmin(){amodal.classList.remove('on');aVerMas={};actualizarPendientes();devolverFoco();}
   amodal.addEventListener('click',e=>{if(e.target===amodal)closeAdmin();});
   let aTab='perfiles';
+  /* Cuánto se muestra de las listas largas del panel. Se reinicia al cerrar:
+     si quedara puesto, volver a abrir el registro dibujaría de nuevo todo lo que
+     se había desplegado la vez anterior. */
+  let aVerMas={};
   function openAdmin(t){
     aTab=t||aTab;renderAdmin();amodal.classList.add('on');tomarFoco(el('adminBox'));
     /* Se relee al abrir: el panel es donde se decide, y decidir sobre una lista
@@ -5626,29 +5660,71 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       }
     } else if(aTab==='registro'){
       const log=CONTENT.log||[];
-      const fmt=t=>{const d=new Date(t);return d.toLocaleDateString('es-AR')+' '+d.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});};
-      /* Hasta ahora el registro era el de cada computadora, y como registro de un
-         equipo no servía: para saber quién corrigió qué había que adivinar en qué
-         máquina mirar. La actividad compartida no necesita una tabla nueva: cada
-         fila de la base ya guarda quién la tocó y cuándo, así que se arma leyendo
-         lo que ya está. El registro local queda debajo, porque tiene cosas que la
-         base no guarda (cambios de textos, del logo, restauraciones). */
       const act=CONTENT.actividad||[];
+      /* Antes esto dibujaba hasta 320 tarjetas de tres renglones cada una, de un
+         saque. Tres cambios y ninguno toca los datos:
+           · un renglón por movimiento en vez de una tarjeta,
+           · agrupado por día, con hoy abierto y el resto plegado,
+           · y de a 30, con «ver más».
+         Los topes de guardado (200 locales, 300 de la base) NO se bajaron: el
+         registro sirve justamente cuando hay que reconstruir algo de hace rato.
+         Lo que sobraba era dibujarlo todo, no tenerlo. */
+      const hoy=new Date(); hoy.setHours(0,0,0,0);
+      const ayer=new Date(hoy); ayer.setDate(ayer.getDate()-1);
+      const hora=t=>new Date(t).toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});
+      const diaDe=t=>{const d=new Date(t); d.setHours(0,0,0,0); return d.getTime();};
+      const rotulo=ms=>{
+        if(ms===hoy.getTime())return 'Hoy';
+        if(ms===ayer.getTime())return 'Ayer';
+        return new Date(ms).toLocaleDateString('es-AR',{day:'numeric',month:'long'});
+      };
+      /* Agrupa en días conservando el orden (las listas ya vienen de más nuevo a
+         más viejo), y corta por cantidad de MOVIMIENTOS, no de días: un día con
+         ochenta cambios no puede contar como uno. */
+      const porDia=(lista,tope)=>{
+        const dias=[]; let usados=0;
+        for(const e of lista){
+          if(usados>=tope)return {dias,resto:lista.length-usados};
+          const d=diaDe(e.t);
+          let g=dias[dias.length-1];
+          if(!g||g.dia!==d){g={dia:d,items:[]};dias.push(g);}
+          g.items.push(e); usados++;
+        }
+        return {dias,resto:0};
+      };
+      const tope=k=>aVerMas[k]||30;
+      const linea=(e,conCodigo)=>`<div class="lgline">
+        <span class="lg-h">${hora(e.t)}</span>
+        <span class="lg-q">${E(e.quien||e.who||'—')}</span>
+        <span class="lg-a">${E(e.que||e.action||'')}</span>
+        ${e.code?(conCodigo
+          ? `<button class="lg-c" data-actir="${E(e.code)}">${E(e.code)}</button>`
+          : `<span class="lg-c est">${E(e.code)}</span>`):''}
+        ${e.detalle?`<span class="lg-d" title="${E(e.detalle)}">${E(e.detalle.slice(0,70))}${e.detalle.length>70?'…':''}</span>`:''}
+      </div>`;
+      /* Cada sección lleva su propio contador: abrir más de la actividad del
+         equipo no tiene por qué desplegar también el registro local. */
+      const bloque=(lista,conCodigo,vacio,clave)=>{
+        if(!lista.length)return `<div class="ahint">${vacio}</div>`;
+        const {dias,resto}=porDia(lista,tope(clave));
+        return dias.map((g,i)=>`<details class="lgdia"${i===0?' open':''}>
+          <summary>${rotulo(g.dia)} <span class="lg-n">${g.items.length}</span></summary>
+          ${g.items.map(e=>linea(e,conCodigo)).join('')}
+        </details>`).join('')+
+        (resto>0?`<button class="minibtn" data-vermas="${clave}" style="margin-top:9px">Ver ${Math.min(resto,60)} más · quedan ${resto}</button>`:'');
+      };
       p.innerHTML=`${nubeContenido?`<div class="ahint">Lo que hizo el equipo, salga de la computadora que salga. Sale de la propia base: quién dejó cada observación, quién corrigió cada ficha, quién pidió y quién validó cada verificación.</div>
-        ${act.length?act.slice(0,120).map(e=>{const c=BYCODE[e.code];
-          return `<div class="arow"><div class="grow2">
-            <div class="pnm">${E(e.quien)} · <span style="font-weight:500;color:var(--ink-2)">${E(e.que)}</span>${e.code?` <button class="minibtn" data-actir="${E(e.code)}" style="padding:1px 7px;font-size:11.5px"><span class="mono">${E(c?c.code:e.code)}</span></button>`:''}</div>
-            ${e.detalle?`<div class="pmeta" style="white-space:pre-wrap">${E(e.detalle.slice(0,120))}${e.detalle.length>120?'…':''}</div>`:''}
-            <div class="pmeta">${fmt(e.t)}</div></div></div>`;}).join('')
-          :'<div class="ahint">Todavía no hay actividad registrada en la base.</div>'}
+        ${bloque(act,true,'Todavía no hay actividad registrada en la base.','equipo')}
         <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--line)">
           <div class="pmeta" style="font-weight:700;color:var(--ink);font-size:13.5px">Sólo en esta computadora</div>`:''}
         <div class="ahint">${nubeContenido?'Cambios que la base no guarda —textos, logo, restauraciones— hechos desde acá.':'Registro de ediciones hechas <b>desde esta computadora</b> (quién cambió qué y cuándo). No se comparte con el equipo: es el rastro local, útil para reconstruir qué pasó acá.'}</div>
-        ${log.length?log.map(e=>`<div class="arow"><div class="grow2"><div class="pnm">${E(e.who||'—')} · <span style="font-weight:500;color:var(--ink-2)">${E(e.action)}</span>${e.code?` <span class="mono" style="color:var(--accent-ink)">${E(e.code)}</span>`:''}</div><div class="pmeta">${fmt(e.t)}</div></div></div>`).join(''):'<div class="ahint">Todavía no hay cambios registrados acá.</div>'}
+        ${bloque(log,false,'Todavía no hay cambios registrados acá.','local')}
         ${log.length?'<button class="minibtn danger" id="logClear" style="margin-top:10px">Vaciar el registro de esta computadora</button>':''}
         ${nubeContenido?'</div>':''}`;
       p.querySelectorAll('[data-actir]').forEach(b=>b.addEventListener('click',()=>{
         closeAdmin(); openCode(b.dataset.actir);}));
+      p.querySelectorAll('[data-vermas]').forEach(b=>b.addEventListener('click',()=>{
+        const k=b.dataset.vermas; aVerMas[k]=(aVerMas[k]||30)+60; renderPane();}));
       if(el('logClear'))el('logClear').addEventListener('click',()=>{if(confirm('¿Vaciar el registro de esta computadora?\n\nLo que está en la base no se toca.')){CONTENT.log=[];persistContent();renderPane();}});
     } else if(aTab==='respaldo'){
       /* Con la base de la empresa encendida, este respaldo no lleva las cuentas:
