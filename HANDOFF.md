@@ -797,6 +797,30 @@ Cuando **no coinciden**, sale un aviso `.eqdif`: «la diferencia es del convenio
 Hoy pasa en **1 sola práctica** de 1.678 (`U64663254` 100 U.B. vs NBU `663254` 160 U.B.) — el
 comentario viejo del código hablaba de 101, así que el dato cambió y el aviso es barato.
 
+### 3.6 ⚠️ Capítulos 42 y 43: FALTABAN ENTEROS
+
+Se descubrió buscando el capítulo 42 a pedido del usuario. **El 42 es CONSULTAS MÉDICAS**
+—consultorio, domicilio diurna/nocturna/emergencia, mayores de 65, atención en internación—
+y **no había ni un código** en el manual: la única consulta que existía era la odontológica.
+El **43** (prestaciones sanatoriales y de enfermería) tenía **1 de ~25**.
+
+Importados con `scripts/importar_cap42_43.py` desde `data/cap42_43_nn.json`, transcripto a
+mano del PDF (páginas 145-150) por el mismo motivo que el capítulo 34: el OCR de esas páginas
+es igual de malo y acá hay **aranceles y coseguros**. **41 fichas nuevas.**
+
+Dos decisiones del importador, las dos para no inventar:
+- **`valor.ub` queda en `null`.** Estos capítulos se arancelan por «unidades de honorarios y
+  gastos», que NO es la Unidad Bioquímica. Cargarlos como U.B. haría que la app los
+  multiplicara por el valor de U.B. y mostrara un arancel inventado. Los números van en el
+  texto de `arancel`.
+- **`requiere_norma` en `false`.** La app muestra ese flag como «AUTORIZACIÓN: previa ·
+  requiere norma», y lo que estos capítulos traen son normas de **facturación** (cuándo se
+  factura el día de ingreso, qué incluye la cama), no un requisito de autorización. Van a
+  `auditoria`, que es donde se leen como lo que son.
+
+⚠️ **Siguen faltando los capítulos 40, 41 y 44** (terapia intensiva, unidad coronaria móvil),
+detectados en el mismo barrido y todavía sin importar.
+
 ### 4.6 Observaciones del administrador — una sola por práctica
 
 El administrador deja una observación en la ficha; se ve **debajo del código en el listado**
