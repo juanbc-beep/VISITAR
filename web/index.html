@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-UbVLJ31PZQeud2m7smVeKzWexGaQC8dTacy180EkD4w=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-/GdZaYaKYZths9oLkENQDua/auI3LSvZ3sZKI4DiOGI=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -774,6 +774,15 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
 .rabarca .rab-i{flex-shrink:0;color:var(--faint);font-size:11px;margin-top:1px}
 .rabarca.ok .rab-i{color:var(--med)}
 .rabarca.dudoso b{color:var(--gestion)}
+/* La U.B. del código equivalente, en la propia fila de la equivalencia. */
+.equb{font-family:var(--font-mono);font-size:11.5px;font-weight:700;white-space:nowrap;
+  background:color-mix(in srgb,var(--accent) 13%,transparent);color:var(--accent-ink);
+  border-radius:5px;padding:1px 7px}
+.eqdif{margin-top:8px;font-size:12px;line-height:1.5;color:var(--ink-2);
+  background:color-mix(in srgb,var(--gestion) 12%,transparent);
+  border:1px solid color-mix(in srgb,var(--gestion) 32%,transparent);
+  border-radius:7px;padding:7px 10px}
+.eqdif b{color:var(--gestion)}
 /* La revisión médica en el resultado del listado. Verde clínico, para que no se
    confunda con el aviso administrativo, que es ámbar. */
 .rmed-l{display:flex;align-items:flex-start;gap:7px;margin-top:6px;padding:6px 9px;
@@ -3003,6 +3012,12 @@ const VERIF_DIAS=180;
 /* El criterio médico cambia más despacio que la normativa de facturación, así
    que la revisión médica vence al año y no a los 180 días. */
 const REV_VENCE=365;
+/* La U.B. de cualquier ficha, sin importar de qué nomenclador sea. Devuelve la
+   vigente si la hay, que es la que se factura. */
+function ubDe(key){
+  const c=key?BYCODE[key]:null; if(!c||!c.valor)return null;
+  return c.valor.ub_vigente!=null?c.valor.ub_vigente:(c.valor.ub!=null?c.valor.ub:null);
+}
 function verifEstado(code){
   const v=(window.NBUProfile&&NBUProfile.verifDe)?NBUProfile.verifDe(code):null;
   if(!v)return {estado:'sin',v:null};
@@ -3590,16 +3605,33 @@ function openCode(code,origen){
       html+=`<div class="sec"><div class="slabel">Equivalencia</div><div class="equiv-card" style="background:var(--urg-soft);border-color:color-mix(in srgb,var(--urg) 30%,transparent)"><b style="color:var(--urg)">⚠ Sin equivalencia hallada</b><div style="margin-top:5px;font-size:13px;color:var(--ink-2)">Este código del Nomenclador Único no tiene equivalencia automática en Prestaciones Médicas. Queda <b>pendiente de mapeo manual</b> (filtro “Sin equivalencia”).</div></div></div>`;
     } else {
       const scorePct=e.score!=null?Math.round(e.score*100)+'%':'';
+      /* La U.B. del código equivalente, acá mismo. Estaba sólo en «Valorización»,
+         al final de la ficha, y quien está mirando la equivalencia justamente se
+         pregunta cuánto vale del otro lado: hacerlo bajar media ficha para
+         enterarse era pedirle que se acuerde de buscarlo. */
+      const ubEq=ubDe(e.key)!=null?ubDe(e.key):((c.nbu_valor&&(c.nbu_valor.ub_vigente!=null?c.nbu_valor.ub_vigente:c.nbu_valor.ub))??null);
+      const propia=(c.valor&&(c.valor.ub_vigente!=null?c.valor.ub_vigente:c.valor.ub));
       html+=`<div class="sec"><div class="slabel">Equivalencia · ${esc(e.target_label||'')}</div><div class="equiv-card">
-        <div class="eqrow"><span>Equivale a</span><span class="eqcode" ${e.key?`data-goto="${e.key}"`:''}>${e.code}</span>${scorePct?`<span class="eqscore">similitud ${scorePct}</span>`:''}</div>
+        <div class="eqrow"><span>Equivale a</span><span class="eqcode" ${e.key?`data-goto="${e.key}"`:''}>${e.code}</span>${scorePct?`<span class="eqscore">similitud ${scorePct}</span>`:''}${ubEq!=null?`<span class="equb">${ubEq} U.B.</span>`:''}</div>
         ${e.desc?`<div style="margin-top:6px;font-size:13px;color:var(--ink-2)">${esc(e.desc)}</div>`:''}
+        ${(ubEq!=null&&propia!=null&&ubEq!==propia)?`<div class="eqdif">Ojo: <b>${propia} U.B.</b> en este nomenclador y <b>${ubEq} U.B.</b> en el otro. La diferencia es del convenio, no un error — se factura con la del nomenclador que corresponda.</div>`:''}
         <div style="margin-top:6px;font-size:11.5px;color:var(--faint)">${e.key?'Presente en ambos nomencladores. Tocá el código para abrir su ficha en '+esc(e.target_label||'')+'.':'El código equivalente ('+esc(e.code)+') no está cargado como ficha propia todavía.'}</div>
         ${e.recalculada?`<div style="margin-top:6px;font-size:11.5px;color:var(--urg);background:var(--urg-soft);border-radius:6px;padding:7px 9px">⚠ El código que traía la planilla <b>no existe</b> en el Nomenclador Nacional cargado. Esta equivalencia se reconstruyó ${e.recalculada==='codigo'?'por <b>código idéntico</b>':'por <b>proximidad de nombre</b> dentro del capítulo'} — conviene confirmarla.</div>`:''}
       </div></div>`;
     }
   }
   if(c.equivalencia_unico&&c.equivalencia_unico.length){
-    const items=c.equivalencia_unico.map(u=>{const pct=u.score!=null?Math.round(u.score*100)+'%':'';return `<div class="eqrow" style="margin-top:6px"><span class="eqcode" data-goto="${u.unico_key}">${u.unico_code}</span>${pct?`<span class="eqscore">similitud ${pct}</span>`:''}<span style="font-size:12.5px;color:var(--ink-2)">${esc((u.unico_desc||'').slice(0,70))}</span></div>`;}).join('');
+    /* Y en el otro sentido: desde el NBU se ve con cuánto figura en el Único.
+       Antes esta tarjeta sólo daba el código y el nombre, así que para saber si
+       valía lo mismo había que abrir la otra ficha y volver. */
+    const miUB=(c.valor&&(c.valor.ub_vigente!=null?c.valor.ub_vigente:c.valor.ub));
+    let algunaDif=false;
+    const items=c.equivalencia_unico.map(u=>{
+      const pct=u.score!=null?Math.round(u.score*100)+'%':'';
+      const ubU=ubDe(u.unico_key);
+      if(ubU!=null&&miUB!=null&&ubU!==miUB)algunaDif=true;
+      return `<div class="eqrow" style="margin-top:6px"><span class="eqcode" data-goto="${u.unico_key}">${u.unico_code}</span>${pct?`<span class="eqscore">similitud ${pct}</span>`:''}${ubU!=null?`<span class="equb">${ubU} U.B.</span>`:''}<span style="font-size:12.5px;color:var(--ink-2)">${esc((u.unico_desc||'').slice(0,70))}</span></div>`;}).join('')
+      +(algunaDif?`<div class="eqdif">Ojo: acá figura con <b>${miUB} U.B.</b> y en el Único no coincide. La diferencia es del convenio, no un error — se factura con la del nomenclador que corresponda.</div>`:'');
     html+=`<div class="sec"><div class="slabel">También en Nomenclador Único (VISITAR)</div><div class="equiv-card"><div style="font-size:12.5px;color:var(--ink-2);margin-bottom:2px">Presente en ambos nomencladores.</div>${items}<div style="margin-top:6px;font-size:11.5px;color:var(--faint)">Tocá el código para abrir su ficha en el Nomenclador Único.</div></div></div>`;
   }
 

@@ -783,6 +783,20 @@ cargarla. Para el **auditor médico** sube a la segunda posición, justo debajo 
 médica, con `.cob-card.destacada` (borde de 5 px, 14.5 px, más interlínea): decidir si
 corresponde cubrirla **es** su trabajo, y estaba enterrada entre la muestra y el SURGE.
 
+### 4.5 octies La U.B. del otro nomenclador, en la propia equivalencia
+
+`ubDe(key)` lee la U.B. vigente de cualquier ficha. Las dos tarjetas de equivalencia la
+muestran ahora en la misma fila del código (`.equb`):
+- Ficha del **Único** → «Equivale a 663254 · **160 U.B.**»
+- Ficha del **NBU** → «64663254 · **100 U.B.**»
+
+Estaba sólo en «Valorización», al final de la ficha (`refNBU`), y quien mira la equivalencia
+justamente se pregunta cuánto vale del otro lado.
+
+Cuando **no coinciden**, sale un aviso `.eqdif`: «la diferencia es del convenio, no un error».
+Hoy pasa en **1 sola práctica** de 1.678 (`U64663254` 100 U.B. vs NBU `663254` 160 U.B.) — el
+comentario viejo del código hablaba de 101, así que el dato cambió y el aviso es barato.
+
 ### 4.6 Observaciones del administrador — una sola por práctica
 
 El administrador deja una observación en la ficha; se ve **debajo del código en el listado**
