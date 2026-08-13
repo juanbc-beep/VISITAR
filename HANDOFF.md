@@ -833,6 +833,16 @@ el 40 hay de las dos.
 El importador (`scripts/importar_capitulos_nn.py` + `data/capitulos_nn.json`) quedó
 **general**: para sumar otro capítulo alcanza con agregarlo al JSON.
 
+**Después se importaron el 27, el 28 y el 26** — 57 fichas más. Total del rescate: **104**.
+
+⚠️ **Del capítulo 26 se importaron 38 de los 78 que faltaban, a propósito.** El sub-capítulo
+**26.03 (determinaciones por radioinmunoensayo, 38 códigos) NO se importó**: el propio
+nomenclador lo dice arriba del bloque — «estas determinaciones se efectuan por laboratorio por
+lo tanto su valor se establece en el Nomenclador Bioquimico», y ese nomenclador **es el NBU
+que la base ya trae**. Se verificó: ACTH, aldosterona, cortisol, prolactina, insulina,
+testosterona y tiroxina ya están como códigos `66xxxx`. Importarlo habría duplicado la misma
+práctica con dos códigos distintos.
+
 ### 4.6 Observaciones del administrador — una sola por práctica
 
 El administrador deja una observación en la ficha; se ve **debajo del código en el listado**

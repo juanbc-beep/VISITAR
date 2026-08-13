@@ -585,6 +585,377 @@
     "280105": "Los estudios endoscopicos traqueobronquiales incluyen dentro del arancel consignado, eventual toma biopsica, extraccion de cuerpo extraño, instilaciones, irrigaciones, dilataciones, inserciones, escisiones, drenajes, aspiraciones, lavados, etc. Se facturara con unidad sanatorial otros gastos.",
     "280106": "Los estudios endoscopicos traqueobronquiales incluyen dentro del arancel consignado, eventual toma biopsica, extraccion de cuerpo extraño, instilaciones, irrigaciones, dilataciones, inserciones, escisiones, drenajes, aspiraciones, lavados, etc. Se facturara con unidad sanatorial otros gastos."
    }
+  },
+  "26": {
+   "titulo": "Medicina nuclear",
+   "_nota": "Se importan 26.02, 26.04 y 26.05. NO se importa el 26.03 (determinaciones por radioinmunoensayo): el propio nomenclador dice que «estas determinaciones se efectuan por laboratorio por lo tanto su valor se establece en el Nomenclador Bioquimico», y ese nomenclador es el NBU que la base ya trae. Se verificó: ACTH, aldosterona, cortisol, prolactina, insulina, testosterona y tiroxina ya están como códigos 66xxxx.",
+   "norma": [],
+   "codigos": [
+    {
+     "code": "260202",
+     "nombre": "Centellograma de cerebro, posición subsiguiente",
+     "grupo": "Medicina nuclear",
+     "honorarios": 5,
+     "gastos": 15,
+     "total": 3.0,
+     "alcance": "Por cada posicion subsiguiente"
+    },
+    {
+     "code": "260209",
+     "nombre": "Centellograma óseo, áreas subsiguientes",
+     "grupo": "Medicina nuclear",
+     "honorarios": 10,
+     "gastos": 20,
+     "total": 4.78,
+     "coseguro": 250.0,
+     "alcance": "Areas subsiguientes"
+    },
+    {
+     "code": "260410",
+     "nombre": "Inhibición hipotálamo-hipofisiaria con determinación de ACTH",
+     "grupo": "Medicina nuclear",
+     "honorarios": 25,
+     "gastos": 120,
+     "total": 20.53,
+     "coseguro": 250.0
+    },
+    {
+     "code": "260411",
+     "nombre": "Pruebas de inhibición de Muquet o similares con determinación de cortisol",
+     "grupo": "Medicina nuclear",
+     "honorarios": 15,
+     "gastos": 80,
+     "total": 13.3,
+     "coseguro": 250.0
+    },
+    {
+     "code": "260412",
+     "nombre": "Estudio del ritmo circadiano de cortisol",
+     "grupo": "Medicina nuclear",
+     "honorarios": 15,
+     "gastos": 80,
+     "total": 13.3,
+     "coseguro": 250.0
+    },
+    {
+     "code": "260413",
+     "nombre": "Prueba estímulo hipotálamo-hipofisiario con determinación de prolactina",
+     "grupo": "Medicina nuclear",
+     "honorarios": 25,
+     "gastos": 120,
+     "total": 20.53,
+     "coseguro": 250.0
+    },
+    {
+     "code": "260414",
+     "nombre": "Prueba de inhibición hipotálamo-hipofisiaria con determinación de prolactina",
+     "grupo": "Medicina nuclear",
+     "honorarios": 25,
+     "gastos": 120,
+     "total": 20.53,
+     "coseguro": 250.0
+    },
+    {
+     "code": "260501",
+     "nombre": "Centellograma de cerebro (cámara gamma)",
+     "grupo": "Centellograma a cabezal fijo",
+     "honorarios": 52.5,
+     "gastos": 70,
+     "total": 36.68,
+     "coseguro": 250.0,
+     "alcance": "(dos posiciones)"
+    },
+    {
+     "code": "260503",
+     "nombre": "Centellograma de médula ósea",
+     "grupo": "Centellograma a cabezal fijo",
+     "honorarios": 22.5,
+     "gastos": 70,
+     "total": 29.71,
+     "coseguro": 250.0
+    },
+    {
+     "code": "260504",
+     "nombre": "Mielografía isotópica",
+     "grupo": "Centellograma a cabezal fijo",
+     "honorarios": 37.5,
+     "gastos": 70,
+     "total": 33.19,
+     "coseguro": 250.0,
+     "alcance": "Excluido honorario del cirujano"
+    },
+    {
+     "code": "260505",
+     "nombre": "Cisternografía isotópica",
+     "grupo": "Centellograma a cabezal fijo",
+     "honorarios": 67.5,
+     "gastos": 120,
+     "total": 57.65,
+     "coseguro": 250.0,
+     "alcance": "Excluido honorario del cirujano"
+    },
+    {
+     "code": "260506",
+     "nombre": "Fistulografía isotópica del L.C.R.",
+     "grupo": "Centellograma a cabezal fijo",
+     "honorarios": 52.5,
+     "gastos": 70,
+     "total": 36.68,
+     "coseguro": 250.0,
+     "alcance": "Excluido honorario del cirujano"
+    },
+    {
+     "code": "260507",
+     "nombre": "Ventriculografía isotópica",
+     "grupo": "Centellograma a cabezal fijo",
+     "honorarios": 67.5,
+     "gastos": 120,
+     "total": 57.65,
+     "coseguro": 250.0,
+     "alcance": "Excluido honorario del cirujano"
+    },
+    {
+     "code": "260508",
+     "nombre": "Centellograma óseo (un área)",
+     "grupo": "Centellograma a cabezal fijo",
+     "honorarios": 37.5,
+     "gastos": 70,
+     "total": 33.19,
+     "coseguro": 250.0,
+     "alcance": "(un area). Idem a las areas enunciadas en el código 26.02.08"
+    },
+    {
+     "code": "260509",
+     "nombre": "Centellograma óseo, áreas subsiguientes",
+     "grupo": "Centellograma a cabezal fijo",
+     "honorarios": 15,
+     "gastos": 15,
+     "total": 8.73,
+     "coseguro": 250.0,
+     "alcance": "Areas subsiguientes"
+    },
+    {
+     "code": "260510",
+     "nombre": "Centellografía de articulaciones",
+     "grupo": "Centellograma a cabezal fijo",
+     "honorarios": 22.5,
+     "gastos": 70,
+     "total": 29.71,
+     "coseguro": 250.0,
+     "alcance": "Incluye artrocentesis"
+    },
+    {
+     "code": "260511",
+     "nombre": "Centellograma de tiroides",
+     "grupo": "Centellograma a cabezal fijo",
+     "honorarios": 18,
+     "gastos": 60,
+     "total": 25.16,
+     "coseguro": 250.0
+    },
+    {
+     "code": "260512",
+     "nombre": "Centellograma de tiroides y mediastino",
+     "grupo": "Centellograma a cabezal fijo",
+     "honorarios": 30,
+     "gastos": 70,
+     "total": 31.45,
+     "coseguro": 250.0
+    },
+    {
+     "code": "260513",
+     "nombre": "Barrido total para carcinoma de tiroides",
+     "grupo": "Centellograma a cabezal fijo",
+     "honorarios": 127.5,
+     "gastos": 140,
+     "total": 78.6,
+     "coseguro": 250.0
+    },
+    {
+     "code": "260514",
+     "nombre": "Centellograma de paratiroides",
+     "grupo": "Centellograma a cabezal fijo",
+     "honorarios": 18,
+     "gastos": 60,
+     "total": 25.16,
+     "coseguro": 250.0
+    },
+    {
+     "code": "260515",
+     "nombre": "Centellograma de glándulas salivales",
+     "grupo": "Centellograma a cabezal fijo",
+     "honorarios": 22.5,
+     "gastos": 60,
+     "total": 26.21,
+     "coseguro": 250.0
+    },
+    {
+     "code": "260516",
+     "nombre": "Centellograma de pulmón",
+     "grupo": "Centellograma a cabezal fijo",
+     "honorarios": 45,
+     "gastos": 70,
+     "total": 34.94,
+     "coseguro": 250.0,
+     "alcance": "(2 posiciones como minimo)"
+    },
+    {
+     "code": "260517",
+     "nombre": "Centellograma hepático",
+     "grupo": "Centellograma a cabezal fijo",
+     "honorarios": 45,
+     "gastos": 60,
+     "total": 31.44,
+     "coseguro": 250.0,
+     "alcance": "(2 posiciones como minimo)"
+    },
+    {
+     "code": "260518",
+     "nombre": "Centellograma del pool vascular hepático",
+     "grupo": "Centellograma a cabezal fijo",
+     "honorarios": 45,
+     "gastos": 70,
+     "total": 34.94,
+     "coseguro": 250.0
+    },
+    {
+     "code": "260519",
+     "nombre": "Centellograma de páncreas",
+     "grupo": "Centellograma a cabezal fijo",
+     "honorarios": 45,
+     "gastos": 70,
+     "total": 34.94,
+     "coseguro": 250.0
+    },
+    {
+     "code": "260520",
+     "nombre": "Centellograma de bazo",
+     "grupo": "Centellograma a cabezal fijo",
+     "honorarios": 45,
+     "gastos": 70,
+     "total": 34.94,
+     "coseguro": 250.0
+    },
+    {
+     "code": "260521",
+     "nombre": "Centellograma renal bilateral",
+     "grupo": "Centellograma a cabezal fijo",
+     "honorarios": 45,
+     "gastos": 70,
+     "total": 34.94,
+     "coseguro": 250.0
+    },
+    {
+     "code": "260522",
+     "nombre": "Centellograma del pool vascular renal",
+     "grupo": "Centellograma a cabezal fijo",
+     "honorarios": 45,
+     "gastos": 70,
+     "total": 34.94,
+     "coseguro": 250.0
+    },
+    {
+     "code": "260523",
+     "nombre": "Centellograma de placenta",
+     "grupo": "Centellograma a cabezal fijo",
+     "honorarios": 45,
+     "gastos": 70,
+     "total": 34.94,
+     "coseguro": 250.0
+    },
+    {
+     "code": "260524",
+     "nombre": "Centellograma vías linfáticas, abdominoinguinales axilares y/o mediastinales",
+     "grupo": "Centellograma a cabezal fijo",
+     "honorarios": 45,
+     "gastos": 70,
+     "total": 34.94,
+     "coseguro": 250.0
+    },
+    {
+     "code": "260525",
+     "nombre": "Angiografía radioisotópica por área",
+     "grupo": "Centellograma a cabezal fijo",
+     "honorarios": 30,
+     "gastos": 95,
+     "total": 40.19,
+     "coseguro": 250.0,
+     "alcance": "Se entiende por areas"
+    },
+    {
+     "code": "260526",
+     "nombre": "Estudio dinámico renal",
+     "grupo": "Centellograma a cabezal fijo",
+     "honorarios": 45,
+     "gastos": 120,
+     "total": 52.42,
+     "coseguro": 250.0
+    },
+    {
+     "code": "260527",
+     "nombre": "Radiocardiograma",
+     "grupo": "Centellograma a cabezal fijo",
+     "honorarios": 60,
+     "gastos": 140,
+     "total": 62.9,
+     "coseguro": 250.0
+    },
+    {
+     "code": "260528",
+     "nombre": "Perfusión sanguínea miocárdica con radioisótopos, en reposo",
+     "grupo": "Centellograma a cabezal fijo",
+     "honorarios": 30,
+     "gastos": 95,
+     "total": 40.19,
+     "coseguro": 250.0,
+     "alcance": "A) En estado de reposo"
+    },
+    {
+     "code": "260529",
+     "nombre": "Flebografía radioisotópica por áreas safenas, femorales, ilíacas, humeral",
+     "grupo": "Centellograma a cabezal fijo",
+     "honorarios": 30,
+     "gastos": 95,
+     "total": 40.19,
+     "coseguro": 250.0,
+     "alcance": "por cada una"
+    },
+    {
+     "code": "260530",
+     "nombre": "Flebografía radioisotópica, área adicional",
+     "grupo": "Centellograma a cabezal fijo",
+     "honorarios": 15,
+     "gastos": 20,
+     "total": 10.48,
+     "coseguro": 250.0,
+     "alcance": "Por area adicional"
+    },
+    {
+     "code": "260531",
+     "nombre": "Dinámica del tránsito esófago-gástrico",
+     "grupo": "Centellograma a cabezal fijo",
+     "honorarios": 30,
+     "gastos": 95,
+     "total": 40.19,
+     "coseguro": 250.0
+    },
+    {
+     "code": "260532",
+     "nombre": "Dinámica tránsito intestinal",
+     "grupo": "Centellograma a cabezal fijo",
+     "honorarios": 30,
+     "gastos": 95,
+     "total": 40.19,
+     "coseguro": 250.0
+    }
+   ],
+   "normas_sueltas": {
+    "260508": "En la centellografia osea se entiende por areas: Mbros superiores: 2 areas, Miembros inferiores: 1 area, Pelvis: 1 area, Columna cervical, dorsal y/o lumbar: 1 area, Craneo: 1 area, Parrilla costal: 1 area.",
+    "260509": "En la centellografia osea se entiende por areas: Mbros superiores: 2 areas, Miembros inferiores: 1 area, Pelvis: 1 area, Columna cervical, dorsal y/o lumbar: 1 area, Craneo: 1 area, Parrilla costal: 1 area.",
+    "260525": "Angiografia radioisotopica por area. Areas: Carotideo, cerebral anterior y medias (silvianas). Aorto-iliacas. Iliacas-femorales. Pierna y Pie. Cavidades cardiacas (corto circuitos). Renales. Hepatica. -Por cada una-",
+    "260526": "Incluye: Primera circulacion sanguinea. Centellografia renal. Radiorrenograma.",
+    "260527": "El radiocardiograma completo incluye indice cardiaco, volumen sistolico y diastolico, volumen de cada camara, volemia con poligrafo y electrocardiograma simultaneo."
+   }
   }
  },
  "_cobertura_430106": "Obligación de cobertura en los siguientes casos: internación en menores de 15 años, a fin de asegurar una adecuada contención por parte de un familiar durante un momento crítico como es la internación y, sobre todo, en este grupo de personas."
