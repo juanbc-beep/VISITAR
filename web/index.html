@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-PmF/PcBWYpnWGJpGn5p6zEL4zDx0uT2d3LOCPCmoUMM=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-Irr0JoS/LObWZMFqVQ1O6n7m0hb+dtEvXxSYO0ubqX0=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -773,6 +773,7 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
 .rabarca b{color:var(--ink-2);font-weight:700}
 .rabarca .rab-i{flex-shrink:0;color:var(--faint);font-size:11px;margin-top:1px}
 .rabarca.ok .rab-i{color:var(--med)}
+.rabarca.dudoso b{color:var(--gestion)}
 /* La revisión médica en el resultado del listado. Verde clínico, para que no se
    confunda con el aviso administrativo, que es ámbar. */
 .rmed-l{display:flex;align-items:flex-start;gap:7px;margin-top:6px;padding:6px 9px;
@@ -1859,7 +1860,8 @@ const GRUPOS_FLAGS=[
      alargarían el rail con filtros que no va a usar nunca. */
   ['Revisión médica',[['sin_revision','🩺 Sin revisión médica'],
     ['con_revision','🩺 Con revisión médica'],
-    ['revision_atencion','⚠ Revisión que necesita atención']],'med'],
+    ['revision_atencion','⚠ Revisión que necesita atención'],
+    ['alcance_dudoso','▣ Alcance sin confirmar']],'med'],
   ['Estado del dato',[['con_rel','Con relaciones'],['con_equiv','Con equivalencia (Único)'],
     ['sin_equiv','⚠ Sin equivalencia (Único)'],['valores','Con valores validados'],
     ['new2024','Actualizado 2024'],['pcr','Metodología PCR']]],
@@ -2007,6 +2009,14 @@ function passFlags(c){
        completaba sólo donde alguien se acordaba de mirar. */
     if(f==='sin_revision'&&revisionPuesta(c._key))return false;
     if(f==='con_revision'&&!revisionPuesta(c._key))return false;
+    /* Los 96 alcances que vinieron del OCR dañado y todavía no confirmó nadie.
+       Es la lista de trabajo del médico para esto: sin filtro hay que dar con
+       ellos de casualidad entre 6.372 códigos. */
+    if(f==='alcance_dudoso'){
+      const P=window.NBUProfile||{};
+      if(!(c.alcance_nn&&c.alcance_nn.texto))return false;
+      if(P.abarcaDe&&P.abarcaDe(c._key))return false;
+    }
     if(f==='revision_atencion'){
       const e=(window.NBUProfile&&NBUProfile.estadoRevision)?NBUProfile.estadoRevision(claveObs(c._key)):null;
       if(!e||e.estado==='vigente')return false;
@@ -2080,8 +2090,13 @@ function abarcaLinea(c){
   const txt=corr?corr.texto:((c.alcance_nn&&c.alcance_nn.texto)||'');
   if(!txt)return '';
   const t=txt.length>110?txt.slice(0,110)+'…':txt;
-  return `<div class="rabarca${corr?' ok':''}" title="${esc(txt)}">
-    <span class="rab-i">${corr?'✓':'▣'}</span><span><b>Abarca:</b> ${esc(t)}</span></div>`;
+  /* Los 96 vienen del OCR del Nomenclador Nacional con la lectura dañada —así
+     está marcado en el propio dato, «revisar: true»— y hasta que un médico no
+     los confirme NO se presentan como si fueran texto bueno. Decirlo en el
+     listado es lo mismo que ya hacía la ficha; lo que no se puede es que la
+     versión corta se lea con más autoridad que la larga. */
+  return `<div class="rabarca${corr?' ok':' dudoso'}" title="${esc(txt)}${corr?'':'\n\nTranscripción del Nomenclador Nacional sin confirmar: el original tiene la lectura dañada.'}">
+    <span class="rab-i">${corr?'✓':'▣'}</span><span><b>Abarca${corr?'':' (sin confirmar)'}:</b> ${esc(t)}</span></div>`;
 }
 
 /* La revisión médica también se lee en el resultado, sin abrir la ficha, y por

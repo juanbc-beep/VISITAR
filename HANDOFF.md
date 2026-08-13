@@ -740,6 +740,21 @@ una alerta, es parte de lo que el código *es*; si compitiera con la observació
 —que sí son alertas— las tres dejarían de significar algo distinto. El ✓ verde marca las
 corregidas por un médico; el ▣ apagado, el texto crudo de la fuente.
 
+⚠️ **Los 96 vienen del OCR roto y NO se pueden arreglar solos.** Se investigó a pedido del
+usuario. El OCR llegó destruido de origen (`（ogregaralcodigo correspondiente）.D`,
+`unicamentecon mamografooriginaldefabrica`), **no lo rompió `_limpiar()`**, y el PDF del
+Nomenclador Nacional **no está en el repo** (sólo `pmo.pdf`, `cie10.pdf`, `surge.pdf`), así
+que no se puede re-OCR-ear.
+
+Se probó un despegado automático por vocabulario y **produce texto peor** que el original
+(«incidenciaypor» → «incid enciay»): reconstruir estas líneas es adivinar, y hay números de
+placas de por medio que cambian lo que se factura. **No se toca el dato.**
+
+Lo que sí se hizo: el dato ya venía con `revisar: true` en los 96, así que la línea del
+listado dice **«Abarca (sin confirmar)»** en ámbar hasta que un médico la corrija —la versión
+corta no puede leerse con más autoridad que la ficha, que ya traía la advertencia— y hay un
+filtro **«▣ Alcance sin confirmar»** para que los médicos los trabajen: hoy da 96.
+
 Migración: **`docs/supabase_alcance_medico.sql`**. Dos hallazgos que costaron:
 - El guardia ahora tiene **dos niveles**: al médico administrativo se le abre `correcciones`
   por primera vez, y si se le diera la fila entera podría publicar una revisión sin que nadie
