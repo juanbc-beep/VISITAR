@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-BiNWKOfogM5k+LWhPjCGH7F+RfRWpRRjosZzCEiI3n8=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-X5KFjNO2YS4hz6QSK8GDsU6Syj0AQC3qlU7Vff32Cc0=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1396,8 +1396,19 @@ mark.hl{background:var(--accent-soft);color:var(--accent-ink);border-radius:3px;
 </head>
 <body>
 <a class="saltar" href="#contenido" id="saltarLink">Saltar al listado de prácticas</a>
-<div id="boot" style="position:fixed;inset:0;z-index:2000;display:flex;align-items:center;justify-content:center;background:var(--bg);font:600 14px system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:var(--muted)"><div style="text-align:center"><div style="width:34px;height:34px;border:3px solid var(--line-2);border-top-color:var(--accent);border-radius:50%;margin:0 auto 14px;animation:bootspin .8s linear infinite"></div>Cargando base…</div></div>
+<div id="boot" style="position:fixed;inset:0;z-index:2000;display:flex;align-items:center;justify-content:center;background:var(--bg);font:600 14px system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:var(--muted)"><div style="text-align:center"><div style="width:34px;height:34px;border:3px solid var(--line-2);border-top-color:var(--accent);border-radius:50%;margin:0 auto 14px;animation:bootspin .8s linear infinite"></div><span id="bootTxt">Cargando base…</span></div></div>
 <style>@keyframes bootspin{to{transform:rotate(360deg)}}</style>
+<script>/* Cuando se publica una versión nueva la app se recarga sola, y en esa
+   recarga esta pantalla vuelve a aparecer. Diciendo «Cargando base…» las dos
+   veces, la actualización se lee como un glitch: la pantalla parpadea dos veces
+   y nada explica por qué. Con la marca que deja el aviso antes de recargar,
+   ésta sigue la misma frase y las dos pantallas se leen como un solo
+   movimiento. Va acá, junto al cartel, y no en el script grande: ése tarda en
+   parsearse y para entonces ya se vio «Cargando base…». */
+try{if(sessionStorage.getItem('nbu-actualizando')){
+  sessionStorage.removeItem('nbu-actualizando');   // una sola vez
+  document.getElementById('bootTxt').textContent='Actualizando el manual…';
+}}catch(e){}</script>
 <div id="gate" hidden></div>
 <div id="adminModal"><div class="adminbox" id="adminBox" role="dialog" aria-modal="true" aria-label="Administración"></div></div>
 <div id="tratoModal"><div class="adminbox tratobox" id="tratoBox" role="dialog" aria-modal="true" aria-label="Cómo te firmamos"></div></div>
@@ -7085,14 +7096,16 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       nuevo.addEventListener('statechange',()=>{
         if(nuevo.state!=='installed'||!navigator.serviceWorker.controller)return;
         if(reciénAbierta()){actualizando();return nuevo.postMessage('SKIP_WAITING');}  // se aplica sola
+        // acá no se recarga a mano: al activarse el service worker nuevo salta
+        // «controllerchange», y ésa es la que recarga.
         aviso('Hay una versión nueva del manual.',()=>{actualizando();nuevo.postMessage('SKIP_WAITING');},'Actualizar');
       });
     });
   }).catch(()=>{});
   navigator.serviceWorker.addEventListener('message',e=>{
     if(!e.data||e.data.tipo!=='nueva-version')return;
-    if(reciénAbierta()){actualizando();return location.reload();}
-    aviso('Hay una versión nueva del manual.',()=>{actualizando();location.reload();},'Actualizar');
+    if(reciénAbierta())return recargar();
+    aviso('Hay una versión nueva del manual.',recargar,'Actualizar');
   });
   /* Al aplicarse una versión nueva la app se reiniciaba sola y sin decir nada: el
      administrativo veía la pantalla parpadear en medio de una consulta y no sabía
@@ -7106,14 +7119,28 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       '<div><b>Actualizando el manual</b><span>Se publicó una versión nueva. Vuelve en un segundo; no perdés nada de lo que estabas haciendo.</span></div></div>';
     document.body.appendChild(d);
     requestAnimationFrame(()=>d.classList.add('on'));
+    /* La pantalla de carga de la vuelta siguiente lee esta marca y dice
+       «Actualizando el manual…» en lugar de «Cargando base…». Sin eso el
+       usuario ve dos pantallas de carga iguales con un parpadeo en el medio y
+       ninguna le explica qué pasó: se lee como una falla, no como una
+       actualización. */
+    try{sessionStorage.setItem('nbu-actualizando','1');}catch(e){}
   }
+
+  /* Toda recarga por versión nueva pasa por acá.
+     El cartel entra con una transición de .18s, así que llamar a reload() en la
+     línea siguiente lo deja en opacidad 0 toda su vida —existió 3 ms y nadie lo
+     vio—. ESPERA cubre la transición y deja tiempo de leerlo. Estaba puesto en
+     una de las dos vías nada más, y la otra —la que se usa en cada publicación,
+     porque sw.js no cambia y el aviso llega por mensaje— recargaba de golpe. */
+  const ESPERA=600;
   let recargando=false;
-  navigator.serviceWorker.addEventListener('controllerchange',()=>{
-    if(recargando)return;recargando=true;actualizando();
-    // Un instante para que el cartel llegue a verse: sin esto la recarga lo pisa
-    // y el aviso no cumple ninguna función.
-    setTimeout(()=>location.reload(),450);
-  });
+  function recargar(){
+    if(recargando)return; recargando=true;
+    actualizando();
+    setTimeout(()=>location.reload(),ESPERA);
+  }
+  navigator.serviceWorker.addEventListener('controllerchange',recargar);
   // Botón de instalación: aparece sólo si el navegador todavía no la instaló.
   let prompt=null;
   window.addEventListener('beforeinstallprompt',e=>{

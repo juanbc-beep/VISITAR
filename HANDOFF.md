@@ -1017,6 +1017,53 @@ Esto vale para las observaciones —contenido de la nube—. **Las verificacione
 comparten**: contrastan los valores de una ficha contra su fuente, y la fuente del Único (la
 planilla de VISITAR) no es la del NBU.
 
+### 4.6 bis ⚠️ El «glitch» al actualizar: el cartel que nunca se veía
+
+Síntoma que reportó el usuario: al publicarse una versión nueva, «aparece el cartel de
+actualizando por un microsegundo, se reconecta y vuelve a aparecer el cartel».
+
+Medido con Playwright, filmando el DOM en cada `requestAnimationFrame` y guardando el
+registro en `sessionStorage` para que sobreviva a la recarga (`swfilm.mjs`). Lo que pasaba:
+
+```
++ 36ms  pantalla de carga «Cargando base…»        274 ms
++310ms  app visible                               311 ms
++621ms  CARTEL «Actualizando el manual»             3 ms   ← nunca se vio
++621ms  se va la página
++652ms  pantalla de carga «Cargando base…»        282 ms
+```
+
+⚠️ **El cartel entra con `opacity:0` y `transition:.18s`**, y el camino del mensaje llamaba a
+`location.reload()` en la línea siguiente: el elemento existía 3 ms y moría antes del primer
+frame visible. El usuario nunca veía la explicación — sólo dos pantallas «Cargando base…»
+idénticas con un parpadeo en el medio, que se lee como una falla.
+
+⚠️ **Por qué justo ese camino.** Hay dos vías de actualización y sólo una tenía la espera:
+
+| vía | cuándo salta | tenía espera |
+|---|---|---|
+| `controllerchange` | cuando cambia **`sw.js`** | sí, 450 ms |
+| mensaje `nueva-version` | cuando cambia **`index.html`** | **no** |
+
+Y `sw.js` **no cambia nunca al publicar** (su `VERSION` es una constante que no se toca), así
+que la vía que corre en cada publicación era justamente la que no esperaba.
+
+Arreglado con una sola función `recargar()` por la que pasan las dos, con `ESPERA=600`. No
+dupliques el `setTimeout` en cada handler: fue exactamente así como una de las dos se quedó
+sin él.
+
+**Y la segunda pantalla ahora continúa a la primera.** `actualizando()` deja
+`sessionStorage['nbu-actualizando']`, y un script inline **junto al `#boot`** (no en el script
+grande: ése tarda en parsearse y para entonces ya se vio «Cargando base…») cambia el texto a
+«Actualizando el manual…». La marca se borra al leerla, así que vale una sola vez. Resultado:
+
+```
++635ms  CARTEL «Actualizando el manual»          602 ms
++1265ms pantalla de carga «Actualizando el manual…»  283 ms
+```
+
+⚠️ El script nuevo hace que `sellar_csp.py` selle **3** huellas en vez de 2. Es esperado.
+
 ### 4.7 Respaldo y restauración ⚠️ el plan de Supabase es gratuito: NO hay respaldos automáticos
 
 Verificado con el usuario: en **Database → Backups** le ofrece contratar el plan. O sea
