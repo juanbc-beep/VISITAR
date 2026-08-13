@@ -1448,6 +1448,57 @@ cada commit, que explican el porqué y no sólo el qué:
 
 ---
 
+## 7 bis. ▶ AGENDA DEL MARTES 18/8/2026
+
+### A. Seguir con la norma retirada del PMO
+Ver 3.8 → «POR DÓNDE SEGUIR». Arrancar por el capítulo **12** (146 códigos, páginas 68‑80).
+Faltan las páginas del **35, 36, 38 y 66** en `data/paginas_nn.json`.
+
+### B. Ciberseguridad — repaso pedido por el usuario
+
+Lo que YA está bien y no hay que tocar:
+- CSP sin `unsafe-inline` en scripts (huellas sha256), `connect-src` limitado al proyecto de
+  Supabase, `form-action 'none'`, `base-uri 'none'`, `object-src 'none'`.
+- Los cuatro roles se hacen cumplir con RLS + triggers, no con la interfaz. Verificado
+  llamando la API directo: 8/8 bloqueados con 403 (`roles_limite.mjs`).
+
+⚠️ **Lo crucial, por orden de riesgo real:**
+
+1. **RESPALDOS. El plan de Supabase es gratuito y NO tiene respaldos automáticos** (ver 4.7).
+   No es un ataque: es la pérdida más probable y la más cara. Si el proyecto se borra o se
+   corrompe, se va todo lo que escribieron los médicos. Es lo primero.
+2. **XSS almacenado por texto que escriben los médicos.** La revisión médica, las
+   observaciones y «qué abarca» los escribe una persona y se renderizan en la pantalla de
+   otra. Hay 81 usos de `innerHTML`. Se escapa con `esc()` y `csp3.mjs` verifica que la
+   inyección se bloquee, pero **falta una auditoría dirigida a esos tres caminos**, sobre todo
+   al orden de `linkCodes(esc(t))`.
+3. **Segundo factor en la cuenta del administrador general.** Es la cuenta que puede todo; si
+   se la toman, no hay segunda línea.
+4. **`frame-ancestors` no se puede poner.** La directiva **se ignora en un `<meta>`**: sólo
+   funciona como cabecera HTTP, y GitHub Pages no deja mandar cabeceras propias. Queda el
+   clickjacking como hueco abierto. Salidas: poner Cloudflare adelante, o aceptarlo y
+   documentarlo. **No perder tiempo agregándola al meta: no hace nada.**
+5. **Protección de contraseñas filtradas** en Supabase (HaveIBeenPwned). El mínimo ya está en
+   10 caracteres.
+6. **`style-src 'unsafe-inline'`** sigue abierto a propósito (cientos de `style=`). Inyectar
+   estilo es mucho menos grave que inyectar código; sacarlo pide reescribir media interfaz.
+7. **Re-correr los 25 avisos del linter** después de las migraciones 02‑05. ⚠️ Ver 4.5 quater:
+   seguir su receta al pie de la letra **rompe la app**.
+8. **Cuánto dura la sesión** de un médico en una máquina compartida.
+
+### C. Decisiones que esperan a los médicos
+- **Chagas**: `63663576` (ELISA) está atado al NBU `663576`, que es el **PCR**. Error
+  preexistente, no se tocó (4.5 duodecies).
+- **Consultas A‑P** del Único (10 filas) — ¿todas a `420101`?
+- **Hidatidosis IFI**, **domicilio «más/hasta 2 kms»**, **BCR/ABL LMC vs LLA** — no se ataron.
+- **Capítulo 23** (hemoterapia): se superpone con el NBU bajo otra numeración.
+
+### D. Datos que siguen faltando
+- **Capítulo 66** (NBU laboratorio) contra el PDF — ahora hay que mirarlo sabiendo lo de los
+  bloques repetidos 60‑64 del Único.
+- **104 equivalencias** esperan que se importe el capítulo al que apuntan. La más grande:
+  **capítulo 16, anestesiología, 33 códigos** en fila.
+
 ## 8. Pendientes y sugerencias abiertas
 
 ### ⚠️ Lo primero que hay que preguntar al retomar
