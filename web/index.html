@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-7Nd24MADAwD9Cmg2GyMOL6DYvPrLxfhr4UkacVSq8rE=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-MRhzuGTuF+YqTpU0/hJT3SMyzDHR5WEJKyA1xPmuEA0=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -387,6 +387,38 @@ html,body{margin:0;padding:0}
 .revmed.pend .rm-t{font-size:14px;color:var(--ink-2)}
 .revmed.pend .rm-firma{border-top-color:color-mix(in srgb,var(--gestion) 24%,transparent)}
 .revmed .rm-aviso{font-size:12.5px;line-height:1.5;color:var(--ink-2);margin-bottom:11px}
+/* La revisión sigue publicada, pero con una advertencia arriba: sacarla sería
+   peor —dejaría la ficha sin criterio— y dejarla como si nada, también. */
+.revmed.alerta{border-left-color:var(--gestion)}
+.revmed .rm-alerta{background:color-mix(in srgb,var(--gestion) 15%,transparent);
+  border:1px solid color-mix(in srgb,var(--gestion) 38%,transparent);border-radius:8px;
+  padding:8px 11px;margin-bottom:11px;font-size:12.5px;line-height:1.5;color:var(--ink-2)}
+.revmed .rm-alerta b{color:var(--gestion)}
+.revmed .rm-b.ok:hover{background:color-mix(in srgb,var(--med) 16%,transparent);
+  border-color:var(--med);color:var(--med)}
+/* «Qué abarca este código», ahora corregible. */
+.ab-pie{margin-top:7px;font-size:11.5px;color:var(--faint);font-style:italic;line-height:1.5}
+.ab-pie b{font-style:normal;color:var(--ink-2)}
+.ab-orig{color:var(--muted)}
+.ab-acc{display:flex;gap:7px;margin-top:9px;flex-wrap:wrap}
+.ab-ed{margin-top:9px}
+.ab-ed textarea{width:100%;box-sizing:border-box;border:1px solid var(--line-2);
+  border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);
+  font:inherit;font-size:13.5px;padding:9px 11px;line-height:1.55;resize:vertical}
+.ab-ed textarea:focus{outline:none;border-color:var(--med);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--med) 18%,transparent)}
+.ab-eb{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:7px}
+/* Saltar a la siguiente sin criterio, sin volver al listado. */
+.rm-sig{margin-top:12px;padding-top:11px;
+  border-top:1px dashed color-mix(in srgb,var(--med) 30%,transparent);
+  display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.rm-sigb{display:inline-flex;align-items:center;gap:7px;flex-wrap:wrap;
+  border:1px solid color-mix(in srgb,var(--med) 36%,transparent);background:var(--surface);
+  color:var(--med);border-radius:8px;padding:7px 12px;font:inherit;font-size:12.5px;
+  font-weight:700;cursor:pointer;text-align:left;transition:background .14s}
+.rm-sigb:hover{background:color-mix(in srgb,var(--med) 12%,transparent)}
+.rm-sigb .mono{font-family:var(--font-mono);color:var(--accent-ink)}
+.rm-sigb span:last-child{font-weight:500;color:var(--ink-2)}
 /* Sin nada cargado: el bloque es la invitación a escribir, no un cartel vacío. */
 .revmed.vacia{background:none;border-style:dashed;border-left-style:solid;box-shadow:none}
 .revmed .rm-nada{font-size:13px;line-height:1.55;color:var(--ink-2);max-width:62ch}
@@ -455,6 +487,11 @@ html,body{margin:0;padding:0}
 :root[data-theme="light"]{--cob:#0f766e}:root[data-theme="dark"]{--cob:#5eead4}
 .tag.t-cob{background:color-mix(in srgb,var(--cob) 16%,transparent);color:var(--cob);font-weight:800}
 .cob-card{background:color-mix(in srgb,var(--cob) 9%,transparent);border:1.5px solid color-mix(in srgb,var(--cob) 42%,transparent);border-radius:var(--radius);padding:13px 16px;line-height:1.55;font-size:13.5px;color:var(--ink-2)}
+/* La versión del auditor médico: mismo dato, otro peso. Es lo que decide si la
+   práctica corresponde, que es literalmente su trabajo. */
+.cob-card.destacada{border-left:5px solid var(--cob);padding:15px 18px;font-size:14.5px;
+  line-height:1.62;color:var(--ink);box-shadow:0 1px 3px color-mix(in srgb,var(--cob) 20%,transparent)}
+.cob-card.destacada .cob-h{font-size:12.5px}
 .cob-card .cob-h{display:block;font-weight:800;font-size:11px;letter-spacing:.6px;text-transform:uppercase;color:var(--cob);margin-bottom:6px}
 :root{--lat:#7c3aed}@media (prefers-color-scheme:dark){:root{--lat:#c4b5fd}}
 :root[data-theme="light"]{--lat:#7c3aed}:root[data-theme="dark"]{--lat:#c4b5fd}
@@ -1780,22 +1817,37 @@ const GRUPOS_FLAGS=[
   ['Mi trabajo',[['fav','★ Favoritos'],['recientes','Vistos recientemente'],
     ['nota','Con nota personal'],['sin_verificar','○ Sin verificar'],
     ['verif_pendiente','⏳ Pendiente de validación'],['verif_vencida','⧗ Verificación vencida']]],
+  /* Sólo para los médicos: al administrativo estos tres no le dicen nada y le
+     alargarían el rail con filtros que no va a usar nunca. */
+  ['Revisión médica',[['sin_revision','🩺 Sin revisión médica'],
+    ['con_revision','🩺 Con revisión médica'],
+    ['revision_atencion','⚠ Revisión que necesita atención']],'med'],
   ['Estado del dato',[['con_rel','Con relaciones'],['con_equiv','Con equivalencia (Único)'],
     ['sin_equiv','⚠ Sin equivalencia (Único)'],['valores','Con valores validados'],
     ['new2024','Actualizado 2024'],['pcr','Metodología PCR']]],
 ];
 const FLAGS=GRUPOS_FLAGS.flatMap(([,l])=>l);
-el('fFlags').innerHTML=GRUPOS_FLAGS.map(([t,lst])=>
-  `<div class="fsub">${t}</div>`+lst.map(([k,l])=>
-    `<button class="opt" data-f="flags" data-v="${k}"><span class="optrow"><span class="lbl">${l}</span></span></button>`).join('')
-).join('');
+const revisionPuesta=k=>!!(window.NBUProfile&&NBUProfile.revisionDe&&NBUProfile.revisionDe(claveObs(k)));
+window.pintarFiltros=()=>pintarFiltros();
+/* El rail se redibuja al entrar porque los grupos marcados «med» dependen de
+   quién sos, y al arrancar todavía no hay nadie con la sesión abierta. */
+function pintarFiltros(){
+  const med=!!(window.NBUProfile&&NBUProfile.esMedico&&NBUProfile.esMedico());
+  const puestos=new Set(state.flags);
+  el('fFlags').innerHTML=GRUPOS_FLAGS.filter(([,,solo])=>solo!=='med'||med).map(([t,lst])=>
+    `<div class="fsub">${t}</div>`+lst.map(([k,l])=>
+      `<button class="opt${puestos.has(k)?' on':''}" data-f="flags" data-v="${k}"><span class="optrow"><span class="lbl">${l}</span></span></button>`).join('')
+  ).join('');
+  el('fFlags').querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>toggleOpt(b)));
+}
+pintarFiltros();
 
 function toggleOpt(b){
   const f=b.dataset.f,v=b.dataset.v,set=state[f];
   if(set.has(v)){set.delete(v);b.classList.remove('on');}else{set.add(v);b.classList.add('on');}
   state.limit=80; render();
 }
-document.querySelectorAll('#fSeccion .opt, #fFlags .opt').forEach(b=>b.addEventListener('click',()=>toggleOpt(b)));
+document.querySelectorAll('#fSeccion .opt').forEach(b=>b.addEventListener('click',()=>toggleOpt(b)));
 
 /* ---------- selector de sección principal (modo) ---------- */
 function setMode(m){
@@ -1912,6 +1964,15 @@ function passFlags(c){
     if(f==='valores'&&!c.valores)return false;
     if(f==='cobertura'&&!c.cobertura_pmo)return false;
     if(f==='sin_verificar'&&verifEstado(c._key).estado!=='sin')return false;
+    /* Los tres del médico. «Sin revisión» es el que más falta hacía: con 1.815
+       prácticas y ninguna forma de saber cuáles no tienen criterio, el manual se
+       completaba sólo donde alguien se acordaba de mirar. */
+    if(f==='sin_revision'&&revisionPuesta(c._key))return false;
+    if(f==='con_revision'&&!revisionPuesta(c._key))return false;
+    if(f==='revision_atencion'){
+      const e=(window.NBUProfile&&NBUProfile.estadoRevision)?NBUProfile.estadoRevision(claveObs(c._key)):null;
+      if(!e||e.estado==='vigente')return false;
+    }
     if(f==='verif_pendiente'&&verifEstado(c._key).estado!=='pendiente')return false;
     if(f==='verif_vencida'&&verifEstado(c._key).estado!=='vieja')return false;
     if(f==='en_sangre'&&!((c.muestra||[]).includes('sangre')))return false;
@@ -2856,6 +2917,9 @@ function atrasFicha(){
 /* Una ficha verificada hace más de seis meses vuelve a ser dudosa: la normativa
    cambia y nada avisaba qué había quedado viejo. */
 const VERIF_DIAS=180;
+/* El criterio médico cambia más despacio que la normativa de facturación, así
+   que la revisión médica vence al año y no a los 180 días. */
+const REV_VENCE=365;
 function verifEstado(code){
   const v=(window.NBUProfile&&NBUProfile.verifDe)?NBUProfile.verifDe(code):null;
   if(!v)return {estado:'sin',v:null};
@@ -2911,14 +2975,20 @@ function revMedHTML(code){
     <div class="rm-h"><span class="rm-tit"><span class="rm-ic" aria-hidden="true">🩺</span> Revisión médica</span></div>
     <div class="rm-nada">Esta práctica todavía no tiene criterio médico cargado. Si sabés con qué diagnósticos se corresponde, qué incluye de verdad o cuándo no está indicada, escribilo acá: lo va a leer todo el equipo antes de cargarla.</div>
     ${accionMed}
+    ${siguienteHTML(code)}
   </section>`:'')+bloqueConsultas(consultas,soyMed,f);
   /* Dos contenedores separados y no uno con una línea adentro: lo confirmado y
      lo que todavía no lo está no son dos párrafos del mismo aviso. */
   let out='';
-  if(rev)out+=`<section class="revmed" aria-label="Revisión médica">
+  const est=P.estadoRevision?P.estadoRevision(claveObs(code)):null;
+  const alerta=est&&est.estado!=='vigente';
+  if(rev)out+=`<section class="revmed${alerta?' alerta':''}" aria-label="Revisión médica">
+    ${est&&est.estado==='cambio'?`<div class="rm-alerta">⚠ <b>La ficha cambió después de esta revisión.</b> Alguien corrigió la denominación, la norma, la cobertura o el alcance desde que se firmó${soyMed?': conviene releerla y volver a confirmarla.':'. Si vas a apoyarte en ella, confirmala antes.'}</div>`:''}
+    ${est&&est.estado==='vencida'?`<div class="rm-alerta">⏱ <b>Revisión de hace ${Math.floor(est.dias/30)} meses.</b> El criterio médico se revalida al año${soyMed?': confirmala si sigue valiendo.':'. Sigue publicada, pero conviene confirmarla.'}</div>`:''}
     <div class="rm-h">
       <span class="rm-tit"><span class="rm-ic" aria-hidden="true">🩺</span> Revisión médica</span>
       ${puedeEditar?`<span class="rm-acc">
+        ${alerta?'<button class="rm-b ok" id="rmOk" title="Confirmar que el criterio sigue valiendo">✓ Sigue valiendo</button>':''}
         <button class="rm-b" id="rmEdit" title="Corregir el texto de esta revisión">✎ Editar</button>
         <button class="rm-b del" id="rmDel" title="Levantar esta revisión de la ficha">Levantar</button>
       </span>`:''}
@@ -2932,6 +3002,7 @@ function revMedHTML(code){
       <span class="rm-nota">Queda firmada con tu nombre y la fecha de hoy.</span></div>
     </div>`:''}
     ${(soyMed&&!puedeEditar)?accionMed:''}
+    ${soyMed?siguienteHTML(code):''}
   </section>`;
   if(pendMed.length)out+=`<section class="revmed pend" aria-label="Aportes médicos sin confirmar">
     <div class="rm-h"><span class="rm-tit"><span class="rm-ic" aria-hidden="true">🩺</span> ${pendMed.length===1?'Un aporte médico':pendMed.length+' aportes médicos'} — sin confirmar</span></div>
@@ -2947,6 +3018,29 @@ function revMedHTML(code){
 /* Lo que el equipo preguntó y todavía no tiene respuesta. Se ve para todos: si
    un compañero ya preguntó lo mismo, saberlo evita la segunda consulta, y quien
    está por cargar se entera de que hay una duda abierta antes de cargar. */
+/* Trabajar por lote sin volver al listado. Las revisiones vienen en familias
+   —todo lo de anticoagulación, todo lo de hepatograma— y volver a la lista,
+   buscar dónde quedaste y abrir la siguiente, mil ochocientas veces, es la
+   diferencia entre un manual que se completa y uno que no. */
+function siguienteSinRevision(code){
+  const c=BYCODE[code]; if(!c)return null;
+  const lista=filtered();
+  const i=lista.findIndex(x=>x._key===code);
+  const post=i>=0?lista.slice(i+1):lista;
+  const hallado=post.find(x=>!revisionPuesta(x._key))||
+                (i>0?lista.slice(0,i).find(x=>!revisionPuesta(x._key)):null);
+  return hallado||null;
+}
+function siguienteHTML(code){
+  const n=siguienteSinRevision(code); if(!n)return '';
+  const faltan=filtered().filter(x=>!revisionPuesta(x._key)).length;
+  return `<div class="rm-sig">
+    <button class="rm-sigb" data-sig="${esc(n._key)}">Siguiente sin revisión →
+      <span class="mono">${esc(n.code)}</span> <span>${esc(n.nombre.slice(0,42))}</span></button>
+    <span class="rm-nota">${faltan} sin criterio en lo que estás mirando</span>
+  </div>`;
+}
+
 function bloqueConsultas(consultas,soyMed,f){
   if(!consultas.length)return '';
   return `<section class="revmed consulta" aria-label="Consultas al médico">
@@ -2955,6 +3049,30 @@ function bloqueConsultas(consultas,soyMed,f){
     ${consultas.map(x=>`<div class="rm-t">${linkCodes(esc(x.texto))}</div>
       <div class="rm-firma">${esc(x.por||'—')}${x.t?` · ${f(x.t)}`:''}</div>`).join('')}
   </section>`;
+}
+
+/* Obligación de cobertura y topes: el dato que define si la práctica se debe
+   cubrir y en qué casos.
+
+   Para el administrativo va donde estuvo siempre, después de la valorización:
+   él ya sabe que se cubre —se lo dijo el veredicto de arriba— y lo que necesita
+   es cargarla. Para el AUDITOR MÉDICO es al revés: decidir si corresponde
+   cubrirla ES su trabajo, y tenerla enterrada entre la muestra y el SURGE la
+   convertía en un dato de consulta cuando es el dato central. Para él sube
+   arriba de todo, con `destacada`. */
+function coberturaHTML(c,destacada){
+  if(!(c.cobertura_pmo||c.tope_pmo))return '';
+  const obs=c.cobertura_tipo==='observacion';
+  // El texto de la fuente arranca con su propio encabezado; se muestra como título
+  // de la tarjeta y no repetido dentro del cuerpo.
+  const cuerpo=(c.cobertura_pmo||'').replace(/^\s*(Obligaci[oó]n de cobertura(?:\s+en los siguientes casos)?|Observaciones?)\s*:?\s*/i,'').trim();
+  return `<div class="sec"><div class="slabel">${obs?'Cuándo corresponde la práctica':'Obligación de cobertura'}</div>
+    <div class="cob-card${destacada?' destacada':''}">
+      ${c.tope_pmo?`<div style="${c.cobertura_pmo?'margin-bottom:9px;':''}font-weight:700;color:var(--cob)">⏱ Tope: ${esc(c.tope_pmo)}</div>`:''}
+      ${c.cobertura_pmo?`<span class="cob-h">${obs?'⚕ Observación del nomenclador':'⚕ Cobertura obligatoria en los siguientes casos'}</span>
+      ${cuerpo?linkCodes(esc(cuerpo)).replace(/(\d+\.\s)/g,'<br>$1'):'<i style="color:var(--muted)">La fuente enuncia la obligación pero no detalla los casos.</i>'}`:''}
+      <div style="margin-top:8px;font-size:11.5px;color:var(--faint);font-style:italic">Programa Médico Obligatorio (Res. 201/02, Anexos). Verificar contra la normativa vigente.</div>
+    </div></div>`;
 }
 
 function obsFichaHTML(code){
@@ -3232,6 +3350,7 @@ function openCode(code,origen){
       </div>
       ${(window.NBUProfile&&NBUProfile.canEdit())?`<div class="dedit"><button class="minibtn" id="editFichaBtn">✎ Editar ficha</button></div>`:''}
       ${revMedHTML(code)}
+      ${esAdministrativo?'':coberturaHTML(c,true)}
       ${obsFichaHTML(code)}
       ${veredictoHTML(c)}
       ${verifHTML(code)}
@@ -3247,13 +3366,32 @@ function openCode(code,origen){
      placas por estudio»— y el Catálogo del PMO retiró ese renglón, así que nunca
      llegaba a la ficha: se veía «Rx de tórax» sin saber que cubre una sola
      exposición. Es lo que decide si hay que cargar un código más. */
-  if(c.alcance_nn&&c.alcance_nn.texto){
+  (function(){
+    const P=window.NBUProfile||{};
+    const corr=P.abarcaDe?P.abarcaDe(claveObs(code)):null;   // corrección médica
+    const orig=(c.alcance_nn&&c.alcance_nn.texto)||'';
+    /* Lo puede corregir un médico —cualquiera de los dos— y el administrador
+       general. Es un dato clínico con la transcripción rota: quien sabe si dice
+       lo que tiene que decir no es quien factura. */
+    const puede=!!((P.esMedico&&P.esMedico())||(P.esDuenio&&P.esDuenio()));
+    if(!orig&&!corr&&!puede)return;
+    const texto=corr?corr.texto:orig;
     html+=`<div class="sec"><div class="slabel">Qué abarca este código</div>
-      <div class="freq-note">
-        <span class="seriado-b">${esc(c.alcance_nn.texto)}</span>${c.alcance_nn.categoria?` <span class="pill">categoría ${esc(c.alcance_nn.categoria)}</span>`:''}
-        <div style="margin-top:7px;font-size:11.5px;color:var(--faint);font-style:italic">Texto del Nomenclador Nacional que el Catálogo del PMO no reproduce. La transcripción viene de un original con lectura dañada: confirmala antes de apoyarte en ella.</div>
+      <div class="freq-note" id="abBox"${corr?' style="background:color-mix(in srgb,var(--med) 8%,transparent);border-color:color-mix(in srgb,var(--med) 34%,transparent)"':''}>
+        ${texto?`<span class="seriado-b">${esc(texto)}</span>${(!corr&&c.alcance_nn&&c.alcance_nn.categoria)?` <span class="pill">categoría ${esc(c.alcance_nn.categoria)}</span>`:''}`
+               :'<i style="color:var(--muted)">La fuente no trae el alcance de este código.</i>'}
+        <div class="ab-pie">${corr
+          ? `✎ Corregido por <b>${esc(corr.por||'—')}</b>${corr.t?` · ${new Date(corr.t).toLocaleDateString('es-AR')}`:''}${orig?`<br><span class="ab-orig">La fuente decía: «${esc(orig)}»</span>`:''}`
+          : 'Texto del Nomenclador Nacional que el Catálogo del PMO no reproduce. La transcripción viene de un original con lectura dañada: confirmala antes de apoyarte en ella.'}</div>
+        ${puede?`<div class="ab-acc"><button class="minibtn" id="abEditar">✎ ${corr?'Corregir de nuevo':'Corregir este texto'}</button>${corr?'<button class="minibtn danger" id="abQuitar">Volver a la fuente</button>':''}</div>
+        <div class="ab-ed" id="abEd" hidden>
+          <textarea id="abArea" rows="3" placeholder="Qué abarca de verdad este código: cuántas exposiciones, cuántas placas, si incluye o no el contraste…">${esc(texto)}</textarea>
+          <div class="ab-eb"><button class="minibtn" id="abGuardar">Guardar</button>
+          <button class="minibtn" id="abCancel">Cancelar</button>
+          <span class="rm-nota">Lo ve todo el equipo, firmado con tu nombre.</span></div>
+        </div>`:''}
       </div></div>`;
-  }
+  })();
 
   // Tipo de muestra y su par que se presta a confusión.
   if(c.muestra&&c.muestra.length){
@@ -3514,21 +3652,9 @@ function openCode(code,origen){
     html+=`</div>`;
   }
 
-  // Obligación de cobertura y topes. Es el dato que define si la práctica se debe
-  // cubrir y en qué casos, así que va destacado y separado del resto.
-  if(c.cobertura_pmo||c.tope_pmo){
-    const obs=c.cobertura_tipo==='observacion';
-    // El texto de la fuente arranca con su propio encabezado; se muestra como título
-    // de la tarjeta y no repetido dentro del cuerpo.
-    const cuerpo=(c.cobertura_pmo||'').replace(/^\s*(Obligaci[oó]n de cobertura(?:\s+en los siguientes casos)?|Observaciones?)\s*:?\s*/i,'').trim();
-    html+=`<div class="sec"><div class="slabel">${obs?'Cuándo corresponde la práctica':'Obligación de cobertura'}</div>
-      <div class="cob-card">
-        ${c.tope_pmo?`<div style="${c.cobertura_pmo?'margin-bottom:9px;':''}font-weight:700;color:var(--cob)">⏱ Tope: ${esc(c.tope_pmo)}</div>`:''}
-        ${c.cobertura_pmo?`<span class="cob-h">${obs?'⚕ Observación del nomenclador':'⚕ Cobertura obligatoria en los siguientes casos'}</span>
-        ${cuerpo?linkCodes(esc(cuerpo)).replace(/(\d+\.\s)/g,'<br>$1'):'<i style="color:var(--muted)">La fuente enuncia la obligación pero no detalla los casos.</i>'}`:''}
-        <div style="margin-top:8px;font-size:11.5px;color:var(--faint);font-style:italic">Programa Médico Obligatorio (Res. 201/02, Anexos). Verificar contra la normativa vigente.</div>
-      </div></div>`;
-  }
+  // Para el administrativo va acá, en su lugar de siempre. Para el médico ya se
+  // dibujó arriba de todo: ver coberturaHTML().
+  if(esAdministrativo)html+=coberturaHTML(c);
 
   // SURGE — Sistema Único de Reintegro por Gestión de Enfermedades
   if(c.surge){
@@ -3684,11 +3810,41 @@ function openCode(code,origen){
                                               :'Aporte enviado — lo revisa un médico administrador');
       if(state.view==='list')render(); openCode(code);
     });
+    /* Revalidar sin reescribir: el criterio sigue siendo el mismo, lo que cambió
+       es que alguien lo volvió a mirar. Se refirma con la fecha de hoy y con la
+       ficha tal como está ahora. */
+    const bOk=el('rmOk'); if(bOk)bOk.addEventListener('click',()=>{
+      const rev=P.revisionDe?P.revisionDe(claveObs(code)):null; if(!rev)return;
+      P.editarRevision(claveObs(code),rev.texto||'');
+      toast('Revisión confirmada — queda al día');
+      if(state.view==='list')render(); openCode(code);
+    });
     const bD=el('rmDel'); if(bD)bD.addEventListener('click',()=>{
       if(!confirm('¿Levantar la revisión médica de esta ficha?\n\nDeja de verla todo el equipo.'))return;
       P.quitarRevision(claveObs(code)); toast('Revisión levantada');
       if(state.view==='list')render(); openCode(code);
     });
+  })();
+  const sg=el('drawer').querySelector('[data-sig]');
+  if(sg)sg.addEventListener('click',()=>openCode(sg.dataset.sig));
+  /* Corregir «qué abarca este código». */
+  (function(){
+    const P=window.NBUProfile||{};
+    const bE=el('abEditar'); if(bE)bE.addEventListener('click',()=>{
+      const caja=el('abEd'); if(!caja)return; caja.hidden=false; bE.hidden=true;
+      const a=el('abArea'); if(a){a.focus();a.setSelectionRange(a.value.length,a.value.length);}});
+    const bC=el('abCancel'); if(bC)bC.addEventListener('click',()=>{
+      const caja=el('abEd'); if(caja)caja.hidden=true;
+      const b=el('abEditar'); if(b)b.hidden=false;});
+    const bG=el('abGuardar'); if(bG)bG.addEventListener('click',()=>{
+      const t=((el('abArea')||{}).value||'').trim();
+      if(!t)return toast('Escribí el texto o usá «Volver a la fuente».',true);
+      P.guardarAbarca(claveObs(code),t); toast('Alcance corregido — lo ve todo el equipo');
+      if(state.view==='list')render(); openCode(code);});
+    const bQ=el('abQuitar'); if(bQ)bQ.addEventListener('click',()=>{
+      if(!confirm('¿Volver al texto original del Nomenclador Nacional?\n\nSe pierde la corrección.'))return;
+      P.guardarAbarca(claveObs(code),''); toast('Vuelto a la fuente');
+      if(state.view==='list')render(); openCode(code);});
   })();
   const av=el('dAddVal');if(av)av.addEventListener('click',()=>addToValidator(c.code));
   const im=el('dImp');
@@ -4551,9 +4707,20 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
      administrador aprobando el aporte de otro, y el médico administrador
      escribiendo el suyo. Con «deferido» la escritura en la nube la maneja quien
      llama, porque ahí va encadenada al cierre de la propuesta. */
+  /* Lo que el médico tenía delante cuando firmó. Si mañana el administrador
+     corrige la norma o la denominación, esta huella deja de coincidir y la
+     revisión avisa que quedó apoyada en algo que se movió. Es más honesto que
+     comparar fechas: publicar la revisión toca la misma fila, así que la fecha
+     de la corrección siempre sería posterior y no diría nada. */
+  function huellaFicha(code){
+    const c=BYCODE[code]; if(!c)return '';
+    return JSON.stringify([c.nombre||'',c.norma||null,c.auditoria||null,
+      c.asoc_extra||null,(c.alcance_nn&&c.alcance_nn.texto)||'',
+      c.cobertura_pmo||'',c.tope_pmo||'']);
+  }
   function publicarRevision(code,texto,por,de,deferido){
     const ov=Object.assign({},CONTENT.codes[code]||{},
-      {revision_medica:{texto:texto,por:por,de:de||'',t:Date.now()}});
+      {revision_medica:{texto:texto,por:por,de:de||'',t:Date.now(),base:huellaFicha(code)}});
     CONTENT.codes[code]=ov;
     logEdit(de?'dio por buena una revisión médica':'publicó una revisión médica',code);
     applyCode(code);
@@ -5061,6 +5228,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     el('adminBtn').hidden=!(CAP.duenio(p)||CAP.validaMedico(p));
     el('editModeBtn').hidden=!CAP.editaFicha(p);
     const adm=CAP.duenio(p);
+    if(window.pintarFiltros)pintarFiltros();   // los filtros médicos dependen del rol
     applyContent();refreshStats();applyMode();render();hideGate();actualizarPendientes();
     /* El contenido del equipo se trae después de mostrar la app: si la nube
        tardara, se entra igual y se ve la copia guardada de la última vez. */
@@ -6581,6 +6749,34 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
        en «datos», que ya es jsonb libre: no hizo falta una tabla ni una columna. */
     revisionDe:(code)=>{const o=(CONTENT.codes||{})[code];
       return (o&&o.revision_medica)?o.revision_medica:null;},
+    /* En qué estado está. La verificación administrativa vence a los 180 días
+       porque cambia la normativa; el criterio médico cambia más despacio, así
+       que va al año. Y «la ficha cambió» pesa más que el vencimiento: no es que
+       haya pasado el tiempo, es que lo que se revisó ya no es lo que dice ahí. */
+    estadoRevision:(code)=>{
+      const r=((CONTENT.codes||{})[code]||{}).revision_medica; if(!r)return null;
+      const dias=Math.floor((Date.now()-(r.t||0))/86400000);
+      if(r.base&&r.base!==huellaFicha(code))return {estado:'cambio',dias:dias};
+      if(dias>REV_VENCE)return {estado:'vencida',dias:dias};
+      return {estado:'vigente',dias:dias};
+    },
+    /* «Qué abarca este código». El texto del Nomenclador Nacional viene de un
+       original con lectura dañada y hasta ahora era sólo lectura; quien sabe si
+       dice lo que tiene que decir es un médico. */
+    abarcaDe:(code)=>{const o=(CONTENT.codes||{})[code];
+      return (o&&o.abarca)?o.abarca:null;},
+    guardarAbarca:(code,texto)=>{
+      if(!(soyMedico()||esDuenio()))return false;
+      const o=Object.assign({},CONTENT.codes[code]||{});
+      const t=(texto||'').trim();
+      if(t)o.abarca={texto:t,por:(current&&current.name)||'',t:Date.now()};
+      else delete o.abarca;
+      CONTENT.codes[code]=o;
+      logEdit(t?'corrigió qué abarca el código':'quitó la corrección de qué abarca',code);
+      applyCode(code); persistContent();
+      if(nubeContenido)enNube(NUBE.guardarCorreccion(code,o),'guardar qué abarca el código');
+      return true;
+    },
     getNote:(code)=>current&&current.notes?(current.notes[code]||''):'',
     setNote:(code,txt)=>{if(!current)return;current.notes=current.notes||{};if(txt&&txt.trim())current.notes[code]=txt.trim();else delete current.notes[code];current.updated=Date.now();persistAuthSoon();}
   };

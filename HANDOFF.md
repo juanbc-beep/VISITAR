@@ -702,6 +702,52 @@ Lo correcto está en **`docs/supabase_permisos_funciones.sql`**:
 Quedan **9 avisos que no se bajan y están bien así**: son justo las que `authenticated` tiene
 que poder ejecutar. Cada una controla por dentro quién la llama.
 
+### 4.5 quinquies Las cinco del circuito médico
+
+1. **Filtro «sin revisión médica»** (+ «con revisión» y «revisión que necesita atención»).
+   Grupo del rail marcado `'med'` en `GRUPOS_FLAGS`: sólo se dibuja para los médicos, y por
+   eso el rail se repinta al entrar (`pintarFiltros()`), no una sola vez al arrancar. Con
+   1.815 prácticas y ninguna forma de saber cuáles no tienen criterio, el manual se completaba
+   sólo donde alguien se acordaba de mirar.
+2. **Trabajo por lote** — `siguienteSinRevision()` / `siguienteHTML()`. Salta a la próxima sin
+   criterio **dentro del filtro activo**, sin volver al listado, y dice cuántas faltan. Las
+   revisiones vienen en familias; volver a la lista mil ochocientas veces no se hace.
+3. **Consultar al médico** — ver el commit `3320eba` y `supabase_consultas_medicas.sql`.
+4. **Vencimiento** — `REV_VENCE = 365` (la verificación administrativa usa 180: el criterio
+   clínico cambia más despacio que la normativa de facturación).
+5. **La ficha cambió después de la revisión** — al publicar se guarda `revision_medica.base`,
+   una **huella del contenido** que el médico tenía delante (nombre, norma, auditoría,
+   asociación, alcance, cobertura, tope). ⚠️ No se comparan fechas: publicar la revisión
+   escribe la misma fila, así que `actualizado` siempre sería posterior y no diría nada.
+
+Los dos últimos los resuelve `estadoRevision()` → `vigente` | `vencida` | `cambio`. La
+revisión **sigue publicada** con una advertencia arriba (sacarla dejaría la ficha sin
+criterio), y quien valida tiene **✓ Sigue valiendo**, que la refirma sin reescribirla.
+
+### 4.5 sexies «Qué abarca este código», editable
+
+Vive en `correcciones.datos.abarca` `{texto, por, t}`, al lado de `revision_medica`. Lo
+escriben **los dos roles médicos y el administrador general** — el texto viene del Nomenclador
+Nacional con la transcripción dañada y decide si hay que cargar un código más, así que quien
+sabe si dice lo que tiene que decir no es quien factura. La ficha muestra el original debajo
+(«La fuente decía: …») y se puede volver a él.
+
+Migración: **`docs/supabase_alcance_medico.sql`**. Dos hallazgos que costaron:
+- El guardia ahora tiene **dos niveles**: al médico administrativo se le abre `correcciones`
+  por primera vez, y si se le diera la fila entera podría publicar una revisión sin que nadie
+  la valide. `abarca` → los dos; `revision_medica` → sólo `es_medico_admin()`.
+- ⚠️ **La restricción de DELETE tiene que ser `AS RESTRICTIVE`.** Las policies permisivas se
+  suman (OR): una segunda policy de delete «sólo es_admin()» no le quitaba nada al `FOR ALL`,
+  y en la prueba contra PostgreSQL 16 **el médico borró la fila entera**.
+
+### 4.5 septies La cobertura, según quién mira
+
+`coberturaHTML(c, destacada)`. Para el **administrativo** queda donde estuvo siempre, después
+de la valorización: él ya sabe que se cubre —se lo dijo el veredicto— y lo que necesita es
+cargarla. Para el **auditor médico** sube a la segunda posición, justo debajo de la revisión
+médica, con `.cob-card.destacada` (borde de 5 px, 14.5 px, más interlínea): decidir si
+corresponde cubrirla **es** su trabajo, y estaba enterrada entre la muestra y el SURGE.
+
 ### 4.6 Observaciones del administrador — una sola por práctica
 
 El administrador deja una observación en la ficha; se ve **debajo del código en el listado**
