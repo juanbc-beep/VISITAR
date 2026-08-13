@@ -63,8 +63,11 @@ def main():
         e["code_declarado"] = declarado
         e["code"] = destino
         e["key"] = destino
+        e.setdefault("desc_declarada", e.get("desc"))
         e["desc"] = r.get("nombre") or e.get("desc") or ""
-        e["renumerado"] = True
+        # la marca que la ficha ya sabe mostrar: «se reconstruyó por código
+        # idéntico — conviene confirmarla»
+        e["recalculada"] = "codigo"
         e.pop("destino_inexistente", None)
         v["equivalencia"] = e
 

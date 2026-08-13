@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-zvtpdXaE9KIZgdfVjHfVdz1zTgr0irjJjH9Vkq71hHY=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-BiNWKOfogM5k+LWhPjCGH7F+RfRWpRRjosZzCEiI3n8=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -3674,7 +3674,12 @@ function openCode(code,origen){
         ${e.desc?`<div style="margin-top:6px;font-size:13px;color:var(--ink-2)">${esc(e.desc)}</div>`:''}
         ${(ubEq!=null&&propia!=null&&ubEq!==propia)?`<div class="eqdif">Ojo: <b>${propia} U.B.</b> en este nomenclador y <b>${ubEq} U.B.</b> en el otro. La diferencia es del convenio, no un error — se factura con la del nomenclador que corresponda.</div>`:''}
         <div style="margin-top:6px;font-size:11.5px;color:var(--faint)">${e.key?'Presente en ambos nomencladores. Tocá el código para abrir su ficha en '+esc(e.target_label||'')+'.':'El código equivalente ('+esc(e.code)+') no está cargado como ficha propia todavía.'}</div>
-        ${e.recalculada?`<div style="margin-top:6px;font-size:11.5px;color:var(--urg);background:var(--urg-soft);border-radius:6px;padding:7px 9px">⚠ El código que traía la planilla <b>no existe</b> en el Nomenclador Nacional cargado. Esta equivalencia se reconstruyó ${e.recalculada==='codigo'?'por <b>código idéntico</b>':'por <b>proximidad de nombre</b> dentro del capítulo'} — conviene confirmarla.</div>`:''}
+        ${e.recalculada?`<div style="margin-top:6px;font-size:11.5px;color:var(--urg);background:var(--urg-soft);border-radius:6px;padding:7px 9px">⚠ El código que traía la planilla${e.code_declarado?` (<b>${esc(e.code_declarado)}</b>)`:''} <b>no existe</b> en el Nomenclador Nacional cargado. Esta equivalencia se reconstruyó ${e.recalculada==='codigo'?'por <b>código idéntico</b>':'por <b>proximidad de nombre</b>'} — conviene confirmarla.${
+          /* Cómo llamaba la planilla del Único a la práctica. Va acá y no
+             reemplazando al nombre del destino: cada nomenclador dice lo que
+             dice, y la diferencia de redacción es justamente lo que el médico
+             mira para decidir si la equivalencia se sostiene. */
+          (e.desc_declarada&&norm(e.desc_declarada)!==norm(e.desc))?`<div style="margin-top:5px;color:var(--ink-2)">La planilla la llamaba: «${esc(e.desc_declarada)}»</div>`:''}</div>`:''}
       </div></div>`;
     }
   }

@@ -873,6 +873,62 @@ El número que declaraba la planilla queda guardado en `equivalencia.code_declar
 línea de auditoría de las dos fichas: un auditor que compare contra el papel se va a
 encontrar con ese número y tiene que poder explicárselo.
 
+### 4.5 duodecies ⚠️ El Único repite las prácticas de laboratorio en varios bloques
+
+`scripts/equivalencias_por_nombre.py`. Al buscar por **nombre** las equivalencias que
+declaraban un número inexistente apareció el motivo de fondo: el Nomenclador Único lista el
+laboratorio **varias veces**, en bloques con prefijo 60, 61, 62, 63 y 64 (1.108 filas sólo el
+64). La misma práctica aparece en dos bloques —una con el número correcto del NBU y otra con
+un número que no existe— y los nombres difieren sólo en acentos o puntuación:
+
+    64662384 «ÁCIDOS ORGÁNICOS»  → 662384  ✓ atada
+    64662389 «ACIDOS ORGANICOS»  → 662389  ✗ ese número no existe
+
+⚠️ **Eso NO es una práctica que falte: es la misma fila repetida.** Se ata igual (quien mire
+esa ficha tiene que llegar al 662384 y no leer «no está cargada todavía») pero **sin agregar
+el reflejo** en la ficha del NBU — ésa ya muestra la fila canónica, y sumarle una segunda
+casi idéntica haría creer que hay dos códigos facturables. Es el tercer campo de `PARES`.
+
+⚠️ **Hay un error PREEXISTENTE en Chagas que no se tocó**, porque corregirlo es decisión de
+los médicos: la fila `63663576` del Único se llama «CHAGAS, Ac. Totales Anti- (ELISA)» y está
+atada al NBU `663576`, que es «CHAGAS, (PCR)». El ELISA del NBU es el `663580` y ya lo reclama
+—bien— la fila `64663580`. Se generó por identidad de número en `assemble.py`. Al atar la
+fila `64663581` «CHAGAS (PCR)» al `663576` que le corresponde, la ficha del NBU ahora muestra
+las dos y el error queda a la vista.
+
+**Quedaron afuera** por ambigüedad real: HIDATIDOSIS (IFI) —el mismo nombre en `660484` y
+`661100`, los dos ya tomados por látex y arco 5, y la del Único es una tercera técnica—,
+DOMICILIO «Más de 2 Kms» contra «Hasta 2 Kms», y BCR/ABL «LMC» contra «LLA».
+
+Total: **13 atadas** (10 repetidas sin reflejo, Chagas PCR, y las dos evaluaciones
+pretrasplante renal que el Único marca SURGE y el Nacional tiene lisas y llanas).
+
+#### Los nombres NO se tocan, y hay una prueba que lo garantiza
+
+⚠️ Regla del usuario: **los nombres de las fichas se mantienen tal cual los trae cada
+nomenclador.** El script termina comparando los 6.476 nombres contra los de antes de correr y
+aborta con `SystemExit` si alguno se movió. Cualquier script que toque equivalencias debería
+copiar ese cierre.
+
+Reparto de campos en `equivalencia`, para no volver a confundirlos:
+
+| campo | qué es | quién lo usa |
+|---|---|---|
+| `desc` | el nombre que tiene el **destino**, sin retocar | la línea bajo «Equivale a NNNNNN» |
+| `desc_declarada` | cómo llamaba **la planilla del Único** a esa práctica | el aviso ⚠, y sólo si difiere de `desc` |
+| `code_declarado` | el número que traía la planilla y no existe | el aviso ⚠ |
+| `recalculada` | `"codigo"` o `"nombre"` — cómo se reconstruyó | dispara el aviso ⚠ |
+
+`reparar_equivalencias.py` había pisado 65 `desc` con el nombre del destino, perdiendo la
+redacción de la planilla. Se recuperaron desde el commit `e3c9036` a `desc_declarada` (51
+tenían texto; el resto venían vacías). La ficha las muestra dentro del aviso: «La planilla la
+llamaba: «PERFUSION CARDIACA CON RADIOISOTOPICA»» al lado de «Perfusión sanguínea miocárdica
+con radioisótopos» — la diferencia de redacción es justamente lo que el médico mira para
+decidir si la equivalencia se sostiene.
+
+Las 5 de `equivalencias_renumeradas.py` pasaron de una marca propia (`renumerado`) a
+`recalculada: "codigo"`, que es la que la ficha ya sabía mostrar.
+
 ### 3.6 ⚠️ Capítulos 40, 41, 42, 43 y 44: FALTABAN ENTEROS
 
 Se descubrió buscando el capítulo 42 a pedido del usuario. **El 42 es CONSULTAS MÉDICAS**
