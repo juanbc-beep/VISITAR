@@ -817,6 +817,26 @@
     "180113": "hepatica",
     "180117": "(modo M)"
    }
+  },
+  "31": {
+   "titulo": "Otorrinolaringología",
+   "pags": [
+    128,
+    129
+   ],
+   "norma": [],
+   "_nota_norma": "El capítulo no tiene norma general: la única que trae está impresa pegada al 31.01.18 y habla de «los estudios endoscopicos faringolaringeos». Va como prefijo de ese código y no del capítulo — pegársela a los 19 diría que una audiometría incluye toma biópsica y drenajes. Tampoco se la extiende al 31.01.23 y al 31.01.24 (las dos fibroscopías), que son prácticas del mismo tipo pero AGREGADAS POR EL P.M.O.: no están en el Nomenclador Nacional, así que una norma del Nacional no puede gobernarlas.",
+   "normas_prefijo": {
+    "310118": [
+     "Los estudios endoscopicos faringolaringeos incluyen dentro del arancel estipulado eventual toma biopsica, extraccion de cuerpo extraño, instilaciones, irrigaciones, dilataciones, inserciones, escisiones, drenajes, aspiraciones, lavados, etc."
+    ]
+   },
+   "_nota_agregados": "Tres de los 19 códigos son AGREGADOS POR EL P.M.O. —31.01.23 rino-sinuso fibroscopía, 31.01.24 faringo laringo fibroscopía y 31.01.25 tratamiento de lesiones por medios físicos o químicos— y no tienen recuadro. De los 16 restantes, la mayoría está impresa entera en negrita: el capítulo aporta sólo 3 textos, y es lo correcto.",
+   "codigos": {
+    "310104": "cada una",
+    "310107": "hasta diez sesiones",
+    "310111": "Extraccion de (Uni o Bilateral)"
+   }
   }
  }
 }

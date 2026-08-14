@@ -881,9 +881,10 @@ uno antes de «mielotomía comisural» y otro después).
 | 24 · Hemoterapia | 109–111 | 21 | ✅ 9 textos + 4 normas del 24.01 + 2 por código |
 | 17 · Cardiología | 91–94 | 20 | ✅ 9 textos + 3 normas por código |
 | 18 · Ecografía – Ecodoppler | 94–96 | 22 | ✅ 5 textos + 10 normas de capítulo + 3 por código |
-| los otros 13 | ~37–131 | 168 | pendiente |
+| 31 · Otorrinolaringología | 128–129 | 19 | ✅ 3 textos + 1 norma por código |
+| los otros 12 | ~37–131 | 149 | pendiente |
 
-Cobertura: **759 de 1.352 (56%)**, desde 156 (11%).
+Cobertura: **763 de 1.352 (56%)**, desde 156 (11%).
 
 ⚠️ **Que un sub-capítulo no aporte ningún texto puede ser lo correcto.** El `02.09` (LASER) son
 ocho códigos que AGREGÓ el PMO: no figuran en el Nomenclador Nacional, así que no hay recuadro
@@ -1051,15 +1052,18 @@ cuatro por sesión.
 
 | cap | páginas | códigos | | cap | páginas | códigos |
 |---|---|---|---|---|---|---|
-| **31** | 128–129 | 19 | | 22 | 101–102 | 13 |
-| **30** | 126–127 | 18 | | 33 | 130–131 | 13 |
-| **29** | 125 | 14 | | 15 | 89 | 12 |
-| 21 | 100 | 14 | | 06 | 37 | 12 |
-| 19 | 97 | 3 | | 09 | 56 | 8 |
-| 32 / 14 | — | 1 y 1 | | 16 | 90 | 5 |
+| **30** | 126–127 | 18 | | 22 | 101–102 | 13 |
+| **29** | 125 | 14 | | 33 | 130–131 | 13 |
+| **21** | 100 | 14 | | 15 | 89 | 12 |
+| 19 | 97 | 3 | | 06 | 37 | 12 |
+| 32 | 129 | 1 | | 09 | 56 | 8 |
+| 14 | 88 | 1 | | 16 | 90 | 5 |
 
-Son **133 códigos** en esos trece capítulos; los otros 35 que faltan para los 168 están en el
-**35, 36, 38 y 66**, que no tienen páginas en el índice (ver abajo).
+Son **114 códigos** en esos doce capítulos; los otros 35 que faltan para los 149 están en el
+**35, 36, 38 y 66**, que no tienen páginas en el índice (ver abajo). El **32** ya tiene la
+suya: arranca al pie de la 129, debajo del último código del 31, y su único código —el
+32.01.04, atención del recién nacido en sala de partos— trae una norma larga impresa ahí
+mismo. Quedó a la vista al transcribir el 31 y no se transcribió: es otro capítulo.
 
 ⚠️ El **19 (endocrinología y nutrición)** está en el borde de arriba de la página 97, que ya se
 leyó con el 20: **no tiene ningún recuadro**. El 19.01.01 y el 19.01.02 van enteros en negrita
@@ -1720,8 +1724,8 @@ cada commit, que explican el porqué y no sólo el qué:
 ## 7 bis. ▶ AGENDA DEL MARTES 18/8/2026
 
 ### A. Seguir con la norma retirada del PMO
-Ver 3.8 → «POR DÓNDE SEGUIR». Van 27 capítulos y **759 de 1.352 fichas (56%)**; la próxima
-tanda es **31, 30 y 29** (páginas 128‑129, 126‑127 y 125). Faltan las páginas del **35, 36,
+Ver 3.8 → «POR DÓNDE SEGUIR». Van 28 capítulos y **763 de 1.352 fichas (56%)**; la próxima
+tanda es **30, 29 y 21** (páginas 126‑127, 125 y 100). Faltan las páginas del **35, 36,
 38 y 66** en `data/paginas_nn.json`.
 
 ### B. Ciberseguridad — repaso pedido por el usuario
