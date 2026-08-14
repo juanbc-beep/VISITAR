@@ -863,13 +863,15 @@ uno antes de «mielotomía comisural» y otro después).
 |---|---|---|---|
 | 01 · Sistema nervioso | 12–17 | 69 | ✅ 33 textos |
 | 03 · Otorrinolaringológicas | 24–32 | 118 | ✅ 45 textos |
+| 04 · Sistema endocrino | 33 | 11 | ✅ 2 textos |
 | 07 · Sistema cardiovascular | 38–46 | 82 | ✅ 44 textos + 2 normas de sub-capítulo |
 | 08 · Aparato digestivo y abdomen | 47–55 | 123 | ✅ 66 textos + 2 normas de sub-capítulo |
+| 11 · Genital femenino y obstetricia | 64–67 | 49 | ✅ 33 textos + 3 normas (una de sub-capítulo, dos por código) |
 | 12 · Músculo esquelético | 68–80 | 146 | ✅ 64 textos + 3 normas de capítulo + 13 de sub-capítulo |
 | 25 · Rehabilitación médica | 111–112 | 6 | ✅ 6 textos + 5 normas |
-| los otros 24 | ~18–150 | ~680 | pendiente |
+| los otros 22 | ~18–150 | ~620 | pendiente |
 
-Cobertura: **523 de 1.351 (38%)**, desde 156 (11%).
+Cobertura: **558 de 1.351 (41%)**, desde 156 (11%).
 
 ⚠️ **NO canalizar la salida del script por `head`.** El SIGPIPE lo mata antes de que escriba el
 JSON, y como `inject_db.py` corre igual sobre la base vieja, todo parece haber funcionado y la
@@ -879,6 +881,11 @@ cobertura no se mueve. Pasó una vez; usar `tail` o nada.
 
 El 12 obligó a agregarlas. `norma` gobierna el capítulo entero; `normas_prefijo` gobierna un
 sub-capítulo (`{"1219": [...]}` → todas las fichas que empiezan con `1219`).
+
+⚠️ **El prefijo puede ser el código completo.** El 11.04 tiene dos normas que NO gobiernan el
+sub-capítulo: cada una está impresa pegada a su código, y la segunda lo dice con todas las
+letras —«estan incluidas en ESTE código»—. Se declaran como `"110401"` y `"110404"`. Verificado:
+el 11.04.02 y el 11.04.05 recibieron sólo la del sub-capítulo.
 
 **La distinción no es cosmética**: el 12 tiene trece normas de sub-capítulo, y pegarle a los
 146 códigos la del 12.01 —«el arancel para el tratamiento no quirúrgico de las fracturas SIN
@@ -956,7 +963,7 @@ propósito.
 
 ⚠️ El nombre viejo **no se tira**: queda en la auditoría de la ficha, con la página del PDF.
 
-**Estado: 28 corregidos, 8 pendientes** (capítulos 04, 05, 11 y 13). Se
+**Estado: 34 corregidos, 2 pendientes** (`050404` y `130106`). Se
 corrigen solos a medida que el barrido llegue a esas páginas — el script los lista al terminar.
 
 ⚠️ **El OCR cruzaba de renglón, así que el nombre roto arrastra texto del código vecino.**

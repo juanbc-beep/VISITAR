@@ -434,6 +434,74 @@
     "070715": "y/o inyección de drogas, a continuacion de arterio o flebografias, agregar",
     "070716": "\"Y Códigos 34.08.20 y 21\""
    }
+  },
+  "11": {
+   "titulo": "Operaciones en el aparato genital femenino y obstetricia",
+   "pags": [
+    64,
+    65,
+    66,
+    67
+   ],
+   "norma": [],
+   "_nota_normas_1104": "Las dos normas del 11.04 NO gobiernan el sub-capítulo: cada una está impresa pegada a su código. La segunda lo dice con todas las letras —«estan incluidas en ESTE código»— y va después del 11.04.04. Por eso el prefijo es el código completo.",
+   "normas_prefijo": {
+    "1104": [
+     "Parto normal o cesarea. Normas al final del Nomenclador."
+    ],
+    "110401": [
+     "Parto normal, parto patologico - Vaginal - cualquiera sean las complicaciones que ocurrieran, incluyendo eventual ayudantia, episiotomia, episiorrafia, traqueolorrafia, etc. Incluye parto multiple, los honorarios se facturaran solamente cuando el medico atienda personalmente el parto."
+    ],
+    "110404": [
+     "La atencion del alumbramiento o puerperio y/o sus complicaciones cuando el parto no fue asistido por medico, estan incluidas en este código cuando solamente se resuelvan por via vaginal."
+    ]
+   },
+   "codigos": {
+    "110101": "Reseccion cuneiforme de ovarios. Extirpacion de ovario. Ooforoplastia (implantacion de ovario en utero). Ooforosalpingectomia. Salpingoplastia. Salpingectomia. Salpingostomia. Uni o bilaterales",
+    "110102": "Culdoscopia o con luz fria (celioscopia con hidrotubacion o biopsia de ovario o debridacion, no incluye utilizacion equipo fibroscopico)",
+    "110103": "Celioscopia, culdoscopia o laparascopia convencional con hidrotubacion biopsia o debridacion",
+    "110104": "Ligadura de trompas (Como) unica operacion.",
+    "110105": "uni o bilateral (Con reconocimiento previo de la obra social)",
+    "110201": "ampliada.- Operación de Werthein o de Meigs",
+    "110202": "total, anterior o posterior",
+    "110204": "(Como unica operacion)",
+    "110206": "etc",
+    "110207": "Histerorrafia (fuera del parto)",
+    "110208": "los vicios de conformacion del utero MALFORMACIONES UTERINAS.",
+    "110209": "con o sin reseccion ganglio pre-sacro por via abdominal",
+    "110212": "fuera del parto",
+    "110213": "Como unica practica",
+    "110215": "(polipo) ELECTROCOAGULACION de cuello O CAUTERIZACION QUIMICA (tratamiento completo) BIOPSIA DE CUELLO. (como unica operacion)",
+    "110216": "Aplicacion de radium EXTRA O INTRAUTERINO. Por aplicacion",
+    "110217": "(incluye el dispositivo) con reconocimiento previo de la obra social",
+    "110301": "por procedimientos visceroplasticos",
+    "110302": "Tratamiento quirurgico de la agenesia vaginal por procedimientos no visceroplasticos",
+    "110303": "con o sin correccion de retroversion uterina, con o sin perineorrafia. INCLUYE TRATAMIENTO DE LA INCONTINENCIA DE ORINA.",
+    "110304": "etc. FUERA DEL PARTO.",
+    "110305": "(desgarro perineal complicado)",
+    "110308": "completa o parcial",
+    "110309": "(absceso pelviano). Escision local de lesión de vagina",
+    "110310": "Vaginismo (operación de Pozzi)",
+    "110311": "Puncion de vagina, (diagnóstica exploradora)",
+    "110312": "(incluye vaciamiento ganglios linfaticos inguinales)",
+    "110314": "labios MENORES, de GLANDULA DE BARTHOLINO, GLANDULA DE SKENE. Clitoridectomia",
+    "110315": "Incision y drenaje de vulva, glandula de Bartholino, glandula de Skene (absceso)",
+    "110316": "Episiorrafia, perineorrafia o episioperineorrafia (fuera del parto)",
+    "110317": "Perineoplastia, episioperineoplastia",
+    "110402": "en el SEGUNDO TRIMESTRE DEL EMBARAZO, CON MECANISMO DE PARTO.",
+    "110405": "transabdominal o via vaginal"
+   }
+  },
+  "04": {
+   "titulo": "Operaciones en el sistema endocrino",
+   "pags": [
+    33
+   ],
+   "norma": [],
+   "codigos": {
+    "040101": "radical unilateral",
+    "040102": "Tiroidectomia total con vaciamiento ganglionar radical bilateral"
+   }
   }
  }
 }
