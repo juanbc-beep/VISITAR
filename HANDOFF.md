@@ -862,10 +862,27 @@ uno antes de «mielotomía comisural» y otro después).
 | capítulo | páginas del archivo | códigos | estado |
 |---|---|---|---|
 | 01 · Sistema nervioso | 12–17 | 69 | ✅ 33 textos |
+| 12 · Músculo esquelético | 68–80 | 146 | ✅ 64 textos + 3 normas de capítulo + 13 de sub-capítulo |
 | 25 · Rehabilitación médica | 111–112 | 6 | ✅ 6 textos + 5 normas |
-| los otros 28 | ~18–150 | ~1.150 | pendiente |
+| los otros 27 | ~18–150 | ~1.000 | pendiente |
 
-Cobertura: **195 de 1.351 (14%)**, desde 156 (11%).
+Cobertura: **341 de 1.351 (25%)**, desde 156 (11%).
+
+#### ⚠️ Normas de sub-capítulo: `normas_prefijo`
+
+El 12 obligó a agregarlas. `norma` gobierna el capítulo entero; `normas_prefijo` gobierna un
+sub-capítulo (`{"1219": [...]}` → todas las fichas que empiezan con `1219`).
+
+**La distinción no es cosmética**: el 12 tiene trece normas de sub-capítulo, y pegarle a los
+146 códigos la del 12.01 —«el arancel para el tratamiento no quirúrgico de las fracturas SIN
+DESPLAZAMIENTO será el de la confección del yeso»— sería decirle al administrativo que eso
+rige para las amputaciones. Verificado después de importar: la amputación `121601` recibió
+sólo las 3 normas de capítulo, y el yeso `121901` recibió además la del 12.19.
+
+⚠️ **Cero fichas no es un error.** `12.01` («fracturas sin desplazamiento») no tiene códigos
+propios: el PMO lo vació entero. Su norma queda declarada y el script avisa «NINGUNA ficha con
+ese prefijo». **No pegarla al 12.02 ni al capítulo** — sería inventarle alcance a una regla
+que el nomenclador escribió para otra cosa.
 
 ⚠️ **No todos los códigos llevan recuadro.** En el capítulo 01, 33 de 69. Los que no tienen
 son los que el Nacional imprime completos en negrita (nada retirado) y los marcados «CODIGO

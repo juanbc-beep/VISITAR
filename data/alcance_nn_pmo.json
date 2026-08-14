@@ -69,6 +69,145 @@
     "010704": "(cisternografia)",
     "010705": "Mielografia."
    }
+  },
+  "12": {
+   "titulo": "Operaciones en el sistema músculo esquelético",
+   "pags": [
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79,
+    80
+   ],
+   "norma": [
+    "Los códigos 12.02 al 12.17 incluyen los honorarios correspondientes a yeso, ferula o traccion. El establecimiento facturara el 100% del gasto quirurgico y el 100% del gasto de yeso, ferula o traccion.",
+    "Los llamados \"Tutores Externos\" son una forma especial de inmovilizacion, que no son métodos de osteosintesis ni de reduccion con ferulizacion, se utilizan para fracturas inestables donde no se confecciona yeso. Su utilizacion no origina un gasto suplementario, ya que luego son retirados y reuperados. Por lo tanto, solo debe liquidarse el código correspondiente al tratamiento quirurgico efectuado.",
+    "Protesis y ortesis: La cobertura sera del 100% en protesis e implantes de colocacion interna permanente y del 50% en ortesis y protesis externas, no reconociendose las protesis denominadas miogenicas o bioelectricas. El monto maximo a erogar por el agente del seguro sera el de la menor cotizacion de plaza. Las indicaciones médicas se efectuaran por nombre generico, sin mencion o sugerencia de marca o proveedor, los agentes del seguro no recibiran ni tramitaran aquellas que no cumplan estrictamente con estos requisitos."
+   ],
+   "normas_prefijo": {
+    "1201": [
+     "Fracturas sin desplazamiento.",
+     "TRATAMIENTO INCRUENTO, INMOVILIZACION. el arancel para el tratamiento no quirurgico de las fracturas sin desplazamiento sera el de la confeccion del yeso, ferula o vendaje si correspondiere. En caso de no requerir inmovilizacion se facturara consulta."
+    ],
+    "1202": [
+     "Fractura con desplazamiento - osteoplastia.",
+     "no quirurgicas - osteoclasia - osteodosis minima - manipulacion - inmovilizacion Los honorarios establecidos en este apartado incluyen eventual ayudantia."
+    ],
+    "1203": [
+     "reduccion - osteosintesistratamiento quirurgico de las fracturas"
+    ],
+    "1204": [
+     "PARCIALES EN HUESOS.",
+     "exploracion, drenaje, legrado, extraccion de cuerpo extraño, secuestrectomia, reseccion de lesiones infecciosas, parasitarias, etc. biopsia quirurgica."
+    ],
+    "1205": [
+     "incluye eventual reemplazo del hueso por protesis"
+    ],
+    "1207": [
+     "osteoplastia, alargamiento, epifisiolisis, injerto en hueso, pseudoartrosis, consolidacion viciosa"
+    ],
+    "1209": [
+     "exploracion -drenaje- extraccion de cuerpo extraño u osteocartilaginoso, escisiones en articulaciones: condrectomias, sinovectomias, meniscectomias."
+    ],
+    "1210": [
+     "Cuando las artroplastias sean con protesis, se debera agregar a los honorarios medicos correspondientes el 25% de incremento si la protesis fuere parcial (una superficie articular) y el 50% cuando fuera total (ambas superficies articulares).",
+     "AMPLIACION DE LA NORMA: Se considera en las artoplastias como maximo 2 superficies articulares, cualquiera sea el numero de huesos que conformen cada una de ellas. Por lo tanto, el 50% es el maximo que pueda adicionarse a los honorarios del código de la intervencion quirurgica correspondiente."
+    ],
+    "1211": [
+     "Los aranceles correspondientes a los honorarios de este apartado incluyen los de eventual toma de hueso para injerto * in situ * o de banco de hueso. Cuando el injerto se tome de una region no comprendida dentro del campo quirurgico, se adicionara el 20% de los honorarios de la intervención que se facture. El gasto quirurgico se facturara con un 30% de recargo por toma de injerto. En las artrodesis de columna vertebral en las que se utilice implante metalico interno (tipo Dwper, Harrington o similar) se adicionara al honorario medico correspondiente un 25%."
+    ],
+    "1212": [
+     "suturas de capsulas o ligamentos articulares. capsulodesis. operaciones en las bolsa serosas. calcificaciones para -articulares-. sutura en las articulaciones."
+    ],
+    "1213": [
+     "tratamiento incruento e inmovilizacion",
+     "A. Se excluye de este apartado las luxaciones congenitas que se encuentran tratadas en el código 12.17 -Tratamientos quirurgicos por procedimientos combinados y miscelaneas",
+     "B. Los aranceles medicas del rubro -Tratamiento incruento e inmovilizacion de las luxaciones- incluyen eventual ayudantia"
+    ],
+    "1217": [
+     "tratamiento quirurgico por PROCEDIMIENTOS COMBINADOS. miscelaneas.",
+     "discectomias por hernia de disco pulposo intervetebral"
+    ],
+    "1219": [
+     "Los honorarios que figuran en este rubro incluyen eventuales ayudantias y solamente se facturaran cuando alguno de estos procedimientos se efectue como unico tratamiento y no cuando se realice como complemento de las intervenciones y procedimientos sobre el sistema musculo esqueletico. El gasto quirurgico y el gasto de yeso se facturaran el 100% en todos los casos"
+    ]
+   },
+   "codigos": {
+    "120201": "Columna cervical, dorsal o lumbar",
+    "120202": "Esternon, escapula, humero, (excepto supracondilea) cubito y/o radio, uno o mas huesos del carpo, perone, uno o mas huesos del tarso (excluidos astragalo, calcaneo, maxilar superior, maxilar inferior)",
+    "120203": "Pelvis, femur, tibia y perone, astragalo, calcaneo, supracondilea de humero",
+    "120204": "Clavicula, costillas, rotula, metacarpianos o metatarsianos (de un mismo miembro), falanges (de un mismo dedo), huesos propios de la nariz, molar",
+    "120302": "y radio. disyuncion craneofacial (Lefor III)",
+    "120303": "uno o mas huesos del CARPO, PRIMER METACARPIANO. uno o mas huesos del TARSO, MAXILARES. inferior o superior",
+    "120305": "metacarpiano o METATARSIANO FALANGES (de un mismo dedo), MALAR. huesos PROPIO DE LA NARIZ.",
+    "120401": "como unica operacion, sacro, hemimandibulectomia",
+    "120403": "huesos de la cara",
+    "120503": "(uno o mas huesos), ASTRAGALO CALCANEO, otros huesos del TARSO, (uno o mas huesos), COSTILLAS, (del mismo lado), MALAR.",
+    "120504": "huesos propios de la nariz",
+    "120602": "otros huesos del tarso, maxilar superior o inferior",
+    "120603": "(de un mismo dedo)",
+    "120705": "una o mas FALANGES. de un mismo dedo",
+    "120708": "una o mas FALANGES. de un mismo dedo",
+    "120901": "esterno-clavicular, acramio-clavicular, codo, muñeca, carpo-metacarpiana, tobillo, tarso-metatarsiana, temporo-maxilar",
+    "121005": "metatarsofalangica, interfalangica",
+    "121101": "(menos de tres vertebras)",
+    "121102": "(mas de tres vertebras)",
+    "121104": "(simple), TIBIOTARSAL TARSOMETATARSIANA SINFISIS PUBIANA.",
+    "121106": "Chopart SUBASTRAGALINA.",
+    "121201": "carpo-metacarpiana, tobillo, tarso, tarsometatarsiana",
+    "121204": "calcareos de bolsas serosas de cualquier articulacion",
+    "121303": "tarso y metatarso",
+    "121304": "de un mismo miembro), temporo maxilar",
+    "121401": "(miositis osificante, hipertrofias, neoplasias) CON VACIAMIENTO DE CELDA MUSCULAR. o extirpacion total de grupo muscular",
+    "121402": "(exploracion, extraccion de cuerpo extraño, drenaje,.",
+    "121501": "escision, BIOPSIA, TENOTOMIA FASCIOTOMIA.",
+    "121502": "flexor DE LA MUÑECA O DE DEDO DE LA MANO.",
+    "121503": "o transferencia tendinosa de TENDON FLEXOR DE LA MUÑECA O DEDO. De la mano",
+    "121504": "de la mano",
+    "121505": "o transferencia DE TENDON EXTENSOR DE LA MUÑECA O de DEDO. de la mano",
+    "121506": "que no sea de la muñeca o de dedo de la mano",
+    "121507": "o transferencia de otro que no sea de la muñeca o dedo de la mano",
+    "121508": "seccion nerviosa, paralisis obstetrica, etc., por tenoplastias y/o transferencias tendinosas unicas o multiples en una misma region de miembro superior o inferior",
+    "121509": "ganglion",
+    "121703": "de la ELEVACION CONGENITA DE ESCAPULA.",
+    "121705": "por sindrome del escaleno (reseccion de costilla cervical supernumeraria, tenotomia o miectomia, escision, etc.)",
+    "121706": "Tratamiento quirurgico de la enfermedad de Dupuytren",
+    "121707": "(fasciotomia subcutanea) PALMAR PARCIAL O TOTAL CON O SIN INJERTO.",
+    "121708": "Aponeurotomia parcial o total.",
+    "121709": "Aponeurotomia parcial e injerto (incluye toma de injerto). Tratamiento quirurgico de la sindactilia",
+    "121710": "De un espacio digital, sin injerto",
+    "121711": "De un espacio digital, con injerto (incluye toma de injerto)",
+    "121713": "Reconstruccion parcial del pulgar, en uno o mas tiempos",
+    "121714": "extemporanea (Petit)",
+    "121715": "con o sin cirugia del cotilo y/o femur",
+    "121716": "Displasia de cadera sin luxacion, tratamiento quirurgico (Salter, Pemberton, Colonna, Chiard, etc.)",
+    "121717": "tratamiento quirurgico",
+    "121719": "etc",
+    "121721": "equino supinado, tratamiento quirurgico",
+    "121726": "Simple y/o Metatarsus Varus Primus, Hallus Varus",
+    "121727": "del quinto superducts, del juanetillo de sastre",
+    "121801": "tendinosas, de fascias, de ganglion",
+    "121802": "general.",
+    "121920": "Mano de yeso",
+    "121921": "superior",
+    "121922": "superior",
+    "121929": "Valva larga de miembro inferior",
+    "121930": "Valva corta de miembro inferior",
+    "121931": "Pasta de Unna",
+    "121932": "cutanea, traccion DE PARTES BLANDAS. con frondas, vendajes, adhesivos, etc",
+    "121933": "continua tipo DE COTREL-CEFALO PELVICO.",
+    "121935": "o cefalofemoral"
+   },
+   "_nota_1201": "El sub-capítulo 12.01 «fracturas sin desplazamiento» NO tiene códigos propios en la base: el PMO lo vació entero. Su norma queda declarada igual —dice que el arancel del tratamiento no quirúrgico es el del yeso, férula o vendaje, y que si no requiere inmovilización se factura consulta— pero no tiene ficha donde caer. No se la pega al 12.02 ni al capítulo: sería inventarle alcance a una regla que el nomenclador escribió para otra cosa.",
+   "_nota_120204": "120204 está en el PDF y NO en la base (ya figuraba en docs/inventario_faltantes.json)."
   }
  }
 }

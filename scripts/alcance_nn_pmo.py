@@ -61,25 +61,44 @@ def main():
                 r["alcance_nn"] = {"texto": texto.strip(), "fuente": "original"}
                 puestos += 1
 
-        # La norma del capítulo va en TODAS sus fichas, no sólo en las que
+        # La norma va en TODAS las fichas de su alcance, no sólo en las que
         # tienen texto propio: quien abre una sola ficha tiene que leer la regla
-        # que la gobierna sin saber que existe un encabezado de capítulo. Es el
+        # que la gobierna sin saber que existe un encabezado más arriba. Es el
         # mismo criterio que se usó con el material radioactivo del 26.
-        if normas:
-            delcap = [k for k, v in cod.items()
-                      if v.get("nomenclador") == "PMO" and k[:2] == cap]
-            for k in delcap:
+        #
+        # `norma` gobierna el capítulo entero; `normas_prefijo` gobierna un
+        # sub-capítulo. ⚠️ La distinción importa: el 12 tiene catorce normas de
+        # sub-capítulo, y pegarle a los 146 códigos la del 12.01 —«el arancel
+        # para el tratamiento no quirúrgico de las fracturas SIN DESPLAZAMIENTO
+        # será el de la confección del yeso»— sería decirle al administrativo
+        # que eso rige para las amputaciones.
+        print("  cap %s · %-42s %2d texto(s), %d norma(s) de capítulo%s"
+              % (cap, d.get("titulo", ""), len(codigos), len(normas),
+                 "  ⚠ no están en la base: " + ", ".join(ausentes) if ausentes else ""))
+
+        alcances = [(cap, normas)] + sorted((d.get("normas_prefijo") or {}).items())
+        for pref, textos in alcances:
+            if not textos:
+                continue
+            destino = [k for k, v in cod.items()
+                       if v.get("nomenclador") == "PMO" and k.startswith(pref)]
+            for k in destino:
                 aud = cod[k].setdefault("auditoria", [])
                 # primero, y sin repetir si se corre dos veces
-                nuevas = [PREFIJO_NORMA + t for t in normas
+                nuevas = [PREFIJO_NORMA + t for t in textos
                           if PREFIJO_NORMA + t not in aud]
                 if nuevas:
                     cod[k]["auditoria"] = nuevas + aud
                     con_norma += 1
-
-        print("  cap %s · %-34s %2d texto(s), %d norma(s)%s"
-              % (cap, d.get("titulo", ""), len(codigos), len(normas),
-                 "  ⚠ no están en la base: " + ", ".join(ausentes) if ausentes else ""))
+            if pref != cap:
+                # ⚠️ Cero fichas no es un error del script: hay sub-capítulos que
+                # el PMO vació entero, así que su norma no tiene dónde caer. Se
+                # avisa para que quede a la vista y no pase por transcripción
+                # perdida.
+                print("     └ %s · %d norma(s) → %s"
+                      % (pref, len(textos),
+                         "%d ficha(s)" % len(destino) if destino
+                         else "⚠ NINGUNA ficha con ese prefijo — norma sin destino"))
 
     movidos = [k for k, n in nombres_antes.items() if cod[k].get("nombre") != n]
     if movidos:
