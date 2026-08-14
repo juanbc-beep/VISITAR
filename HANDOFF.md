@@ -876,7 +876,7 @@ uno antes de «mielotomía comisural» y otro después).
 | 20 · Gastroenterología | 97–99 | 25 | ✅ 13 textos + 1 norma en dos códigos |
 | 24 · Hemoterapia | 109–111 | 21 | ✅ 9 textos + 4 normas del 24.01 + 2 por código |
 | 17 · Cardiología | 91–94 | 20 | ✅ 9 textos + 3 normas por código |
-| los otros 15 | ~37–131 | 190 | pendiente |
+| los otros 14 | ~37–131 | 190 | pendiente |
 
 Cobertura: **737 de 1.351 (55%)**, desde 156 (11%).
 
@@ -1065,11 +1065,37 @@ se lo declaró en el JSON, pero el trabajo de lectura ya está hecho: son tres c
 ⚠️ Faltan las páginas del **35, 36, 38 y 66** en `data/paginas_nn.json` (el barrido de OCR llegó
 hasta la 139). Son 35 códigos entre los cuatro.
 
-⚠️ El **23 (páginas 103‑108)** sigue esperando decisión clínica: se superpone con el NBU bajo
-otra numeración. No transcribirlo sin que los médicos definan. **No es el de hemoterapia** —ese
-es el 24, ya hecho—: el 23 es el bloque de laboratorio/hematología (termina en la 109 con el
-xenodiagnóstico y el trasplante de médula del 23.02.34) y **no tiene ni un código PMO en la
-base**, lo que es coherente con que esté numerado en otro lado.
+#### ✅ El 23 (hematología-inmunología) queda AFUERA — resuelto el 14/8/2026
+
+Estuvo meses como «esperando decisión clínica porque se superpone con el NBU bajo otra
+numeración». **No hacía falta la decisión clínica: el original ya lo resuelve.** Arriba del
+encabezado del capítulo, al pie de la página 102, hay un recuadro impreso que dice:
+
+> Capítulo del Nom.Nac. retirado por el PMO. **A excepción del 23.02.34**
+
+El capítulo entero —`23.01.01` al `23.02.32`, unos 150 códigos de hematología e inmunología,
+páginas 102 (pie) a 109— está **fuera del catálogo obligatorio**, y por eso no tiene ni una
+ficha en la base. Todos sus códigos vienen en bastardilla, que es la marca de retirado. No se
+transcribe: el usuario lo decidió el 14/8/2026 y el motivo es el de arriba, no el cruce con el
+NBU. **Tampoco es el de hemoterapia** —ese es el 24, ya hecho—.
+
+⚠️ **Pero la excepción SÍ falta en la base.** El `23.02.34` (TRASPLANTE DE MEDULA OSEA, página
+109) está en negrita, marcado «CODIGO AGREGADO POR EL P.M.O.», y trae obligación de cobertura
+con sus indicaciones impresas —aplasia medular idiopática o adquirida no secundaria a invasión
+neoplásica; tumores hemáticos (linfomas, leucemias); mieloma múltiple; otros con aval de la
+Sociedad Argentina de Hematología—. Es un código **del catálogo obligatorio que el manual no
+tiene**. No es lo mismo que los trasplantes del `24.12.02` y `24.12.03`, que ya están y son
+otros dos códigos. Queda pendiente de decisión: si se agrega, va por `importar_capitulos_nn.py`
+—un capítulo `"23"` con `retirado_pmo` en **false** y ese único código—, no por
+`alcance_nn_pmo.py`.
+
+⚠️ **Si alguna vez se agrega algo del 23, no se cruza con el NBU ni con el Único.** Es un
+complemento de hematología del Nomenclador Nacional; el laboratorio puro es el NBU/Único, con
+su propia numeración. Las equivalencias del manual son todas curadas (planilla y listas revisadas
+a mano), así que no hay nada que se ate solo — pero la aclaración tiene que quedar **visible en
+la ficha y en el listado**, no escondida en auditoría: quien busca «Coombs» tiene que ver de un
+vistazo que ese código es del capítulo 23 del Nacional y no la práctica de laboratorio que iba
+a cargar.
 
 ### 3.9 ⚠️ 36 fichas tenían la etiqueta del recuadro METIDA EN EL NOMBRE
 
