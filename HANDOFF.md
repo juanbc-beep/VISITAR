@@ -1069,6 +1069,13 @@ se lo declaró en el JSON, pero el trabajo de lectura ya está hecho: son tres c
 ⚠️ Faltan las páginas del **35, 36, 38 y 66** en `data/paginas_nn.json` (el barrido de OCR llegó
 hasta la 139). Son 35 códigos entre los cuatro.
 
+⚠️ **Las páginas 84 a 87 no son de ningún capítulo**, y el índice ahora lo dice (`_huecos`). El
+13 termina en la 83 y el 14 arranca en la 88, así que el salto parece un capítulo perdido y no
+lo es: la 84 es la portada «PROGRAMA MEDICO OBLIGATORIO DEFINITIVO», la 85 está en blanco, y la
+86 y la 87 son el **detalle de los coseguros** de los capítulos 14 al 44, odontológicos y
+bioquímicos (Resolución 58/2017-MS). Verificado a ojo el 14/8/2026. El capítulo 13 está completo
+con sus tres páginas: 30 códigos, 20 con recuadro y 10 sin él.
+
 #### ✅ El 23 (hematología-inmunología) queda AFUERA — resuelto el 14/8/2026
 
 Estuvo meses como «esperando decisión clínica porque se superpone con el NBU bajo otra
