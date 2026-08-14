@@ -573,6 +573,56 @@
     "130303": "Atencion del paciente, con quemaduras de 2° y 3° grado que comprometen zonas funcionales, (articulaciones, cara, genitales), de mas del 5% y por cada 10% o fraccion de superficie corporal.",
     "130304": "(por sesion y por cada 10% de superficie corporal)"
    }
+  },
+  "10": {
+   "titulo": "Operaciones en el aparato urinario y genital masculino",
+   "pags": [
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63
+   ],
+   "norma": [
+    "En las intervenciones en que se utilice resectoscopio, el gasto quirurgico no incluye el ansa de tungsteno."
+   ],
+   "codigos": {
+    "100105": "by-pass estenosis, etc",
+    "100106": "(Con autorizacion especial de la obra social). Normas de este código al final del Nomenclador",
+    "100107": "a cielo abierto, fistula lumbar postnefrectomia",
+    "100110": "de la UNION URETEROPIELICA. Pieloplastia. Plastias del ureter. Plastia de la union uretero-vesical (ureterocistostomia) y tratamiento del ureterocele con tecnica antirreflujo (Boari, Casatti o similar)",
+    "100111": "(uretero sigmoideostomia); a piel (ureterostomia cutanea)",
+    "100112": "De la circulacion enterica. Reemplazo del ureter por intestino aislado",
+    "100114": "Ureterostomia. Ureterolitotomia",
+    "100115": "por instrumentacion (dormia o similares). incluye cistocopia",
+    "100116": "con o sin reseccion intestinal, ureterovaginal, ureterocutanea",
+    "100201": "intestinal DELGADA O COLON O NEOVEJIGA. excluida de la circulacion enterica (operación de Bricker o similares)",
+    "100203": "denervacion vesical - reduccion vesical)",
+    "100204": "(agrandamiento vesical)",
+    "100206": "con o sin reseccion enterica, vesicovaginal y/o uterina",
+    "100208": "(litiasis - drenaje). Sutura vesical",
+    "100209": "Puncion evacuadora vesical",
+    "100210": "vesicales, ureterocele. Litrotricia",
+    "100212": "Bursch O SIMILAR. es) o perineal en el hombre",
+    "100213": "(Abdominal y Vaginal)",
+    "100302": "uretro-vaginal o uretrocutanea. Tratamiento quirurgico de la a cielo abierto",
+    "100303": "o de cuerpo extraño) Biopsia uretral a cielo abierto",
+    "100304": "por desgarro, herida, etc",
+    "100306": "o reseccion ENDOSCOPICA DE TUMORES URETRALES Veru Montanun o valvas",
+    "100402": "O meatotomia",
+    "100403": "de la vejiga, postadenomectomia",
+    "100404": "de PROSTATA. Reseccion endoscopica de fibrosis y cicatrices del cuello de la vejiga postadenomectomia",
+    "100405": "como UNICA OPERACION UNI O BILATERAL.",
+    "100501": "ganglionar intra-abdominal",
+    "100504": "fuera la TECNICA empleada CON O SIN TRATAMIENTO DE HERNIA CONCOMITANTE.",
+    "100506": "quiste de epididimo, quiste de cordon",
+    "100509": "escision de LESION LOCAL DE TESTICULO.",
+    "100607": "Vasectomia, ligadura de conducto deferente. uni o bilateral como unica operación",
+    "100701": "Ganglionar",
+    "100709": "Escision de cuerda ventral."
+   }
   }
  }
 }

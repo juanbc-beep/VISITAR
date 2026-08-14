@@ -868,12 +868,13 @@ uno antes de «mielotomía comisural» y otro después).
 | 07 · Sistema cardiovascular | 38–46 | 82 | ✅ 44 textos + 2 normas de sub-capítulo |
 | 08 · Aparato digestivo y abdomen | 47–55 | 123 | ✅ 66 textos + 2 normas de sub-capítulo |
 | 13 · Piel y tejido subcutáneo | 81–83 | 30 | ✅ 20 textos + 4 normas |
+| 10 · Urinario y genital masculino | 57–63 | 82 | ✅ 33 textos + 1 norma de capítulo |
 | 11 · Genital femenino y obstetricia | 64–67 | 49 | ✅ 33 textos + 3 normas (una de sub-capítulo, dos por código) |
 | 12 · Músculo esquelético | 68–80 | 146 | ✅ 64 textos + 3 normas de capítulo + 13 de sub-capítulo |
 | 25 · Rehabilitación médica | 111–112 | 6 | ✅ 6 textos + 5 normas |
-| los otros 20 | ~18–150 | ~570 | pendiente |
+| los otros 19 | ~18–150 | ~490 | pendiente |
 
-Cobertura: **595 de 1.351 (44%)**, desde 156 (11%).
+Cobertura: **677 de 1.351 (50%)**, desde 156 (11%). Mitad del catálogo.
 
 ⚠️ El orden de la tabla es el del JSON, no el numérico. Para saber qué falta, correr el script:
 lista cada capítulo cargado con su cuenta.
