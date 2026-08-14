@@ -862,11 +862,16 @@ uno antes de «mielotomía comisural» y otro después).
 | capítulo | páginas del archivo | códigos | estado |
 |---|---|---|---|
 | 01 · Sistema nervioso | 12–17 | 69 | ✅ 33 textos |
+| 08 · Aparato digestivo y abdomen | 47–55 | 123 | ✅ 66 textos + 2 normas de sub-capítulo |
 | 12 · Músculo esquelético | 68–80 | 146 | ✅ 64 textos + 3 normas de capítulo + 13 de sub-capítulo |
 | 25 · Rehabilitación médica | 111–112 | 6 | ✅ 6 textos + 5 normas |
-| los otros 27 | ~18–150 | ~1.000 | pendiente |
+| los otros 26 | ~18–150 | ~880 | pendiente |
 
-Cobertura: **341 de 1.351 (25%)**, desde 156 (11%).
+Cobertura: **425 de 1.351 (31%)**, desde 156 (11%).
+
+⚠️ **NO canalizar la salida del script por `head`.** El SIGPIPE lo mata antes de que escriba el
+JSON, y como `inject_db.py` corre igual sobre la base vieja, todo parece haber funcionado y la
+cobertura no se mueve. Pasó una vez; usar `tail` o nada.
 
 #### ⚠️ Normas de sub-capítulo: `normas_prefijo`
 
