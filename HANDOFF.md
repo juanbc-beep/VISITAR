@@ -878,6 +878,39 @@ Cobertura: **595 de 1.351 (44%)**, desde 156 (11%).
 ⚠️ El orden de la tabla es el del JSON, no el numérico. Para saber qué falta, correr el script:
 lista cada capítulo cargado con su cuenta.
 
+#### ⚠️ Qué correr después de importar un capítulo (y qué NO)
+
+Medido, no estimado:
+
+| paso | tiempo |
+|---|---|
+| los tres scripts de datos | **3 s** |
+| render de 9 páginas del PDF | **2 s** |
+| `scripts/comprobar_datos.mjs` | **2,5 s** |
+| batería completa (`hl_check`+`roles_limite`+`lote`+`favglob`) | **80 s** |
+| └ de eso, `waitForTimeout` a ciegas | **39 s** |
+
+⚠️ **Los importadores de capítulo NO tocan `index.html`** — escriben `data/nbu_db.json` y de ahí
+sale `web/nbu_db.bin`. `roles_limite` (permisos), `favglob` (favoritos) y `tour2` (tutorial)
+prueban código que no se movió: correrlos es pagar 77 segundos por nada.
+
+Después de importar un capítulo alcanza con:
+
+    python3 scripts/alcance_nn_pmo.py && python3 scripts/nombres_rotos.py && python3 scripts/inject_db.py
+    cd web && python3 -m http.server 8890 --bind 127.0.0.1 &
+    node scripts/comprobar_datos.mjs
+
+La batería completa va cuando se toca `index.html`, no antes.
+
+⚠️ **El tiempo real de un capítulo es leer las páginas**, no verificar: son 9 imágenes de
+~527 KB que hay que mirar de a una porque el PDF no tiene capa de texto. Eso es el trabajo y no
+se acelera; lo que sí se puede es no sumarle un minuto y medio de tests que no aplican.
+
+⚠️ **Un `waitForFunction` que falla se paga entero.** La primera versión de
+`comprobar_datos.mjs` tardaba 47 s —más que la batería— porque tres esperas con timeout de 15 s
+no se cumplían nunca. Con timeout de 2,5 s y el cambio de nomenclador arreglado, 2,5 s. Al
+escribir un test, el timeout de una espera que puede fallar es el costo, no el techo.
+
 ⚠️ **NO canalizar la salida del script por `head`.** El SIGPIPE lo mata antes de que escriba el
 JSON, y como `inject_db.py` corre igual sobre la base vieja, todo parece haber funcionado y la
 cobertura no se mueve. Pasó una vez; usar `tail` o nada.
