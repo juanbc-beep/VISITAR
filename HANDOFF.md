@@ -84,6 +84,10 @@ que tiene al afiliado enfrente? Si sólo sirve para auditar facturación, es sec
 | **SURGE** (Res. 731/23) | **58** patologías del Anexo II · 38 códigos mapeados |
 | **Leyes / normas** | 22 · Glosario 12 |
 
+⚠️ Los 6.372 son lo que arma `assemble.py`. La base publicada tiene **6.477**: los importadores
+de capítulo (3.6 y 3.8) corren **después**, sobre `data/nbu_db.json`, y suman los capítulos que
+faltaban enteros más el `23.02.34`. Si un conteo no da, mirar cuál de los dos números es.
+
 ### Cruces / inteligencia construida
 
 | Relación | Cobertura |
@@ -1079,23 +1083,45 @@ ficha en la base. Todos sus códigos vienen en bastardilla, que es la marca de r
 transcribe: el usuario lo decidió el 14/8/2026 y el motivo es el de arriba, no el cruce con el
 NBU. **Tampoco es el de hemoterapia** —ese es el 24, ya hecho—.
 
-⚠️ **Pero la excepción SÍ falta en la base.** El `23.02.34` (TRASPLANTE DE MEDULA OSEA, página
-109) está en negrita, marcado «CODIGO AGREGADO POR EL P.M.O.», y trae obligación de cobertura
-con sus indicaciones impresas —aplasia medular idiopática o adquirida no secundaria a invasión
-neoplásica; tumores hemáticos (linfomas, leucemias); mieloma múltiple; otros con aval de la
-Sociedad Argentina de Hematología—. Es un código **del catálogo obligatorio que el manual no
-tiene**. No es lo mismo que los trasplantes del `24.12.02` y `24.12.03`, que ya están y son
-otros dos códigos. Queda pendiente de decisión: si se agrega, va por `importar_capitulos_nn.py`
-—un capítulo `"23"` con `retirado_pmo` en **false** y ese único código—, no por
-`alcance_nn_pmo.py`.
+✅ **La excepción sí entró: el `23.02.34`.** Estaba en negrita, marcado «CODIGO AGREGADO POR EL
+P.M.O.», con sus indicaciones impresas y coseguro hasta 250 — un código **del catálogo
+obligatorio que el manual no tenía**. Se agregó el 14/8/2026 por decisión del usuario. Es la
+única ficha del capítulo 23 en la base, y no es lo mismo que los trasplantes del `24.12.02`
+(autólogo) y `24.12.03` (alogeneico), que ya estaban y son otros dos códigos.
 
-⚠️ **Si alguna vez se agrega algo del 23, no se cruza con el NBU ni con el Único.** Es un
-complemento de hematología del Nomenclador Nacional; el laboratorio puro es el NBU/Único, con
-su propia numeración. Las equivalencias del manual son todas curadas (planilla y listas revisadas
-a mano), así que no hay nada que se ate solo — pero la aclaración tiene que quedar **visible en
-la ficha y en el listado**, no escondida en auditoría: quien busca «Coombs» tiene que ver de un
-vistazo que ese código es del capítulo 23 del Nacional y no la práctica de laboratorio que iba
-a cargar.
+Entró por `importar_capitulos_nn.py` —un capítulo `"23"` **sin** `retirado_pmo`, porque lo único
+que entra a la base es lo que sí está en el catálogo—, con:
+
+- `cobertura` → obligación de cobertura con las indicaciones impresas: aplasia medular
+  idiopática o adquirida no secundaria a invasión neoplásica; tumores hemáticos (linfomas,
+  leucemias); mieloma múltiple; otros con aval de la Sociedad Argentina de Hematología.
+- `sinonimos` → el original imprime «**TRANS**PLANTE DE MEDULA OSEA» con N. La ficha lleva la
+  ortografía correcta y la impresa entra al índice de búsqueda, así que se encuentra escrito de
+  las dos maneras. Verificado: buscando «transplante» aparece.
+
+#### ⚠️ `aviso_nomenclador`: el aviso de «esto no es del nomenclador que buscabas»
+
+Es el campo nuevo que pidió el usuario y **el motivo por el que este código se podía agregar sin
+riesgo**. Lo declara el capítulo en `data/capitulos_nn.json` y la app lo muestra en **dos**
+lugares:
+
+- **en el resultado del listado** (`.rcruce`, ámbar como el aviso administrativo), porque
+  enterarse al abrir la ficha llega tarde: quien busca «médula ósea» ve siete resultados, tres
+  de ellos trasplantes de médula de dos capítulos distintos;
+- **en la ficha, pegado al nombre y antes de las acciones** (`.cruce-card`), porque no es una
+  excepción de la práctica sino parte de lo que el código ES.
+
+El texto: *es el capítulo 23 del Nomenclador Nacional —hematología e inmunología—, que el P.M.O.
+retiró entero salvo esta práctica; no se cruza con el NBU ni con el Único, que tienen su propia
+numeración de laboratorio y son prácticas distintas, no otro número de ésta*.
+
+⚠️ **El cruce automático no existe, y conviene saber por qué**: todas las equivalencias del
+manual son **curadas** —la planilla del Único y las listas revisadas a mano de
+`equivalencias_por_nombre.py`—, ninguna se ata por parecido de nombre. El riesgo no era que la
+base cruzara sola: era que lo cruzara **la persona que carga**. Por eso el aviso es visible y no
+un renglón de auditoría.
+
+Si alguna vez entra otra cosa del 23, va con el mismo `aviso_nomenclador`.
 
 ### 3.9 ⚠️ 36 fichas tenían la etiqueta del recuadro METIDA EN EL NOMBRE
 
@@ -1532,6 +1558,10 @@ Funciones: `initValidator()`, `runCase()`, `renderCase()`, `renderFacturacion()`
     `'unsafe-inline'`. Si el archivo cambia y la huella no, **el navegador se niega a
     ejecutar la app entera**. La acción de publicación lo vuelve a sellar sola, así que
     olvidarse nunca llega al equipo — pero sí rompe la copia local y el artefacto.
+    ⚠️ **El síntoma no dice «CSP»**: la página carga, el cartel de arranque no se va nunca y
+    cualquier test de Playwright muere en el `waitForFunction` del `#boot` a los 30 s, como si
+    fuera lento. Si un cambio de `index.html` deja todo colgado ahí, es esto: sellar y volver
+    a correr. Pasó el 14/8/2026 y costó un ciclo de depuración.
 14. **No mandar el enlace del artefacto.** No puede hablar con Supabase, así que ahí no se
     puede ni entrar. Para probar, la dirección de producción; para mostrar, capturas.
 15. **No inventar identificadores ni valores que no se puedan verificar** (los SHA de las

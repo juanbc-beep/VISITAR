@@ -958,6 +958,28 @@
     "260526": "Incluye: Primera circulacion sanguinea. Centellografia renal. Radiorrenograma.",
     "260527": "El radiocardiograma completo incluye indice cardiaco, volumen sistolico y diastolico, volumen de cada camara, volemia con poligrafo y electrocardiograma simultaneo."
    }
+  },
+  "23": {
+   "titulo": "Hematología - Inmunología",
+   "_nota": "UN SOLO código a propósito. Al pie de la página 102, arriba del encabezado del capítulo, hay un recuadro impreso: «Capítulo del Nom.Nac. retirado por el PMO. A excepción del 23.02.34». Los ~150 códigos restantes (23.01.01 al 23.02.32, páginas 102 a 109) están fuera del catálogo obligatorio y vienen todos en bastardilla, que es la marca de retirado: no se transcriben. Éste es la excepción impresa, va en negrita y está marcado «CODIGO AGREGADO POR EL P.M.O.». Por eso el capítulo NO lleva retirado_pmo: lo único que entra a la base es lo que sí está en el catálogo.",
+   "aviso_nomenclador": {
+    "sigla": "cap. 23 · Nom. Nacional",
+    "texto": "Es el capítulo 23 del Nomenclador Nacional —hematología e inmunología—, que el P.M.O. retiró entero de su catálogo salvo esta práctica. No se cruza con el NBU ni con el Nomenclador Único: el laboratorio de hematología de esos dos tiene su propia numeración y son prácticas distintas, no otro número de ésta."
+   },
+   "norma": [],
+   "codigos": [
+    {
+     "code": "230234",
+     "nombre": "Trasplante de médula ósea",
+     "sinonimos": [
+      "Transplante de medula osea"
+     ],
+     "coseguro": 250.0,
+     "grupo": "Hematología - Inmunología",
+     "agregado_pmo": true,
+     "cobertura": "Indicado en: Aplasia medular idiopatica o adquirida no secundaria a invasion neoplasica. Tumores hematicos (linfomas, leucemias). Mieloma multiple. Otros con aval de la Sociedad Argentina de Hematologia."
+    }
+   ]
   }
  },
  "_cobertura_430106": "Obligación de cobertura en los siguientes casos: internación en menores de 15 años, a fin de asegurar una adecuada contención por parte de un familiar durante un momento crítico como es la internación y, sobre todo, en este grupo de personas."

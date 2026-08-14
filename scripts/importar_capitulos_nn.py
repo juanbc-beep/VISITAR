@@ -37,13 +37,17 @@ NOM_FULL = ("Catálogo de Prestaciones del PMO — Programa Médico Obligatorio 
             "(Resolución 201/2002, S.S. Salud)")
 
 
-def ficha(c, cap, titulo, normas_cap, normas_sueltas, retirado=False):
+def ficha(c, cap, titulo, normas_cap, normas_sueltas, retirado=False, aviso=None):
     """Arma una ficha con la misma forma que las que ya están en la base.
 
        El valor NO va como U.B.: estos capítulos se arancelan por «unidades» de
        honorarios y gastos, que es otra unidad. Meterlos como U.B. haría que la
        app los multiplicara por el valor de la Unidad Bioquímica y mostrara un
        arancel inventado.
+
+       `aviso` es la aclaración de a qué nomenclador pertenece el código, para
+       los capítulos que se confunden con otro. La ficha la muestra arriba y el
+       listado la muestra en el resultado: ver el capítulo 23.
     """
     aud = []
     if c.get("alcance"):
@@ -79,7 +83,7 @@ def ficha(c, cap, titulo, normas_cap, normas_sueltas, retirado=False):
                "Prestación del Catálogo del PMO (cobertura obligatoria). El arancel "
                "surge del nomenclador/convenio aplicable, no del NBU.")
 
-    return {
+    f = {
         "code": c["code"],
         "nomenclador": "PMO",
         "nomenclador_full": NOM_FULL,
@@ -87,7 +91,10 @@ def ficha(c, cap, titulo, normas_cap, normas_sueltas, retirado=False):
         "seccion_label": SECCION_LABEL,
         "grupo": c.get("grupo") or titulo,
         "nombre": c["nombre"],
-        "sinonimos": [],
+        # Los sinónimos entran al índice de búsqueda. Sirven para la ortografía
+        # del original cuando la ficha lleva la corriente: el 23.02.34 está
+        # impreso «TRANSPLANTE» y quien lo busque así tiene que encontrarlo.
+        "sinonimos": c.get("sinonimos") or [],
         "abreviaturas": [],
         # ub en None a propósito: ver el comentario de arriba.
         "valor": {"ub": None, "unidad": "—", "arancel": arancel},
@@ -108,6 +115,21 @@ def ficha(c, cap, titulo, normas_cap, normas_sueltas, retirado=False):
         "en_catalogo_pmo": not retirado,
     }
 
+    # La obligación de cobertura del catálogo. Va en su campo y no en auditoría
+    # porque la app ya la sabe mostrar: cartel propio en la ficha y etiqueta en
+    # el resultado del listado, que es donde se decide si se carga o no.
+    if c.get("cobertura"):
+        f["cobertura_pmo"] = c["cobertura"]
+        f["cobertura_tipo"] = c.get("cobertura_tipo") or "obligacion"
+
+    # A qué nomenclador pertenece el código, cuando se confunde con otro. Va en
+    # la ficha Y en el listado a propósito: enterarse al abrir la ficha llega
+    # tarde igual que con la observación administrativa.
+    if aviso:
+        f["aviso_nomenclador"] = aviso
+
+    return f
+
 
 def main():
     src = json.load(open(FUENTE, encoding="utf-8"))
@@ -119,7 +141,8 @@ def main():
         sueltas = d.get("normas_sueltas", {})
         for c in d["codigos"]:
             f = ficha(c, cap, d["titulo"], normas, sueltas,
-                      retirado=bool(d.get("retirado_pmo")))
+                      retirado=bool(d.get("retirado_pmo")),
+                      aviso=d.get("aviso_nomenclador"))
             if f["alcance_nn"] is None:
                 f.pop("alcance_nn")
             if c["code"] in cod:
