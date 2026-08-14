@@ -362,6 +362,78 @@
     "031307": "Escision O DE LESION LOCAL DE FARINGE. de fistula branquial y/o quiste branquial o vestigio",
     "031308": "Incision y drenaje de tejido retrofaringeo (por via bucal)"
    }
+  },
+  "07": {
+   "titulo": "Operaciones en el sistema cardiovascular",
+   "pags": [
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46
+   ],
+   "norma": [],
+   "normas_prefijo": {
+    "0702": [
+     "A. En operaciones cardiovasculares con circulacion extracorporea el perfusionista facturara el 15% del honorario del cirujano.",
+     "B. En caso de ser preparado el sistema de circulacion extracorporea y no ser utilizado, el perfusionista podra facturar de honorario 106.5 galenos, y el sanatorio facturara 140 unidades sanatoriales del gasto quirurgico.",
+     "C. Cuando debieran realizarse operaciones multiples en cirugia cardiaca con circulacion extracorporea, fuera de los expresamente indicados en los códigos correspondientes, se adicionara el 100% de los honorarios subsiguientes; los gastos quirurgicos se facturaran el 100% de la mayor y el 30% de las subsiguientes.",
+     "AMPLIACION DE NORMA: Esta norma es de aplicacion, entre otros, al caso de derivaciones aortocoronaria y mamario-coronaria, realizadas en un mismo acto quirurgico."
+    ],
+    "0707": [
+     "En todos los casos se debe agregar el Código 34.01.03 a excepcion de los 07.07.10, 11 y 15"
+    ]
+   },
+   "codigos": {
+    "070101": "(Blalock Hanlon). Cardiotomia, con exploracion, con extraccion de cuerpo extraño. Valvulotomia cardiaca, pulmonar, mitral, aortica, comisurotomia. Pericardiectomia.",
+    "070102": "(terapéutica). Incluye el cateterismo cardiaco",
+    "070104": "Colocacion de marcapaso definitivo con electrodo epicardico",
+    "070105": "de marcapaso PLASTICA DE BOLSILLO DE MARCAPASO.",
+    "070106": "hasta cinco dias",
+    "070107": "Mantenimiento de circulacion asistida externa por contrapulsacion por dias subsiguientes.",
+    "070109": "con extraccion de cuerpo extraño, con DESCOMPRESION, PARA EVACUACION DE HEMATOMA.",
+    "070112": "(incluido cirujano y cardiologo, excluido el radiologo)",
+    "070201": "complejas (tetralogia de Fallot, transposicion de los grandes vasos arterio-ventriculares comunes, ventriculo unico, atresia tricuspidea, enfermedad de Ebstein, etc.)",
+    "070202": "Tratamiento quirurgico de las cardiopatias congenitas complejas, con hipotermia profunda. Operación de Rastelli",
+    "070205": "Reemplazo de una valvula cardiaca y plastica de la otra",
+    "070206": "(auriculares y/o ventriculares.) Plasticas valvulares unicas o multiples. Anomalias parciales del retorno venoso pulmonar. Estenosis no valvulares de la via de salida de los ventriculos derecho e izquierdo, ventana aorto pulmonar. Fistula entre aorta o coronarias y cavidades cardiacas. Embolectomia de la arteria pulmonar. Extraccion de cuerpos extraños en cavidades cardiacas. Escision de tumores cardiacos",
+    "070209": "unica, doble o triple. (Incluye toma del injerto venoso)",
+    "070211": "como unica intervencion",
+    "070212": "Reseccion de aneurisma ventricular como complemento de la cirugia de revascularizacion miocardica. Se adicionara",
+    "070301": "anastomosis, injertas, embolectomias, cerclajes, suturas. estenosis, coartacion, ductus, embolias, heridas",
+    "070402": "anastomosis directas; injertos; tromboendarterectomia; embolectomia; arteriorrafia (aneurismas, fistula arteriovenosa, estenosis, anomalias, trombosis, embolias, heridas)",
+    "070404": "Derivacion aorto bifemoral (Con o sin simpaticectomia).",
+    "070405": "(Con o sin simpaticectomia)",
+    "070408": "ligadura; cerclaje; clips sutura; trombectomia",
+    "070409": "o similar en vena cava por via endovenosa",
+    "070501": "anastomosis; injertos (trombosis, embolias, aneurismas, fistula arteriovenosa) incluye eventual toma de vena para plastica o injerto",
+    "070502": "(carotidas, vertebral, yugular interna)",
+    "070602": "con o sin arterioplastia (Incluye eventual toma de parche venoso)",
+    "070603": "(Incluye toma del injerto)",
+    "070604": "Derivacion (by-pass) de vasos perifericos con injerto sintetico",
+    "070608": "Exploracion quirúrgica de arteria periferica",
+    "070610": "(Como unico tratamiento)",
+    "070612": "de miembro inferior CON LIGADURAS Y/O RESECCIONES ESCALONADAS. unilateral",
+    "070613": "Safenectomia interna y/o externa de miembro inferior con ligaduras y/o resecciones escalonadas, bilateral.",
+    "070614": "(ligaduras subaponeuroticas de las comunicantes con el sistema venoso profundo de la pierna)",
+    "070615": "Diseccion de venas para perfusion (Canalizacion venosa con cateter)",
+    "070701": "de corazon para diagnóstico (comprende toma de presiones y obtencion de muestras de sangre para oximetria; incluye monitoreo cardiaco). -\"Y Código 34.08.03\"",
+    "070702": "Cardiografia-angiocardiografia (incluye cateterismo de corazon, toma de presiones y obtencion de sangre para oximetría. Incluye monitoreo cardíaco). -\"Y Código 34.08.04\"",
+    "070703": "de coronaria izquierda y/o derecha (incluye cateterismo cardiaco, toma de presiones, obtencion de muestras de sangre para oximetria y ventriculograma, incluye monitoreo cardiaco). -\"Y Código 34.08.05\"",
+    "070704": "\"Y Códigos 34.08.08 y 09\"",
+    "070706": "Aortografia abdominal y estudio selectivo de las arterias del cayado aortico y del cuello, por cateterismo. -\"Y Códigos 34.08.08 y 09\"",
+    "070708": "Aortografia abdominal y estudio selectivo de tronco celiaco, mesenterica superior e inferior, renales y/o sus ramas, por cateterismo humeral o femoral (tiempo arterial, parenquimatoso y venoso). -\"Y Código 34.08.07\"",
+    "070709": "y/o selectiva de sus afluentes (incluye toma de muestras sanguineas para determinaciones cateterismo). -\"Y Códigos 34.08.14 y 15\"",
+    "070712": "Arteriografia selectiva de arterias intercostales y lumbares bilateral. -\"Y Código 34.08.10\"",
+    "070713": "con extraccion de muestras para dosaje hormonal. Y Códigos 34.08.18 y 19",
+    "070714": "\"Y Códigos 34.08.12 y 13\"",
+    "070715": "y/o inyección de drogas, a continuacion de arterio o flebografias, agregar",
+    "070716": "\"Y Códigos 34.08.20 y 21\""
+   }
   }
  }
 }

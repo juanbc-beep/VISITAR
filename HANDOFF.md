@@ -863,12 +863,13 @@ uno antes de «mielotomía comisural» y otro después).
 |---|---|---|---|
 | 01 · Sistema nervioso | 12–17 | 69 | ✅ 33 textos |
 | 03 · Otorrinolaringológicas | 24–32 | 118 | ✅ 45 textos |
+| 07 · Sistema cardiovascular | 38–46 | 82 | ✅ 44 textos + 2 normas de sub-capítulo |
 | 08 · Aparato digestivo y abdomen | 47–55 | 123 | ✅ 66 textos + 2 normas de sub-capítulo |
 | 12 · Músculo esquelético | 68–80 | 146 | ✅ 64 textos + 3 normas de capítulo + 13 de sub-capítulo |
 | 25 · Rehabilitación médica | 111–112 | 6 | ✅ 6 textos + 5 normas |
-| los otros 25 | ~18–150 | ~760 | pendiente |
+| los otros 24 | ~18–150 | ~680 | pendiente |
 
-Cobertura: **470 de 1.351 (34%)**, desde 156 (11%).
+Cobertura: **523 de 1.351 (38%)**, desde 156 (11%).
 
 ⚠️ **NO canalizar la salida del script por `head`.** El SIGPIPE lo mata antes de que escriba el
 JSON, y como `inject_db.py` corre igual sobre la base vieja, todo parece haber funcionado y la
@@ -955,11 +956,17 @@ propósito.
 
 ⚠️ El nombre viejo **no se tira**: queda en la auditoría de la ficha, con la página del PDF.
 
-**Estado: 22 corregidos, 14 pendientes** (capítulos 04, 05, 11, 13 y cinco del 07). Se
+**Estado: 28 corregidos, 8 pendientes** (capítulos 04, 05, 11 y 13). Se
 corrigen solos a medida que el barrido llegue a esas páginas — el script los lista al terminar.
 
-⚠️ Ojo con `070708`: su nombre roto empezaba con «Y Codigo 34.08.11», que es el remate del
-`07.07.07` —el OCR cruzó de renglón—. Al `07.07.08` le corresponde el **34.08.07**.
+⚠️ **El OCR cruzaba de renglón, así que el nombre roto arrastra texto del código vecino.**
+Pasó dos veces y las dos habrían metido un dato equivocado si se copiaba tal cual:
+- `070708` empezaba con «Y Codigo 34.08.11», que es el remate del `07.07.07`. Al `07.07.08` le
+  corresponde el **34.08.07**.
+- `070205` terminaba en «CIERREDEFECTOSSEPTALES», que es el título del `07.02.06`.
+
+Al transcribir un nombre roto, **leer el renglón entero en el PDF**, no confiar en la parte
+legible de lo que hay guardado.
 
 ### 4.5 nonies La sigla `NN` — norma del Nacional que el P.M.O. retiró
 
