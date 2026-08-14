@@ -623,6 +623,50 @@
     "100701": "Ganglionar",
     "100709": "Escision de cuerda ventral."
    }
+  },
+  "02": {
+   "titulo": "Operaciones en el aparato de la visión",
+   "pags": [
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "norma": [],
+   "_nota_0209": "El sub-capítulo 02.09 (LASER) son ocho códigos que AGREGÓ el PMO: no figuran en el Nomenclador Nacional, así que no tienen recuadro que transcribir. Lo que traen es obligación de cobertura, que la app maneja aparte. Que no aporten textos es lo correcto.",
+   "normas_prefijo": {
+    "020501": [
+     "El tratamiento quirurgico del glaucoma. Incluye: goniotomia, goniopuntura, goniotripsia, iridectomia filtrante, ciclodialisis, iridectomias, diatermia o crioterapia del cuerpo ciliar o combinaciones de dos o mas de las mencionadas. Incluye ademas toda operación antihipertensiva ocular como la esclerectomia por tijera o trepanacion. -Operación de Elliot-."
+    ]
+   },
+   "codigos": {
+    "020101": "(no incluye injerto de piel)",
+    "020103": "etc. (Con o sin apertura de pared de orbita)",
+    "020105": "(Incluye toma del mismo)",
+    "020106": "con o sin implante. (Garcia Nocito o similar)",
+    "020108": "Con microscopio con luz coaxial y vitrectotomo.",
+    "020109": "(miototomias, plegamientos, avanzamientos, injerto de siliconas, etc.). Uni o bilaterales.",
+    "020202": "(injerto, cantoplastia, trasoplastia, restauracion plastica de cejas por injerto, reposicion base ciliar, correccion de ptosis-unilateral) ectropion y entropion.",
+    "020205": "(piel de parpados glandula meibomiana, chalazio sutura de piel de parpados con o sin lesión de borde libre). (absceso, orzuelo).",
+    "020301": "(injerto libre de conjuntiva o membrana mucosa del labio. operación colgaja: flaping de conjuntiva).",
+    "020302": "(quiste epitelioma, nevus, pterigion).",
+    "020303": "y en Tennon con incision y sutura.",
+    "020304": "escision de anillo de conjuntiva alrededor de cornea (Pannus).",
+    "020305": "(incluida extraccion de cuerpo extraño). Cuerpo extraño subconjuntival. Biopsia de conjuntiva.",
+    "020306": "Introduccion de sustancias terapéuticas inyectables subconjuntivales.",
+    "020404": "(Como unica intervencion).",
+    "020405": "con o sin raspado previo.",
+    "020601": "(Cada dos sesiones o fraccion)",
+    "020606": "Intraocular.",
+    "020701": "(cataratas).",
+    "020702": "Discision y aspiracion de masas cristalinianas.",
+    "020801": "operación plastica en canaliculos.",
+    "020802": "Escision de saco lagrimal.",
+    "020803": "(absceso). Seccion de papila lagrimal (estricturotomia).",
+    "020804": "en quirofano con anestesia general."
+   }
   }
  }
 }

@@ -862,6 +862,7 @@ uno antes de «mielotomía comisural» y otro después).
 | capítulo | páginas del archivo | códigos | estado |
 |---|---|---|---|
 | 01 · Sistema nervioso | 12–17 | 69 | ✅ 33 textos |
+| 02 · Aparato de la visión | 18–23 | 51 | ✅ 24 textos + 1 norma por código |
 | 03 · Otorrinolaringológicas | 24–32 | 118 | ✅ 45 textos |
 | 04 · Sistema endocrino | 33 | 11 | ✅ 2 textos |
 | 05 · Tórax | 34–36 | 23 | ✅ 10 textos + 1 norma por código |
@@ -872,9 +873,14 @@ uno antes de «mielotomía comisural» y otro después).
 | 11 · Genital femenino y obstetricia | 64–67 | 49 | ✅ 33 textos + 3 normas (una de sub-capítulo, dos por código) |
 | 12 · Músculo esquelético | 68–80 | 146 | ✅ 64 textos + 3 normas de capítulo + 13 de sub-capítulo |
 | 25 · Rehabilitación médica | 111–112 | 6 | ✅ 6 textos + 5 normas |
-| los otros 19 | ~18–150 | ~490 | pendiente |
+| los otros 18 | ~18–150 | ~440 | pendiente |
 
-Cobertura: **677 de 1.351 (50%)**, desde 156 (11%). Mitad del catálogo.
+Cobertura: **701 de 1.351 (51%)**, desde 156 (11%).
+
+⚠️ **Que un sub-capítulo no aporte ningún texto puede ser lo correcto.** El `02.09` (LASER) son
+ocho códigos que AGREGÓ el PMO: no figuran en el Nomenclador Nacional, así que no hay recuadro
+que transcribir. Lo que traen es obligación de cobertura, que la app maneja aparte. Antes de
+sospechar una transcripción incompleta, mirar si el bloque dice «CODIGO AGREGADO POR EL P.M.O.».
 
 ⚠️ El orden de la tabla es el del JSON, no el numérico. Para saber qué falta, correr el script:
 lista cada capítulo cargado con su cuenta.
