@@ -873,9 +873,12 @@ uno antes de «mielotomía comisural» y otro después).
 | 11 · Genital femenino y obstetricia | 64–67 | 49 | ✅ 33 textos + 3 normas (una de sub-capítulo, dos por código) |
 | 12 · Músculo esquelético | 68–80 | 146 | ✅ 64 textos + 3 normas de capítulo + 13 de sub-capítulo |
 | 25 · Rehabilitación médica | 111–112 | 6 | ✅ 6 textos + 5 normas |
-| los otros 18 | ~18–150 | ~440 | pendiente |
+| 20 · Gastroenterología | 97–99 | 25 | ✅ 13 textos + 1 norma en dos códigos |
+| 24 · Hemoterapia | 109–111 | 21 | ✅ 9 textos + 4 normas del 24.01 + 2 por código |
+| 17 · Cardiología | 91–94 | 20 | ✅ 9 textos + 3 normas por código |
+| los otros 15 | ~37–131 | 190 | pendiente |
 
-Cobertura: **701 de 1.351 (51%)**, desde 156 (11%).
+Cobertura: **737 de 1.351 (55%)**, desde 156 (11%).
 
 ⚠️ **Que un sub-capítulo no aporte ningún texto puede ser lo correcto.** El `02.09` (LASER) son
 ocho códigos que AGREGÓ el PMO: no figuran en el Nomenclador Nacional, así que no hay recuadro
@@ -935,6 +938,26 @@ de fuerza:
 3. **Está impresa DOS VECES en el mismo sub-capítulo** → va al sub-capítulo: si gobernara un
    código no haría falta repetirla. (la de gastos de curaciones, en el `13.01`)
 
+⚠️ **Estar impresa en el encabezado del capítulo NO la hace norma de capítulo.** Lo que manda
+es lo que la norma dice de sí misma, y el 20 y el 24 lo dejaron a la vista:
+
+- El **20** tiene una sola norma, en el encabezado, y se acota sola: «los códigos 20.01.01 al
+  20.01.03 no incluyen el costo de las sustancias». Va como prefijo de esos códigos. Pegársela
+  a los 25 del capítulo diría que la polipectomía tampoco incluye las sustancias, y eso el
+  nomenclador no lo dice.
+- El **24** tiene cuatro renglones en el encabezado, todos sobre «cada unidad de tranfusión»,
+  el grupo del dador y las pruebas de compatibilidad: son del `24.01`. El `24.02/10/11/12`
+  —ultrafiltración, criopreservación, trasplante de médula— son códigos que agregó el PMO y no
+  están en el Nacional: decirles que su honorario incluye la tipificación ABO del dador sería
+  inventarles alcance. Verificado: el `241203` quedó con cero normas y el `240113` con las cuatro.
+
+⚠️ **Una norma puede no tener dónde caer y hay que declararla igual.** La del anti VIH del 24
+está impresa dos veces (bajo el `24.01.20` y bajo el `24.01.21`) pero **ambos códigos están en
+bastardilla**: el PMO retiró entera la serología del dador (`24.01.14` al `24.01.21`) y ninguno
+está en la base. Queda declarada como `"240120"` y el script avisa «NINGUNA ficha con ese
+prefijo» en cada corrida — igual que el `12.01`. Que la repetición sea doble **no** la convierte
+en norma del `24.01` (señal 3): nombra los códigos con todas las letras, que es señal más fuerte.
+
 ⚠️ **El prefijo puede ser el código completo.** El 11.04 tiene dos normas que NO gobiernan el
 sub-capítulo: cada una está impresa pegada a su código, y la segunda lo dice con todas las
 letras —«estan incluidas en ESTE código»—. Se declaran como `"110401"` y `"110404"`. Verificado:
@@ -951,12 +974,20 @@ propios: el PMO lo vació entero. Su norma queda declarada y el script avisa «N
 ese prefijo». **No pegarla al 12.02 ni al capítulo** — sería inventarle alcance a una regla
 que el nomenclador escribió para otra cosa.
 
+⚠️ **Un texto de dos palabras no es una transcripción cortada.** El recuadro empieza donde
+arranca la bastardilla y termina donde vuelve la negrita, y a veces lo retirado es sólo el nexo
+que el PMO borró del renglón: el `240108` es «De» (por «**De** HASTA 500 CC.»), el `240107` es
+«Hasta», el `170118` es «dos canales», el `200101` es «Estudio». Es lo mismo que ya pasaba con
+el `250103` («y por beneficiario»). Cuando el código trae **dos** recuadros con negrita en el
+medio se unen con un espacio, como el `010304`: el `200107` queda «con sonda con control
+radioscopico…» y el `200123`, «papila con colangio y/o pancreatografia».
+
 ⚠️ **No todos los códigos llevan recuadro.** En el capítulo 01, 33 de 69. Los que no tienen
 son los que el Nacional imprime completos en negrita (nada retirado) y los marcados «CODIGO
 AGREGADO POR EL P.M.O.», que por definición no están en el Nacional. Que un capítulo quede
 con menos textos que códigos es lo normal, no una transcripción a medias.
 
-#### ▶ POR DÓNDE SEGUIR (pausado el 13/8/2026, se retoma el martes 18/8)
+#### ▶ POR DÓNDE SEGUIR (última tanda: 20, 24 y 17, el 14/8/2026)
 
 `data/paginas_nn.json` tiene **dónde empieza y termina cada capítulo en el PDF**, sacado por
 OCR. Ya está: no hay que volver a buscarlo a mano.
@@ -983,6 +1014,16 @@ con `rapidocr_onnxruntime` contando códigos `NN.NN.NN` por página (≈9 s por 
 5. Los scripts avisan qué códigos del JSON no están en la base y verifican que ningún nombre
    se haya movido.
 
+⚠️ **Las filas «Norma:» se salen del recorte y hay que releerlas anchas.** El borde de 0,685
+está calculado para la columna de descripción, pero los renglones de norma —los que arrancan
+con `Norma:` en la primera columna— ocupan **todo el ancho de la página**, así que el recorte
+los corta a mitad de frase sin que se note: la del capítulo 20 termina en «…utilizadas para» y
+sigue «realizar las distintas pruebas», y la del 17.01.09 se corta en «…que justifique su reali‑».
+La receta es no confiar en la primera lectura de esas filas: volver a renderizar **sólo esa
+franja** con el borde derecho en 0,95 y la escala en 3,4 (queda en ~1.970 px, que es el ancho
+máximo antes de que la imagen se reescale y se vuelva ilegible). Un recorte de tres renglones
+cuesta ~300 tokens; no vale la pena ampliar la caja para todas las páginas.
+
 #### ⚠️ EL COSTO REAL DE ESTE TRABAJO: una sesión larga se encarece sola
 
 Cada imagen que entra a la conversación **se reenvía en todos los pedidos siguientes**. No es
@@ -1005,20 +1046,30 @@ cuatro por sesión.
 
 | cap | páginas | códigos | | cap | páginas | códigos |
 |---|---|---|---|---|---|---|
-| **20** | 97–99 | 25 | | 22 | 101–102 | 13 |
-| **24** | 109–111 | 21 | | 33 | 130–131 | 13 |
-| **17** | 91–94 | 20 | | 15 | 89 | 12 |
-| 31 | 128–129 | 19 | | 06 | 37 | 12 |
-| 18 | 95–96 | 22 | | 09 | 56 | 8 |
-| 30 | 126–127 | 18 | | 21 | 100 | 14 |
-| 29 | 125 | 14 | | 16 | 90 | 5 |
-| 19 | 97 | 3 | | 32 / 14 | — | 1 y 1 |
+| **18** | 95–96 | 22 | | 22 | 101–102 | 13 |
+| **31** | 128–129 | 19 | | 33 | 130–131 | 13 |
+| **30** | 126–127 | 18 | | 15 | 89 | 12 |
+| 29 | 125 | 14 | | 06 | 37 | 12 |
+| 21 | 100 | 14 | | 09 | 56 | 8 |
+| 19 | 97 | 3 | | 16 | 90 | 5 |
+| 32 / 14 | — | 1 y 1 | | | | |
 
-⚠️ Faltan las páginas del **35, 36 y 38** en `data/paginas_nn.json` (el barrido de OCR llegó
-hasta la 139).
+Son **155 códigos** en esos catorce capítulos; los otros 35 que faltan para los 190 están en el
+**35, 36, 38 y 66**, que no tienen páginas en el índice (ver abajo).
 
-⚠️ El **23 (hemoterapia, páginas 103‑108)** sigue esperando decisión clínica: se superpone con
-el NBU bajo otra numeración. No transcribirlo sin que los médicos definan.
+⚠️ El **19 (endocrinología y nutrición)** está en el borde de arriba de la página 97, que ya se
+leyó con el 20: **no tiene ningún recuadro**. El 19.01.01 y el 19.01.02 van enteros en negrita
+—nada retirado— y el 19.01.03 dice «CODIGO AGREGADO POR EL P.M.O.». Queda en la lista porque no
+se lo declaró en el JSON, pero el trabajo de lectura ya está hecho: son tres códigos sin texto.
+
+⚠️ Faltan las páginas del **35, 36, 38 y 66** en `data/paginas_nn.json` (el barrido de OCR llegó
+hasta la 139). Son 35 códigos entre los cuatro.
+
+⚠️ El **23 (páginas 103‑108)** sigue esperando decisión clínica: se superpone con el NBU bajo
+otra numeración. No transcribirlo sin que los médicos definan. **No es el de hemoterapia** —ese
+es el 24, ya hecho—: el 23 es el bloque de laboratorio/hematología (termina en la 109 con el
+xenodiagnóstico y el trasplante de médula del 23.02.34) y **no tiene ni un código PMO en la
+base**, lo que es coherente con que esté numerado en otro lado.
 
 ### 3.9 ⚠️ 36 fichas tenían la etiqueta del recuadro METIDA EN EL NOMBRE
 
@@ -1606,8 +1657,9 @@ cada commit, que explican el porqué y no sólo el qué:
 ## 7 bis. ▶ AGENDA DEL MARTES 18/8/2026
 
 ### A. Seguir con la norma retirada del PMO
-Ver 3.8 → «POR DÓNDE SEGUIR». Arrancar por el capítulo **12** (146 códigos, páginas 68‑80).
-Faltan las páginas del **35, 36, 38 y 66** en `data/paginas_nn.json`.
+Ver 3.8 → «POR DÓNDE SEGUIR». Van 26 capítulos y **737 de 1.351 fichas (55%)**; la próxima
+tanda es **18, 31 y 30** (páginas 95‑96, 128‑129 y 126‑127). Faltan las páginas del **35, 36,
+38 y 66** en `data/paginas_nn.json`.
 
 ### B. Ciberseguridad — repaso pedido por el usuario
 

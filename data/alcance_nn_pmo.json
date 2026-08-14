@@ -667,6 +667,117 @@
     "020803": "(absceso). Seccion de papila lagrimal (estricturotomia).",
     "020804": "en quirofano con anestesia general."
    }
+  },
+  "20": {
+   "titulo": "Gastroenterología",
+   "pags": [
+    97,
+    99
+   ],
+   "norma": [],
+   "_nota_norma": "La única norma del capítulo está impresa en el encabezado pero acota ella misma su alcance —«los códigos 20.01.01 al 20.01.03»—, así que no va como norma de capítulo: pegársela a las 25 fichas diría que la endoscopia o la polipectomía tampoco incluyen las sustancias, y eso el nomenclador no lo dice. El 20.01.03 quedó fuera del PMO y no está en la base.",
+   "normas_prefijo": {
+    "200101": [
+     "Los valores consignados en los códigos 20.01.01 al 20.01.03 no incluyen el costo de las sustancias utilizadas para realizar las distintas pruebas."
+    ],
+    "200102": [
+     "Los valores consignados en los códigos 20.01.01 al 20.01.03 no incluyen el costo de las sustancias utilizadas para realizar las distintas pruebas."
+    ]
+   },
+   "_nota_agregados": "El 20.02 al 20.06 («OTROS DE GASTROENTEROLOGIA», página 99) son códigos AGREGADOS POR EL P.M.O.: no figuran en el Nomenclador Nacional, así que no tienen recuadro que transcribir. Que no aporten textos es lo correcto.",
+   "codigos": {
+    "200101": "Estudio",
+    "200102": "Prueba de histamina, histalog, pentagastrina, test de Kay. (Incluye determinacion de acidez basal)",
+    "200104": "determinacion de (Radiotelemetria)",
+    "200105": "con extraccion de muestras de sangre para glucemia al comienzo de la prueba, a los 30 y 45 minutos. (Incluye titulacion)",
+    "200107": "con sonda con control radioscopico, prueba funcional con estimulacion con secretina. (Incluye dosaje de bicarbonato y/o enzimas)",
+    "200111": "Obtencion de registro grafico simultaneo de deglucion, respiracion y peristaltismo esofagico",
+    "200112": "por medios de microelectrodos, phchimetros o capsula de Heidelberg, con registro grafico",
+    "200113": "no internado en terapia intensiva",
+    "200115": "Blakemore, Linton o similares en hemorragias digestivas por varices esofagicas",
+    "200116": "por aspiracion con control radioscopico del instrumento",
+    "200123": "papila con colangio y/o pancreatografia",
+    "200125": "con instrumental rigido",
+    "200128": "(por sesion, incluye la endoscopia)"
+   }
+  },
+  "24": {
+   "titulo": "Hemoterapia",
+   "pags": [
+    109,
+    111
+   ],
+   "norma": [],
+   "_nota_norma": "La norma del encabezado del capítulo NO se pega a las 21 fichas: habla «por cada unidad de tranfusión», del grupo del dador y de las pruebas de compatibilidad, o sea del 24.01. El 24.02/10/11/12 son códigos que agregó el PMO —ultrafiltración, criopreservación, trasplante de médula— que no están en el Nomenclador Nacional: decirles que su honorario incluye la tipificación ABO del dador sería inventarles alcance. Por eso va como prefijo 2401.",
+   "_nota_exanguineo": "La norma del exanguineo está impresa entre el 24.01.08 y el 24.01.09 y habla en singular de UNA práctica —el gasto cubre la sala, el honorario cubre la cateterizacion venosa—, que es la primera unidad del 24.01.08. Por eso el prefijo es el código completo, como en el 05.02.02.",
+   "_nota_vih": "Los códigos 24.01.14 al 24.01.21 (serologia del dador: V.D.R.L., Huddlesson, chagas, hepatitis B, anticuerpos anti VIH) están impresos en bastardilla: el PMO los retiró enteros y no están en la base. Su norma A/B/C —impresa dos veces, una debajo del 24.01.20 y otra debajo del 24.01.21— queda declarada igual, pero no tiene ficha donde caer y el script lo avisa. NO se la pega al capítulo: habla de bolsas positivas para anti VIH y de espectrofotometro, no de transfundir.",
+   "normas_prefijo": {
+    "2401": [
+     "El honorario médico que se consigna por cada unidad de tranfusión incluye la determinación del grupo sanguineo ABO y RH (D mayuscula) en dador, extracción, procesamiento, y tranfusión de sangre y/o derivados. Las prácticas de este código que por causas clínicas del paciente se deberán realizar a domicilio, siempre que sean cumplimentadas por médico especializado, tendrán un recargo del 20%.",
+     "AMPLIACION DE LA NORMA: Excluye: reacciones serológicas para descarte de enfermedades transmisibles y pruebas de compatibilidad (reacciones complementarias).",
+     "Reacciones complementarias: 1. Serologia: en el suero del dador deberán efectuarse pruebas para descarte de sifilis (V.D.R.L.), brucelosis (Huddlesson), chagas (M. Guerreiro o hemoaglutinacion o latex), y/o las que determine la legislación vigente.",
+     "2. Compatibilidad: entre el suero del receptor y los glóbulos del dador deberán realizarse pruebas de compatibilidad en medio salino, albuminoso y por test de Coombs indirecto en forma rutinaria. Estas reacciones complementarias y/u otras determinaciones (DU, Genotipo, Kell, etc.) se facturaran de acuerdo al arancel indicado en el capitulo de hemoterapia. La tipificación ABO y RH del receptor de primera vez, se factura solo los honorarios médicos una sola vez."
+    ],
+    "240108": [
+     "En la exanguineo-transfusión, el gasto cubre el material utilizado y el uso de la sala correspondiente. El honorario cubre la cateterizacion venosa."
+    ],
+    "240120": [
+     "A. Las bolsas de sangre que hubieran dado resultado positivo a cualquiera de las pruebas de selección para anticuerpos anti VIH, deberán ser enviadas al centro nacional de referencia o a algunos de los laboratorios que integran la red de colaboradores regionales, dentro de las 24 hs. De conocido el resultado y siguiendo las normas establecidas por dicho centro.",
+     "B. Para facturar el código 24.01.20 sera requisito contar con espectrofotometro que permita mediciones en el orden de los 492 nm.",
+     "C. Los códigos 24.01.20 y 24.01.21 no podrán facturarse en forma simultánea para una misma bolsa."
+    ]
+   },
+   "_nota_agregados": "El 24.02, 24.10, 24.11 y 24.12 («OTROS DE HEMOTERAPIA», página 111) son códigos AGREGADOS POR EL P.M.O.: autotransfusión, plasmaféresis con separador celular, aféresis de plaquetas, ultrafiltración, criopreservación y los dos trasplantes de médula. No figuran en el Nomenclador Nacional, así que no tienen recuadro.",
+   "codigos": {
+    "240101": "Total, por unidad de",
+    "240102": "Por unidad de",
+    "240103": "(concentrado globular), por unidad de",
+    "240104": "Por unidad de (incluye suero fisiológico)",
+    "240105": "Con procesamiento de",
+    "240106": "Por unidad de",
+    "240107": "Hasta",
+    "240108": "De",
+    "240110": "(incluye la parancetesis fetal intra-utero) por sesión"
+   }
+  },
+  "17": {
+   "titulo": "Cardiología",
+   "pags": [
+    91,
+    94
+   ],
+   "norma": [],
+   "_nota_norma": "El capítulo no tiene norma general: las tres que trae están impresas pegadas a su código —monitoraje operatorio (17.01.09), ergometría (17.01.11) y rehabilitación del cardiópata (17.01.17)— y hablan en singular de esa práctica. Por eso van como prefijo de código completo y no como norma de capítulo: la exigencia de sala climatizada y cardiólogo permanente rige para la rehabilitación, no para un electrocardiograma en domicilio.",
+   "normas_prefijo": {
+    "170109": [
+     "El monitoraje operatorio se podra efectuar unicamente en pacientes con gran riesgo quirurgico debiendose adjuntar Historia Clinica que justifique su realizacion y orden del médico cardiologo.",
+     "AMPLIACION DE LA NORMA: El monitoreo operatorio podra ser efectuado por cualquier profesional reconocido para estas practicas por la autoridad sanitaria en funcion de su capacitacion, a pesar de encuadrarse como un código de cardiologia. Cualquiera sea el numero de intervenciones que se realicen en el paciente, se facturara una sola vez el arancel indicado, cuando se de cumplimiento a la respectiva norma particular. Aun cuando se encuentre debidamente especializado para su realizacion, esta práctica no puede ser facturada por el anestesiologo que al mismo tiempo realizara la anestesia, por estar prevista para otro profesional expresamente incorporado al equipo quirurgico a ese efecto."
+    ],
+    "170111": [
+     "La ergometria y cicloergometria o prueba ergometrica graduable requiere ergometro electronico o mecanico, sistema de monitorizacion cardiaca, marcapaso y desfibriliador. Este arancel incluye el monitoreo y los trazados electrocardiograficos necesarios."
+    ],
+    "170117": [
+     "La rehabilitacion del cardiopata unicamente podra realizarse en establecimientos con internacion que se adecuen a lo siguiente: A. RECURSOS: B. FISICOS: sala climatizada dedicada exclusivamente a este fin, con una superficie minima de 7 mts. cubiertos por paciente y con capacidad minima para 3. sanitarios, duchas y vestuarios adyacentes.",
+     "C. MATERIALES: equipamiento exclusivo del area, ergometro electronico y/o mecanico, elementos necesarios para control permanente de signos vitales, que incluye como minimo: defibrilador, marcapasos y un monitor individual por cada ergometro, respirador con elementos de intubacion, oxigeno a disposicion, electrocardiografo, aparato de gimnasia, colchonetas, camillas y medicamentos.",
+     "D. HUMANOS: Cardiologo permanente para control directo de los pacientes, kinesiologo a demanda del paciente y auxiliar de enfermeria.",
+     "2. NORMAS DE FUNCIONAMIENTO: A. Las practicas de rehabilitacion cardiaca unicamente podran ser indicadas por el médico tratante.",
+     "B. El enfermo debera estar encuadrado en el diagnostico infarto de miocardio evolucionado, post-operatorio, hipertension severa. Enfisema pulmonar severa.",
+     "C. La rehabilitacion comprendera 2 o 3 sesiones semanales de ejercicios programados, de una hora de duracion, durante un periodo de hasta seis meses (salvo excepciones autorizadas por la obra social). Durante el transcurso de la sesion, incluido el reposo, los pacientes de alto riesgo deberan estar monitorizados, con atencion medica, kinesiologica y fisiatrica.",
+     "Las pruebas ergometricas graduadas de evaluacion (una por mes) se facturaran por separado, de la misma manera que cualquier práctica que se requiera."
+    ]
+   },
+   "_nota_agregados": "El 17.02 («OTROS DE CARDIOLOGIA», páginas 93 y 94) son tres códigos AGREGADOS POR EL P.M.O. —los dos estudios electrofisiológicos y la ablación por radiofrecuencia—: no tienen recuadro. Lo que traen son las listas de «OBLIGACION DE COBERTURA», que la app maneja aparte.",
+   "codigos": {
+    "170101": "(con o sin prueba de esfuerzo).",
+    "170103": "(incluye el cateterismo)",
+    "170105": "(con electrocardiograma intracavitario, para diagnostico y tratamiento). Incluye el cateterismo.",
+    "170109": "(incluye el control osciloscopico, marcapaso externo, desfibrilador, respiracion con presion positiva).",
+    "170110": "en paciente no internado en sala de terapia intensiva.",
+    "170112": "con colorantes e hidrogeno.",
+    "170115": "con registro grafico. Incluye E.C.G. de referencia.",
+    "170117": "Arancel global por un mes. (De ocho a doce sesiones).",
+    "170118": "dos canales"
+   }
   }
  }
 }
