@@ -880,9 +880,10 @@ uno antes de «mielotomía comisural» y otro después).
 | 20 · Gastroenterología | 97–99 | 25 | ✅ 13 textos + 1 norma en dos códigos |
 | 24 · Hemoterapia | 109–111 | 21 | ✅ 9 textos + 4 normas del 24.01 + 2 por código |
 | 17 · Cardiología | 91–94 | 20 | ✅ 9 textos + 3 normas por código |
-| los otros 14 | ~37–131 | 190 | pendiente |
+| 18 · Ecografía – Ecodoppler | 94–96 | 22 | ✅ 5 textos + 10 normas de capítulo + 3 por código |
+| los otros 13 | ~37–131 | 168 | pendiente |
 
-Cobertura: **737 de 1.351 (55%)**, desde 156 (11%).
+Cobertura: **759 de 1.352 (56%)**, desde 156 (11%).
 
 ⚠️ **Que un sub-capítulo no aporte ningún texto puede ser lo correcto.** El `02.09` (LASER) son
 ocho códigos que AGREGÓ el PMO: no figuran en el Nomenclador Nacional, así que no hay recuadro
@@ -1050,15 +1051,14 @@ cuatro por sesión.
 
 | cap | páginas | códigos | | cap | páginas | códigos |
 |---|---|---|---|---|---|---|
-| **18** | 95–96 | 22 | | 22 | 101–102 | 13 |
-| **31** | 128–129 | 19 | | 33 | 130–131 | 13 |
-| **30** | 126–127 | 18 | | 15 | 89 | 12 |
-| 29 | 125 | 14 | | 06 | 37 | 12 |
-| 21 | 100 | 14 | | 09 | 56 | 8 |
-| 19 | 97 | 3 | | 16 | 90 | 5 |
-| 32 / 14 | — | 1 y 1 | | | | |
+| **31** | 128–129 | 19 | | 22 | 101–102 | 13 |
+| **30** | 126–127 | 18 | | 33 | 130–131 | 13 |
+| **29** | 125 | 14 | | 15 | 89 | 12 |
+| 21 | 100 | 14 | | 06 | 37 | 12 |
+| 19 | 97 | 3 | | 09 | 56 | 8 |
+| 32 / 14 | — | 1 y 1 | | 16 | 90 | 5 |
 
-Son **155 códigos** en esos catorce capítulos; los otros 35 que faltan para los 190 están en el
+Son **133 códigos** en esos trece capítulos; los otros 35 que faltan para los 168 están en el
 **35, 36, 38 y 66**, que no tienen páginas en el índice (ver abajo).
 
 ⚠️ El **19 (endocrinología y nutrición)** está en el borde de arriba de la página 97, que ya se
@@ -1713,8 +1713,8 @@ cada commit, que explican el porqué y no sólo el qué:
 ## 7 bis. ▶ AGENDA DEL MARTES 18/8/2026
 
 ### A. Seguir con la norma retirada del PMO
-Ver 3.8 → «POR DÓNDE SEGUIR». Van 26 capítulos y **737 de 1.351 fichas (55%)**; la próxima
-tanda es **18, 31 y 30** (páginas 95‑96, 128‑129 y 126‑127). Faltan las páginas del **35, 36,
+Ver 3.8 → «POR DÓNDE SEGUIR». Van 27 capítulos y **759 de 1.352 fichas (56%)**; la próxima
+tanda es **31, 30 y 29** (páginas 128‑129, 126‑127 y 125). Faltan las páginas del **35, 36,
 38 y 66** en `data/paginas_nn.json`.
 
 ### B. Ciberseguridad — repaso pedido por el usuario

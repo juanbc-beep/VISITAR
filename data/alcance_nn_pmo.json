@@ -778,6 +778,45 @@
     "170117": "Arancel global por un mes. (De ocho a doce sesiones).",
     "170118": "dos canales"
    }
+  },
+  "18": {
+   "titulo": "Ecografía – Ecodoppler",
+   "pags": [
+    94,
+    96
+   ],
+   "norma": [
+    "Los gastos de este código se facturan con unidad gastos radiologicas (por Resolucion de la Secretaria de Salud N° 60/89). Normas para la acreditacion: Para poder efectuar las practicas de ecografia, el médico debera cumplir los siguientes requisitos: A. Aportar antecedentes.",
+    "B. Certificacion habilitante dada por autoridad competente, o acreditar seis meses de concurrencia de post-grado en una institucion publica o privada reconocida, nacional o extranjera.",
+    "C. Para efectuar y facturar las practicas de ecocardiografia debera ser tambien cardiologo y cumplimentar lo referido en los puntos A y B.",
+    "D. Para efectuar y facturar la ecografia oftalmologica, debera ser tambien oftalmologo y cumplimentar lo referido en los puntos A y B.",
+    "NORMAS GENERALES: 1. Todas estas practicas deben ser autorizadas previamente por la auditoria médica de la O.Social (en caso que no tuviera aud. médica por responsables de la O.Social)",
+    "2. Se consideran incluidos todos los honorarios que demande la intervencion de otros especialistas.",
+    "3. En toda práctica de ecografia debe entregarse al paciente el informe y su registro correspondiente (fotografia, radiografia, etc.), cuyo costo esta incluido en la practica.",
+    "4. Todo equipo de ecografia debe contar con el sistema de tonos de grises.",
+    "5. Toda práctica de ecografia incluye, cuando sea necesario, el calculo de volumen y estudio de tumores.",
+    "No pueden agregarse a la práctica el valor de una consulta medica."
+   ],
+   "_nota_norma": "El bloque NORMAS del capítulo está impreso al pie de la página 94, debajo del encabezado y antes de la primera práctica, en DOS COLUMNAS: a la izquierda la acreditación del médico (A a D) y a la derecha las NORMAS GENERALES (1 a 5). Las dos columnas están en bastardilla y dentro del mismo recuadro, así que las diez líneas son un solo texto retirado. ⚠️ Arranca diciendo «los gastos de ESTE CÓDIGO» en singular, que por la regla 1 mandaría al código — pero no hay ningún código al lado: está en el encabezado, antes del 18.01.01, y el resto del bloque habla de «las practicas de ecografia» y «toda práctica de ecografia». Es del capítulo.",
+   "normas_prefijo": {
+    "180101": [
+     "Incluye electrocardiograma completo de referencia con o sin parametros."
+    ],
+    "180104": [
+     "Incluye todo el estudio ecografico fetal."
+    ],
+    "180113": [
+     "En caso de estudiarse mas de un organo, se facturara ecografia completa de abdomen. Código 18.01.12"
+    ]
+   },
+   "_nota_agregados": "El 18.02, 18.03, 18.05 y 18.06 («OTROS DE ECODOPPLER», página 96) son códigos AGREGADOS POR EL P.M.O.: los ecodoppler, el ecocardiograma de stress y la ecografía de partes blandas. No figuran en el Nomenclador Nacional, así que no tienen recuadro; lo que traen son listas de «OBLIGACION DE COBERTURA», que la app maneja aparte. Nueve de los 22 códigos del capítulo son de ahí.",
+   "codigos": {
+    "180101": "incluye electrocardiograma sincronico de referencia con o sin otros parametros. (Modo A y M).",
+    "180106": "uni o",
+    "180107": "(con modo B y A).",
+    "180113": "hepatica",
+    "180117": "(modo M)"
+   }
   }
  }
 }
