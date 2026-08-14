@@ -1,0 +1,82 @@
+{
+ "_": "Fichas del PMO cuyo NOMBRE en la base es basura del OCR viejo: incluye la etiqueta «Texto retirado por el PMO» del recuadro del Nomenclador Nacional, porque en esos renglones el texto retirado arrancaba la línea y el OCR se lo comió como si fuera parte del nombre. Se detectan buscando «pmo» en el nombre normalizado sin espacios: esa sigla no pertenece al nombre de ninguna práctica. El reemplazo se lee del PDF original. El nombre viejo NO se pierde: queda en la auditoría de la ficha.",
+ "_pendientes": "Faltan los de los capítulos 03, 04, 05, 11 y 13, y cinco del 07. Se corrigen cuando el barrido llegue a esas páginas: 03→24-32, 04→33, 05→34-36, 07→38-42, 11→64-67, 13→81-83.",
+ "nombres": {
+  "010506": {
+   "nombre": "escisión de lesión tumoral de nervio periférico (neuroma de amputación, neuroma de Morton, etc.). No mencionados en otros códigos",
+   "pag": 16
+  },
+  "060106": {
+   "nombre": "mastoplastia bilateral (con autorización previa)",
+   "pag": 37
+  },
+  "080210": {
+   "nombre": "laparascopía con luz fría (incluye biopsia)",
+   "pag": 48
+  },
+  "080517": {
+   "nombre": "operaciones plásticas en malformaciones congénitas anorectales, vía abdominoperineal, efectuada por dos equipos quirúrgicos — cirujano vía perineal",
+   "pag": 51
+  },
+  "100607": {
+   "nombre": "vasectomía, ligadura de conducto deferente, uni o bilateral, como única operación",
+   "pag": 62
+  },
+  "120202": {
+   "nombre": "esternón, escápula, húmero (excepto supracondílea), cúbito y/o radio, uno o más huesos del carpo, peroné, uno o más huesos del tarso (excluidos astrágalo, calcáneo, maxilar superior, maxilar inferior)",
+   "pag": 68
+  },
+  "120203": {
+   "nombre": "pelvis, fémur, tibia y peroné, astrágalo, calcáneo, supracondílea de húmero",
+   "pag": 68
+  },
+  "121708": {
+   "nombre": "aponeurotomía parcial o total",
+   "pag": 76
+  },
+  "121709": {
+   "nombre": "aponeurotomía parcial e injerto (incluye toma de injerto). Tratamiento quirúrgico de la sindactilia",
+   "pag": 76
+  },
+  "121710": {
+   "nombre": "de un espacio digital, sin injerto",
+   "pag": 76
+  },
+  "121711": {
+   "nombre": "de un espacio digital, con injerto (incluye toma de injerto)",
+   "pag": 76
+  },
+  "121713": {
+   "nombre": "reconstrucción parcial del pulgar, en uno o más tiempos",
+   "pag": 76
+  },
+  "121920": {
+   "nombre": "mano de yeso",
+   "pag": 79
+  },
+  "121929": {
+   "nombre": "valva larga de miembro inferior",
+   "pag": 79
+  },
+  "121931": {
+   "nombre": "pasta de Unna",
+   "pag": 79
+  },
+  "070702": {
+   "nombre": "cardiografía-angiocardiografía (incluye cateterismo de corazón, toma de presiones y obtención de sangre para oximetría. Incluye monitoreo cardíaco). Y Código 34.08.04",
+   "pag": 43
+  },
+  "070706": {
+   "nombre": "aortografía abdominal y estudio selectivo de las arterias del cayado aórtico y del cuello, por cateterismo. Y Códigos 34.08.08 y 09",
+   "pag": 43
+  },
+  "070708": {
+   "nombre": "aortografía abdominal y estudio selectivo de tronco celíaco, mesentérica superior e inferior, renales y/o sus ramas, por cateterismo humeral o femoral (tiempo arterial, parenquimatoso y venoso). Y Código 34.08.07",
+   "pag": 43
+  },
+  "070712": {
+   "nombre": "arteriografía selectiva de arterias intercostales y lumbares bilateral. Y Código 34.08.10",
+   "pag": 43
+  }
+ }
+}

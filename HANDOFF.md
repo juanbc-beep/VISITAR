@@ -927,6 +927,39 @@ con `rapidocr_onnxruntime` contando códigos `NN.NN.NN` por página (≈9 s por 
 ⚠️ El **23 (hemoterapia, páginas 103‑108)** sigue esperando decisión clínica: se superpone con
 el NBU bajo otra numeración. No transcribirlo sin que los médicos definan.
 
+### 3.9 ⚠️ 36 fichas tenían la etiqueta del recuadro METIDA EN EL NOMBRE
+
+`scripts/nombres_rotos.py` + `data/nombres_rotos.json`. Apareció transcribiendo el capítulo 08.
+En los renglones donde el P.M.O. retiró **el título entero** de la práctica, el texto retirado
+arranca la línea, y el OCR con el que se armó la base se comió la etiqueta como si fuera parte
+del nombre:
+
+    080210  «TextotetradoporelPMO»                    ← el nombre es SÓLO la basura
+    121931  «Texto retfirado porel PMO Pasta de Unna»
+    120202  «PMOEsternon,escapufa,humero,(excepto supracondilea) cubito yfo radio…»
+
+⚠️ **Esto NO contradice la regla de no tocar nombres.** Esa regla existe para respetar la
+redacción de cada nomenclador; lo guardado acá no es la redacción de ninguno. `080210` es el
+caso extremo: quien busca «laparoscopía» no encuentra la ficha porque la palabra no está.
+**Autorizado explícitamente por el usuario** («Sí, corregilos con el PDF»).
+
+⚠️ **Cómo se detectan**: `pmo` dentro del nombre normalizado **sin espacios ni acentos**. Es la
+señal correcta —esa sigla no aparece en el nombre de ninguna práctica—. Un patrón con espacios
+(`texto retirado por el pmo`) encuentra sólo 9 de las 36: se pierde todas las que quedaron
+pegadas a la palabra siguiente (`PMOMano de yeso`).
+
+⚠️ **Falsos positivos que hay que dejar en paz**: `668387` (PLASMINÓGENO… `(PAI - AIP)
+(Molecular)` → contiene «pmo» al normalizar) y los `U10…` del Único, que dicen «NO PMO» a
+propósito.
+
+⚠️ El nombre viejo **no se tira**: queda en la auditoría de la ficha, con la página del PDF.
+
+**Estado: 19 corregidos, 17 pendientes** (capítulos 03, 04, 05, 11, 13 y cinco del 07). Se
+corrigen solos a medida que el barrido llegue a esas páginas — el script los lista al terminar.
+
+⚠️ Ojo con `070708`: su nombre roto empezaba con «Y Codigo 34.08.11», que es el remate del
+`07.07.07` —el OCR cruzó de renglón—. Al `07.07.08` le corresponde el **34.08.07**.
+
 ### 4.5 nonies La sigla `NN` — norma del Nacional que el P.M.O. retiró
 
 El Nomenclador Nacional trae, al lado de cada práctica, un recuadro que el Catálogo del
