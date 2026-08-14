@@ -862,12 +862,13 @@ uno antes de «mielotomía comisural» y otro después).
 | capítulo | páginas del archivo | códigos | estado |
 |---|---|---|---|
 | 01 · Sistema nervioso | 12–17 | 69 | ✅ 33 textos |
+| 03 · Otorrinolaringológicas | 24–32 | 118 | ✅ 45 textos |
 | 08 · Aparato digestivo y abdomen | 47–55 | 123 | ✅ 66 textos + 2 normas de sub-capítulo |
 | 12 · Músculo esquelético | 68–80 | 146 | ✅ 64 textos + 3 normas de capítulo + 13 de sub-capítulo |
 | 25 · Rehabilitación médica | 111–112 | 6 | ✅ 6 textos + 5 normas |
-| los otros 26 | ~18–150 | ~880 | pendiente |
+| los otros 25 | ~18–150 | ~760 | pendiente |
 
-Cobertura: **425 de 1.351 (31%)**, desde 156 (11%).
+Cobertura: **470 de 1.351 (34%)**, desde 156 (11%).
 
 ⚠️ **NO canalizar la salida del script por `head`.** El SIGPIPE lo mata antes de que escriba el
 JSON, y como `inject_db.py` corre igual sobre la base vieja, todo parece haber funcionado y la
@@ -954,7 +955,7 @@ propósito.
 
 ⚠️ El nombre viejo **no se tira**: queda en la auditoría de la ficha, con la página del PDF.
 
-**Estado: 19 corregidos, 17 pendientes** (capítulos 03, 04, 05, 11, 13 y cinco del 07). Se
+**Estado: 22 corregidos, 14 pendientes** (capítulos 04, 05, 11, 13 y cinco del 07). Se
 corrigen solos a medida que el barrido llegue a esas páginas — el script los lista al terminar.
 
 ⚠️ Ojo con `070708`: su nombre roto empezaba con «Y Codigo 34.08.11», que es el remate del
