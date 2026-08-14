@@ -502,6 +502,77 @@
     "040101": "radical unilateral",
     "040102": "Tiroidectomia total con vaciamiento ganglionar radical bilateral"
    }
+  },
+  "05": {
+   "titulo": "Operaciones en el tórax",
+   "pags": [
+    34,
+    35,
+    36
+   ],
+   "norma": [],
+   "_nota_norma": "La norma del 05.02 está impresa entre el 05.02.02 y el 05.02.03, y habla en singular de UNA práctica: «No sera facturada cuando sea complementaria…». Es la traqueostomía/traqueotomía del 05.02.02, no el sub-capítulo. Por eso el prefijo es el código completo.",
+   "normas_prefijo": {
+    "050202": [
+     "No sera facturada cuando sea complementaria de otra operación toracica o de vias aereas superiores."
+    ]
+   },
+   "codigos": {
+    "050101": "(como unica operacion)",
+    "050103": "(por cada tiempo operatorio)",
+    "050202": "(Como unica intervencion)",
+    "050203": "por acceso cervical SUTURA de traquea CIERRE DE TRAQUEOSTOMIA O FISTULA TRAQUEAL.",
+    "050301": "por acceso toracico BRONCOPLASTIA.",
+    "050403": "transesternal) tumores, abscesos, drenajes, cuerpos extraños, timo, etc.",
+    "050404": "Neumomediastino.",
+    "050408": "terapéuticas, PUNCION PLEURAL y/O PULMONAR. diagnóstica, evacuadora.",
+    "050409": "s especiales DE VIM SYLVERMAN, COPER O SIMILARES.",
+    "050411": "por cada inyección"
+   }
+  },
+  "13": {
+   "titulo": "Operaciones en la piel y tejido celular subcutáneo",
+   "pags": [
+    81,
+    82,
+    83
+   ],
+   "norma": [],
+   "_nota_curaciones": "La norma de los gastos de curaciones está impresa DOS VECES dentro del 13.01 —después del 13.01.10 y otra vez después del 13.01.14— con el mismo texto. Esa repetición es la que decide el alcance: si gobernara un código no haría falta repetirla. Es la misma norma que aparece en el 08.06, y allá se resolvió igual.",
+   "normas_prefijo": {
+    "1301": [
+     "Los gastos de curaciones se facturaran unicamente cuando las mismas se realicen en pacientes ambulatorios, no pudiendo en estos casos facturarse consulta médica"
+    ],
+    "130107": [
+     "En las lesiones multiples y/o extendidas definidas dentro de este código, con autorizacion de la obra social o mutualidad, se facturara el arancel de este código por cada zona tratada. El gasto quirurgico se facturara el 100% por zona tratada"
+    ],
+    "1303": [
+     "El arancel de los códigos 13.03.01, 13.03.02 y 13.03.03 incluye la atencion clinica del enfermo: curaciones (excepto las establecidas en el código 13.03.04). Practicas quirurgicas menores (canalizacion, venosa, traqueotomia, etc.). Balneoterapia y/u otros procedimientos. Estos aranceles cubren los primeros 10 dias de la atencion, por los 10 dias subsiguientes se facturara el 50% del arancel y hasta 10 dias mas el 25% del arancel. A partir de los 30 dias se facturara por visita realizada. En caso de fallecimiento del quemado se facturara en proporcion a los dias que fue asistido con un minimo del 50% del arancel que corresponda. Cada vez que se realice un curacion en quirofano para los códigos 13.03.01, 13.03.02 y 13.03.03 se facturara el gasto quirurgico correspondiente al código 13.03.04.",
+     "Anestesia general y ayudantia en curacion de quemados. Corresponde como honorarios del anestesista 21,75 galenos por cada 10% de superficie corporal y con 80,25 galenos como anestesia minima, como honorarios del ayudante, 9 galenos por cada 10% de superficie corporal con 30 galenos como honorarios minimos."
+    ]
+   },
+   "codigos": {
+    "130102": "comprendiendo estructuras vecinas por. (incluye reparacion plastica)",
+    "130103": "de 5 cm. de diametro (incluye reparacion plastica)",
+    "130104": "de piel cicatrizal, inflamatoria o tumoral benigna (quiste sebaceo, antrax, nevus, etc.)",
+    "130105": "infectado, forunculo, panadizo, hematoma, ANTRAX NEVUS. etc. Extraccion de cuerpo extraño superficial",
+    "130106": "Destruccion de lesión de piel verruga, (queratosis senil, fibroma, nevus, etc.) por electrocoagulacion. o aplicacion de sustancias químicas (hasta 5 elementos). Tratamiento completo",
+    "130107": "queratosis senil, fibroma, nevus, etc. por electrocoagulacion o aplicacion de sustancias químicas (mas de 5 elementos). Tratamiento completo",
+    "130108": "y/o muscular",
+    "130113": "(con reconocimiento previo de la obra social)",
+    "130114": "Extraccion de cuerpo extraño profundo",
+    "130201": "total",
+    "130202": "en uno o dos tiempos",
+    "130205": "por tiempo operatorio",
+    "130207": "(con dermatomo)",
+    "130208": "(en caso debidamente autorizado por la obra social)",
+    "130209": "(por sesion operatoria)",
+    "130211": "en un tiempo (Cross-Leg). Incluye yeso",
+    "130301": "hasta el 5% de superficie corporal (tome o no zonas funcionales)",
+    "130302": "Atencion del paciente con quemaduras de 2º y 3º grado, de mas de 5% y por cada 10% o fraccion de superficie corporal.",
+    "130303": "Atencion del paciente, con quemaduras de 2° y 3° grado que comprometen zonas funcionales, (articulaciones, cara, genitales), de mas del 5% y por cada 10% o fraccion de superficie corporal.",
+    "130304": "(por sesion y por cada 10% de superficie corporal)"
+   }
   }
  }
 }
