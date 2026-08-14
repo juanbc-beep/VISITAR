@@ -974,17 +974,48 @@ con `rapidocr_onnxruntime` contando códigos `NN.NN.NN` por página (≈9 s por 
 
 **Receta por capítulo**, unos 10 minutos cada uno:
 
-1. Renderizar las páginas con `pypdfium2` a `scale=2.3` y **leerlas como imagen**.
+1. `python3 scripts/paginas_nn.py 20` — renderiza el capítulo **recortado** y **leerlas como
+   imagen**. (Acepta números de página sueltos también.)
 2. Transcribir los recuadros a `data/alcance_nn_pmo.json` bajo el capítulo, respetando la
    ortografía impresa.
-3. `python3 scripts/alcance_nn_pmo.py && python3 scripts/inject_db.py`
-4. El script avisa qué códigos del JSON no están en la base y verifica que ningún nombre se
-   haya movido.
+3. `python3 scripts/alcance_nn_pmo.py && python3 scripts/nombres_rotos.py && python3 scripts/inject_db.py`
+4. `node scripts/comprobar_datos.mjs` (2,5 s; NO la batería completa — ver más arriba).
+5. Los scripts avisan qué códigos del JSON no están en la base y verifican que ningún nombre
+   se haya movido.
 
-**Orden sugerido** (por códigos cubiertos por página leída): 12 (146), 08 (123), 03 (118),
-10 (82), 07 (82), 11 (49), 13 (30), 20 (25), 24 (21), 17 (20), 31 (19), 30 (18), 18 (22),
-02 (51), 05 (23), 29 (14), 22 (13), 33 (13), 15 (12), 06 (12), 04 (11), 09 (8), 21 (14),
-16 (5), 19 (3), 14 (1), 32 (1).
+#### ⚠️ EL COSTO REAL DE ESTE TRABAJO: una sesión larga se encarece sola
+
+Cada imagen que entra a la conversación **se reenvía en todos los pedidos siguientes**. No es
+un costo que se pague una vez: la primera página de una sesión larga se manda decenas de
+veces. Medido en la sesión del 18/8: **74 páginas leídas = ~168.000 tokens de visión**
+arrastrados en cada turno, y un pedido trivial al final costaba tanto como el trabajo entero.
+
+Dos consecuencias operativas, ambas importantes:
+
+1. **Las páginas van recortadas.** `scripts/paginas_nn.py` corta la mitad derecha —honorarios,
+   gastos, total— que no se transcribe. De 2.265 a 1.199 tokens por página, **47% menos**, con
+   la bastardilla igual de legible.
+2. ⚠️ **Un lote de capítulos por sesión, y sesión NUEVA para el siguiente.** Este documento
+   está escrito para retomar en frío: tiene el índice de páginas, la receta, el orden sugerido
+   y las reglas de alcance. Seguir en una sesión ya cargada cuesta entre 5 y 10 veces más que
+   arrancar limpio, y no se gana nada a cambio.
+
+**Lo que falta**, con sus páginas y su tamaño. De acá en más son todos chicos: entran tres o
+cuatro por sesión.
+
+| cap | páginas | códigos | | cap | páginas | códigos |
+|---|---|---|---|---|---|---|
+| **20** | 97–99 | 25 | | 22 | 101–102 | 13 |
+| **24** | 109–111 | 21 | | 33 | 130–131 | 13 |
+| **17** | 91–94 | 20 | | 15 | 89 | 12 |
+| 31 | 128–129 | 19 | | 06 | 37 | 12 |
+| 18 | 95–96 | 22 | | 09 | 56 | 8 |
+| 30 | 126–127 | 18 | | 21 | 100 | 14 |
+| 29 | 125 | 14 | | 16 | 90 | 5 |
+| 19 | 97 | 3 | | 32 / 14 | — | 1 y 1 |
+
+⚠️ Faltan las páginas del **35, 36 y 38** en `data/paginas_nn.json` (el barrido de OCR llegó
+hasta la 139).
 
 ⚠️ El **23 (hemoterapia, páginas 103‑108)** sigue esperando decisión clínica: se superpone con
 el NBU bajo otra numeración. No transcribirlo sin que los médicos definan.
