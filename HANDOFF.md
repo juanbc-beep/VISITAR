@@ -1,9 +1,17 @@
 # TRASPASO DE SESIÓN — Manual Inteligente Unificado (VISITAR SRL)
 
 > Documento para retomar el trabajo en una sesión nueva sobre **la misma app**.
-> Última actualización: 2026-08-11 (commit `f6bf67c`, 126 commits).
+> Última actualización: 2026-08-16, rama `claude/nomenclador-chapters-20-24-17-eoittj`
+> (commit `d9f6e61`). El anterior era del 2026-08-11 (`f6bf67c`, 126 commits); acá el clon
+> es superficial y el total no se puede contar, así que se identifica por rama y commit.
 >
-> **Lo más importante que cambió desde el traspaso anterior:** la app dejó de ser un
+> **Lo que está en curso ahora mismo:** el **barrido del Nomenclador Nacional** (3.8) —
+> transcribir a ojo, capítulo por capítulo, el recuadro «Texto retirado por el PMO» que el
+> catálogo del PMO no reproduce. Van 28 capítulos y **763 de 1.352 fichas (56%)**, desde
+> 156 (11%). Es trabajo de lectura, no de código: la receta, el índice de páginas, las
+> reglas de alcance y el orden sugerido están todos en 3.8, escritos para retomar en frío.
+>
+> **Lo más importante que cambió respecto del traspaso anterior:** la app dejó de ser un
 > archivo que cada uno guarda en su computadora y pasó a ser una **aplicación de empresa
 > publicada, con cuentas reales y base compartida**. Si venís del HANDOFF viejo, leé
 > primero la sección 1 bis: buena parte de lo que decía sobre acceso y sincronización
@@ -74,9 +82,9 @@ que tiene al afiliado enfrente? Si sólo sirve para auditar facturación, es sec
 
 | Dataset | Cantidad |
 |---|---|
-| **Códigos totales** | **6.372** |
+| **Códigos totales** | **6.477** |
 | — NBU (laboratorio/bioquímica) | 1.815 |
-| — PMO / Prestaciones médicas | 1.247 (26 altas del capítulo 34, ver 3.4) |
+| — PMO / Prestaciones médicas | 1.352 (26 altas del capítulo 34 —ver 3.4—, los capítulos que faltaban enteros —3.6— y el 23.02.34 —3.8—) |
 | — Nomenclador Único (VISITAR) | 3.231 |
 | — Odontología | 79 (**oculto en la app**, ver 6.12) |
 | **CIE-10** (diagnósticos) | **11.581** en 21 capítulos |
@@ -84,9 +92,10 @@ que tiene al afiliado enfrente? Si sólo sirve para auditar facturación, es sec
 | **SURGE** (Res. 731/23) | **58** patologías del Anexo II · 38 códigos mapeados |
 | **Leyes / normas** | 22 · Glosario 12 |
 
-⚠️ Los 6.372 son lo que arma `assemble.py`. La base publicada tiene **6.477**: los importadores
-de capítulo (3.6 y 3.8) corren **después**, sobre `data/nbu_db.json`, y suman los capítulos que
-faltaban enteros más el `23.02.34`. Si un conteo no da, mirar cuál de los dos números es.
+⚠️ Esos 6.477 son la **base publicada**. `assemble.py` arma **6.372**: los importadores de
+capítulo (3.6 y 3.8) corren **después**, sobre `data/nbu_db.json`, y suman los capítulos que
+faltaban enteros más el `23.02.34`. Si un conteo no da, mirar cuál de los dos números es —el
+resto del documento, escrito antes, dice «sobre 6.372» en varios lados.
 
 ### Cruces / inteligencia construida
 
@@ -95,7 +104,7 @@ faltaban enteros más el `23.02.34`. Si un conteo no da, mirar cuál de los dos 
 | Códigos con **abreviaturas posibles** | 1.044 |
 | Códigos con **tipo de muestra** (sangre/orina) | 821 (705 por texto + 73 por sufijo + 43 heredados del gemelo del NBU) |
 | Códigos con **diagnósticos CIE-10** relacionados | 242 |
-| Códigos con **cobertura** | 115 → 106 *obligación* + 9 *observación* |
+| Códigos con **cobertura** | 116 → 107 *obligación* + 9 *observación* |
 | Códigos con **lateralidad** | 130 (109 del OCR + 21 curados por auditoría) |
 | Códigos con **normativa** relacionada | 61 |
 | Códigos con **vínculo SURGE** | 60 |
@@ -738,8 +747,9 @@ sabe si dice lo que tiene que decir no es quien factura. La ficha muestra el ori
 
 **También se lee en el resultado del listado** (`abarcaLinea()`), como la observación y la
 revisión médica: es el dato que decide si hay que cargar un código más, y enterarse recién al
-abrir la ficha llega tarde. Lo tienen **96 códigos de 6.372**, así que no ensucia el listado —
-donde aparece, es porque hay algo que saber. Va **antes** de los dos avisos y sin fondo: no es
+abrir la ficha llega tarde. Lo tienen **563 códigos de 6.477** —eran 96 cuando se escribió
+esto; el barrido de 3.8 los multiplicó por seis y los va a seguir sumando—, así que sigue sin
+ensuciar el listado: donde aparece, es porque hay algo que saber. Va **antes** de los dos avisos y sin fondo: no es
 una alerta, es parte de lo que el código *es*; si compitiera con la observación y la revisión
 —que sí son alertas— las tres dejarían de significar algo distinto. El ✓ verde marca las
 corregidas por un médico; el ▣ apagado, el texto crudo de la fuente.
@@ -993,7 +1003,7 @@ son los que el Nacional imprime completos en negrita (nada retirado) y los marca
 AGREGADO POR EL P.M.O.», que por definición no están en el Nacional. Que un capítulo quede
 con menos textos que códigos es lo normal, no una transcripción a medias.
 
-#### ▶ POR DÓNDE SEGUIR (última tanda: 20, 24 y 17, el 14/8/2026)
+#### ▶ POR DÓNDE SEGUIR (última tanda: 20, 24 y 17, el 16/8/2026)
 
 `data/paginas_nn.json` tiene **dónde empieza y termina cada capítulo en el PDF**, sacado por
 OCR. Ya está: no hay que volver a buscarlo a mano.
@@ -1077,10 +1087,10 @@ hasta la 139). Son 35 códigos entre los cuatro.
 13 termina en la 83 y el 14 arranca en la 88, así que el salto parece un capítulo perdido y no
 lo es: la 84 es la portada «PROGRAMA MEDICO OBLIGATORIO DEFINITIVO», la 85 está en blanco, y la
 86 y la 87 son el **detalle de los coseguros** de los capítulos 14 al 44, odontológicos y
-bioquímicos (Resolución 58/2017-MS). Verificado a ojo el 14/8/2026. El capítulo 13 está completo
+bioquímicos (Resolución 58/2017-MS). Verificado a ojo el 16/8/2026. El capítulo 13 está completo
 con sus tres páginas: 30 códigos, 20 con recuadro y 10 sin él.
 
-#### ✅ El 23 (hematología-inmunología) queda AFUERA — resuelto el 14/8/2026
+#### ✅ El 23 (hematología-inmunología) queda AFUERA — resuelto el 16/8/2026
 
 Estuvo meses como «esperando decisión clínica porque se superpone con el NBU bajo otra
 numeración». **No hacía falta la decisión clínica: el original ya lo resuelve.** Arriba del
@@ -1091,12 +1101,12 @@ encabezado del capítulo, al pie de la página 102, hay un recuadro impreso que 
 El capítulo entero —`23.01.01` al `23.02.32`, unos 150 códigos de hematología e inmunología,
 páginas 102 (pie) a 109— está **fuera del catálogo obligatorio**, y por eso no tiene ni una
 ficha en la base. Todos sus códigos vienen en bastardilla, que es la marca de retirado. No se
-transcribe: el usuario lo decidió el 14/8/2026 y el motivo es el de arriba, no el cruce con el
+transcribe: el usuario lo decidió el 16/8/2026 y el motivo es el de arriba, no el cruce con el
 NBU. **Tampoco es el de hemoterapia** —ese es el 24, ya hecho—.
 
 ✅ **La excepción sí entró: el `23.02.34`.** Estaba en negrita, marcado «CODIGO AGREGADO POR EL
 P.M.O.», con sus indicaciones impresas y coseguro hasta 250 — un código **del catálogo
-obligatorio que el manual no tenía**. Se agregó el 14/8/2026 por decisión del usuario. Es la
+obligatorio que el manual no tenía**. Se agregó el 16/8/2026 por decisión del usuario. Es la
 única ficha del capítulo 23 en la base, y no es lo mismo que los trasplantes del `24.12.02`
 (autólogo) y `24.12.03` (alogeneico), que ya estaban y son otros dos códigos.
 
@@ -1197,8 +1207,16 @@ norma escrita manda a abrir la ficha, y donde sólo hay alcance manda a «Qué a
 código». Prometer un bloque que no existe sería peor que no poner la sigla —fue exactamente
 el error que tenía la primera versión, con 100 de los 156 códigos mandando a la nada—.
 
-Hoy: **156 códigos con sigla**, de los cuales **56 abren el `.nn-card`** (caps. 26, 27, 28,
-40‑44) y **100 traen sólo alcance** (cap. 34). Sobre 6.372, no ensucia el listado.
+Hoy: **763 códigos con sigla**, de los cuales **427 abren el `.nn-card`** y **336 traen sólo
+alcance**. Sobre 6.477, no ensucia el listado. ⚠️ Este número **sube con cada capítulo que se
+transcribe** (3.8): eran 156 cuando se escribió esta sección, con 56 abriendo el `.nn-card`.
+Si no coincide, no está roto: está desactualizado el renglón. Se recalcula así —
+
+    python3 -c "import json,re; db=json.load(open('data/nbu_db.json'))['codigos']; \
+    R=re.compile(r'^(Alcance del Nomenclador Nacional|Norma del código):'); \
+    f=[v for v in db.values() if (v.get('alcance_nn') or {}).get('texto') \
+       or any(R.match(a) for a in (v.get('auditoria') or []))]; \
+    print(len(f), sum(1 for v in f if any(R.match(a) for a in (v.get('auditoria') or []))))"
 
 ### 4.5 decies Las equivalencias que habían quedado colgando
 
@@ -1306,6 +1324,37 @@ decidir si la equivalencia se sostiene.
 Las 5 de `equivalencias_renumeradas.py` pasaron de una marca propia (`renumerado`) a
 `recalculada: "codigo"`, que es la que la ficha ya sabía mostrar.
 
+### 4.5 terdecies `aviso_nomenclador` — «esto no es del nomenclador que buscabas»
+
+Nació con el `23.02.34` y está pensado para durar más que ese caso. Hay códigos que se
+buscan **con el mismo nombre** que una práctica de otro nomenclador y que NO son esa
+práctica: quien busca «médula ósea» ve siete resultados y tres son trasplantes de médula de
+dos capítulos distintos. El badge de la sección no alcanza para eso.
+
+Lo declara el **capítulo** en `data/capitulos_nn.json` y el importador lo copia a cada ficha:
+
+```json
+"aviso_nomenclador": { "sigla": "cap. 23 · Nom. Nacional", "texto": "…" }
+```
+
+Se muestra en **dos** lugares, y las dos veces a propósito:
+
+| dónde | clase | por qué |
+|---|---|---|
+| resultado del listado | `.rcruce` | enterarse al abrir la ficha llega tarde: para entonces ya copió el código |
+| ficha, pegado al nombre y **antes** de las acciones | `.cruce-card` | no es una excepción de la práctica, es parte de lo que el código **ES** |
+
+Ámbar los dos, que es el color del aviso administrativo —el que se lee antes de cargar—, y
+no el cobre de la norma ni el verde de la revisión médica.
+
+⚠️ **El cruce automático no existe**: todas las equivalencias del manual son curadas (la
+planilla del Único, las listas revisadas a mano de `equivalencias_por_nombre.py`) y ninguna
+se ata por parecido de nombre. El riesgo nunca fue que la base cruzara sola — es que lo
+cruce **la persona que carga**. Por eso el aviso es visible y no un renglón de auditoría.
+
+Hoy lo lleva **una sola ficha**. Si alguna vez entra otra cosa del capítulo 23, va con el
+mismo campo (3.8).
+
 ### 3.6 ⚠️ Capítulos 40, 41, 42, 43 y 44: FALTABAN ENTEROS
 
 Se descubrió buscando el capítulo 42 a pedido del usuario. **El 42 es CONSULTAS MÉDICAS**
@@ -1341,6 +1390,19 @@ el 40 hay de las dos.
 
 El importador (`scripts/importar_capitulos_nn.py` + `data/capitulos_nn.json`) quedó
 **general**: para sumar otro capítulo alcanza con agregarlo al JSON.
+
+Lo que entiende cada código del JSON, después de la tanda del 16/8/2026:
+
+| clave | qué hace |
+|---|---|
+| `nombre`, `grupo`, `alcance` | lo básico de la ficha; `alcance` va además a «Qué abarca» |
+| `honorarios`, `gastos`, `total`, `coseguro` | arman el texto de `valor.arancel`. Si no hay ninguno, queda la frase de que el arancel sale del convenio |
+| `agregado_pmo` | escribe «Código agregado por el P.M.O.» en auditoría |
+| `cobertura` (+ `cobertura_tipo`) | **nuevo**: la obligación de cobertura, que la app ya sabía mostrar —cartel en la ficha, etiqueta en el listado— y hasta ahora no se podía cargar desde acá |
+| `sinonimos` | **nuevo**: entran al índice de búsqueda. Sirven para la ortografía del original cuando la ficha lleva la corriente (el `23.02.34` está impreso «TRANSPLANTE») |
+
+Y a nivel capítulo: `titulo`, `norma`, `normas_sueltas`, `retirado_pmo` y **`aviso_nomenclador`**
+(nuevo, ver 4.5 terdecies), que se copia a todas las fichas del capítulo.
 
 **Después se importaron el 27, el 28 y el 26** — 57 fichas más. Total del rescate: **104**.
 
@@ -1572,7 +1634,7 @@ Funciones: `initValidator()`, `runCase()`, `renderCase()`, `renderFacturacion()`
     ⚠️ **El síntoma no dice «CSP»**: la página carga, el cartel de arranque no se va nunca y
     cualquier test de Playwright muere en el `waitForFunction` del `#boot` a los 30 s, como si
     fuera lento. Si un cambio de `index.html` deja todo colgado ahí, es esto: sellar y volver
-    a correr. Pasó el 14/8/2026 y costó un ciclo de depuración.
+    a correr. Pasó el 16/8/2026 y costó un ciclo de depuración.
 14. **No mandar el enlace del artefacto.** No puede hablar con Supabase, así que ahí no se
     puede ni entrar. Para probar, la dirección de producción; para mostrar, capturas.
 15. **No inventar identificadores ni valores que no se puedan verificar** (los SHA de las
@@ -1592,9 +1654,30 @@ Funciones: `initValidator()`, `runCase()`, `renderCase()`, `renderFacturacion()`
 
 ---
 
-## 7. Historial de trabajo (126 commits)
+## 7. Historial de trabajo
 
-**Lo hecho en esta última tanda (2026-08-10 y 11)** — el detalle está en los mensajes de
+**Lo hecho en la tanda del 2026-08-16** (rama `claude/nomenclador-chapters-20-24-17-eoittj`),
+toda sobre el barrido de 3.8 salvo lo último:
+
+- **Capítulos 20, 24 y 17** (gastroenterología, hemoterapia, cardiología): 31 textos y las
+  normas de cada uno con su alcance decidido código por código. De ahí salieron tres reglas
+  nuevas en 3.8: que estar impresa en el encabezado del capítulo **no** la hace norma de
+  capítulo, que una norma puede quedar declarada **sin destino**, y que un texto de dos
+  palabras no es una transcripción cortada.
+- **Capítulo 18** (ecografía): el bloque NORMAS del encabezado está en **dos columnas** al
+  pie de la 94 y son diez líneas que van a las 22 fichas — informe al paciente, tonos de
+  grises, y que no se le puede sumar el valor de una consulta.
+- **Capítulo 31** (otorrinolaringología): 3 textos y la norma de los estudios endoscópicos
+  faringolaríngeos, que incluye biopsia, drenajes y lavados dentro del mismo arancel.
+- **Capítulo 23 resuelto sin transcribirlo**: el original lo marca retirado entero salvo el
+  `23.02.34`, que sí entró — y con él el campo **`aviso_nomenclador`** (4.5 terdecies), que
+  avisa en el listado y en la ficha que ese código es del Nacional y no se cruza con el NBU
+  ni con el Único.
+- **Dos huecos del índice de páginas cerrados**: las 84 a 87 no son un capítulo (portada,
+  blanco y el detalle de coseguros de la Res. 58/2017-MS) y el capítulo 32 arranca al pie
+  de la 129, donde el OCR no lo había visto.
+
+**Lo hecho en la tanda del 2026-08-10 y 11** — el detalle está en los mensajes de
 cada commit, que explican el porqué y no sólo el qué:
 
 - El **Único hereda todo lo que muestra el NBU** (3.0): siglas, sinónimos, tipo de muestra,
@@ -1765,7 +1848,9 @@ Lo que YA está bien y no hay que tocar:
   preexistente, no se tocó (4.5 duodecies).
 - **Consultas A‑P** del Único (10 filas) — ¿todas a `420101`?
 - **Hidatidosis IFI**, **domicilio «más/hasta 2 kms»**, **BCR/ABL LMC vs LLA** — no se ataron.
-- **Capítulo 23** (hemoterapia): se superpone con el NBU bajo otra numeración.
+- ~~**Capítulo 23**: se superpone con el NBU bajo otra numeración.~~ **RESUELTO el 16/8/2026 y
+  no hacía falta el médico**: el original lo marca retirado entero salvo el `23.02.34`, que se
+  agregó. Ver 3.8. Tampoco era el de hemoterapia —ese es el 24, ya hecho—.
 
 ### D. Datos que siguen faltando
 - **Capítulo 66** (NBU laboratorio) contra el PDF — ahora hay que mirarlo sabiendo lo de los
@@ -1777,10 +1862,18 @@ Lo que YA está bien y no hay que tocar:
 
 ### ⚠️ Lo primero que hay que preguntar al retomar
 
-Lo último que se estuvo trabajando es el **Nomenclador de Prestaciones Médicas**, capítulo
-por capítulo, con el usuario reportando y midiendo contra la fuente (ver 3.4 y 3.5). El
-siguiente paso natural es **la lista de 159 denominaciones a revisar** (3.5), de a un
-capítulo y mostrándole los cambios antes de aplicarlos.
+Lo último que se estuvo trabajando —y lo que conviene retomar sin preguntar, porque el
+usuario ya lo pidió tres sesiones seguidas— es el **barrido del Nomenclador Nacional** (3.8):
+transcribir a ojo el recuadro «Texto retirado por el PMO», capítulo por capítulo. Van **763
+de 1.352 fichas (56%)** y quedan **12 capítulos, 114 códigos**; la próxima tanda es 30, 29 y
+21. Todo lo que hace falta para arrancar en frío está en 3.8: índice de páginas, receta,
+reglas de alcance y el orden sugerido. **Sesión nueva para cada tanda** — las páginas son
+imágenes y se reenvían en todos los pedidos siguientes.
+
+Antes de eso venía el cotejo del **Nomenclador de Prestaciones Médicas** capítulo por
+capítulo, con el usuario midiendo contra la fuente (ver 3.4 y 3.5). Lo que quedó de ahí es
+**la lista de 159 denominaciones a revisar** (3.5), de a un capítulo y mostrándole los
+cambios antes de aplicarlos.
 
 Dos propuestas suyas quedaron abiertas y él las nombró:
 

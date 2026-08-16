@@ -1,6 +1,6 @@
 {
  "_": "Dónde empieza y termina cada capítulo en el PDF del Nomenclador Nacional (números de página del ARCHIVO, no impresos). Sacado por OCR contando códigos NN.NN.NN por página. Sirve para no volver a buscar a mano al transcribir los recuadros «Texto retirado por el PMO» — ver scripts/alcance_nn_pmo.py.",
- "_huecos": "Páginas del archivo que NO son de ningún capítulo, para no salir a buscar ahí un capítulo que falta: la 84 es la portada «PROGRAMA MEDICO OBLIGATORIO DEFINITIVO», la 85 está en blanco, y la 86 y la 87 son el detalle de los coseguros de los capítulos 14 al 44, odontológicos y bioquímicos (Resolución 58/2017-MS). Por eso el 13 termina en la 83 y el 14 arranca en la 88. Verificado a ojo el 14/8/2026.",
+ "_huecos": "Páginas del archivo que NO son de ningún capítulo, para no salir a buscar ahí un capítulo que falta: la 84 es la portada «PROGRAMA MEDICO OBLIGATORIO DEFINITIVO», la 85 está en blanco, y la 86 y la 87 son el detalle de los coseguros de los capítulos 14 al 44, odontológicos y bioquímicos (Resolución 58/2017-MS). Por eso el 13 termina en la 83 y el 14 arranca en la 88. Verificado a ojo el 16/8/2026.",
  "capitulos": {
   "01": {
    "pags": [
@@ -232,7 +232,7 @@
     129
    ],
    "n": 1,
-   "_": "Encontrado a ojo el 14/8/2026 al transcribir el 31: el 32 (PEDIATRIA) arranca al pie de la 129, debajo del último código del 31. El barrido de OCR no lo había listado."
+   "_": "Encontrado a ojo el 16/8/2026 al transcribir el 31: el 32 (PEDIATRIA) arranca al pie de la 129, debajo del último código del 31. El barrido de OCR no lo había listado."
   }
  }
 }
