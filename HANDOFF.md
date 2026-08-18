@@ -1723,9 +1723,29 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
 - **139 fichas con el texto cortado en el origen** (`texto_truncado`): la planilla del Único
   capa las descripciones a **100 caracteres**. No es recuperable desde el PDF del PMO (trae
   títulos aún más cortos). Haría falta una planilla sin el capado.
-- **215 equivalencias sin destino posible**: apuntan a códigos que no están en el Nacional
-  cargado y no tienen equivalente por código ni por nombre. ~106 tienen un PMO con el mismo
-  número disponible y se arreglarían con la misma regla.
+- ✅ **RESUELTO (18/8/2026): 134 de las 135 equivalencias sin destino posible, revisadas a
+  mano por el usuario contra la fuente** (planilla `equivalencias_unico_sin_destino.ods`,
+  subida por el usuario). 95 quedaron **verificadas correctas** — la equivalencia es real,
+  sólo falta que se importe el capítulo/código de destino; siguen con
+  `equivalencia.destino_inexistente=true` a propósito, para que `reparar_equivalencias.py`
+  las ate solas apenas ese código exista. 39 quedaron **descartadas** — el código que había
+  declarado el emparejador automático no correspondía: se les sacó la equivalencia
+  (`sin_equivalencia=true`). Aplicado con `scripts/descartar_equivalencias_invalidas.py`
+  sobre `data/equivalencias_sin_destino_revisadas.json` (la fuente curada, con las 134 filas
+  y su veredicto). Queda **1 sin revisar**: `U210208` → PMO `220209` (Genotipificación virus
+  Hepatitis C).
+  ⚠️ **Bug de UI encontrado y corregido en el mismo lote**: el listado del Único mostraba
+  «≡ código» en la esquina del valor para *cualquier* equivalencia declarada, resuelta o no
+  — así que las 135 con destino inexistente se veían como un link válido, y el usuario
+  buscaba ese código y no encontraba nada. Se sacó ese badge de la esquina y se lo llevó a
+  una etiqueta junto al título, **igual que ya se hacía del lado PMO/NBU con «= Único»**: del
+  lado Único ahora dice «= Prestaciones Médicas» / «= NBU» (mismo lugar, mismo color) sólo
+  cuando la equivalencia es navegable; si está verificada pero pendiente de importar, aparece
+  como dato de estado de la base («equiv. sin importar», gris, junto a «valores ✓» y «2024»)
+  en vez de mezclarse con las decisiones clínicas/de facturación. La esquina del valor, sin
+  equivalencia resuelta, ahora es el mismo «s/valor» genérico que usan los demás casos sin
+  cobertura. También se corrigió que el código de «Equivale a» en la ficha se viera
+  subrayado/clicable cuando en realidad no tenía destino.
 - Las **22 equivalencias resueltas por nombre** conviene revisarlas: el criterio es
   estadístico (umbral 0,88), aunque el corrimiento del capítulo 260 se resolvió bien.
 - **`130303` sin denominación**: OCR ilegible en origen. Se carga a mano desde ✎ Editar ficha.
@@ -1830,6 +1850,9 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
 | Tests que se rompen solos al cambiar la UI | Los selectores viejos quedan colgados (tarjeta ODO eliminada, pestaña 'Propuestas'→'Pendientes', overlay `#onboard`→`#tour`). Revisar la suite después de cada cambio de UI |
 | Publicación del artefacto con **409** | `WebFetch` de la URL primero, comparar y republicar |
 | `inject_db.py` «no encontrado» | El cwd del shell **persiste** entre llamadas tras un `cd`; usar rutas absolutas |
+| **Equivalencia del Único a un código inexistente se mostraba como si fuera un link válido** («≡ código» en la esquina del valor, para toda equivalencia declarada, resuelta o no) | Se sacó ese badge de la esquina; la info se movió a una etiqueta junto al título, igual que «= Único» del lado PMO/NBU (18/8/2026, ver 8) |
+| **Editar `index.html` y correr Playwright da `Refused to execute inline script` (CSP)** | La política fija la huella sha256 de cada `<script>`; cualquier edición al inline la corre. `python3 scripts/sellar_csp.py web/index.html` **después** de cada cambio y antes de probar |
+| **Playwright: `page.fill('#nbMail', …)` se queda vacío** (la pantalla de login muestra «Completá correo y contraseña» después de loguear) | Carrera: el gate se re-renderiza una vez más justo después de que desaparece `#boot`, y ese re-render pisa lo que ya se había tipeado. Esperar ~800 ms después de que `#boot` se va, antes de llenar el formulario |
 
 ---
 

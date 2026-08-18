@@ -1,0 +1,1345 @@
+{
+ "_": "Revisión manual del usuario (18/8/2026) sobre las equivalencias del Único que quedaron sin destino resoluble en la base (equivalencia.destino_inexistente=true). Verde en la planilla original = «correcto»: la equivalencia declarada es real, sólo falta importar el código/capítulo de destino — reparar_equivalencias.py la va a atar sola cuando eso pase. Gris = «descartado»: el código declarado no corresponde: el usuario lo revisó contra la fuente y no hay equivalencia real. scripts/descartar_equivalencias_invalidas.py aplica los descartados.",
+ "items": [
+  {
+   "unico_key": "U64663362",
+   "codigo_unico": "64663362",
+   "nombre_unico": "CARBAMAZEPINA, EPÓXIDO DE (HPLC)",
+   "veredicto": "descartado",
+   "nomenclador_destino": "NBU",
+   "codigo_declarado": "663362",
+   "descripcion_declarada": "",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U64663725",
+   "codigo_unico": "64663725",
+   "nombre_unico": "CITOMEGALOVIRUS, LCR cuantitativo por PCR (CMV-LC",
+   "veredicto": "descartado",
+   "nomenclador_destino": "NBU",
+   "codigo_declarado": "663725",
+   "descripcion_declarada": "",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U64663930",
+   "codigo_unico": "64663930",
+   "nombre_unico": "COMPLEMENTO TOTAL - 50% LISIS - CH 50",
+   "veredicto": "descartado",
+   "nomenclador_destino": "NBU",
+   "codigo_declarado": "663930",
+   "descripcion_declarada": "",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U64664495",
+   "codigo_unico": "64664495",
+   "nombre_unico": "DOMICILIO - Más de 2 Kms. (por presupuesto)",
+   "veredicto": "descartado",
+   "nomenclador_destino": "NBU",
+   "codigo_declarado": "664495",
+   "descripcion_declarada": "",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U64666163",
+   "codigo_unico": "64666163",
+   "nombre_unico": "HIDATIDOSIS, Ac. IgG ó Totales Anti- (IFI)",
+   "veredicto": "descartado",
+   "nomenclador_destino": "NBU",
+   "codigo_declarado": "666163",
+   "descripcion_declarada": "",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U64668610",
+   "codigo_unico": "64668610",
+   "nombre_unico": "PROTEINA BENCE JONES, Investigacion de Cadena Liv",
+   "veredicto": "descartado",
+   "nomenclador_destino": "NBU",
+   "codigo_declarado": "668610",
+   "descripcion_declarada": "",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U64668884",
+   "codigo_unico": "64668884",
+   "nombre_unico": "RIPAMICINA",
+   "veredicto": "descartado",
+   "nomenclador_destino": "NBU",
+   "codigo_declarado": "668884",
+   "descripcion_declarada": "",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U64669490",
+   "codigo_unico": "64669490",
+   "nombre_unico": "TOPIRAMATO",
+   "veredicto": "descartado",
+   "nomenclador_destino": "NBU",
+   "codigo_declarado": "669490",
+   "descripcion_declarada": "",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U64669633",
+   "codigo_unico": "64669633",
+   "nombre_unico": "TRANSLOCACION (9, 22) Rear. BCR/ABL LMC",
+   "veredicto": "descartado",
+   "nomenclador_destino": "NBU",
+   "codigo_declarado": "669633",
+   "descripcion_declarada": "",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U64669636",
+   "codigo_unico": "64669636",
+   "nombre_unico": "TRANSLOCACION MLL/AF4, t (4,11)",
+   "veredicto": "descartado",
+   "nomenclador_destino": "NBU",
+   "codigo_declarado": "669636",
+   "descripcion_declarada": "",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U64669638",
+   "codigo_unico": "64669638",
+   "nombre_unico": "TRASLOCACION t (8, 21) - AML 1/ETO",
+   "veredicto": "descartado",
+   "nomenclador_destino": "NBU",
+   "codigo_declarado": "669638",
+   "descripcion_declarada": "",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U64669639",
+   "codigo_unico": "64669639",
+   "nombre_unico": "TRASLOCACION TEL /AML t(12, 21)",
+   "veredicto": "descartado",
+   "nomenclador_destino": "NBU",
+   "codigo_declarado": "669639",
+   "descripcion_declarada": "",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U64669641",
+   "codigo_unico": "64669641",
+   "nombre_unico": "TRASLOCACION, varias - cualitativa (c/u)",
+   "veredicto": "descartado",
+   "nomenclador_destino": "NBU",
+   "codigo_declarado": "669641",
+   "descripcion_declarada": "",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U64669703",
+   "codigo_unico": "64669703",
+   "nombre_unico": "TRIQUINOSIS, Ac. Totales Anti",
+   "veredicto": "descartado",
+   "nomenclador_destino": "NBU",
+   "codigo_declarado": "669703",
+   "descripcion_declarada": "",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U010713",
+   "codigo_unico": "010713",
+   "nombre_unico": "Sistema de derivacion ventriculo peritoneal con reservorio. drenaje lumbo-peritoneal.",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "010715",
+   "descripcion_declarada": "SISTEMA DE DERIVACION VENTRICULO PERIOTONEALC/RESERVOREO DRENAJE LUMBO-PERITONEAL",
+   "similitud": "0.8858"
+  },
+  {
+   "unico_key": "U031314",
+   "codigo_unico": "031314",
+   "nombre_unico": "Implantes cocleares.",
+   "veredicto": "descartado",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "031326",
+   "descripcion_declarada": "0.8919",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U40030220",
+   "codigo_unico": "40030220",
+   "nombre_unico": "(SURGE) modulo de procedimiento quirúrgico de implante coclear",
+   "veredicto": "descartado",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "031326",
+   "descripcion_declarada": "0.8832",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U40318105",
+   "codigo_unico": "40318105",
+   "nombre_unico": "(SURGE) MODULO SEGUIMIENTO IMPLANTE COCLEAR",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "031335",
+   "descripcion_declarada": "(SUR) MOD. DE SEGUIMIENTO DE IMPLATE COCLEAR (C/ 3 MESES)",
+   "similitud": "0.9121"
+  },
+  {
+   "unico_key": "U40288401",
+   "codigo_unico": "40288401",
+   "nombre_unico": "(SURGE) Modulo de Seguimiento pre y pos trasplante pulmonar adulto",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "050601",
+   "descripcion_declarada": "(SUR) Modulo de Seguimiento pre y pos trasplante pulmonar adulto",
+   "similitud": "0.9882"
+  },
+  {
+   "unico_key": "U40288402",
+   "codigo_unico": "40288402",
+   "nombre_unico": "(SURGE) Modulo Pre trasplante de pulmon adulto",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "050602",
+   "descripcion_declarada": "(SUR) Modulo Pre trasplante de pulmon adulto",
+   "similitud": "0.9845"
+  },
+  {
+   "unico_key": "U10060113",
+   "codigo_unico": "10060113",
+   "nombre_unico": "CUADRANTECTOMIA + GANGLIO CENTINELA",
+   "veredicto": "descartado",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "060204",
+   "descripcion_declarada": "0.9013",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U070107",
+   "codigo_unico": "070107",
+   "nombre_unico": "Uso de balón de contrapulsación",
+   "veredicto": "descartado",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "070107",
+   "descripcion_declarada": "0.9081",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U10070618",
+   "codigo_unico": "10070618",
+   "nombre_unico": "MODULO GRANDES VARICES ESCLEROSANTE, LASER O SIMILAR",
+   "veredicto": "descartado",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "070621",
+   "descripcion_declarada": "901",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U070802",
+   "codigo_unico": "070802",
+   "nombre_unico": "Angioplastia coronaria con utilización de stents liberadores de fármacos (Rapamicina – Paclitaxel).",
+   "veredicto": "descartado",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "070732",
+   "descripcion_declarada": "891",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U241301",
+   "codigo_unico": "241301",
+   "nombre_unico": "QUIMIOTERAPIA MODULO 1",
+   "veredicto": "descartado",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "070739",
+   "descripcion_declarada": "0.9114",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U241302",
+   "codigo_unico": "241302",
+   "nombre_unico": "QUIMIOTERAPIA MODULO 2",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "070740",
+   "descripcion_declarada": "MOD. QUIMIOTERAPIA COMPLEJA",
+   "similitud": "0.9111"
+  },
+  {
+   "unico_key": "U241303",
+   "codigo_unico": "241303",
+   "nombre_unico": "QUIMIOTERAPIA MODULO 3",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "070740",
+   "descripcion_declarada": "MOD. QUIMIOTERAPIA COMPLEJA",
+   "similitud": "0.9149"
+  },
+  {
+   "unico_key": "U089524",
+   "codigo_unico": "089524",
+   "nombre_unico": "MODULO APENDICECTOMIA (CUALQUIER VÍA)",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "080538",
+   "descripcion_declarada": "MOD. DE APENDICECTOMIA",
+   "similitud": "0.9208"
+  },
+  {
+   "unico_key": "U089606",
+   "codigo_unico": "089606",
+   "nombre_unico": "MODULO HEMORROIDECTEMÍA sin internación (cualquier método)",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "080622",
+   "descripcion_declarada": "MOD. DE HEMORROIDECTOMIA",
+   "similitud": "0.9055"
+  },
+  {
+   "unico_key": "U089607",
+   "codigo_unico": "089607",
+   "nombre_unico": "MODULO HEMORROIDECTEMÍA con internación (cualquier método)",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "080622",
+   "descripcion_declarada": "MOD. DE HEMORROIDECTOMIA",
+   "similitud": "0.9072"
+  },
+  {
+   "unico_key": "U10080719",
+   "codigo_unico": "10080719",
+   "nombre_unico": "COLOCACION DE PROTESIS O STENT BILIAR S/PROTESIS",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "080721",
+   "descripcion_declarada": "COLOCACION DE PROTESIS BILIAR S/PROTESIS",
+   "similitud": "0.9753"
+  },
+  {
+   "unico_key": "U40081005",
+   "codigo_unico": "40081005",
+   "nombre_unico": "(SURGE) Retrasplante Inmediato Hepatico Cadaverico Pediatrico",
+   "veredicto": "descartado",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "081005",
+   "descripcion_declarada": "(SUR) Retrasplante Inmediato Hepatico Cadaverico Pediatrico",
+   "similitud": "0.9921"
+  },
+  {
+   "unico_key": "U50110221",
+   "codigo_unico": "50110221",
+   "nombre_unico": "Modulo interrupción volutaria del embarazo (IVE) quirurgico",
+   "veredicto": "descartado",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "110223",
+   "descripcion_declarada": "?",
+   "similitud": "0.8679"
+  },
+  {
+   "unico_key": "U120204",
+   "codigo_unico": "120204",
+   "nombre_unico": "Fractura con desplazamiento osteoplastia Clavícula, costillas, rótula, metacarpianos o metatarsianos",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "120204",
+   "descripcion_declarada": "Clavícula, costillas, rótula, metacarpia",
+   "similitud": "0.9155"
+  },
+  {
+   "unico_key": "U121937",
+   "codigo_unico": "121937",
+   "nombre_unico": "Injertos de miembros con microcirugía.",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "121938",
+   "descripcion_declarada": "INJERTOS DE MIEMBROS CON MICROCIRUGÍA.",
+   "similitud": "0.8893"
+  },
+  {
+   "unico_key": "U140101",
+   "codigo_unico": "140101",
+   "nombre_unico": "Testificación total",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "140101",
+   "descripcion_declarada": "Testificación total",
+   "similitud": "1.0"
+  },
+  {
+   "unico_key": "U140102",
+   "codigo_unico": "140102",
+   "nombre_unico": "Testificación parcial. Hasta 4 sesiones.",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "140102",
+   "descripcion_declarada": "Testificación parcial. Hasta 4 sesiones.",
+   "similitud": "1.0"
+  },
+  {
+   "unico_key": "U140104",
+   "codigo_unico": "140104",
+   "nombre_unico": "Tratamiento desensibilizante. Incluye provisión de alergeno y las consultas que fueren necesarias. P",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "140104",
+   "descripcion_declarada": "Tratamiento desensibilizante. Incluye pr",
+   "similitud": "0.8779"
+  },
+  {
+   "unico_key": "U150203",
+   "codigo_unico": "150203",
+   "nombre_unico": "ERB her2",
+   "veredicto": "descartado",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "150251",
+   "descripcion_declarada": "0.9201",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U241310",
+   "codigo_unico": "241310",
+   "nombre_unico": "MODULO DE PUNCION MEDULA OSEA Y MEDULOGRAMA",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "150264",
+   "descripcion_declarada": "MODULO PUNCION MEDULA OSEA",
+   "similitud": "0.9664"
+  },
+  {
+   "unico_key": "U160202",
+   "codigo_unico": "160202",
+   "nombre_unico": "ANEST. COMPLEJIDAD 1",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "160202",
+   "descripcion_declarada": "ANEST. COMPLEJIDAD 1-",
+   "similitud": "0.9891"
+  },
+  {
+   "unico_key": "U160203",
+   "codigo_unico": "160203",
+   "nombre_unico": "ANEST. COMPLEJIDAD 2",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "160203",
+   "descripcion_declarada": "ANEST. COMPLEJIDAD 2-",
+   "similitud": "987"
+  },
+  {
+   "unico_key": "U160204",
+   "codigo_unico": "160204",
+   "nombre_unico": "ANEST. COMPLEJIDAD 3",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "160204",
+   "descripcion_declarada": "ANEST. COMPLEJIDAD 3-",
+   "similitud": "0.9856"
+  },
+  {
+   "unico_key": "U160205",
+   "codigo_unico": "160205",
+   "nombre_unico": "ANEST. COMPLEJIDAD 4",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "160205",
+   "descripcion_declarada": "ANEST. COMPLEJIDAD 4-",
+   "similitud": "0.9868"
+  },
+  {
+   "unico_key": "U160206",
+   "codigo_unico": "160206",
+   "nombre_unico": "ANEST. COMPLEJIDAD 5",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "160206",
+   "descripcion_declarada": "ANEST. COMPLEJIDAD 5-",
+   "similitud": "985"
+  },
+  {
+   "unico_key": "U160207",
+   "codigo_unico": "160207",
+   "nombre_unico": "ANEST. COMPLEJIDAD 6",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "160207",
+   "descripcion_declarada": "ANEST. COMPLEJIDAD 6-",
+   "similitud": "0.9846"
+  },
+  {
+   "unico_key": "U160208",
+   "codigo_unico": "160208",
+   "nombre_unico": "ANEST. COMPLEJIDAD 7",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "160208",
+   "descripcion_declarada": "ANEST. COMPLEJIDAD 7-",
+   "similitud": "0.9873"
+  },
+  {
+   "unico_key": "U160209",
+   "codigo_unico": "160209",
+   "nombre_unico": "ANEST. COMPLEJIDAD 8",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "160209",
+   "descripcion_declarada": "ANEST. COMPLEJIDAD 8-",
+   "similitud": "0.9871"
+  },
+  {
+   "unico_key": "U160210",
+   "codigo_unico": "160210",
+   "nombre_unico": "ANEST. COMPLEJIDAD 9",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "160210",
+   "descripcion_declarada": "ANEST. COMPLEJIDAD 9-",
+   "similitud": "0.9875"
+  },
+  {
+   "unico_key": "U160211",
+   "codigo_unico": "160211",
+   "nombre_unico": "ANEST. COMPLEJIDAD 10",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "160211",
+   "descripcion_declarada": "ANEST. COMPLEJIDAD 10-",
+   "similitud": "0.9868"
+  },
+  {
+   "unico_key": "U160218",
+   "codigo_unico": "160218",
+   "nombre_unico": "ANESTESIA MAYOR I",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "160218",
+   "descripcion_declarada": "ANESTESIA MAYOR I",
+   "similitud": "1.0"
+  },
+  {
+   "unico_key": "U160219",
+   "codigo_unico": "160219",
+   "nombre_unico": "ANESTESIA ESPECIAL A",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "160219",
+   "descripcion_declarada": "ANESTESIA ESPECIAL A",
+   "similitud": "1.0"
+  },
+  {
+   "unico_key": "U160220",
+   "codigo_unico": "160220",
+   "nombre_unico": "ANESTESIA ESPECIAL B",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "160220",
+   "descripcion_declarada": "ANESTESIA ESPECIAL B",
+   "similitud": "1.0"
+  },
+  {
+   "unico_key": "U160221",
+   "codigo_unico": "160221",
+   "nombre_unico": "ANESTESIA ESPECIAL C",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "160221",
+   "descripcion_declarada": "ANESTESIA ESPECIAL C",
+   "similitud": "1.0"
+  },
+  {
+   "unico_key": "U160222",
+   "codigo_unico": "160222",
+   "nombre_unico": "ANESTESIA ESPECIAL D",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "160222",
+   "descripcion_declarada": "ANESTESIA ESPECIAL D",
+   "similitud": "1.0"
+  },
+  {
+   "unico_key": "U160223",
+   "codigo_unico": "160223",
+   "nombre_unico": "ANESTESIA ESPECIAL E",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "160223",
+   "descripcion_declarada": "ANESTESIA ESPECIAL E",
+   "similitud": "1.0"
+  },
+  {
+   "unico_key": "U160224",
+   "codigo_unico": "160224",
+   "nombre_unico": "ANESTESIA ESPECIAL F",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "160224",
+   "descripcion_declarada": "ANESTESIA ESPECIAL F",
+   "similitud": "1.0"
+  },
+  {
+   "unico_key": "U160225",
+   "codigo_unico": "160225",
+   "nombre_unico": "ANESTESIA ESPECIAL G",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "160225",
+   "descripcion_declarada": "ANESTESIA ESPECIAL G",
+   "similitud": "1.0"
+  },
+  {
+   "unico_key": "U160226",
+   "codigo_unico": "160226",
+   "nombre_unico": "ANESTESIA ESPECIAL H",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "160226",
+   "descripcion_declarada": "ANESTESIA ESPECIAL H",
+   "similitud": "1.0"
+  },
+  {
+   "unico_key": "U160227",
+   "codigo_unico": "160227",
+   "nombre_unico": "ANESTESIA ESPECIAL I",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "160227",
+   "descripcion_declarada": "ANESTESIA ESPECIAL I",
+   "similitud": "1.0"
+  },
+  {
+   "unico_key": "U160228",
+   "codigo_unico": "160228",
+   "nombre_unico": "ANESTESIA ESPECIAL J",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "160228",
+   "descripcion_declarada": "ANESTESIA ESPECIAL J",
+   "similitud": "1.0"
+  },
+  {
+   "unico_key": "U160229",
+   "codigo_unico": "160229",
+   "nombre_unico": "ANESTESIA ESPECIAL K",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "160229",
+   "descripcion_declarada": "ANESTESIA ESPECIAL K",
+   "similitud": "1.0"
+  },
+  {
+   "unico_key": "U160230",
+   "codigo_unico": "160230",
+   "nombre_unico": "ANESTESIA ESPECIAL L",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "160230",
+   "descripcion_declarada": "ANESTESIA ESPECIAL L",
+   "similitud": "1.0"
+  },
+  {
+   "unico_key": "U160231",
+   "codigo_unico": "160231",
+   "nombre_unico": "ANESTESIA ESPECIAL M",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "160231",
+   "descripcion_declarada": "ANESTESIA ESPECIAL M",
+   "similitud": "1.0"
+  },
+  {
+   "unico_key": "U160232",
+   "codigo_unico": "160232",
+   "nombre_unico": "ANESTESIA ESPECIAL N",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "160232",
+   "descripcion_declarada": "ANESTESIA ESPECIAL N",
+   "similitud": "1.0"
+  },
+  {
+   "unico_key": "U160233",
+   "codigo_unico": "160233",
+   "nombre_unico": "ANESTESIA ESPECIAL O",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "160233",
+   "descripcion_declarada": "ANESTESIA ESPECIAL O",
+   "similitud": "1.0"
+  },
+  {
+   "unico_key": "U160234",
+   "codigo_unico": "160234",
+   "nombre_unico": "ANESTESIA ESPECIAL P",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "160234",
+   "descripcion_declarada": "ANESTESIA ESPECIAL P",
+   "similitud": "1.0"
+  },
+  {
+   "unico_key": "U160235",
+   "codigo_unico": "160235",
+   "nombre_unico": "ANESTESIA URGENCIAS DE L/V 08/19 HS",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "160235",
+   "descripcion_declarada": "ANESTESIA URGENCIAS DE L/V 08/19 HS",
+   "similitud": "1.0"
+  },
+  {
+   "unico_key": "U160236",
+   "codigo_unico": "160236",
+   "nombre_unico": "ANESTESIA URGENCIAS DE L/V 19/08 HS",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "160236",
+   "descripcion_declarada": "ANESTESIA URGENCIAS DE L/V 19/08 HS",
+   "similitud": "1.0"
+  },
+  {
+   "unico_key": "U160237",
+   "codigo_unico": "160237",
+   "nombre_unico": "URGENCIAS DE SABADOS,DOMINGOS Y FERIADOS",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "160237",
+   "descripcion_declarada": "URGENCIAS DE SABADOS,DOMINGOS Y FERIADOS",
+   "similitud": "1.0"
+  },
+  {
+   "unico_key": "U160238",
+   "codigo_unico": "160238",
+   "nombre_unico": "EVALUACION ANESTESICA",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "160238",
+   "descripcion_declarada": "EVALUACION ANESTESICA",
+   "similitud": "1.0"
+  },
+  {
+   "unico_key": "U160239",
+   "codigo_unico": "160239",
+   "nombre_unico": "URGENCIA NOCTURNA",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "160239",
+   "descripcion_declarada": "URGENCIA NOCTURNA",
+   "similitud": "1.0"
+  },
+  {
+   "unico_key": "U160240",
+   "codigo_unico": "160240",
+   "nombre_unico": "MENOR DE 3 AÑOS (ANESTESIA)",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "160240",
+   "descripcion_declarada": "MENOR DE 3 AÑOS (ANESTESIA)",
+   "similitud": "1.0"
+  },
+  {
+   "unico_key": "U180121",
+   "codigo_unico": "180121",
+   "nombre_unico": "Ecografia para Amniocentesis",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "180121",
+   "descripcion_declarada": "Ecografía para la amniocentesis.",
+   "similitud": "0.9535"
+  },
+  {
+   "unico_key": "U10180210",
+   "codigo_unico": "10180210",
+   "nombre_unico": "ECOGRAFIA DE CADERA",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "180210",
+   "descripcion_declarada": "ECOGRAFIA DE CADERA",
+   "similitud": "0.9438"
+  },
+  {
+   "unico_key": "U180213",
+   "codigo_unico": "180213",
+   "nombre_unico": "ECO DOPPLER OBSTETRICO COLOR",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "180213",
+   "descripcion_declarada": "ECO DOPPLER OBSTETRICO COLOR",
+   "similitud": "1.0"
+  },
+  {
+   "unico_key": "U180220",
+   "codigo_unico": "180220",
+   "nombre_unico": "ECO DOPPLER COLOR TRANSESOFAGICO",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "180220",
+   "descripcion_declarada": "ECO DOPPLER COLOR TRANSESOFAGICO",
+   "similitud": "1.0"
+  },
+  {
+   "unico_key": "U10180728",
+   "codigo_unico": "10180728",
+   "nombre_unico": "ECOGRAFIA ENDOCAVITARIA ESOFAGICA GASTRICA",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "180228",
+   "descripcion_declarada": "ECOGRAFIA ENDOCAVITARIA ESOFAGICA GASTRICA",
+   "similitud": "1.0"
+  },
+  {
+   "unico_key": "U10180729",
+   "codigo_unico": "10180729",
+   "nombre_unico": "ECOGRAFIA INTERVENCIONISTA CON PUNCION (punción bajo eco)",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "180229",
+   "descripcion_declarada": "ECOGRAFIA INTERVENCIONISTA CON PUNCION",
+   "similitud": "0.9517"
+  },
+  {
+   "unico_key": "U10180750",
+   "codigo_unico": "10180750",
+   "nombre_unico": "ECOGRAFIA OBSTETRICA NIVEL II/SCAN FETAL/ESTUDIO FETAL",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "180250",
+   "descripcion_declarada": "ECOGRAFIA OBSTETRICA NIVEL II/SCAN FETAL/ESTUDIO FELTA DETALLADO",
+   "similitud": "0.9813"
+  },
+  {
+   "unico_key": "U10180755",
+   "codigo_unico": "10180755",
+   "nombre_unico": "FIBROSCAN - ELASTOGRAFIA",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "180255",
+   "descripcion_declarada": "FIBROSCAN (ELASTOGRAFIA)",
+   "similitud": "0.9886"
+  },
+  {
+   "unico_key": "U10180730",
+   "codigo_unico": "10180730",
+   "nombre_unico": "ECOGRAFIA ENDOCAVITARIA (TRASRECTAL, TRANSVAGINAL, OTRAS)",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "180342",
+   "descripcion_declarada": "ECOGRAFIA ENDOCAVITARIA",
+   "similitud": "0.9373"
+  },
+  {
+   "unico_key": "U208135",
+   "codigo_unico": "208135",
+   "nombre_unico": "Mucosectomia endoscopica colonica",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "200159",
+   "descripcion_declarada": "MUCOSECTOMIA DEL TRACTO DIGESTIVO",
+   "similitud": "0.9104"
+  },
+  {
+   "unico_key": "U220211",
+   "codigo_unico": "220211",
+   "nombre_unico": "COLOCACION DE DIU",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "220211",
+   "descripcion_declarada": "COLOCACION DIU",
+   "similitud": "0.9853"
+  },
+  {
+   "unico_key": "U220212",
+   "codigo_unico": "220212",
+   "nombre_unico": "EXTRACCION DE DIU",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "220212",
+   "descripcion_declarada": "EXTRACCION DE DIU",
+   "similitud": "1.0"
+  },
+  {
+   "unico_key": "U230301",
+   "codigo_unico": "230301",
+   "nombre_unico": "ESTUDIODS HEMODINAMICOS DE PRIMERA VEZ",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "230309",
+   "descripcion_declarada": "ESTUDIODS HEMODINAMICOS DE PRIMERA VEZ",
+   "similitud": "0.8876"
+  },
+  {
+   "unico_key": "U230302",
+   "codigo_unico": "230302",
+   "nombre_unico": "CONTROL TERAPEUTICO DE HEMODINAMIA",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "230310",
+   "descripcion_declarada": "CONTROL TERAPEUTICO DE HEMODINAMIA",
+   "similitud": "0.9049"
+  },
+  {
+   "unico_key": "U10070617",
+   "codigo_unico": "10070617",
+   "nombre_unico": "MODULO VARICULAS ESCLEROSANTE O SIMILAR (arañas vaculares)",
+   "veredicto": "descartado",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "250109",
+   "descripcion_declarada": "0.8675",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U10280114",
+   "codigo_unico": "10280114",
+   "nombre_unico": "Test de marcha 6 minutos",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "250113",
+   "descripcion_declarada": "TEST DE MARCHA",
+   "similitud": "0.8943"
+  },
+  {
+   "unico_key": "U10342017",
+   "codigo_unico": "10342017",
+   "nombre_unico": "Resonancia otra region NO PMO",
+   "veredicto": "descartado",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "260601",
+   "descripcion_declarada": "0.8575",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U342015",
+   "codigo_unico": "342015",
+   "nombre_unico": "Material de contraste Resonancia (RMN)",
+   "veredicto": "descartado",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "260604",
+   "descripcion_declarada": "0.8839",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U10342016",
+   "codigo_unico": "10342016",
+   "nombre_unico": "Colangiorresonancia NO PMO",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "260631",
+   "descripcion_declarada": "COLANGIORESONANCIA",
+   "similitud": "0.8874"
+  },
+  {
+   "unico_key": "U10342015",
+   "codigo_unico": "10342015",
+   "nombre_unico": "Angiorresonancia NO PMO",
+   "veredicto": "descartado",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "260650",
+   "descripcion_declarada": "0.8838",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U10342018",
+   "codigo_unico": "10342018",
+   "nombre_unico": "Espectroscopía en resonancia",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "260656",
+   "descripcion_declarada": "ESPECTROSCOPIA",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U10280113",
+   "codigo_unico": "10280113",
+   "nombre_unico": "Poligrafía con titulación de CPAP",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "280113",
+   "descripcion_declarada": "POLIGRAFÍA CON TITULACIÓN DE CPAP",
+   "similitud": "0.8887"
+  },
+  {
+   "unico_key": "U10280112",
+   "codigo_unico": "10280112",
+   "nombre_unico": "Poligrafía diagnóstica",
+   "veredicto": "descartado",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "280211",
+   "descripcion_declarada": "0.8894",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U10300210",
+   "codigo_unico": "10300210",
+   "nombre_unico": "Test de Lotmar",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "300128",
+   "descripcion_declarada": "TEST DE LOTMAR",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U300130",
+   "codigo_unico": "300130",
+   "nombre_unico": "AUTORREFRACTOMETRIA",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "300130",
+   "descripcion_declarada": "AUTORREFRACTOMETRIA",
+   "similitud": "1.0"
+  },
+  {
+   "unico_key": "U10300208",
+   "codigo_unico": "10300208",
+   "nombre_unico": "Recuento de Celulas endoteliales",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "300142",
+   "descripcion_declarada": "CONTEO DE CELULAS ENDOTEL X OJO",
+   "similitud": "0.9107"
+  },
+  {
+   "unico_key": "U10300212",
+   "codigo_unico": "10300212",
+   "nombre_unico": "Test de But",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "300148",
+   "descripcion_declarada": "EXAMEN DE OJO SECO",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U10300123",
+   "codigo_unico": "10300123",
+   "nombre_unico": "ESTUDIO DE OJO SECO CON MEIBOGRAFÍA / EVALUACIÓN NO INVASIVA DE GLÁNDULAS DE MEIBOMIO",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "300148",
+   "descripcion_declarada": "EXAMEN DE OJO SECO",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U10300209",
+   "codigo_unico": "10300209",
+   "nombre_unico": "Pentacam (OCT camara anterior)",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "300184",
+   "descripcion_declarada": "PENTACAM",
+   "similitud": "0.8971"
+  },
+  {
+   "unico_key": "U10300207",
+   "codigo_unico": "10300207",
+   "nombre_unico": "IOL Master",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "300186",
+   "descripcion_declarada": "IOL MASTER",
+   "similitud": "0.9767"
+  },
+  {
+   "unico_key": "U310126",
+   "codigo_unico": "310126",
+   "nombre_unico": "OTOEMISIONES ACUSTICAS",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "310129",
+   "descripcion_declarada": "OTOEMISIONES ACUSTICAS",
+   "similitud": "1.0"
+  },
+  {
+   "unico_key": "U10340610",
+   "codigo_unico": "10340610",
+   "nombre_unico": "Magnificación Mamaria Por Lado",
+   "veredicto": "descartado",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "340634",
+   "descripcion_declarada": "0.8494",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U10341015",
+   "codigo_unico": "10341015",
+   "nombre_unico": "Tomografia por Emision de Positrones (PET)",
+   "veredicto": "descartado",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "341014",
+   "descripcion_declarada": "875",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U10300206",
+   "codigo_unico": "10300206",
+   "nombre_unico": "OCT Tomografia de Coherencia Optica",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "341119",
+   "descripcion_declarada": "T.A.C. COHERENCIA OPTICA (OCT)",
+   "similitud": "0.9283"
+  },
+  {
+   "unico_key": "U341014",
+   "codigo_unico": "341014",
+   "nombre_unico": "Tomografía INTERVENCIONISTA CON PUNCION (prodimientos bajo TAC)",
+   "veredicto": "descartado",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "341131",
+   "descripcion_declarada": "0.9179",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U10341016",
+   "codigo_unico": "10341016",
+   "nombre_unico": "AngioTAC - angiotomografia",
+   "veredicto": "descartado",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "341144",
+   "descripcion_declarada": "0.9094",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U40350115",
+   "codigo_unico": "40350115",
+   "nombre_unico": "(SURGE) RADIOTERAPIA CONFORMACIONAL CON PLANIF 3D",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "350115",
+   "descripcion_declarada": "(SUR) (Ver MAM) RADIOTERAPIA CONFORMACIONAL CON PLANIF 3D",
+   "similitud": "0.9797"
+  },
+  {
+   "unico_key": "U350305",
+   "codigo_unico": "350305",
+   "nombre_unico": "Radioterapia tridimensional conformada para el tratamiento del cáncer de próstata",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "350116",
+   "descripcion_declarada": "(SUR) RADIOTERAPIA 3D CA DE PROSTATA",
+   "similitud": "0.9213"
+  },
+  {
+   "unico_key": "U40350120",
+   "codigo_unico": "40350120",
+   "nombre_unico": "(SURGE) RADIOTERAPIA DE INTENSIDAD MODULADA",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "350120",
+   "descripcion_declarada": "(SUR) RADIOTERAPIA DE INTENSIDAD MODULADA",
+   "similitud": "0.9853"
+  },
+  {
+   "unico_key": "U420104",
+   "codigo_unico": "420104",
+   "nombre_unico": "consulta en GUARDIA",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "420104",
+   "descripcion_declarada": "CONSULTA EN GUARDIA",
+   "similitud": "949"
+  },
+  {
+   "unico_key": "U420106",
+   "codigo_unico": "420106",
+   "nombre_unico": "consulta VESTIDA especialista",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "420106",
+   "descripcion_declarada": "CONSULTA VESTIDA",
+   "similitud": "0.9257"
+  },
+  {
+   "unico_key": "U420108",
+   "codigo_unico": "420108",
+   "nombre_unico": "consulta en GUARDIA VESTIDA",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "420108",
+   "descripcion_declarada": "CONSULTA VESTIDA EN GUARDIA",
+   "similitud": "0.9672"
+  },
+  {
+   "unico_key": "U420107",
+   "codigo_unico": "420107",
+   "nombre_unico": "consulta VIRTUAL",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "420193",
+   "descripcion_declarada": "CONSULTA VIRTUAL",
+   "similitud": "0.9466"
+  },
+  {
+   "unico_key": "U420109",
+   "codigo_unico": "420109",
+   "nombre_unico": "consulta en consultorio MEDICO REFERENTE",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "420307",
+   "descripcion_declarada": "CONSULTA MEDICO CLINICO",
+   "similitud": "0.9376"
+  },
+  {
+   "unico_key": "U330406",
+   "codigo_unico": "330406",
+   "nombre_unico": "consulta PSIQUIATRIA",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "420406",
+   "descripcion_declarada": "CONSULTA PSIQUIATRICA",
+   "similitud": "0.9446"
+  },
+  {
+   "unico_key": "U10190201",
+   "codigo_unico": "10190201",
+   "nombre_unico": "Alimentación enteral",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "420431",
+   "descripcion_declarada": "NUTRICION ENTERAL",
+   "similitud": "0.9183"
+  },
+  {
+   "unico_key": "U430102",
+   "codigo_unico": "430102",
+   "nombre_unico": "Cama en habitacion individual (aislamiento)",
+   "veredicto": "descartado",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "430111",
+   "descripcion_declarada": "Una cama en habitación de tres con baño",
+   "similitud": "0.8826"
+  },
+  {
+   "unico_key": "U420501",
+   "codigo_unico": "420501",
+   "nombre_unico": "internación domiciliaria",
+   "veredicto": "descartado",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "431522",
+   "descripcion_declarada": "0.8955",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U430111",
+   "codigo_unico": "430111",
+   "nombre_unico": "observacion RECUPERACION ANESTESICA",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "431530",
+   "descripcion_declarada": "MOD. DE RECUPERACION ANESTESICA",
+   "similitud": "0.9281"
+  },
+  {
+   "unico_key": "U900006",
+   "codigo_unico": "900006",
+   "nombre_unico": "CAPITA ATENCION MEDICA",
+   "veredicto": "descartado",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "900006",
+   "descripcion_declarada": "0.9326",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U990001",
+   "codigo_unico": "990001",
+   "nombre_unico": "MEDICAMENTOS EN INTERNACION",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "990001",
+   "descripcion_declarada": "MEDICAMENTOS EN INTERNACION",
+   "similitud": "1.0"
+  },
+  {
+   "unico_key": "U990002",
+   "codigo_unico": "990002",
+   "nombre_unico": "MATERIAL DESCARTABLE EN INTERNACION",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "990002",
+   "descripcion_declarada": "MATERIAL DESCARTABLE EN INTERNACION",
+   "similitud": "1.0"
+  },
+  {
+   "unico_key": "U990003",
+   "codigo_unico": "990003",
+   "nombre_unico": "MEDICAMENTOS EN AMBULATORIO",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "990003",
+   "descripcion_declarada": "MEDICAMENTOS EN AMBULATORIO (NO INCL. EN NN)",
+   "similitud": "0.9494"
+  },
+  {
+   "unico_key": "U341015",
+   "codigo_unico": "341015",
+   "nombre_unico": "Material de contraste Tomografia (TAC)",
+   "veredicto": "descartado",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "990011",
+   "descripcion_declarada": "0.8981",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U10190203",
+   "codigo_unico": "10190203",
+   "nombre_unico": "Alimentación paraenteral",
+   "veredicto": "descartado",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "990020",
+   "descripcion_declarada": "0.9258",
+   "similitud": ""
+  },
+  {
+   "unico_key": "U430110",
+   "codigo_unico": "430110",
+   "nombre_unico": "HORA QUIROFANO",
+   "veredicto": "descartado",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "990139",
+   "descripcion_declarada": "C/MEDIA HORA EXCEDENTE DE QUIROFANO",
+   "similitud": "0.8962"
+  },
+  {
+   "unico_key": "U249101",
+   "codigo_unico": "249101",
+   "nombre_unico": "MODULO TRANSFUSIÓN GLOBULOS ROJOS",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "990179",
+   "descripcion_declarada": "MODULO DE TRANSFUSION DE GLOBULOS ROJOS SEDIMENTADOS",
+   "similitud": "0.9708"
+  },
+  {
+   "unico_key": "U249107",
+   "codigo_unico": "249107",
+   "nombre_unico": "MODULO TRANSFUSIÓN PLAQUETAS",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "990180",
+   "descripcion_declarada": "MODULO DE TRANSFUSION DE PLAQUETAS (POR AFERESIS)",
+   "similitud": "0.9608"
+  },
+  {
+   "unico_key": "U50110224",
+   "codigo_unico": "50110224",
+   "nombre_unico": "Modulo fertilizacion asistida ALTA complejidad (TRANSFERENCIA EMBRRIONARIA)",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "990256",
+   "descripcion_declarada": "(SUR)TECNICAS DE REPRODUCCION MEDICAMENTE ASISTIDA DE ALTA COMPLEJIDAD",
+   "similitud": "0.9011"
+  },
+  {
+   "unico_key": "U10420502",
+   "codigo_unico": "10420502",
+   "nombre_unico": "Asistencia domiciliaria (no internación)",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "990262",
+   "descripcion_declarada": "CUIDADOS DOMICILIARIOS",
+   "similitud": "0.8946"
+  },
+  {
+   "unico_key": "U50110226",
+   "codigo_unico": "50110226",
+   "nombre_unico": "Modulo fertilizacion asistida PRESERVACION",
+   "veredicto": "correcto",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "990284",
+   "descripcion_declarada": "PRESERVACIÓN DE LA FERTILIDAD",
+   "similitud": "0.9151"
+  }
+ ]
+}

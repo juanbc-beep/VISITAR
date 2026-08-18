@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-X5KFjNO2YS4hz6QSK8GDsU6Syj0AQC3qlU7Vff32Cc0=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-XAL54IccLvmw1SgnJFNbd4ebefWqf834FDVcurAOS5g=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -528,6 +528,7 @@ html,body{margin:0;padding:0}
 .equiv-card{background:color-mix(in srgb,var(--unico) 8%,transparent);border:1px solid color-mix(in srgb,var(--unico) 26%,transparent);border-radius:var(--radius-sm);padding:12px 14px}
 .equiv-card .eqrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .equiv-card .eqcode{font-family:var(--font-mono);font-weight:700;color:var(--unico);cursor:pointer;text-decoration:underline;text-decoration-style:dotted}
+.equiv-card .eqcode.na{color:var(--faint);cursor:default;text-decoration:none}
 .equiv-card .eqscore{font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;background:var(--surface-3);color:var(--muted)}
 /* --- feature add-ons: valor U.B., favoritos, arancel, seriado, export, print --- */
 .ubctl{gap:5px!important}
@@ -2090,9 +2091,13 @@ function ubDisplay(c){
     const col=c.nomenclador==='ODO'?'var(--odo)':'var(--med)';
     return `<div class="rub" style="color:${col}">${t!=null?fmtMoney(t):'—'}<small style="color:var(--faint)">${c.valores.galeno&&(c.valores.galeno.especialista||c.valores.galeno.honorarios)?(c.valores.galeno.especialista||c.valores.galeno.honorarios)+' gal':'ref. 2002'}</small></div>`;
   }
-  if(c.nomenclador==='UNICO'&&getUB(c)==null){
-    if(c.sin_equivalencia)return `<div class="rub na" style="color:var(--urg)">sin equiv.<br><small style="color:var(--faint)">pendiente</small></div>`;
-    const e=c.equivalencia;return `<div class="rub na" style="color:var(--unico)">≡ ${e?e.code:''}<br><small style="color:var(--faint)">${e?esc(e.target_label):''}</small></div>`;
+  /* La equivalencia del Único con otro nomenclador se muestra como etiqueta
+     junto al título (igual que del lado PMO, ver rowHTML) y no acá: mostrar el
+     código acá, en la esquina, lo hacía ver clicable/resuelto aunque el destino
+     todavía no exista en la base (`equivalencia.key===null`). Acá sólo queda
+     el caso realmente sin equivalencia, que es un dato de valorización más. */
+  if(c.nomenclador==='UNICO'&&getUB(c)==null&&c.sin_equivalencia){
+    return `<div class="rub na" style="color:var(--urg)">sin equiv.<br><small style="color:var(--faint)">pendiente</small></div>`;
   }
   const ub=getUB(c);
   if(ub==null)return c.nomenclador==='PMO'?`<div class="rub na" style="color:var(--med)">cobertura<br><small style="color:var(--faint)">PMO</small></div>`:c.nomenclador==='ODO'?`<div class="rub na" style="color:var(--odo)">galenos</div>`:`<div class="rub na">s/valor</div>`;
@@ -2200,9 +2205,18 @@ function rowHTML(c){
   if(c.surge)dec.push('<span class="tag t-surge">SURGE</span>');
   if(hasRel(c))dec.push('<span class="tag t-rel">relaciones</span>');
   if(c.equivalencia_unico&&c.equivalencia_unico.length)dec.push('<span class="tag t-unico">= Único</span>');
+  /* Del lado del Único, la misma etiqueta pero apuntando al otro nomenclador —
+     mismo lugar y mismo color que «= Único» del lado PMO/NBU, no un badge
+     aparte en la esquina del valor (eso mezclaba «cuánto vale» con «a qué
+     equivale», y encima se mostraba igual estuviera o no resuelta). Sólo
+     cuando la equivalencia es navegable: si el destino todavía no está
+     importado, `equivalencia.key` es null y esa información va como estado de
+     la base (abajo, con «valores ✓» y «2024»), no como decisión. */
+  if(c.nomenclador==='UNICO'&&c.equivalencia&&c.equivalencia.key)dec.push(`<span class="tag t-unico">= ${esc(c.equivalencia.target_label||c.equivalencia.target_nom||'')}</span>`);
   if(c.nomenclador==='UNICO'&&c.sin_equivalencia)dec.push('<span class="tag t-noeq">⚠ sin equivalencia</span>');
   if(c.valores)met.push('<span class="tag t-meta">valores ✓</span>');
   if(c.valor.ub_actualizado_2024!=null)met.push('<span class="tag t-meta">2024</span>');
+  if(c.nomenclador==='UNICO'&&c.equivalencia&&!c.equivalencia.key&&!c.sin_equivalencia)met.push(`<span class="tag t-meta" title="La planilla del Único declara esta equivalencia y quedó verificada contra la fuente, pero el código de ${esc(c.equivalencia.target_label||'destino')} todavía no está cargado como ficha propia en la base.">equiv. sin importar</span>`);
   return `<button class="row" data-code="${c._key}">
     ${starBtn(c._key)}
     <div class="rcode">${hlList(c.code)}</div>
@@ -3681,7 +3695,7 @@ function openCode(code,origen){
       const ubEq=ubDe(e.key)!=null?ubDe(e.key):((c.nbu_valor&&(c.nbu_valor.ub_vigente!=null?c.nbu_valor.ub_vigente:c.nbu_valor.ub))??null);
       const propia=(c.valor&&(c.valor.ub_vigente!=null?c.valor.ub_vigente:c.valor.ub));
       html+=`<div class="sec"><div class="slabel">Equivalencia · ${esc(e.target_label||'')}</div><div class="equiv-card">
-        <div class="eqrow"><span>Equivale a</span><span class="eqcode" ${e.key?`data-goto="${e.key}"`:''}>${e.code}</span>${scorePct?`<span class="eqscore">similitud ${scorePct}</span>`:''}${ubEq!=null?`<span class="equb">${ubEq} U.B.</span>`:''}</div>
+        <div class="eqrow"><span>Equivale a</span><span class="eqcode${e.key?'':' na'}" ${e.key?`data-goto="${e.key}"`:''}>${e.code}</span>${scorePct?`<span class="eqscore">similitud ${scorePct}</span>`:''}${ubEq!=null?`<span class="equb">${ubEq} U.B.</span>`:''}</div>
         ${e.desc?`<div style="margin-top:6px;font-size:13px;color:var(--ink-2)">${esc(e.desc)}</div>`:''}
         ${(ubEq!=null&&propia!=null&&ubEq!==propia)?`<div class="eqdif">Ojo: <b>${propia} U.B.</b> en este nomenclador y <b>${ubEq} U.B.</b> en el otro. La diferencia es del convenio, no un error — se factura con la del nomenclador que corresponda.</div>`:''}
         <div style="margin-top:6px;font-size:11.5px;color:var(--faint)">${e.key?'Presente en ambos nomencladores. Tocá el código para abrir su ficha en '+esc(e.target_label||'')+'.':'El código equivalente ('+esc(e.code)+') no está cargado como ficha propia todavía.'}</div>
@@ -4244,7 +4258,7 @@ function cmpVer(){
   const [a,b]=cmp.map(k=>BYCODE[k]);
   const ubTxt=c=>{const u=getUB(c);return u!=null?(aranStr(u)?`${u} U.B. · ${aranStr(u)}`:`${u} U.B.`):'—';};
   const rel=c=>{const r=c.relaciones||{};const n=(r.incluye||[]).length+(r.no_incluye||[]).length+(r.incluido_en||[]).length;return n?`${n} vínculo${n!==1?'s':''}`:'—';};
-  const eq=c=>{const e=c.equivalencia;return e?(e.code+(e.recalculada?' (reconstruida)':'')):(c.sin_equivalencia?'sin equivalencia':'—');};
+  const eq=c=>{const e=c.equivalencia;if(c.sin_equivalencia)return 'sin equivalencia';if(!e)return '—';return e.code+(e.recalculada?' (reconstruida)':'')+(e.key?'':' (sin importar)');};
   const filas=[
     ['Denominación',a.nombre,b.nombre],
     ['Nomenclador',a.nomenclador_full||a.nomenclador,b.nomenclador_full||b.nomenclador],
