@@ -7,12 +7,11 @@
 > `nomenclador-nacional-barrido-gjii29`). El clon es superficial y el total de commits no se
 > puede contar, así que se identifica por rama.
 >
-> **Lo que está en curso ahora mismo:** el **barrido del Nomenclador Nacional** (3.8) —
-> transcribir a ojo, capítulo por capítulo, el recuadro «Texto retirado por el PMO» que el
-> catálogo del PMO no reproduce. Van 29 capítulos y **827 de 1.353 fichas (61%)**, desde
-> 156 (11%). Es trabajo de lectura, no de código: la receta, el índice de páginas, las
-> reglas de alcance y el orden sugerido están todos en 3.8, escritos para retomar en frío.
-> **Quedan sólo el 35, 36 y 38 — sin páginas todavía en el índice** — ver 7 bis A.
+> **✅ El barrido del Nomenclador Nacional (3.8) terminó capítulo por capítulo** —transcribir a
+> ojo el recuadro «Texto retirado por el PMO» que el catálogo del PMO no reproduce. Van **32
+> capítulos y 844 de 1.353 fichas (62%)**, desde 156 (11%). **Lo que sigue ahora es el
+> capítulo 66** (NBU laboratorio): un cotejo distinto —el catálogo del NBU contra el PDF,
+> con los bloques repetidos 60‑64 del Único— no una transcripción de recuadros. Ver 7 bis D.
 >
 > **Lo más importante que cambió respecto del traspaso anterior:** la app dejó de ser un
 > archivo que cada uno guarda en su computadora y pasó a ser una **aplicación de empresa
@@ -907,10 +906,16 @@ uno antes de «mielotomía comisural» y otro después).
 | 16 · Anestesiología | 90 | 5 | ✅ 4 textos + 2 normas de código |
 | 19 · Endocrinología y nutrición | 97 | 3 | ✅ 0 textos — el capítulo no tiene ninguno, y es correcto |
 | 32 · Pediatría | 129 | 1 | ✅ 0 textos + 1 norma de código |
-| los otros 3 (35, 36, 38) | — | — | pendiente (faltan páginas en el índice, ver abajo) |
+| 35 · Terapia radiante | 141–142 | 9 | ✅ 2 textos + 1 norma de capítulo (6 puntos, A a F) |
+| 36 · Urología | 142–143 | 10 | ✅ 3 textos + 1 norma de sub-capítulo (impresa 3 veces; 360104 y 360106 en el PDF, no en la base) |
+| 38 · Tratamientos especiales | 143 | 2 | ✅ 0 textos — los dos códigos son agregados del PMO con obligación de cobertura, nada retirado |
 
-Cobertura: **827 de 1.353 (61%)**, desde 156 (11%). El 23 (hemoterapia) y el 66 (NBU
-laboratorio) quedan aparte de esta cuenta, ver más abajo.
+**Con esto se terminó el barrido del Nomenclador Nacional capítulo por capítulo.** No queda
+ningún capítulo pendiente de transcribir — el único trabajo que sigue es el capítulo 66 (NBU
+laboratorio), que es un cotejo distinto, ver 7 bis D.
+
+Cobertura: **844 de 1.353 (62%)**, desde 156 (11%). El 23 (hemoterapia) queda aparte de esta
+cuenta (ver más abajo); el 66 no es del mismo tipo de trabajo.
 
 ⚠️ **Que un sub-capítulo no aporte ningún texto puede ser lo correcto.** El `02.09` (LASER) son
 ocho códigos que AGREGÓ el PMO: no figuran en el Nomenclador Nacional, así que no hay recuadro
@@ -1030,21 +1035,18 @@ patrón a reconocer**: cuando el número de código está en bastardilla, la pr�
 del catálogo y no hay ficha que decorar. En el capítulo 30 pasa siete veces (30.01.04, 05, 07,
 12, 14, 15 y 21).
 
-#### ▶ POR DÓNDE SEGUIR (última tanda: 30, 29 y 21, el 18/8/2026)
+#### ✅ El barrido capítulo por capítulo terminó (última tanda: 35, 36 y 38, el 18/8/2026)
 
 `data/paginas_nn.json` tiene **dónde empieza y termina cada capítulo en el PDF**, sacado por
-OCR. Ya está: no hay que volver a buscarlo a mano.
+OCR y completado a mano. Los tres que faltaban (el barrido de OCR había llegado sólo hasta la
+139) se encontraron buscando el final del capítulo 34: el **35 (Terapia radiante)** arranca a
+mitad de la **141**, debajo del `34.20.14`; el **36 (Urología)** a mitad de la **142**; el
+**38 (Tratamientos especiales)** a mitad de la **143**, y termina ahí mismo — el `40/41` ya
+arranca en la **144**. No hace falta volver a buscar nada de esto a mano.
 
-    cap 02: 18–23   cap 03: 24–32   cap 04: 33      cap 05: 34–36   cap 06: 37
-    cap 07: 38–46   cap 08: 47–55   cap 09: 56      cap 10: 57–63   cap 11: 64–67
-    cap 12: 68–80   cap 13: 81–83   cap 14: 88      cap 15: 89      cap 16: 90
-    cap 17: 91–94   cap 18: 95–96   cap 20: 97–99   cap 21: 100     cap 22: 101–102
-    cap 23: 103–108 cap 24: 109–111 cap 29: 125     cap 30: 126–127 cap 31: 128–129
-    cap 33: 130–131
-
-⚠️ El índice llegó hasta la página 139; **faltan 35, 36, 38 y el 66**. Para completarlo:
-`scripts/` no lo tiene — está en el scratchpad de la sesión, que se recicla. Se vuelve a sacar
-con `rapidocr_onnxruntime` contando códigos `NN.NN.NN` por página (≈9 s por página).
+Lo único que sigue es el **capítulo 66** (NBU laboratorio), que no es «texto retirado por el
+PMO» — es cotejar el catálogo del NBU contra el PDF sabiendo lo de los bloques repetidos 60‑64
+del Único. Ver 7 bis D.
 
 **Receta por capítulo**, unos 10 minutos cada uno:
 
@@ -1139,20 +1141,17 @@ Dos consecuencias operativas, ambas importantes:
    y las reglas de alcance. Seguir en una sesión ya cargada cuesta entre 5 y 10 veces más que
    arrancar limpio, y no se gana nada a cambio.
 
-**Lo que falta.** Ya no quedan capítulos con página conocida: los seis chicos (06, 09, 14, 16,
-19, 32) se hicieron el 18/8 — ver la tabla de avance más arriba. Sólo faltan el **35, 36 y 38**,
-que no tienen páginas en el índice (ver abajo), y el **66** (NBU laboratorio), que es aparte
-(7 bis D).
+**✅ El barrido capítulo por capítulo terminó el 18/8/2026.** Los últimos tres —**35, 36 y
+38**— no tenían página en el índice (el barrido de OCR de `data/paginas_nn.json` había
+llegado sólo hasta la 139); se encontraron a mano buscando el final del capítulo 34 y ya están
+declarados. Lo único que queda del trabajo de datos del Nacional es el **capítulo 66** (NBU
+laboratorio), que es otro tipo de tarea — ver D más abajo.
 
-Hechos el 18/8, en tres sesiones distintas y fusionados después: **20, 24, 17, 18, 31, 30, 29,
-21** (rama `nomenclador-chapters-30-29-21-0c4v9o`, que incluye los commits de la rama
+Hechos el 18/8, en cuatro sesiones distintas y fusionadas después: **20, 24, 17, 18, 31, 30,
+29, 21** (rama `nomenclador-chapters-30-29-21-0c4v9o`, que incluye los commits de la rama
 `nomenclador-chapters-20-24-17-eoittj`), **22, 33, 15** (rama
-`nomenclador-nacional-barrido-gjii29`) y **06, 09, 14, 16, 19, 32** (misma rama, después de
-fusionar) — ver la tabla de avance más arriba.
-
-⚠️ Faltan las páginas del **35, 36 y 38** en `data/paginas_nn.json` (el barrido de OCR llegó
-hasta la 139): hay que sacarlas con `rapidocr_onnxruntime`, contando códigos `NN.NN.NN` por
-página (≈9 s por página), antes de poder armar la receta de esos tres.
+`nomenclador-nacional-barrido-gjii29`), **06, 09, 14, 16, 19, 32** y **35, 36, 38** (misma
+rama, después de fusionar) — ver la tabla de avance más arriba.
 
 ⚠️ **Las páginas 84 a 87 no son de ningún capítulo**, y el índice ahora lo dice (`_huecos`). El
 13 termina en la 83 y el 14 arranca en la 88, así que el salto parece un capítulo perdido y no
@@ -2005,8 +2004,18 @@ Lo que YA está bien y no hay que tocar:
   agregó. Ver 3.8. Tampoco era el de hemoterapia —ese es el 24, ya hecho—.
 
 ### D. Datos que siguen faltando
-- **Capítulo 66** (NBU laboratorio) contra el PDF — ahora hay que mirarlo sabiendo lo de los
-  bloques repetidos 60‑64 del Único.
+- ⚠️ **Capítulo 66 (NBU laboratorio) contra el PDF — escala encontrada el 18/8/2026, mucho más
+  grande de lo que parecía.** Páginas **168 a 203 del archivo (36 páginas)**, ya declaradas en
+  `data/paginas_nn.json`. Es el capítulo más grande del PDF con diferencia —el 12, el mayor
+  hecho hasta ahora, son 13 páginas y 146 códigos— y cubre potencialmente los **1.815 códigos
+  NBU** de la base (ninguno tiene `alcance_nn` todavía; no cuentan en la cobertura de 3.8,
+  que sólo mide PMO). Antes de encarar la transcripción conviene:
+  1. Confirmar con el usuario si se ataca entero o por tramos (el patrón «un lote por sesión»
+     de 3.8 no alcanza a un capítulo de este tamaño sin partirlo).
+  2. Entender **«los bloques repetidos 60‑64 del Único»** —queda anotado de una sesión
+     anterior, sin explicar el detalle— antes de empezar, para no transcribir mal por ese lado.
+  3. El PDF usa numeración `66.SUBCAP.NN` (ej. `66.00.01`, `66.10.75`); el código de base
+     equivalente es el NBU de 6 dígitos sin puntos (`660001`), **no** el de PMO.
 - **95 equivalencias** del Único siguen sin destino en la base, todas al PMO (eran 135; el
   18/8/2026 se revisaron las 135 a mano contra la fuente —ver «Lo que queda por confirmar en
   los datos», más abajo— y 39 se descartaron por estar mal declaradas, 1 se corrigió y ató).

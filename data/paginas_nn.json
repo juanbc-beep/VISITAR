@@ -233,6 +233,38 @@
    ],
    "n": 1,
    "_": "Encontrado a ojo el 16/8/2026 al transcribir el 31: el 32 (PEDIATRIA) arranca al pie de la 129, debajo del último código del 31. El barrido de OCR no lo había listado."
+  },
+  "35": {
+   "pags": [
+    141,
+    142
+   ],
+   "n": 2,
+   "_": "Encontrado a mano el 18/8/2026 buscando el final del 34 (el barrido de OCR llegó hasta la 139): el 34 termina a mitad de la 141 en el 34.20.14, y el 35 (TERAPIA RADIANTE) arranca ahí mismo."
+  },
+  "36": {
+   "pags": [
+    142,
+    143
+   ],
+   "n": 2,
+   "_": "Encontrado a mano el 18/8/2026: el 36 (UROLOGIA) arranca a mitad de la 142, debajo del último código del 35."
+  },
+  "38": {
+   "pags": [
+    143,
+    143
+   ],
+   "n": 1,
+   "_": "Encontrado a mano el 18/8/2026: el 38 (TRATAMIENTOS ESPECIALES) arranca a mitad de la 143, debajo del último código del 36, y termina ahí mismo (2 códigos, los dos agregados por el PMO, sin recuadro que transcribir). El 40/41 arranca en la 144."
+  },
+  "66": {
+   "pags": [
+    168,
+    203
+   ],
+   "n": 36,
+   "_": "Encontrado por OCR el 18/8/2026, probando páginas 150-240. Después de las prácticas odontológicas (150-163, numeración propia 01-10) arranca «PRACTICAS BIOQUIMICAS» (164), con la leyenda en 166-167 y los códigos 66.00.01 en adelante desde la 168. Termina en la 203 (66.11.9x); la 204 ya es «NORMAS PARTICULARES Y GENERALES DEL NOMENCLADOR NACIONAL», un apéndice de referencia aparte, no más códigos. 36 páginas — el capítulo más grande del PDF, más del doble del 12 (13 páginas, 146 códigos)."
   }
  }
 }

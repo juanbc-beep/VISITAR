@@ -1078,6 +1078,56 @@
    },
    "_nota_capitulo": "Encontrado a ojo el 16/8/2026 al transcribir el 31: el 32 arranca al pie de la página 129, debajo del último código del 31. Un solo código: 32.01.04, sin recuadro propio, sólo la norma.",
    "codigos": {}
+  },
+  "35": {
+   "titulo": "Terapia radiante",
+   "pags": [
+    141,
+    142
+   ],
+   "norma": [
+    "A. La aplicacion de radioterapia, cobalto-terapia, cesio-terapia, etc. solo podra ser realizada por médico radioterapeuta y debera ser supervisada en forma ininterrumpida por el mismo.",
+    "B. Los aranceles de los codigos 35.02.01 y 35.02.02 corresponden a la aplicacion de radium, su manipulacion, etc.",
+    "C. El arancel de codigos 35.02.03 corresponde al alquiler de radium por tratamiento, cualquiera sea la dosis MG/H utilizada.",
+    "D. El gasto sanatorial sera equivalente al del codigo 11.02.10",
+    "E. La aplicacion de radium labio-piel, se facturara como gasto operatorio 89 unidades sanatoriales.",
+    "F. Los gastos del codigo 35 en su totalidad, seran facturadas de acuerdo al valor de la Unidad Radiologica."
+   ],
+   "_nota_norma": "Los puntos B, C y D hablan de los códigos 35.02.xx, que el PDF no imprime en este capítulo (salta de 35.01 a 35.03): la norma se declara igual, completa, porque rige el capítulo 35 en su conjunto (punto F lo dice explícitamente: «los gastos del código 35 en su totalidad»).",
+   "codigos": {
+    "350101": "Cada aplicacion",
+    "350102": "Cada aplicacion"
+   }
+  },
+  "36": {
+   "titulo": "Urología",
+   "pags": [
+    142,
+    143
+   ],
+   "norma": [],
+   "normas_prefijo": {
+    "3601": [
+     "Los estudios endoscopicos incluyen dentro del arancel correspondiente, eventuales tomas de biopsias, escisiones, lavajes, litotricias, electro-coagulacion, extracciones de cuerpos extraños, cateterismos ureterales, meatomia, inserciones, etc."
+    ]
+   },
+   "_nota_3601": "Norma impresa TRES veces en el mismo sub-capítulo (antes del 36.01.01, antes del 36.01.03 y de nuevo después del 36.01.07): va al sub-capítulo entero, no a esos códigos sueltos.",
+   "_nota_360104_106": "360104 (Sondaje vesical para cistografia de replesion, uretrocistografia) y 360106 (Dilatacion uretral) están en el PDF, retirados enteros por el PMO, y NO están en la base.",
+   "codigos": {
+    "360103": "(evacuador, para instilacion terapeutica)",
+    "360104": "Sondaje vesical (para cistografia de replesion, uretrocistografia).",
+    "360106": "Dilatacion uretral."
+   }
+  },
+  "38": {
+   "titulo": "Tratamientos especiales",
+   "pags": [
+    143,
+    143
+   ],
+   "norma": [],
+   "_nota_sin_textos": "⚠️ El capítulo no aporta NINGÚN texto, y es lo correcto. Los dos códigos —38.01.01 puvaterapia y 38.02.01 cámara hiperbárica— son CODIGO AGREGADO POR EL P.M.O., con su obligación de cobertura impresa en negrita (mantenida), sin nada retirado. El capítulo entero entra en media página: termina donde arranca el 40/41.",
+   "codigos": {}
   }
  }
 }
