@@ -9,10 +9,10 @@
 >
 > **Lo que está en curso ahora mismo:** el **barrido del Nomenclador Nacional** (3.8) —
 > transcribir a ojo, capítulo por capítulo, el recuadro «Texto retirado por el PMO» que el
-> catálogo del PMO no reproduce. Van 23 capítulos y **811 de 1.353 fichas (60%)**, desde
+> catálogo del PMO no reproduce. Van 29 capítulos y **827 de 1.353 fichas (61%)**, desde
 > 156 (11%). Es trabajo de lectura, no de código: la receta, el índice de páginas, las
 > reglas de alcance y el orden sugerido están todos en 3.8, escritos para retomar en frío.
-> **Quedan 6 capítulos chicos (30 códigos): 06, 09, 14, 16, 19, 32** — ver 7 bis A.
+> **Quedan sólo el 35, 36 y 38 — sin páginas todavía en el índice** — ver 7 bis A.
 >
 > **Lo más importante que cambió respecto del traspaso anterior:** la app dejó de ser un
 > archivo que cada uno guarda en su computadora y pasó a ser una **aplicación de empresa
@@ -901,9 +901,15 @@ uno antes de «mielotomía comisural» y otro después).
 | 15 · Anatomía patológica | 89–90 | 12 | ✅ 9 textos + 1 norma de código (150109 en el PDF, no en la base) |
 | 22 · Ginecología y obstetricia | 101–102 | 13 | ✅ 4 textos + 3 normas de código (220102 en el PDF, no en la base) |
 | 33 · Psiquiatría | 130–131 | 13 | ✅ 8 textos + 1 norma de sub-capítulo + 1 de código |
-| los otros 9 (06, 09, 14, 16, 19, 32, 35, 36, 38) | ~37–150 | ~50 | pendiente |
+| 06 · Operaciones en la mama | 37 | 12 | ✅ 7 textos |
+| 09 · Vasos y ganglios linfáticos | 56 | 8 | ✅ 3 textos |
+| 14 · Alergia | 88 | 1 | ✅ 0 textos + 1 norma de capítulo (140101, 140102, 140104 en el PDF, retirados enteros, no en la base) |
+| 16 · Anestesiología | 90 | 5 | ✅ 4 textos + 2 normas de código |
+| 19 · Endocrinología y nutrición | 97 | 3 | ✅ 0 textos — el capítulo no tiene ninguno, y es correcto |
+| 32 · Pediatría | 129 | 1 | ✅ 0 textos + 1 norma de código |
+| los otros 3 (35, 36, 38) | — | — | pendiente (faltan páginas en el índice, ver abajo) |
 
-Cobertura: **811 de 1.353 (60%)**, desde 156 (11%). El 23 (hemoterapia) y el 66 (NBU
+Cobertura: **827 de 1.353 (61%)**, desde 156 (11%). El 23 (hemoterapia) y el 66 (NBU
 laboratorio) quedan aparte de esta cuenta, ver más abajo.
 
 ⚠️ **Que un sub-capítulo no aporte ningún texto puede ser lo correcto.** El `02.09` (LASER) son
@@ -1133,33 +1139,20 @@ Dos consecuencias operativas, ambas importantes:
    y las reglas de alcance. Seguir en una sesión ya cargada cuesta entre 5 y 10 veces más que
    arrancar limpio, y no se gana nada a cambio.
 
-**Lo que falta**, con sus páginas y su tamaño. De acá en más son todos chicos: entran tres o
-cuatro por sesión.
+**Lo que falta.** Ya no quedan capítulos con página conocida: los seis chicos (06, 09, 14, 16,
+19, 32) se hicieron el 18/8 — ver la tabla de avance más arriba. Sólo faltan el **35, 36 y 38**,
+que no tienen páginas en el índice (ver abajo), y el **66** (NBU laboratorio), que es aparte
+(7 bis D).
 
-| cap | páginas | códigos | | cap | páginas | códigos |
-|---|---|---|---|---|---|---|
-| 06 | 37 | 12 | | 16 | 90 | 5 |
-| 09 | 56 | 8 | | 32 | 129 | 1 |
-| 14 | 88 | 1 | | 19 | 97 | 3 |
-
-Hechos el 18/8, en dos sesiones distintas y fusionados después: **20, 24, 17, 18, 31, 30, 29,
+Hechos el 18/8, en tres sesiones distintas y fusionados después: **20, 24, 17, 18, 31, 30, 29,
 21** (rama `nomenclador-chapters-30-29-21-0c4v9o`, que incluye los commits de la rama
-`nomenclador-chapters-20-24-17-eoittj`) y **22, 33, 15** (rama
-`nomenclador-nacional-barrido-gjii29`) — ver la tabla de avance más arriba.
+`nomenclador-chapters-20-24-17-eoittj`), **22, 33, 15** (rama
+`nomenclador-nacional-barrido-gjii29`) y **06, 09, 14, 16, 19, 32** (misma rama, después de
+fusionar) — ver la tabla de avance más arriba.
 
-Son **30 códigos** en esos seis capítulos; aparte están el **35, 36, 38 y 66**, que no tienen
-páginas en el índice (ver abajo). El **32** ya tiene la
-suya: arranca al pie de la 129, debajo del último código del 31, y su único código —el
-32.01.04, atención del recién nacido en sala de partos— trae una norma larga impresa ahí
-mismo. Quedó a la vista al transcribir el 31 y no se transcribió: es otro capítulo.
-
-⚠️ El **19 (endocrinología y nutrición)** está en el borde de arriba de la página 97, que ya se
-leyó con el 20: **no tiene ningún recuadro**. El 19.01.01 y el 19.01.02 van enteros en negrita
-—nada retirado— y el 19.01.03 dice «CODIGO AGREGADO POR EL P.M.O.». Queda en la lista porque no
-se lo declaró en el JSON, pero el trabajo de lectura ya está hecho: son tres códigos sin texto.
-
-⚠️ Faltan las páginas del **35, 36, 38 y 66** en `data/paginas_nn.json` (el barrido de OCR llegó
-hasta la 139). Son 35 códigos entre los cuatro.
+⚠️ Faltan las páginas del **35, 36 y 38** en `data/paginas_nn.json` (el barrido de OCR llegó
+hasta la 139): hay que sacarlas con `rapidocr_onnxruntime`, contando códigos `NN.NN.NN` por
+página (≈9 s por página), antes de poder armar la receta de esos tres.
 
 ⚠️ **Las páginas 84 a 87 no son de ningún capítulo**, y el índice ahora lo dice (`_huecos`). El
 13 termina en la 83 y el 14 arranca en la 88, así que el salto parece un capítulo perdido y no
@@ -1936,58 +1929,39 @@ cada commit, que explican el porqué y no sólo el qué:
 
 ## 7 bis. ▶ AGENDA DE LA PRÓXIMA SESIÓN (escrita el 18/8/2026)
 
-### A. Seguir con la norma retirada del PMO — **esto es lo primero**
+### A. Seguir con la norma retirada del PMO
 
-⚠️ **Este 18/8 hubo dos sesiones en paralelo**, en ramas separadas, y las dos terminaron
-fusionadas en la rama de desarrollo el mismo día: una hizo **20, 24, 17, 18, 31, 30, 29 y
-21**, la otra hizo **22, 33 y 15**. Ese cruce dejó `data/nbu_db.json` con dos historias
-divergentes que hubo que reconciliar a mano (conflicto de merge, no de datos: los dos lotes
-tocan capítulos distintos). Van **23 capítulos y 811 de 1.353 fichas (60%)**. Moraleja para la
-próxima vez que haya sesiones simultáneas: **avisar qué capítulos toma cada una**, así no se
-pisan ni hace falta reconciliar.
+⚠️ **Este 18/8 hubo tres sesiones**, dos en paralelo (ramas separadas, fusionadas después a
+mano) y una tercera encima ya sobre la rama fusionada: la primera tanda hizo **20, 24, 17, 18,
+31, 30, 29 y 21**, la segunda hizo **22, 33 y 15**, la tercera hizo **06, 09, 14, 16, 19 y 32**.
+Van **29 capítulos y 827 de 1.353 fichas (61%)**. Moraleja para la próxima vez que haya
+sesiones simultáneas: **avisar qué capítulos toma cada una**, así no se pisan ni hace falta
+reconciliar ramas divergentes.
 
-Quedan **6 capítulos chicos, 30 códigos en total** — la tabla completa está en 3.8 → «POR
-DÓNDE SEGUIR»:
+**Ya no quedan capítulos con página conocida en el índice.** Lo único que falta del barrido
+propiamente dicho es el **35, 36 y 38**, y antes de poder transcribirlos hay que salir a buscar
+sus páginas:
 
-| cap | páginas | códigos |
-|---|---|---|
-| 06 | 37 | 12 |
-| 09 | 56 | 8 |
-| 14 | 88 | 1 |
-| 16 | 90 | 5 |
-| 19 | 97 | 3 (sin recuadro — ya releído, sólo falta declararlo en el JSON) |
-| 32 | pie de la 129 | 1 |
+1. Sacarlas con `rapidocr_onnxruntime`, contando códigos `NN.NN.NN` por página (≈9 s por
+   página) — el barrido de OCR que armó `data/paginas_nn.json` llegó hasta la 139 y no los
+   incluyó.
+2. Declararlas en `data/paginas_nn.json` bajo esos tres capítulos.
+3. De ahí en más, la receta de siempre (3.8 → «POR DÓNDE SEGUIR»):
+   `python3 scripts/paginas_nn.py 35 36 38` → transcribir a `data/alcance_nn_pmo.json`
+   (⚠️ hace falta `pip install pypdfium2 Pillow`, el contenedor viene sin ellas) →
+   `python3 scripts/alcance_nn_pmo.py && python3 scripts/nombres_rotos.py && python3 scripts/inject_db.py`
+   → `cd web && python3 -m http.server 8890 --bind 127.0.0.1 &` y
+   `node scripts/comprobar_datos.mjs` desde la raíz (2,5 s; **no** la batería completa) →
+   actualizar la tabla de avance de 3.8, la cobertura y esta agenda.
 
-Entran los seis juntos en una sesión sola.
+Después de esos tres sólo queda el **capítulo 66** (NBU laboratorio), que es un trabajo
+distinto — no es «texto retirado por el PMO», es cotejar el catálogo del NBU contra el PDF
+sabiendo lo de los bloques repetidos 60-64 del Único (ver D más abajo).
 
-⚠️ **Sesión nueva.** Las páginas son imágenes y se reenvían en todos los pedidos siguientes:
-seguir en una conversación ya cargada cuesta entre 5 y 10 veces más y no se gana nada. Este
-documento está escrito para arrancar en frío.
-
-La receta completa está en 3.8 → «POR DÓNDE SEGUIR», y no hay que reinventarla. En orden:
-
-1. `python3 scripts/paginas_nn.py 06` (y así con cada uno; acepta varios capítulos juntos).
-   ⚠️ Hace falta `pip install pypdfium2 Pillow` — el contenedor viene sin ellas.
-2. **Abrir `docs/inventario_faltantes.json` antes de transcribir**: dice de antemano qué
-   códigos del PDF no van a tener ficha donde caer. Si lo que se ve en la página no coincide
-   con esa lista, se leyó mal. Sus páginas son las **impresas**, una más que las del archivo.
-3. Transcribir a `data/alcance_nn_pmo.json`, **respetando la ortografía impresa** (el original
-   casi no acentúa y tiene erratas propias; no se corrigen).
-4. Releer **anchas** las filas que arrancan con `Norma:` — se salen del recorte y se cortan a
-   mitad de frase sin que se note.
-5. `python3 scripts/alcance_nn_pmo.py && python3 scripts/nombres_rotos.py && python3 scripts/inject_db.py`
-6. `cd web && python3 -m http.server 8890 --bind 127.0.0.1 &` y `node scripts/comprobar_datos.mjs`
-   desde la raíz (2,5 s). **NO la batería completa**: prueba código que no se movió.
-7. Actualizar en este documento la tabla de avance de 3.8, la cobertura y esta agenda.
-
-⚠️ Si aparece un código impreso «AGREGADO POR EL P.M.O.» que **no está en la base**, no lo
-crea `alcance_nn_pmo.py`: se anota y va por `importar_capitulos_nn.py`, como el `21.02.08` y
-el `23.02.34`. Y si el Único ya lo traía, revisar la equivalencia — puede estar colgada de un
-número equivocado (4.5 undecies).
-
-Faltan las páginas del **35, 36, 38 y 66** en `data/paginas_nn.json`: el barrido de OCR llegó
-hasta la 139. Son 35 códigos entre los cuatro y hay que sacarlas con `rapidocr_onnxruntime`,
-contando códigos `NN.NN.NN` por página (≈9 s por página).
+⚠️ Si al transcribir aparece un código impreso «AGREGADO POR EL P.M.O.» que **no está en la
+base**, no lo crea `alcance_nn_pmo.py`: se anota y va por `importar_capitulos_nn.py`, como el
+`21.02.08` y el `23.02.34`. Y si el Único ya lo traía, revisar la equivalencia — puede estar
+colgada de un número equivocado (4.5 undecies).
 
 ### B. Ciberseguridad — repaso pedido por el usuario
 
@@ -2055,12 +2029,13 @@ Lo que YA está bien y no hay que tocar:
 
 Lo último que se estuvo trabajando —y lo que conviene retomar sin preguntar, porque el
 usuario ya lo pidió varias sesiones seguidas— es el **barrido del Nomenclador Nacional** (3.8):
-transcribir a ojo el recuadro «Texto retirado por el PMO», capítulo por capítulo. Van **811
-de 1.353 fichas (60%)** y quedan **6 capítulos, 30 códigos** (más 35 en el 35, 36, 38 y 66,
-que todavía no tienen páginas en el índice); la próxima tanda es **06, 09, 14, 16, 19 y 32**,
-con su tabla y su receta en **7 bis A**. Todo lo que hace falta para arrancar en frío está en 3.8:
-índice de páginas, receta, reglas de alcance y el orden sugerido. **Sesión nueva para cada
-tanda** — las páginas son imágenes y se reenvían en todos los pedidos siguientes.
+transcribir a ojo el recuadro «Texto retirado por el PMO», capítulo por capítulo. Van **827
+de 1.353 fichas (61%)** y sólo quedan el **35, 36 y 38**, que todavía no tienen páginas en el
+índice —hay que sacarlas primero con `rapidocr_onnxruntime`— y el **66** (NBU laboratorio,
+un trabajo distinto, ver 7 bis D). Receta completa en **7 bis A**. Todo lo que hace falta para
+arrancar en frío está en 3.8: índice de páginas, receta, reglas de alcance y el orden sugerido.
+**Sesión nueva para cada tanda** — las páginas son imágenes y se reenvían en todos los pedidos
+siguientes.
 
 Antes de eso venía el cotejo del **Nomenclador de Prestaciones Médicas** capítulo por
 capítulo, con el usuario midiendo contra la fuente (ver 3.4 y 3.5). Lo que quedó de ahí es

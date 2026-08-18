@@ -986,6 +986,98 @@
     "150110": "(por 3 muestras)",
     "150111": "(exudados, orinas, etc.)"
    }
+  },
+  "06": {
+   "titulo": "Operaciones en la mama",
+   "pags": [
+    37,
+    37
+   ],
+   "norma": [],
+   "normas_prefijo": {},
+   "codigos": {
+    "060101": "(reseccion del pectoral mayor, pectoral menor y vaciamiento axilar). Incluye la eventual toma biopsia para congelacion",
+    "060102": "(con conservacion del pectoral mayor y vaciamiento axilar). Incluye la eventual toma biopsia para congelacion",
+    "060105": "unilateral (Con autorizacion previa)",
+    "060106": "Mastoplastia bilateral (Con autorizacion previa).",
+    "060107": "en uno o dos tiempos",
+    "060108": "(quiste, fibroadenoma o tejido mamario aberrante) de lesión, Escision de lesión de mama o pezon para biopsia",
+    "060109": "(biopsia sectorial o cuadrantectomia)"
+   }
+  },
+  "09": {
+   "titulo": "Operaciones en los vasos y ganglios linfáticos",
+   "pags": [
+    56,
+    56
+   ],
+   "norma": [],
+   "normas_prefijo": {},
+   "codigos": {
+    "090101": "radical, (Como unica operacion)",
+    "090102": "(Como unica operacion)",
+    "090108": "(linfoclisis)"
+   }
+  },
+  "14": {
+   "titulo": "Alergia",
+   "pags": [
+    88,
+    88
+   ],
+   "norma": [
+    "La testificacion total o parcial no podra ser repetida en un plazo menor de un año por el mismo profesional."
+   ],
+   "_nota_norma": "La norma está impresa una sola vez, arriba de los tres códigos de testificación (14.01.01-03), y gobierna el capítulo entero: sólo hay una ficha en la base (140103), así que va como norma de capítulo sin necesidad de normas_prefijo.",
+   "_nota_140101_102_104": "140101 (Testificacion total), 140102 (Testificacion parcial, hasta 4 sesiones) y 140104 (Tratamiento desensibilizante) están en el PDF, retirados enteros por el PMO (todo el renglón en bastardilla, sin título en negrita) y NO están en la base. Sólo 140103 (Testificación por drogas) es del catálogo obligatorio.",
+   "codigos": {}
+  },
+  "16": {
+   "titulo": "Anestesiología",
+   "pags": [
+    90,
+    90
+   ],
+   "norma": [],
+   "normas_prefijo": {
+    "160101": [
+     "A partir del 1/5/89, por Res. 737/89 - MSAS, cuando corresponda facturar este codigo, como asi en toda intervencion quirurgica con anestesia general, se facturara como adicional el codigo 43.11.01 por cada acto quirurgico."
+    ],
+    "160104": [
+     "La hipotermia controlada y/o neuroleptoanalgesia, podra ser facturada solamente cuando se realice como unico tratamiento fuera del acto quirurgico."
+    ]
+   },
+   "codigos": {
+    "160101": "o terapeuticos incluye anestesia general y regional, excluye anestesia local.",
+    "160102": "(cada 24 horas)",
+    "160103": "con fenol o similar.",
+    "160104": "Por cada 24 horas"
+   }
+  },
+  "19": {
+   "titulo": "Endocrinología y nutrición",
+   "pags": [
+    97,
+    97
+   ],
+   "norma": [],
+   "_nota_sin_textos": "⚠️ El capítulo no aporta NINGÚN texto, y es lo correcto —no una transcripción a medias—. Los tres códigos (19.01.01 metabolismo basal, 19.01.02 régimen individual, 19.01.03 preparación de dieta parenteral/enteral, CODIGO AGREGADO POR EL PMO) van impresos enteros en negrita o son agregados, sin nada retirado. Está en el borde de arriba de la página 97, que ya se leyó junto con el capítulo 20.",
+   "codigos": {}
+  },
+  "32": {
+   "titulo": "Pediatría",
+   "pags": [
+    129,
+    129
+   ],
+   "norma": [],
+   "normas_prefijo": {
+    "320104": [
+     "La facturacion de este codigo exige la presencia del pediatra o neonatologo antes del nacimiento e incluye la atencion del recien nacido normal, patologico, prematuro o deprimido (cualquiera fuere la hora o el dia de atencion) y todas las practicas y/o maniobras de reanimacion que demande (intubacion, ventilacion asistida, venopuntura, canalizacion umbilical, administracion de liquidos parenterales, etc) y toda la atencion necesaria durante las 48 hs. posteriores al nacimiento."
+    ]
+   },
+   "_nota_capitulo": "Encontrado a ojo el 16/8/2026 al transcribir el 31: el 32 arranca al pie de la página 129, debajo del último código del 31. Un solo código: 32.01.04, sin recuadro propio, sólo la norma.",
+   "codigos": {}
   }
  }
 }
