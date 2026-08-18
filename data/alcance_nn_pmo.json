@@ -903,6 +903,89 @@
     "210206": "Por única vez.",
     "210207": "(con donante vivo) Por única vez."
    }
+  },
+  "22": {
+   "titulo": "Ginecología y obstetricia",
+   "pags": [
+    101,
+    102
+   ],
+   "norma": [],
+   "normas_prefijo": {
+    "220202": [
+     "El monitoreo fetal se podra efectuar unicamente en partos de alto riesgo fetal o como prueba de tolerancia a las contracciones inducidas ante inminencia de ese riesgo. Incluye el control en dos canales de frecuencia cardiaca fetal y contraccion uterina."
+    ],
+    "220203": [
+     "El metodo psicoprofilactico del parto comprende curso completo teorico-practico de un minimo de ocho clases. Los aranceles establecidos cubren la participacion de los integrantes del equipo (tocologo, obstetrico, psicologo, etc)y el gasto sanatorial cubre el curso completo. Excluye: la atencion del parto."
+    ],
+    "220204": [
+     "Sera admitida su facturacion, unicamente cuando sea realizada en internacion y por profesional obstetrica (no medico/a) . El arancel incluye el control y seguimiento del trabajo de parto en su totalidad. Se podran facturar hasta 2 controles y seguimientos simultaneos, y siempre que ambas parturientas permanezcan en el mismo sector o area de internacion.",
+     "AMPLIACION DE LA NORMA: Para facturar este codigo debera existir trabajo de parto, controlado por profesional obstetra en internacion y el informe escrito y firmado de la misma."
+    ]
+   },
+   "_nota_220102": "220102 esta en el PDF (Colpocitologia, obtencion del material por sesion, efectuado por otro profesional que no sea el citologo) y NO en la base: el PMO le retiro el titulo entero, no solo el texto del recuadro.",
+   "codigos": {
+    "220101": "Traqueloscopia",
+    "220102": "Colpocitologia, obtención del material por sesión (efectuado por otro profesional que no sea el citólogo)",
+    "220104": "(Con microscopio)",
+    "220106": "(Por cada sesión)",
+    "220107": "Para histerosalpingografia, ginecografia, etc."
+   }
+  },
+  "33": {
+   "titulo": "Psiquiatría",
+   "pags": [
+    130,
+    131
+   ],
+   "norma": [],
+   "normas_prefijo": {
+    "3301": [
+     "Las pruebas proyectivas, las pruebas psicometricas y la terapia ocupacional, solo podran ser facturadas cuando fueren solicitadas por medicos registrados en la especialidad de psiquiatria."
+    ],
+    "330201": [
+     "La modalidad de Hospital de Dia les corresponde una cobertura identica a la de internacion. Contempla el 100% de cobertura la internacion Clinico-Quirurgica, Especializada, de Alta Complejidad y Domiciliaria, sin coseguros, ni limite de tiempo, excepto el señalado en el capitulo de Salud Mental.",
+     "Incluye: Todas las prestaciones y practicas diagnosticas y terapeuticas detalladas en el presente catalogo. Tiene 100% de cobertura en gastos, derechos, honorarios, material de contraste o radioactivo, medicamentos, elementos e instrumentales necesarios, descartables o no.",
+     "Los beneficiarios tendran derecho a la totalidad de las prestaciones detalladas en el Anexo II de la presente resolucion (Catalogo de Prestaciones del P.M.O.)"
+    ]
+   },
+   "_nota_3301": "La norma sobre pruebas proyectivas/psicometricas/terapia ocupacional esta impresa DOS VECES en el mismo sub-capítulo (después del 33.01.11 y del 33.01.12), asi que va al sub-capítulo entero (3301) y no a esos dos códigos solos.",
+   "codigos": {
+    "330101": "Por sesión minima de 40 minutos practicadas por especialistas (con o sin psicodiagnostico) debidamente autorizadas. Narcoterapia",
+    "330102": "Por sesión minima de 60 minutos practicada por especialistas debidamente autorizados, por paciente.",
+    "330103": "Por sesión minima de 50 minutos.",
+    "330107": "los",
+    "330109": "Por dia. Incluye las visitas durante ese periodo",
+    "330110": "(hasta 15 sesiones). Por sesion",
+    "330111": "(bateria de un minimo de cuatro tests)",
+    "330112": "(bateria de un minimo de 4 tests)"
+   }
+  },
+  "15": {
+   "titulo": "Anatomía patológica",
+   "pags": [
+    89,
+    90
+   ],
+   "norma": [],
+   "normas_prefijo": {
+    "150104": [
+     "En caso de realizarse en forma diferida el estudio de una pieza biopsiada por congelacion, se agregara el correspondiente al codigo 15.01.02."
+    ]
+   },
+   "_nota_150109": "150109 esta en el PDF (Necropsia del joven y del adulto, con autorizacion previa de la obra social) y NO en la base.",
+   "codigos": {
+    "150101": "(ganglio, lesion de piel, trozo de ovario, cilindro de higado, etc.)",
+    "150102": "simple. Vesicula simple. Vesicula biliar, ovario, placenta, estomago, etc. (los cortes que fueran necesarios).",
+    "150103": "Oncologica ampliada. Organo y sus ganglios regionales (los cortes que fueran necesarios).",
+    "150104": "del corte.",
+    "150105": "minimo 15 (con autorizacion previa de la obra social)",
+    "150107": "(cada 4 extendidos)",
+    "150108": "con autorizacion previa de la obra social",
+    "150109": "Necropsia del joven y del adulto (con autorizacion previa de la obra social)",
+    "150110": "(por 3 muestras)",
+    "150111": "(exudados, orinas, etc.)"
+   }
   }
  }
 }
