@@ -974,11 +974,26 @@ prueban código que no se movió: correrlos es pagar 77 segundos por nada.
 
 Después de importar un capítulo alcanza con:
 
-    python3 scripts/alcance_nn_pmo.py && python3 scripts/nombres_rotos.py && python3 scripts/inject_db.py
+    python3 scripts/alcance_nn_pmo.py && python3 scripts/nombres_rotos.py && python3 scripts/propagar_abarca_unico.py && python3 scripts/inject_db.py
     cd web && python3 -m http.server 8890 --bind 127.0.0.1 &
     node scripts/comprobar_datos.mjs
 
 La batería completa va cuando se toca `index.html`, no antes.
+
+#### 🆕 `scripts/propagar_abarca_unico.py` — el «Abarca» pasa al código equivalente del Único
+
+Pedido del usuario (18/8/2026): lo que un código de Prestaciones Médicas o del NBU dice que
+abarca —el mismo texto que pone `alcance_nn_pmo.py`— tiene que verse también desde el código
+equivalente del Único, porque son la misma práctica con otro número; si uno cambia, el otro
+tiene que cambiar con él. `propagar_al_unico.py` (el script viejo) sólo ata el laboratorio
+(Único ↔ NBU) y no tocaba este campo. El nuevo cubre las **dos puntas** —Único médico ↔ PMO y
+Único laboratorio ↔ NBU— y sólo copia cuando la equivalencia ya está resuelta (`key`
+presente): si el destino todavía no existe en la base, no hay de dónde copiar, y ese caso se
+arregla solo apenas se importe (igual que `reparar_equivalencias.py`). Corrido el 18/8/2026
+sobre la base ya fusionada: **577 fichas del Único heredaron el «Abarca»** (574 médicas, 3 de
+laboratorio — estas últimas nada más porque el capítulo 66 recién arrancó, ver más abajo). Va
+**siempre** en la receta de después de importar un capítulo, entre `nombres_rotos.py` e
+`inject_db.py`.
 
 ⚠️ **El tiempo real de un capítulo es leer las páginas**, no verificar: son 9 imágenes de
 ~527 KB que hay que mirar de a una porque el PDF no tiene capa de texto. Eso es el trabajo y no
@@ -1086,7 +1101,7 @@ ver el punto «Capítulo 66» más arriba (dentro de 3.8) para la receta y lo ya
    imagen**. (Acepta números de página sueltos también.)
 2. Transcribir los recuadros a `data/alcance_nn_pmo.json` bajo el capítulo, respetando la
    ortografía impresa.
-3. `python3 scripts/alcance_nn_pmo.py && python3 scripts/nombres_rotos.py && python3 scripts/inject_db.py`
+3. `python3 scripts/alcance_nn_pmo.py && python3 scripts/nombres_rotos.py && python3 scripts/propagar_abarca_unico.py && python3 scripts/inject_db.py`
 4. `node scripts/comprobar_datos.mjs` (2,5 s; NO la batería completa — ver más arriba).
 5. Los scripts avisan qué códigos del JSON no están en la base y verifican que ningún nombre
    se haya movido.
@@ -1987,7 +2002,7 @@ no hace falta volver a buscarlas). Es el mismo trabajo de siempre —transcribir
 La receta de siempre (3.8 → «POR DÓNDE SEGUIR»):
 `python3 scripts/paginas_nn.py 169` (ya se hizo la 168, como piloto) → transcribir a
 `data/alcance_nn_pmo.json` bajo `"66"` verificando el nombre de cada código →
-`python3 scripts/alcance_nn_pmo.py && python3 scripts/nombres_rotos.py && python3 scripts/inject_db.py`
+`python3 scripts/alcance_nn_pmo.py && python3 scripts/nombres_rotos.py && python3 scripts/propagar_abarca_unico.py && python3 scripts/inject_db.py`
 → `cd web && python3 -m http.server 8890 --bind 127.0.0.1 &` y `node scripts/comprobar_datos.mjs`
 desde la raíz (2,5 s; **no** la batería completa) → actualizar la cobertura y esta agenda.
 
