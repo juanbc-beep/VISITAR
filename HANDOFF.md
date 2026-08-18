@@ -13,7 +13,7 @@
 > capítulo 66** (36 páginas, análisis clínicos): mismo trabajo de transcripción, pero el
 > texto se suma a las fichas del **NBU** que ya existen, no al PMO — con el cuidado extra de
 > verificar el nombre antes de declarar cada código (ver 3.8, «Capítulo 66»). Van las páginas
-> **168, 169 y 170** (13 textos); quedan 33 páginas. Ver 7 bis A.
+> **168 a 171** (18 textos); quedan 32 páginas. Ver 7 bis A.
 >
 > **Lo más importante que cambió respecto del traspaso anterior:** la app dejó de ser un
 > archivo que cada uno guarda en su computadora y pasó a ser una **aplicación de empresa
@@ -934,26 +934,31 @@ correcta. **No hace falta un script nuevo.**
 declarar cada código.** En capítulos anteriores, que un código exista en la base ya alcanzaba
 —ahí el código es la MISMA fila que se está leyendo—. Acá no: el número de la primer columna
 puede coincidir por casualidad con un código NBU que es **otra práctica**. Verificado en la
-páginas 168, 169 y 170 (ya cargadas): de 28 candidatos con nombre parecido, **3 fueron choques
+páginas 168 a 171 (ya cargadas): de 30+ candidatos con nombre parecido, **3 fueron choques
 reales** —`66.00.01` imprime «Acetaldehido enzimático» (retirado entero) y el `660001` de la
 base es «ACTO BIOQUÍMICO», sin relación; `66.07.67` imprime «Albuminuria» y el `660767` de la
 base es «Proteinuria», parientes pero no la misma determinación; `66.00.53` imprime «Antigeno
 de la Hepatitis B» (retirado entero) y el `660053` de la base es «Antifúngicos - prueba de
-sensibilidad», sin relación— y **5 quedaron dudosos** — `660432`, `660143`, `660194`, `660594`,
-`660335`, nombres relacionados pero no iguales, no declarados hasta revisarlos a mano—. La
-regla para seguir: **comparar el nombre en negrita del PDF contra el nombre que ya tiene la
-ficha; si no coinciden razonablemente, no declarar ese código** (dejar nota, no adivinar).
-La página 170 sumó una trampa más: algunos renglones traen su propio código de 6 dígitos
-metido en el cuerpo del texto en vez de en la columna CODIGO (`66.03.35`, ver `_nota_orden`
-más abajo) — hay que leer con cuidado cuál código corresponde a cada texto antes de comparar.
+sensibilidad», sin relación— y **6 quedaron dudosos** — `660432`, `660143`, `660194`, `660594`,
+`660335`, `660902` (más una repetición conflictiva de `660005` bajo el nombre alternativo
+«Astrup», con un número de norma distinto al ya cargado — ver `_nota_pagina_171`), nombres
+relacionados pero no iguales, no declarados hasta revisarlos a mano—. La regla para seguir:
+**comparar el nombre en negrita del PDF contra el nombre que ya tiene la ficha; si no
+coinciden razonablemente, no declarar ese código** (dejar nota, no adivinar).
+Dos trampas más aparecieron en 170-171: algunos renglones traen su propio código de 6 dígitos
+metido en el cuerpo del texto en vez de en la columna CODIGO (`66.03.35`, `66.03.36`, ver
+`_nota_orden` más abajo); y el PDF a veces **repite el mismo código** en dos posiciones
+alfabéticas distintas (por nombre y por sinónimo/abreviatura), a veces con el mismo recuadro
+(sin problema) y a veces con uno distinto (`660005`, ahí sí hay que frenar y no pisar lo ya
+cargado).
 
-**Escala:** 36 páginas (168-203), ~1.815 fichas NBU candidatas, **13 códigos cargados hasta
-ahora** (páginas 168, 169 y 170). Quedan 33 páginas — es varias veces el capítulo 12 (el
+**Escala:** 36 páginas (168-203), ~1.815 fichas NBU candidatas, **18 códigos cargados hasta
+ahora** (páginas 168 a 171). Quedan 32 páginas — es varias veces el capítulo 12 (el
 más grande hecho hasta ahora), así que **no entra en pocas sesiones**: seguir la misma regla
 de «un lote por sesión» pero calculando lotes más chicos (2-3 páginas), porque acá cada
 código pide además el paso extra de comparar nombres. Páginas ya hechas documentadas en
-`data/alcance_nn_pmo.json` bajo `"66"._nota_pagina_168`/`169`/`170`, con el detalle código por
-código.
+`data/alcance_nn_pmo.json` bajo `"66"._nota_pagina_168` a `_nota_pagina_171`, con el detalle
+código por código.
 
 ⚠️ **Que un sub-capítulo no aporte ningún texto puede ser lo correcto.** El `02.09` (LASER) son
 ocho códigos que AGREGÓ el PMO: no figuran en el Nomenclador Nacional, así que no hay recuadro
@@ -2007,20 +2012,22 @@ no hace falta volver a buscarlas). Es el mismo trabajo de siempre —transcribir
    determinación) y en la 170 (`660053` imprime «Antigeno de la Hepatitis B» y la base tiene
    «Antifúngicos - prueba de sensibilidad», sin relación). Comparar el nombre en negrita del
    PDF contra el nombre que ya tiene la ficha; si no coinciden razonablemente, no declarar ese
-   código — dejar nota para revisar a mano (`_nota_pagina_168`/`169`/`170` en
+   código — dejar nota para revisar a mano (`_nota_pagina_168` a `_nota_pagina_171` en
    `data/alcance_nn_pmo.json` ya documentan los casos dudosos encontrados hasta ahora).
-   ⚠️ La página 170 sumó otra trampa: algunos renglones traen su propio código de 6 dígitos
-   metido en el cuerpo del texto en vez de la columna CODIGO (ya lo anticipaba `_nota_orden`
-   en 3.8) — ojo con leer bien cuál código corresponde a cada texto antes de comparar nombres.
+   ⚠️ Dos trampas más aparecieron en 170-171: algunos renglones traen su propio código de 6
+   dígitos metido en el cuerpo del texto en vez de la columna CODIGO (ya lo anticipaba
+   `_nota_orden` en 3.8); y el PDF a veces repite el mismo código en dos posiciones alfabéticas
+   con recuadros distintos (pasó con `660005`/«Astrup») — ahí no pisar el texto ya cargado,
+   dejar nota y seguir.
 
 La receta de siempre (3.8 → «POR DÓNDE SEGUIR»):
-`python3 scripts/paginas_nn.py 171` (168, 169 y 170 ya hechas) → transcribir a
+`python3 scripts/paginas_nn.py 172` (168 a 171 ya hechas) → transcribir a
 `data/alcance_nn_pmo.json` bajo `"66"` verificando el nombre de cada código →
 `python3 scripts/alcance_nn_pmo.py && python3 scripts/nombres_rotos.py && python3 scripts/propagar_abarca_unico.py && python3 scripts/inject_db.py`
 → `cd web && python3 -m http.server 8890 --bind 127.0.0.1 &` y `node scripts/comprobar_datos.mjs`
 desde la raíz (2,5 s; **no** la batería completa) → actualizar la cobertura y esta agenda.
 
-⚠️ **Son 33 páginas contra las 3 que llevamos: no entra en pocas sesiones.**
+⚠️ **Son 32 páginas contra las 4 que llevamos: no entra en pocas sesiones.**
 Con el paso extra de comparar nombres, un lote razonable es más chico que en los capítulos
 anteriores — 2 o 3 páginas por sesión, no un capítulo entero de una vez.
 
@@ -2072,7 +2079,7 @@ Lo que YA está bien y no hay que tocar:
 
 ### D. Datos que siguen faltando
 - **Capítulo 66 contra el PDF.** Ver 3.8 → «Capítulo 66» y 7 bis A para la receta y lo ya
-  avanzado (páginas 168, 169 y 170 hechas, 18/8/2026; quedan 33). Resumen: son 36 páginas
+  avanzado (páginas 168 a 171 hechas, 18/8/2026; quedan 32). Resumen: son 36 páginas
   (168-203) que suman texto retirado a fichas del **NBU** existente, no del PMO ni del catálogo del
   Único; el usuario ya definió el criterio («sumalo a la sección de NBU nada más, sin
   equivalencias»), así que no hace falta volver a preguntar. La duda vieja sobre «los bloques
