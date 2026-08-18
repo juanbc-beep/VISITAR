@@ -1723,7 +1723,7 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
 - **139 fichas con el texto cortado en el origen** (`texto_truncado`): la planilla del Único
   capa las descripciones a **100 caracteres**. No es recuperable desde el PDF del PMO (trae
   títulos aún más cortos). Haría falta una planilla sin el capado.
-- ✅ **RESUELTO (18/8/2026): 134 de las 135 equivalencias sin destino posible, revisadas a
+- ✅ **RESUELTO (18/8/2026): las 135 equivalencias sin destino posible, revisadas a
   mano por el usuario contra la fuente** (planilla `equivalencias_unico_sin_destino.ods`,
   subida por el usuario). 95 quedaron **verificadas correctas** — la equivalencia es real,
   sólo falta que se importe el capítulo/código de destino; siguen con
@@ -1731,9 +1731,16 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
   las ate solas apenas ese código exista. 39 quedaron **descartadas** — el código que había
   declarado el emparejador automático no correspondía: se les sacó la equivalencia
   (`sin_equivalencia=true`). Aplicado con `scripts/descartar_equivalencias_invalidas.py`
-  sobre `data/equivalencias_sin_destino_revisadas.json` (la fuente curada, con las 134 filas
-  y su veredicto). Queda **1 sin revisar**: `U210208` → PMO `220209` (Genotipificación virus
-  Hepatitis C).
+  sobre `data/equivalencias_sin_destino_revisadas.json` (la fuente curada, con las 135 filas
+  y su veredicto).
+  ⚠️ **La última (`U210208`) tenía el destino mal declarado, no inexistente**: la planilla
+  apuntaba a PMO `220209`, que nunca existió — es un error de renumeración del emparejador
+  automático (matcheó por nombre, score 0,9163, y aterrizó en un capítulo/código que no es).
+  La práctica real es el **21.02.08 del PDF** («Genotipificación virus Hepatitis C en
+  pacientes HIV positivos», Genética humana, CÓDIGO AGREGADO POR EL P.M.O., página 101 —
+  ya releída para el capítulo 22). Se corrigió el código en `data/unico_equivalencias.json`
+  (`210208`) y se cargó la ficha `210208` directamente en la base: la equivalencia quedó
+  resuelta y navegable, no pendiente.
   ⚠️ **Bug de UI encontrado y corregido en el mismo lote**: el listado del Único mostraba
   «≡ código» en la esquina del valor para *cualquier* equivalencia declarada, resuelta o no
   — así que las 135 con destino inexistente se veían como un link válido, y el usuario

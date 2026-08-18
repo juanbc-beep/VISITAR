@@ -1340,6 +1340,17 @@
    "codigo_declarado": "990284",
    "descripcion_declarada": "PRESERVACIÓN DE LA FERTILIDAD",
    "similitud": "0.9151"
+  },
+  {
+   "unico_key": "U210208",
+   "codigo_unico": "210208",
+   "nombre_unico": "Genotipificación Virus Hepatitis C en pacientes HIV positivos",
+   "veredicto": "corregido",
+   "nomenclador_destino": "PMO",
+   "codigo_declarado": "220209",
+   "descripcion_declarada": "GENOTIPIFICACIÓN VIRUS HEPATITIS C EN PACIENTES HIV POSITIVOS",
+   "similitud": "0.9163",
+   "nota": "El código declarado (220209) no existe: es un error de renumeración del emparejador automático. La práctica es el 21.02.08 del PDF (verificado contra la página 101), CODIGO AGREGADO POR EL P.M.O. en Genética humana. Se corrigió a 210208 en data/unico_equivalencias.json y se cargó la ficha 210208 directamente en la base (18/8/2026)."
   }
  ]
 }
