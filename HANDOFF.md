@@ -873,9 +873,12 @@ uno antes de «mielotomía comisural» y otro después).
 | 11 · Genital femenino y obstetricia | 64–67 | 49 | ✅ 33 textos + 3 normas (una de sub-capítulo, dos por código) |
 | 12 · Músculo esquelético | 68–80 | 146 | ✅ 64 textos + 3 normas de capítulo + 13 de sub-capítulo |
 | 25 · Rehabilitación médica | 111–112 | 6 | ✅ 6 textos + 5 normas |
-| los otros 18 | ~18–150 | ~440 | pendiente |
+| 15 · Anatomía patológica | 89–90 | 12 | ✅ 9 textos + 1 norma de código (150109 en el PDF, no en la base) |
+| 22 · Ginecología y obstetricia | 101–102 | 13 | ✅ 4 textos + 3 normas de código (220102 en el PDF, no en la base) |
+| 33 · Psiquiatría | 130–131 | 13 | ✅ 8 textos + 1 norma de sub-capítulo + 1 de código |
+| los otros 15 | ~18–150 | ~400 | pendiente |
 
-Cobertura: **701 de 1.351 (51%)**, desde 156 (11%).
+Cobertura: **727 de 1.351 (54%)**, desde 156 (11%).
 
 ⚠️ **Que un sub-capítulo no aporte ningún texto puede ser lo correcto.** El `02.09` (LASER) son
 ocho códigos que AGREGÓ el PMO: no figuran en el Nomenclador Nacional, así que no hay recuadro
@@ -1005,14 +1008,16 @@ cuatro por sesión.
 
 | cap | páginas | códigos | | cap | páginas | códigos |
 |---|---|---|---|---|---|---|
-| **20** | 97–99 | 25 | | 22 | 101–102 | 13 |
-| **24** | 109–111 | 21 | | 33 | 130–131 | 13 |
-| **17** | 91–94 | 20 | | 15 | 89 | 12 |
-| 31 | 128–129 | 19 | | 06 | 37 | 12 |
-| 18 | 95–96 | 22 | | 09 | 56 | 8 |
-| 30 | 126–127 | 18 | | 21 | 100 | 14 |
-| 29 | 125 | 14 | | 16 | 90 | 5 |
-| 19 | 97 | 3 | | 32 / 14 | — | 1 y 1 |
+| **20** | 97–99 | 25 | | 06 | 37 | 12 |
+| **24** | 109–111 | 21 | | 09 | 56 | 8 |
+| **17** | 91–94 | 20 | | 21 | 100 | 14 |
+| 31 | 128–129 | 19 | | 16 | 90 | 5 |
+| 18 | 95–96 | 22 | | 32 / 14 | — | 1 y 1 |
+| 30 | 126–127 | 18 | | | | |
+| 29 | 125 | 14 | | | | |
+| 19 | 97 | 3 | | | | |
+
+Hechos el 18/8 (segundo lote): **22, 33 y 15** — ver la tabla de avance más arriba.
 
 ⚠️ Faltan las páginas del **35, 36 y 38** en `data/paginas_nn.json` (el barrido de OCR llegó
 hasta la 139).
@@ -1606,7 +1611,10 @@ cada commit, que explican el porqué y no sólo el qué:
 ## 7 bis. ▶ AGENDA DEL MARTES 18/8/2026
 
 ### A. Seguir con la norma retirada del PMO
-Ver 3.8 → «POR DÓNDE SEGUIR». Arrancar por el capítulo **12** (146 códigos, páginas 68‑80).
+Ver 3.8 → «POR DÓNDE SEGUIR». El capítulo **12** (146 códigos, páginas 68‑80) ya se hizo.
+Este mismo 18/8, en una sesión aparte, se sumaron los capítulos **22, 33 y 15** (un lote
+chico, según la regla de «un lote de capítulos por sesión»). Quedan ~15 capítulos chicos;
+elegir tres o cuatro por sesión nueva de la tabla de 3.8.
 Faltan las páginas del **35, 36, 38 y 66** en `data/paginas_nn.json`.
 
 ### B. Ciberseguridad — repaso pedido por el usuario
