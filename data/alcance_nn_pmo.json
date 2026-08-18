@@ -1142,8 +1142,16 @@
    "codigos": {
     "660005": "equilibrio, PH actual, PC02, exceso de base -RH- base buffer, bicarbonato. En urgencia sumar 66.06.99-",
     "660006": "por radioinmunoensayo",
-    "660013": "-En urgencia sumar 66.06.99-"
-   }
+    "660013": "-En urgencia sumar 66.06.99-",
+    "660019": "plasmatica, radioinmunoensayo",
+    "660020": "radioinmunoensayo",
+    "660022": "-En urgencia sumar 66.09.99-",
+    "660023": "-En urgencia sumar 66.09.99-",
+    "660030": "relacion LECITINA/ESFINGOMIELINA",
+    "660032": "por radioinmunoensayo",
+    "660033": "I o II , radioinmunoensayo -cada una-"
+   },
+   "_nota_pagina_169": "Página 169 (66.00.16 a 66.00.34, 'Alcohol...' a 'Anhidrasa...'). Coinciden por nombre y quedan declarados: 660016, 660017, 660018, 660019, 660020, 660022, 660023, 660025, 660027, 660028, 660029, 660030, 660031, 660032, 660033, 660034 (de esos, sólo 660019, 660020, 660022, 660023, 660030, 660032 y 660033 tienen recuadro). NO declarados por nombre que NO coincide (dudoso, revisar a mano): 660767 (PDF «Albuminuria» vs base «Proteinuria» — pariente, no la misma determinación) y 660594 (PDF «Alfa-Desoxi-Butil-Dehidrogenasa» vs base «Láctico Dehidrogenasa - LDH» — nombres sin relación clara; podría ser una errata del original por Alfa-Hidroxi-Butirato-Deshidrogenasa (HBDH), pariente de la LDH, pero no se adivina). Retirados enteros por el PMO, fuera de la base (no se transcriben): 66.00.21 Alfa feto proteinas cross electroforesis, 66.00.24 Aminoacidos cualitativo, 66.00.26 Aminoacidos sobrecarga."
   }
  }
 }

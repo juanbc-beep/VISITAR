@@ -12,8 +12,8 @@
 > capítulos y 844 de 1.353 fichas (62%)**, desde 156 (11%). **Lo que sigue ahora es el
 > capítulo 66** (36 páginas, análisis clínicos): mismo trabajo de transcripción, pero el
 > texto se suma a las fichas del **NBU** que ya existen, no al PMO — con el cuidado extra de
-> verificar el nombre antes de declarar cada código (ver 3.8, «Capítulo 66»). Empezado con un
-> piloto de 3 códigos en la página 168; quedan 35 páginas. Ver 7 bis A.
+> verificar el nombre antes de declarar cada código (ver 3.8, «Capítulo 66»). Van las páginas
+> **168 y 169** (10 textos); quedan 34 páginas. Ver 7 bis A.
 >
 > **Lo más importante que cambió respecto del traspaso anterior:** la app dejó de ser un
 > archivo que cada uno guarda en su computadora y pasó a ser una **aplicación de empresa
@@ -934,15 +934,17 @@ correcta. **No hace falta un script nuevo.**
 declarar cada código.** En capítulos anteriores, que un código exista en la base ya alcanzaba
 —ahí el código es la MISMA fila que se está leyendo—. Acá no: el número de la primer columna
 puede coincidir por casualidad con un código NBU que es **otra práctica**. Verificado en la
-página 168 (piloto, ya cargada): de 8 candidatos con nombre parecido, **1 fue un choque
-real** —`66.00.01` imprime «Acetaldehido enzimático» (retirado entero) y el `660001` de la
-base es «ACTO BIOQUÍMICO», sin relación— y **3 quedaron dudosos** —`660432`, `660143`,
-`660194`, nombres relacionados pero no iguales, no declarados hasta revisarlos a mano—. La
-regla para seguir: **comparar el nombre en negrita del PDF contra el nombre que ya tiene la
-ficha; si no coinciden razonablemente, no declarar ese código** (dejar nota, no adivinar).
+páginas 168 y 169 (ya cargadas): de 26 candidatos con nombre parecido, **2 fueron choques
+reales** —`66.00.01` imprime «Acetaldehido enzimático» (retirado entero) y el `660001` de la
+base es «ACTO BIOQUÍMICO», sin relación; `66.07.67` imprime «Albuminuria» y el `660767` de la
+base es «Proteinuria», parientes pero no la misma determinación— y **4 quedaron dudosos** —
+`660432`, `660143`, `660194`, `660594`, nombres relacionados pero no iguales, no declarados
+hasta revisarlos a mano—. La regla para seguir: **comparar el nombre en negrita del PDF
+contra el nombre que ya tiene la ficha; si no coinciden razonablemente, no declarar ese
+código** (dejar nota, no adivinar).
 
-**Escala:** 36 páginas (168-203), ~1.815 fichas NBU candidatas, **3 códigos cargados hasta
-ahora** (piloto de la página 168). Quedan 35 páginas — es varias veces el capítulo 12 (el
+**Escala:** 36 páginas (168-203), ~1.815 fichas NBU candidatas, **10 códigos cargados hasta
+ahora** (páginas 168 y 169). Quedan 34 páginas — es varias veces el capítulo 12 (el
 más grande hecho hasta ahora), así que **no entra en pocas sesiones**: seguir la misma regla
 de «un lote por sesión» pero calculando lotes más chicos (2-3 páginas), porque acá cada
 código pide además el paso extra de comparar nombres. Páginas del piloto (168) documentadas
@@ -1994,19 +1996,22 @@ no hace falta volver a buscarlas). Es el mismo trabajo de siempre —transcribir
    `data/alcance_nn_pmo.json` con el código de 6 dígitos sin puntos (`66.00.02` → `"660002"`)
    alcanza — es el mismo `scripts/alcance_nn_pmo.py`, no hace falta un script nuevo.
 2. ⚠️ **Verificar el nombre antes de declarar cada código.** El número puede coincidir por
-   casualidad con una ficha NBU que es otra práctica (pasó una vez en la página 168: el
-   `660001` de la base es «ACTO BIOQUÍMICO», sin relación con lo que imprime el `66.00.01`).
-   Comparar el nombre en negrita del PDF contra el nombre que ya tiene la ficha; si no
-   coinciden razonablemente, no declarar ese código — dejar nota para revisar a mano.
+   casualidad con una ficha NBU que es otra práctica. Pasó en la página 168 (`660001` de la
+   base es «ACTO BIOQUÍMICO», sin relación con lo que imprime el `66.00.01`) y de nuevo en la
+   169 (`660767` imprime «Albuminuria» y la base tiene «Proteinuria» — parientes, no la misma
+   determinación). Comparar el nombre en negrita del PDF contra el nombre que ya tiene la
+   ficha; si no coinciden razonablemente, no declarar ese código — dejar nota para revisar a
+   mano (`_nota_pagina_168`/`_nota_pagina_169` en `data/alcance_nn_pmo.json` ya documentan los
+   casos dudosos encontrados hasta ahora).
 
 La receta de siempre (3.8 → «POR DÓNDE SEGUIR»):
-`python3 scripts/paginas_nn.py 169` (ya se hizo la 168, como piloto) → transcribir a
+`python3 scripts/paginas_nn.py 170` (168 y 169 ya hechas) → transcribir a
 `data/alcance_nn_pmo.json` bajo `"66"` verificando el nombre de cada código →
 `python3 scripts/alcance_nn_pmo.py && python3 scripts/nombres_rotos.py && python3 scripts/propagar_abarca_unico.py && python3 scripts/inject_db.py`
 → `cd web && python3 -m http.server 8890 --bind 127.0.0.1 &` y `node scripts/comprobar_datos.mjs`
 desde la raíz (2,5 s; **no** la batería completa) → actualizar la cobertura y esta agenda.
 
-⚠️ **Son 35 páginas contra las 3 que le tocaron a esta tanda: no entra en pocas sesiones.**
+⚠️ **Son 34 páginas contra las 2 que llevamos: no entra en pocas sesiones.**
 Con el paso extra de comparar nombres, un lote razonable es más chico que en los capítulos
 anteriores — 2 o 3 páginas por sesión, no un capítulo entero de una vez.
 
@@ -2058,13 +2063,22 @@ Lo que YA está bien y no hay que tocar:
 
 ### D. Datos que siguen faltando
 - **Capítulo 66 contra el PDF.** Ver 3.8 → «Capítulo 66» y 7 bis A para la receta y lo ya
-  avanzado (piloto de la página 168, 18/8/2026). Resumen: son 36 páginas (168-203) que suman
-  texto retirado a fichas del **NBU** existente, no del PMO ni del catálogo del Único; el
-  usuario ya definió el criterio («sumalo a la sección de NBU nada más, sin equivalencias»),
-  así que no hace falta volver a preguntar. La duda vieja sobre «los bloques repetidos 60-64
-  del Único» quedó sin resolver — no llegó a ser necesaria para este enfoque, pero si en algún
-  momento se retoma la idea de comparar el catálogo del Único-laboratorio contra este mismo
-  capítulo, hay que volver a mirarla.
+  avanzado (páginas 168 y 169 hechas, 18/8/2026; quedan 34). Resumen: son 36 páginas (168-203)
+  que suman texto retirado a fichas del **NBU** existente, no del PMO ni del catálogo del
+  Único; el usuario ya definió el criterio («sumalo a la sección de NBU nada más, sin
+  equivalencias»), así que no hace falta volver a preguntar. La duda vieja sobre «los bloques
+  repetidos 60-64 del Único» quedó sin resolver — no llegó a ser necesaria para este enfoque,
+  pero si en algún momento se retoma la idea de comparar el catálogo del Único-laboratorio
+  contra este mismo capítulo, hay que volver a mirarla.
+- ✅ **Propagación del «Abarca» a la equivalencia del Único — hecho el 18/8/2026.** El usuario
+  pidió que lo que dice un código del PMO o del NBU sobre qué abarca se vea también desde su
+  código equivalente en el Único, porque son la misma práctica con otro número. Nuevo script
+  `scripts/propagar_abarca_unico.py`: para cada ficha del Único con equivalencia resuelta
+  (`key` presente, no `destino_inexistente`), copia el `alcance_nn` de la ficha origen
+  (PMO si `unico_tipo==='med'`, NBU si `'lab'`), con nota de auditoría de dónde salió. No toca
+  nombres ni modifica `propagar_al_unico.py` (que sigue atando sólo el laboratorio). Correr
+  después de `alcance_nn_pmo.py`/`nombres_rotos.py` y antes de `inject_db.py`, cada vez que se
+  agregue texto retirado nuevo — ya forma parte de la receta de 7 bis A.
 - ✅ **Filtro Prestaciones médicas / Laboratorio dentro del Único — hecho el 18/8/2026.** El
   Único mezclaba en un solo listado sus 1.512 prácticas médicas (equivalentes al PMO) y sus
   1.719 de laboratorio (equivalentes al NBU); ahora hay un panel «Tipo de práctica» que las
