@@ -837,6 +837,72 @@
     "310107": "hasta diez sesiones",
     "310111": "Extraccion de (Uni o Bilateral)"
    }
+  },
+  "30": {
+   "titulo": "Oftalmología",
+   "pags": [
+    126,
+    128
+   ],
+   "norma": [],
+   "_nota_norma": "El capítulo no tiene norma general. La única «Norma:» impresa está al pie del 30.01, pegada al 30.01.22, y se nombra a sí misma en singular —«Este código incluye la consulta oftalmologica.»—: señal 1 de las reglas de alcance, así que va como prefijo del 30.01.22 y no del sub-capítulo. Pegársela al sub-capítulo entero diría que una gonioscopía o una retinografía también incluyen la consulta, y el nomenclador no lo dice: el 30.01.22 es justamente el código que agrupa prescripción de cristales, control posterior, tonometría y fondo de ojo. Releída ancha (borde 0,95) porque la fila «Norma:» ocupa todo el ancho de la página: termina en «consulta oftalmologica.» y no sigue.",
+   "normas_prefijo": {
+    "300122": [
+     "Este código incluye la consulta oftalmologica."
+    ]
+   },
+   "_nota_agregados": "Los cuatro códigos del 30.02 —30.02.01 campimetría computarizada, 30.02.02 paquimetría computarizada, 30.02.04 topografía corneal y 30.02.05 angiografía con indocianina— son AGREGADOS POR EL P.M.O.: no están en el Nomenclador Nacional, así que no tienen recuadro. Los 14 del 30.01 que sí están en la base lo tienen todos. 14 + 4 = los 18 códigos del capítulo.",
+   "_nota_retirados": "Siete códigos del 30.01 vienen enteros en bastardilla —el 30.01.04, 05, 07, 12, 14, 15 y 21: fondo de ojo, tonometría, ejercicios ortópticos, retinografía bilateral, exoftalmometría, extracción de cuerpo extraño conjuntival y cateterización de conducto lacrimonasal—. El PMO los retiró completos y ninguno está en la base, así que no se declaran: son exactamente los siete que docs/inventario_faltantes.json ya lista para el capítulo 30. Tampoco existe un 30.01.03 impreso: la numeración salta del 02 al 04.",
+   "_nota_300118": "El 30.01.18 trae DOS recuadros con negrita en el medio —«DILATACION DE CONDUCTO LACRIMONASAL» / retirado «con» / «INTUBACION, PLOMBAJE.» / retirado «Unilateral.»—, así que los dos se unen con un espacio, como el 010304 y el 200107.",
+   "codigos": {
+    "300101": "Bilateral",
+    "300102": "Bilateral",
+    "300106": "-Bilateral-",
+    "300108": "Bilateral",
+    "300109": "Bilateral",
+    "300110": "Bilateral",
+    "300111": "con tres placas. -Unilateral",
+    "300113": "Unilateral",
+    "300116": "Unilateral",
+    "300117": "Unilateral",
+    "300118": "con Unilateral.",
+    "300119": "Bilateral",
+    "300120": "Bilateral",
+    "300122": "Bilateral"
+   }
+  },
+  "29": {
+   "titulo": "Neurología",
+   "pags": [
+    125,
+    126
+   ],
+   "norma": [],
+   "_nota_norma": "El capítulo no tiene ninguna norma: ni bajo el encabezado «29 NEUROLOGIA» ni bajo el «29.02 OTROS DE NEUROLOGIA», ni hay ninguna fila «Norma:» en las dos páginas. Verificado releyendo el encabezado ancho (borde 0,95), por si se salía del recorte.",
+   "_nota_sin_textos": "⚠️ El capítulo no aporta NINGÚN texto, y es lo correcto —no una transcripción a medias—. El único recuadro impreso en todo el capítulo es el del 29.01.01 (electroencefalografía con activación simple), que viene con el número de código y los valores TAMBIÉN en bastardilla: el PMO lo retiró entero y no está en la base (ya figuraba así en docs/inventario_faltantes.json). Los nueve que siguen —29.01.02 al 29.01.10, de la electroencefalografía con activación compleja a la reografía— están impresos enteros en negrita, sin nada retirado. Y los cinco últimos —29.01.11 potenciales evocados, 29.01.12 Holter electroencefalográfico y los tres del 29.02: polisomnografía en neonatos, polisomnografía con PPCVA en adultos y toxina botulínica para el blefarospasmo— son AGREGADOS POR EL P.M.O., que por definición no figuran en el Nacional. Lo que esos cinco traen es obligación de cobertura con sus criterios impresos, que la app maneja aparte. 9 + 5 = los 14 códigos del capítulo en la base.",
+   "codigos": {}
+  },
+  "21": {
+   "titulo": "Genética humana",
+   "pags": [
+    100,
+    101
+   ],
+   "norma": [],
+   "_nota_norma": "El capítulo no tiene norma: ni en el encabezado «21 GENETICA HUMANA», ni en el del 21.01, ni en el del 21.02, y no hay ninguna fila «Norma:» en las dos páginas.",
+   "_nota_agregados": "Seis de los 14 códigos no tienen recuadro y es lo correcto: el 21.01.02 (dermatoglifos), el 21.01.04 al 21.01.07 (cariotipo simple y con bandas G, Q y G-T y Q) y el 21.02.01 (histocompatibilidad hasta cinco personas) van impresos enteros en negrita, sin nada retirado. 8 textos sobre 14 códigos.",
+   "_nota_210103": "El 21.01.03 es un recuadro de una sola palabra: el original imprime «CROMATINA SEXUAL EN MUCOSA O» en negrita, el nexo «En» retirado y «SANGRE.» de vuelta en negrita. Es el mismo caso del 240108 («De») y el 240107 («Hasta») — no es una transcripción cortada.",
+   "_nota_no_estan": "Dos renglones impresos del capítulo NO están en la base y por eso no se declaran: el «21.01.01 A» (consulta genética según Res. 58/17-MS, que es una fila de coseguro y no un código de seis dígitos) y el 21.02.08 (genotipificación virus hepatitis C en pacientes HIV positivos), que está en negrita y marcado CODIGO AGREGADO POR EL P.M.O. — o sea, del catálogo obligatorio. El 21.02.08 ya figura en docs/inventario_faltantes.json; es un faltante de la base, no de este barrido, y entra por importar_capitulos_nn.py, no por acá.",
+   "codigos": {
+    "210101": "asesoramiento, dermatoglifos",
+    "210103": "En",
+    "210202": "(subsiguiente)",
+    "210203": "(anticuerpos anti HLA), (cada 3 meses)",
+    "210204": "(anticuerpos anti HLA) (Cross-match de rutina positivo mayor del 90%)",
+    "210205": "(anticuerpos anti HLA), renal",
+    "210206": "Por única vez.",
+    "210207": "(con donante vivo) Por única vez."
+   }
   }
  }
 }

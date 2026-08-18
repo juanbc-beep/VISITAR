@@ -892,9 +892,12 @@ uno antes de «mielotomía comisural» y otro después).
 | 17 · Cardiología | 91–94 | 20 | ✅ 9 textos + 3 normas por código |
 | 18 · Ecografía – Ecodoppler | 94–96 | 22 | ✅ 5 textos + 10 normas de capítulo + 3 por código |
 | 31 · Otorrinolaringología | 128–129 | 19 | ✅ 3 textos + 1 norma por código |
-| los otros 12 | ~37–131 | 149 | pendiente |
+| 30 · Oftalmología | 126–128 | 18 | ✅ 14 textos + 1 norma por código |
+| 29 · Neurología | 125–126 | 14 | ✅ 0 textos — el capítulo no tiene ninguno, y es correcto |
+| 21 · Genética humana | 100–101 | 14 | ✅ 8 textos |
+| los otros 9 | ~37–131 | 103 | pendiente |
 
-Cobertura: **763 de 1.352 (56%)**, desde 156 (11%).
+Cobertura: **785 de 1.352 (58%)**, desde 156 (11%).
 
 ⚠️ **Que un sub-capítulo no aporte ningún texto puede ser lo correcto.** El `02.09` (LASER) son
 ocho códigos que AGREGÓ el PMO: no figuran en el Nomenclador Nacional, así que no hay recuadro
@@ -1003,7 +1006,18 @@ son los que el Nacional imprime completos en negrita (nada retirado) y los marca
 AGREGADO POR EL P.M.O.», que por definición no están en el Nacional. Que un capítulo quede
 con menos textos que códigos es lo normal, no una transcripción a medias.
 
-#### ▶ POR DÓNDE SEGUIR (última tanda: 20, 24 y 17, el 16/8/2026)
+⚠️ **Y el límite de eso es cero: el capítulo 29 (neurología) no aporta ni un texto.** Se lo
+leyó entero igual y quedó declarado en el JSON con `codigos` vacío, porque «leído y no aporta
+nada» y «todavía no se leyó» tienen que poder distinguirse — si no, el capítulo vuelve a la
+lista de pendientes en la sesión siguiente. Sus 14 códigos son nueve impresos enteros en
+negrita y cinco agregados por el P.M.O.; el único recuadro del capítulo es el del `29.01.01`
+(electroencefalografía con activación simple), que viene con el **número de código y los valores
+también en bastardilla** —el PMO lo retiró entero— y por eso no está en la base. **Ese es el
+patrón a reconocer**: cuando el número de código está en bastardilla, la práctica entera salió
+del catálogo y no hay ficha que decorar. En el capítulo 30 pasa siete veces (30.01.04, 05, 07,
+12, 14, 15 y 21).
+
+#### ▶ POR DÓNDE SEGUIR (última tanda: 30, 29 y 21, el 18/8/2026)
 
 `data/paginas_nn.json` tiene **dónde empieza y termina cada capítulo en el PDF**, sacado por
 OCR. Ya está: no hay que volver a buscarlo a mano.
@@ -1040,6 +1054,45 @@ franja** con el borde derecho en 0,95 y la escala en 3,4 (queda en ~1.970 px, qu
 máximo antes de que la imagen se reescale y se vuelva ilegible). Un recorte de tres renglones
 cuesta ~300 tokens; no vale la pena ampliar la caja para todas las páginas.
 
+⚠️ **`data/paginas_nn.json` da la página con MÁS códigos, no el capítulo entero: casi todos se
+derraman en la siguiente.** El índice salió de contar códigos `NN.NN.NN` por página, así que
+cada página quedó asignada a un solo capítulo aunque tenga dos. Los tres de esta tanda se
+derramaron y en uno de ellos había texto que transcribir:
+
+- el **21** figura como «100» y sigue arriba de la **101** con el 21.02.05, el 21.02.06 y el
+  21.02.07: **tres recuadros**, que son 3 de los 8 textos del capítulo. Sin mirar la 101 el
+  capítulo quedaba a mitad de camino y el script no lo habría avisado —ni sobran códigos ni se
+  movió ningún nombre—;
+- el **30** figura como «126–127» y termina arriba de la **128** con el 30.02.04 y el 30.02.05,
+  los dos AGREGADOS POR EL P.M.O. (sin recuadro);
+- el **29** figura como «125» y termina arriba de la **126** con los tres del 29.02, también
+  agregados.
+
+Ya se sabía que pasaba —el 24 y el 25 comparten la 111, el 19 y el 20 comparten la 97— pero
+como ahí el solapamiento estaba escrito en el índice, no se leyó como regla. **Lo es**: la
+receta del punto 1 es `paginas_nn.py <cap>` **y además la página siguiente a la última**,
+mirando dónde arranca el encabezado del capítulo que sigue. Cuesta ~1.200 tokens y es la
+diferencia entre un capítulo completo y uno que parece completo.
+
+⚠️ **Un código impreso «AGREGADO POR EL P.M.O.» que no está en la base es un faltante real, y
+no lo arregla este barrido.** El `21.02.08` (genotipificación virus hepatitis C en pacientes HIV
+positivos) está en negrita al pie del capítulo 21, marcado como agregado por el P.M.O. —o sea,
+del catálogo obligatorio— y **la base no lo tiene**. `alcance_nn_pmo.py` no crea códigos, así
+que no hay dónde declararlo: queda anotado en `_nota_no_estan` del capítulo 21 y entra, si el
+usuario lo decide, por `importar_capitulos_nn.py`. Mismo camino que el `23.02.34`.
+
+No es un hallazgo nuevo —**`docs/inventario_faltantes.json` ya lo tenía**, junto con el
+`29.01.01` y los siete retirados del 30—, y ese cruce sirve de control: los códigos que la
+lectura a ojo encontró en bastardilla o sin ficha coincidieron **uno a uno** con lo que ese
+archivo lista para los tres capítulos. Conviene abrirlo antes de transcribir: dice de antemano
+qué códigos del PDF no van a tener dónde caer, y una diferencia entre esa lista y lo que se ve
+en la página es señal de que se leyó mal. ⚠️ Sus páginas son las **impresas**, una más que las
+del archivo que usa `paginas_nn.py`.
+
+(El otro renglón suelto del 21, el «21.01.01 A» de consulta genética por Res. 58/17-MS, **no**
+es un caso igual: es una fila de coseguro, sin código de seis dígitos y sin ficha que le
+corresponda.)
+
 #### ⚠️ EL COSTO REAL DE ESTE TRABAJO: una sesión larga se encarece sola
 
 Cada imagen que entra a la conversación **se reenvía en todos los pedidos siguientes**. No es
@@ -1062,14 +1115,13 @@ cuatro por sesión.
 
 | cap | páginas | códigos | | cap | páginas | códigos |
 |---|---|---|---|---|---|---|
-| **30** | 126–127 | 18 | | 22 | 101–102 | 13 |
-| **29** | 125 | 14 | | 33 | 130–131 | 13 |
-| **21** | 100 | 14 | | 15 | 89 | 12 |
-| 19 | 97 | 3 | | 06 | 37 | 12 |
-| 32 | 129 | 1 | | 09 | 56 | 8 |
-| 14 | 88 | 1 | | 16 | 90 | 5 |
+| **22** | 101–102 | 13 | | 06 | 37 | 12 |
+| **33** | 130–131 | 13 | | 09 | 56 | 8 |
+| **15** | 89 | 12 | | 16 | 90 | 5 |
+| 19 | 97 | 3 | | 32 | 129 | 1 |
+| 14 | 88 | 1 | | | | |
 
-Son **114 códigos** en esos doce capítulos; los otros 35 que faltan para los 149 están en el
+Son **68 códigos** en esos nueve capítulos; los otros 35 que faltan para los 103 están en el
 **35, 36, 38 y 66**, que no tienen páginas en el índice (ver abajo). El **32** ya tiene la
 suya: arranca al pie de la 129, debajo del último código del 31, y su único código —el
 32.01.04, atención del recién nacido en sala de partos— trae una norma larga impresa ahí
@@ -1807,8 +1859,8 @@ cada commit, que explican el porqué y no sólo el qué:
 ## 7 bis. ▶ AGENDA DEL MARTES 18/8/2026
 
 ### A. Seguir con la norma retirada del PMO
-Ver 3.8 → «POR DÓNDE SEGUIR». Van 28 capítulos y **763 de 1.352 fichas (56%)**; la próxima
-tanda es **30, 29 y 21** (páginas 126‑127, 125 y 100). Faltan las páginas del **35, 36,
+Ver 3.8 → «POR DÓNDE SEGUIR». Van 31 capítulos y **785 de 1.352 fichas (58%)**; la próxima
+tanda es **22, 33 y 15** (páginas 101‑102, 130‑131 y 89). Faltan las páginas del **35, 36,
 38 y 66** en `data/paginas_nn.json`.
 
 ### B. Ciberseguridad — repaso pedido por el usuario
