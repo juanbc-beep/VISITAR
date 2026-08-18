@@ -980,6 +980,22 @@
      "cobertura": "Indicado en: Aplasia medular idiopatica o adquirida no secundaria a invasion neoplasica. Tumores hematicos (linfomas, leucemias). Mieloma multiple. Otros con aval de la Sociedad Argentina de Hematologia."
     }
    ]
+  },
+  "21": {
+   "titulo": "Genética humana",
+   "_nota": "UN SOLO código a propósito: el capítulo 21 ya está en la base con sus 14 fichas —vienen del catálogo del PMO— y lo único que faltaba era el 21.02.08, al pie de la página 101 del archivo. Apareció transcribiendo los recuadros del capítulo (ver scripts/alcance_nn_pmo.py) y ya figuraba en docs/inventario_faltantes.json. Está impreso en negrita y marcado «CODIGO AGREGADO POR EL P.M.O.», o sea del catálogo obligatorio, con coseguro hasta 250 y sin unidades de honorarios ni gastos: el recuadro de «código agregado» ocupa esas tres columnas. No lleva alcance porque no tiene recuadro «Texto retirado por el PMO» — un código agregado por el PMO no está en el Nomenclador Nacional, así que no hay nada retirado que transcribir.",
+   "_nota_unico": "⚠️ El Nomenclador Único ya traía esta práctica con el MISMO número —U210208, «Genotipificación Virus Hepatitis C en pacientes HIV positivos»—, pero su planilla declaraba como equivalente el 220209, que no existe y que además caería en ginecología y obstetricia: es una transposición del 21 por el 22. Quedaba colgada con destino_inexistente. Al entrar este código la equivalencia se ata por scripts/equivalencias_renumeradas.py, que es el mecanismo para exactamente este caso; reparar_equivalencias.py no la toca, porque el número declarado está mal, no ausente.",
+   "_nota_nbu": "No confundir con el 665965 del NBU, «HEPATITIS C, Genotipificación (PCR)»: ésa es la genotipificación general y ésta es la del catálogo del PMO acotada a pacientes HIV positivos. Son prácticas distintas y no se cruzan.",
+   "norma": [],
+   "codigos": [
+    {
+     "code": "210208",
+     "nombre": "Genotipificación virus hepatitis C en pacientes HIV positivos",
+     "grupo": "Genética humana",
+     "coseguro": 250.0,
+     "agregado_pmo": true
+    }
+   ]
   }
  },
  "_cobertura_430106": "Obligación de cobertura en los siguientes casos: internación en menores de 15 años, a fin de asegurar una adecuada contención por parte de un familiar durante un momento crítico como es la internación y, sobre todo, en este grupo de personas."

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Las cinco equivalencias donde el Único declara un número que no existe.
+"""Las seis equivalencias donde el Único declara un número que no existe.
 
 Hay un puñado de prácticas en las que la planilla del Nomenclador Único dice
 «equivale al código NNNNNN» y ese número no está en el Nomenclador Nacional —
@@ -37,10 +37,18 @@ PARES = [
     ("U280301", "280301"),   # ablación de lesiones broncopulmonares por endoscopía
     ("U260528", "260528"),   # perfusión sanguínea miocárdica con radioisótopos
     ("U430601", "430601"),   # luminoterapia
+    ("U210208", "210208"),   # genotipificación de hepatitis C en pacientes HIV positivos
 ]
 
 # ⚠️ NO entra: U430102 → 430102. El número coincide pero la práctica no
 # (individual con aislamiento vs. habitación de dos). Queda sin equivalencia.
+#
+# El U210208 se sumó el 18/8/2026, cuando el 210208 entró a la base por
+# importar_capitulos_nn.py. Es el caso más claro de todos: los dos lados se
+# llaman igual palabra por palabra —«Genotipificación Virus Hepatitis C en
+# pacientes HIV positivos»—, y el número declarado, 220209, no sólo no existe:
+# el capítulo 22 es ginecología y obstetricia, donde una genotipificación no
+# puede caer. Es una transposición del 21 por el 22 en la planilla.
 
 
 def main():
@@ -58,9 +66,13 @@ def main():
             print("  ⚠ el destino no existe: %s" % destino)
             continue
         e = v.get("equivalencia") or {}
-        declarado = e.get("code")
+        # ⚠️ setdefault y no asignación: en la segunda corrida `code` ya es el
+        # destino, así que guardarlo otra vez borraría el número que declaraba
+        # la planilla — que es justamente lo que hay que poder mostrarle a un
+        # auditor. Pasó una vez, el 18/8/2026, y se perdieron los cinco.
+        e.setdefault("code_declarado", e.get("code"))
+        declarado = e["code_declarado"]
 
-        e["code_declarado"] = declarado
         e["code"] = destino
         e["key"] = destino
         e.setdefault("desc_declarada", e.get("desc"))

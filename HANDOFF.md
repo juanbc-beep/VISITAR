@@ -1,15 +1,16 @@
 # TRASPASO DE SESIÓN — Manual Inteligente Unificado (VISITAR SRL)
 
 > Documento para retomar el trabajo en una sesión nueva sobre **la misma app**.
-> Última actualización: 2026-08-16, rama `claude/nomenclador-chapters-20-24-17-eoittj`
-> (commit `d9f6e61`). El anterior era del 2026-08-11 (`f6bf67c`, 126 commits); acá el clon
-> es superficial y el total no se puede contar, así que se identifica por rama y commit.
+> Última actualización: 2026-08-18, rama `claude/nomenclador-chapters-30-29-21-0c4v9o`
+> (commit `8101931`). La anterior era del 2026-08-16 (`d9f6e61`); acá el clon es superficial
+> y el total de commits no se puede contar, así que se identifica por rama y commit.
 >
 > **Lo que está en curso ahora mismo:** el **barrido del Nomenclador Nacional** (3.8) —
 > transcribir a ojo, capítulo por capítulo, el recuadro «Texto retirado por el PMO» que el
-> catálogo del PMO no reproduce. Van 28 capítulos y **763 de 1.352 fichas (56%)**, desde
+> catálogo del PMO no reproduce. Van 31 capítulos y **785 de 1.353 fichas (58%)**, desde
 > 156 (11%). Es trabajo de lectura, no de código: la receta, el índice de páginas, las
 > reglas de alcance y el orden sugerido están todos en 3.8, escritos para retomar en frío.
+> **La próxima tanda es 22, 33 y 15** — ver 7 bis A.
 >
 > **Lo más importante que cambió respecto del traspaso anterior:** la app dejó de ser un
 > archivo que cada uno guarda en su computadora y pasó a ser una **aplicación de empresa
@@ -82,9 +83,9 @@ que tiene al afiliado enfrente? Si sólo sirve para auditar facturación, es sec
 
 | Dataset | Cantidad |
 |---|---|
-| **Códigos totales** | **6.477** |
+| **Códigos totales** | **6.478** |
 | — NBU (laboratorio/bioquímica) | 1.815 |
-| — PMO / Prestaciones médicas | 1.352 (26 altas del capítulo 34 —ver 3.4—, los capítulos que faltaban enteros —3.6— y el 23.02.34 —3.8—) |
+| — PMO / Prestaciones médicas | 1.353 (26 altas del capítulo 34 —ver 3.4—, los capítulos que faltaban enteros —3.6—, el 23.02.34 y el 21.02.08 —3.8—) |
 | — Nomenclador Único (VISITAR) | 3.231 |
 | — Odontología | 79 (**oculto en la app**, ver 6.12) |
 | **CIE-10** (diagnósticos) | **11.581** en 21 capítulos |
@@ -92,7 +93,7 @@ que tiene al afiliado enfrente? Si sólo sirve para auditar facturación, es sec
 | **SURGE** (Res. 731/23) | **58** patologías del Anexo II · 38 códigos mapeados |
 | **Leyes / normas** | 22 · Glosario 12 |
 
-⚠️ Esos 6.477 son la **base publicada**. `assemble.py` arma **6.372**: los importadores de
+⚠️ Esos 6.478 son la **base publicada**. `assemble.py` arma **6.372**: los importadores de
 capítulo (3.6 y 3.8) corren **después**, sobre `data/nbu_db.json`, y suman los capítulos que
 faltaban enteros más el `23.02.34`. Si un conteo no da, mirar cuál de los dos números es —el
 resto del documento, escrito antes, dice «sobre 6.372» en varios lados.
@@ -747,7 +748,7 @@ sabe si dice lo que tiene que decir no es quien factura. La ficha muestra el ori
 
 **También se lee en el resultado del listado** (`abarcaLinea()`), como la observación y la
 revisión médica: es el dato que decide si hay que cargar un código más, y enterarse recién al
-abrir la ficha llega tarde. Lo tienen **563 códigos de 6.477** —eran 96 cuando se escribió
+abrir la ficha llega tarde. Lo tienen **585 códigos de 6.478** —eran 96 cuando se escribió
 esto; el barrido de 3.8 los multiplicó por seis y los va a seguir sumando—, así que sigue sin
 ensuciar el listado: donde aparece, es porque hay algo que saber. Va **antes** de los dos avisos y sin fondo: no es
 una alerta, es parte de lo que el código *es*; si compitiera con la observación y la revisión
@@ -894,10 +895,10 @@ uno antes de «mielotomía comisural» y otro después).
 | 31 · Otorrinolaringología | 128–129 | 19 | ✅ 3 textos + 1 norma por código |
 | 30 · Oftalmología | 126–128 | 18 | ✅ 14 textos + 1 norma por código |
 | 29 · Neurología | 125–126 | 14 | ✅ 0 textos — el capítulo no tiene ninguno, y es correcto |
-| 21 · Genética humana | 100–101 | 14 | ✅ 8 textos |
+| 21 · Genética humana | 100–101 | 15 | ✅ 8 textos + el 21.02.08, que faltaba |
 | los otros 9 | ~37–131 | 103 | pendiente |
 
-Cobertura: **785 de 1.352 (58%)**, desde 156 (11%).
+Cobertura: **785 de 1.353 (58%)**, desde 156 (11%).
 
 ⚠️ **Que un sub-capítulo no aporte ningún texto puede ser lo correcto.** El `02.09` (LASER) son
 ocho códigos que AGREGÓ el PMO: no figuran en el Nomenclador Nacional, así que no hay recuadro
@@ -1075,11 +1076,27 @@ mirando dónde arranca el encabezado del capítulo que sigue. Cuesta ~1.200 toke
 diferencia entre un capítulo completo y uno que parece completo.
 
 ⚠️ **Un código impreso «AGREGADO POR EL P.M.O.» que no está en la base es un faltante real, y
-no lo arregla este barrido.** El `21.02.08` (genotipificación virus hepatitis C en pacientes HIV
-positivos) está en negrita al pie del capítulo 21, marcado como agregado por el P.M.O. —o sea,
-del catálogo obligatorio— y **la base no lo tiene**. `alcance_nn_pmo.py` no crea códigos, así
-que no hay dónde declararlo: queda anotado en `_nota_no_estan` del capítulo 21 y entra, si el
-usuario lo decide, por `importar_capitulos_nn.py`. Mismo camino que el `23.02.34`.
+no lo arregla este barrido.** `alcance_nn_pmo.py` no crea códigos: sólo le pone la norma a los
+que ya están. Cuando aparece uno así hay que anotarlo y pasarlo por
+`importar_capitulos_nn.py`, que es el que sí crea.
+
+✅ **Pasó con el `21.02.08` y ya está resuelto** (18/8/2026, por decisión del usuario).
+Genotipificación virus hepatitis C en pacientes HIV positivos: impreso en negrita al pie del
+capítulo 21, marcado «CODIGO AGREGADO POR EL P.M.O.» —o sea, del catálogo obligatorio— con
+coseguro hasta 250 y sin unidades de honorarios ni gastos. Entró como capítulo `"21"` de
+`data/capitulos_nn.json` con `agregado_pmo`, sin `alcance` (un código agregado por el PMO no
+está en el Nacional, así que no hay recuadro que transcribir) y sin `retirado_pmo`. Mismo
+camino que el `23.02.34`.
+
+⚠️ **Y arrastró una equivalencia mal numerada.** El Nomenclador Único ya traía la práctica con
+el **mismo número** —`U210208`, mismo nombre palabra por palabra— pero su planilla declaraba
+como equivalente el `220209`, que no existe y que además caería en ginecología y obstetricia:
+una transposición del 21 por el 22. Quedaba colgada con `destino_inexistente`, y
+`reparar_equivalencias.py` **no la arregla** —ése sólo ata las que apuntan a un código que
+todavía no existía, no las que apuntan a uno equivocado—. Se ató por
+`equivalencias_renumeradas.py` (4.5 undecies), que es el mecanismo para exactamente este caso.
+**Al importar un código conviene mirar si el Único ya lo traía**: `grep` del nombre sobre
+`data/nbu_db.json` alcanza.
 
 No es un hallazgo nuevo —**`docs/inventario_faltantes.json` ya lo tenía**, junto con el
 `29.01.01` y los siete retirados del 30—, y ese cruce sirve de control: los códigos que la
@@ -1259,8 +1276,8 @@ norma escrita manda a abrir la ficha, y donde sólo hay alcance manda a «Qué a
 código». Prometer un bloque que no existe sería peor que no poner la sigla —fue exactamente
 el error que tenía la primera versión, con 100 de los 156 códigos mandando a la nada—.
 
-Hoy: **763 códigos con sigla**, de los cuales **427 abren el `.nn-card`** y **336 traen sólo
-alcance**. Sobre 6.477, no ensucia el listado. ⚠️ Este número **sube con cada capítulo que se
+Hoy: **785 códigos con sigla**, de los cuales **428 abren el `.nn-card`** y **357 traen sólo
+alcance**. Sobre 6.478, no ensucia el listado. ⚠️ Este número **sube con cada capítulo que se
 transcribe** (3.8): eran 156 cuando se escribió esta sección, con 56 abriendo el `.nn-card`.
 Si no coincide, no está roto: está desactualizado el renglón. Se recalcula así —
 
@@ -1284,10 +1301,16 @@ el destino ya está: completa `key`/`desc` y saca la marca del lado Único, y ag
 
 **No inventa equivalencias**: sólo usa las que la planilla del Único ya declaraba.
 
-Resultado: **60 reatadas · 8 ya tenían el enlace de vuelta · 153 siguen sin destino en la
-base**. Esas 153 apuntan a códigos de capítulos todavía no importados, así que **algunas
-fichas siguen sin la vista previa entre nomencladores** — se arreglan solas a medida que
-entren los capítulos que faltan, volviendo a correr el script.
+Resultado: **60 reatadas · 8 ya tenían el enlace de vuelta · 134 siguen sin destino en la
+base** (eran 153 cuando se escribió esto; el número baja con cada capítulo importado). Esas
+134 apuntan a códigos de capítulos todavía no importados, así que **algunas fichas siguen sin
+la vista previa entre nomencladores** — se arreglan solas a medida que entren los capítulos
+que faltan, volviendo a correr el script.
+
+⚠️ **No arregla las que declaran un número EQUIVOCADO**, sólo las que declaran uno que todavía
+no existía. Si el número está mal, este script lo deja colgado para siempre y el caso va a
+4.5 undecies. Pasó con el `U210208`: apuntaba al `220209`, que no existe, mientras la práctica
+entraba a la base como `210208`.
 
 ⚠️ Correr siempre `python3 scripts/inject_db.py` después.
 
@@ -1296,9 +1319,9 @@ se facturan en unidades de honorarios y gastos, no en Unidad Bioquímica: se imp
 `valor.ub = null` a propósito, y `ubDe()` devuelve `null`. La tarjeta de equivalencia se ve
 igual, sin el chip de U.B.
 
-### 4.5 undecies Cinco equivalencias que el Único numeraba distinto
+### 4.5 undecies Seis equivalencias que el Único numeraba distinto
 
-`scripts/equivalencias_renumeradas.py`. En cinco prácticas la planilla del Único dice
+`scripts/equivalencias_renumeradas.py`. En seis prácticas la planilla del Único dice
 «equivale al código NNNNNN», ese número no existe en el Nomenclador Nacional, **y la
 práctica sí está en el Nacional con el mismo número que usa el Único**:
 
@@ -1309,6 +1332,12 @@ práctica sí está en el Nacional con el mismo número que usa el Único**:
 | 280301 Ablación de lesiones broncopulmonares | 280209 ✗ | **280301** |
 | 260528 Perfusión sanguínea miocárdica | 260729 ✗ | **260528** |
 | 430601 Luminoterapia | 431604 ✗ | **430601** |
+| 210208 Genotipificación hepatitis C en HIV positivos | 220209 ✗ | **210208** |
+
+El sexto entró el 18/8/2026, cuando el `210208` se sumó a la base (3.8). Es el más claro de
+los seis: los dos lados se llaman **igual palabra por palabra**, y el número declarado no
+sólo no existe —el capítulo 22 es ginecología y obstetricia, donde una genotipificación no
+puede caer—. Es una transposición del 21 por el 22 en la planilla.
 
 ⚠️ **NO se hace por regla automática «si el número coincide, atalo».** `U430102` coincide en
 número y la práctica es otra: el Único dice «cama en habitación individual (aislamiento)» y
@@ -1319,6 +1348,17 @@ nombre de los dos lados.
 El número que declaraba la planilla queda guardado en `equivalencia.code_declarado` y en una
 línea de auditoría de las dos fichas: un auditor que compare contra el papel se va a
 encontrar con ese número y tiene que poder explicárselo.
+
+⚠️ **El script no era idempotente y correrlo dos veces borraba justamente ese número.**
+Guardaba `code_declarado = e["code"]` por asignación, pero en la segunda corrida `e["code"]`
+ya era el destino corregido, así que los cinco `code_declarado` se pisaron con el número bueno
+y el de la planilla se perdió. Pasó el 18/8/2026 al agregar el sexto par, y se vio comparando
+contra `git show HEAD:data/nbu_db.json`. Arreglado con `setdefault` —que es como el mismo
+script ya trataba `desc_declarada`— y la base se rehízo desde el commit anterior en vez de
+parchear el JSON. **La regla general**: estos scripts corren sobre `data/nbu_db.json`, que es
+un archivo versionado que se pisa a sí mismo, así que el que reescribe un campo tiene que
+poder correr dos veces. Cuando un script de datos toca algo que ya tocó, conviene mirar el
+diff contra `HEAD` antes de commitear — no alcanza con que el script no falle.
 
 ### 4.5 duodecies ⚠️ El Único repite las prácticas de laboratorio en varios bloques
 
@@ -1457,6 +1497,11 @@ Y a nivel capítulo: `titulo`, `norma`, `normas_sueltas`, `retirado_pmo` y **`av
 (nuevo, ver 4.5 terdecies), que se copia a todas las fichas del capítulo.
 
 **Después se importaron el 27, el 28 y el 26** — 57 fichas más. Total del rescate: **104**.
+Más tarde entraron por el mismo camino dos códigos sueltos de capítulos que **ya estaban** en
+la base: el `23.02.34` (16/8) y el `21.02.08` (18/8), los dos «AGREGADO POR EL P.M.O.» y los
+dos descubiertos mientras se transcribían los recuadros de 3.8. **Total: 106.** El JSON no
+distingue entre «capítulo que falta entero» y «un código suelto»: se agrega el capítulo con
+la lista de códigos que haya, y los que ya están se completan sin pisarse.
 
 ⚠️ **Del capítulo 26 se importaron 38 de los 78 que faltaban, a propósito.** El sub-capítulo
 **26.03 (determinaciones por radioinmunoensayo, 38 códigos) NO se importó**: el propio
@@ -1708,6 +1753,30 @@ Funciones: `initValidator()`, `runCase()`, `renderCase()`, `renderFacturacion()`
 
 ## 7. Historial de trabajo
 
+**Lo hecho en la tanda del 2026-08-18** (rama `claude/nomenclador-chapters-30-29-21-0c4v9o`),
+toda sobre el barrido de 3.8:
+
+- **Capítulos 30, 29 y 21** (oftalmología, neurología, genética humana): 46 códigos, **22
+  textos**. El 30 aporta 14 —casi todos la lateralidad que el PMO borró del renglón— y una
+  norma que va al `30.01.22` y no al sub-capítulo. El 21 aporta 8. El **29 no aporta
+  ninguno**, y quedó declarado igual con `codigos` vacío: «leído y no aporta nada» y «todavía
+  no se leyó» tienen que poder distinguirse, o el capítulo vuelve a la lista de pendientes.
+- **Regla nueva en 3.8: el índice de páginas da la página con MÁS códigos, no el capítulo
+  entero.** Los tres se derramaron en la siguiente, y en el 21 eso eran **tres de los ocho
+  recuadros**, arriba de una página que el índice le asigna al 22. Ningún script lo habría
+  avisado. La receta ahora incluye mirar la página siguiente a la última.
+- **`docs/inventario_faltantes.json` como control previo**: dice de antemano qué códigos del
+  PDF no van a tener ficha donde caer. Los siete retirados del 30, el `29.01.01` y el
+  `21.02.08` coincidieron uno a uno con lo leído a ojo.
+- **El `21.02.08` entró a la base** por `importar_capitulos_nn.py` (3.6 y 3.8) — agregado por
+  el P.M.O., del catálogo obligatorio, y faltaba. Con él se ató la equivalencia del Único que
+  declaraba el `220209`, un número que no existe (4.5 undecies).
+- ⚠️ **Un error propio, encontrado al releer el diff**: `equivalencias_renumeradas.py` no era
+  idempotente y la segunda corrida **borró los cinco `code_declarado`** —el número que
+  declaraba la planilla, que es justamente lo que hay que poder mostrarle a un auditor—.
+  Arreglado con `setdefault`, y la base se rehízo desde el commit anterior en vez de
+  parchear el JSON. El detalle y la regla que deja, en 4.5 undecies.
+
 **Lo hecho en la tanda del 2026-08-16** (rama `claude/nomenclador-chapters-20-24-17-eoittj`),
 toda sobre el barrido de 3.8 salvo lo último:
 
@@ -1856,12 +1925,49 @@ cada commit, que explican el porqué y no sólo el qué:
 
 ---
 
-## 7 bis. ▶ AGENDA DEL MARTES 18/8/2026
+## 7 bis. ▶ AGENDA DE LA PRÓXIMA SESIÓN (escrita el 18/8/2026)
 
-### A. Seguir con la norma retirada del PMO
-Ver 3.8 → «POR DÓNDE SEGUIR». Van 31 capítulos y **785 de 1.352 fichas (58%)**; la próxima
-tanda es **22, 33 y 15** (páginas 101‑102, 130‑131 y 89). Faltan las páginas del **35, 36,
-38 y 66** en `data/paginas_nn.json`.
+### A. Seguir con la norma retirada del PMO — **esto es lo primero**
+
+Van 31 capítulos y **785 de 1.353 fichas (58%)**. La próxima tanda es **22, 33 y 15**:
+ginecología y obstetricia, salud mental y anatomía patológica. Son **38 códigos** —13, 13 y
+12— y entran holgados en una sesión.
+
+⚠️ **Sesión nueva.** Las páginas son imágenes y se reenvían en todos los pedidos siguientes:
+seguir en una conversación ya cargada cuesta entre 5 y 10 veces más y no se gana nada. Este
+documento está escrito para arrancar en frío.
+
+| cap | páginas del archivo | códigos | ojo con |
+|---|---|---|---|
+| **22** · Ginecología y obstetricia | 101–102 | 13 | arranca a mitad de la **101**, debajo del `21.02.08`, y termina en la **102**, donde al pie ya está el encabezado del 23 (que no se transcribe: está retirado entero, ver 3.8) |
+| **33** · Salud mental | 130–131 | 13 | mirar la **132** por si se derrama: es el último capítulo del índice, pero el archivo sigue hasta la 260 (odontología y bioquímica) |
+| **15** · Anatomía patológica | 89 | 12 | una sola página; mirar la **90**, que el índice le da al 16 |
+
+La receta completa está en 3.8 → «POR DÓNDE SEGUIR», y no hay que reinventarla. En orden:
+
+1. `python3 scripts/paginas_nn.py 22` — y **la página siguiente a la última**, suelta
+   (`python3 scripts/paginas_nn.py 132`), salvo que ya se sepa dónde termina el capítulo.
+   ⚠️ Hace falta `pip install pypdfium2 Pillow` — el contenedor viene sin ellas.
+2. **Abrir `docs/inventario_faltantes.json` antes de transcribir**: dice de antemano qué
+   códigos del PDF no van a tener ficha donde caer. Si lo que se ve en la página no coincide
+   con esa lista, se leyó mal. Sus páginas son las **impresas**, una más que las del archivo.
+3. Transcribir a `data/alcance_nn_pmo.json`, **respetando la ortografía impresa** (el original
+   casi no acentúa y tiene erratas propias; no se corrigen).
+4. Releer **anchas** las filas que arrancan con `Norma:` — se salen del recorte y se cortan a
+   mitad de frase sin que se note.
+5. `python3 scripts/alcance_nn_pmo.py && python3 scripts/nombres_rotos.py && python3 scripts/inject_db.py`
+6. `cd web && python3 -m http.server 8890 --bind 127.0.0.1 &` y `node scripts/comprobar_datos.mjs`
+   desde la raíz (2,5 s). **NO la batería completa**: prueba código que no se movió.
+7. Actualizar en este documento la tabla de avance de 3.8, la cobertura y esta agenda.
+
+⚠️ Si aparece un código impreso «AGREGADO POR EL P.M.O.» que **no está en la base**, no lo
+crea `alcance_nn_pmo.py`: se anota y va por `importar_capitulos_nn.py`, como el `21.02.08` y
+el `23.02.34`. Y si el Único ya lo traía, revisar la equivalencia — puede estar colgada de un
+número equivocado (4.5 undecies).
+
+Faltan las páginas del **35, 36, 38 y 66** en `data/paginas_nn.json`: el barrido de OCR llegó
+hasta la 139. Son 35 códigos entre los cuatro y hay que sacarlas con `rapidocr_onnxruntime`,
+contando códigos `NN.NN.NN` por página (≈9 s por página).
 
 ### B. Ciberseguridad — repaso pedido por el usuario
 
@@ -1907,20 +2013,28 @@ Lo que YA está bien y no hay que tocar:
 ### D. Datos que siguen faltando
 - **Capítulo 66** (NBU laboratorio) contra el PDF — ahora hay que mirarlo sabiendo lo de los
   bloques repetidos 60‑64 del Único.
-- **104 equivalencias** esperan que se importe el capítulo al que apuntan. La más grande:
-  **capítulo 16, anestesiología, 33 códigos** en fila.
+- **134 equivalencias** del Único siguen sin destino en la base (120 apuntan al PMO). La más
+  grande: **capítulo 16, anestesiología, 33 códigos** en fila. El número baja con cada
+  capítulo importado — se recalcula corriendo `scripts/reparar_equivalencias.py`.
+- ⚠️ **Pero no todas se van a arreglar solas.** Siete apuntan a códigos de oftalmología
+  —`300128`, `300130`, `300142`, `300148`, `300184`, `300186`— que **no existen en el
+  Nomenclador Nacional**: al transcribir el capítulo 30 se vio que termina en el `30.01.22` y
+  el `30.02.05`. Son prácticas propias del Único (IOL Master, Pentacam, recuento de células
+  endoteliales, test de But) con un número del PMO que nadie va a importar nunca. Esperar al
+  capítulo 30 no sirve: o se les busca el equivalente real a mano, o quedan sin equivalencia.
 
 ## 8. Pendientes y sugerencias abiertas
 
 ### ⚠️ Lo primero que hay que preguntar al retomar
 
 Lo último que se estuvo trabajando —y lo que conviene retomar sin preguntar, porque el
-usuario ya lo pidió tres sesiones seguidas— es el **barrido del Nomenclador Nacional** (3.8):
-transcribir a ojo el recuadro «Texto retirado por el PMO», capítulo por capítulo. Van **763
-de 1.352 fichas (56%)** y quedan **12 capítulos, 114 códigos**; la próxima tanda es 30, 29 y
-21. Todo lo que hace falta para arrancar en frío está en 3.8: índice de páginas, receta,
-reglas de alcance y el orden sugerido. **Sesión nueva para cada tanda** — las páginas son
-imágenes y se reenvían en todos los pedidos siguientes.
+usuario ya lo pidió cuatro sesiones seguidas— es el **barrido del Nomenclador Nacional** (3.8):
+transcribir a ojo el recuadro «Texto retirado por el PMO», capítulo por capítulo. Van **785
+de 1.353 fichas (58%)** y quedan **9 capítulos, 68 códigos** (más 35 en el 35, 36, 38 y 66,
+que todavía no tienen páginas en el índice); la próxima tanda es **22, 33 y 15**, con su
+tabla y su receta en **7 bis A**. Todo lo que hace falta para arrancar en frío está en 3.8:
+índice de páginas, receta, reglas de alcance y el orden sugerido. **Sesión nueva para cada
+tanda** — las páginas son imágenes y se reenvían en todos los pedidos siguientes.
 
 Antes de eso venía el cotejo del **Nomenclador de Prestaciones Médicas** capítulo por
 capítulo, con el usuario midiendo contra la fuente (ver 3.4 y 3.5). Lo que quedó de ahí es
