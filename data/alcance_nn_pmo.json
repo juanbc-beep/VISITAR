@@ -1128,6 +1128,22 @@
    "norma": [],
    "_nota_sin_textos": "⚠️ El capítulo no aporta NINGÚN texto, y es lo correcto. Los dos códigos —38.01.01 puvaterapia y 38.02.01 cámara hiperbárica— son CODIGO AGREGADO POR EL P.M.O., con su obligación de cobertura impresa en negrita (mantenida), sin nada retirado. El capítulo entero entra en media página: termina donde arranca el 40/41.",
    "codigos": {}
+  },
+  "66": {
+   "titulo": "Análisis clínicos (laboratorio)",
+   "pags": [
+    168,
+    203
+   ],
+   "_nota_general": "⚠️ A diferencia de los capítulos 01-44, acá el código de la PRIMER COLUMNA no es del catálogo PMO-nomenclador — son fichas que YA existen en la base bajo nomenclador NBU (mismos 6 dígitos, sin puntos: 66.00.02 → 660002). El script alcance_nn_pmo.py les agrega el texto igual, porque busca por código sin mirar el nomenclador. NO ASUMIR que el número coincide siempre con el mismo análisis: verificado en la página 168, la mayoría coincide (ej. 660002 ACETONURIA, 660006 ACTH), pero al menos un caso NO (66.00.01 imprime «Acetaldehido enzimatico», retirado entero, y el 660001 de la base es «ACTO BIOQUÍMICO», una práctica distinta — coincidencia de número, no el mismo análisis). Antes de declarar un código acá, comparar el nombre en negrita de la ficha impresa contra el nombre que YA tiene la ficha de la base; si no coinciden razonablemente, no declararlo (dejarlo para revisión aparte, con una nota).",
+   "_nota_orden": "El PDF ordena alfabéticamente por nombre, no por número de código: un renglón puede traer su propio código impreso en el medio del texto en vez de en la columna CODIGO (ej. «66.04.32- ACIDOS GRASOS TOTALES...» aparece intercalado entre las A). Cada código sigue siendo el número real de esa práctica.",
+   "_nota_pagina_168": "Página 168 (66.00.02 a 66.00.15, orden alfabético 'Ac...'). Verificados por nombre contra la ficha ya existente: 660002 ACETONURIA, 660004 ACIDIMETRIA GASTRICA CURVA DE, 660005 ACIDO BASE ESTADO, 660006 ACTH, 660007 ADDIS RECUENTO DE, 660013 y 660014 AGLUTININAS — los siete coinciden razonablemente. De esos, sólo 660005, 660006 y 660013 tienen recuadro (los otros cuatro van enteros en negrita, nada que transcribir). NO declarados por nombre dudoso, pendientes de revisar a mano: 660432 (PDF «Acidos grasos totales en materia fecal, cuantitativo» vs base «Grasas, cuantitativo (Van de Kamer) — materia fecal»), 660143 (PDF «Adrenalina, nor adrenalina» vs base «Catecolaminas, libres — fraccionadas»), 660194 (PDF «Aglutininas hipotérmicas» vs base «Crioaglutinina»). Fuera de la base y con el nombre íntegro en bastardilla (retirados enteros por el PMO, no se transcriben): 66.00.01 Acetaldehido enzimatico, 66.00.03 Acidimetria diagnez azul, 66.00.08 Adenograma, 66.00.09/10/11 Adenosin mono/di/trifosforico ácido, 66.00.12 Agar electroforesis en, 66.00.15 Alanina beta -Orina-.",
+   "norma": [],
+   "codigos": {
+    "660005": "equilibrio, PH actual, PC02, exceso de base -RH- base buffer, bicarbonato. En urgencia sumar 66.06.99-",
+    "660006": "por radioinmunoensayo",
+    "660013": "-En urgencia sumar 66.06.99-"
+   }
   }
  }
 }

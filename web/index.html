@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-IQ3l1xpUMQUV0XeAaTUgkBziSD5jdArb23aHyIllM0c=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-qYsWAEvRWxWeqUtkxw+clYdX2ex0KZiB+JP3gezw5Hg=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1516,6 +1516,10 @@ try{if(sessionStorage.getItem('nbu-actualizando')){
       <h2>Sección NBU</h2>
       <div class="fgroup" id="fSeccion"></div>
     </div>
+    <div class="panel" id="tipoUnicoPanel">
+      <h2>Tipo de práctica</h2>
+      <div class="fgroup" id="fTipoUnico"></div>
+    </div>
     <div class="panel" id="grupoPanel">
       <h2 id="grupoTitle">Grupo · especialidad</h2>
       <div class="fgroup" id="fGrupo"></div>
@@ -1814,7 +1818,7 @@ let savedMode='NBU';try{savedMode=localStorage.getItem('nbu-mode')||'NBU';}catch
 if(ocultoNom(savedMode))savedMode='NBU';   // por si quedó guardado de antes de ocultarlo
 // quitar de la barra de navegación los nomencladores ocultos
 document.querySelectorAll('.modebtn').forEach(b=>{if(ocultoNom(b.dataset.mode))b.remove();});
-const state={q:'',mode:savedMode,seccion:new Set(),grupo:new Set(),flags:new Set(),limit:80,view:'list',vmode:'facturacion'};
+const state={q:'',mode:savedMode,seccion:new Set(),grupo:new Set(),flags:new Set(),limit:80,view:'list',vmode:'facturacion',tipoUnico:null};
 const el=id=>document.getElementById(id);
 
 /* ---------- ajustes globales: valor U.B. + favoritos ---------- */
@@ -1877,6 +1881,26 @@ function countBy(fn,pred){const m={};CODES.forEach(c=>{if(pred&&!pred(c))return;
 const secCounts=countBy(c=>c.seccion);
 el('fSeccion').innerHTML=['PMO','PE','GESTION'].map(s=>
   `<button class="opt" data-f="seccion" data-v="${s}"><span class="optrow"><span class="seccol" style="background:${SEC_COLORVAR[s]}"></span><span class="lbl">${SEC_LABEL[s]}</span></span><span class="n">${secCounts[s]||0}</span></button>`).join('');
+/* Único trae mezcladas las prestaciones médicas y el laboratorio (equivalente
+   al NBU con otro número). Antes se navegaban juntas; este filtro separa una
+   cosa de la otra con el dato que ya existe (`unico_tipo`), sin inventar
+   equivalencias nuevas — es la misma distinción que ya usa `openCode()` para
+   decidir qué badge de nomenclador mostrar. */
+const tipoUnicoCounts=countBy(c=>c.unico_tipo, c=>c.nomenclador==='UNICO');
+const TIPO_UNICO_LABEL={med:'Prestaciones médicas',lab:'Laboratorio'};
+function renderTipoUnico(){
+  const box=el('fTipoUnico'); if(!box)return;
+  box.innerHTML=['med','lab'].map(t=>
+    `<button class="opt${state.tipoUnico===t?' on':''}" data-tipounico="${t}"><span class="optrow"><span class="lbl">${TIPO_UNICO_LABEL[t]}</span></span><span class="n">${tipoUnicoCounts[t]||0}</span></button>`).join('');
+  box.querySelectorAll('[data-tipounico]').forEach(b=>b.addEventListener('click',()=>{
+    const v=b.dataset.tipounico;
+    state.tipoUnico = state.tipoUnico===v ? null : v;
+    state.grupo.clear(); state.limit=80;
+    renderTipoUnico();
+    buildGroups();
+    render();
+  }));
+}
 // grupos por modo (para no mezclar bioquímica con especialidades médicas)
 function buildGroups(){
   let grupos;
@@ -1889,7 +1913,7 @@ function buildGroups(){
   }else if(state.mode==='ABR'||state.mode==='ALL'){
     grupos=[];
   }else{
-    const counts=countBy(c=>c.grupo,c=>c.nomenclador===state.mode);
+    const counts=countBy(c=>c.grupo,c=>c.nomenclador===state.mode&&(state.mode!=='UNICO'||!state.tipoUnico||c.unico_tipo===state.tipoUnico));
     grupos=Object.entries(counts).sort((a,b)=>b[1]-a[1]).map(([g,n])=>[g,n,g]);
   }
   el('fGrupo').innerHTML=grupos.map(([g,n,lbl])=>
@@ -1953,7 +1977,7 @@ document.querySelectorAll('#fSeccion .opt').forEach(b=>b.addEventListener('click
 function setMode(m){
   if(ocultoNom(m))return;      // no se navega a un nomenclador oculto
   if(m===state.mode)return;
-  state.mode=m; state.seccion.clear(); state.grupo.clear(); state.limit=80;
+  state.mode=m; state.seccion.clear(); state.grupo.clear(); state.tipoUnico=null; state.limit=80;
   try{localStorage.setItem('nbu-mode',m);}catch(e){}
   applyMode();
   render();
@@ -1967,6 +1991,8 @@ function applyMode(){
   const isAll = state.mode==='ALL';
   const noVal = isAll||state.mode==='CIE'||state.mode==='ABR'||state.mode==='SURGE';
   el('secPanel').hidden = state.mode!=='NBU';        // "Sección NBU" solo aplica a laboratorio
+  el('tipoUnicoPanel').hidden = state.mode!=='UNICO'; // Prestaciones/Laboratorio, sólo dentro del Único
+  if(typeof renderTipoUnico==='function')renderTipoUnico();
   el('flagsPanel').hidden = isAll||state.mode==='SURGE'; // reglas/estados no aplican a búsqueda global/SURGE
   el('grupoTitle').textContent = state.mode==='NBU' ? 'Grupo · área bioquímica' : (state.mode==='CIE' ? 'Capítulo CIE-10' : (state.mode==='ABR' ? 'Fuente' : (state.mode==='SURGE' ? 'Especialidad' : 'Capítulo · especialidad')));
   const treeOK = state.mode==='NBU'||state.mode==='UNICO'; // árbol de módulos: NBU y Único (lab)
@@ -2028,9 +2054,9 @@ medirCabecera();
 })();
 
 el('clearFilters').addEventListener('click',()=>{
-  state.seccion.clear();state.grupo.clear();state.flags.clear();state.q='';el('q').value='';
+  state.seccion.clear();state.grupo.clear();state.flags.clear();state.tipoUnico=null;state.q='';el('q').value='';
   document.body.classList.remove('buscando');
-  document.querySelectorAll('.opt.on').forEach(o=>o.classList.remove('on'));state.limit=80;render();
+  document.querySelectorAll('.opt.on').forEach(o=>o.classList.remove('on'));state.limit=80;buildGroups();render();
 });
 
 /* ---------- search ---------- */
@@ -2095,6 +2121,7 @@ function filtered(){
   const terms=norm(state.q).split(/\s+/).filter(Boolean);
   return buscar(CODES,terms,c=>{
     if(c.nomenclador!==state.mode)return false;
+    if(state.mode==='UNICO'&&state.tipoUnico&&c.unico_tipo!==state.tipoUnico)return false;
     if(state.seccion.size&&!state.seccion.has(c.seccion))return false;
     if(state.grupo.size&&!state.grupo.has(c.grupo))return false;
     if(state.flags.size&&!passFlags(c))return false;
@@ -2298,13 +2325,18 @@ function hlList(s){
 
 function renderChips(){
   const chips=[];
+  if(state.tipoUnico)chips.push(chip('tipoUnico',state.tipoUnico,TIPO_UNICO_LABEL[state.tipoUnico]));
   state.seccion.forEach(s=>chips.push(chip('seccion',s,SEC_LABEL[s])));
   state.grupo.forEach(g=>chips.push(chip('grupo',g,g)));
   state.flags.forEach(f=>chips.push(chip('flags',f,(FLAGS.find(x=>x[0]===f)||[f,f])[1])));
   el('activeChips').innerHTML=chips.join('');
   el('activeChips').querySelectorAll('.fchip button').forEach(b=>b.addEventListener('click',()=>{
-    state[b.dataset.f].delete(b.dataset.v);
-    document.querySelector(`.opt[data-f="${b.dataset.f}"][data-v="${cssEsc(b.dataset.v)}"]`)?.classList.remove('on');
+    if(b.dataset.f==='tipoUnico'){state.tipoUnico=null;renderTipoUnico();}
+    else{
+      state[b.dataset.f].delete(b.dataset.v);
+      document.querySelector(`.opt[data-f="${b.dataset.f}"][data-v="${cssEsc(b.dataset.v)}"]`)?.classList.remove('on');
+    }
+    buildGroups();
     render();
   }));
 }
@@ -2315,7 +2347,7 @@ let rapMod='fav';
 let modoPrevioFavs=null;   // a qué nomenclador volver al salir de la vista de favoritos
 function renderRapidos(){
   const cont=el('rapidos');
-  const limpio=!state.q&&!state.seccion.size&&!state.grupo.size&&!state.flags.size
+  const limpio=!state.q&&!state.seccion.size&&!state.grupo.size&&!state.flags.size&&!state.tipoUnico
                &&state.view==='list'&&!['CIE','ABR','SURGE','ALL'].includes(state.mode);
   const favs=[...FAVS].map(k=>BYCODE[k]).filter(c=>c&&c.nomenclador===state.mode).slice(0,8);
   const P=window.NBUProfile||{};
@@ -2753,6 +2785,7 @@ function downloadCSV(filename,rows){
 function activeFilterText(){
   const p=[];
   if(state.q)p.push(`búsqueda "${state.q}"`);
+  if(state.tipoUnico)p.push('tipo: '+TIPO_UNICO_LABEL[state.tipoUnico]);
   if(state.seccion.size)p.push('sección: '+[...state.seccion].map(s=>SEC_LABEL[s]).join(', '));
   if(state.grupo.size)p.push('grupo: '+[...state.grupo].join(', '));
   if(state.flags.size)p.push([...state.flags].map(f=>(FLAGS.find(x=>x[0]===f)||[f,f])[1]).join(', '));
