@@ -307,6 +307,85 @@ enlace lleva a `localhost` y no abre nada.
 
 ---
 
+## Si perdés el acceso
+
+Hay tres pérdidas posibles y son de gravedad muy distinta. Conviene saber cuál
+te tocó antes de buscar la salida.
+
+### 1. Olvidaste tu contraseña de la app
+
+Sin drama. **Me olvidé la contraseña** en la pantalla de ingreso, como cualquier
+otra persona del equipo. Ver *Contraseñas*, más arriba.
+
+### 2. Tu cuenta dejó de ser administradora
+
+Pasa si transferiste la administración por error, o si algo quedó a medias. La
+app no tiene salida para esto a propósito —si la tuviera, cualquiera podría
+usarla—, así que se arregla desde el panel de Supabase:
+
+1. **SQL Editor** → **New query**
+2. `select public.hacerme_admin('tu@correo.com');`
+
+Esa función está revocada para las cuentas de la app justamente para que esta
+puerta exista y no se pueda abrir desde un navegador. Si ya hay otro
+administrador activo, la función se niega: primero hay que transferir desde la
+app.
+
+### 3. Perdiste el acceso al panel de Supabase
+
+**Acá no hay salida técnica.** Los datos siguen existiendo y la app sigue
+funcionando para quien ya entró, pero nadie puede aprobar una cuenta nueva,
+publicar una corrección ni arreglar nada.
+
+Por eso el punto que de verdad protege el manual no es una regla de la base: es
+que puedas volver a entrar a Supabase y a GitHub.
+
+## Las llaves maestras
+
+Dos cuentas mandan sobre todo lo demás. **GitHub** publica la app que usa el
+equipo; **Supabase** guarda y gobierna los datos. Cualquiera de las dos, en
+manos ajenas, vuelve irrelevante todo el resto.
+
+Las dos tienen que tener **verificación en dos pasos con app de autenticación**,
+no por SMS: un número de teléfono se puede portar, y con eso se pierde la
+cuenta. Al activarla, cada una entrega **códigos de recuperación**.
+
+Dónde vive cada cosa:
+
+| Qué | Dónde |
+|---|---|
+| Contraseñas de GitHub y Supabase | Gestor de contraseñas |
+| Códigos de recuperación de las dos | Gestor de contraseñas |
+| **Lo que recupera el gestor mismo** | **Impreso, en un lugar físico** |
+
+La última fila es la que se olvida y la única que importa cuando algo sale mal.
+Si los códigos de recuperación están en el gestor, y el gestor pide el mismo
+teléfono que tiene la app de autenticación, entonces perder el teléfono te deja
+afuera de todo a la vez. La cadena tiene que terminar en algo que no dependa de
+ningún dispositivo: la *Emergency Kit* de 1Password, el master password de
+Bitwarden, lo que corresponda al gestor que uses. Una hoja, guardada donde
+guardarías una escritura.
+
+## Una sola persona
+
+Hoy la administración del manual depende de una sola persona. No es un problema
+de seguridad —nadie entra por ahí— pero sí de continuidad: si esa persona no
+está disponible por un tiempo, el manual sigue consultándose con normalidad y
+deja de poder actualizarse.
+
+Lo más barato que lo cubre, sin sumar a nadie a las cuentas: un sobre cerrado
+con lo necesario para recuperar el gestor de contraseñas, en manos de alguien de
+confianza de la empresa o en la caja de seguridad de la sociedad, con la
+instrucción de abrirlo sólo llegado el caso. No da acceso a nadie hoy y evita
+que el manual quede huérfano.
+
+Si algún día hay una segunda persona técnica, la forma prolija es invitarla como
+miembro de la organización en Supabase y como colaboradora en GitHub. El rol de
+`admin` **dentro de la app** sigue siendo uno solo por diseño, y eso no cambia:
+son cosas distintas.
+
+---
+
 ## Qué se comparte y qué no
 
 | Dato | Dónde vive |
