@@ -253,3 +253,62 @@ do $$ begin
 end $$;
 reset role;
 \echo '   ok  CN-012  las funciones privilegiadas rechazan a quien no corresponde'
+
+-- ---------------------------------------------------------------------
+-- CN-013  El rastro de auditoría no se puede tapar ni espiar
+--
+--   Un registro que el interesado puede editar no sirve de nada. Nadie
+--   escribe ni borra en «auditoria» desde la app, ni siquiera el
+--   administrador: sólo la escribe el trigger, y sólo se limpia desde el
+--   SQL Editor.
+--
+--   Y lo que se guarda de «perfiles» son tres campos y nada más. Copiar
+--   la fila entera metería las notas personales en una tabla que lee el
+--   administrador, que es la fuga que ya cerramos una vez por otra vía.
+-- ---------------------------------------------------------------------
+do $ident$ begin perform set_config('request.jwt.claim.sub',
+                  (select p.id::text from public.perfiles p
+                     join auth.users u on u.id = p.id where u.email = 'user@test'), false); end $ident$;
+set role authenticated;
+do $$ begin
+  if (select count(*) from public.auditoria) > 0 then
+    raise exception 'CN-013: un usuario común lee el rastro de auditoría.';
+  end if;
+  begin
+    delete from public.auditoria;
+    raise exception 'CN-013: un usuario común pudo borrar el rastro de auditoría.';
+  exception when insufficient_privilege then null;
+  end;
+end $$;
+reset role;
+
+do $ident$ begin perform set_config('request.jwt.claim.sub',
+                  (select p.id::text from public.perfiles p
+                     join auth.users u on u.id = p.id where u.email = 'admin@test'), false); end $ident$;
+set role authenticated;
+do $$ begin
+  begin
+    delete from public.auditoria;
+    raise exception 'CN-013: el administrador pudo borrar el rastro para taparse.';
+  exception when insufficient_privilege then null;
+  end;
+  begin
+    update public.auditoria set quien_nombre = 'otro';
+    raise exception 'CN-013: el administrador pudo reescribir el rastro.';
+  exception when insufficient_privilege then null;
+  end;
+end $$;
+reset role;
+
+do $$
+declare campos text;
+begin
+  select string_agg(k, ', ') into campos
+    from public.auditoria a, jsonb_object_keys(a.despues) k
+   where a.tabla = 'perfiles' and a.despues is not null
+     and k in ('notas', 'favoritos', 'recientes', 'ub');
+  if campos is not null then
+    raise exception 'CN-013: la auditoría de perfiles guarda datos personales: %', campos;
+  end if;
+end $$;
+\echo '   ok  CN-013  el rastro de auditoría es de sólo lectura y sin datos personales'

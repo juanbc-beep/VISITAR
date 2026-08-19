@@ -145,3 +145,30 @@ do $$ begin
 end $$;
 reset role;
 \echo '   ok  pendientes() informa las cuentas por aprobar'
+
+-- --- La auditoría registra lo que tiene que registrar -----------------
+-- El caso que motivó todo esto: una baja no dejaba ningún rastro. Ahora
+-- tiene que quedar quién la hizo y qué decía la fila antes de irse.
+do $ident$ begin perform set_config('request.jwt.claim.sub',
+                  (select p.id::text from public.perfiles p
+                     join auth.users u on u.id = p.id where u.email = 'admin@test'), false); end $ident$;
+set role authenticated;
+delete from public.correcciones where codigo = '420101';
+reset role;
+do $$
+declare r record;
+begin
+  select * into r from public.auditoria
+   where tabla = 'correcciones' and operacion = 'baja' and clave = '420101'
+   order by id desc limit 1;
+  if r is null then
+    raise exception 'REG: borrar una corrección no dejó rastro en la auditoría.';
+  end if;
+  if r.quien_nombre <> 'Admin General' then
+    raise exception 'REG: la auditoría no atribuyó la baja a quien la hizo (dice «%»).', r.quien_nombre;
+  end if;
+  if r.antes ->> 'nombre' is null then
+    raise exception 'REG: la auditoría no guardó qué decía la corrección antes de borrarse.';
+  end if;
+end $$;
+\echo '   ok  la auditoría registra las bajas con autor y contenido'

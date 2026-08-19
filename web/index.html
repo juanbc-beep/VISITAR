@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-jDX+oLUKYre11w120Z2vrhHyHGnC+Wbm+gE90VfKlJI=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-m4C6vluNaWBl58aDMPAUeVQCmSYCK2enP4wzxfq9udY=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -3601,9 +3601,9 @@ function openCode(code,origen){
       ${obsFichaHTML(code)}
       ${veredictoHTML(c)}
       ${verifHTML(code)}
-      ${(window.NBUProfile&&NBUProfile.active())?`<div class="dnote"><textarea id="dNote" placeholder="Tu nota personal para este código (privada de tu perfil)…">${esc(note)}</textarea>
+      ${(window.NBUProfile&&NBUProfile.active())?`<div class="dnote"><textarea id="dNote" placeholder="Tu nota personal para este código (privada de tu perfil). Sin datos de pacientes.">${esc(note)}</textarea>
         <div class="dnote-acc"><button class="minibtn" id="dNoteShare" ${note?'':'disabled'}>↑ Compartir con el equipo</button>
-        <span class="ahint">Tu nota la ves sólo vos. ${!esAdministrativo
+        <span class="ahint">Tu nota la ves sólo vos, pero no es lugar para los datos de un paciente: ni nombre, ni DNI, ni número de afiliado. Esta base guarda cómo se factura una práctica, no a quién se le hizo. ${!esAdministrativo
           ? 'Compartirla la manda por el circuito médico, igual que el botón de arriba.'
           : 'Compartirla la manda como propuesta para que el administrador la publique.'}</span></div></div>`:''}
     </div>`;
