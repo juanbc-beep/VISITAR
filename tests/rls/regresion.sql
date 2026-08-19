@@ -56,27 +56,29 @@ do $$ begin
   if (select count(*) from public.perfiles where id = auth.uid() and notas::text <> '{}') = 0 then
     raise exception 'REG: un usuario activo no lee sus propias notas.';
   end if;
-  if (select count(*) from public.equipo) <> 4 then
-    raise exception 'REG: la vista «equipo» no devuelve las 4 cuentas (devolvió %).',
-                    (select count(*) from public.equipo);
+  if (select count(*) from public.equipo()) <> 4 then
+    raise exception 'REG: equipo() no devuelve las 4 cuentas (devolvió %).',
+                    (select count(*) from public.equipo());
   end if;
 end $$;
 reset role;
 \echo '   ok  el equipo lee el contenido compartido y sus propias notas'
 
--- --- La vista «equipo» no filtra columnas personales -----------------
+-- --- equipo() no devuelve columnas personales -----------------------
 do $$
 declare cols text;
 begin
-  select coalesce(string_agg(column_name, ', '), '') into cols
-    from information_schema.columns
-   where table_schema = 'public' and table_name = 'equipo'
-     and column_name in ('notas', 'favoritos', 'recientes', 'ub');
+  select coalesce(string_agg(p.parameter_name, ', '), '') into cols
+    from information_schema.parameters p
+    join information_schema.routines r
+      on r.specific_name = p.specific_name and r.specific_schema = p.specific_schema
+   where r.routine_schema = 'public' and r.routine_name = 'equipo'
+     and p.parameter_name in ('notas', 'favoritos', 'recientes', 'ub');
   if cols <> '' then
-    raise exception 'REG: la vista «equipo» expone columnas personales: %', cols;
+    raise exception 'REG: equipo() devuelve columnas personales: %', cols;
   end if;
 end $$;
-\echo '   ok  la vista «equipo» no expone notas, favoritos ni U.B.'
+\echo '   ok  equipo() no expone notas, favoritos ni U.B.'
 
 -- --- Una cuenta pendiente no ve nada del equipo ----------------------
 do $ident$ begin perform set_config('request.jwt.claim.sub',
@@ -85,7 +87,7 @@ do $ident$ begin perform set_config('request.jwt.claim.sub',
 set role authenticated;
 do $$ begin
   if (select count(*) from public.correcciones) > 0 then raise exception 'REG: una cuenta pendiente lee las correcciones.'; end if;
-  if (select count(*) from public.equipo) <> 1      then raise exception 'REG: una cuenta pendiente ve más que su propia fila.'; end if;
+  if (select count(*) from public.equipo()) <> 1      then raise exception 'REG: una cuenta pendiente ve más que su propia fila.'; end if;
 end $$;
 reset role;
 \echo '   ok  la cuenta pendiente sigue aislada'

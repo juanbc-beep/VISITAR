@@ -167,3 +167,42 @@ do $$ begin
   end if;
 end $$;
 \echo '   ok  CN-006  la firma de validación no se puede falsear'
+
+-- ---------------------------------------------------------------------
+-- CN-011  No hay forma de escribir en «perfiles» esquivando RLS
+--
+--   «equipo» nació como vista para no exponer las notas personales. Una
+--   vista de una sola tabla es auto-actualizable, y como corría con los
+--   permisos de su dueño se saltaba RLS también para escribir: un
+--   administrativo común podía renombrar la cuenta del administrador con
+--   un UPDATE a través de ella. Lo marcó el Security Advisor de Supabase
+--   y se comprobó que funcionaba de verdad.
+--
+--   Ahora es una función, que no tiene por dónde escribir. Esta prueba
+--   falla si alguien la vuelve a convertir en vista o deja cualquier otro
+--   objeto escribible que llegue a «perfiles» sin pasar por RLS.
+-- ---------------------------------------------------------------------
+do $$
+declare vistas text;
+begin
+  select coalesce(string_agg(table_name, ', '), '') into vistas
+    from information_schema.views
+   where table_schema = 'public'
+     and view_definition ilike '%perfiles%';
+  if vistas <> '' then
+    raise exception 'CN-011: hay vistas sobre «perfiles» (%). Una vista simple es auto-actualizable y saltea RLS: usá una función.', vistas;
+  end if;
+end $$;
+
+do $ident$ begin perform set_config('request.jwt.claim.sub',
+                  (select p.id::text from public.perfiles p
+                     join auth.users u on u.id = p.id where u.email = 'user@test'), false); end $ident$;
+set role authenticated;
+update public.perfiles set nombre = 'HACKEADO' where nombre = 'Admin General';
+reset role;
+do $$ begin
+  if not exists (select 1 from public.perfiles where nombre = 'Admin General') then
+    raise exception 'CN-011: un usuario común pudo renombrar la cuenta del administrador.';
+  end if;
+end $$;
+\echo '   ok  CN-011  no se puede escribir en perfiles esquivando RLS'
