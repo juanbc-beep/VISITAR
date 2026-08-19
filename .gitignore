@@ -1,0 +1,32 @@
+# Nada de esto tiene que llegar al repositorio. La app es pública: lo que se
+# commitea acá queda publicado en GitHub Pages y en el historial para siempre,
+# y borrarlo después no lo borra del historial.
+
+# Claves y credenciales
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+id_rsa
+id_ed25519
+credentials.json
+service-account*.json
+.npmrc
+.pypirc
+
+# Restos de las herramientas de datos
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Basura del sistema y del editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/

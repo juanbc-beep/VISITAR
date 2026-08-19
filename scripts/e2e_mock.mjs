@@ -26,6 +26,13 @@ function servidor(yo,db){
         db.perfilExtra[yo.id]=Object.assign(db.perfilExtra[yo.id]||{},cuerpo); return ok(null); }
       return ok(null);
     }
+    // La vista «equipo»: id, nombre y rol, sin notas ni favoritos ni U.B. Es lo
+    // que pide la app para atribuir autoria, y lo unico que la base le contesta
+    // a quien no es administrador (ver docs/supabase.sql). Se devuelven solo
+    // esas columnas a proposito: si alguna vez la app volviera a depender de un
+    // campo personal, el mock tiene que fallar igual que fallaria el servidor.
+    if(path==='/rest/v1/equipo' && m==='GET')
+      return ok([JUAN,ANA].map(({id,nombre,rol,estado})=>({id,nombre,rol,estado})));
     if(path==='/rest/v1/rpc/pendientes')return ok({cuentas:0,verificaciones:db.verificaciones.filter(v=>v.estado==='pendiente').length,propuestas:db.propuestas.length});
     if(path==='/rest/v1/rpc/pedir_verificacion'){
       const admin=yo.rol==='admin', c=cuerpo.p_codigo;

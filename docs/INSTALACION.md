@@ -42,6 +42,14 @@ no puede leer nada del equipo, y nadie puede darse permisos a sí mismo aunque
 manipule la aplicación desde su navegador. Esas reglas las hace cumplir la base,
 no la app.
 
+> **Si tu base ya estaba andando de antes**, corré además
+> [`docs/supabase_seguridad.sql`](supabase_seguridad.sql), una sola vez y del
+> mismo modo. Cierra seis huecos en esas reglas —entre ellos una tabla que se
+> había quedado sin protección y la transferencia de administración, que dejaba
+> la base sin ningún administrador—. No borra datos y se puede correr de nuevo
+> sin romper nada. En una instalación desde cero no hace falta: `supabase.sql`
+> ya lo trae incorporado.
+
 ### 1.3 Apagar la confirmación por correo
 
 Como la aprobación la hacés vos a mano, pedir además una confirmación por mail es

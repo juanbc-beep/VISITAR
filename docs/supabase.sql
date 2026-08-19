@@ -174,14 +174,47 @@ create constraint trigger perfiles_un_admin
   for each row execute function public.un_solo_admin();
 
 -- Transferencia de la administración, en una sola transacción.
+--
+-- El orden importa y no es casual: PRIMERO se asciende al sucesor y DESPUÉS
+-- se degrada al saliente. Mientras corre el ascenso, quien llama sigue siendo
+-- administrador y «perfil_guardia» lo deja pasar; cuando corre la degradación
+-- también, porque su fila se toca recién ahí. Al revés —degradar primero— el
+-- guardia ve es_admin()=false durante el ascenso y lo revierte en silencio:
+-- la función termina sin error y la base queda SIN NINGÚN administrador.
+--
+-- Tampoco sirve hacerlo en una sola sentencia con «case»: el guardia es una
+-- función volátil y toma un snapshot nuevo en cada invocación, así que al
+-- procesar la segunda fila ya ve aplicada la primera.
+--
+-- Entre las dos sentencias hay un instante con dos administradores, y es
+-- exactamente para eso que «perfiles_un_admin» se declaró deferrable.
 create or replace function public.transferir_admin(nuevo uuid) returns void
   language plpgsql security definer set search_path = public as $$
+declare filas int;
 begin
   if not public.es_admin() then
     raise exception 'Sólo el administrador puede transferir la administración.';
   end if;
-  update public.perfiles set rol = 'usuario' where rol = 'admin';
+  if nuevo is null or not exists (select 1 from public.perfiles where id = nuevo) then
+    raise exception 'No existe la cuenta a la que se quiere transferir la administración.';
+  end if;
+  if exists (select 1 from public.perfiles
+              where id = nuevo and rol = 'admin' and estado = 'activo') then
+    return;                                       -- ya es el administrador
+  end if;
+
   update public.perfiles set rol = 'admin', estado = 'activo' where id = nuevo;
+  get diagnostics filas = row_count;
+  if filas <> 1 then
+    raise exception 'No se pudo ascender a la cuenta indicada. No se cambió nada.';
+  end if;
+
+  update public.perfiles set rol = 'usuario' where rol = 'admin' and id <> nuevo;
+
+  if not exists (select 1 from public.perfiles
+                  where id = nuevo and rol = 'admin' and estado = 'activo') then
+    raise exception 'La transferencia no se completó: la cuenta destino no quedó como administrador. No se cambió nada.';
+  end if;
 end $$;
 
 -- ---------------------------------------------------------------------
@@ -276,7 +309,17 @@ begin
   if not public.es_medico_admin() then
     raise exception 'Sólo el administrador o un médico administrador pueden tocar las correcciones.';
   end if;
-  select * into viejo from public.correcciones where codigo = new.codigo;
+  -- La clave no se puede mover: renombrarla a un código libre haría que la
+  -- búsqueda de abajo no encontrara nada y los cuatro campos de la ficha se
+  -- guardaran en null. Era otra forma de borrar la corrección sin permiso.
+  -- Mismo criterio que «new.id := old.id» en perfil_guardia.
+  if tg_op = 'UPDATE' then
+    new.codigo := old.codigo;
+    select * into viejo from public.correcciones where codigo = old.codigo;
+  else
+    select * into viejo from public.correcciones where codigo = new.codigo;
+  end if;
+
   new.nombre     := viejo.nombre;
   new.norma      := viejo.norma;
   new.auditoria  := viejo.auditoria;
@@ -297,16 +340,42 @@ create trigger correcciones_limite_medico
 --    Regla general: una cuenta PENDIENTE no ve nada más que su propio
 --    perfil. Recién aprobada empieza a leer el contenido del equipo.
 -- ---------------------------------------------------------------------
+--    Ojo al agregar una tabla nueva: crear la policy no alcanza. Sin la línea
+--    de abajo, PostgreSQL no la evalúa nunca y la tabla queda abierta a
+--    cualquier cuenta. Toda tabla de esta lista tiene que aparecer también
+--    en el bloque de policies, y al revés.
 alter table public.perfiles       enable row level security;
 alter table public.correcciones   enable row level security;
+alter table public.observaciones  enable row level security;
 alter table public.verificaciones enable row level security;
 alter table public.propuestas     enable row level security;
 alter table public.ajustes        enable row level security;
 
 -- PERFILES ------------------------------------------------------------
+-- La fila entera —notas personales, favoritos, U.B.— la ve sólo su dueño y el
+-- administrador. Para poner nombre a los uuid al mostrar quién hizo qué, que
+-- es lo único que el resto del equipo necesita, está la vista «equipo».
 drop policy if exists perfiles_ver on public.perfiles;
 create policy perfiles_ver on public.perfiles for select to authenticated
-  using (id = auth.uid() or public.es_admin() or public.es_activo());
+  using (id = auth.uid() or public.es_admin());
+
+-- Las cuatro columnas que hacen falta para atribuir autoría, y ninguna de las
+-- personales. Al ser una vista normal corre con los permisos de su dueño, así
+-- que ve la tabla entera; el «where» de adentro decide a quién le contesta.
+-- Una cuenta pendiente sigue viendo únicamente la suya.
+--
+-- security_invoker se declara explícito y en false a propósito: es el valor
+-- por defecto, pero de él depende que la vista funcione, y dejarlo escrito
+-- evita que un cambio de default en una versión futura la rompa en silencio.
+create or replace view public.equipo with (security_invoker = false) as
+  select id, nombre, rol, estado
+    from public.perfiles
+   where public.es_activo() or id = auth.uid();
+
+comment on view public.equipo is
+  'Nombre y rol del equipo, para atribuir autoría. Sin notas, favoritos ni U.B.';
+
+grant select on public.equipo to authenticated;
 
 drop policy if exists perfiles_editar on public.perfiles;
 create policy perfiles_editar on public.perfiles for update to authenticated
@@ -323,11 +392,26 @@ drop policy if exists correcciones_ver on public.correcciones;
 create policy correcciones_ver on public.correcciones for select to authenticated
   using (public.es_activo());
 
+-- Escribir y actualizar quedan abiertos al médico administrador —lo que puede
+-- cambiar lo acota «correcciones_guardia»—, pero BORRAR es del dueño del
+-- manual. Con una sola policy «for all» el médico administrador podía borrar
+-- la corrección entera, que logra el mismo daño que editar la ficha, y el
+-- guardia no lo veía porque sólo corre en insert y update. Mismo criterio que
+-- ya regía en «propuestas» y «verificaciones».
 drop policy if exists correcciones_escribir on public.correcciones;
-create policy correcciones_escribir on public.correcciones for all to authenticated
-  using (public.es_admin() or public.es_medico_admin())
+
+drop policy if exists correcciones_insertar on public.correcciones;
+create policy correcciones_insertar on public.correcciones for insert to authenticated
   with check (public.es_admin() or public.es_medico_admin());
-  -- lo que el médico administrador puede cambiar lo acota «correcciones_guardia»
+
+drop policy if exists correcciones_actualizar on public.correcciones;
+create policy correcciones_actualizar on public.correcciones for update to authenticated
+  using      (public.es_admin() or public.es_medico_admin())
+  with check (public.es_admin() or public.es_medico_admin());
+
+drop policy if exists correcciones_borrar on public.correcciones;
+create policy correcciones_borrar on public.correcciones for delete to authenticated
+  using (public.es_admin());
 
 -- OBSERVACIONES -------------------------------------------------------
 drop policy if exists obs_ver on public.observaciones;
@@ -345,10 +429,14 @@ drop policy if exists verif_ver on public.verificaciones;
 create policy verif_ver on public.verificaciones for select to authenticated
   using (public.es_activo());
 
--- un administrativo activo puede SOLICITAR, siempre en estado pendiente
+-- un administrativo activo puede SOLICITAR, siempre en estado pendiente.
+-- «validada_por» y «validada_en» tienen que venir vacíos: si no, cualquiera
+-- podía dejar escrito que un administrador ya había firmado, y esa línea es
+-- justo la que se mira cuando una facturación se discute.
 drop policy if exists verif_solicitar on public.verificaciones;
 create policy verif_solicitar on public.verificaciones for insert to authenticated
-  with check (public.es_activo() and estado = 'pendiente' and solicitada_por = auth.uid());
+  with check (public.es_activo() and estado = 'pendiente' and solicitada_por = auth.uid()
+              and validada_por is null and validada_en is null);
 
 -- validar o borrar es sólo del administrador
 drop policy if exists verif_validar on public.verificaciones;
