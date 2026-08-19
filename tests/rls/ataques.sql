@@ -206,3 +206,50 @@ do $$ begin
   end if;
 end $$;
 \echo '   ok  CN-011  no se puede escribir en perfiles esquivando RLS'
+
+-- ---------------------------------------------------------------------
+-- CN-012  Las funciones privilegiadas se defienden solas
+--
+--   El Security Advisor de Supabase avisa que cualquier usuario logueado
+--   puede LLAMAR a las funciones «security definer». Es cierto y no se
+--   puede evitar: las policies de RLS invocan es_admin() y es_activo()
+--   con los permisos de quien consulta, así que revocarles el EXECUTE
+--   deja a todo el equipo sin poder leer nada. Comprobado.
+--
+--   Entonces lo que protege no es quién puede llamarlas, sino que cada
+--   una compruebe por dentro con quién está hablando. Esta prueba fija
+--   esa propiedad: un administrativo común las llama y no consigue nada.
+-- ---------------------------------------------------------------------
+do $ident$ begin perform set_config('request.jwt.claim.sub',
+                  (select p.id::text from public.perfiles p
+                     join auth.users u on u.id = p.id where u.email = 'user@test'), false); end $ident$;
+set role authenticated;
+
+do $$ begin
+  begin
+    perform public.validar_verificacion('420101');
+    raise exception 'CN-012: un usuario común pudo validar una verificación.';
+  exception when raise_exception then
+    if sqlerrm like 'CN-012:%' then raise; end if;   -- el fallo nuestro sí sube
+  end;
+end $$;
+
+do $$ begin
+  begin
+    perform public.transferir_admin(auth.uid());
+    raise exception 'CN-012: un usuario común pudo transferirse la administración.';
+  exception when raise_exception then
+    if sqlerrm like 'CN-012:%' then raise; end if;
+  end;
+end $$;
+
+do $$ begin
+  if (public.pendientes() ->> 'cuentas')::int <> 0 then
+    raise exception 'CN-012: pendientes() le revela a un usuario común las cuentas por aprobar.';
+  end if;
+  if public.es_admin() then
+    raise exception 'CN-012: es_admin() da verdadero para un usuario común.';
+  end if;
+end $$;
+reset role;
+\echo '   ok  CN-012  las funciones privilegiadas rechazan a quien no corresponde'
