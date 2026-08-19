@@ -29,6 +29,15 @@
 --
 --  La revisión médica aprobada viaja dentro de «correcciones.datos», que ya
 --  es jsonb libre y ya se usa así. No hace falta una tabla para esto.
+--
+--  ---------------------------------------------------------------------
+--  ⚠️ CORRÉ DESPUÉS supabase_seguridad.sql
+--  ---------------------------------------------------------------------
+--  Este archivo quedó como está por ser el registro de lo que ya se aplicó.
+--  Tiene seis huecos que se cierran en «supabase_seguridad.sql»: entre ellos,
+--  la policy de correcciones de acá abajo es «for all» y deja que el médico
+--  administrador BORRE la corrección entera, que es justo lo que el trigger
+--  de más arriba se ocupa de impedirle por la vía de la edición.
 -- =====================================================================
 
 begin;

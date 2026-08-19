@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-qYsWAEvRWxWeqUtkxw+clYdX2ex0KZiB+JP3gezw5Hg=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-MKHJdLfUZvr90MJKnQccMUsUnrQgE030AjzdaUemtuc=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -4659,7 +4659,20 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         Object.assign(perfil,campos);
       },
 
+      /* Nombre y rol del equipo, nada más: es lo único que hace falta para
+         mostrar quién hizo qué. Va contra la vista «equipo» y no contra
+         «perfiles» porque la fila entera lleva las notas personales, los
+         favoritos y la U.B. de cada uno, y eso no es asunto del resto del
+         equipo. La regla que lo impide vive en la base (docs/supabase.sql);
+         esto es simplemente pedir lo que corresponde.
+
+         «estado» va incluido porque el administrador cuenta con él las cuentas
+         por aprobar para el aviso de la campana; no es un dato personal. */
+      equipo:()=>api('/rest/v1/equipo?select=id,nombre,rol,estado',{method:'GET'}),
+
       /* --- administración --- */
+      /* La fila completa, para el panel de cuentas. Sólo contesta al
+         administrador general, que es el único que abre esa pestaña. */
       listar:()=>api('/rest/v1/perfiles?select=*&order=estado.asc,nombre.asc',{method:'GET'}),
       cambiar:(id,campos)=>api('/rest/v1/perfiles?id=eq.'+encodeURIComponent(id),
         {method:'PATCH',headers:{'Prefer':'return=minimal'},body:JSON.stringify(campos)}),
@@ -4853,7 +4866,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     if(!(NUBE.activa&&current&&current._nube))return false;
     const antesFicha=currentCode?huella(currentCode):'';
     const [perfiles,corr,ver,props,aj,obs]=await Promise.all([
-      NUBE.listar().catch(()=>[]),          // sólo para poner nombres a los uuid
+      NUBE.equipo().catch(()=>[]),          // sólo para poner nombres a los uuid
       NUBE.correcciones(), NUBE.verificaciones(), NUBE.propuestas(), NUBE.ajustes(),
       NUBE.observaciones()]);
     nombrePorId={}; rolPorId={};
