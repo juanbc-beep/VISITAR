@@ -1,0 +1,77 @@
+# Prueba las reglas de acceso de la base contra un PostgreSQL de verdad.
+#
+# Por qué existe: lo que protege los datos de este manual no es la app, es RLS.
+# Una policy mal escrita no rompe nada visible —la app sigue andando igual— así
+# que un error acá no se nota hasta que alguien lee lo que no debería. Estas
+# pruebas hacen que se note en el pull request.
+#
+# Los seis ataques de tests/rls/ataques.sql funcionaban de verdad antes de la
+# corrección de seguridad. Se reprodujeron contra una base real y quedaron acá
+# para que no puedan volver en silencio.
+#
+# El contrapeso es tests/rls/regresion.sql: una regla cerrada de más rompe el
+# trabajo del equipo, y eso también tiene que fallar la build.
+#
+# La acción va fijada por identificador de commit, no por etiqueta, por lo
+# mismo que en pages.yml: una etiqueta se puede mover, un commit no.
+name: Probar las reglas de acceso
+
+on:
+  pull_request:
+    paths: ['docs/**.sql', 'tests/rls/**', '.github/workflows/rls.yml']
+  push:
+    branches: [claude/unified-medical-codes-manual-o9nw1w]
+    paths: ['docs/**.sql', 'tests/rls/**', '.github/workflows/rls.yml']
+  workflow_dispatch:
+
+# Sólo leer el repositorio. Estas pruebas no publican nada ni tocan secretos.
+permissions:
+  contents: read
+
+concurrency:
+  group: rls-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  reglas:
+    runs-on: ubuntu-latest
+
+    # PostgreSQL de verdad y no un simulacro: las policies, los triggers y el
+    # comportamiento de los snapshots dentro de una transacción son justamente
+    # lo que se está probando. Uno de los seis errores (la transferencia de
+    # administración) dependía de cómo PostgreSQL toma un snapshot nuevo en
+    # cada invocación de una función volátil. Eso no se puede simular.
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Asegurar el cliente de PostgreSQL
+        run: |
+          command -v psql >/dev/null || {
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq postgresql-client
+          }
+          psql --version
+
+      - name: Probar las reglas de acceso
+        env:
+          PGHOST: localhost
+          PGPORT: '5432'
+          PGUSER: postgres
+          PGPASSWORD: postgres
+          PGDATABASE: postgres
+        run: tests/rls/correr.sh

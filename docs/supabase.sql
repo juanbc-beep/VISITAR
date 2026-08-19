@@ -360,22 +360,30 @@ create policy perfiles_ver on public.perfiles for select to authenticated
   using (id = auth.uid() or public.es_admin());
 
 -- Las cuatro columnas que hacen falta para atribuir autoría, y ninguna de las
--- personales. Al ser una vista normal corre con los permisos de su dueño, así
--- que ve la tabla entera; el «where» de adentro decide a quién le contesta.
--- Una cuenta pendiente sigue viendo únicamente la suya.
+-- personales. Corre con los permisos de quien la define, así que ve la tabla
+-- entera; el «where» de adentro decide a quién le contesta. Una cuenta
+-- pendiente sigue viendo únicamente la suya.
 --
--- security_invoker se declara explícito y en false a propósito: es el valor
--- por defecto, pero de él depende que la vista funcione, y dejarlo escrito
--- evita que un cambio de default en una versión futura la rompa en silencio.
-create or replace view public.equipo with (security_invoker = false) as
-  select id, nombre, rol, estado
-    from public.perfiles
-   where public.es_activo() or id = auth.uid();
+-- FUNCIÓN Y NO VISTA, a propósito. Una vista de una sola tabla es
+-- auto-actualizable: PostgreSQL acepta UPDATE y DELETE a través de ella. Y como
+-- Supabase le da permisos de escritura a «authenticated» sobre todo lo que hay
+-- en «public», una vista acá se convierte en una puerta para escribir en
+-- «perfiles» salteándose RLS: un administrativo común podía renombrar la cuenta
+-- del administrador. Comprobado antes de cambiarlo. Una función no tiene por
+-- dónde escribir, y además es el mismo patrón que es_admin() o pendientes().
+create or replace function public.equipo()
+  returns table (id uuid, nombre text, rol text, estado text)
+  language sql stable security definer set search_path = public as $$
+  select p.id, p.nombre, p.rol, p.estado
+    from public.perfiles p
+   where public.es_activo() or p.id = auth.uid();
+$$;
 
-comment on view public.equipo is
+comment on function public.equipo() is
   'Nombre y rol del equipo, para atribuir autoría. Sin notas, favoritos ni U.B.';
 
-grant select on public.equipo to authenticated;
+revoke all on function public.equipo() from public, anon;
+grant execute on function public.equipo() to authenticated;
 
 drop policy if exists perfiles_editar on public.perfiles;
 create policy perfiles_editar on public.perfiles for update to authenticated

@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-MKHJdLfUZvr90MJKnQccMUsUnrQgE030AjzdaUemtuc=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-jDX+oLUKYre11w120Z2vrhHyHGnC+Wbm+gE90VfKlJI=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -4666,9 +4666,14 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
          equipo. La regla que lo impide vive en la base (docs/supabase.sql);
          esto es simplemente pedir lo que corresponde.
 
+         Es una función y no una vista: una vista de una sola tabla es
+         auto-actualizable y, corriendo con los permisos de su dueño, se
+         volvía una puerta para escribir en «perfiles» salteándose las
+         reglas de acceso. Por eso va por rpc y con POST.
+
          «estado» va incluido porque el administrador cuenta con él las cuentas
          por aprobar para el aviso de la campana; no es un dato personal. */
-      equipo:()=>api('/rest/v1/equipo?select=id,nombre,rol,estado',{method:'GET'}),
+      equipo:()=>api('/rest/v1/rpc/equipo',{method:'POST',body:'{}'}),
 
       /* --- administración --- */
       /* La fila completa, para el panel de cuentas. Sólo contesta al
