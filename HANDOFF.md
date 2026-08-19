@@ -7,13 +7,14 @@
 > `nomenclador-nacional-barrido-gjii29`). El clon es superficial y el total de commits no se
 > puede contar, así que se identifica por rama.
 >
-> **✅ El barrido del Nomenclador Nacional (3.8) terminó capítulo por capítulo** —transcribir a
-> ojo el recuadro «Texto retirado por el PMO» que el catálogo del PMO no reproduce. Van **32
-> capítulos y 844 de 1.353 fichas (62%)**, desde 156 (11%). **Lo que sigue ahora es el
-> capítulo 66** (36 páginas, análisis clínicos): mismo trabajo de transcripción, pero el
-> texto se suma a las fichas del **NBU** que ya existen, no al PMO — con el cuidado extra de
-> verificar el nombre antes de declarar cada código (ver 3.8, «Capítulo 66»). Van las páginas
-> **168 a 196** (120 textos); quedan 7 páginas. Ver 7 bis A.
+> **✅ El barrido del Nomenclador Nacional (3.8) terminó, capítulo por capítulo y de punta a
+> punta** —transcribir a ojo el recuadro «Texto retirado por el PMO» que el catálogo del PMO
+> no reproduce. Los 32 capítulos del PMO están hechos (844 de 1.353 fichas, 62%) y el
+> **capítulo 66** (análisis clínicos, 36 páginas) también se completó el 19/8/2026: 134
+> códigos con texto sumado a fichas del **NBU** existentes (no al PMO — ver 3.8, «Capítulo
+> 66»). Quedan casos «dudoso» documentados página por página en `data/alcance_nn_pmo.json`
+> (nombre o método parecido pero no idéntico) para revisión manual; no son urgentes. La
+> agenda de 7 bis A ya no tiene barrido pendiente — ver el punto 7 bis para lo que sigue.
 >
 > **Lo más importante que cambió respecto del traspaso anterior:** la app dejó de ser un
 > archivo que cada uno guarda en su computadora y pasó a ser una **aplicación de empresa
@@ -920,7 +921,7 @@ Cobertura: **844 de 1.353 (62%)**, desde 156 (11%). El 23 (hemoterapia) queda ap
 cuenta (ver más abajo); el 66 no es del mismo tipo de trabajo ni cuenta acá — ver el punto
 siguiente.
 
-#### 🆕 Capítulo 66 (análisis clínicos): el mismo texto retirado, pero para el NBU, no el PMO
+#### ✅ Capítulo 66 (análisis clínicos): el mismo texto retirado, pero para el NBU, no el PMO — completo
 
 El usuario aclaró el 18/8/2026 cómo tratar este capítulo: **el texto «retirado por el PMO» de
 estas 36 páginas se suma como mejora a las fichas del NBU que ya existen**, no como fichas PMO
@@ -933,13 +934,14 @@ correcta. **No hace falta un script nuevo.**
 ⚠️ **Lo que sí cambia respecto de los capítulos PMO: hay que verificar el nombre antes de
 declarar cada código.** En capítulos anteriores, que un código exista en la base ya alcanzaba
 —ahí el código es la MISMA fila que se está leyendo—. Acá no: el número de la primer columna
-puede coincidir por casualidad con un código NBU que es **otra práctica**. Verificado en la
-páginas 168 a 196 (ya cargadas): decenas de candidatos con nombre parecido, **varios choques
+puede coincidir por casualidad con un código NBU que es **otra práctica**. Verificado en las
+36 páginas: decenas de candidatos con nombre parecido, **varios choques
 reales** —número compartido con una práctica totalmente distinta, por ejemplo `660001`
 «ACTO BIOQUÍMICO» contra «Acetaldehido enzimático», o `660245` «CHAGAS, SEROLOGÍA» contra
 «Chediak, reacción de»— y **varios quedaron dudosos** —nombre o método parecido pero no
 idéntico, no declarados hasta revisarlos a mano—. El detalle código por código de cada página
-está en `data/alcance_nn_pmo.json` bajo `"66"._nota_pagina_168` a `_nota_pagina_196`. La regla
+está en `data/alcance_nn_pmo.json` bajo `"66"._nota_pagina_168` a `_nota_pagina_203` (más
+`_nota_barrido_completo` con el resumen final). La regla
 para seguir: **comparar el nombre en negrita del PDF contra el nombre que ya tiene la ficha; si
 no coinciden razonablemente, no declarar ese código** (dejar nota, no adivinar) — el mismo
 criterio se aplica si coincide el nombre pero no el **método** (p. ej. `660833` «Bencidina»
@@ -957,15 +959,21 @@ código puede además existir en la
 base bajo nomenclador **PMO** en vez de NBU (`660185`) — no cambia nada, el script busca por
 código sin mirar el nomenclador.
 
-**Escala:** 36 páginas (168-203), ~1.815 fichas NBU candidatas, **120 códigos cargados hasta
-ahora** (páginas 168 a 196). Quedan 7 páginas. Páginas ya hechas documentadas en
-`data/alcance_nn_pmo.json` bajo `"66"._nota_pagina_168` a `_nota_pagina_196`, con el detalle
-código por código.
-⚠️ Dos códigos (`660430`, `660293`) aparecieron dos veces con textos **complementarios, no
-contradictorios** (uno más corto, uno más completo sobre la misma referencia) — a diferencia
-de `660005`/`660166` (textos que sí se contradicen), ahí se actualizó al texto más completo en
-vez de dejar el primero. Antes de tocar un código ya declarado, releer su nota de página para
-saber si el caso previo fue «no pisar» o «actualizar».
+**Escala: terminado el 19/8/2026.** 36 páginas (168-203), ~1.815 fichas NBU candidatas,
+**134 códigos con texto cargado**. Cada página documentada en `data/alcance_nn_pmo.json` bajo
+`"66"._nota_pagina_168` a `_nota_pagina_203`, con el detalle código por código; el resumen
+final está en `_nota_barrido_completo`.
+⚠️ Tres códigos (`660430`, `660293`, `660887`) aparecieron dos veces con textos
+**complementarios, no contradictorios** (uno más corto, uno más completo sobre la misma
+referencia) — a diferencia de `660005`/`660166` (textos que sí se contradicen), ahí se
+actualizó al texto más completo en vez de dejar el primero.
+⚠️ **Varios «choques» de las primeras páginas se resolvieron solos más adelante**, cuando
+apareció la ficha primaria bajo su propio nombre alfabético: `660143`, `660335`, `660767`,
+`660594`, `660933` parecían coincidencias de número al principio, pero más adelante el mismo
+código reaparece con el nombre correcto y coincide con la base — quedan confirmados, no son
+choques reales. La lección para el próximo barrido de este tipo: un «choque» en la primera
+aparición no es definitivo, puede ser sólo una referencia cruzada bajo otro nombre; conviene
+revisar de nuevo al terminar el capítulo si el mismo número volvió a aparecer.
 
 ⚠️ **Que un sub-capítulo no aporte ningún texto puede ser lo correcto.** El `02.09` (LASER) son
 ocho códigos que AGREGÓ el PMO: no figuran en el Nomenclador Nacional, así que no hay recuadro
@@ -1994,55 +2002,31 @@ cada commit, que explican el porqué y no sólo el qué:
 
 ## 7 bis. ▶ AGENDA DE LA PRÓXIMA SESIÓN (escrita el 18/8/2026)
 
-### A. Seguir con el capítulo 66 (lo único que queda del barrido)
+### A. ✅ Barrido del Nomenclador Nacional — terminado de punta a punta (19/8/2026)
 
-⚠️ **Este 18/8 hubo cuatro sesiones**: tres hicieron el barrido capítulo por capítulo (dos en
+⚠️ **El 18/8 hubo cuatro sesiones**: tres hicieron el barrido capítulo por capítulo (dos en
 paralelo, ramas separadas y fusionadas después a mano, más una tercera encima ya sobre la
 rama fusionada — **20, 24, 17, 18, 31, 30, 29, 21** / **22, 33, 15** / **06, 09, 14, 16, 19,
-32, 35, 36, 38**, los 32 capítulos con página conocida) y una cuarta arrancó el **66**. Van
-**844 de 1.353 fichas PMO (62%)**. Moraleja para la próxima vez que haya sesiones
-simultáneas: **avisar qué capítulos toma cada una**, así no se pisan ni hace falta reconciliar
-ramas divergentes.
+32, 35, 36, 38**, los 32 capítulos con página conocida) y una cuarta arrancó el **66**. Moraleja
+para la próxima vez que haya sesiones simultáneas: **avisar qué capítulos toma cada una**, así
+no se pisan ni hace falta reconciliar ramas divergentes.
 
-**El barrido capítulo por capítulo del catálogo PMO terminó.** Lo único que sigue es el
-**capítulo 66** (análisis clínicos, páginas 168-203 — ya declaradas en `data/paginas_nn.json`,
-no hace falta volver a buscarlas). Es el mismo trabajo de siempre —transcribir el recuadro
-«Texto retirado por el PMO»— con dos diferencias:
+**Los 32 capítulos del catálogo PMO están hechos (844/1.353, 62%), y el capítulo 66 (análisis
+clínicos, 36 páginas, 168-203) se completó el 19/8/2026** con 134 códigos de texto sumados a
+fichas del **NBU** existentes (no al PMO — ver 3.8, «Capítulo 66», para el detalle del criterio
+usado y los choques de nombre encontrados). No queda barrido pendiente.
 
-1. **El texto se suma a fichas del NBU**, no del PMO: declarar el capítulo `"66"` en
-   `data/alcance_nn_pmo.json` con el código de 6 dígitos sin puntos (`66.00.02` → `"660002"`)
-   alcanza — es el mismo `scripts/alcance_nn_pmo.py`, no hace falta un script nuevo.
-2. ⚠️ **Verificar el nombre antes de declarar cada código.** El número puede coincidir por
-   casualidad con una ficha NBU que es otra práctica (varios casos ya encontrados, ver
-   `_nota_pagina_168` a `_nota_pagina_196` en `data/alcance_nn_pmo.json` para el detalle
-   código por código). Comparar el nombre en negrita del PDF contra el nombre que ya tiene la
-   ficha; si no coinciden razonablemente, no declarar ese código — dejar nota para revisar a
-   mano. El mismo criterio aplica si coincide el nombre pero no el **método** (`660833`
-   «Bencidina» química contra «Sangre oculta... inmunológico» de la base).
-   ⚠️ Otras trampas ya vistas: algunos renglones traen su propio código de 6 dígitos metido en
-   el cuerpo del texto en vez de la columna CODIGO (`_nota_orden` en 3.8); el PDF a veces
-   repite el mismo código en dos o tres posiciones alfabéticas, casi siempre con el mismo
-   recuadro (sin problema); cuando trae uno distinto, distinguir si **contradice** al ya
-   cargado (`660005`/«Astrup», `660166`/«Colpocitograma» — ahí no pisar) o si sólo **agrega
-   detalle** (`660430`/«Graham», `660293`/«Gravindex» — ahí sí conviene actualizar al texto más
-   completo); y un código puede existir en la base bajo nomenclador **PMO** en vez de NBU
-   (`660185`) — no cambia nada.
+**Lo que sí queda, para quien tenga tiempo y ganas de revisar a mano** (no urgente, la app
+funciona igual sin esto): los casos «dudoso» que se fueron dejando sin declarar en cada
+`_nota_pagina_*` de `data/alcance_nn_pmo.json` bajo `"66"` — nombre o método parecido al de la
+ficha de la base, pero no lo bastante como para declararlo sin mirar el PDF impreso de nuevo.
+Son pocos por página, no hace falta un barrido sistemático — alguien con el nomenclador
+impreso a mano podría resolverlos en una sentada.
 
-La receta de siempre (3.8 → «POR DÓNDE SEGUIR»):
-`python3 scripts/paginas_nn.py 197` (168 a 196 ya hechas) → transcribir a
-`data/alcance_nn_pmo.json` bajo `"66"` verificando el nombre de cada código →
-`python3 scripts/alcance_nn_pmo.py && python3 scripts/nombres_rotos.py && python3 scripts/propagar_abarca_unico.py && python3 scripts/inject_db.py`
-→ `cd web && python3 -m http.server 8890 --bind 127.0.0.1 &` y `node scripts/comprobar_datos.mjs`
-desde la raíz (2,5 s; **no** la batería completa) → actualizar la cobertura y esta agenda.
-
-⚠️ **Son 7 páginas contra las 29 que llevamos: falta poco para terminar el capítulo entero.**
-Con el paso extra de comparar nombres, un lote razonable es más chico que en los capítulos
-anteriores — 2 o 3 páginas por sesión, no un capítulo entero de una vez.
-
-⚠️ Si al transcribir aparece un código impreso «AGREGADO POR EL P.M.O.» que **no está en la
-base**, no lo crea `alcance_nn_pmo.py`: se anota y va por `importar_capitulos_nn.py`, como el
-`21.02.08` y el `23.02.34`. Y si el Único ya lo traía, revisar la equivalencia — puede estar
-colgada de un número equivocado (4.5 undecies).
+⚠️ Si en algún futuro barrido similar aparece un código impreso «AGREGADO POR EL P.M.O.» que
+**no está en la base**, no lo crea `alcance_nn_pmo.py`: se anota y va por
+`importar_capitulos_nn.py`, como el `21.02.08` y el `23.02.34`. Y si el Único ya lo traía,
+revisar la equivalencia — puede estar colgada de un número equivocado (4.5 undecies).
 
 ### B. Ciberseguridad — repaso pedido por el usuario
 
@@ -2086,11 +2070,12 @@ Lo que YA está bien y no hay que tocar:
   agregó. Ver 3.8. Tampoco era el de hemoterapia —ese es el 24, ya hecho—.
 
 ### D. Datos que siguen faltando
-- **Capítulo 66 contra el PDF.** Ver 3.8 → «Capítulo 66» y 7 bis A para la receta y lo ya
-  avanzado (páginas 168 a 196 hechas, 18/8/2026; quedan 7). Resumen: son 36 páginas
-  (168-203) que suman texto retirado a fichas del **NBU** existente, no del PMO ni del catálogo del
-  Único; el usuario ya definió el criterio («sumalo a la sección de NBU nada más, sin
-  equivalencias»), así que no hace falta volver a preguntar. La duda vieja sobre «los bloques
+- ✅ **Capítulo 66 contra el PDF — terminado el 19/8/2026.** Ver 3.8 → «Capítulo 66» para el
+  resumen y el criterio usado. Las 36 páginas (168-203) están hechas, 134 códigos con texto
+  retirado sumados a fichas del **NBU** existente, no al PMO ni al catálogo del Único; el
+  usuario definió ese criterio el 18/8 («sumalo a la sección de NBU nada más, sin
+  equivalencias»). Quedan casos «dudoso» para revisión manual, documentados en
+  `data/alcance_nn_pmo.json` (no urgente, ver 7 bis A). La duda vieja sobre «los bloques
   repetidos 60-64 del Único» quedó sin resolver — no llegó a ser necesaria para este enfoque,
   pero si en algún momento se retoma la idea de comparar el catálogo del Único-laboratorio
   contra este mismo capítulo, hay que volver a mirarla.
