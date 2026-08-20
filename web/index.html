@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-i+AD0cg0d5VnYCKHYmtd7zU5tCPq5NksYy0Q0uBYwIc=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-Tt3HqkvH8gZdBZmybuA61a55oY47cDA3ZN+drOcx99I=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -309,6 +309,7 @@ html,body{margin:0;padding:0}
 .sec.pleg .slabel:hover{color:var(--accent)}
 .sec.pleg .slabel::before{content:'▸';font-size:11px;color:var(--accent);transition:transform .16s;flex-shrink:0}
 .sec.pleg.abierta>.slabel::before{transform:rotate(90deg)}
+.sec.pleg.abierta.cerrando>.slabel::before{transform:rotate(0deg)}
 .sec.pleg .slabel .sc-n{margin-left:auto;font-size:10.5px;font-weight:700;color:var(--faint);
   background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:1px 8px}
 .sec.pleg>.sc-body{display:none}
@@ -680,6 +681,11 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
 .panel>summary::-webkit-details-marker{display:none}
 .panel>summary::before{content:'▸';font-size:10px;color:var(--accent);transition:transform .16s;flex-shrink:0}
 .panel[open]>summary::before{transform:rotate(90deg)}
+/* Mientras se cierra con altura animada, .panel sigue con [open] puesto
+   (si no, el contenido desaparece de golpe antes de que la animación
+   arranque) — la flecha necesita otra señal para volver ya mismo, no
+   recién cuando la animación termine. */
+.panel[open].cerrando>summary::before{transform:rotate(0deg)}
 .panel>summary:hover{color:var(--accent)}
 .fgroup{padding:0 11px 12px;display:flex;flex-direction:column;gap:3px}
 .opt{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 10px;border-radius:8px;
@@ -988,6 +994,7 @@ ul{margin:0;padding:0}
 .mdsec>summary::-webkit-details-marker{display:none}
 .mdsec>summary::before{content:'▸';font-size:10px;color:var(--accent);transition:transform .16s;flex-shrink:0}
 .mdsec[open]>summary::before{transform:rotate(90deg)}
+.mdsec[open].cerrando>summary::before{transform:rotate(0deg)}
 .mdsec>summary:hover{color:var(--accent)}
 .mdsec>summary .mcount{margin-left:auto;color:var(--faint);font-weight:700;font-family:var(--font-mono)}
 .gtable{display:flex;flex-direction:column;gap:2px;margin-bottom:20px}
@@ -1376,7 +1383,18 @@ body.tour-on{overscroll-behavior:none}
    flex-start + margin:auto queda centrada igual, pero se puede llegar a todo. */
 #gate{position:fixed;inset:0;z-index:1000;background:linear-gradient(160deg,var(--bg),var(--surface-3));display:flex;align-items:flex-start;justify-content:center;padding:24px;overflow:auto}
 #gate[hidden]{display:none!important}
-.gcard{width:100%;max-width:420px;margin:auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 26px 22px}
+.gcard{width:100%;max-width:420px;margin:auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 26px 22px;
+  animation:gcardIn .22s var(--ease-out)}
+/* renderGate() rehace la tarjeta entera con innerHTML en cada paso (elegir
+   perfil, contraseña, error) — al ser un nodo nuevo cada vez, esta animación
+   se reproduce sola en cada paso, sin JS adicional. */
+@keyframes gcardIn{from{opacity:0;transform:translateY(6px)}}
+/* Contraseña o cuenta incorrecta: la tarjeta tiembla para que el rechazo se
+   sienta en el cuerpo, no sólo se lea en el texto rojo de abajo. */
+@keyframes gcardShake{10%,90%{transform:translateX(-1px)}20%,80%{transform:translateX(2px)}
+  30%,50%,70%{transform:translateX(-4px)}40%,60%{transform:translateX(4px)}}
+.gcard.shake{animation:gcardShake .4s}
+@media (prefers-reduced-motion:reduce){.gcard,.gcard.shake{animation:none}}
 .gcard .glogo{width:52px;height:52px;border-radius:13px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;letter-spacing:.5px;font-size:15px;margin-bottom:14px}
 .gcard h2{font-size:19px;margin:0 0 3px;color:var(--ink)}
 .gcard .gsub{font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.45}
@@ -2148,6 +2166,51 @@ function activarFlechasTabs(cont){
   });
 }
 [el('modeSwitch'),document.querySelector('.consultarow'),document.querySelector('.viewtabs')].forEach(activarFlechasTabs);
+
+/* El navegador no anima el open/close nativo de <details>: el contenido
+   aparece o desaparece de un fotograma a otro. Se intercepta el click de
+   <summary>, se mide con WAAPI (sin librería, sin costo de bundle) y recién
+   ahí cambia details.open — así todo lo que ya trae <details> gratis (foco,
+   Ctrl+F del navegador, lectores de pantalla) sigue igual; sólo se le suma
+   el movimiento. Reusable: se llama tanto para los paneles del riel como
+   para las secciones del glosario. */
+// WAAPI no resuelve var(--ease-out) en la opción «easing»: es una opción de
+// animación por JS, no una propiedad de hoja de estilos. Mismo valor que el
+// token CSS, copiado una sola vez acá para no tener que leerlo en cada click.
+const EASE_OUT='cubic-bezier(0.23, 1, 0.32, 1)';
+function animarDetails(det){
+  if(!det||det._animDetails)return; det._animDetails=true;
+  const resumen=det.querySelector(':scope > summary'); if(!resumen)return;
+  let anim=null;
+  const reducido=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Mide el alto en el estado pedido sin dejar que se vea: togglea, lee
+  // scrollHeight, devuelve el estado real — todo síncrono, un solo reflow.
+  const medir=abierto=>{const real=det.open;det.open=abierto;const h=det.scrollHeight;det.open=real;return h;};
+  // Vía de escape para quien abre esta sección desde otro lado (un botón del
+  // índice, el buscador): si hay una animación de cierre a mitad de camino,
+  // hay que cortarla antes de forzar open=true o su onfinish la volvería a
+  // cerrar después.
+  det._cancelarAnimDetails=()=>{if(anim){anim.cancel();anim=null;}};
+  resumen.addEventListener('click',e=>{
+    e.preventDefault();
+    if(reducido()){det.open=!det.open;return;}
+    if(anim)anim.cancel();
+    det.open?cerrar():abrir();
+  });
+  function abrir(){
+    const desde=det.scrollHeight,hasta=medir(true);
+    det.classList.remove('cerrando'); det.style.overflow='hidden'; det.open=true;
+    anim=det.animate({height:[desde+'px',hasta+'px']},{duration:180,easing:EASE_OUT});
+    anim.onfinish=anim.oncancel=()=>{det.style.height='';det.style.overflow='';anim=null;};
+  }
+  function cerrar(){
+    const desde=det.scrollHeight,hasta=medir(false);
+    det.classList.add('cerrando'); det.style.overflow='hidden';
+    anim=det.animate({height:[desde+'px',hasta+'px']},{duration:180,easing:EASE_OUT});
+    anim.onfinish=anim.oncancel=()=>{det.open=false;det.classList.remove('cerrando');det.style.height='';det.style.overflow='';anim=null;};
+  }
+}
+document.querySelectorAll('#rail details.panel').forEach(animarDetails);
 
 /* ---------- cabecera: se comprime al scrollear y libera pantalla ---------- */
 const _hdr=document.querySelector('header');
@@ -3668,9 +3731,31 @@ function plegarSecciones(d){
     cuerpo.id=idc; lbl.setAttribute('aria-controls',idc);
     const marcar=()=>lbl.setAttribute('aria-expanded',sec.classList.contains('abierta')?'true':'false');
     marcar();
+    // Mismo mecanismo que animarDetails (medir con display temporal, animar con
+    // WAAPI) pero sobre .sc-body en vez de un <details> nativo: esta sección no
+    // usa <details>, usa la clase .abierta a mano.
+    let anim=null;
+    const alturaAbierta=()=>{const d=cuerpo.style.display;cuerpo.style.display='flex';const h=cuerpo.scrollHeight;cuerpo.style.display=d;return h;};
     const alternar=()=>{
-      sec.classList.toggle('abierta'); marcar();
-      const o=plegState(); o[clave]=sec.classList.contains('abierta'); plegSave(o);
+      const abrirla=!sec.classList.contains('abierta');
+      if(matchMedia('(prefers-reduced-motion: reduce)').matches){
+        sec.classList.toggle('abierta',abrirla); marcar();
+      }else{
+        if(anim)anim.cancel();
+        if(abrirla){
+          const hasta=alturaAbierta();
+          cuerpo.style.display='flex'; cuerpo.style.overflow='hidden';
+          sec.classList.remove('cerrando'); sec.classList.add('abierta'); marcar();
+          anim=cuerpo.animate({height:['0px',hasta+'px']},{duration:180,easing:EASE_OUT});
+          anim.onfinish=anim.oncancel=()=>{cuerpo.style.height='';cuerpo.style.overflow='';cuerpo.style.display='';anim=null;};
+        }else{
+          const desde=cuerpo.scrollHeight;
+          cuerpo.style.overflow='hidden'; sec.classList.add('cerrando');
+          anim=cuerpo.animate({height:[desde+'px','0px']},{duration:180,easing:EASE_OUT});
+          anim.onfinish=anim.oncancel=()=>{sec.classList.remove('abierta','cerrando');marcar();cuerpo.style.height='';cuerpo.style.overflow='';cuerpo.style.display='';anim=null;};
+        }
+      }
+      const o=plegState(); o[clave]=abrirla; plegSave(o);
     };
     lbl.addEventListener('click',alternar);
     lbl.addEventListener('keydown',e=>{
@@ -4610,9 +4695,13 @@ function openInfo(expandLey){
     const caja=el('modalBox'), bs=[...caja.querySelectorAll('.mnav-b')];
     bs.forEach(b=>b.addEventListener('click',()=>{
       const d=el(b.dataset.ir); if(!d)return;
-      // Si la sección está plegada, se abre antes de medir: si no, se saltaría
-      // a un título que no tiene nada visible debajo.
-      if(d.tagName==='DETAILS'&&!d.open)d.open=true;
+      // Si la sección está plegada (o cerrándose con la animación a mitad de
+      // camino), se abre antes de medir: si no, se saltaría a un título sin
+      // nada visible debajo.
+      if(d.tagName==='DETAILS'&&(!d.open||d.classList.contains('cerrando'))){
+        if(d._cancelarAnimDetails)d._cancelarAnimDetails();
+        d.classList.remove('cerrando'); d.open=true;
+      }
       // scrollIntoView dejaría el título debajo del índice pegado: se descuenta su alto.
       const nav=caja.querySelector('.mnav');
       caja.scrollTo({top:caja.scrollTop+d.getBoundingClientRect().top-caja.getBoundingClientRect().top-(nav?nav.offsetHeight+10:0),behavior:'smooth'});
@@ -4631,6 +4720,14 @@ function openInfo(expandLey){
     row.classList.toggle('open');
   }));
   el('modalBox').querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();cerrarInfo();openCode(b.dataset.goto);}));
+  el('modalBox').querySelectorAll('.mdsec').forEach(animarDetails);
+  // Abrir por código, no por click: nunca anima, y si agarra una sección a
+  // mitad de la animación de cierre, la corta antes de forzar el estado.
+  function abrirYa(det){
+    if(!det||(det.open&&!det.classList.contains('cerrando')))return;
+    if(det._cancelarAnimDetails)det._cancelarAnimDetails();
+    det.classList.remove('cerrando'); det.open=true;
+  }
   /* Buscador de leyes y PMO: compara sólo contra el título visible de cada fila
      (no el detalle, que recién se arma al abrirla) — alcanza para encontrar
      «discapacidad» o «celiaquía» sin tener que abrir las 22 una por una. */
@@ -4649,12 +4746,12 @@ function openInfo(expandLey){
       if(sinPmo)sinPmo.hidden=!(q&&!vAp);
       // La sección con resultado se abre sola: escribir para encontrar algo no
       // debería pedir además acordarse de destaparla a mano.
-      if(q&&vLey&&secLey&&!secLey.open)secLey.open=true;
-      if(q&&vAp&&secPmo&&!secPmo.open)secPmo.open=true;
+      if(q&&vLey)abrirYa(secLey);
+      if(q&&vAp)abrirYa(secPmo);
     });
   })();
   if(expandLey){
-    const secLey=el('iLey'); if(secLey&&!secLey.open)secLey.open=true;
+    abrirYa(el('iLey'));
     const row=[...el('modalBox').querySelectorAll('.ley')].find(x=>x.querySelector('.ln')&&x.querySelector('.ln').textContent.includes(expandLey));
     if(row&&row.classList.contains('hasdet')){row.classList.add('open');setTimeout(()=>row.scrollIntoView({behavior:'smooth',block:'center'}),60);}
   }
@@ -5595,7 +5692,12 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     if(first&&matchMedia('(pointer:fine)').matches)setTimeout(()=>first.focus(),40);
   }
   const gv=id=>{const e=el(id);return e?e.value.trim():'';};
-  const gerr=m=>{const e=el('gErr');if(e)e.textContent=m||'';};
+  const gerr=m=>{const e=el('gErr');if(e)e.textContent=m||'';
+    if(m){const c=e&&e.closest('.gcard');
+      // Se saca y se vuelve a poner la clase (con una lectura de por medio
+      // que fuerza el reflow) para que la sacuda se reinicie si el error
+      // se repite —dos contraseñas mal seguidas— y no se quede pegada.
+      if(c){c.classList.remove('shake');void c.offsetWidth;c.classList.add('shake');}}};
   function wireGate(v){
     const onEnter=(fn)=>gate.querySelectorAll('input').forEach(i=>i.addEventListener('keydown',e=>{if(e.key==='Enter')fn();}));
     if(v==='setup'){
