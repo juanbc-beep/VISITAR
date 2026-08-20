@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-Nk99oHCvVnpZ17eJvcdk3vRbECl35ttBfzeOSi0vJbw=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-e/IB8q/aUemxlEjNOmf2xSGLCpYWBTXXnXodekBQgpY=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -965,7 +965,7 @@ ul{margin:0;padding:0}
   visibility:hidden;opacity:0;pointer-events:none;
   transition:opacity .25s var(--ease-out),visibility 0s linear .25s}
 .modal.on{visibility:visible;opacity:1;pointer-events:auto;transition:opacity .25s var(--ease-out)}
-.modal .box{background:var(--surface);border:1px solid var(--line);border-radius:16px;max-width:680px;width:100%;
+.modal .box{background:var(--surface);border:1px solid var(--line);border-radius:16px;max-width:min(860px,94vw);width:100%;
   max-height:85vh;overflow-y:auto;box-shadow:var(--shadow);padding:26px 28px;
   transform:scale(.96);transition:transform .25s var(--ease-out)}
 .modal.on .box{transform:scale(1)}
@@ -1014,6 +1014,13 @@ ul{margin:0;padding:0}
 .mnav-b.tut{margin-left:auto;border-color:color-mix(in srgb,var(--accent) 40%,transparent);color:var(--accent-ink)}
 .mnav-b.tut:hover{background:var(--accent-soft)}
 @media (max-width:560px){.mnav-b.tut{margin-left:0}}
+/* Buscador de normativa y PMO: 22 leyes + 30 apartados del Anexo I son
+   demasiado para encontrar algo puntual sólo con scroll. Ocupa el renglón
+   entero, arriba de las pestañas, dentro del mismo índice pegado. */
+.mnav-search{flex-basis:100%;order:-1;padding:9px 12px;border:1px solid var(--line-2);
+  border-radius:9px;background:var(--surface);color:var(--ink);font:inherit;font-size:13.5px}
+.mnav-search:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.msinres{font-size:12.5px;color:var(--muted);padding:14px 0;text-align:center}
 /* Renglones del texto normativo: la separación que la fuente ya trae, visible. */
 .nrm{display:flex;flex-direction:column;gap:4px}
 .nrm>span{padding-left:14px;text-indent:-14px}
@@ -4522,20 +4529,27 @@ function openInfo(expandLey){
         <span class="ax-n">${esc(g.num)}.</span>
         <span class="ax-t">${esc((g.titulo||(g.texto||'').split(/(?<=[.:])\s/)[0].slice(0,90)).replace(/[:\s]+$/,''))}</span>
         ${abre?`<div class="ley-det"><div>${textoNorma(g.texto)}</div></div>`:''}
-      </div>`;}).join('')}</div>`:'';
+      </div>`;}).join('')}</div>
+    <div class="msinres" id="mSinPmo" hidden>No hay apartados que coincidan con la búsqueda.</div>`:'';
   /* El panel mide entre 5 y 8 pantallas: sin un índice había que rodarlo entero para
-     llegar al Anexo I. Queda pegado arriba mientras se recorre. */
-  const SEC=[['iRef','Referencias'],['iLey','Normativa'],['iPmo','Cobertura PMO']];
+     llegar al Anexo I. Queda pegado arriba mientras se recorre. Ahora el índice
+     también trae un buscador: encontrar una ley o un apartado puntual entre 22
+     leyes y 30 del Anexo I a fuerza de scroll era el reclamo más concreto. */
+  const SEC=[['iRef','Referencias'],['iLey',`Normativa (${DB.leyes.length})`],['iPmo',`Cobertura PMO (${_ax.length})`]];
   el('modalBox').innerHTML=`
     <button class="icon-btn close-x" id="closeModal" aria-label="Cerrar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
     <h3>Glosario y marco normativo</h3>
     <div class="sub">${esc(DB.meta.fuente)}</div>
-    <nav class="mnav">${SEC.map(([id,l],i)=>`<button class="mnav-b${i?'':' on'}" data-ir="${id}">${l}</button>`).join('')}
+    <nav class="mnav">
+      <input type="search" class="mnav-search" id="mBuscar" autocomplete="off" spellcheck="false"
+        aria-label="Buscar en leyes y cobertura PMO" placeholder="Buscar una ley, resolución o apartado del PMO…">
+      ${SEC.map(([id,l],i)=>`<button class="mnav-b${i?'':' on'}" data-ir="${id}">${l}</button>`).join('')}
       <button class="mnav-b tut" id="tourBtn">▶ Ver tutorial</button></nav>
     <div class="slabel" id="iRef" style="font-size:11px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);font-weight:700;margin-bottom:8px">Referencias y flags</div>
     <div class="gtable">${gl}</div>
     <div class="slabel" id="iLey" style="font-size:11px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);font-weight:700;margin-bottom:8px">Leyes · Resoluciones · Decretos vigentes</div>
     <div class="leyes">${ley}</div>
+    <div class="msinres" id="mSinLey" hidden>No hay leyes que coincidan con la búsqueda.</div>
     ${pmoGen}
     <p style="font-size:12px;color:var(--muted);margin-top:18px;line-height:1.5">${esc(DB.meta.nota_grupos)}</p>
 `;
@@ -4564,6 +4578,23 @@ function openInfo(expandLey){
     row.classList.toggle('open');
   }));
   el('modalBox').querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();cerrarInfo();openCode(b.dataset.goto);}));
+  /* Buscador de leyes y PMO: compara sólo contra el título visible de cada fila
+     (no el detalle, que recién se arma al abrirla) — alcanza para encontrar
+     «discapacidad» o «celiaquía» sin tener que abrir las 22 una por una. */
+  (function(){
+    const inp=el('mBuscar'); if(!inp)return;
+    const filas=[...el('modalBox').querySelectorAll('.leyes>.ley')].map(f=>({f,txt:norm(f.querySelector('.lt').textContent)}));
+    const aps=[...el('modalBox').querySelectorAll('.ax>.ax-it')].map(f=>({f,txt:norm(f.querySelector('.ax-t').textContent)}));
+    const sinLey=el('mSinLey'), sinPmo=el('mSinPmo');
+    inp.addEventListener('input',()=>{
+      const q=norm(inp.value.trim());
+      let vLey=0,vAp=0;
+      filas.forEach(({f,txt})=>{const on=!q||txt.includes(q);f.hidden=!on;if(on)vLey++;});
+      aps.forEach(({f,txt})=>{const on=!q||txt.includes(q);f.hidden=!on;if(on)vAp++;});
+      if(sinLey)sinLey.hidden=!(q&&!vLey);
+      if(sinPmo)sinPmo.hidden=!(q&&!vAp);
+    });
+  })();
   if(expandLey){
     const row=[...el('modalBox').querySelectorAll('.ley')].find(x=>x.querySelector('.ln')&&x.querySelector('.ln').textContent.includes(expandLey));
     if(row&&row.classList.contains('hasdet')){row.classList.add('open');setTimeout(()=>row.scrollIntoView({behavior:'smooth',block:'center'}),60);}
