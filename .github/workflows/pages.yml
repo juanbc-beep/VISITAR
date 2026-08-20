@@ -88,6 +88,26 @@ jobs:
           fi
           echo "Tamaño: index.html $(du -h web/index.html | cut -f1) · base $(du -h web/nbu_db.bin 2>/dev/null | cut -f1 || echo '—')"
 
+      # Informativo, no bloquea: mide contra el HTML tal cual se va a publicar
+      # (servido local, no la URL en vivo — asi no depende de que el CDN ya haya
+      # propagado el cambio en el momento de medir). Antes esto era una suposicion;
+      # ahora queda un numero en el resumen de cada corrida. «continue-on-error»
+      # porque si Lighthouse o el navegador fallan en el runner, eso no es motivo
+      # para no publicar.
+      - name: Medir Core Web Vitals (Lighthouse, informativo)
+        continue-on-error: true
+        run: |
+          python3 -m http.server 8099 --directory web &
+          SERVER_PID=$!
+          for i in $(seq 1 20); do curl -sf http://localhost:8099/index.html >/dev/null && break; sleep 0.5; done
+          npx --yes lighthouse@13.4.1 http://localhost:8099/index.html \
+            --output=json --output-path=./lighthouse.json \
+            --chrome-flags="--headless=new --no-sandbox --disable-gpu" \
+            --only-categories=performance,accessibility,best-practices \
+            --quiet
+          kill "$SERVER_PID" 2>/dev/null || true
+          python3 scripts/lighthouse_resumen.py lighthouse.json "$GITHUB_STEP_SUMMARY"
+
       # Probado y descartado: con «enablement: true» la accion intenta crear el
       # sitio de Pages sola y GitHub se lo niega con «Resource not accessible by
       # integration». Crear el sitio pide permisos de administrador del
