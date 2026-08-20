@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-QiO5QxXiCFL+3UUTcTF/WS+8hOrFWm/iiDrOJBQu2LY=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-Nk99oHCvVnpZ17eJvcdk3vRbECl35ttBfzeOSi0vJbw=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -108,6 +108,12 @@ window.NBU_NUBE = {
    Lo que protege los datos son las reglas de acceso de docs/supabase.sql, no
    esconder la clave. La otra clave, la «secret», NO se usa aca y no debe salir
    nunca del panel de Supabase. */
+
+/* Se completa de verdad más abajo, junto con el registro del service worker
+   (al final del archivo). Existe acá, temprano, porque la pantalla de acceso
+   se pinta antes de llegar ahí y necesita poder llamar a estas dos funciones
+   sin que la app se caiga si todavía no están listas. */
+window.NBUUpdate = { estado:'idle', comprobar:function(){}, pintar:function(){} };
 </script>
 <style>
 :root{
@@ -469,6 +475,14 @@ html,body{margin:0;padding:0}
 .gcard .au-gate{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);
   font-size:11.5px;color:var(--faint);text-align:center;line-height:1.5}
 .gcard .au-gate b{color:var(--muted);font-weight:800}
+.gupd{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;margin-top:10px;
+  padding:8px;border:1px solid var(--line);border-radius:8px;background:none;
+  color:var(--faint);font:inherit;font-size:12px;cursor:pointer;transition:border-color .15s,color .15s}
+.gupd:hover{border-color:var(--line-2);color:var(--muted)}
+.gupd:disabled{cursor:default;opacity:.7}
+.gupd-dot{width:6px;height:6px;border-radius:50%;background:var(--line-2);flex-shrink:0;transition:background .15s}
+.gupd.hay{border-color:var(--accent);color:var(--accent-ink);background:var(--accent-soft);font-weight:700}
+.gupd.hay .gupd-dot{background:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 25%,transparent)}
 @media print{.autoria{display:flex!important;border:none;padding:10px 0 0;font-size:10px}}
 .rapidos{margin-bottom:14px}
 .rapidos .rlbl{font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);
@@ -1428,6 +1442,9 @@ body.tour-on{overscroll-behavior:none}
 .adminbox textarea{min-height:70px;resize:vertical;line-height:1.5}
 .adminbox input:focus,.adminbox textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
 .ahint{font-size:12px;color:var(--muted);line-height:1.5;margin:6px 0}
+.rolgrupo{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);
+  margin:16px 0 7px;padding-top:12px;border-top:1px solid var(--line)}
+.rolgrupo:first-child{margin-top:0;padding-top:0;border-top:none}
 .acode{font-family:var(--font-mono);font-size:11.5px;background:var(--surface-3);border:1px solid var(--line);border-radius:6px;padding:10px;white-space:pre-wrap;word-break:break-word;color:var(--ink-2);max-height:200px;overflow:auto}
 .aok{color:var(--inc);font-weight:700;font-size:12.5px}.aerrt{color:var(--exc);font-weight:700;font-size:12.5px}
 .editbar{display:flex;align-items:center;gap:8px;padding:9px 12px;background:var(--accent-soft);border:1px solid var(--accent);border-radius:var(--radius-sm);margin-bottom:12px;font-size:12.5px;color:var(--accent-ink);font-weight:600}
@@ -5468,7 +5485,17 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     gate.innerHTML=html;
     const card=gate.querySelector('.gcard');
     if(card){const au=document.createElement('div');au.className='au-gate';
-      au.innerHTML='Diseñado por <b>Juan Pablo Besada</b>';card.appendChild(au);}
+      au.innerHTML='Diseñado por <b>Juan Pablo Besada</b>';card.appendChild(au);
+      // Antes había que cerrar la pestaña del todo para saber si había una
+      // versión nueva. Este botón lo pregunta al toque, sin esperar a que
+      // alguien se dé cuenta del cartel de abajo o cierre y reabra.
+      const upd=document.createElement('button');
+      upd.type='button';upd.className='gupd';upd.id='gUpd';
+      upd.innerHTML='<span class="gupd-dot"></span><span class="gupd-t">Comprobar actualizaciones</span>';
+      upd.addEventListener('click',()=>window.NBUUpdate.comprobar(upd));
+      card.appendChild(upd);
+      window.NBUUpdate.pintar(upd);
+    }
     wireGate(v);
     gate.querySelectorAll('.gojo').forEach(b=>b.addEventListener('click',()=>verContrasena(b)));
     // Para que el lector de pantalla anuncie el error sin tener que ir a buscarlo.
@@ -5712,7 +5739,13 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
           <button class="minibtn" data-nact="ok" data-id="${E(x.id)}">Aprobar</button>
           <button class="minibtn danger" data-nact="no" data-id="${E(x.id)}">Rechazar</button>
         </div>`).join('')+'<div style="height:14px"></div>':'')+
-      resto.map(x=>`<div class="arow"${x.estado==='rechazado'?' style="opacity:.6"':''}>
+      // Agrupadas por tipo de cuenta, en el mismo orden jerárquico que ROLES
+      // (antes salían todas mezcladas en el orden que las devolvía la base).
+      ['admin','usuario','medico_admin','medico'].map(r=>{
+        const deEsteRol=resto.filter(x=>ROL_VALIDO(x.rol)===r);
+        if(!deEsteRol.length)return '';
+        return `<div class="rolgrupo">${E(ROLES[r].corto)} (${deEsteRol.length})</div>`+
+          deEsteRol.map(x=>`<div class="arow"${x.estado==='rechazado'?' style="opacity:.6"':''}>
         <span class="pav"${esRolMedico(x.rol)?' style="background:var(--med)"':''}>${av(x.nombre)}</span>
         <div class="grow2"><div class="pnm">${E(x.nombre)}${x.id===yo.id?' <span style="color:var(--muted);font-weight:500">(vos)</span>':''}</div>
           <div class="pmeta">${E(rolLabel(x.rol))}${x.estado==='rechazado'?' · rechazada':''} · ${(x.favoritos||[]).length} favoritos</div></div>
@@ -5725,7 +5758,8 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
                  </select>
                  <button class="minibtn" data-nact="rol" data-id="${E(x.id)}">Transferir administración</button>`)}
         <button class="minibtn danger" data-nact="del" data-id="${E(x.id)}"${x.rol==='admin'?' disabled title="No se puede eliminar al administrador"':''}>Eliminar</button>
-      </div>`).join('')+
+      </div>`).join('');
+      }).join('')+
       `<div class="ahint" style="margin-top:12px">Las contraseñas las maneja la nube: nadie, ni vos, puede verlas. Si alguien la olvida, que cree la cuenta de nuevo o restablecela desde el panel de Supabase.</div>`;
 
     /* Cambiar el tipo de cuenta. «Transferir administración» sigue aparte porque es
@@ -5778,7 +5812,12 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
           <button class="minibtn" data-cact="ok" data-id="${pr.id}">Aprobar</button>
           <button class="minibtn danger" data-cact="no" data-id="${pr.id}">Rechazar</button>
         </div>`).join('')+'<div style="height:14px"></div>':'')+
-        activos.map(pr=>`
+        // Agrupados por tipo de cuenta, mismo orden que en el panel de la nube.
+        ['admin','usuario','medico_admin','medico'].map(r=>{
+          const deEsteRol=activos.filter(pr=>ROL_VALIDO(pr.role)===r);
+          if(!deEsteRol.length)return '';
+          return `<div class="rolgrupo">${E(ROLES[r].corto)} (${deEsteRol.length})</div>`+
+            deEsteRol.map(pr=>`
         <div class="arow">
           <span class="pav">${E((pr.name||'?').slice(0,1).toUpperCase())}</span>
           <div class="grow2"><div class="pnm">${E(pr.name)}${current&&pr.id===current.id?' <span style="color:var(--muted);font-weight:500">(vos)</span>':''}</div>
@@ -5790,7 +5829,8 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
               <button class="minibtn" data-act="role" data-id="${pr.id}">Transferir administración</button>`}
           <button class="minibtn" data-act="reset" data-id="${pr.id}">Contraseña</button>
           <button class="minibtn danger" data-act="del" data-id="${pr.id}">Eliminar</button>
-        </div>`).join('')+`<button class="minibtn" id="aAddProf" style="margin-top:6px">+ Crear perfil aprobado</button>`;
+        </div>`).join('');
+        }).join('')+`<button class="minibtn" id="aAddProf" style="margin-top:6px">+ Crear perfil aprobado</button>`;
       p.querySelectorAll('[data-rolloc]').forEach(sel=>sel.addEventListener('change',()=>{
         const pr=AUTH.profiles.find(x=>x.id===sel.dataset.rolloc); if(!pr)return;
         pr.role=ROL_VALIDO(sel.value); pr.updated=Date.now(); persistAuth();
@@ -7307,12 +7347,52 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     d.querySelector('#swX').addEventListener('click',()=>d.classList.remove('on'));
     requestAnimationFrame(()=>d.classList.add('on'));
   };
+  /* Botón «Comprobar actualizaciones» de la pantalla de acceso — pinta el
+     estado (window.NBUUpdate.pintar) y dispara la revisión (.comprobar).
+     Vive acá porque necesita «reg» y «actualizando()», que son de este
+     cierre; el objeto ya existe desde el <script> de arriba de la cabecera,
+     acá sólo se completan sus dos métodos. */
+  function pintarBotonUpdate(b){
+    if(!b)return;
+    const hay=window.NBUUpdate.estado==='hay';
+    b.classList.toggle('hay',hay);
+    b.querySelector('.gupd-t').textContent=hay
+      ?'Hay una actualización — tocar para aplicarla'
+      :'Comprobar actualizaciones';
+  }
+  window.NBUUpdate.pintar=pintarBotonUpdate;
   navigator.serviceWorker.register('sw.js').then(reg=>{
+    window.NBUUpdate.comprobar=function(btn){
+      // Si ya hay una version instalada y esperando, no hace falta pedir de
+      // nuevo: aplicarla es lo único que falta.
+      if(reg.waiting&&navigator.serviceWorker.controller){
+        actualizando();reg.waiting.postMessage('SKIP_WAITING');return;
+      }
+      btn.disabled=true;btn.querySelector('.gupd-t').textContent='Revisando…';
+      reg.update().catch(()=>{}).then(()=>{
+        // «updatefound» (si hay algo nuevo) puede tardar un instante en
+        // disparar después de que el fetch de sw.js termina; se espera un
+        // toque antes de decidir qué mostrar para no pisarle la novedad.
+        setTimeout(()=>{
+          btn.disabled=false;
+          if(window.NBUUpdate.estado!=='hay'){
+            btn.querySelector('.gupd-t').textContent='Estás al día ✓';
+            setTimeout(()=>{if(window.NBUUpdate.estado!=='hay')pintarBotonUpdate(btn);},2200);
+          }
+        },700);
+      });
+    };
+    if(reg.waiting&&navigator.serviceWorker.controller){
+      window.NBUUpdate.estado='hay';
+      document.querySelectorAll('.gupd').forEach(pintarBotonUpdate);
+    }
     reg.addEventListener('updatefound',()=>{
       const nuevo=reg.installing;if(!nuevo)return;
       nuevo.addEventListener('statechange',()=>{
         if(nuevo.state!=='installed'||!navigator.serviceWorker.controller)return;
         if(reciénAbierta()){actualizando();return nuevo.postMessage('SKIP_WAITING');}  // se aplica sola
+        window.NBUUpdate.estado='hay';
+        document.querySelectorAll('.gupd').forEach(pintarBotonUpdate);
         // acá no se recarga a mano: al activarse el service worker nuevo salta
         // «controllerchange», y ésa es la que recarga.
         aviso('Hay una versión nueva del manual.',()=>{actualizando();nuevo.postMessage('SKIP_WAITING');},'Actualizar');
