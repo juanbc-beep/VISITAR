@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-e/IB8q/aUemxlEjNOmf2xSGLCpYWBTXXnXodekBQgpY=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-1ckxXC2Tvc9w/7Ha5hpP9JzG6WdcohqRc7zLB0FqtSs=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1285,6 +1285,12 @@ body.tour-on{overscroll-behavior:none}
 #pista .pi-ok:hover{filter:brightness(1.06)}
 #pista .pi-x{background:none;border:none;color:var(--muted);font:inherit;font-size:11.5px;cursor:pointer;padding:5px}
 #pista .pi-x:hover{color:var(--ink)}
+/* Acceso permanente a la explicación de una función puntual (mostrarAyuda),
+   a diferencia de la pista automática que se ve una sola vez. */
+.mayuda{width:18px;height:18px;border-radius:50%;border:1px solid var(--line-2);background:var(--surface-2);
+  color:var(--muted);font:700 11px/1 var(--font-ui);cursor:pointer;flex-shrink:0;display:inline-grid;place-items:center;
+  padding:0;margin-left:5px;vertical-align:middle;text-transform:none;transition:border-color .13s,color .13s}
+.mayuda:hover{border-color:var(--accent);color:var(--accent-ink)}
 #tourTip.centro{top:50%!important;left:50%!important;transform:translate(-50%,-50%);width:min(430px,calc(100vw - 28px))}
 /* En pantallas angostas el globo se apoya abajo y ocupa el ancho: al lado del elemento
    no entra, y buscarle lugar terminaba tapando justo lo que se quería señalar. */
@@ -1569,7 +1575,7 @@ try{if(sessionStorage.getItem('nbu-actualizando')){
   <div class="modesel"><select id="modeSel" aria-label="Nomenclador"></select></div>
   <div class="consultarow" role="tablist" aria-label="Consulta rápida">
     <div class="consulta-head">
-      <span class="consultalbl">Consulta rápida</span>
+      <span class="consultalbl">Consulta rápida <button type="button" class="mayuda" id="ayudaConsulta" aria-label="Qué es Consulta rápida">?</button></span>
       <span class="consulta-sub">Interpretar y autorizar la orden</span>
     </div>
     <button class="cbtn" data-mode="CIE" role="tab" aria-label="Diagnósticos CIE-10">
@@ -1600,7 +1606,7 @@ try{if(sessionStorage.getItem('nbu-actualizando')){
       <div class="fgroup" id="fGrupo"></div>
     </details>
     <details class="panel" id="flagsPanel" open>
-      <summary>Reglas y estados</summary>
+      <summary>Reglas y estados<button type="button" class="mayuda" id="ayudaFlags" aria-label="Qué son estos filtros" style="margin-left:auto">?</button></summary>
       <div class="fgroup" id="fFlags"></div>
     </details>
     <button class="clearf" id="clearFilters">Limpiar filtros</button>
@@ -2987,7 +2993,8 @@ function initValidator(){
   if(validatorInit)return; validatorInit=true;
   el('validator').innerHTML=`
     <div class="vinput">
-      <label for="vcodes">Códigos del caso — orden, factura o solicitud de autorización</label>
+      <label for="vcodes">Códigos del caso — orden, factura o solicitud de autorización
+        <button type="button" class="mayuda" id="ayudaValidator" aria-label="Qué es la Mesa de trabajo">?</button></label>
       <textarea id="vcodes" spellcheck="false" placeholder="Pegá los códigos (NBU, Prestaciones Médicas o Único) separados por espacio, coma o salto de línea. Cantidad con ×N.  Ej:  660475  660102 x3  40070208"></textarea>
       <div class="vrow">
         <div class="vfield"><label for="vub">Valor de la U.B. ($) — opcional</label><input id="vub" type="number" min="0" step="0.01" placeholder="ej: 850" value="${ubValue||''}"></div>
@@ -3006,6 +3013,12 @@ function initValidator(){
     ? 'Detecta <b>doble facturación</b> por inclusión en módulos, urgencias sin 661200, Acto Bioquímico faltante, seriados excedidos, desuso y códigos inexistentes. Suma total en U.B. y $. Cantidades con <b>×N</b>.'
     : 'Todas las prácticas del caso se tratan como <b>autorización previa</b>. Arma el <b>checklist de documentación</b> a solicitar al afiliado (requerimientos SURGE), y muestra la patología SURGE, el <b>diagnóstico (CIE-10)</b> justificante y la <b>normativa</b> aplicable cuando corresponde.';
   setHint();
+  el('ayudaValidator').addEventListener('click',e=>{e.preventDefault();e.stopPropagation();
+    // mostrarAyuda vive en el cierre de Pistas/Tour, más abajo en el archivo:
+    // se llega por el mismo puente que ya usa el resto de la app (NBUPistas),
+    // no por variable global suelta.
+    if(window.NBUPistas)window.NBUPistas.ayuda('#vcodes','Mesa de trabajo',
+      'Pegás <b>todos los códigos de un caso</b> y te los analiza junto. En modo <b>autorización</b> arma la documentación a pedirle al afiliado; en <b>facturación</b> detecta doble facturación, cantidades mal cargadas y códigos inexistentes.');});
   el('vrun').addEventListener('click',runCase);
   el('vclear').addEventListener('click',()=>{el('vcodes').value='';el('vub').value='';el('vresults').innerHTML='';caseData=null;});
   /* El caso —los códigos de una orden— es la unidad de trabajo real del
@@ -6727,6 +6740,28 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     el('piLuego').addEventListener('click',()=>cerrarPista(false));
     return true;
   }
+  /* Ayuda permanente, a pedido: a diferencia de mostrarPista (una vez sola,
+     automática), ésta se puede reabrir todas las veces que haga falta desde un
+     botón «?» fijo junto a la función. El pedido concreto fue justamente ése:
+     el recorrido completo se ve una vez y no queda un acceso puntual por
+     función — ahora sí, sin duplicar el sistema de pistas, reusándolo. */
+  function mostrarAyuda(sel,t,d){
+    if(tCorriendo||pistaActiva)return;
+    const n=document.querySelector(sel); if(!n)return;
+    pistaActiva='ayuda:'+sel; pistaAncla=n;
+    const p=el('pista');
+    p.innerHTML=`<span class="pi-n">Ayuda</span><h5>${t}</h5><p>${d}</p>
+      <div class="pi-nav"><button class="pi-ok" id="piOk">Entendido</button></div>`;
+    p.classList.add('on');
+    ubicarPista(n);
+    el('piOk').addEventListener('click',()=>cerrarPista(false));
+  }
+  el('ayudaConsulta').addEventListener('click',e=>{e.stopPropagation();
+    mostrarAyuda('.consultarow','Consulta rápida',
+      'Tres apartados de apoyo: <b>Diagnósticos CIE-10</b> para el diagnóstico que justifica la práctica, <b>Abreviaturas</b> para descifrar cómo viene escrita la orden, y <b>SURGE</b> con las patologías de reintegro y su documentación.');});
+  el('ayudaFlags').addEventListener('click',e=>{e.stopPropagation();e.preventDefault();
+    mostrarAyuda('#fFlags','Filtros, en tres bloques',
+      '<b>Para decidir</b> junta lo que cambia la carga: obligación de cobertura, sangre u orina, urgencia, desuso. <b>Mi trabajo</b> son tus favoritos, lo visto hace poco y el estado de verificación. <b>Estado del dato</b> es cómo quedó cargado en este manual.');});
   addEventListener('keydown',e=>{if(e.key==='Escape'&&pistaActiva)cerrarPista(false);});
   /* Al scrollear, la pista abierta sigue a su elemento y se cierra si éste se fue
      de pantalla; y si no hay ninguna abierta, se prueba de nuevo, porque puede que
@@ -6758,7 +6793,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     const ob=el('obsBtn');
     if(ob&&!ob.hidden)mostrarPista('novedades','#obsBtn');
   }
-  window.NBUPistas={revisar:()=>setTimeout(revisarPistas,340),cerrar:()=>cerrarPista(false)};
+  window.NBUPistas={revisar:()=>setTimeout(revisarPistas,340),cerrar:()=>cerrarPista(false),ayuda:mostrarAyuda};
 
   /* ---- El recorrido manda sobre la pantalla ----
      Mientras corre, la persona no scrollea: scrollea el recorrido. Antes se podía
