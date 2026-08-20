@@ -101,7 +101,7 @@ window.NBU_NUBE = {
 :root{
   --bg:#e9eef2; --surface:#ffffff; --surface-2:#f4f7f9; --surface-3:#eef3f6;
   --ink:#132029; --ink-2:#33454f; --muted:#5d6e79; --faint:#677984;
-  --line:#dae2e8; --line-2:#c8d4db;
+  --line:#dae2e8; --line-2:#84959e;
   --accent:#0d7a86; --accent-ink:#0a5a63; --accent-soft:#d6ecee; --sobre-acento:#ffffff;
   --urg:#a9510b; --urg-soft:#fbe7d3;
   --norma:#1c62b0; --norma-soft:#dde9f8;
@@ -125,7 +125,7 @@ window.NBU_NUBE = {
   :root{
     --bg:#0c1317; --surface:#141e25; --surface-2:#1a262e; --surface-3:#202e37;
     --ink:#e7eef2; --ink-2:#c3d0d8; --muted:#93a3ad; --faint:#768792;
-    --line:#26333c; --line-2:#33434d;
+    --line:#26333c; --line-2:#516c79;
     --accent:#2cb6c3; --accent-ink:#8ddbe2; --accent-soft:#123037; --sobre-acento:#08222a;
     --urg:#e08a4a; --urg-soft:#3a2413;
     --norma:#6aa8ee; --norma-soft:#132741;
@@ -142,7 +142,7 @@ window.NBU_NUBE = {
 :root[data-theme="light"]{
   --bg:#e9eef2; --surface:#ffffff; --surface-2:#f4f7f9; --surface-3:#eef3f6;
   --ink:#132029; --ink-2:#33454f; --muted:#5d6e79; --faint:#677984;
-  --line:#dae2e8; --line-2:#c8d4db;
+  --line:#dae2e8; --line-2:#84959e;
   --accent:#0d7a86; --accent-ink:#0a5a63; --accent-soft:#d6ecee; --sobre-acento:#ffffff;
   --urg:#a9510b; --urg-soft:#fbe7d3; --norma:#1c62b0; --norma-soft:#dde9f8;
   --desuso:#616b74; --desuso-soft:#e6ebef; --inc:#14793a; --inc-soft:#d8efdf;
@@ -154,7 +154,7 @@ window.NBU_NUBE = {
 :root[data-theme="dark"]{
   --bg:#0c1317; --surface:#141e25; --surface-2:#1a262e; --surface-3:#202e37;
   --ink:#e7eef2; --ink-2:#c3d0d8; --muted:#93a3ad; --faint:#768792;
-  --line:#26333c; --line-2:#33434d;
+  --line:#26333c; --line-2:#516c79;
   --accent:#2cb6c3; --accent-ink:#8ddbe2; --accent-soft:#123037; --sobre-acento:#08222a;
   --urg:#e08a4a; --urg-soft:#3a2413; --norma:#6aa8ee; --norma-soft:#132741;
   --desuso:#8a97a1; --desuso-soft:#232e35; --inc:#4fbf78; --inc-soft:#123023;
@@ -198,14 +198,14 @@ html,body{margin:0;padding:0}
 }
 @media (max-width:620px){.modeswitch{grid-template-columns:1fr 1fr}}
 @media (max-width:380px){.modeswitch{grid-template-columns:1fr}}
-.consultarow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;max-width:1500px;margin:2px auto 0;padding:14px 20px 12px;
+.consultarow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;max-width:1500px;margin:2px auto 0;padding:10px 20px 10px;
   border-top:1px solid var(--line)}
 .consulta-head{display:flex;flex-direction:column;gap:2px;margin-right:2px}
 .consultalbl{font-size:11px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:var(--cie)}
 .consulta-sub{font-size:11.5px;color:var(--faint)}
-.cbtn{display:inline-flex;align-items:center;gap:11px;padding:8px 15px 8px 8px;border:1.5px solid var(--line-2);border-radius:12px;
+.cbtn{display:inline-flex;align-items:center;gap:11px;padding:7px 14px 7px 7px;border:1.5px solid var(--line-2);border-radius:12px;
   background:var(--surface-2);color:var(--ink-2);font:inherit;cursor:pointer;transition:.14s;text-align:left}
-.cbtn .cbicon{display:grid;place-items:center;width:32px;height:32px;border-radius:9px;flex-shrink:0;
+.cbtn .cbicon{display:grid;place-items:center;width:28px;height:28px;border-radius:9px;flex-shrink:0;
   background:color-mix(in srgb,var(--cie) 12%,transparent);color:var(--cie)}
 .cbtn .cbtxt{display:flex;flex-direction:column;line-height:1.2}
 .cbtn b{font-size:13.5px;font-weight:700;color:var(--ink-2)}
@@ -223,7 +223,7 @@ html,body{margin:0;padding:0}
 :root[data-theme="light"]{--med:#0369a1}
 :root[data-theme="dark"]{--med:#38bdf8}
 .b-med{background:color-mix(in srgb,var(--med) 16%,transparent);color:var(--med)}
-.t-med{background:color-mix(in srgb,var(--med) 16%,transparent);color:var(--med);font-size:10.5px;font-weight:700;padding:2px 6px;border-radius:5px}
+.t-med{background:color-mix(in srgb,var(--med) 16%,transparent);color:var(--med);font-size:11.5px;font-weight:700;padding:2px 6px;border-radius:5px}
 :root{--odo:#0f766e}@media (prefers-color-scheme:dark){:root{--odo:#2dd4bf}}
 :root[data-theme="light"]{--odo:#0f766e}:root[data-theme="dark"]{--odo:#2dd4bf}
 .b-odo{background:color-mix(in srgb,var(--odo) 16%,transparent);color:var(--odo)}
@@ -523,8 +523,8 @@ html,body{margin:0;padding:0}
 .disc-tab{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:6px}
 .disc-tab td{padding:5px 8px;border-top:1px solid var(--line)}
 .disc-tab td:last-child{text-align:right;font-family:var(--font-mono);font-weight:700;color:var(--accent-ink);white-space:nowrap}
-.t-unico{background:color-mix(in srgb,var(--unico) 16%,transparent);color:var(--unico);font-size:10.5px;font-weight:700;padding:2px 6px;border-radius:5px}
-.t-noeq{background:var(--urg-soft);color:var(--urg);font-size:10.5px;font-weight:700;padding:2px 6px;border-radius:5px}
+.t-unico{background:color-mix(in srgb,var(--unico) 16%,transparent);color:var(--unico);font-size:11.5px;font-weight:700;padding:2px 6px;border-radius:5px}
+.t-noeq{background:var(--urg-soft);color:var(--urg);font-size:11.5px;font-weight:700;padding:2px 6px;border-radius:5px}
 .equiv-card{background:color-mix(in srgb,var(--unico) 8%,transparent);border:1px solid color-mix(in srgb,var(--unico) 26%,transparent);border-radius:var(--radius-sm);padding:12px 14px}
 .equiv-card .eqrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .equiv-card .eqcode{font-family:var(--font-mono);font-weight:700;color:var(--unico);cursor:pointer;text-decoration:underline;text-decoration-style:dotted}
@@ -637,8 +637,13 @@ header{
 .wrap>main{min-width:0}
 aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-height:calc(100vh - 148px);overflow-y:auto;padding-right:4px}
 .panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
-.panel h2{font-size:11px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);
+.panel>summary{display:flex;align-items:center;gap:7px;list-style:none;cursor:pointer;user-select:none;
+  font-size:11px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);
   margin:0;padding:13px 15px 9px;font-weight:700}
+.panel>summary::-webkit-details-marker{display:none}
+.panel>summary::before{content:'▸';font-size:10px;color:var(--accent);transition:transform .16s;flex-shrink:0}
+.panel[open]>summary::before{transform:rotate(90deg)}
+.panel>summary:hover{color:var(--accent)}
 .fgroup{padding:0 11px 12px;display:flex;flex-direction:column;gap:3px}
 .opt{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 10px;border-radius:8px;
   font-size:13.5px;color:var(--ink-2);cursor:pointer;border:1px solid transparent;transition:.12s;text-align:left;width:100%;background:none}
@@ -677,13 +682,13 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
 .rmid{min-width:0}
 .rname{font-size:14px;color:var(--ink);font-weight:600;line-height:1.3;margin-bottom:3px}
 .rmeta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.badge{font-size:10.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;padding:2px 7px;border-radius:5px}
+.badge{font-size:11.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;padding:2px 7px;border-radius:5px}
 .b-pmo{background:var(--accent-soft);color:var(--accent-ink)}
 .b-pe{background:var(--incd-soft);color:var(--incd)}
 .b-gestion{background:#efe4c4;color:var(--gestion)}
 :root[data-theme="dark"] .b-gestion{background:#2e2811}
 .rgrupo{font-size:12px;color:var(--muted)}
-.tag{font-size:10.5px;font-weight:700;padding:2px 6px;border-radius:5px;letter-spacing:.3px}
+.tag{font-size:11.5px;font-weight:700;padding:2px 6px;border-radius:5px;letter-spacing:.3px}
 .t-urg{background:var(--urg-soft);color:var(--urg)}
 .t-norma{background:var(--norma-soft);color:var(--norma)}
 /* NN — norma del Nacional retirada por el PMO. Contorno y no relleno: no es un
@@ -1512,22 +1517,22 @@ try{if(sessionStorage.getItem('nbu-actualizando')){
 
 <div class="wrap">
   <aside id="rail">
-    <div class="panel" id="secPanel">
-      <h2>Sección NBU</h2>
+    <details class="panel" id="secPanel" open>
+      <summary>Sección NBU</summary>
       <div class="fgroup" id="fSeccion"></div>
-    </div>
-    <div class="panel" id="tipoUnicoPanel">
-      <h2>Tipo de práctica</h2>
+    </details>
+    <details class="panel" id="tipoUnicoPanel" open>
+      <summary>Tipo de práctica</summary>
       <div class="fgroup" id="fTipoUnico"></div>
-    </div>
-    <div class="panel" id="grupoPanel">
-      <h2 id="grupoTitle">Grupo · especialidad</h2>
+    </details>
+    <details class="panel" id="grupoPanel" open>
+      <summary id="grupoTitle">Grupo · especialidad</summary>
       <div class="fgroup" id="fGrupo"></div>
-    </div>
-    <div class="panel" id="flagsPanel">
-      <h2>Reglas y estados</h2>
+    </details>
+    <details class="panel" id="flagsPanel" open>
+      <summary>Reglas y estados</summary>
       <div class="fgroup" id="fFlags"></div>
-    </div>
+    </details>
     <button class="clearf" id="clearFilters">Limpiar filtros</button>
   </aside>
 
