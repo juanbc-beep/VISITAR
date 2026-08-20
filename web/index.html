@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-q5GLKR2O5JtxTW6ULgfLwdY1dieYy6h1ZK6wpkUFw4Y=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-i+AD0cg0d5VnYCKHYmtd7zU5tCPq5NksYy0Q0uBYwIc=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -60,6 +60,12 @@
      escribirla acá adentro (con los símbolos de mayor/menor) le arruina el
      cálculo del hash, como pasó armando este mismo bloque. -->
 <link rel="preload" href="nbu_db.bin" as="fetch" crossorigin>
+<!-- La conexión TLS a Supabase (login, sincronización) recién arrancaba cuando
+     el JS de más abajo la pedía. El preconnect abre DNS + TLS en paralelo con
+     el resto de la carga, así que para cuando alguien toca "Entrar" la
+     conexión ya está lista. Mismo dominio que window.NBU_NUBE.url: si ese
+     valor cambia acá hay que tocarlo también. -->
+<link rel="preconnect" href="https://gavfxnoigomxbteagneu.supabase.co" crossorigin>
 <script>
 /* Sello de origen. Lo completa sola la acción de publicación con el commit que
    generó esta versión; en una copia local queda en «local». Sirve para dos
@@ -1151,6 +1157,16 @@ ul{margin:0;padding:0}
 .vstat.warn .vn{color:var(--urg)}
 .vstat.err{border-color:color-mix(in srgb,var(--exc) 45%,var(--line))}.vstat.err .vn{color:var(--exc)}
 .vstat.money .vn{color:var(--accent-ink)}
+/* Barra de proporción (Resumen de Admin): un solo eje, sin librería de charts.
+   El hueco de 2px entre segmentos es lo que separa un color del vecino — no un
+   borde, que sumaría tinta que no es dato (guía del skill dataviz). */
+.vresbar{display:flex;height:22px;border-radius:7px;overflow:hidden;background:var(--surface-2);border:1px solid var(--line)}
+.vresbar>span{height:100%}
+.vresbar>span+span{margin-left:2px}
+.vreslegend{display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:12px}
+.vrl-it{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink-2)}
+.vrl-it i{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.vrl-it b{font-family:var(--font-mono);color:var(--ink)}
 .findings{display:flex;flex-direction:column;gap:9px}
 .finding{display:flex;gap:12px;padding:13px 16px;border-radius:var(--radius);border:1px solid var(--line);background:var(--surface);align-items:flex-start}
 .finding .ficon{width:24px;height:24px;border-radius:7px;flex-shrink:0;display:grid;place-items:center;font-weight:800;font-size:13px;color:#fff}
@@ -5778,7 +5794,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
        cuentas, textos, logo, nube y respaldo no son suyos, y mostrárselos
        apagados sólo invita a preguntar por qué no andan. */
     const tabs=esDuenio()
-      ? [['perfiles','Perfiles'],['propuestas','Pendientes'],['medicas','Revisión médica'],
+      ? [['resumen','Resumen'],['perfiles','Perfiles'],['propuestas','Pendientes'],['medicas','Revisión médica'],
          ['contenido','Textos'],['nube','Nube'],['registro','Registro'],['respaldo','Respaldo']]
       : [['medicas','Revisión médica']];
     if(!tabs.some(t=>t[0]===aTab))aTab=tabs[0][0];
@@ -5874,6 +5890,38 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     // El panel se dibuja al abrirlo: si está cerrado no hay dónde escribir, y
     // refrescarlo desde afuera reventaba con «innerHTML de null».
     if(!p)return;
+    if(aTab==='resumen'){
+      /* Estado real de la base, de un vistazo. Las 7 pestañas de Admin no tenían
+         ninguna vista de conjunto — para saber cuánto de la base está al día
+         había que entrar código por código. Reusa exactamente lo que ya se
+         calcula por ficha (verifEstado) y por cola (contarPendientes): no es
+         un dato nuevo, es juntar el que ya existe en un solo lugar. */
+      const cuentas={ok:0,pendiente:0,vieja:0,sin:0};
+      CODES.forEach(c=>{cuentas[verifEstado(c._key).estado]++;});
+      const total=CODES.length;
+      const pct=n=>total?(n/total*100):0;
+      // Orden fijo elegido para que ningún par de colores vecinos sea difícil
+      // de distinguir (validado con el validador de paleta del skill dataviz):
+      // gris y azul no pueden quedar pegados.
+      const SEG=[
+        ['ok','var(--inc)','Verificada, vigente'],
+        ['pendiente','var(--norma)','Esperando validación'],
+        ['vieja','var(--urg)','Verificada hace más de 180 días'],
+        ['sin','var(--desuso)','Nunca verificada'],
+      ];
+      const pend=contarPendientes();
+      p.innerHTML=`
+        <div class="vsummary" style="margin-bottom:18px">
+          <div class="vstat"><div class="vn">${total.toLocaleString('es-AR')}</div><div class="vl">Códigos en la base</div></div>
+          <div class="vstat ${cuentas.ok?'ok':''}"><div class="vn">${pct(cuentas.ok).toFixed(0)}%</div><div class="vl">Verificados y vigentes</div></div>
+          <div class="vstat ${pend.total?'warn':''}"><div class="vn">${pend.total}</div><div class="vl">Pendientes de revisar</div></div>
+        </div>
+        <div class="slabel" style="${SL};margin-bottom:9px">Estado de verificación de la base</div>
+        <div class="vresbar">${SEG.map(([k,color])=>cuentas[k]?`<span style="width:${pct(cuentas[k])}%;background:${color}"></span>`:'').join('')}</div>
+        <div class="vreslegend">${SEG.map(([k,color,txt])=>`<span class="vrl-it"><i style="background:${color}"></i>${txt} — <b>${cuentas[k].toLocaleString('es-AR')}</b> (${pct(cuentas[k]).toFixed(1)}%)</span>`).join('')}</div>
+        <p style="font-size:12px;color:var(--muted);margin-top:14px;line-height:1.5">Una ficha «vencida» no está mal cargada: la normativa cambió y hace más de 180 días que nadie la contrastó de nuevo contra la fuente. «Nunca verificada» es el dato con menos respaldo — el mejor lugar por dónde seguir.</p>`;
+      return;
+    }
     if(aTab==='perfiles'&&NUBE.activa){ paneNube(p); return; }
     if(aTab==='perfiles'){
       const pend=AUTH.profiles.filter(x=>x.estado==='pendiente');
