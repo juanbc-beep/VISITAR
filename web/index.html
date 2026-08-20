@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-1ckxXC2Tvc9w/7Ha5hpP9JzG6WdcohqRc7zLB0FqtSs=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-q5GLKR2O5JtxTW6ULgfLwdY1dieYy6h1ZK6wpkUFw4Y=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -971,6 +971,19 @@ ul{margin:0;padding:0}
 .modal.on .box{transform:scale(1)}
 .modal h3{margin:0 0 4px;font-size:19px;font-weight:700}
 .modal .sub{color:var(--muted);font-size:13px;margin-bottom:18px}
+/* Secciones en cascada: Normativa y Cobertura PMO arrancan plegadas (Referencias
+   no, son sólo 9 filas) y se abren tocando la flecha — mismo patrón que ya usan
+   los paneles del riel de filtros, para que la app no tenga dos maneras
+   distintas de decir "esto se despliega". */
+.mdsec{margin-bottom:20px}
+.mdsec>summary{display:flex;align-items:center;gap:7px;list-style:none;cursor:pointer;user-select:none;
+  font-size:11px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);font-weight:700;
+  margin-bottom:8px;padding:2px 0}
+.mdsec>summary::-webkit-details-marker{display:none}
+.mdsec>summary::before{content:'▸';font-size:10px;color:var(--accent);transition:transform .16s;flex-shrink:0}
+.mdsec[open]>summary::before{transform:rotate(90deg)}
+.mdsec>summary:hover{color:var(--accent)}
+.mdsec>summary .mcount{margin-left:auto;color:var(--faint);font-weight:700;font-family:var(--font-mono)}
 .gtable{display:flex;flex-direction:column;gap:2px;margin-bottom:20px}
 .grow{display:grid;grid-template-columns:96px 1fr;gap:14px;padding:9px 0;border-bottom:1px solid var(--line);font-size:13.5px}
 .grow .gk{font-family:var(--font-mono);font-weight:700;color:var(--accent-ink)}
@@ -4534,7 +4547,8 @@ function openInfo(expandLey){
   const _axUrl=DB.meta.pmo_anexo1_url||'';
   const _axPre=(DB.meta.pmo_anexo1&&DB.meta.pmo_anexo1.preambulo)||'';
   const pmoGen=_ax.length?`
-    <div class="slabel" id="iPmo" style="font-size:11px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);font-weight:700;margin:18px 0 8px">Cobertura y generalidades del PMO (Res. 201/02)${_axUrl?` <a class="ley-url" href="${esc(_axUrl)}" target="_blank" rel="noopener">texto oficial ↗</a>`:''}</div>
+    <details class="mdsec" id="iPmo">
+    <summary>Cobertura y generalidades del PMO (Res. 201/02)${_axUrl?` <a class="ley-url" href="${esc(_axUrl)}" target="_blank" rel="noopener">texto oficial ↗</a>`:''}<span class="mcount">${_ax.length}</span></summary>
     ${_axPre?`<div class="ax-pre">${esc(_axPre)}</div>`:''}
     <div class="ax">${_ax.map(g=>{
       const abre=!!g.texto;
@@ -4543,11 +4557,14 @@ function openInfo(expandLey){
         <span class="ax-t">${esc((g.titulo||(g.texto||'').split(/(?<=[.:])\s/)[0].slice(0,90)).replace(/[:\s]+$/,''))}</span>
         ${abre?`<div class="ley-det"><div>${textoNorma(g.texto)}</div></div>`:''}
       </div>`;}).join('')}</div>
-    <div class="msinres" id="mSinPmo" hidden>No hay apartados que coincidan con la búsqueda.</div>`:'';
-  /* El panel mide entre 5 y 8 pantallas: sin un índice había que rodarlo entero para
-     llegar al Anexo I. Queda pegado arriba mientras se recorre. Ahora el índice
-     también trae un buscador: encontrar una ley o un apartado puntual entre 22
-     leyes y 30 del Anexo I a fuerza de scroll era el reclamo más concreto. */
+    <div class="msinres" id="mSinPmo" hidden>No hay apartados que coincidan con la búsqueda.</div>
+    </details>`:'';
+  /* El panel mide entre 5 y 8 pantallas, y con las 22 leyes y los 30 apartados
+     siempre visibles (aunque cada detalle empezara plegado) seguía siendo una
+     pared larga para bajar con scroll. Ahora las tres secciones son <details>:
+     empiezan plegadas —salvo Referencias, que son sólo 9 filas— y se abren
+     tocando la flecha, en cascada, una por vez. El buscador fuerza a abrir la
+     que tenga resultado, para no pedir además acordarse de abrirla a mano. */
   const SEC=[['iRef','Referencias'],['iLey',`Normativa (${DB.leyes.length})`],['iPmo',`Cobertura PMO (${_ax.length})`]];
   el('modalBox').innerHTML=`
     <button class="icon-btn close-x" id="closeModal" aria-label="Cerrar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
@@ -4558,11 +4575,15 @@ function openInfo(expandLey){
         aria-label="Buscar en leyes y cobertura PMO" placeholder="Buscar una ley, resolución o apartado del PMO…">
       ${SEC.map(([id,l],i)=>`<button class="mnav-b${i?'':' on'}" data-ir="${id}">${l}</button>`).join('')}
       <button class="mnav-b tut" id="tourBtn">▶ Ver tutorial</button></nav>
-    <div class="slabel" id="iRef" style="font-size:11px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);font-weight:700;margin-bottom:8px">Referencias y flags</div>
+    <details class="mdsec" id="iRef" open>
+    <summary>Referencias y flags</summary>
     <div class="gtable">${gl}</div>
-    <div class="slabel" id="iLey" style="font-size:11px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);font-weight:700;margin-bottom:8px">Leyes · Resoluciones · Decretos vigentes</div>
+    </details>
+    <details class="mdsec" id="iLey">
+    <summary>Leyes · Resoluciones · Decretos vigentes<span class="mcount">${DB.leyes.length}</span></summary>
     <div class="leyes">${ley}</div>
     <div class="msinres" id="mSinLey" hidden>No hay leyes que coincidan con la búsqueda.</div>
+    </details>
     ${pmoGen}
     <p style="font-size:12px;color:var(--muted);margin-top:18px;line-height:1.5">${esc(DB.meta.nota_grupos)}</p>
 `;
@@ -4573,6 +4594,9 @@ function openInfo(expandLey){
     const caja=el('modalBox'), bs=[...caja.querySelectorAll('.mnav-b')];
     bs.forEach(b=>b.addEventListener('click',()=>{
       const d=el(b.dataset.ir); if(!d)return;
+      // Si la sección está plegada, se abre antes de medir: si no, se saltaría
+      // a un título que no tiene nada visible debajo.
+      if(d.tagName==='DETAILS'&&!d.open)d.open=true;
       // scrollIntoView dejaría el título debajo del índice pegado: se descuenta su alto.
       const nav=caja.querySelector('.mnav');
       caja.scrollTo({top:caja.scrollTop+d.getBoundingClientRect().top-caja.getBoundingClientRect().top-(nav?nav.offsetHeight+10:0),behavior:'smooth'});
@@ -4599,6 +4623,7 @@ function openInfo(expandLey){
     const filas=[...el('modalBox').querySelectorAll('.leyes>.ley')].map(f=>({f,txt:norm(f.querySelector('.lt').textContent)}));
     const aps=[...el('modalBox').querySelectorAll('.ax>.ax-it')].map(f=>({f,txt:norm(f.querySelector('.ax-t').textContent)}));
     const sinLey=el('mSinLey'), sinPmo=el('mSinPmo');
+    const secLey=el('iLey'), secPmo=el('iPmo');
     inp.addEventListener('input',()=>{
       const q=norm(inp.value.trim());
       let vLey=0,vAp=0;
@@ -4606,9 +4631,14 @@ function openInfo(expandLey){
       aps.forEach(({f,txt})=>{const on=!q||txt.includes(q);f.hidden=!on;if(on)vAp++;});
       if(sinLey)sinLey.hidden=!(q&&!vLey);
       if(sinPmo)sinPmo.hidden=!(q&&!vAp);
+      // La sección con resultado se abre sola: escribir para encontrar algo no
+      // debería pedir además acordarse de destaparla a mano.
+      if(q&&vLey&&secLey&&!secLey.open)secLey.open=true;
+      if(q&&vAp&&secPmo&&!secPmo.open)secPmo.open=true;
     });
   })();
   if(expandLey){
+    const secLey=el('iLey'); if(secLey&&!secLey.open)secLey.open=true;
     const row=[...el('modalBox').querySelectorAll('.ley')].find(x=>x.querySelector('.ln')&&x.querySelector('.ln').textContent.includes(expandLey));
     if(row&&row.classList.contains('hasdet')){row.classList.add('open');setTimeout(()=>row.scrollIntoView({behavior:'smooth',block:'center'}),60);}
   }
