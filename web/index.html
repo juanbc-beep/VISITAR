@@ -48,6 +48,18 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
+<!-- La base (nbu_db.bin, ~800 KB) recién se pide desde un bloque de script
+     mucho más abajo en el cuerpo del documento — sin esto, el navegador no
+     la descubre hasta haber parseado toda la hoja de estilos. El preload la
+     arranca en paralelo y acorta el cartel de "Cargando base…". No pasa nada
+     si esta copia es un index.html suelto sin nbu_db.bin al lado (modo
+     embebido, ver más abajo): el preload falla en silencio y el arranque no
+     lo usa igual.
+     Ojo si se retoca este comentario: sellar_csp.py no entiende comentarios
+     HTML, es una regex ciega que busca la etiqueta script como texto —
+     escribirla acá adentro (con los símbolos de mayor/menor) le arruina el
+     cálculo del hash, como pasó armando este mismo bloque. -->
+<link rel="preload" href="nbu_db.bin" as="fetch" crossorigin>
 <script>
 /* Sello de origen. Lo completa sola la acción de publicación con el commit que
    generó esta versión; en una copia local queda en «local». Sirve para dos
