@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-i+AD0cg0d5VnYCKHYmtd7zU5tCPq5NksYy0Q0uBYwIc=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-2v7lteV2kKGH2QxqmG8xpgWQAHySnnCJ0FCpWY4Cuzc=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1376,7 +1376,18 @@ body.tour-on{overscroll-behavior:none}
    flex-start + margin:auto queda centrada igual, pero se puede llegar a todo. */
 #gate{position:fixed;inset:0;z-index:1000;background:linear-gradient(160deg,var(--bg),var(--surface-3));display:flex;align-items:flex-start;justify-content:center;padding:24px;overflow:auto}
 #gate[hidden]{display:none!important}
-.gcard{width:100%;max-width:420px;margin:auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 26px 22px}
+.gcard{width:100%;max-width:420px;margin:auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 26px 22px;
+  animation:gcardIn .22s var(--ease-out)}
+/* renderGate() rehace la tarjeta entera con innerHTML en cada paso (elegir
+   perfil, contraseña, error) — al ser un nodo nuevo cada vez, esta animación
+   se reproduce sola en cada paso, sin JS adicional. */
+@keyframes gcardIn{from{opacity:0;transform:translateY(6px)}}
+/* Contraseña o cuenta incorrecta: la tarjeta tiembla para que el rechazo se
+   sienta en el cuerpo, no sólo se lea en el texto rojo de abajo. */
+@keyframes gcardShake{10%,90%{transform:translateX(-1px)}20%,80%{transform:translateX(2px)}
+  30%,50%,70%{transform:translateX(-4px)}40%,60%{transform:translateX(4px)}}
+.gcard.shake{animation:gcardShake .4s}
+@media (prefers-reduced-motion:reduce){.gcard,.gcard.shake{animation:none}}
 .gcard .glogo{width:52px;height:52px;border-radius:13px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;letter-spacing:.5px;font-size:15px;margin-bottom:14px}
 .gcard h2{font-size:19px;margin:0 0 3px;color:var(--ink)}
 .gcard .gsub{font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.45}
@@ -5595,7 +5606,12 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     if(first&&matchMedia('(pointer:fine)').matches)setTimeout(()=>first.focus(),40);
   }
   const gv=id=>{const e=el(id);return e?e.value.trim():'';};
-  const gerr=m=>{const e=el('gErr');if(e)e.textContent=m||'';};
+  const gerr=m=>{const e=el('gErr');if(e)e.textContent=m||'';
+    if(m){const c=e&&e.closest('.gcard');
+      // Se saca y se vuelve a poner la clase (con una lectura de por medio
+      // que fuerza el reflow) para que la sacuda se reinicie si el error
+      // se repite —dos contraseñas mal seguidas— y no se quede pegada.
+      if(c){c.classList.remove('shake');void c.offsetWidth;c.classList.add('shake');}}};
   function wireGate(v){
     const onEnter=(fn)=>gate.querySelectorAll('input').forEach(i=>i.addEventListener('keydown',e=>{if(e.key==='Enter')fn();}));
     if(v==='setup'){
