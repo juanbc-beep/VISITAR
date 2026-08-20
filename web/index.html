@@ -120,6 +120,11 @@ window.NBU_NUBE = {
   --radius:11px; --radius-sm:8px;
   --font-ui:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   --font-mono:ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,monospace;
+  /* Curvas de animación. Iguales en claro y oscuro, por eso viven acá y no en
+     los bloques de tema. @media (prefers-reduced-motion:reduce){*{transition:
+     none!important}} (más abajo) ya las anula enteras cuando corresponde. */
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  --ease-drawer:cubic-bezier(.32,.72,0,1);
 }
 @media (prefers-color-scheme:dark){
   :root{
@@ -676,7 +681,12 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
 .row{display:grid;grid-template-columns:78px 1fr auto;gap:14px;align-items:center;padding:12px 16px;
   background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);cursor:pointer;
   transition:border-color .13s,transform .13s,box-shadow .13s;text-align:left;width:100%;font-family:inherit}
-.row:hover{border-color:var(--accent);box-shadow:var(--shadow);transform:translateY(-1px)}
+/* Gateado a mouse/trackpad: sin esto, tocar la fila en celular la dejaba
+   "levantada" (translateY) hasta el próximo toque en otro lado — el toque
+   dispara :hover y nunca llega un mouseleave que lo saque. */
+@media (hover:hover) and (pointer:fine){
+  .row:hover{border-color:var(--accent);box-shadow:var(--shadow);transform:translateY(-1px)}
+}
 .row:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .rcode{font-family:var(--font-mono);font-size:14px;font-weight:700;color:var(--accent-ink);letter-spacing:-.3px}
 .rmid{min-width:0}
@@ -743,7 +753,7 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
   transition:top .16s}
 .saltar:focus{top:0}
 .tag.t-meta{background:transparent;border:1px solid var(--line);color:var(--faint);font-weight:600;padding:1px 5px}
-.row:hover .tag.t-meta{border-color:var(--line-2);color:var(--muted)}
+@media (hover:hover) and (pointer:fine){.row:hover .tag.t-meta{border-color:var(--line-2);color:var(--muted)}}
 /* Aviso del administrador dentro del resultado. Ámbar, no rojo: es algo que
    hay que tener en cuenta, no un error de la ficha. */
 .robs{display:flex;align-items:flex-start;gap:7px;margin-top:6px;padding:6px 9px;
@@ -855,10 +865,10 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
 .empty b{display:block;color:var(--ink);font-size:16px;margin-bottom:6px}
 
 /* ---------- drawer ---------- */
-.scrim{position:fixed;inset:0;background:rgba(10,18,24,.5);opacity:0;pointer-events:none;transition:.2s;z-index:40}
+.scrim{position:fixed;inset:0;background:rgba(10,18,24,.5);opacity:0;pointer-events:none;transition:opacity .2s var(--ease-out);z-index:40}
 .scrim.on{opacity:1;pointer-events:auto}
 .drawer{position:fixed;top:0;right:0;height:100%;width:min(580px,100%);background:var(--surface);z-index:50;
-  box-shadow:-8px 0 40px rgba(10,18,24,.28);transform:translateX(100%);transition:transform .24s cubic-bezier(.4,0,.2,1);
+  box-shadow:-8px 0 40px rgba(10,18,24,.28);transform:translateX(100%);transition:transform .32s var(--ease-drawer);
   display:flex;flex-direction:column;border-left:1px solid var(--line)}
 .drawer.on{transform:translateX(0)}
 .dhead{padding:20px 24px 16px;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;gap:14px}
@@ -912,10 +922,21 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
 ul{margin:0;padding:0}
 
 /* ---------- modal ---------- */
-.modal{position:fixed;inset:0;z-index:60;display:none;place-items:center;padding:24px}
-.modal.on{display:grid}
+/* display:none/grid no se puede transicionar solo: la caja aparecería/
+   desaparecería de un salto aunque opacity y transform estén animando. El
+   patrón es viejo pero sólido — visibility con transition-delay: al abrir
+   pasa a visible sin demora (junto con la opacidad, que sube), al cerrar se
+   queda visible el tiempo que dura el fundido y recién ahí se saca del
+   árbol de accesibilidad. No usa @starting-style para no depender del
+   navegador de cada puesto administrativo. */
+.modal{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:24px;
+  visibility:hidden;opacity:0;pointer-events:none;
+  transition:opacity .25s var(--ease-out),visibility 0s linear .25s}
+.modal.on{visibility:visible;opacity:1;pointer-events:auto;transition:opacity .25s var(--ease-out)}
 .modal .box{background:var(--surface);border:1px solid var(--line);border-radius:16px;max-width:680px;width:100%;
-  max-height:85vh;overflow-y:auto;box-shadow:var(--shadow);padding:26px 28px}
+  max-height:85vh;overflow-y:auto;box-shadow:var(--shadow);padding:26px 28px;
+  transform:scale(.96);transition:transform .25s var(--ease-out)}
+.modal.on .box{transform:scale(1)}
 .modal h3{margin:0 0 4px;font-size:19px;font-weight:700}
 .modal .sub{color:var(--muted);font-size:13px;margin-bottom:18px}
 .gtable{display:flex;flex-direction:column;gap:2px;margin-bottom:20px}
@@ -1349,13 +1370,17 @@ body.tour-on{overscroll-behavior:none}
 .acctchip .anm{font-size:12.5px;font-weight:700;color:var(--ink);max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .editmode-on .icon-btn.editbtn{background:var(--accent);color:var(--sobre-acento);border-color:var(--accent)}
 /* admin panel (reuse modal styles) */
-#adminModal{position:fixed;inset:0;z-index:900;background:rgba(19,32,41,.44);display:none;align-items:flex-start;justify-content:center;padding:40px 18px;overflow:auto}
-#adminModal.on{display:flex}
+/* Mismo patrón visibility+delay que .modal (ver ahí el porqué), reusado acá
+   en vez de reinventarlo: son la misma forma de diálogo centrado. */
+#adminModal{position:fixed;inset:0;z-index:900;background:rgba(19,32,41,.44);display:flex;align-items:flex-start;justify-content:center;padding:40px 18px;overflow:auto;
+  visibility:hidden;opacity:0;pointer-events:none;transition:opacity .25s var(--ease-out),visibility 0s linear .25s}
+#adminModal.on{visibility:visible;opacity:1;pointer-events:auto;transition:opacity .25s var(--ease-out)}
 /* Se pregunta UNA vez, al entrar, y no en el formulario de alta: quien crea la
    cuenta todavía no sabe que va a ser médico —el rol se lo da el administrador
    después—, así que ahí la pregunta no tendría sentido. */
-#tratoModal{position:fixed;inset:0;z-index:940;background:rgba(19,32,41,.5);display:none;align-items:center;justify-content:center;padding:24px;overflow:auto}
-#tratoModal.on{display:flex}
+#tratoModal{position:fixed;inset:0;z-index:940;background:rgba(19,32,41,.5);display:flex;align-items:center;justify-content:center;padding:24px;overflow:auto;
+  visibility:hidden;opacity:0;pointer-events:none;transition:opacity .25s var(--ease-out),visibility 0s linear .25s}
+#tratoModal.on{visibility:visible;opacity:1;pointer-events:auto;transition:opacity .25s var(--ease-out)}
 .tratobox{max-width:440px}
 .trato-op{display:flex;gap:9px;margin:16px 0 4px;flex-wrap:wrap}
 .trato-op button{flex:1 1 0;min-width:96px;border:1.5px solid var(--line-2);background:var(--surface);
@@ -1364,7 +1389,9 @@ body.tour-on{overscroll-behavior:none}
 .trato-op button:hover{border-color:var(--med);background:color-mix(in srgb,var(--med) 10%,transparent);color:var(--med)}
 .trato-op button small{display:block;font-size:11.5px;font-weight:500;color:var(--muted);margin-top:3px}
 .trato-op button:hover small{color:var(--med)}
-.adminbox{width:100%;max-width:680px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;position:relative}
+.adminbox{width:100%;max-width:680px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;position:relative;
+  transform:scale(.97);transition:transform .25s var(--ease-out)}
+#adminModal.on .adminbox,#tratoModal.on .adminbox{transform:scale(1)}
 .adminbox h3{font-size:18px;margin:0 0 4px;color:var(--ink)}
 .adminbox .asub{font-size:12.5px;color:var(--muted);margin-bottom:16px}
 .atabs{display:flex;gap:6px;border-bottom:1px solid var(--line);margin-bottom:16px;flex-wrap:wrap}
