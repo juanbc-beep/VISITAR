@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-gg8NdYe04HNFU9mghi09VpzSd3CwtphuI8I5+br8ELc=';
+  script-src 'self' 'sha256-mrhA9iFcFC5/T+h1aHRs6e2G2e0enF8xuKPUTci88a0=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-QiO5QxXiCFL+3UUTcTF/WS+8hOrFWm/iiDrOJBQu2LY=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -862,6 +862,12 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
   border-radius:9px;color:var(--accent);font-weight:600;font-size:13.5px}
 .more:hover{background:var(--surface-2)}
 .empty{text-align:center;padding:60px 20px;color:var(--muted)}
+/* Sólo para las filas que agrega "Ver más resultados" (ver el listener de
+   #moreBtn) — nunca para el listado entero: eso se re-arma con cada tecla
+   de búsqueda y animarlo ahí se sentiría saltarín, no pulido. */
+@keyframes filaMas{from{opacity:0;transform:translateY(4px)}}
+.row-mas{animation:filaMas .18s var(--ease-out) both}
+@media (prefers-reduced-motion:reduce){.row-mas{animation:none}}
 .empty b{display:block;color:var(--ink);font-size:16px;margin-bottom:6px}
 
 /* ---------- drawer ---------- */
@@ -900,8 +906,8 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
 .kv{font-size:13.5px;color:var(--ink-2)}
 .chipset{display:flex;gap:7px;flex-wrap:wrap}
 .pill{font-size:12.5px;padding:4px 10px;border-radius:7px;background:var(--surface-2);border:1px solid var(--line);color:var(--ink-2)}
-.codechip{font-family:var(--font-mono);font-size:12.5px;font-weight:700;padding:5px 10px;border-radius:7px;border:1px solid;cursor:pointer;transition:.12s;display:inline-flex;gap:6px;align-items:center}
-.codechip:hover{transform:translateY(-1px)}
+.codechip{font-family:var(--font-mono);font-size:12.5px;font-weight:700;padding:5px 10px;border-radius:7px;border:1px solid;cursor:pointer;transition:transform .12s;display:inline-flex;gap:6px;align-items:center}
+@media (hover:hover) and (pointer:fine){.codechip:hover{transform:translateY(-1px)}}
 .codechip small{font-family:var(--font-ui);font-weight:500;color:var(--muted);max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .cc-inc{background:var(--inc-soft);border-color:color-mix(in srgb,var(--inc) 32%,transparent);color:var(--inc)}
 .cc-exc{background:var(--exc-soft);border-color:color-mix(in srgb,var(--exc) 32%,transparent);color:var(--exc)}
@@ -2836,7 +2842,17 @@ function openSurge(id){
 }
 function chip(f,v,label){return `<span class="fchip">${esc(label)}<button data-f="${f}" data-v="${esc(v)}" aria-label="Quitar">×</button></span>`;}
 function cssEsc(s){return (window.CSS&&CSS.escape)?CSS.escape(s):s.replace(/"/g,'\\"');}
-el('moreBtn').addEventListener('click',()=>{state.limit+=120;render();});
+el('moreBtn').addEventListener('click',()=>{
+  const previo=el('list').children.length;
+  state.limit+=120;render();
+  // Sólo entran con fundido las filas que agrega este click — no las que ya
+  // estaban. Vive acá y no adentro de render() para no dispararse con cada
+  // tecla de búsqueda, que también llama a render().
+  [...el('list').children].slice(previo).forEach((fila,i)=>{
+    fila.classList.add('row-mas');
+    fila.style.animationDelay=Math.min(i*20,120)+'ms';
+  });
+});
 
 /* ---------- exportar CSV / imprimir ---------- */
 function downloadCSV(filename,rows){
