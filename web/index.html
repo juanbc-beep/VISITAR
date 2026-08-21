@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-Tt3HqkvH8gZdBZmybuA61a55oY47cDA3ZN+drOcx99I=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-ERYZMMRBTFF8ec9mg2zjURGzlCkPCCz3DvUhwi3Tcjg=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1749,7 +1749,13 @@ async function loadDB(){
   }
 }
 const DB = await loadDB();
-const _boot=document.getElementById('boot'); if(_boot)_boot.remove();
+/* El cartel de arranque se sacaba apenas llegaban los datos, antes de armar el
+   índice de búsqueda (normalizar y tokenizar 6.334 códigos). En un equipo
+   lento eso deja la pantalla ya armada —encabezado, buscador— pero trabada
+   sin responder nada por casi un segundo: peor que el cartel, porque parece
+   lista y no lo está. Ahora el cartel se saca recién cuando NBU/PMO/Único ya
+   se pueden buscar de verdad. Lo de CIE-10/Abreviaturas/SURGE sigue después,
+   de fondo (ver más abajo): nadie los toca en el primer segundo. */
 Object.entries(DB.codigos).forEach(([k,v])=>{v._key=k;});
 const CODES = Object.values(DB.codigos).sort((a,b)=>a.code.localeCompare(b.code));
 const BYCODE = DB.codigos;
@@ -1828,6 +1834,7 @@ CODES.forEach(c=>{
   if(otros.length)c._h+=' '+norm(otros.join(' '));
   prepBusqueda(c,c.nombre);
 });
+const _boot=document.getElementById('boot'); if(_boot)_boot.remove();
 
 // Distancia de edición acotada: corta apenas supera el máximo tolerado, así no se
 // paga el costo completo en las palabras que claramente no se parecen.
@@ -1912,7 +1919,11 @@ const ocultoNom=n=>NOMEN_OCULTOS.has(n);
 // CIE-10 (diagnósticos)
 const CIE=(DB.cie10&&DB.cie10.codigos)?DB.cie10.codigos:{};
 const CIE_LIST=Object.values(CIE);
-CIE_LIST.forEach(d=>{d._h=norm(d.code+' '+d.desc+' '+(d.cap_nombre||''));prepBusqueda(d,d.desc);});
+// _h se arma ya (es un solo norm() por registro, barato): buscar(...) lo lee
+// siempre con rec._h.includes(...), sin red de contención si faltara. Lo caro
+// —tokenizar para tolerar erratas— se pospone más abajo, eso sí tiene
+// fallback en todos lados donde se lee (rec._tk||[], rec._hn||'').
+CIE_LIST.forEach(d=>{d._h=norm(d.code+' '+d.desc+' '+(d.cap_nombre||''));});
 const CIE_CAPS=(DB.cie10&&DB.cie10.capitulos)?DB.cie10.capitulos:[];
 const CIE_REL=(DB.cie10&&DB.cie10.relaciones)?DB.cie10.relaciones:{};
 const LEYES_BY_NUM={};(DB.leyes||[]).forEach(l=>{LEYES_BY_NUM[l.ley]=l;});
@@ -1921,11 +1932,34 @@ const ABREVS=(DB.abreviaturas||[]);
 ABREVS.forEach(a=>{a._h=norm(a.abrev+' '+a.sig);});
 const ABREV_BY=(function(){const m={};ABREVS.forEach(a=>{const k=a.abrev.toUpperCase();(m[k]=m[k]||[]).push(a.sig);});return m;})();
 // una fila por sigla (agrupa las siglas con varios significados)
-const ABREV_UNIQ=(function(){const seen=new Map();ABREVS.forEach(a=>{const k=a.abrev.toUpperCase();if(!seen.has(k))seen.set(k,{abrev:a.abrev,sigs:[],fuentes:new Set()});const g=seen.get(k);g.sigs.push(a.sig);if(a.fuente)a.fuente.split('+').forEach(f=>g.fuentes.add(f.trim()));});const arr=[...seen.values()];arr.forEach(g=>{g._h=norm(g.abrev+' '+g.sigs.join(' '));prepBusqueda(g,g.abrev+' '+g.sigs.join(' '));});arr.sort((x,y)=>x.abrev.toUpperCase().localeCompare(y.abrev.toUpperCase()));return arr;})();
+const ABREV_UNIQ=(function(){const seen=new Map();ABREVS.forEach(a=>{const k=a.abrev.toUpperCase();if(!seen.has(k))seen.set(k,{abrev:a.abrev,sigs:[],fuentes:new Set()});const g=seen.get(k);g.sigs.push(a.sig);if(a.fuente)a.fuente.split('+').forEach(f=>g.fuentes.add(f.trim()));});const arr=[...seen.values()];arr.forEach(g=>{g._h=norm(g.abrev+' '+g.sigs.join(' '));});arr.sort((x,y)=>x.abrev.toUpperCase().localeCompare(y.abrev.toUpperCase()));return arr;})();
 // SURGE — Sistema Único de Reintegro por Gestión de Enfermedades (Res. 731/23)
 const SURGE=(DB.surge&&DB.surge.patologias)?DB.surge.patologias:[];
-const SURGE_BY_ID={};SURGE.forEach(p=>{SURGE_BY_ID[p.id]=p;p._h=norm([p.nombre,p.especialidad,...(p.medicacion||[]),...(p.requerimiento||[]),...(p.cie||[])].join(' '));prepBusqueda(p,p.nombre);});
+const SURGE_BY_ID={};SURGE.forEach(p=>{SURGE_BY_ID[p.id]=p;p._h=norm([p.nombre,p.especialidad,...(p.medicacion||[]),...(p.requerimiento||[]),...(p.cie||[])].join(' '));});
 const SURGE_META=(DB.surge)?DB.surge:{};
+/* CIE-10, abreviaturas y SURGE eran, juntos, la tanda más cara del arranque
+   (más de mil registros tokenizados para tolerar erratas) y nadie los toca
+   en el primer segundo: se entra a «Consulta rápida» después de ver el
+   buscador principal, no antes. prepBusqueda (lo caro: tokenizar) ya no
+   frena la salida del cartel — corre acá de fondo, en tandas que sueltan el
+   hilo principal entre una y otra. _h ya está puesto arriba (sincrónico,
+   barato), así que buscar ahí antes de que termine no rompe nada: sólo
+   encuentra por coincidencia exacta hasta que el fondo llega a ese registro,
+   sin tolerar erratas todavía — se completa solo en bien menos de un
+   segundo y nadie llega tan rápido a pedir esa parte. */
+function indexarDeFondo(lista,armar,porTanda){
+  let i=0;
+  (function tanda(){
+    const fin=Math.min(i+(porTanda||600),lista.length);
+    for(;i<fin;i++)armar(lista[i]);
+    if(i<lista.length)setTimeout(tanda,0);
+  })();
+}
+setTimeout(()=>{
+  indexarDeFondo(CIE_LIST,d=>prepBusqueda(d,d.desc));
+  indexarDeFondo(ABREV_UNIQ,g=>prepBusqueda(g,g.abrev+' '+g.sigs.join(' ')));
+  indexarDeFondo(SURGE,p=>prepBusqueda(p,p.nombre));
+},0);
 const STOP=new Set('otras otros otro no del las los una uno con por para sin sobre entre como sus que especificado especificados especificada no clasificado clasificados clasificada parte debido debida enfermedad enfermedades trastorno trastornos afeccion afecciones sitio efectos efecto forma formas tipo tipos otra'.split(' '));
 function cieSuggest(d){
   const toks=[...new Set(norm(d.desc).replace(/[^a-z0-9 ]/g,' ').split(/\s+/).filter(w=>w.length>4&&!STOP.has(w)))];
