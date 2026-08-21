@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-KyJ2vh3lOH3nv7eblMfD22s6/ZJzXwS3fAdyUwTNw8I=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-W9OwrttfV+PHjHoH6goNar/aibkzS1J1fsF81oFqWqk=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -4998,7 +4998,14 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       const s=String(m);
       if(/Invalid login credentials/i.test(s))return 'Correo o contraseña incorrectos.';
       if(/User already registered|already been registered/i.test(s))return 'Ya existe una cuenta con ese correo.';
-      if(/Password should be at least/i.test(s))return 'La contraseña debe tener al menos 6 caracteres.';
+      // El mínimo lo fija el panel de Supabase y puede no ser 6 — antes se
+      // traducía siempre como «al menos 6 caracteres» aunque la base pidiera
+      // otro número, así que quien ya había puesto 6 volvía a chocar con el
+      // mismo error sin entender por qué (el número real venía en el mensaje
+      // de Supabase, pero se lo pisaba). Ahora se toma el número real.
+      const mMin=s.match(/Password should be at least (\d+) characters?/i);
+      if(mMin)return `La contraseña debe tener al menos ${mMin[1]} caracteres.`;
+      if(/Password should be at least/i.test(s))return 'La contraseña es demasiado corta.';
       if(/Unable to validate email|invalid format/i.test(s))return 'El correo no tiene un formato válido.';
       /* No lo puede resolver quien lo lee: es la confirmación por correo de
          Supabase, que va por un carril aparte de la aprobación del
@@ -5774,7 +5781,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
           ? `<div class="gsub">Los enlaces duran una hora y se usan una sola vez. Pedí uno nuevo desde <b>Me olvidé la contraseña</b>.</div>
              <button class="gbtn" id="npVolver">Volver al inicio</button>`
           : `<div class="gsub">Escribila dos veces. Al guardar quedás dentro del manual.</div>
-             ${field('cpUna','Contraseña nueva (mínimo 6)','password',{ac:'new-password'})}
+             ${field('cpUna','Contraseña nueva','password',{ac:'new-password'})}
              ${field('cpDos','Repetirla','password',{ac:'new-password'})}
              <div class="gerr" id="gErr"></div>
              <button class="gbtn" id="cpGo">Guardar y entrar</button>`}
@@ -5786,7 +5793,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         <div class="gsub">La cuenta queda <b>pendiente</b> hasta que la apruebe el administrador. Usá tu correo de trabajo: es con lo que te va a identificar.</div>
         ${field('naNom','Tu nombre y apellido','text',{ac:'name'})}
         ${field('naMail','Correo','email',{ac:'username',im:'email'})}
-        ${field('naPass','Contraseña (mínimo 6)','password',{ac:'new-password'})}
+        ${field('naPass','Contraseña','password',{ac:'new-password'})}
         ${field('naPass2','Repetir contraseña','password',{ac:'new-password'})}
         <div class="gerr" id="gErr"></div>
         <button class="gbtn" id="naGo">Crear mi cuenta</button>
@@ -5940,7 +5947,10 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       if(el('cpGo')){
         const go=async()=>{
           const p1=gv('cpUna'),p2=gv('cpDos');
-          if(p1.length<6)return gerr('La contraseña debe tener al menos 6 caracteres.');
+          // El mínimo lo exige el panel de Supabase, no acá — un número fijo
+          // en el cliente queda desactualizado en cuanto lo cambian ahí, y
+          // termina mintiéndole a quien se está registrando (ver traducir()).
+          if(!p1)return gerr('Ingresá una contraseña.');
           if(p1!==p2)return gerr('Las contraseñas no coinciden.');
           const b=el('cpGo');b.disabled=true;b.textContent='Guardando…';gerr('');
           try{
@@ -5958,7 +5968,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         const nm=gv('naNom'),m=gv('naMail'),p1=gv('naPass'),p2=gv('naPass2');
         if(!nm)return gerr('Ingresá tu nombre.');
         if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m))return gerr('Revisá el correo.');
-        if(p1.length<6)return gerr('La contraseña debe tener al menos 6 caracteres.');
+        if(!p1)return gerr('Ingresá una contraseña.');
         if(p1!==p2)return gerr('Las contraseñas no coinciden.');
         const b=el('naGo');b.disabled=true;b.textContent='Creando…';gerr('');
         try{ await NUBE.registrar(nm,m,p1); gate._nuevo=nm; renderGate('espera'); }
@@ -7069,7 +7079,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     } else if(cTab==='pass'){
       abox.innerHTML=`${closeBtn}<h3>Cambiar contraseña</h3>
         <div class="asub">Escribila dos veces. No hace falta la actual: ya estás adentro con tu sesión.</div>
-        <label>Contraseña nueva (mínimo 6)</label>
+        <label>Contraseña nueva</label>
         <input type="password" id="cPass1" autocomplete="new-password">
         <label>Repetirla</label>
         <input type="password" id="cPass2" autocomplete="new-password">
@@ -7077,7 +7087,8 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         <button class="minibtn" id="cVolver">Cancelar</button></div>`;
       el('cGuardar').addEventListener('click',async()=>{
         const p1=gv('cPass1'),p2=gv('cPass2');
-        if(p1.length<6)return toast('La contraseña debe tener al menos 6 caracteres',true);
+        // El mínimo lo exige el panel de Supabase, no acá — ver traducir().
+        if(!p1)return toast('Ingresá una contraseña',true);
         if(p1!==p2)return toast('Las contraseñas no coinciden',true);
         const b=el('cGuardar');b.disabled=true;b.textContent='Guardando…';
         try{ await NUBE.cambiarPass(p1); toast('Contraseña actualizada'); volver(); }
