@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-wjMc8SiHUq0vKV2b40lrZcgMhCw6gmIAKNIpeTOVc/s=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-ipX5MupXLYGYm60i0b2dHuxkqsCBQiXqQrsUXz5bHfo=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -5659,6 +5659,13 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   function hideGate(){gate.hidden=true;}
   const OJO_VER='<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>';
   const OJO_TAPAR='<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9.9 5.2A10.6 10.6 0 0 1 12 5c6.5 0 10 7 10 7a18 18 0 0 1-3.2 4.2M6.5 6.6A18 18 0 0 0 2 12s3.5 7 10 7c2 0 3.7-.6 5.1-1.5"/><path d="M3 3l18 18"/></svg>';
+  /* El mínimo real vive en el panel de Supabase (Authentication → Providers
+     → Email → Minimum password length) — esto es sólo el eco para avisar
+     antes de mandar el formulario y ahorrar una vuelta al servidor. Si se
+     cambia allá y no se actualiza acá, no vuelve a mentir como antes: el
+     mensaje real de Supabase (con su número real) sigue siendo la última
+     palabra, ver traducir(). */
+  const PASS_MIN=12;
   /* «opts» trae lo que cambia el teclado del celular y habilita el gestor de
      contraseñas: sin autocomplete el navegador no ofrece guardar ni completar, y
      sin autocapitalize el teclado arranca en mayúscula justo sobre el correo. */
@@ -5791,7 +5798,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
           ? `<div class="gsub">Los enlaces duran una hora y se usan una sola vez. Pedí uno nuevo desde <b>Me olvidé la contraseña</b>.</div>
              <button class="gbtn" id="npVolver">Volver al inicio</button>`
           : `<div class="gsub">Escribila dos veces. Al guardar quedás dentro del manual.</div>
-             ${field('cpUna','Contraseña nueva','password',{ac:'new-password'})}
+             ${field('cpUna',`Contraseña nueva (mínimo ${PASS_MIN})`,'password',{ac:'new-password'})}
              ${field('cpDos','Repetirla','password',{ac:'new-password'})}
              <div class="gerr" id="gErr"></div>
              <button class="gbtn" id="cpGo">Guardar y entrar</button>`}
@@ -5803,7 +5810,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         <div class="gsub">La cuenta queda <b>pendiente</b> hasta que la apruebe el administrador. Usá tu correo de trabajo: es con lo que te va a identificar.</div>
         ${field('naNom','Tu nombre y apellido','text',{ac:'name'})}
         ${field('naMail','Correo','email',{ac:'username',im:'email'})}
-        ${field('naPass','Contraseña','password',{ac:'new-password'})}
+        ${field('naPass',`Contraseña (mínimo ${PASS_MIN})`,'password',{ac:'new-password'})}
         ${field('naPass2','Repetir contraseña','password',{ac:'new-password'})}
         <div class="gerr" id="gErr"></div>
         <button class="gbtn" id="naGo">Crear mi cuenta</button>
@@ -5957,10 +5964,10 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       if(el('cpGo')){
         const go=async()=>{
           const p1=gv('cpUna'),p2=gv('cpDos');
-          // El mínimo lo exige el panel de Supabase, no acá — un número fijo
-          // en el cliente queda desactualizado en cuanto lo cambian ahí, y
-          // termina mintiéndole a quien se está registrando (ver traducir()).
-          if(!p1)return gerr('Ingresá una contraseña.');
+          // PASS_MIN es sólo el eco del mínimo real de Supabase, no la fuente
+          // de verdad — si quedara desactualizado, traducir() igual muestra
+          // el número real que manda el servidor al rechazarla.
+          if(p1.length<PASS_MIN)return gerr(`La contraseña debe tener al menos ${PASS_MIN} caracteres.`);
           if(p1!==p2)return gerr('Las contraseñas no coinciden.');
           const b=el('cpGo');b.disabled=true;b.textContent='Guardando…';gerr('');
           try{
@@ -5978,7 +5985,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         const nm=gv('naNom'),m=gv('naMail'),p1=gv('naPass'),p2=gv('naPass2');
         if(!nm)return gerr('Ingresá tu nombre.');
         if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m))return gerr('Revisá el correo.');
-        if(!p1)return gerr('Ingresá una contraseña.');
+        if(p1.length<PASS_MIN)return gerr(`La contraseña debe tener al menos ${PASS_MIN} caracteres.`);
         if(p1!==p2)return gerr('Las contraseñas no coinciden.');
         const b=el('naGo');b.disabled=true;b.textContent='Creando…';gerr('');
         try{ await NUBE.registrar(nm,m,p1); gate._nuevo=nm; renderGate('espera'); }
@@ -7111,7 +7118,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     } else if(cTab==='pass'){
       abox.innerHTML=`${closeBtn}<h3>Cambiar contraseña</h3>
         <div class="asub">Escribila dos veces. No hace falta la actual: ya estás adentro con tu sesión.</div>
-        <label>Contraseña nueva</label>
+        <label>Contraseña nueva (mínimo ${PASS_MIN})</label>
         <input type="password" id="cPass1" autocomplete="new-password">
         <label>Repetirla</label>
         <input type="password" id="cPass2" autocomplete="new-password">
@@ -7119,8 +7126,8 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         <button class="minibtn" id="cVolver">Cancelar</button></div>`;
       el('cGuardar').addEventListener('click',async()=>{
         const p1=gv('cPass1'),p2=gv('cPass2');
-        // El mínimo lo exige el panel de Supabase, no acá — ver traducir().
-        if(!p1)return toast('Ingresá una contraseña',true);
+        // PASS_MIN es sólo el eco del mínimo real de Supabase — ver traducir().
+        if(p1.length<PASS_MIN)return toast(`La contraseña debe tener al menos ${PASS_MIN} caracteres`,true);
         if(p1!==p2)return toast('Las contraseñas no coinciden',true);
         const b=el('cGuardar');b.disabled=true;b.textContent='Guardando…';
         try{ await NUBE.cambiarPass(p1); toast('Contraseña actualizada'); volver(); }
