@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-lAJl4R+pNEo0t4AkKMdBcKj2Etl9LqVs4cSxj4sg8r8=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-26Rh89bDTFOHuooEfYC3aSPL1prulpeDg8q8XAoxSjI=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -807,6 +807,10 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
 #swbar.on{transform:translate(-50%,0)}
 #swbar span{flex:1;min-width:0}
 #swbar .icon-btn{width:28px;height:28px;flex-shrink:0;font-size:13px}
+/* En pantallas angostas el texto ocupa varias líneas: el radio de píldora
+   (99px) queda deforme sobre un bloque alto. Con el radio de tarjeta normal
+   se ve como el resto de la UI en vez de una cápsula rota. */
+@media(max-width:480px){#swbar{border-radius:var(--radius)}}
 @media print{#swbar{display:none}}
 /* Sólo para lectores de pantalla: fuera de la vista pero leído. */
 .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
@@ -1116,12 +1120,20 @@ ul{margin:0;padding:0}
 
 /* ---------- mobile ---------- */
 .filter-toggle{display:none}
+.rail-close{display:none}
 @media (max-width:900px){
   .wrap{grid-template-columns:1fr;padding:14px 14px 60px}
   aside{position:fixed;inset:0 auto 0 0;top:0;height:100%;width:290px;max-height:100%;z-index:45;background:var(--bg);
     padding:16px;transform:translateX(-100%);transition:transform .22s;box-shadow:8px 0 30px rgba(0,0,0,.2)}
   aside.on{transform:translateX(0)}
-  .filter-toggle{display:inline-flex}
+  /* .icon-btn ya centra con display:grid;place-items:center, pero acá se
+     pisa el display a flex — sin repetir el centrado, place-items queda sin
+     efecto (no aplica a flex) y el ícono se corre hacia la izquierda. */
+  .filter-toggle{display:inline-flex;align-items:center;justify-content:center}
+  /* El cajón de filtros tapa el botón que lo abrió — sin esto no había forma
+     de cerrarlo salvo tocar el fondo oscuro (que tampoco se activaba, ver
+     #filterToggle más abajo). */
+  .rail-close{display:flex;position:absolute;top:10px;right:10px;z-index:1}
   .hbar{flex-wrap:wrap;row-gap:10px}                 /* la búsqueda baja a su propia fila */
   .search{order:3;flex-basis:100%;max-width:none}
   .brand p{display:none}
@@ -1145,6 +1157,17 @@ ul{margin:0;padding:0}
   .vtab{padding:9px 14px}
   .dhead,.dbody{padding-left:16px;padding-right:16px}
   .dback{padding:12px 14px 12px 11px;font-size:12px}   /* objetivo táctil ≥42px */
+  /* Administración: la fila de cada cuenta (avatar + nombre + select de rol +
+     "Transferir administración" + "Eliminar") no entra en una sola línea en
+     un teléfono — el select y los botones se apretaban y se cortaban. */
+  .adminbox{padding:16px}
+  .arow{flex-wrap:wrap;row-gap:8px}
+  .arow .minibtn{flex:1 1 auto;min-width:0}
+  /* Logo + input de archivo + "Quitar": el <input type=file> no se achica
+     solo (el botón nativo "Elegir archivo" tiene un ancho mínimo propio),
+     así que empujaba "Quitar" fuera de la tarjeta. */
+  .logo-row{flex-wrap:wrap}
+  .adminbox input[type=file]{flex:1 1 140px;min-width:0}
 }
 /* ---------- view tabs + module tree ---------- */
 .viewtabs{display:inline-flex;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:3px;gap:2px;margin-bottom:14px}
@@ -1684,6 +1707,9 @@ try{if(sessionStorage.getItem('nbu-actualizando')){
 
 <div class="wrap">
   <aside id="rail">
+    <button type="button" class="icon-btn rail-close" id="railClose" aria-label="Cerrar filtros">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
     <details class="panel" id="secPanel" open>
       <summary>Sección NBU</summary>
       <div class="fgroup" id="fSeccion"></div>
@@ -4113,7 +4139,9 @@ function openCode(code,origen){
         ${e.desc?`<div style="margin-top:6px;font-size:13px;color:var(--ink-2)">${esc(e.desc)}</div>`:''}
         ${(ubEq!=null&&propia!=null&&ubEq!==propia)?`<div class="eqdif">Ojo: <b>${propia} U.B.</b> en este nomenclador y <b>${ubEq} U.B.</b> en el otro. La diferencia es del convenio, no un error — se factura con la del nomenclador que corresponda.</div>`:''}
         <div style="margin-top:6px;font-size:12px;color:var(--faint)">${e.key?'Presente en ambos nomencladores. Tocá el código para abrir su ficha en '+esc(e.target_label||'')+'.':'El código equivalente ('+esc(e.code)+') no está cargado como ficha propia todavía.'}</div>
-        ${e.recalculada?`<div style="margin-top:6px;font-size:12px;color:var(--urg);background:var(--urg-soft);border-radius:6px;padding:7px 9px">⚠ El código que traía la planilla${e.code_declarado?` (<b>${esc(e.code_declarado)}</b>)`:''} <b>no existe</b> en el Nomenclador Nacional cargado. Esta equivalencia se reconstruyó ${e.recalculada==='codigo'?'por <b>código idéntico</b>':'por <b>proximidad de nombre</b>'} — conviene confirmarla.${
+        ${e.recalculada?`<div style="margin-top:6px;font-size:12px;color:var(--urg);background:var(--urg-soft);border-radius:6px;padding:7px 9px">⚠ ${e.recalculada==='codigo_corregido'
+          ?`La planilla ataba este código al <b>${esc(e.code_declarado)}</b>, pero existe el <b>${esc(e.code)}</b> con <b>número idéntico</b> en ambos nomencladores — se corrigió la equivalencia a ése.`
+          :`El código que traía la planilla${e.code_declarado?` (<b>${esc(e.code_declarado)}</b>)`:''} <b>no existe</b> en el Nomenclador Nacional cargado. Esta equivalencia se reconstruyó ${e.recalculada==='codigo'?'por <b>código idéntico</b>':'por <b>proximidad de nombre</b>'}.`} Conviene confirmarla.${
           /* Cómo llamaba la planilla del Único a la práctica. Va acá y no
              reemplazando al nombre del destino: cada nomenclador dice lo que
              dice, y la diferencia de redacción es justamente lo que el médico
@@ -4870,7 +4898,16 @@ sincronizarIconoTema();
 try{matchMedia('(prefers-color-scheme:dark)').addEventListener('change',()=>{if(!localStorage.getItem('nbu-theme'))sincronizarIconoTema();});}catch(e){}
 
 /* ---------- mobile filter toggle ---------- */
-el('filterToggle').addEventListener('click',()=>el('rail').classList.toggle('on'));
+// Sin el scrim, el cajón de filtros no tenía forma de cerrarse en mobile: ni
+// fondo oscuro para tocar afuera, ni botón visible (el propio filterToggle
+// queda tapado por el cajón que abrió). El scrim ya sabe cerrar el rail
+// (ver más arriba), sólo faltaba prenderlo acá.
+function toggleRail(){
+  const on=el('rail').classList.toggle('on');
+  el('scrim').classList.toggle('on',on);
+}
+el('filterToggle').addEventListener('click',toggleRail);
+el('railClose').addEventListener('click',toggleRail);
 
 /* ---------- deep link ---------- */
 window.addEventListener('hashchange',()=>{
@@ -5485,16 +5522,27 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
        escribe. Va al lado del de pendientes, con el mismo tratamiento. */
     const ob=el('obsBtn');
     if(ob){
-      const hay=!!(current&&!esDuenio()&&obsNuevas>0);
-      ob.hidden=!hay;
-      if(hay){ el('obsN').textContent=obsNuevas>99?'99+':String(obsNuevas);
-        ob.title=obsNuevas===1?'Hay 1 novedad desde la última vez que entraste'
-                              :`Hay ${obsNuevas} novedades desde la última vez que entraste`;
+      // Antes la campanita sólo aparecía cuando había algo nuevo, así que no
+      // servía para volver a mirar novedades ya vistas. Ahora queda siempre
+      // visible para médicos y administrativos (el dueño sigue sin verla: las
+      // novedades son cambios de otros, y para él ese conteo siempre da 0);
+      // sólo el numerito rojo va y viene con obsNuevas.
+      const puedeVer=!!(current&&!esDuenio());
+      ob.hidden=!puedeVer;
+      if(puedeVer){
+        const hayNuevas=obsNuevas>0;
+        el('obsN').hidden=!hayNuevas;
+        el('obsN').textContent=obsNuevas>99?'99+':String(obsNuevas);
+        ob.title=hayNuevas?(obsNuevas===1?'Hay 1 novedad desde la última vez que entraste'
+                                          :`Hay ${obsNuevas} novedades desde la última vez que entraste`)
+                          :'Qué pasó desde la última vez que entraste';
         // El aria-label fijo tapaba el número: quien tabulaba hasta acá escuchaba
         // «Novedades…» sin enterarse de cuántas hay. Ahora dice lo mismo que el title.
-        ob.setAttribute('aria-label',ob.title); }
-      // La campanita aparece sola cuando hay algo; la primera vez, se explica.
-      if(hay&&window.NBUPistas)NBUPistas.revisar();
+        ob.setAttribute('aria-label',ob.title);
+      }
+      // La pista de la campanita se explica la primera vez que aparece algo
+      // nuevo, no cada vez que se ve el botón (que ahora es todo el tiempo).
+      if(obsNuevas>0&&window.NBUPistas)NBUPistas.revisar();
     }
     const b=el('pendBtn'); if(!b)return;
     const {v,pr,cu,med,cons,total}=contarPendientes();
@@ -6292,7 +6340,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     } else if(aTab==='contenido'){
       p.innerHTML=`<div class="ahint">Editá los textos generales de la página. El contenido de cada código (nombre, normas, auditoría, asociaciones) se edita desde su ficha con el botón <b>✎ Editar ficha</b> (activá el <b>modo edición</b> en la barra superior).</div>
         <label>Logo de la empresa (PNG/JPG/SVG)</label>
-        <div style="display:flex;align-items:center;gap:12px;margin-top:4px">
+        <div class="logo-row" style="display:flex;align-items:center;gap:12px;margin-top:4px">
           <!-- «hasimg» siempre: la vista previa muestra una imagen sí o sí, la que
                cargó la empresa o la de fábrica. Sin la clase quedaba el recuadro
                celeste de fondo y el dibujo sin medida, a tamaño natural. -->
@@ -6780,7 +6828,13 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
        d:'Tres apartados de apoyo: <b>Diagnósticos CIE-10</b> para el diagnóstico que justifica la práctica, <b>Abreviaturas</b> para descifrar cómo viene escrita la orden, y <b>SURGE</b> con las patologías de reintegro y su documentación.'},
       {sel:'.ubctl',t:'Valor de la Unidad Bioquímica',noMed:true,
        d:'Cargá acá el <b>valor de la U.B.</b> y la app calcula el arancel en pesos en el listado, en la ficha y en la Mesa de trabajo. Queda guardado en tu perfil.'},
-      {sel:'#fFlags',t:'Filtros, en tres bloques',antes:async()=>{el('rail')&&el('rail').classList.add('on');await esperar(120);},
+      {sel:'#fFlags',t:'Filtros, en tres bloques',
+       // #fFlags vive adentro de <details id="flagsPanel">: si alguien lo
+       // había plegado antes de arrancar el recorrido, el paso señalaba una
+       // caja vacía. Abrirlo es aparte de mostrar el cajón entero en mobile.
+       antes:async()=>{el('rail')&&el('rail').classList.add('on');
+         const fp=el('flagsPanel'); if(fp&&!fp.open)fp.open=true;
+         await esperar(120);},
        d:'<b>Para decidir</b> junta lo que cambia la carga: obligación de cobertura, sangre u orina, urgencia, desuso. <b>Mi trabajo</b> son tus favoritos, lo visto hace poco y el estado de verificación. <b>Estado del dato</b> es cómo quedó cargado en este manual.'},
       {sel:'.viewtabs',t:'Vistas',antes:async()=>{el('rail')&&el('rail').classList.remove('on');await esperar(120);},
        d:'<b>Listado</b> es la vista normal. <b>Árbol de módulos</b> muestra qué prácticas quedan comprendidas dentro de otra. <b>Mesa de trabajo</b> analiza un caso completo.'},
