@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-dmIz5a6faLTsRQxQ0HlVA6zFbyFWLG/dyTDot0WqvpI=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-26Rh89bDTFOHuooEfYC3aSPL1prulpeDg8q8XAoxSjI=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -5522,16 +5522,27 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
        escribe. Va al lado del de pendientes, con el mismo tratamiento. */
     const ob=el('obsBtn');
     if(ob){
-      const hay=!!(current&&!esDuenio()&&obsNuevas>0);
-      ob.hidden=!hay;
-      if(hay){ el('obsN').textContent=obsNuevas>99?'99+':String(obsNuevas);
-        ob.title=obsNuevas===1?'Hay 1 novedad desde la última vez que entraste'
-                              :`Hay ${obsNuevas} novedades desde la última vez que entraste`;
+      // Antes la campanita sólo aparecía cuando había algo nuevo, así que no
+      // servía para volver a mirar novedades ya vistas. Ahora queda siempre
+      // visible para médicos y administrativos (el dueño sigue sin verla: las
+      // novedades son cambios de otros, y para él ese conteo siempre da 0);
+      // sólo el numerito rojo va y viene con obsNuevas.
+      const puedeVer=!!(current&&!esDuenio());
+      ob.hidden=!puedeVer;
+      if(puedeVer){
+        const hayNuevas=obsNuevas>0;
+        el('obsN').hidden=!hayNuevas;
+        el('obsN').textContent=obsNuevas>99?'99+':String(obsNuevas);
+        ob.title=hayNuevas?(obsNuevas===1?'Hay 1 novedad desde la última vez que entraste'
+                                          :`Hay ${obsNuevas} novedades desde la última vez que entraste`)
+                          :'Qué pasó desde la última vez que entraste';
         // El aria-label fijo tapaba el número: quien tabulaba hasta acá escuchaba
         // «Novedades…» sin enterarse de cuántas hay. Ahora dice lo mismo que el title.
-        ob.setAttribute('aria-label',ob.title); }
-      // La campanita aparece sola cuando hay algo; la primera vez, se explica.
-      if(hay&&window.NBUPistas)NBUPistas.revisar();
+        ob.setAttribute('aria-label',ob.title);
+      }
+      // La pista de la campanita se explica la primera vez que aparece algo
+      // nuevo, no cada vez que se ve el botón (que ahora es todo el tiempo).
+      if(obsNuevas>0&&window.NBUPistas)NBUPistas.revisar();
     }
     const b=el('pendBtn'); if(!b)return;
     const {v,pr,cu,med,cons,total}=contarPendientes();
