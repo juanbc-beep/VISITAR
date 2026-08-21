@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-lAJl4R+pNEo0t4AkKMdBcKj2Etl9LqVs4cSxj4sg8r8=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-B27MdjitDsPpoghiJgRIhUM+3wMyvm+TiSxETgFyoYU=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -6780,7 +6780,13 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
        d:'Tres apartados de apoyo: <b>Diagnósticos CIE-10</b> para el diagnóstico que justifica la práctica, <b>Abreviaturas</b> para descifrar cómo viene escrita la orden, y <b>SURGE</b> con las patologías de reintegro y su documentación.'},
       {sel:'.ubctl',t:'Valor de la Unidad Bioquímica',noMed:true,
        d:'Cargá acá el <b>valor de la U.B.</b> y la app calcula el arancel en pesos en el listado, en la ficha y en la Mesa de trabajo. Queda guardado en tu perfil.'},
-      {sel:'#fFlags',t:'Filtros, en tres bloques',antes:async()=>{el('rail')&&el('rail').classList.add('on');await esperar(120);},
+      {sel:'#fFlags',t:'Filtros, en tres bloques',
+       // #fFlags vive adentro de <details id="flagsPanel">: si alguien lo
+       // había plegado antes de arrancar el recorrido, el paso señalaba una
+       // caja vacía. Abrirlo es aparte de mostrar el cajón entero en mobile.
+       antes:async()=>{el('rail')&&el('rail').classList.add('on');
+         const fp=el('flagsPanel'); if(fp&&!fp.open)fp.open=true;
+         await esperar(120);},
        d:'<b>Para decidir</b> junta lo que cambia la carga: obligación de cobertura, sangre u orina, urgencia, desuso. <b>Mi trabajo</b> son tus favoritos, lo visto hace poco y el estado de verificación. <b>Estado del dato</b> es cómo quedó cargado en este manual.'},
       {sel:'.viewtabs',t:'Vistas',antes:async()=>{el('rail')&&el('rail').classList.remove('on');await esperar(120);},
        d:'<b>Listado</b> es la vista normal. <b>Árbol de módulos</b> muestra qué prácticas quedan comprendidas dentro de otra. <b>Mesa de trabajo</b> analiza un caso completo.'},
