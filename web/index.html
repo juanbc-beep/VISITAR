@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-ipX5MupXLYGYm60i0b2dHuxkqsCBQiXqQrsUXz5bHfo=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-zWg7lrrKvVic4uRuXlCdGFLdSYgrBYFG1Bs8whEv2Ao=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1573,8 +1573,21 @@ body.tour-on{overscroll-behavior:none}
 .arow-d>summary.arow::-webkit-details-marker{display:none}
 .arow-chev{margin-left:auto;flex-shrink:0;color:var(--muted);font-size:11px;transition:transform .16s}
 .arow-chev::before{content:'▸'}
-.arow-d[open] .arow-chev{transform:rotate(90deg)}
+/* Con «>» explícito: la flechita de una fila no puede rotar sólo porque el
+   grupo que la contiene esté abierto (ver .rolgrupo-d más abajo). */
+.arow-d[open]>summary>.arow-chev{transform:rotate(90deg)}
 .arow-body{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px 2px 54px}
+/* Etiqueta de grupo plegable (ADMINISTRATIVO, MÉDICO…): agrupa además de
+   plegar cada cuenta — con un rol que junta muchas cuentas, plegar sólo las
+   filas no alcanza, la lista sigue siendo larga. El de ADMINISTRADOR queda
+   sin envolver (una sola fila siempre, nada que ahorrar plegándolo). */
+.rolgrupo-d{margin:16px 0 7px;padding-top:12px;border-top:1px solid var(--line)}
+.rolgrupo-d:first-child{margin-top:0;padding-top:0;border-top:none}
+.rolgrupo-d>summary.rolgrupo{display:flex;align-items:center;margin:0;padding:0;border:none;
+  cursor:pointer;user-select:none;list-style:none}
+.rolgrupo-d>summary.rolgrupo::-webkit-details-marker{display:none}
+.rolgrupo-d[open]>summary>.arow-chev{transform:rotate(90deg)}
+.rolgrupo-body{padding-top:11px}
 .minibtn{padding:5px 9px;border:1px solid var(--line-2);border-radius:6px;background:var(--surface);font:inherit;font-size:12px;font-weight:600;cursor:pointer;color:var(--ink)}
 .minibtn:hover{border-color:var(--accent);color:var(--accent-ink)}
 .minibtn.danger:hover{border-color:var(--exc);color:var(--exc)}
@@ -6118,8 +6131,8 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       ['admin','usuario','medico_admin','medico'].map(r=>{
         const deEsteRol=resto.filter(x=>ROL_VALIDO(x.rol)===r);
         if(!deEsteRol.length)return '';
-        return `<div class="rolgrupo">${E(ROLES[r].corto)} (${deEsteRol.length})</div>`+
-          deEsteRol.map(x=>{
+        const etiqueta=`${E(ROLES[r].corto)} (${deEsteRol.length})`;
+        const filas=deEsteRol.map(x=>{
             const avEstilo=esRolMedico(x.rol)?' style="background:var(--med)"':'';
             const nombreHTML=`${E(x.nombre)}${x.id===yo.id?' <span style="color:var(--muted);font-weight:500">(vos)</span>':''}`;
             const metaHTML=`${E(rolLabel(x.rol))}${x.estado==='rechazado'?' · rechazada':''} · ${(x.favoritos||[]).length} favoritos`;
@@ -6144,6 +6157,14 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
               <div class="arow-body">${cuerpo}</div>
             </details>`;
           }).join('');
+        // El grupo del administrador no se envuelve: siempre es una sola
+        // fila, así que plegarlo no ahorraría nada — sólo agregaría un toque
+        // extra para ver la única cuenta que más conviene ver de entrada.
+        if(r==='admin')return `<div class="rolgrupo">${etiqueta}</div>${filas}`;
+        return `<details class="rolgrupo-d">
+          <summary class="rolgrupo">${etiqueta}<span class="arow-chev"></span></summary>
+          <div class="rolgrupo-body">${filas}</div>
+        </details>`;
       }).join('')+
       `<div class="ahint" style="margin-top:12px">Las contraseñas las maneja la nube: nadie, ni vos, puede verlas. Si alguien la olvida, que cree la cuenta de nuevo o restablecela desde el panel de Supabase.</div>`;
 
