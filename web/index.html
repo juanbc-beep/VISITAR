@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-iVpnef8kT9COxR6fx30RbkE3yZmIYOlqlr1xnzd9oqQ=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-dmIz5a6faLTsRQxQ0HlVA6zFbyFWLG/dyTDot0WqvpI=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -4139,7 +4139,9 @@ function openCode(code,origen){
         ${e.desc?`<div style="margin-top:6px;font-size:13px;color:var(--ink-2)">${esc(e.desc)}</div>`:''}
         ${(ubEq!=null&&propia!=null&&ubEq!==propia)?`<div class="eqdif">Ojo: <b>${propia} U.B.</b> en este nomenclador y <b>${ubEq} U.B.</b> en el otro. La diferencia es del convenio, no un error — se factura con la del nomenclador que corresponda.</div>`:''}
         <div style="margin-top:6px;font-size:12px;color:var(--faint)">${e.key?'Presente en ambos nomencladores. Tocá el código para abrir su ficha en '+esc(e.target_label||'')+'.':'El código equivalente ('+esc(e.code)+') no está cargado como ficha propia todavía.'}</div>
-        ${e.recalculada?`<div style="margin-top:6px;font-size:12px;color:var(--urg);background:var(--urg-soft);border-radius:6px;padding:7px 9px">⚠ El código que traía la planilla${e.code_declarado?` (<b>${esc(e.code_declarado)}</b>)`:''} <b>no existe</b> en el Nomenclador Nacional cargado. Esta equivalencia se reconstruyó ${e.recalculada==='codigo'?'por <b>código idéntico</b>':'por <b>proximidad de nombre</b>'} — conviene confirmarla.${
+        ${e.recalculada?`<div style="margin-top:6px;font-size:12px;color:var(--urg);background:var(--urg-soft);border-radius:6px;padding:7px 9px">⚠ ${e.recalculada==='codigo_corregido'
+          ?`La planilla ataba este código al <b>${esc(e.code_declarado)}</b>, pero existe el <b>${esc(e.code)}</b> con <b>número idéntico</b> en ambos nomencladores — se corrigió la equivalencia a ése.`
+          :`El código que traía la planilla${e.code_declarado?` (<b>${esc(e.code_declarado)}</b>)`:''} <b>no existe</b> en el Nomenclador Nacional cargado. Esta equivalencia se reconstruyó ${e.recalculada==='codigo'?'por <b>código idéntico</b>':'por <b>proximidad de nombre</b>'}.`} Conviene confirmarla.${
           /* Cómo llamaba la planilla del Único a la práctica. Va acá y no
              reemplazando al nombre del destino: cada nomenclador dice lo que
              dice, y la diferencia de redacción es justamente lo que el médico
