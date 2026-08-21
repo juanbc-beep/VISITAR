@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-yMG5IkuNMiDAAQ19rA6a7B4zWNR8KcozeJ4UscX0hR4=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-lAJl4R+pNEo0t4AkKMdBcKj2Etl9LqVs4cSxj4sg8r8=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1259,9 +1259,16 @@ header.compact .cbtn b{font-size:13px}
 header.compact .stats{display:none}
 header.compact .brand p{display:none}
 header.compact .logo{height:32px;min-width:32px}
-/* la barra lateral se pega justo debajo de la cabecera, midiéndola de verdad */
-aside{top:calc(var(--hh,128px) + 10px);max-height:calc(100vh - var(--hh,128px) - 28px);
-  transition:top .16s linear,max-height .16s linear}
+/* La barra lateral se pega justo debajo de la cabecera, midiéndola de verdad.
+   Sólo tiene sentido en escritorio: ahí es donde aside es sticky. En mobile
+   es un cajón fijo (position:fixed, ver @media abajo) y esta regla —al no
+   estar acotada antes— le pisaba su transition:transform, dejando el cajón
+   sin animación de deslizado (aparecía de golpe), y su top:0 (quedaba
+   corrido hacia abajo el alto de la cabecera). */
+@media (min-width:901px){
+  aside{top:calc(var(--hh,128px) + 10px);max-height:calc(100vh - var(--hh,128px) - 28px);
+    transition:top .16s linear,max-height .16s linear}
+}
 .modesel{display:none}
 @media (max-width:900px){
   /* en celular los nomencladores pasan a un selector: dos filas de tarjetas se comían
@@ -6707,6 +6714,9 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
          ? 'Es lo primero de la ficha, arriba de todo. El botón <b>🩺 Escribir la revisión médica</b> publica en el acto, firmado con tu nombre: <b>sos vos quien las valida</b>. Después la podés corregir o levantar desde la misma ficha.'
          : 'Es lo primero de la ficha, arriba de todo. Con <b>🩺 Dejar un aporte médico</b> escribís lo que sabés; queda marcado como <b>sin confirmar</b> hasta que un médico administrador lo dé por bueno, y recién ahí pasa a ser norma para el equipo.'},
       {sel:'.revmed',t:'Y se lee sin abrir la ficha',
+       // Si se retrocede desde «Lo que te toca confirmar», que cierra la
+       // ficha, acá no había nada que la volviera a abrir.
+       antes:async()=>{if(!el('drawer').classList.contains('on')){openCode('660475');await esperar(300);}},
        d:'Una vez publicada, la revisión aparece <b>en el resultado del listado</b>, debajo del nombre de la práctica. Es a propósito: si hay que abrir la ficha para enterarse de que algo no corresponde, se enteraron tarde.'}
     ];
     if(valida)P.push(
@@ -6734,6 +6744,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       {sel:'.ubctl',t:'Poné el valor de la U.B.',
        d:'Con ese número la app te muestra el <b>arancel en pesos</b> en el listado, en la ficha y en la Mesa de trabajo. Queda guardado en tu cuenta.'},
       {sel:'#list .row',t:'Si la fila tiene color, hay algo para mirar',
+       antes:async()=>{closeDrawer();await esperar(160);},
        d:'Las etiquetas <b>en color</b> avisan lo que cambia la carga: cobertura, muestra, urgencia, desuso. Las <b>grises</b> sólo dicen cómo quedó cargado el dato.'},
       {sel:'.veredicto',t:'La respuesta corta, y cómo se carga',
        antes:async()=>{openCode('660475');await esperar(260);},
@@ -6766,6 +6777,9 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       {sel:'.viewtabs',t:'Vistas',antes:async()=>{el('rail')&&el('rail').classList.remove('on');await esperar(120);},
        d:'<b>Listado</b> es la vista normal. <b>Árbol de módulos</b> muestra qué prácticas quedan comprendidas dentro de otra. <b>Mesa de trabajo</b> analiza un caso completo.'},
       {sel:'#list .row',t:'Cada resultado, y qué significa el color',
+       /* Si se vuelve acá desde el paso siguiente, que abre una ficha, la ficha
+          se queda abierta tapando el listado — nada la cierra al retroceder. */
+       antes:async()=>{closeDrawer();await esperar(160);},
        d:'Las etiquetas <b>en color</b> avisan algo que cambia la carga: cobertura, muestra, lateralidad, urgencia, desuso. Las <b>grises</b> sólo dicen cómo quedó cargado el dato. Si la fila tiene color, hay algo para mirar.'},
       {sel:'.veredicto',t:'La respuesta corta',
        antes:async()=>{openCode('660475');await esperar(260);},
@@ -6785,10 +6799,20 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       {sel:'#propAbrir',t:'Contá cómo se carga acá',noMed:true,
        d:'Lo que sabés sobre cómo se carga esta práctica <b>en el sistema de VISITAR</b> no está en ningún nomenclador. Escribilo una vez: un administrador lo aprueba y queda publicado para todo el equipo.'},
       {sel:'#dCmp',t:'Comparar, copiar e imprimir',noMed:true,
+       // Si se llega acá retrocediendo desde «Lo que usás todo el tiempo», que
+       // cierra la ficha, no hay nada que la vuelva a abrir.
+       antes:async()=>{if(!el('drawer').classList.contains('on')){openCode('660475');await esperar(300);}},
        d:'<b>Comparar</b> pone dos códigos lado a lado con las diferencias resaltadas, útil cuando dudás entre parecidos. Al lado tenés copiar el código, <b>imprimir la ficha</b> completa y la estrella para marcarla como favorita.'},
       {sel:'#rapidos',t:'Lo que usás todo el tiempo',
-       antes:async()=>{closeDrawer();await esperar(160);
-         if(!FAVS.size){['660475','660481'].forEach(k=>{if(!FAVS.has(k))toggleFav(k);});render();await esperar(120);}},
+       // Siempre a la vista de lista y siempre repintado: si esto sólo corriera
+       // cuando no hay favoritos todavía, la segunda vez que se pasa por acá
+       // (por ejemplo volviendo desde «Mesa de trabajo», que cambia la vista)
+       // el paso no repinta, la vista sigue en «validator» y #rapidos no
+       // aparece — entonces el paso se autosaltea para adelante en vez de
+       // volver, y «Atrás» queda trabado yendo y viniendo entre los dos pasos.
+       antes:async()=>{closeDrawer();
+         if(!FAVS.size)['660475','660481'].forEach(k=>{if(!FAVS.has(k))toggleFav(k);});
+         state.view='list';render();await esperar(160);},
        d:'Dos solapas arriba del listado: <b>Frecuentes</b> son las que marcaste con la estrella, y <b>Vistos hoy</b> las últimas fichas que abriste. Esa segunda se llena sola con lo que estás cargando ahora.'},
       {sel:'.vtab[data-view="validator"]',t:'Mesa de trabajo',noMed:true,
        d:'Pegás <b>todos los códigos de un caso</b> y te los analiza junto. En modo <b>autorización</b> arma la documentación a pedirle al afiliado; en <b>facturación</b> detecta doble facturación, cantidades mal cargadas y códigos inexistentes.'},
@@ -6806,10 +6830,10 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
        antes:async()=>{cerrarInfo();await esperar(140);},
        d:'Cambia entre claro y oscuro. <b>Ctrl+K</b> abre el buscador rápido desde cualquier lado y la <b>barra /</b> salta al campo de búsqueda. Toda la app se maneja con el tabulador si no querés usar el mouse.'},
       {sel:'#acctChip',t:'Tu perfil',
-       d:'Tus <b>favoritos, notas y valor de U.B.</b> quedan guardados en tu cuenta, así que los encontrás igual desde cualquier computadora. Desde este botón cerrás sesión cuando se sienta otra persona.'},
-      {sel:null,t:'Instalala en tu computadora',
-       d:'Si abrís el manual desde el navegador te va a ofrecer <b>instalarlo como aplicación</b>: queda con su propio ícono y su ventana, y <b>abre sin internet</b> con toda la base adentro. Cuando se publica una versión nueva: si <b>recién abriste</b> el manual se actualiza sola —vas a ver el cartel «Actualizando el manual» y vuelve en un segundo—; si <b>ya venías trabajando</b> te pregunta antes, para no moverte la pantalla en medio de una consulta.'}
+       d:'Tus <b>favoritos, notas y valor de U.B.</b> quedan guardados en tu cuenta, así que los encontrás igual desde cualquier computadora. Desde este botón cerrás sesión cuando se sienta otra persona.'}
     ];
+    // «Instalala» no es un botón: va después de terminar de mostrar todos los
+    // botones (perfil, y los de administrador si corresponde), no en el medio.
     if(admin)P.push(
       {sel:'#pendBtn',t:'Pendientes de revisar',forzar:true,
        d:'Acá se junta todo lo que espera tu decisión: <b>altas de cuenta</b> de gente nueva, <b>verificaciones</b> que pidió un administrativo y <b>propuestas</b> de cómo se carga. Nada de eso vale hasta que vos lo apruebes. Sólo aparece cuando hay algo esperando.'},
@@ -6817,6 +6841,8 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
        d:'Lo activás para poder <b>corregir el contenido de una ficha</b>: la denominación, las normas, las notas de auditoría. Se usa sobre todo en las que están marcadas como «denominación a confirmar».'},
       {sel:'#adminBtn',t:'Administración',
        d:'Perfiles del equipo y aprobación de cuentas, textos y logo, respaldo, y <b>exportar las correcciones y verificaciones</b> como archivo, para archivarlas o llevarlas a otro sistema. Con la nube configurada ya se comparten solas: esto es una copia, no el medio de transporte.'});
+    P.push({sel:null,t:'Instalala en tu computadora',
+      d:'Si abrís el manual desde el navegador te va a ofrecer <b>instalarlo como aplicación</b>: queda con su propio ícono y su ventana, y <b>abre sin internet</b> con toda la base adentro. Cuando se publica una versión nueva: si <b>recién abriste</b> el manual se actualiza sola —vas a ver el cartel «Actualizando el manual» y vuelve en un segundo—; si <b>ya venías trabajando</b> te pregunta antes, para no moverte la pantalla en medio de una consulta.'});
     P.push({sel:null,t:'Listo',
       d:'Podés volver a ver este recorrido cuando quieras desde el botón <b>Ver tutorial</b>, arriba del panel de Glosario y marco normativo.'});
     if(!med)return P;
