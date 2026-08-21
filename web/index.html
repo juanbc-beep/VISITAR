@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-IcfTngbcAGqRg2u9X629oVcZ4qZezC8p5U6YXEOA86Y=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-yMG5IkuNMiDAAQ19rA6a7B4zWNR8KcozeJ4UscX0hR4=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -329,13 +329,29 @@ html,body{margin:0;padding:0}
 .sec.pleg.abierta>.sc-body{display:flex;flex-direction:column;gap:9px}
 .carga{background:var(--surface-2);border:1.5px solid var(--accent);border-radius:var(--radius);padding:14px 16px}
 .carga .cg-h{display:flex;align-items:center;gap:8px;font-family:var(--font-condensed);font-weight:800;font-size:11px;letter-spacing:.6px;
-  text-transform:uppercase;color:var(--accent-ink);margin-bottom:10px}
-.carga ol{margin:0;padding-left:0;list-style:none;counter-reset:paso;display:flex;flex-direction:column;gap:9px}
-.carga ol li{counter-increment:paso;display:flex;gap:10px;font-size:14px;color:var(--ink-2);line-height:1.5}
-.carga ol li::before{content:counter(paso);flex-shrink:0;width:21px;height:21px;border-radius:50%;
-  background:var(--accent);color:var(--sobre-acento);font-size:12px;font-weight:800;display:grid;place-items:center;margin-top:1px}
-.carga ol li.no::before{background:var(--exc)} .carga ol li.mas::before{background:var(--inc)}
-.carga ol li b{color:var(--ink)}
+  text-transform:uppercase;color:var(--accent-ink);margin-bottom:12px}
+/* Los pasos se agrupan por qué le piden al usuario, no por orden de aparición:
+   «cargá esto» (acción, numerado), «no cargues aparte» (advertencia) y
+   «verificá» (chequeo previo, no es carga) — antes compartían un mismo
+   círculo numerado y no se distinguía cuál era cuál. */
+.carga .cg-grupo+.cg-grupo{margin-top:14px}
+.carga .cg-glbl{font-family:var(--font-condensed);font-weight:700;font-size:11px;letter-spacing:.5px;
+  text-transform:uppercase;color:var(--faint);margin-bottom:7px}
+.carga ol,.carga ul{margin:0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:9px}
+/* position+padding, no display:flex acá: un <li> con texto suelto, <b> y un
+   <div> de chips como hijos directos de un flex container se parte en
+   columnas angostas (cada nodo de texto y cada elemento inline se vuelve su
+   propio flex item) — el párrafo dejaba de fluir como párrafo. */
+.carga li{position:relative;padding-left:31px;font-size:14px;color:var(--ink-2);line-height:1.5}
+.carga li b{color:var(--ink)}
+.carga ol{counter-reset:paso}
+.carga ol li{counter-increment:paso}
+.carga ol li::before{content:counter(paso);position:absolute;left:0;top:1px;width:21px;height:21px;border-radius:50%;
+  background:var(--accent);color:var(--sobre-acento);font-size:12px;font-weight:800;display:grid;place-items:center}
+.carga .cg-no li::before{content:'✕';position:absolute;left:0;top:1px;width:21px;height:21px;border-radius:50%;
+  background:var(--exc-soft);color:var(--exc);font-size:11px;font-weight:800;display:grid;place-items:center}
+.carga .cg-verif li::before{content:'';position:absolute;left:0;top:4px;width:15px;height:15px;
+  border-radius:4px;border:1.5px solid var(--line-2)}
 .carga .cg-cods{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
 .carga .cg-cod{font-family:var(--font-mono);font-weight:700;font-size:12px;background:var(--surface);
   border:1px solid var(--line-2);border-radius:6px;padding:2px 7px;cursor:pointer;color:var(--accent-ink)}
@@ -3641,7 +3657,15 @@ function verifHTML(code){
    sistema donde efectivamente se carga. Los datos para eso ya estaban, pero repartidos
    en seis secciones distintas de la ficha: acá se ordenan como pasos. */
 function comoSeCargaHTML(c){
+  /* Cada paso lleva un tipo — no es orden de aparición, es qué clase de acción
+     le pide al usuario: «cargar» (facturar un código), «no» (no facturarlo
+     aparte) o «verificar» (chequear algo antes, no es carga). El render
+     agrupa por tipo en vez de numerarlos todos igual: antes «cargar 660006»,
+     «no cargar tal cosa» y «consignar el diagnóstico» compartían el mismo
+     círculo numerado y no se distinguía cuál era una acción de carga y cuál
+     un chequeo previo. */
   const pasos=[]; const R=c.relaciones||{};
+  const push=(tipo,html)=>pasos.push({tipo,html});
   const chips=ks=>`<div class="cg-cods">${ks.map(k=>{const t=BYCODE[k];
     return `<button class="cg-cod" ${t?`data-goto="${esc(k)}"`:''} title="${esc(t?t.nombre:'código externo')}">${esc(t?t.code:k)}</button>`;}).join('')}</div>`;
   /* La exposición de más tiene su propio código y se carga aparte. Es la
@@ -3652,33 +3676,33 @@ function comoSeCargaHTML(c){
   if(c.lateralidad==='Bilateral')cant='<b>1</b> — el código comprende ambos ojos';
   else if(c.lateralidad==='Unilateral')cant='<b>1 por ojo</b>';
   else if(c.seriado)cant=`hasta <b>×${c.seriado.max}</b> (seriado)`;
-  pasos.push(`<li>Cargar <b>${esc(c.code)}</b> — cantidad ${cant}${
+  push('cargar',`<li>Cargar <b>${esc(c.code)}</b> — cantidad ${cant}${
     c.muestra&&c.muestra.length?`.<br>Verificá que la orden pida la determinación <b>en ${esc(c.muestra.join(' o '))}</b>`:''}</li>`);
   // La exposición de más: código propio, se carga aparte.
   if(c.exposicion_siguiente&&BYCODE[c.exposicion_siguiente])
-    pasos.push(`<li>Si el estudio lleva <b>más de una exposición</b> —frente y perfil, comparativas—, cada exposición adicional se carga <b>aparte</b>: no está comprendida en este código.${chips([c.exposicion_siguiente])}</li>`);
+    push('cargar',`<li>Si el estudio lleva <b>más de una exposición</b> —frente y perfil, comparativas—, cada exposición adicional se carga <b>aparte</b>: no está comprendida en este código.${chips([c.exposicion_siguiente])}</li>`);
   if(c.exposicion_de&&BYCODE[c.exposicion_de])
-    pasos.push(`<li>Este código va <b>además</b> del de la práctica, una vez por cada exposición que exceda la primera.${chips([c.exposicion_de])}</li>`);
+    push('cargar',`<li>Este código va <b>además</b> del de la práctica, una vez por cada exposición que exceda la primera.${chips([c.exposicion_de])}</li>`);
 
   // 2. lo que NO va por separado
   if((R.incluye||[]).length)
-    pasos.push(`<li class="no"><b>No cargar por separado</b>: ya están comprendidas en este código.${chips(R.incluye)}</li>`);
+    push('no',`<li><b>No cargar por separado</b>: ya están comprendidas en este código.${chips(R.incluye)}</li>`);
   if((R.incluido_en||[]).length)
-    pasos.push(`<li class="no">Esta práctica <b>ya está incluida</b> en otro código. Si se cargó el módulo, no corresponde cargarla aparte.${chips(R.incluido_en)}</li>`);
-  // 3. lo que se adiciona
+    push('no',`<li>Esta práctica <b>ya está incluida</b> en otro código. Si se cargó el módulo, no corresponde cargarla aparte.${chips(R.incluido_en)}</li>`);
+  // 3. lo que se adiciona — es carga, va en la misma secuencia numerada.
   if(c.flags&&c.flags.urgencia)
-    pasos.push(`<li class="mas">Si se pidió <b>de urgencia</b>, adicionar el código <b>661200</b> en la misma prescripción.${chips(['661200'])}</li>`);
+    push('cargar',`<li>Si se pidió <b>de urgencia</b>, adicionar el código <b>661200</b> en la misma prescripción.${chips(['661200'])}</li>`);
   if(c.nomenclador==='NBU'&&['PMO','PE'].includes(c.seccion)&&c.code!=='660001')
-    pasos.push(`<li class="mas">Agregar el <b>Acto Bioquímico</b> una vez por prescripción (o el ABI si es internación).${chips(['660001','661001'])}</li>`);
-  // 4. respaldo de la solicitud
+    push('cargar',`<li>Agregar el <b>Acto Bioquímico</b> una vez por prescripción (o el ABI si es internación).${chips(['660001','661001'])}</li>`);
+  // 4. respaldo de la solicitud — chequeos, no acciones de carga.
   if(c.cobertura_pmo)
-    pasos.push(`<li>Tiene <b>${c.cobertura_tipo==='observacion'?'observaciones de cobertura':'obligación de cobertura'}</b>: verificá que el caso encuadre antes de cargar.</li>`);
+    push('verificar',`<li>Tiene <b>${c.cobertura_tipo==='observacion'?'observaciones de cobertura':'obligación de cobertura'}</b>: verificá que el caso encuadre antes de cargar.</li>`);
   if(c.cie_rel&&c.cie_rel.length)
-    pasos.push(`<li>Consignar el <b>diagnóstico</b> que justifica la práctica — hay ${c.cie_rel.length} CIE-10 sugeridos más abajo.</li>`);
+    push('verificar',`<li>Consignar el <b>diagnóstico</b> que justifica la práctica — hay ${c.cie_rel.length} CIE-10 sugeridos más abajo.</li>`);
   if(c.surge&&c.surge.requerimiento&&c.surge.requerimiento.length)
-    pasos.push(`<li>Pedirle al afiliado <b>${c.surge.requerimiento.length} documento${c.surge.requerimiento.length!==1?'s':''}</b> antes de cargar (requerimiento SURGE, ver abajo).</li>`);
+    push('verificar',`<li>Pedirle al afiliado <b>${c.surge.requerimiento.length} documento${c.surge.requerimiento.length!==1?'s':''}</b> antes de cargar (requerimiento SURGE, ver abajo).</li>`);
   if(c.tope_pmo)
-    pasos.push(`<li>Controlar el <b>tope</b>: ${esc(c.tope_pmo)}</li>`);
+    push('verificar',`<li>Controlar el <b>tope</b>: ${esc(c.tope_pmo)}</li>`);
   return pasos;
 }
 
@@ -3989,6 +4013,8 @@ function openCode(code,origen){
   // Cómo se carga: el bloque que da sentido a la app como centro de respaldo.
   (function(){
     const pasos=comoSeCargaHTML(c);
+    const grupo=t=>pasos.filter(p=>p.tipo===t).map(p=>p.html).join('');
+    const gCargar=grupo('cargar'), gNo=grupo('no'), gVerif=grupo('verificar');
     const nota=c.asoc_extra||null;
     const soyMed0=!!(window.NBUProfile&&NBUProfile.esMedico&&NBUProfile.esMedico());
     /* Un médico no propone «cómo se carga»: eso es trámite administrativo. Su
@@ -4006,7 +4032,11 @@ function openCode(code,origen){
     if(!pasos.length&&!nota&&!puedeProponer)return;
     html+=`<div class="sec"><div class="carga">
       <div class="cg-h">▶ Cómo se carga esta solicitud</div>
-      ${pasos.length?`<ol>${pasos.join('')}</ol>`:'<div style="font-size:13px;color:var(--muted)">Todavía no hay pasos cargados para esta práctica.</div>'}
+      ${pasos.length?`
+        ${gCargar?`<div class="cg-grupo"><div class="cg-glbl">Cargá esto</div><ol>${gCargar}</ol></div>`:''}
+        ${gNo?`<div class="cg-grupo"><div class="cg-glbl">No cargues aparte</div><ul class="cg-no">${gNo}</ul></div>`:''}
+        ${gVerif?`<div class="cg-grupo"><div class="cg-glbl">Antes de cargar, verificá</div><ul class="cg-verif">${gVerif}</ul></div>`:''}
+      `:'<div style="font-size:13px;color:var(--muted)">Todavía no hay pasos cargados para esta práctica.</div>'}
       ${nota?`<div class="cg-nota"><span class="nl">✎ Cómo se carga en VISITAR</span><div class="nt">${linkCodes(esc(nota))}</div></div>`:''}
       ${pend.length?`<div class="prop-pend">
         <div class="pp-h">✎ ${pend.length===1?'Un compañero contó':`${pend.length} compañeros contaron`} cómo se carga — <b>sin confirmar</b></div>
@@ -6741,7 +6771,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
        antes:async()=>{openCode('660475');await esperar(260);},
        d:'Al abrir una ficha, arriba de todo están las cuatro respuestas: <b>si se cubre</b>, <b>cuánto vale</b>, <b>si requiere autorización</b> y <b>qué cantidad</b> corresponde. Tocá cualquiera para ir al detalle.'},
       {sel:'.carga',t:'Cómo se carga esta solicitud',
-       d:'Los pasos en orden: qué código y en qué cantidad, <b>qué no cargar por separado</b> porque ya está comprendido, qué adicionar, qué diagnóstico consignar y qué papeles pedirle al afiliado.'},
+       d:'Tres grupos: <b>qué cargar</b> —numerado, en orden—, <b>qué no cargar aparte</b> porque ya está comprendido, y qué <b>verificar antes</b> —diagnóstico, cobertura, papeles del afiliado— que no es carga, es chequeo previo.'},
       {sel:'.sec.pleg .slabel',t:'Secciones que se abren y se cierran',
        d:'El resto de la ficha va plegado, con el número de elementos que hay adentro. Se abre tocando el título —o con <b>Enter</b> si vas por teclado— y la app <b>recuerda cuáles dejás abiertas</b> para las próximas fichas.'},
       {sel:'.dback',t:'Volver sobre tus pasos',
