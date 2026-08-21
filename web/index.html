@@ -122,6 +122,18 @@ window.NBU_NUBE = {
 window.NBUUpdate = { estado:'idle', comprobar:function(){}, pintar:function(){} };
 </script>
 <style>
+/* Roboto Condensed y Roboto Mono, auto-hospedadas (ver web/fonts/README.md):
+   dan variedad dentro de la misma familia tipográfica —etiquetas y
+   códigos con personalidad propia— sin sumar una petición externa a la
+   CSP ni depender de que Google esté arriba. */
+@font-face{font-family:'Roboto Condensed';font-style:normal;font-weight:400;
+  font-display:swap;src:url('fonts/RobotoCondensed-Regular.woff2') format('woff2')}
+@font-face{font-family:'Roboto Condensed';font-style:normal;font-weight:700;
+  font-display:swap;src:url('fonts/RobotoCondensed-Bold.woff2') format('woff2')}
+@font-face{font-family:'Roboto Mono';font-style:normal;font-weight:400;
+  font-display:swap;src:url('fonts/RobotoMono-Regular.woff2') format('woff2')}
+@font-face{font-family:'Roboto Mono';font-style:normal;font-weight:700;
+  font-display:swap;src:url('fonts/RobotoMono-Bold.woff2') format('woff2')}
 :root{
   --bg:#e9eef2; --surface:#ffffff; --surface-2:#f4f7f9; --surface-3:#eef3f6;
   --ink:#132029; --ink-2:#33454f; --muted:#5d6e79; --faint:#677984;
@@ -143,7 +155,8 @@ window.NBUUpdate = { estado:'idle', comprobar:function(){}, pintar:function(){} 
   --logo-plato:transparent; --logo-aire:2px; --logo-gate-aire:0;
   --radius:11px; --radius-sm:8px;
   --font-ui:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  --font-mono:ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,monospace;
+  --font-condensed:'Roboto Condensed',var(--font-ui);
+  --font-mono:'Roboto Mono',ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,monospace;
   /* Curvas de animación. Iguales en claro y oscuro, por eso viven acá y no en
      los bloques de tema. @media (prefers-reduced-motion:reduce){*{transition:
      none!important}} (más abajo) ya las anula enteras cuando corresponde. */
@@ -230,7 +243,7 @@ html,body{margin:0;padding:0}
 .consultarow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;max-width:1500px;margin:2px auto 0;padding:10px 20px 10px;
   border-top:1px solid var(--line)}
 .consulta-head{display:flex;flex-direction:column;gap:2px;margin-right:2px}
-.consultalbl{font-size:11px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:var(--cie)}
+.consultalbl{font-family:var(--font-condensed);font-size:11px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:var(--cie)}
 .consulta-sub{font-size:12px;color:var(--faint)}
 .cbtn{display:inline-flex;align-items:center;gap:11px;padding:7px 14px 7px 7px;border:1.5px solid var(--line-2);border-radius:12px;
   background:var(--surface-2);color:var(--ink-2);font:inherit;cursor:pointer;transition:.14s;text-align:left}
@@ -315,7 +328,7 @@ html,body{margin:0;padding:0}
 .sec.pleg>.sc-body{display:none}
 .sec.pleg.abierta>.sc-body{display:flex;flex-direction:column;gap:9px}
 .carga{background:var(--surface-2);border:1.5px solid var(--accent);border-radius:var(--radius);padding:14px 16px}
-.carga .cg-h{display:flex;align-items:center;gap:8px;font-weight:800;font-size:11px;letter-spacing:.6px;
+.carga .cg-h{display:flex;align-items:center;gap:8px;font-family:var(--font-condensed);font-weight:800;font-size:11px;letter-spacing:.6px;
   text-transform:uppercase;color:var(--accent-ink);margin-bottom:10px}
 .carga ol{margin:0;padding-left:0;list-style:none;counter-reset:paso;display:flex;flex-direction:column;gap:9px}
 .carga ol li{counter-increment:paso;display:flex;gap:10px;font-size:14px;color:var(--ink-2);line-height:1.5}
@@ -704,7 +717,7 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
 /* ---------- results ---------- */
 .allgroup{display:flex;align-items:center;gap:9px;margin:16px 2px 8px;padding-bottom:0}
 .allgroup:first-child{margin-top:2px}
-.allglbl{font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--muted)}
+.allglbl{font-family:var(--font-condensed);font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--muted)}
 .allgn{font-size:11px;font-weight:700;color:var(--faint);background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:1px 8px}
 .allgroup::after{content:"";flex:1;height:1px;background:var(--line)}
 .resbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;flex-wrap:wrap}
@@ -777,11 +790,11 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
 /* Antes del listado hay 26 paradas de tabulación: este enlace las saltea. Aparece
    sólo cuando recibe el foco, así que no molesta a quien usa el mouse. */
 /* Bloques del panel de filtros. */
-.fsub{font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);
+.fsub{font-family:var(--font-condensed);font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);
   padding:12px 11px 5px;border-top:1px solid var(--line)}
 .fsub:first-child{border-top:none;padding-top:4px}
 /* Pestañas de la tira de accesos rápidos. */
-.rtab{background:none;border:none;font:800 11px var(--font-ui);letter-spacing:.7px;text-transform:uppercase;
+.rtab{background:none;border:none;font:800 11px var(--font-condensed);letter-spacing:.7px;text-transform:uppercase;
   color:var(--muted);cursor:pointer;padding:4px 9px;border-radius:99px;transition:.13s}
 .rtab:hover:not(:disabled){color:var(--accent-ink);background:var(--surface-2)}
 .rtab.on{color:var(--accent-ink);background:var(--accent-soft)}
@@ -932,7 +945,7 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
 .dbadges{display:flex;gap:7px;flex-wrap:wrap}
 .dbody{overflow-y:auto;padding:20px 24px 40px;display:flex;flex-direction:column;gap:22px}
 .sec{display:flex;flex-direction:column;gap:9px}
-.sec .slabel{font-size:11px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);font-weight:700}
+.sec .slabel{font-family:var(--font-condensed);font-size:11px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);font-weight:700}
 /* El encabezado sólo aporta estructura: todo el aspecto sigue en .slabel. */
 .sech{margin:0;font:inherit;font-weight:inherit}
 .valcard{display:flex;align-items:baseline;gap:14px;padding:15px 18px;background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius);flex-wrap:wrap}
@@ -1140,7 +1153,7 @@ ul{margin:0;padding:0}
 /* ---------- validator ---------- */
 .validator{display:flex;flex-direction:column;gap:16px}
 .vinput{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px}
-.vinput label{font-size:12px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);font-weight:700;display:block;margin-bottom:8px}
+.vinput label{font-family:var(--font-condensed);font-size:12px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);font-weight:700;display:block;margin-bottom:8px}
 .vinput textarea{width:100%;min-height:96px;resize:vertical;border:1px solid var(--line-2);border-radius:10px;background:var(--surface-2);
   color:var(--ink);font-family:var(--font-mono);font-size:14px;padding:12px 14px;outline:none;line-height:1.7}
 .vinput textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);background:var(--surface)}
@@ -1398,7 +1411,7 @@ body.tour-on{overscroll-behavior:none}
 .gcard .glogo{width:52px;height:52px;border-radius:13px;background:var(--accent);color:var(--sobre-acento);display:flex;align-items:center;justify-content:center;font-weight:800;letter-spacing:.5px;font-size:15px;margin-bottom:14px}
 .gcard h2{font-size:19px;margin:0 0 3px;color:var(--ink)}
 .gcard .gsub{font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.45}
-.gcard label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);font-weight:700;margin:12px 0 5px}
+.gcard label{display:block;font-family:var(--font-condensed);font-size:11px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);font-weight:700;margin:12px 0 5px}
 /* Todos los campos, no una lista de tipos: al sumar el correo (type=email) quedó
    fuera del selector y se veía como un campo crudo del navegador, 185x21 al lado
    de uno de 366x43. Cualquier tipo nuevo hereda el estilo sin tocar nada. */
@@ -1497,12 +1510,12 @@ body.tour-on{overscroll-behavior:none}
 .minibtn{padding:5px 9px;border:1px solid var(--line-2);border-radius:6px;background:var(--surface);font:inherit;font-size:12px;font-weight:600;cursor:pointer;color:var(--ink)}
 .minibtn:hover{border-color:var(--accent);color:var(--accent-ink)}
 .minibtn.danger:hover{border-color:var(--exc);color:var(--exc)}
-.adminbox label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);font-weight:700;margin:12px 0 5px}
+.adminbox label{display:block;font-family:var(--font-condensed);font-size:11px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);font-weight:700;margin:12px 0 5px}
 .adminbox input[type=text],.adminbox input[type=password],.adminbox textarea{width:100%;padding:9px 11px;border:1px solid var(--line-2);border-radius:var(--radius-sm);background:var(--surface-2);color:var(--ink);font:inherit;font-size:14px}
 .adminbox textarea{min-height:70px;resize:vertical;line-height:1.5}
 .adminbox input:focus,.adminbox textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
 .ahint{font-size:12px;color:var(--muted);line-height:1.5;margin:6px 0}
-.rolgrupo{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);
+.rolgrupo{font-family:var(--font-condensed);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);
   margin:16px 0 7px;padding-top:12px;border-top:1px solid var(--line)}
 .rolgrupo:first-child{margin-top:0;padding-top:0;border-top:none}
 .acode{font-family:var(--font-mono);font-size:12px;background:var(--surface-3);border:1px solid var(--line);border-radius:6px;padding:10px;white-space:pre-wrap;word-break:break-word;color:var(--ink-2);max-height:200px;overflow:auto}
