@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-26Rh89bDTFOHuooEfYC3aSPL1prulpeDg8q8XAoxSjI=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-KyJ2vh3lOH3nv7eblMfD22s6/ZJzXwS3fAdyUwTNw8I=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1548,6 +1548,10 @@ body.tour-on{overscroll-behavior:none}
 .trato-op button:hover{border-color:var(--med);background:color-mix(in srgb,var(--med) 10%,transparent);color:var(--med)}
 .trato-op button small{display:block;font-size:12px;font-weight:500;color:var(--muted);margin-top:3px}
 .trato-op button:hover small{color:var(--med)}
+/* Menú de cuenta: los mismos .minibtn de siempre, apilados en columna en vez
+   de en fila — acá cada uno es una pantalla distinta, no una acción rápida. */
+.cta-menu{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+.cta-menu .minibtn{width:100%;padding:9px;text-align:center}
 .adminbox{width:100%;max-width:680px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;position:relative;
   transform:scale(.97);transition:transform .25s var(--ease-out)}
 #adminModal.on .adminbox,#tratoModal.on .adminbox{transform:scale(1)}
@@ -6892,7 +6896,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
        antes:async()=>{cerrarInfo();await esperar(140);},
        d:'Cambia entre claro y oscuro. <b>Ctrl+K</b> abre el buscador rápido desde cualquier lado y la <b>barra /</b> salta al campo de búsqueda. Toda la app se maneja con el tabulador si no querés usar el mouse.'},
       {sel:'#acctChip',t:'Tu perfil',
-       d:'Tus <b>favoritos, notas y valor de U.B.</b> quedan guardados en tu cuenta, así que los encontrás igual desde cualquier computadora. Desde este botón cerrás sesión cuando se sienta otra persona.'}
+       d:'Tus <b>favoritos, notas y valor de U.B.</b> quedan guardados en tu cuenta, así que los encontrás igual desde cualquier computadora. Desde este botón cambiás tu nombre, tu contraseña y cerrás sesión cuando se sienta otra persona.'}
     ];
     // «Instalala» no es un botón: va después de terminar de mostrar todos los
     // botones (perfil, y los de administrador si corresponde), no en el medio.
@@ -6984,6 +6988,27 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   const sinTrato=n=>String(n||'').replace(RE_TRATO,'').trim();
   const tieneTrato=n=>RE_TRATO.test(String(n||''));
   const claveTrato=()=>'nbu-trato:'+((current&&current.id)||'anon');
+  const tratoChooserHTML=base=>`<div class="trato-op">
+      <button data-trato="Dr.">Dr. <small>${E(base)}</small></button>
+      <button data-trato="Dra.">Dra. <small>${E(base)}</small></button>
+      <button data-trato="">Sin tratamiento <small>${E(base)}</small></button>
+    </div>`;
+  // Compartido entre el aviso automático de la primera vez (pedirTrato) y el
+  // «Cambiar tratamiento» del menú de cuenta: elegir Dr./Dra. es lo mismo se
+  // llegue por donde se llegue, sólo cambia quién lo dispara.
+  async function elegirTrato(t,base){
+    if(!t)return;                                       // eligió no usar tratamiento
+    const nuevo=(t+' '+base).trim();
+    current.name=nuevo;
+    el('acctNm').textContent=nuevo;
+    if(NUBE.activa&&current._nube){
+      try{ await NUBE.cambiar(current.id,{nombre:nuevo}); }
+      catch(e){ toast('No se pudo guardar el tratamiento: '+e.message,true); return; }
+    } else { const pr=AUTH.profiles.find(x=>x.id===current.id);
+             if(pr){pr.name=nuevo;pr.updated=Date.now();persistAuth();} }
+    toast('Ahora firmás como '+nuevo);
+    renderPane();
+  }
   function pedirTrato(){
     if(!current||!soyMedico())return;
     if(tieneTrato(current.name))return;                 // ya lo tiene
@@ -6991,29 +7016,95 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     const m=el('tratoModal'), box=el('tratoBox'); if(!m||!box)return;
     const base=sinTrato(current.name);
     box.innerHTML=`<h3>¿Cómo te firmamos?</h3>
-      <div class="asub">Va adelante de tu nombre en las revisiones médicas que publiques y en todo lo que firmes. Lo elegís una vez y lo podés cambiar cuando quieras desde tu perfil.</div>
-      <div class="trato-op">
-        <button data-trato="Dr.">Dr. <small>${E(base)}</small></button>
-        <button data-trato="Dra.">Dra. <small>${E(base)}</small></button>
-        <button data-trato="">Sin tratamiento <small>${E(base)}</small></button>
-      </div>`;
+      <div class="asub">Va adelante de tu nombre en las revisiones médicas que publiques y en todo lo que firmes. Lo elegís una vez y lo podés cambiar cuando quieras desde tu cuenta (tocá tu nombre, arriba a la derecha).</div>
+      ${tratoChooserHTML(base)}`;
     m.classList.add('on');
     box.querySelectorAll('[data-trato]').forEach(b=>b.addEventListener('click',async()=>{
-      const t=b.dataset.trato;
       m.classList.remove('on');
       try{ localStorage.setItem(claveTrato(),'1'); }catch(e){}
-      if(!t)return;                                     // eligió no usar tratamiento
-      const nuevo=(t+' '+base).trim();
-      current.name=nuevo;
-      el('acctNm').textContent=nuevo;
-      if(NUBE.activa&&current._nube){
-        try{ await NUBE.cambiar(current.id,{nombre:nuevo}); }
-        catch(e){ toast('No se pudo guardar el tratamiento: '+e.message,true); }
-      } else { const pr=AUTH.profiles.find(x=>x.id===current.id);
-               if(pr){pr.name=nuevo;pr.updated=Date.now();persistAuth();} }
-      toast('Ahora firmás como '+nuevo);
-      renderPane();
+      await elegirTrato(b.dataset.trato,base);
     }));
+  }
+
+  /* ============ Menú de cuenta (modo nube) ============
+     Antes, tocar el chip de la cuenta era sinónimo de cerrar sesión: un solo
+     gesto, sin vuelta atrás, y ningún otro lugar desde donde cambiar el
+     nombre o la contraseña propios. Reusa el mismo modal de Administración
+     (#adminModal/#adminBox) que ya usan openAdmin y verNovedades — es sólo
+     otra pantalla más de las que ese modal sabe mostrar. */
+  let cTab='menu';
+  function abrirCuenta(t){ cTab=t||'menu'; renderCuenta(); amodal.classList.add('on'); tomarFoco(abox); }
+  function renderCuenta(){
+    const closeBtn=`<button class="icon-btn close-x" id="cClose" style="position:absolute;top:16px;right:16px" aria-label="Cerrar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>`;
+    const volver=()=>{cTab='menu';renderCuenta();};
+    if(cTab==='nombre'){
+      abox.innerHTML=`${closeBtn}<h3>Cambiar nombre</h3>
+        <div class="asub">Es el nombre con el que te ve el resto del equipo: en las novedades, el registro y todo lo que firmes.</div>
+        <label>Nombre</label>
+        <input type="text" id="cNombre" maxlength="80" value="${E(current?current.name:'')}">
+        <div class="cta-menu"><button class="minibtn" id="cGuardar">Guardar</button>
+        <button class="minibtn" id="cVolver">Cancelar</button></div>`;
+      el('cGuardar').addEventListener('click',async()=>{
+        const nuevo=gv('cNombre');
+        if(!nuevo)return toast('Ingresá un nombre',true);
+        if(nuevo===current.name)return volver();
+        const b=el('cGuardar');b.disabled=true;b.textContent='Guardando…';
+        try{
+          await NUBE.cambiar(current.id,{nombre:nuevo});
+          current.name=nuevo; el('acctNm').textContent=nuevo;
+          toast('Nombre actualizado'); renderPane(); volver();
+        }catch(e){ toast('No se pudo guardar: '+e.message,true); b.disabled=false; b.textContent='Guardar'; }
+      });
+      el('cVolver').addEventListener('click',volver);
+    } else if(cTab==='trato'){
+      const base=sinTrato(current.name);
+      abox.innerHTML=`${closeBtn}<h3>¿Cómo te firmamos?</h3>
+        <div class="asub">Va adelante de tu nombre en las revisiones médicas que publiques y en todo lo que firmes.</div>
+        ${tratoChooserHTML(base)}
+        <div class="cta-menu"><button class="minibtn" id="cVolver">← Volver</button></div>`;
+      abox.querySelectorAll('[data-trato]').forEach(b=>b.addEventListener('click',async()=>{
+        await elegirTrato(b.dataset.trato,base); volver();
+      }));
+      el('cVolver').addEventListener('click',volver);
+    } else if(cTab==='pass'){
+      abox.innerHTML=`${closeBtn}<h3>Cambiar contraseña</h3>
+        <div class="asub">Escribila dos veces. No hace falta la actual: ya estás adentro con tu sesión.</div>
+        <label>Contraseña nueva (mínimo 6)</label>
+        <input type="password" id="cPass1" autocomplete="new-password">
+        <label>Repetirla</label>
+        <input type="password" id="cPass2" autocomplete="new-password">
+        <div class="cta-menu"><button class="minibtn" id="cGuardar">Guardar</button>
+        <button class="minibtn" id="cVolver">Cancelar</button></div>`;
+      el('cGuardar').addEventListener('click',async()=>{
+        const p1=gv('cPass1'),p2=gv('cPass2');
+        if(p1.length<6)return toast('La contraseña debe tener al menos 6 caracteres',true);
+        if(p1!==p2)return toast('Las contraseñas no coinciden',true);
+        const b=el('cGuardar');b.disabled=true;b.textContent='Guardando…';
+        try{ await NUBE.cambiarPass(p1); toast('Contraseña actualizada'); volver(); }
+        catch(e){ toast('No se pudo cambiar: '+e.message,true); b.disabled=false; b.textContent='Guardar'; }
+      });
+      el('cVolver').addEventListener('click',volver);
+    } else {
+      abox.innerHTML=`${closeBtn}<h3>Tu cuenta</h3>
+        <div class="asub"><b>${E(current?current.name:'')}</b> · ${E(rolLabel(current&&current.role).toLowerCase())}</div>
+        <div class="cta-menu">
+          <button class="minibtn" data-cm="nombre">Cambiar nombre</button>
+          ${soyMedico()?'<button class="minibtn" data-cm="trato">Cambiar tratamiento (Dr. / Dra.)</button>':''}
+          <button class="minibtn" data-cm="pass">Cambiar contraseña</button>
+          <button class="minibtn danger" data-cm="salir" style="margin-top:8px">Cerrar sesión</button>
+        </div>`;
+      abox.querySelectorAll('[data-cm]').forEach(b=>b.addEventListener('click',()=>{
+        if(b.dataset.cm==='salir')return cerrarSesionNube();
+        cTab=b.dataset.cm; renderCuenta();
+      }));
+    }
+    el('cClose').addEventListener('click',closeAdmin);
+  }
+  async function cerrarSesionNube(){
+    if(!confirm('¿Cerrar tu sesión?\n\nVas a tener que volver a poner tu correo y contraseña.'))return;
+    closeAdmin();
+    current=null;editMode=false;document.body.classList.remove('editmode-on');vigilarCuentas(false);
+    await NUBE.salir();renderGate('nubeLogin');gate.hidden=false;
   }
 
   /* ============ Pistas: lo nuevo se explica donde aparece ============
@@ -7443,12 +7534,8 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
 
 
   /* ============ header wiring ============ */
-  el('acctChip').addEventListener('click',async()=>{
-    if(NUBE.activa){
-      if(!confirm('¿Cerrar tu sesión?\n\nVas a tener que volver a poner tu correo y contraseña.'))return;
-      current=null;editMode=false;document.body.classList.remove('editmode-on');vigilarCuentas(false);
-      await NUBE.salir();renderGate('nubeLogin');gate.hidden=false;return;
-    }
+  el('acctChip').addEventListener('click',()=>{
+    if(NUBE.activa)return abrirCuenta('menu');
     if(companyAuthed)renderGate('profiles'),gate.hidden=false;
   });
   el('adminBtn').addEventListener('click',()=>openAdmin());
