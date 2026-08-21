@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-W9OwrttfV+PHjHoH6goNar/aibkzS1J1fsF81oFqWqk=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-wjMc8SiHUq0vKV2b40lrZcgMhCw6gmIAKNIpeTOVc/s=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1565,6 +1565,16 @@ body.tour-on{overscroll-behavior:none}
 .arow .pav{width:32px;height:32px;border-radius:50%;background:var(--accent);color:var(--sobre-acento);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px}
 .arow .grow2{flex:1;min-width:0}.arow .pnm{font-weight:700;font-size:14px;color:var(--ink)}
 .arow .pmeta{font-size:12px;color:var(--muted)}
+/* Fila de cuenta plegable: el <summary> lleva la clase .arow de siempre —
+   se ve idéntico cerrado — y sólo se agrega la flechita y el cuerpo de
+   abajo, que aparece cuando se abre. */
+.arow-d{margin-bottom:8px}
+.arow-d>summary.arow{margin-bottom:0;cursor:pointer;user-select:none;list-style:none}
+.arow-d>summary.arow::-webkit-details-marker{display:none}
+.arow-chev{margin-left:auto;flex-shrink:0;color:var(--muted);font-size:11px;transition:transform .16s}
+.arow-chev::before{content:'▸'}
+.arow-d[open] .arow-chev{transform:rotate(90deg)}
+.arow-body{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px 2px 54px}
 .minibtn{padding:5px 9px;border:1px solid var(--line-2);border-radius:6px;background:var(--surface);font:inherit;font-size:12px;font-weight:600;cursor:pointer;color:var(--ink)}
 .minibtn:hover{border-color:var(--accent);color:var(--accent-ink)}
 .minibtn.danger:hover{border-color:var(--exc);color:var(--exc)}
@@ -6076,35 +6086,57 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     const pend=filas.filter(x=>x.estado==='pendiente');
     const resto=filas.filter(x=>x.estado!=='pendiente');
     const av=n=>E((n||'?').slice(0,1).toUpperCase());
+    /* Todas las filas van plegadas (<details>) salvo la del administrador:
+       es la única que no tiene nada para plegar (no hay selector de rol ni
+       botón de eliminar, sólo el texto fijo "Es el administrador") y es la
+       cuenta que más conviene ver siempre entera. Al resto, con equipos
+       chicos daba lo mismo mostrar todo abierto — pero apenas se suman
+       cuentas la pantalla se vuelve una pared de selects y botones. */
     p.innerHTML=
       (pend.length?`<div class="ahint"><b>Cuentas esperando aprobación (${pend.length}).</b> Nadie puede entrar con ellas hasta que las habilites.</div>`+
-        pend.map(x=>`<div class="arow" style="border-color:color-mix(in srgb,var(--gestion) 45%,transparent);background:color-mix(in srgb,var(--gestion) 9%,transparent)">
-          <span class="pav" style="background:var(--gestion)">${av(x.nombre)}</span>
-          <div class="grow2"><div class="pnm">${E(x.nombre)}</div>
-            <div class="pmeta">Solicitada el ${new Date(x.creado).toLocaleDateString('es-AR')}</div></div>
-          <button class="minibtn" data-nact="ok" data-id="${E(x.id)}">Aprobar</button>
-          <button class="minibtn danger" data-nact="no" data-id="${E(x.id)}">Rechazar</button>
-        </div>`).join('')+'<div style="height:14px"></div>':'')+
+        pend.map(x=>`<details class="arow-d">
+          <summary class="arow" style="border-color:color-mix(in srgb,var(--gestion) 45%,transparent);background:color-mix(in srgb,var(--gestion) 9%,transparent)">
+            <span class="pav" style="background:var(--gestion)">${av(x.nombre)}</span>
+            <div class="grow2"><div class="pnm">${E(x.nombre)}</div>
+              <div class="pmeta">Solicitada el ${new Date(x.creado).toLocaleDateString('es-AR')}</div></div>
+            <span class="arow-chev"></span>
+          </summary>
+          <div class="arow-body">
+            <button class="minibtn" data-nact="ok" data-id="${E(x.id)}">Aprobar</button>
+            <button class="minibtn danger" data-nact="no" data-id="${E(x.id)}">Rechazar</button>
+          </div>
+        </details>`).join('')+'<div style="height:14px"></div>':'')+
       // Agrupadas por tipo de cuenta, en el mismo orden jerárquico que ROLES
       // (antes salían todas mezcladas en el orden que las devolvía la base).
       ['admin','usuario','medico_admin','medico'].map(r=>{
         const deEsteRol=resto.filter(x=>ROL_VALIDO(x.rol)===r);
         if(!deEsteRol.length)return '';
         return `<div class="rolgrupo">${E(ROLES[r].corto)} (${deEsteRol.length})</div>`+
-          deEsteRol.map(x=>`<div class="arow"${x.estado==='rechazado'?' style="opacity:.6"':''}>
-        <span class="pav"${esRolMedico(x.rol)?' style="background:var(--med)"':''}>${av(x.nombre)}</span>
-        <div class="grow2"><div class="pnm">${E(x.nombre)}${x.id===yo.id?' <span style="color:var(--muted);font-weight:500">(vos)</span>':''}</div>
-          <div class="pmeta">${E(rolLabel(x.rol))}${x.estado==='rechazado'?' · rechazada':''} · ${(x.favoritos||[]).length} favoritos</div></div>
-        ${x.estado==='rechazado'
-          ? `<button class="minibtn" data-nact="ok" data-id="${E(x.id)}">Habilitar</button>`
-          : (x.rol==='admin'
-              ? `<span class="pmeta" style="white-space:nowrap">Es el administrador</span>`
+          deEsteRol.map(x=>{
+            const avEstilo=esRolMedico(x.rol)?' style="background:var(--med)"':'';
+            const nombreHTML=`${E(x.nombre)}${x.id===yo.id?' <span style="color:var(--muted);font-weight:500">(vos)</span>':''}`;
+            const metaHTML=`${E(rolLabel(x.rol))}${x.estado==='rechazado'?' · rechazada':''} · ${(x.favoritos||[]).length} favoritos`;
+            if(x.rol==='admin')return `<div class="arow">
+              <span class="pav"${avEstilo}>${av(x.nombre)}</span>
+              <div class="grow2"><div class="pnm">${nombreHTML}</div><div class="pmeta">${metaHTML}</div></div>
+              <span class="pmeta" style="white-space:nowrap">Es el administrador</span>
+            </div>`;
+            const cuerpo=x.estado==='rechazado'
+              ? `<button class="minibtn" data-nact="ok" data-id="${E(x.id)}">Habilitar</button>`
               : `<select class="minibtn" data-rolsel="${E(x.id)}" title="Tipo de cuenta" style="padding:6px 8px">
-                   ${['usuario','medico','medico_admin'].map(r=>`<option value="${r}"${ROL_VALIDO(x.rol)===r?' selected':''}>${E(ROLES[r].label)}</option>`).join('')}
+                   ${['usuario','medico','medico_admin'].map(rr=>`<option value="${rr}"${ROL_VALIDO(x.rol)===rr?' selected':''}>${E(ROLES[rr].label)}</option>`).join('')}
                  </select>
-                 <button class="minibtn" data-nact="rol" data-id="${E(x.id)}">Transferir administración</button>`)}
-        <button class="minibtn danger" data-nact="del" data-id="${E(x.id)}"${x.rol==='admin'?' disabled title="No se puede eliminar al administrador"':''}>Eliminar</button>
-      </div>`).join('');
+                 <button class="minibtn" data-nact="rol" data-id="${E(x.id)}">Transferir administración</button>
+                 <button class="minibtn danger" data-nact="del" data-id="${E(x.id)}">Eliminar</button>`;
+            return `<details class="arow-d">
+              <summary class="arow"${x.estado==='rechazado'?' style="opacity:.6"':''}>
+                <span class="pav"${avEstilo}>${av(x.nombre)}</span>
+                <div class="grow2"><div class="pnm">${nombreHTML}</div><div class="pmeta">${metaHTML}</div></div>
+                <span class="arow-chev"></span>
+              </summary>
+              <div class="arow-body">${cuerpo}</div>
+            </details>`;
+          }).join('');
       }).join('')+
       `<div class="ahint" style="margin-top:12px">Las contraseñas las maneja la nube: nadie, ni vos, puede verlas. Si alguien la olvida, que cree la cuenta de nuevo o restablecela desde el panel de Supabase.</div>`;
 
