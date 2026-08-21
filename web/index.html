@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-wjMc8SiHUq0vKV2b40lrZcgMhCw6gmIAKNIpeTOVc/s=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-zWg7lrrKvVic4uRuXlCdGFLdSYgrBYFG1Bs8whEv2Ao=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1573,8 +1573,21 @@ body.tour-on{overscroll-behavior:none}
 .arow-d>summary.arow::-webkit-details-marker{display:none}
 .arow-chev{margin-left:auto;flex-shrink:0;color:var(--muted);font-size:11px;transition:transform .16s}
 .arow-chev::before{content:'▸'}
-.arow-d[open] .arow-chev{transform:rotate(90deg)}
+/* Con «>» explícito: la flechita de una fila no puede rotar sólo porque el
+   grupo que la contiene esté abierto (ver .rolgrupo-d más abajo). */
+.arow-d[open]>summary>.arow-chev{transform:rotate(90deg)}
 .arow-body{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px 2px 54px}
+/* Etiqueta de grupo plegable (ADMINISTRATIVO, MÉDICO…): agrupa además de
+   plegar cada cuenta — con un rol que junta muchas cuentas, plegar sólo las
+   filas no alcanza, la lista sigue siendo larga. El de ADMINISTRADOR queda
+   sin envolver (una sola fila siempre, nada que ahorrar plegándolo). */
+.rolgrupo-d{margin:16px 0 7px;padding-top:12px;border-top:1px solid var(--line)}
+.rolgrupo-d:first-child{margin-top:0;padding-top:0;border-top:none}
+.rolgrupo-d>summary.rolgrupo{display:flex;align-items:center;margin:0;padding:0;border:none;
+  cursor:pointer;user-select:none;list-style:none}
+.rolgrupo-d>summary.rolgrupo::-webkit-details-marker{display:none}
+.rolgrupo-d[open]>summary>.arow-chev{transform:rotate(90deg)}
+.rolgrupo-body{padding-top:11px}
 .minibtn{padding:5px 9px;border:1px solid var(--line-2);border-radius:6px;background:var(--surface);font:inherit;font-size:12px;font-weight:600;cursor:pointer;color:var(--ink)}
 .minibtn:hover{border-color:var(--accent);color:var(--accent-ink)}
 .minibtn.danger:hover{border-color:var(--exc);color:var(--exc)}
@@ -5659,6 +5672,13 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   function hideGate(){gate.hidden=true;}
   const OJO_VER='<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>';
   const OJO_TAPAR='<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9.9 5.2A10.6 10.6 0 0 1 12 5c6.5 0 10 7 10 7a18 18 0 0 1-3.2 4.2M6.5 6.6A18 18 0 0 0 2 12s3.5 7 10 7c2 0 3.7-.6 5.1-1.5"/><path d="M3 3l18 18"/></svg>';
+  /* El mínimo real vive en el panel de Supabase (Authentication → Providers
+     → Email → Minimum password length) — esto es sólo el eco para avisar
+     antes de mandar el formulario y ahorrar una vuelta al servidor. Si se
+     cambia allá y no se actualiza acá, no vuelve a mentir como antes: el
+     mensaje real de Supabase (con su número real) sigue siendo la última
+     palabra, ver traducir(). */
+  const PASS_MIN=12;
   /* «opts» trae lo que cambia el teclado del celular y habilita el gestor de
      contraseñas: sin autocomplete el navegador no ofrece guardar ni completar, y
      sin autocapitalize el teclado arranca en mayúscula justo sobre el correo. */
@@ -5791,7 +5811,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
           ? `<div class="gsub">Los enlaces duran una hora y se usan una sola vez. Pedí uno nuevo desde <b>Me olvidé la contraseña</b>.</div>
              <button class="gbtn" id="npVolver">Volver al inicio</button>`
           : `<div class="gsub">Escribila dos veces. Al guardar quedás dentro del manual.</div>
-             ${field('cpUna','Contraseña nueva','password',{ac:'new-password'})}
+             ${field('cpUna',`Contraseña nueva (mínimo ${PASS_MIN})`,'password',{ac:'new-password'})}
              ${field('cpDos','Repetirla','password',{ac:'new-password'})}
              <div class="gerr" id="gErr"></div>
              <button class="gbtn" id="cpGo">Guardar y entrar</button>`}
@@ -5803,7 +5823,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         <div class="gsub">La cuenta queda <b>pendiente</b> hasta que la apruebe el administrador. Usá tu correo de trabajo: es con lo que te va a identificar.</div>
         ${field('naNom','Tu nombre y apellido','text',{ac:'name'})}
         ${field('naMail','Correo','email',{ac:'username',im:'email'})}
-        ${field('naPass','Contraseña','password',{ac:'new-password'})}
+        ${field('naPass',`Contraseña (mínimo ${PASS_MIN})`,'password',{ac:'new-password'})}
         ${field('naPass2','Repetir contraseña','password',{ac:'new-password'})}
         <div class="gerr" id="gErr"></div>
         <button class="gbtn" id="naGo">Crear mi cuenta</button>
@@ -5957,10 +5977,10 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       if(el('cpGo')){
         const go=async()=>{
           const p1=gv('cpUna'),p2=gv('cpDos');
-          // El mínimo lo exige el panel de Supabase, no acá — un número fijo
-          // en el cliente queda desactualizado en cuanto lo cambian ahí, y
-          // termina mintiéndole a quien se está registrando (ver traducir()).
-          if(!p1)return gerr('Ingresá una contraseña.');
+          // PASS_MIN es sólo el eco del mínimo real de Supabase, no la fuente
+          // de verdad — si quedara desactualizado, traducir() igual muestra
+          // el número real que manda el servidor al rechazarla.
+          if(p1.length<PASS_MIN)return gerr(`La contraseña debe tener al menos ${PASS_MIN} caracteres.`);
           if(p1!==p2)return gerr('Las contraseñas no coinciden.');
           const b=el('cpGo');b.disabled=true;b.textContent='Guardando…';gerr('');
           try{
@@ -5978,7 +5998,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         const nm=gv('naNom'),m=gv('naMail'),p1=gv('naPass'),p2=gv('naPass2');
         if(!nm)return gerr('Ingresá tu nombre.');
         if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m))return gerr('Revisá el correo.');
-        if(!p1)return gerr('Ingresá una contraseña.');
+        if(p1.length<PASS_MIN)return gerr(`La contraseña debe tener al menos ${PASS_MIN} caracteres.`);
         if(p1!==p2)return gerr('Las contraseñas no coinciden.');
         const b=el('naGo');b.disabled=true;b.textContent='Creando…';gerr('');
         try{ await NUBE.registrar(nm,m,p1); gate._nuevo=nm; renderGate('espera'); }
@@ -6111,8 +6131,8 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       ['admin','usuario','medico_admin','medico'].map(r=>{
         const deEsteRol=resto.filter(x=>ROL_VALIDO(x.rol)===r);
         if(!deEsteRol.length)return '';
-        return `<div class="rolgrupo">${E(ROLES[r].corto)} (${deEsteRol.length})</div>`+
-          deEsteRol.map(x=>{
+        const etiqueta=`${E(ROLES[r].corto)} (${deEsteRol.length})`;
+        const filas=deEsteRol.map(x=>{
             const avEstilo=esRolMedico(x.rol)?' style="background:var(--med)"':'';
             const nombreHTML=`${E(x.nombre)}${x.id===yo.id?' <span style="color:var(--muted);font-weight:500">(vos)</span>':''}`;
             const metaHTML=`${E(rolLabel(x.rol))}${x.estado==='rechazado'?' · rechazada':''} · ${(x.favoritos||[]).length} favoritos`;
@@ -6137,6 +6157,14 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
               <div class="arow-body">${cuerpo}</div>
             </details>`;
           }).join('');
+        // El grupo del administrador no se envuelve: siempre es una sola
+        // fila, así que plegarlo no ahorraría nada — sólo agregaría un toque
+        // extra para ver la única cuenta que más conviene ver de entrada.
+        if(r==='admin')return `<div class="rolgrupo">${etiqueta}</div>${filas}`;
+        return `<details class="rolgrupo-d">
+          <summary class="rolgrupo">${etiqueta}<span class="arow-chev"></span></summary>
+          <div class="rolgrupo-body">${filas}</div>
+        </details>`;
       }).join('')+
       `<div class="ahint" style="margin-top:12px">Las contraseñas las maneja la nube: nadie, ni vos, puede verlas. Si alguien la olvida, que cree la cuenta de nuevo o restablecela desde el panel de Supabase.</div>`;
 
@@ -7111,7 +7139,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     } else if(cTab==='pass'){
       abox.innerHTML=`${closeBtn}<h3>Cambiar contraseña</h3>
         <div class="asub">Escribila dos veces. No hace falta la actual: ya estás adentro con tu sesión.</div>
-        <label>Contraseña nueva</label>
+        <label>Contraseña nueva (mínimo ${PASS_MIN})</label>
         <input type="password" id="cPass1" autocomplete="new-password">
         <label>Repetirla</label>
         <input type="password" id="cPass2" autocomplete="new-password">
@@ -7119,8 +7147,8 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         <button class="minibtn" id="cVolver">Cancelar</button></div>`;
       el('cGuardar').addEventListener('click',async()=>{
         const p1=gv('cPass1'),p2=gv('cPass2');
-        // El mínimo lo exige el panel de Supabase, no acá — ver traducir().
-        if(!p1)return toast('Ingresá una contraseña',true);
+        // PASS_MIN es sólo el eco del mínimo real de Supabase — ver traducir().
+        if(p1.length<PASS_MIN)return toast(`La contraseña debe tener al menos ${PASS_MIN} caracteres`,true);
         if(p1!==p2)return toast('Las contraseñas no coinciden',true);
         const b=el('cGuardar');b.disabled=true;b.textContent='Guardando…';
         try{ await NUBE.cambiarPass(p1); toast('Contraseña actualizada'); volver(); }
