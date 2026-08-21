@@ -1126,7 +1126,10 @@ ul{margin:0;padding:0}
   aside{position:fixed;inset:0 auto 0 0;top:0;height:100%;width:290px;max-height:100%;z-index:45;background:var(--bg);
     padding:16px;transform:translateX(-100%);transition:transform .22s;box-shadow:8px 0 30px rgba(0,0,0,.2)}
   aside.on{transform:translateX(0)}
-  .filter-toggle{display:inline-flex}
+  /* .icon-btn ya centra con display:grid;place-items:center, pero acá se
+     pisa el display a flex — sin repetir el centrado, place-items queda sin
+     efecto (no aplica a flex) y el ícono se corre hacia la izquierda. */
+  .filter-toggle{display:inline-flex;align-items:center;justify-content:center}
   /* El cajón de filtros tapa el botón que lo abrió — sin esto no había forma
      de cerrarlo salvo tocar el fondo oscuro (que tampoco se activaba, ver
      #filterToggle más abajo). */
