@@ -122,18 +122,26 @@ window.NBU_NUBE = {
 window.NBUUpdate = { estado:'idle', comprobar:function(){}, pintar:function(){} };
 </script>
 <style>
-/* Roboto Condensed y Roboto Mono, auto-hospedadas (ver web/fonts/README.md):
-   dan variedad dentro de la misma familia tipográfica —etiquetas y
-   códigos con personalidad propia— sin sumar una petición externa a la
-   CSP ni depender de que Google esté arriba. */
-@font-face{font-family:'Roboto Condensed';font-style:normal;font-weight:400;
-  font-display:swap;src:url('fonts/RobotoCondensed-Regular.woff2') format('woff2')}
-@font-face{font-family:'Roboto Condensed';font-style:normal;font-weight:700;
-  font-display:swap;src:url('fonts/RobotoCondensed-Bold.woff2') format('woff2')}
-@font-face{font-family:'Roboto Mono';font-style:normal;font-weight:400;
-  font-display:swap;src:url('fonts/RobotoMono-Regular.woff2') format('woff2')}
-@font-face{font-family:'Roboto Mono';font-style:normal;font-weight:700;
-  font-display:swap;src:url('fonts/RobotoMono-Bold.woff2') format('woff2')}
+/* IBM Plex Sans / Sans Condensed / Mono, auto-hospedadas (ver
+   web/fonts/README.md): una sola familia, diseñada en conjunto, para todo
+   el texto de la app —cuerpo, etiquetas y códigos—. Antes el cuerpo caía
+   en la fuente nativa del sistema (system-ui) mientras las etiquetas y
+   códigos usaban una fuente descargada: en Mac/Windows son dos diseños de
+   letra distintos conviviendo. Con las tres capas en la misma familia esa
+   discordancia desaparece, y de paso la app se ve igual en cualquier
+   dispositivo. */
+@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:400;
+  font-display:swap;src:url('fonts/IBMPlexSans-Regular.woff2') format('woff2')}
+@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:500;
+  font-display:swap;src:url('fonts/IBMPlexSans-Medium.woff2') format('woff2')}
+@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:700;
+  font-display:swap;src:url('fonts/IBMPlexSans-Bold.woff2') format('woff2')}
+@font-face{font-family:'IBM Plex Sans Condensed';font-style:normal;font-weight:700;
+  font-display:swap;src:url('fonts/IBMPlexSansCondensed-Bold.woff2') format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;
+  font-display:swap;src:url('fonts/IBMPlexMono-Regular.woff2') format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:700;
+  font-display:swap;src:url('fonts/IBMPlexMono-Bold.woff2') format('woff2')}
 :root{
   --bg:#e9eef2; --surface:#ffffff; --surface-2:#f4f7f9; --surface-3:#eef3f6;
   --ink:#132029; --ink-2:#33454f; --muted:#5d6e79; --faint:#677984;
@@ -154,9 +162,9 @@ window.NBUUpdate = { estado:'idle', comprobar:function(){}, pintar:function(){} 
      el fondo. Las tres variables son lo único que cambia entre un tema y otro. */
   --logo-plato:transparent; --logo-aire:2px; --logo-gate-aire:0;
   --radius:11px; --radius-sm:8px;
-  --font-ui:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  --font-condensed:'Roboto Condensed',var(--font-ui);
-  --font-mono:'Roboto Mono',ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,monospace;
+  --font-ui:'IBM Plex Sans',system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+  --font-condensed:'IBM Plex Sans Condensed',var(--font-ui);
+  --font-mono:'IBM Plex Mono',ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,monospace;
   /* Curvas de animación. Iguales en claro y oscuro, por eso viven acá y no en
      los bloques de tema. @media (prefers-reduced-motion:reduce){*{transition:
      none!important}} (más abajo) ya las anula enteras cuando corresponde. */
