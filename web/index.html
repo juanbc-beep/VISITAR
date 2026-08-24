@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-Rs0Qo84IFbfAzT2Zkwgk5hfWmnrKI5c+oj7mi+q+fjY=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-5ujiX1de5YZb28N8Fh3rFItGa6cCOUaB7v5EQ6Y53lo=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -528,6 +528,25 @@ html,body{margin:0;padding:0}
 .gupd.hay{border-color:var(--accent);color:var(--accent-ink);background:var(--accent-soft);font-weight:700}
 .gupd.hay .gupd-dot{background:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 25%,transparent)}
 @media print{.autoria{display:flex!important;border:none;padding:10px 0 0;font-size:11px}}
+/* Leyenda de etiquetas: qué significa "N", "U", "NN", "relaciones"… Colapsada
+   por defecto —quien ya sabe qué es cada una no necesita verla siempre—, pero
+   arriba de los accesos rápidos para que aparezca apenas se busca algo, no
+   escondida en el glosario donde nadie la encuentra. Mismo patrón ▸/rotación
+   que .panel y .mdsec, para que se sienta como el resto de las secciones
+   plegables de la app. */
+.taglegend{margin-bottom:10px}
+.taglegend>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:7px;
+  font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);
+  padding:2px 0;user-select:none}
+.taglegend>summary:hover{color:var(--accent-ink)}
+.taglegend>summary::-webkit-details-marker{display:none}
+.taglegend>summary::before{content:'▸';font-size:11px;color:var(--accent);transition:transform .16s;flex-shrink:0}
+.taglegend[open]>summary::before{transform:rotate(90deg)}
+.tl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:7px 20px;
+  margin:10px 0 4px;padding:12px 14px;background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius)}
+.tl-row{display:flex;align-items:baseline;gap:9px}
+.tl-row .tag{flex-shrink:0}
+.tl-txt{font-size:12.5px;color:var(--ink-2);line-height:1.4}
 .rapidos{margin-bottom:14px}
 .rapidos .rlbl{font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);
   display:flex;align-items:center;gap:8px;margin-bottom:8px}
@@ -1783,6 +1802,20 @@ try{if(sessionStorage.getItem('nbu-actualizando')){
       </div>
     </div>
     <div class="print-head" id="printHead"></div>
+    <details class="taglegend" id="tagLegend">
+      <summary>¿Qué significa cada etiqueta?</summary>
+      <div class="tl-grid">
+        <div class="tl-row"><span class="tag t-urg">U</span><span class="tl-txt">Urgencia. Al cargarla, sumá aparte el código <b>661200</b> (una vez por prescripción).</span></div>
+        <div class="tl-row"><span class="tag t-norma">N</span><span class="tl-txt">Requiere norma. Hay una regla de auditoría/interpretación escrita para este código — leela antes de cargar.</span></div>
+        <div class="tl-row"><span class="tag t-nn">NN</span><span class="tl-txt">El PMO retiró esta norma de su catálogo; el Nomenclador Nacional la tenía y el manual la conserva, adentro de la ficha.</span></div>
+        <div class="tl-row"><span class="tag t-desuso"># desuso</span><span class="tl-txt">Por presupuesto: prácticas en desuso que no tienen valor de referencia (U.B.).</span></div>
+        <div class="tl-row"><span class="tag t-freq">seriado</span><span class="tl-txt">Tiene un máximo de cantidad o frecuencia permitida — el detalle está en «Frecuencia / seriado», dentro de la ficha.</span></div>
+        <div class="tl-row"><span class="tag t-surge">SURGE</span><span class="tl-txt">Sujeta al Sistema Único de Reintegro por Gestión de Enfermedades (Res. 731/23).</span></div>
+        <div class="tl-row"><span class="tag t-rel">relaciones</span><span class="tl-txt">Tiene códigos que incluye, que no incluye, o que la incluyen a ella — es lo que arma el «Árbol de módulos».</span></div>
+        <div class="tl-row"><span class="tag t-unico">= Único</span><span class="tl-txt">Existe también en el Nomenclador Único (VISITAR), con la equivalencia ya cargada.</span></div>
+        <div class="tl-row"><span class="tag t-noeq">⚠ sin equivalencia</span><span class="tl-txt">Del Único: todavía no tiene un código equivalente cargado en otro nomenclador.</span></div>
+      </div>
+    </details>
     <div class="rapidos" id="rapidos" hidden></div>
     <div class="list" id="list" tabindex="-1" role="region" aria-label="Resultados"></div>
     <p class="sr-only" id="avisos" role="status" aria-live="polite" aria-atomic="true"></p>
@@ -2400,6 +2433,7 @@ function animarDetails(det){
   }
 }
 document.querySelectorAll('#rail details.panel').forEach(animarDetails);
+animarDetails(el('tagLegend'));
 
 /* ---------- cabecera: se comprime al scrollear y libera pantalla ---------- */
 const _hdr=document.querySelector('header');
