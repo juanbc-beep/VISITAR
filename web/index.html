@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-Rs0Qo84IFbfAzT2Zkwgk5hfWmnrKI5c+oj7mi+q+fjY=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-UAt/Q8KiOH2oKo8ot4NmiVpnQtH7VzoNOaZwiswBt3U=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -528,6 +528,27 @@ html,body{margin:0;padding:0}
 .gupd.hay{border-color:var(--accent);color:var(--accent-ink);background:var(--accent-soft);font-weight:700}
 .gupd.hay .gupd-dot{background:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 25%,transparent)}
 @media print{.autoria{display:flex!important;border:none;padding:10px 0 0;font-size:11px}}
+/* Leyenda de etiquetas: qué significa "N", "U", "NN", "relaciones"… Colapsada
+   por defecto —quien ya sabe qué es cada una no necesita verla siempre—, pero
+   arriba de los accesos rápidos para que aparezca apenas se busca algo, no
+   escondida en el glosario donde nadie la encuentra. Mismo patrón ▸/rotación
+   que .panel y .mdsec, para que se sienta como el resto de las secciones
+   plegables de la app. */
+.taglegend{margin-bottom:10px}
+.taglegend>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:7px;
+  font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);
+  padding:2px 0;user-select:none}
+.taglegend>summary:hover{color:var(--accent-ink)}
+.taglegend>summary::-webkit-details-marker{display:none}
+.taglegend>summary::before{content:'▸';font-size:11px;color:var(--accent);transition:transform .16s;flex-shrink:0}
+.taglegend[open]>summary::before{transform:rotate(90deg)}
+.tl-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.tl-chips .tag{cursor:pointer;border:none;font:inherit;-webkit-appearance:none;appearance:none;
+  opacity:.85;transition:opacity .12s,box-shadow .12s}
+.tl-chips .tag:hover{opacity:1}
+.tl-chips .tag.on{opacity:1;box-shadow:0 0 0 2px var(--accent)}
+.tl-desc{margin-top:8px;padding:8px 12px;background:var(--surface-2);border-left:3px solid var(--accent);
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:12.5px;color:var(--ink-2);line-height:1.45}
 .rapidos{margin-bottom:14px}
 .rapidos .rlbl{font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);
   display:flex;align-items:center;gap:8px;margin-bottom:8px}
@@ -1783,6 +1804,21 @@ try{if(sessionStorage.getItem('nbu-actualizando')){
       </div>
     </div>
     <div class="print-head" id="printHead"></div>
+    <details class="taglegend" id="tagLegend">
+      <summary>¿Qué significa cada etiqueta?</summary>
+      <div class="tl-chips" id="tagLegendChips">
+        <button type="button" class="tag t-urg" data-tl="urg">U</button>
+        <button type="button" class="tag t-norma" data-tl="norma">N</button>
+        <button type="button" class="tag t-nn" data-tl="nn">NN</button>
+        <button type="button" class="tag t-desuso" data-tl="desuso"># desuso</button>
+        <button type="button" class="tag t-freq" data-tl="freq">seriado</button>
+        <button type="button" class="tag t-surge" data-tl="surge">SURGE</button>
+        <button type="button" class="tag t-rel" data-tl="rel">relaciones</button>
+        <button type="button" class="tag t-unico" data-tl="unico">= Único</button>
+        <button type="button" class="tag t-noeq" data-tl="noeq">⚠ sin equivalencia</button>
+      </div>
+      <div class="tl-desc" id="tagLegendDesc" hidden></div>
+    </details>
     <div class="rapidos" id="rapidos" hidden></div>
     <div class="list" id="list" tabindex="-1" role="region" aria-label="Resultados"></div>
     <p class="sr-only" id="avisos" role="status" aria-live="polite" aria-atomic="true"></p>
@@ -2400,6 +2436,35 @@ function animarDetails(det){
   }
 }
 document.querySelectorAll('#rail details.panel').forEach(animarDetails);
+animarDetails(el('tagLegend'));
+
+/* Leyenda de etiquetas: cada chip es un botón que muestra/oculta su propia
+   explicación, una por vez —nunca las nueve juntas—, para que se lea como
+   una unidad chica y no como un bloque de texto de colores. */
+const TAG_LEYENDA={
+  urg:'Urgencia. Al cargarla, sumá aparte el código 661200 (una vez por prescripción).',
+  norma:'Requiere norma. Hay una regla de auditoría/interpretación escrita para este código — leela antes de cargar.',
+  nn:'El PMO retiró esta norma de su catálogo; el Nomenclador Nacional la tenía y el manual la conserva, adentro de la ficha.',
+  desuso:'Por presupuesto: prácticas en desuso que no tienen valor de referencia (U.B.).',
+  freq:'Tiene un máximo de cantidad o frecuencia permitida — el detalle está en «Frecuencia / seriado», dentro de la ficha.',
+  surge:'Sujeta al Sistema Único de Reintegro por Gestión de Enfermedades (Res. 731/23).',
+  rel:'Tiene códigos que incluye, que no incluye, o que la incluyen a ella — es lo que arma el «Árbol de módulos».',
+  unico:'Existe también en el Nomenclador Único (VISITAR), con la equivalencia ya cargada.',
+  noeq:'Del Único: todavía no tiene un código equivalente cargado en otro nomenclador.'
+};
+(function(){
+  const cont=el('tagLegendChips'), desc=el('tagLegendDesc');
+  if(!cont||!desc)return;
+  cont.addEventListener('click',e=>{
+    const b=e.target.closest('[data-tl]'); if(!b)return;
+    const activo=b.classList.contains('on');
+    cont.querySelectorAll('.on').forEach(x=>x.classList.remove('on'));
+    if(activo){desc.hidden=true;desc.textContent='';return;}
+    b.classList.add('on');
+    desc.textContent=TAG_LEYENDA[b.dataset.tl]||'';
+    desc.hidden=false;
+  });
+})();
 
 /* ---------- cabecera: se comprime al scrollear y libera pantalla ---------- */
 const _hdr=document.querySelector('header');
