@@ -763,16 +763,20 @@ código) — ver la sección de Testing, punto 3.
 **Atajo «Vincular código» dentro de «Cómo se carga esta solicitud» (24/8/2026)**: mismo permiso
 y mismo dato (`incluye`, con su espejo), pero sin abrir «Editar ficha» — un pedido directo de
 Juan, para no tener que salir de la sección donde ya se está mirando qué códigos no se facturan
-aparte. `web/index.html`, dentro del bloque `.carga`: sólo se muestra con **Modo edición** activo
-y `CAP.editaRelaciones(current)`. Guarda con `guardarIncluye(code, finArr)` —mismo
+aparte. `web/index.html`, dentro del bloque `.carga`: se muestra con `CAP.editaRelaciones(current)`
+nada más, **sin pedir Modo edición** —Juan lo probó sin saber que ese modo existía, y volver a
+pedirlo fue un ajuste posterior: ese modo es para tocar la ficha completa (nombre, normas), un
+gesto pensado para no editar por error, y vincular/anexar son livianos, viven al lado de «Contá
+cómo se carga acá», que tampoco lo pide—. Guarda con `guardarIncluye(code, finArr)` —mismo
 `deltaListaRel`/`espejarRelacion` que usa `editFicha()`, extraído para un solo campo— expuesto
 como `NBUProfile.guardarIncluye()` porque el render de `.carga` vive en un `<script>` distinto
 del que declara `editMode`/`CAP`/`guardarIncluye`: de ahí también que la condición para mostrar
-el atajo se arme con `NBUProfile.canEdit()`/`NBUProfile.editaRelaciones()` y no con las variables
-directamente (no están en ese scope). Probado en `tests/e2e/casos/vincular.mjs`.
+el atajo se arme con `NBUProfile.editaRelaciones()` y no con `CAP` directamente (no está en ese
+scope). Probado en `tests/e2e/casos/vincular.mjs`.
 
-**Atajo «+ Anexar código» dentro de «Cargá esto» (24/8/2026)**: mismo permiso y mismo gesto que
-«Vincular código», pero **no es lo mismo dato ni el mismo significado**. «Vincular» escribe
+**Atajo «+ Anexar código» dentro de «Cargá esto» (24/8/2026)**: mismo permiso y mismo criterio de
+visibilidad que «Vincular código» (sin Modo edición), pero **no es lo mismo dato ni el mismo
+significado**. «Vincular» escribe
 `relaciones.incluye` —el código vinculado NO se factura aparte, ya está comprendido—. «Anexar»
 escribe un campo nuevo, `relaciones.anexar` —el código anexado SÍ se factura, aparte, pero el
 administrativo tiene que acordarse de cargarlo junto con éste—. Pedido directo de Juan: son casos

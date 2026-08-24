@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-Owj2vsiIoWj6NfsXzWgJmjLlVpy/CIeUe4DY/TAtA00=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-fw5TB3QV+A4wtkd+/RhEOSZ8w7kHHstgcKpzDhuM2g4=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -4248,13 +4248,16 @@ function openCode(code,origen){
   // Cómo se carga: el bloque que da sentido a la app como centro de respaldo.
   (function(){
     // Vincular/anexar códigos es del mismo rol que ya edita relaciones
-    // (administrador general, médico administrador), y sólo en Modo edición:
-    // mismo permiso y mismo gesto que el resto de la edición de ficha, ahora
-    // también accesible acá, sin abrir otro modal. Se calcula antes de armar
-    // los pasos porque comoSeCargaHTML() necesita saber si mostrar la ×
-    // de cada código anexado a mano.
+    // (administrador general, médico administrador). A propósito SIN pedir
+    // Modo edición: ese modo es para tocar la ficha completa (nombre,
+    // normas), un gesto pensado para no editar por error. Este atajo vive al
+    // lado de «Contá cómo se carga acá», que tampoco lo pide —Juan lo probó
+    // sin saber que Modo edición existía, y es razonable que no haga falta
+    // para algo tan liviano como sumar o sacar un código—. Se calcula antes
+    // de armar los pasos porque comoSeCargaHTML() necesita saber si mostrar
+    // la × de cada código anexado a mano.
     const R=c.relaciones||{};
-    const puedeVincular=!!(window.NBUProfile&&NBUProfile.canEdit&&NBUProfile.canEdit()&&NBUProfile.editaRelaciones&&NBUProfile.editaRelaciones());
+    const puedeVincular=!!(window.NBUProfile&&NBUProfile.editaRelaciones&&NBUProfile.editaRelaciones());
     const pasos=comoSeCargaHTML(c,puedeVincular);
     const grupo=t=>pasos.filter(p=>p.tipo===t).map(p=>p.html).join('');
     const gCargar=grupo('cargar'), gNo=grupo('no'), gVerif=grupo('verificar');

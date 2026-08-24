@@ -1,7 +1,7 @@
 // Caso "vincular": dentro de "Cómo se carga esta solicitud" hay un atajo
 // para vincular/desvincular códigos —lo que arma el Árbol de módulos—, sin
-// pasar por "Editar ficha". Mismo permiso que editar relaciones (admin y
-// médico administrador), y sólo en Modo edición. Ver HANDOFF.md.
+// pasar por "Editar ficha" ni por Modo edición. Mismo permiso que editar
+// relaciones (admin y médico administrador). Ver HANDOFF.md.
 //
 // 660102 ya incluye 660101 en el pipeline (ACTO BIOQUÍMICO / BACILOSCOPIA,
 // mismos códigos reales que usa casos/relaciones.mjs), así que el caso
@@ -46,15 +46,8 @@ async function main() {
     await page.waitForSelector('#acctChip:not([hidden])', { timeout: 5000 });
     await sinOverlays(page);
 
-    // Sin Modo edición, el atajo no aparece.
-    await page.evaluate((c) => { location.hash = c; }, CODIGO);
-    await page.waitForSelector('.carga', { timeout: 5000 });
-    afirmar(await page.locator('#cgVincInput').count() === 0,
-      'sin Modo edición no debería verse el atajo "Vincular código"');
-
-    await sinOverlays(page);
-    await page.evaluate(() => { document.getElementById('closeDrawer')?.click(); });
-    await page.click('#editModeBtn');
+    // No pide Modo edición: es más liviano que "Editar ficha" y vive al lado
+    // de "Contá cómo se carga acá", que tampoco lo pide.
     await page.evaluate((c) => { location.hash = c; }, CODIGO);
     await sinOverlays(page);
     await page.waitForSelector('#cgVincInput', { timeout: 5000 });

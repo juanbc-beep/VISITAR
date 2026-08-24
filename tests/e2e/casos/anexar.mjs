@@ -3,7 +3,7 @@
 // junto con éste — al revés de "Vincular código" (relaciones.incluye, que no
 // se factura aparte), acá los dos códigos se cargan y no hay espejo: no
 // existe un "incluido en" recíproco. Mismo permiso que vincular (admin y
-// médico administrador, sólo en Modo edición). Ver HANDOFF.md.
+// médico administrador), sin pedir Modo edición. Ver HANDOFF.md.
 //
 // 660102/660050 son códigos NBU reales y estables (data/nbu_db.json,
 // BACILOSCOPIA y ANTIESTAFILOLISINA), sin relación entre sí en el pipeline —
@@ -44,15 +44,8 @@ async function main() {
     await page.waitForSelector('#acctChip:not([hidden])', { timeout: 5000 });
     await sinOverlays(page);
 
-    // Sin Modo edición, el atajo no aparece.
-    await page.evaluate((c) => { location.hash = c; }, CODIGO);
-    await page.waitForSelector('.carga', { timeout: 5000 });
-    afirmar(await page.locator('#cgAnexBtn').count() === 0,
-      'sin Modo edición no debería verse el atajo "+ Anexar código"');
-
-    await sinOverlays(page);
-    await page.evaluate(() => { document.getElementById('closeDrawer')?.click(); });
-    await page.click('#editModeBtn');
+    // No pide Modo edición: es más liviano que "Editar ficha" y vive al lado
+    // de "Contá cómo se carga acá", que tampoco lo pide.
     await page.evaluate((c) => { location.hash = c; }, CODIGO);
     await sinOverlays(page);
     await page.waitForSelector('#cgAnexBtn', { timeout: 5000 });
