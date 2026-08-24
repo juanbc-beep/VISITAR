@@ -63,7 +63,7 @@ self.addEventListener('fetch', e => {
         if (copiaVieja && req.mode === 'navigate') {
           const viejo = await copiaVieja.text();
           const nuevo = await r.clone().text();
-          if (viejo.length !== nuevo.length) avisar('nueva-version');
+          if (huboCambio(viejo, nuevo)) avisar('nueva-version');
         }
       }
       return r;
@@ -74,6 +74,20 @@ self.addEventListener('fetch', e => {
       { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
   })());
 });
+
+/* Compara por el commit sellado en NBU_BUILD (pages.yml lo estampa en cada
+   publicación), no por el largo del HTML: dos versiones distintas pueden pesar
+   lo mismo por casualidad, y ahí el aviso no salía nunca. En local ese commit
+   queda como "local" en las dos copias — sin nada real que comparar, se cae de
+   vuelta al largo, que es lo que ya funcionaba para probar sin publicar. */
+function commitDe(html) {
+  const m = html.match(/NBU_BUILD\s*=\s*\{\s*commit:\s*"([^"]*)"/);
+  return (m && m[1] && m[1] !== 'local') ? m[1] : null;
+}
+function huboCambio(viejo, nuevo) {
+  const cv = commitDe(viejo), cn = commitDe(nuevo);
+  return (cv && cn) ? (cv !== cn) : (viejo.length !== nuevo.length);
+}
 
 async function avisar(tipo) {
   const cs = await self.clients.matchAll({ type: 'window' });
