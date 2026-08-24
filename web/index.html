@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-5wn0gawbOIcQIU1qOHNxvkxdSqgsMKptG8yirJ/zW9g=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-SdEQ6GR7gM4lZ0M8m7si35T8pqaguGDQ3sbyb/gYpFM=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -763,6 +763,11 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
   .row:hover{border-color:var(--accent);box-shadow:var(--shadow);transform:translateY(-1px)}
 }
 .row:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* Coincidencia fuerte (90%+, ver matchPct()): la ficha entera se destaca, no
+   sólo la palabra encontrada adentro — para que salte a la vista cuál es la
+   respuesta antes de leer una por una. */
+.row-match{background:var(--accent-soft);border-color:var(--accent)}
+@media (hover:hover) and (pointer:fine){.row-match:hover{border-color:var(--accent)}}
 .rcode{font-family:var(--font-mono);font-size:14px;font-weight:700;color:var(--accent-ink);letter-spacing:-.3px}
 .rmid{min-width:0}
 .rname{font-size:14px;color:var(--ink);font-weight:600;line-height:1.3;margin-bottom:3px}
@@ -1001,7 +1006,7 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
 .norma-txt .nt-lbl{font-size:11px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);font-weight:700;display:block;margin-bottom:4px}
 .norma-txt+.norma-txt{margin-top:4px}
 .audit{display:flex;flex-direction:column;gap:8px}
-.audit li{list-style:none;display:flex;gap:10px;font-size:14px;color:var(--ink-2);padding:11px 14px;
+.audit li{list-style:none;display:flex;flex-wrap:wrap;gap:10px;font-size:14px;color:var(--ink-2);padding:11px 14px;
   background:var(--surface-2);border-radius:10px;border-left:3px solid var(--accent);line-height:1.45}
 .audit li .mono{color:var(--accent-ink);font-weight:700}
 ul{margin:0;padding:0}
@@ -2034,7 +2039,10 @@ function buscar(lista,terms,extraFiltro){
     for(const r of lista){
       if(extraFiltro&&!extraFiltro(r))continue;
       const s=puntuar(r,terms,fz);
-      if(s>=0)out.push([s,r]);
+      // Guardado en el propio registro (y no devuelto aparte) para que
+      // rowHTML() pueda pintar de más las coincidencias fuertes sin tener
+      // que puntuar todo de nuevo: matchPct() lo lee de acá.
+      if(s>=0){r._score=s;out.push([s,r]);}
     }
     return out;
   };
@@ -2661,7 +2669,8 @@ function rowHTML(c){
   if(c.valores)met.push('<span class="tag t-meta">valores ✓</span>');
   if(c.valor.ub_actualizado_2024!=null)met.push('<span class="tag t-meta">2024</span>');
   if(c.nomenclador==='UNICO'&&c.equivalencia&&!c.equivalencia.key&&!c.sin_equivalencia)met.push(`<span class="tag t-meta" title="La planilla del Único declara esta equivalencia y quedó verificada contra la fuente, pero el código de ${esc(c.equivalencia.target_label||'destino')} todavía no está cargado como ficha propia en la base.">equiv. sin importar</span>`);
-  return `<button class="row" data-code="${c._key}">
+  const pct=matchPct(c);
+  return `<button class="row${pct!=null&&pct>=90?' row-match':''}" data-code="${c._key}">
     ${starBtn(c._key)}
     <div class="rcode">${hlList(c.code)}</div>
     <div class="rmid">
@@ -2706,6 +2715,19 @@ function hlList(s){
      no quede marcado a pedazos por «b». */
   const re=new RegExp('('+terms.sort((x,y)=>y.length-x.length).join('|')+')','gi');
   return out.replace(re,'<mark class="hl">$1</mark>');
+}
+// Qué tan segura es la coincidencia, en criollo: 6 puntos por término es lo
+// máximo que da puntuar() sin contar el bonus de código exacto (arranca el
+// nombre con lo buscado) — de ahí sale el 100%. El bonus de código exacto ya
+// puntúa por encima de eso solo, así que directo cuenta como 100. Resaltar
+// sólo la ficha entera cuando es un 90%+ y no cada palabra suelta adentro:
+// una coincidencia parcial no tiene por qué gritar tan fuerte como una exacta.
+function matchPct(c){
+  if(c._score==null)return null;
+  const terms=norm(state.q).split(/\s+/).filter(Boolean);
+  if(!terms.length)return null;
+  if(c._score>=100)return 100;               // código exacto
+  return Math.max(0,Math.min(100,Math.round(c._score/(6*terms.length)*100)));
 }
 
 function renderChips(){
