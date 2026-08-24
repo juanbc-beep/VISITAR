@@ -140,7 +140,12 @@ resto del documento, escrito antes, dice «sobre 6.372» en varios lados.
 │   └── INSTALACION.md              # guía del administrador, paso a paso
 ├── .github/
 │   ├── workflows/pages.yml         # publica web/ y sella la versión con el commit
+│   ├── workflows/rls.yml           # CI: reglas de acceso contra PostgreSQL real
+│   ├── workflows/e2e.yml           # CI: interfaz contra el simulador de Supabase
 │   └── dependabot.yml              # avisa cuando una acción tiene versión nueva
+├── tests/
+│   ├── rls/                        # reglas de acceso (RLS) — ver tests/rls/LEEME.md
+│   └── e2e/                        # interfaz (Playwright) — ver tests/e2e/LEEME.md
 ├── data/                           # fuentes + JSON intermedios + nbu_db.json (12 MB)
 │   ├── lateralidad_curada.json     # ← dato de la casa (ver 3.1)
 │   ├── correcciones_curadas.json   # ← dato de la casa (ver 3.1)
@@ -335,47 +340,54 @@ Y los que no son parsers: `propagar_al_unico.py` (3.0), `altas_pmo_cap34.py` y
 `alcance_cap34.py` (3.4), `inject_db.py` (3.0 bis) y `sellar_csp.py`.
 
 ### Testing
-No hay framework. Se valida con **Playwright** (Node) desde el scratchpad:
-```js
-import pkg from '/opt/node22/lib/node_modules/playwright/index.js';
-const { chromium } = pkg;   // playwright NO está en node_modules del repo
-```
 
-**⚠️ La app ya no arranca en modo local: arranca pidiendo cuenta contra Supabase, y desde
-este entorno la red a Supabase está bloqueada.** Para probar hay que **simular Supabase**
-interceptando con `ctx.route(HOST+'/**', …)` y respondiendo a mano `/auth/v1/token`,
-`/rest/v1/perfiles`, `/rest/v1/rpc/*`, `/rest/v1/{correcciones,verificaciones,propuestas,ajustes}`.
-El simulador vive en `e2e.mjs` del scratchpad; **recrearlo si se perdió** (está descrito
-en los commits `c159cfe` y `91a95d6`).
+⚠️ **Ya no se arma a mano en el scratchpad de cada sesión — desde el 24/8/2026 vive
+versionado en `tests/`, con dos suites separadas y las dos con CI propio (corren solas en
+cada PR que toque lo que prueban).**
 
-Claves del simulador, aprendidas a los golpes:
-- **La identidad es de cada sesión, la base es compartida.** `servidor(quien, db)`: si la
-  identidad queda fija, «el administrador» entra como el administrativo y las pruebas
-  mienten sin fallar.
+**`tests/rls/`** — las reglas de acceso (RLS), contra un **PostgreSQL 16 real** con una
+maqueta del esquema `auth` de Supabase (**tiene que incluir el rol `supabase_auth_admin`
+como dueño de `auth.users`**: sin eso no aparece la clase de fallo que rompió el alta de
+cuentas, ver 9). `ataques.sql` reproduce seis ataques que funcionaban de verdad antes de
+la corrección de agosto de 2026; `regresion.sql` es el contrapeso (lo que sí tiene que
+seguir andando). Ver `tests/rls/LEEME.md`. CI: `.github/workflows/rls.yml`.
+
+**`tests/e2e/`** — la interfaz, con **Playwright** + un simulador de Supabase propio
+(`tests/e2e/simulador.mjs`, intercepta `ctx.route(HOST+'/**', …)` y contesta en memoria:
+`/auth/v1/token`, `/rest/v1/perfiles`, `/rest/v1/rpc/*`,
+`/rest/v1/{correcciones,verificaciones,propuestas,ajustes,observaciones}`). Deliberadamente
+**no** reproduce RLS — para eso está `tests/rls/`, esto asume que el servidor ya cumple sus
+reglas y prueba que la app hace lo correcto. Casos persistidos hoy: `login` (ingreso +
+violaciones CSP), `nubelocal` (modo local sin nube configurada), `favs` (favoritos del
+equipo). Quedan sin persistir, mismo patrón, agregar cuando haga falta: `simul` (dos
+personas a la vez), `flujo3` (propuesta → aprobación por el panel real), `fidelidad`
+(corrección que borra la norma a propósito), `nube` (pestaña de estado), `recup`/`recup2`
+(restablecer contraseña). Ver `tests/e2e/LEEME.md`. CI: `.github/workflows/e2e.yml`.
+
+Trampas del simulador de interfaz, aprendidas a los golpes (documentadas en el LEEME para
+no volver a pisarlas):
+- **La identidad es de cada sesión, la base es compartida.** Se resuelve por el token
+  `Bearer` de cada pedido, nunca por un valor fijado al instalar el simulador: con un valor
+  fijo, dos sesiones de la misma corrida (para simular dos personas a la vez) terminan
+  viendo la misma identidad y la prueba miente sin fallar.
 - Servir la app por **http://** (no `file://`), porque el service worker no corre en
-  `file://`. Un `python3 -m http.server` en el scratchpad alcanza.
-- **El service worker cachea**: si probás dos archivos distintos en el mismo puerto, sirve
-  el primero para cualquier navegación. Usar **un puerto por variante**.
+  `file://`. `tests/e2e/arranque.mjs` levanta un servidor Node mínimo para esto.
+- **El registro del service worker puede persistir entre contextos «nuevos» de Playwright
+  en este entorno de pruebas** (no debería, pero pasa) y su evento `controllerchange`
+  recarga la página sola a los 600 ms (ver `sw.js`, función `recargar()`) — a mitad de
+  cualquier test que no lo espere. Se resuelve creando el contexto con
+  `browser.newContext({serviceWorkers:'block'})` (`nuevoContexto()` en `arranque.mjs`), no
+  bloqueando la request a `sw.js`: eso no alcanza porque el navegador puede ya tener un
+  worker activo sin volver a pedirlo.
+- **Un puerto por caso**, por la razón de arriba y porque el service worker cachea por
+  origen: si dos variantes comparten puerto, una puede terminar sirviéndole a la otra.
 - Saltar el recorrido guiado con
-  `ctx.addInitScript(()=>localStorage.setItem('nbu-onboarded','1'))`; si no, `#tour`
+  `page.addInitScript(()=>localStorage.setItem('nbu-onboarded','1'))`; si no, `#tour`
   intercepta todos los clics.
 - Varias funciones internas (`BYCODE`, `toggleFav`, `CONTENT`) **no son alcanzables** desde
   `page.evaluate`: interactuar por la interfaz o por `window.NBUProfile`.
 - La tira de accesos rápidos se redibuja con `render()`; tocar una estrella no la
   refresca. Forzarlo escribiendo y borrando en `#q`.
-
-**Reglas de la base**: se prueban aparte, en un **PostgreSQL 16 local** (`/usr/lib/postgresql/16/bin`),
-con una maqueta del esquema `auth` de Supabase. **Tiene que incluir el rol
-`supabase_auth_admin` como dueño de `auth.users`**: sin eso no aparece la clase de fallo
-que rompió el alta de cuentas (ver 9). Correr `initdb` como el usuario `postgres` y dar
-permiso de recorrido a los directorios padre del socket.
-
-**Suite de regresión** (scratchpad; recrearla si se perdió):
-`login` (ingreso + violaciones CSP) · `simul` (dos personas a la vez, avisos al
-administrador) · `flujo3` (propuesta → aprobación por el panel real) · `fidelidad`
-(corrección que borra la norma a propósito) · `favs` (favoritos del equipo) ·
-`nube` (pestaña de estado) · `recup` + `recup2` (restablecer contraseña) ·
-`nubelocal` (modo local). Al 2026-08-05 pasan todas, sin errores de página.
 
 ---
 
@@ -511,9 +523,17 @@ La versión nueva **se aplica sola al abrir** si nadie tocó nada todavía; si l
 uso, aparece el cartel y decide la persona. Una sola recarga automática por pestaña.
 
 ⚠️ Al aplicarse, `actualizando()` muestra un cartel a pantalla completa —«Actualizando el
-manual… no perdés nada de lo que estabas haciendo»— y **espera 450 ms antes de recargar**.
-Sin esa pausa la propia recarga lo pisa y el aviso no cumple ninguna función. Antes de esto
-la app se reiniciaba sola y sin decir nada, y el administrativo no sabía por qué.
+manual… no perdés nada de lo que estabas haciendo»— y **espera 600 ms antes de recargar**
+(constante `ESPERA`, función `recargar()` en `web/index.html`). Sin esa pausa la propia
+recarga lo pisa y el aviso no cumple ninguna función. Antes de esto la app se reiniciaba
+sola y sin decir nada, y el administrativo no sabía por qué.
+
+⚠️ **Detectar la versión nueva es por el commit, no por el largo del HTML** (24/8/2026).
+`sw.js` comparaba `viejo.length!==nuevo.length` entre la copia cacheada y la que acaba de
+bajar: dos versiones distintas pueden pesar lo mismo por casualidad y ahí el aviso no salía
+nunca. Ahora compara el commit sellado en `window.NBU_BUILD` (que `pages.yml` estampa en
+cada publicación, ver 1 bis) y sólo cae al largo cuando ese commit no está disponible —en
+local, donde queda como `"local"` en las dos copias—. Función `huboCambio()` en `sw.js`.
 
 ### 4.5 Recorrido guiado (onboarding) — DOS recorridos
 

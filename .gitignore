@@ -30,3 +30,8 @@ Thumbs.db
 *.swp
 .idea/
 .vscode/
+
+# Dependencias de node instaladas (tests/e2e/package.json las declara,
+# npm install las trae — no hace falta versionarlas)
+node_modules/
+package-lock.json
