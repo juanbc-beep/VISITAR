@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-zWg7lrrKvVic4uRuXlCdGFLdSYgrBYFG1Bs8whEv2Ao=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-9z+QiZp/4zE9TtDJD4qjnmuAIP1u2WLxZuEOoMT3WKw=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1281,13 +1281,15 @@ header.compact .modebtn{padding:6px 11px;border-radius:9px}
 header.compact .modebtn svg{display:none}
 header.compact .modebtn small{display:none}
 header.compact .modebtn b{font-size:13px}
-header.compact .consultarow{padding:7px 20px 8px;gap:7px}
-header.compact .consulta-head{display:none}
-header.compact .cbtn{padding:5px 11px 5px 5px}
-header.compact .cbtn .cbicon{width:24px;height:24px;border-radius:7px}
-header.compact .cbtn small{display:none}
-header.compact .cbtn b{font-size:13px}
+/* Diagnósticos / Abreviaturas / SURGE son accesos de consulta rápida, no el
+   cálculo en curso: al compactar no hace falta que sigan ahí. */
+header.compact .consultarow{display:none}
 header.compact .stats{display:none}
+/* En NBU y en el Laboratorio del Único la U.B. es el dato de trabajo: no se
+   esconde al compactar. Se recorta el botón de favoritos para no sumarle alto
+   a la cabecera compacta. */
+header.compact.ub-relevante .stats{display:flex;padding:0 20px 10px}
+header.compact.ub-relevante #favBtn{display:none}
 header.compact .brand p{display:none}
 header.compact .logo{height:32px;min-width:32px}
 /* La barra lateral se pega justo debajo de la cabecera, midiéndola de verdad.
@@ -2157,6 +2159,7 @@ function renderTipoUnico(){
     state.grupo.clear(); state.limit=80;
     renderTipoUnico();
     buildGroups();
+    actualizarUBCompacta();
     render();
   }));
 }
@@ -2233,6 +2236,14 @@ function toggleOpt(b){
 document.querySelectorAll('#fSeccion .opt').forEach(b=>b.addEventListener('click',()=>toggleOpt(b)));
 
 /* ---------- selector de sección principal (modo) ---------- */
+/* La U.B. es el dato de trabajo en NBU y en el Laboratorio del Único: al
+   compactar la cabecera (scroll) no se esconde ahí, sólo en los modos donde
+   no aplica (PMO, ODO, CIE, abreviaturas, SURGE, GESTION y Único-médico,
+   que todavía no tiene valorización cargada). */
+function actualizarUBCompacta(){
+  const relevante = state.mode==='NBU' || (state.mode==='UNICO' && state.tipoUnico!=='med');
+  _hdr.classList.toggle('ub-relevante', relevante);
+}
 function setMode(m){
   if(ocultoNom(m))return;      // no se navega a un nomenclador oculto
   if(m===state.mode)return;
@@ -2262,6 +2273,7 @@ function applyMode(){
   // limpiar chips de sección/grupo que no correspondan al modo
   document.querySelectorAll('#fSeccion .opt.on').forEach(o=>{if(state.mode!=='NBU'){state.seccion.delete(o.dataset.v);o.classList.remove('on');}});
   buildGroups();
+  actualizarUBCompacta();
   document.dispatchEvent(new CustomEvent('nbu:modo'));
   if(typeof medirCabecera==='function')medirCabecera();
 }
