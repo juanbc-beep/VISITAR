@@ -795,9 +795,19 @@ ninguno de los dos códigos «incluye» al otro, los dos se cargan por separado.
 `relaciones` entera para el médico administrador (`docs/supabase_relaciones_medico.sql`), sin
 importar qué sub-claves tenga adentro — `anexar` viaja gratis con `incluye`/`no_incluye`/
 `incluido_en`. Tampoco alimenta el Árbol de módulos ni la etiqueta «relaciones» (`hasRel()`): a
-propósito, «anexar» no es una relación de inclusión, es un recordatorio de facturación.
+propósito, «anexar» no es una relación de inclusión, es un recordatorio de facturación — tiene su
+propia etiqueta, ver más abajo.
 
 Probado en `tests/e2e/casos/anexar.mjs`.
+
+**Etiqueta «+ anexos» en el listado (24/8/2026)**: pedido de Juan, para que se vea desde la fila
+de resultados que un código tiene anexados, sin tener que abrirlo. `rowHTML()`, junto a
+«relaciones» pero con su propia clase (`.t-anex`) y color (reusa `--accent`/`--accent-soft`, el
+mismo que «Cómo se carga»): a propósito NO la misma etiqueta que «relaciones» —confundirlas
+mezclaría dos significados distintos (Árbol de módulos vs. recordatorio de facturación) bajo un
+solo color—. Sumada también a la leyenda (`#tagLegend`/`TAG_LEYENDA`), mismo patrón que el resto
+de las etiquetas. Probado en `tests/e2e/casos/anexar.mjs` (segundo caso: aparece al anexar,
+desaparece al quitar el único anexado).
 
 **Bug: vincular/anexar un código del Nomenclador Único devolvía «no existe» (24/8/2026)**: Juan
 reportó que anexar el código 430111 (Único) a 200124 (VCC, PMO) decía que 430111 no existía.
