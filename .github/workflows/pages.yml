@@ -88,12 +88,59 @@ jobs:
           fi
           echo "Tamaño: index.html $(du -h web/index.html | cut -f1) · base $(du -h web/nbu_db.bin 2>/dev/null | cut -f1 || echo '—')"
 
-      # Informativo, no bloquea: mide contra el HTML tal cual se va a publicar
-      # (servido local, no la URL en vivo — asi no depende de que el CDN ya haya
-      # propagado el cambio en el momento de medir). Antes esto era una suposicion;
-      # ahora queda un numero en el resumen de cada corrida. «continue-on-error»
-      # porque si Lighthouse o el navegador fallan en el runner, eso no es motivo
-      # para no publicar.
+      # El build ya sellado (commit, version del SW, CSP), para que el job de
+      # Lighthouse mida exactamente estos bytes sin tener que repetir los tres
+      # pasos de sellado. Nombre y retencion cortos: nadie necesita este
+      # artefacto salvo el paso siguiente, y no es el que se publica (ese es
+      # el de «upload-pages-artifact», mas abajo).
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: web-sellado
+          path: web
+          retention-days: 1
+
+      # Probado y descartado: con «enablement: true» la accion intenta crear el
+      # sitio de Pages sola y GitHub se lo niega con «Resource not accessible by
+      # integration». Crear el sitio pide permisos de administrador del
+      # repositorio, y el GITHUB_TOKEN automatico nunca los tiene. No se puede
+      # evitar el paso manual de Settings -> Pages -> Source: GitHub Actions.
+      - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6
+      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
+        with:
+          path: web
+      - id: deploy
+        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5
+
+  # Separado de «publicar» a proposito. Medir Lighthouse corre un paquete de
+  # npm («npx lighthouse») que no esta fijado por hash como las Actions de
+  # arriba, asi que es la unica pieza no verificable de todo este archivo: no
+  # hay forma de confirmar que el codigo que se ejecuta es el que uno espera.
+  # Si algo en esa cadena de dependencias estuviera comprometido, lo peor que
+  # puede tocar es «contents: read» — nunca el token de Pages ni el id-token
+  # que firma el despliegue, porque este job ni los pide.
+  #
+  # No repite el sellado (commit, version del SW, CSP): baja el build ya
+  # sellado del job anterior, asi mide los mismos bytes que se publicaron.
+  lighthouse:
+    needs: publicar
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+          sparse-checkout: scripts
+
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        with:
+          name: web-sellado
+          path: web
+
+      # Informativo, no bloquea: si Lighthouse o el navegador fallan en el
+      # runner, no hay nada que publicar de todos modos porque «publicar» ya
+      # termino — «continue-on-error» solo evita que este job quede en rojo
+      # por un timeout de red al bajar Chrome, no protege ningun despliegue.
       - name: Medir Core Web Vitals (Lighthouse, informativo)
         continue-on-error: true
         run: |
@@ -107,15 +154,3 @@ jobs:
             --quiet
           kill "$SERVER_PID" 2>/dev/null || true
           python3 scripts/lighthouse_resumen.py lighthouse.json "$GITHUB_STEP_SUMMARY"
-
-      # Probado y descartado: con «enablement: true» la accion intenta crear el
-      # sitio de Pages sola y GitHub se lo niega con «Resource not accessible by
-      # integration». Crear el sitio pide permisos de administrador del
-      # repositorio, y el GITHUB_TOKEN automatico nunca los tiene. No se puede
-      # evitar el paso manual de Settings -> Pages -> Source: GitHub Actions.
-      - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6
-      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
-        with:
-          path: web
-      - id: deploy
-        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5
