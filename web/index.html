@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-6UpSQP0zbH5J+LxvKHvg3iTHcS4oTI6/KCT/8r6O3dI=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-a19FwwgAn1yNNZwHeYrB4KClmK5sJaYXyTCBrKL1xkQ=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -367,6 +367,19 @@ html,body{margin:0;padding:0}
 .carga .cg-nota{margin-top:12px;padding-top:11px;border-top:1px dashed var(--line-2)}
 .carga .cg-nota .nl{font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--gestion)}
 .carga .cg-nota .nt{font-size:14px;color:var(--ink-2);line-height:1.5;margin-top:4px;white-space:pre-wrap}
+/* Vincular código, adentro de «Cómo se carga»: atajo directo a relaciones
+   —incluye / árbol de módulos— sin pasar por Editar ficha. Mismo permiso,
+   mismo dato, un lugar menos para llegar hasta él. */
+.carga .cg-vhint{font-weight:500;text-transform:none;letter-spacing:0;color:var(--muted);margin-left:4px}
+.carga .cg-vc-list{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.carga .cg-vc{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-mono);font-weight:700;font-size:12px;
+  background:var(--surface);border:1px solid var(--line-2);border-radius:6px;padding:2px 5px 2px 8px;color:var(--accent-ink)}
+.carga .cg-vc-x{border:none;background:none;color:var(--faint);font-size:14px;line-height:1;cursor:pointer;padding:2px 3px;font-weight:700}
+.carga .cg-vc-x:hover{color:var(--urg)}
+.carga .cg-vc-empty{font-size:12.5px;color:var(--faint)}
+.carga .cg-vc-add{display:flex;gap:6px}
+.carga .cg-vc-add input{flex:1;min-width:0;padding:6px 9px;border:1px solid var(--line-2);border-radius:7px;
+  background:var(--surface);color:var(--ink);font-size:13px;font-family:var(--font-mono)}
 .prop-box{margin-top:10px}
 .prop-box textarea{width:100%;min-height:70px;resize:vertical;border:1px solid var(--line-2);border-radius:var(--radius-sm);
   background:var(--surface);color:var(--ink);font:inherit;font-size:14px;padding:9px 11px;line-height:1.5}
@@ -4234,7 +4247,13 @@ function openCode(code,origen){
     const soyMed=!!(window.NBUProfile&&NBUProfile.esMedico&&NBUProfile.esMedico());
     // El médico administrador publica directo: su aporte no espera a nadie.
     const publicoYa=soyMed&&!!(window.NBUProfile.validaMedico&&NBUProfile.validaMedico());
-    if(!pasos.length&&!nota&&!puedeProponer)return;
+    // Vincular códigos —lo que arma el Árbol de módulos— es del mismo rol que
+    // ya edita relaciones (administrador general, médico administrador), y
+    // sólo en Modo edición: mismo permiso y mismo gesto que el resto de la
+    // edición de ficha, ahora también accesible acá, sin abrir otro modal.
+    const R=c.relaciones||{};
+    const puedeVincular=!!(window.NBUProfile&&NBUProfile.canEdit&&NBUProfile.canEdit()&&NBUProfile.editaRelaciones&&NBUProfile.editaRelaciones());
+    if(!pasos.length&&!nota&&!puedeProponer&&!puedeVincular)return;
     html+=`<div class="sec"><div class="carga">
       <div class="cg-h">▶ Cómo se carga esta solicitud</div>
       ${pasos.length?`
@@ -4242,6 +4261,15 @@ function openCode(code,origen){
         ${gNo?`<div class="cg-grupo"><div class="cg-glbl">No cargues aparte</div><ul class="cg-no">${gNo}</ul></div>`:''}
         ${gVerif?`<div class="cg-grupo"><div class="cg-glbl">Antes de cargar, verificá</div><ul class="cg-verif">${gVerif}</ul></div>`:''}
       `:'<div style="font-size:13px;color:var(--muted)">Todavía no hay pasos cargados para esta práctica.</div>'}
+      ${puedeVincular?`<div class="cg-grupo cg-vinc">
+        <div class="cg-glbl">Vincular código <span class="cg-vhint">no se factura aparte — arma el Árbol de módulos</span></div>
+        <div class="cg-vc-list" id="cgVincChips">${(R.incluye||[]).length?R.incluye.map(k=>{const t=BYCODE[k];
+          return `<span class="cg-vc">${esc(t?t.code:k)}<button type="button" class="cg-vc-x" data-quitar="${esc(k)}" aria-label="Desvincular ${esc(k)}">×</button></span>`;}).join(''):'<span class="cg-vc-empty">Ninguno todavía</span>'}</div>
+        <div class="cg-vc-add">
+          <input type="text" id="cgVincInput" placeholder="Código a vincular, ej. 660101" autocomplete="off">
+          <button type="button" class="minibtn" id="cgVincBtn">+ Vincular</button>
+        </div>
+      </div>`:''}
       ${nota?`<div class="cg-nota"><span class="nl">✎ Cómo se carga en VISITAR</span><div class="nt">${linkCodes(esc(nota))}</div></div>`:''}
       ${pend.length?`<div class="prop-pend">
         <div class="pp-h">✎ ${pend.length===1?'Un compañero contó':`${pend.length} compañeros contaron`} cómo se carga — <b>sin confirmar</b></div>
@@ -4553,6 +4581,35 @@ function openCode(code,origen){
     if(state.view==='list')render(); openCode(code);
   });
   const ef=el('editFichaBtn');if(ef)ef.addEventListener('click',()=>window.NBUProfile&&NBUProfile.editFicha(code));
+  /* Vincular código, adentro de «Cómo se carga»: mismo guardado que el editor
+     completo (guardarIncluye/espejarRelacion), pero en el acto y sin abrir
+     ningún modal. Repinta la ficha entera al terminar, mismo patrón que el
+     resto de las acciones de acá (verificar, notas, propuestas). */
+  const cgVb=el('cgVincBtn');
+  if(cgVb){
+    const vincular=()=>{
+      const inp=el('cgVincInput'),k=inp.value.trim();
+      if(!k)return;
+      if(k===code)return toast('Un código no puede tener una relación consigo mismo',true);
+      if(!BYCODE[k])return toast(`El código ${k} no existe`,true);
+      const R=BYCODE[code].relaciones||{};
+      if((R.incluye||[]).includes(k))return toast(`${k} ya está vinculado`,true);
+      NBUProfile.guardarIncluye(code,[...(R.incluye||[]),k]);
+      toast('Código vinculado');
+      openCode(code);
+    };
+    cgVb.addEventListener('click',vincular);
+    el('cgVincInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();vincular();}});
+  }
+  const cgVc=el('cgVincChips');
+  if(cgVc)cgVc.addEventListener('click',e=>{
+    const x=e.target.closest('.cg-vc-x');if(!x)return;
+    const k=x.dataset.quitar;
+    const R=BYCODE[code].relaciones||{};
+    NBUProfile.guardarIncluye(code,(R.incluye||[]).filter(v=>v!==k));
+    toast('Código desvinculado');
+    openCode(code);
+  });
   /* Observación del administrador: el mismo bloque se lee y se edita, sin abrir
      otra ventana. Guardar redibuja el listado, porque el aviso también sale ahí. */
   (function(){
@@ -6962,6 +7019,24 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     CONTENT.codes[otroCodigo]=ovOtro;logEdit('actualizó relación (espejo)',otroCodigo);persistContent();applyCode(otroCodigo);
     if(nubeContenido)enNube(NUBE.guardarCorreccion(otroCodigo,ovOtro),'actualizar la relación en '+otroCodigo);
   }
+  // Mismo guardado que hace editFicha() para «Incluye», pero para un solo
+  // campo y en el acto: es lo que usa «Vincular código» dentro de «Cómo se
+  // carga esta solicitud», que no pasa por el editor completo.
+  function guardarIncluye(code,finArr){
+    const c=BYCODE[code];if(!c)return;
+    applyCode(code);
+    const dInc=deltaListaRel(finArr,c._orig.relaciones.incluye||[]);
+    const relPrevia=Object.assign({},(CONTENT.codes[code]&&CONTENT.codes[code].relaciones)||{});
+    if(dInc)relPrevia.incluye=dInc;else delete relPrevia.incluye;
+    const ov={nombre:c.nombre,norma:c.norma,auditoria:c.auditoria,asoc_extra:c.asoc_extra};
+    if(Object.keys(relPrevia).length)ov.relaciones=relPrevia;
+    CONTENT.codes[code]=ov;logEdit('vinculó código en relaciones',code);persistContent();applyCode(code);
+    if(nubeContenido)enNube(NUBE.guardarCorreccion(code,ov),'guardar la relación para el equipo');
+    if(dInc){
+      dInc.agregar.forEach(k=>espejarRelacion(k,'incluido_en','agregar',code));
+      dInc.quitar.forEach(k=>espejarRelacion(k,'incluido_en','quitar',code));
+    }
+  }
   function editFicha(code){
     const c=BYCODE[code];if(!c)return;
     applyCode(code);   // asegura c._orig.relaciones aunque este código nunca se haya tocado
@@ -7967,6 +8042,10 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       return true;
     },
     editFicha:editFicha,
+    // Guardado directo de «incluye», para el atajo «Vincular código» dentro
+    // de «Cómo se carga esta solicitud»: ese render vive en otro <script> que
+    // no ve guardarIncluye() ni espejarRelacion() directamente.
+    guardarIncluye:(code,arr)=>guardarIncluye(code,arr),
     // Sin argumento: el completo. El esencial sólo lo lanza la primera vez.
     tour:()=>startOnboard(),
     recent:()=>current&&current.recent?current.recent:[],

@@ -760,6 +760,22 @@ la revisión médica ya firmada, ni tocar la ficha, y viceversa) y `tests/e2e/ca
 (la interfaz muestra los campos correctos según el rol, guarda, y el espejo aparece en el otro
 código) — ver la sección de Testing, punto 3.
 
+**Atajo «Vincular código» dentro de «Cómo se carga esta solicitud» (24/8/2026)**: mismo permiso
+y mismo dato (`incluye`, con su espejo), pero sin abrir «Editar ficha» — un pedido directo de
+Juan, para no tener que salir de la sección donde ya se está mirando qué códigos no se facturan
+aparte. `web/index.html`, dentro del bloque `.carga`: sólo se muestra con **Modo edición** activo
+y `CAP.editaRelaciones(current)`. Guarda con `guardarIncluye(code, finArr)` —mismo
+`deltaListaRel`/`espejarRelacion` que usa `editFicha()`, extraído para un solo campo— expuesto
+como `NBUProfile.guardarIncluye()` porque el render de `.carga` vive en un `<script>` distinto
+del que declara `editMode`/`CAP`/`guardarIncluye`: de ahí también que la condición para mostrar
+el atajo se arme con `NBUProfile.canEdit()`/`NBUProfile.editaRelaciones()` y no con las variables
+directamente (no están en ese scope). Probado en `tests/e2e/casos/vincular.mjs`.
+
+*De paso, al armar este caso apareció un bug preexistente, sin relación con este cambio*: abrir
+una ficha, navegar a otra por hash, cerrar la ficha y entrar a **«Árbol de módulos»** tira
+`TypeError: Cannot set properties of null (setting 'innerHTML')` en la consola (reproduce igual
+en `48dc9f1`, antes de este cambio). No bloquea nada visible todavía; queda para revisar aparte.
+
 ### 4.5 quater ⚠️ Avisos del linter de Supabase — NO seguir la receta al pie de la letra
 
 El linter marca **«SECURITY DEFINER Function … Revoke EXECUTE»** en las 13 funciones.
