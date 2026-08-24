@@ -25,6 +25,7 @@ qué, asume que el servidor ya cumple sus reglas.
 | `casos/favs.mjs` | La lista de favoritos que publica el administrador (`ajustes.contenido.equipo.favoritos`) llega a la pantalla de otra cuenta. Es la clase de bug que no se nota mirando la app: si algo rompe la lectura de ese JSON anidado, la solapa queda vacía en silencio. |
 | `casos/relaciones.mjs` | Editar las relaciones entre códigos (árbol de módulos) desde el menú de edición: el médico administrador ve sólo esos campos (no nombre/norma/auditoría), el administrador general ve la ficha completa, y el cambio se espeja en el otro código (`incluye` ↔ `incluido_en`). Ver HANDOFF.md 4.5 ter bis. |
 | `casos/vincular.mjs` | Atajo «Vincular código» dentro de «Cómo se carga esta solicitud»: sólo aparece en Modo edición, agregar/quitar ahí se refleja en «No cargues aparte» de la misma sección y en el espejo (`incluido_en`) del otro código. |
+| `casos/anexar.mjs` | Atajo «+ Anexar código» dentro de «Cargá esto»: sólo aparece en Modo edición, agregar/quitar ahí se refleja como paso más de «Cargá esto», sin tocar «No cargues aparte» y sin espejo en el otro código (a diferencia de vincular). |
 
 ## Lo que falta (mismo patrón, agregar cuando haga falta)
 

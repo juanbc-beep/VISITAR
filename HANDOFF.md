@@ -771,10 +771,38 @@ del que declara `editMode`/`CAP`/`guardarIncluye`: de ahí también que la condi
 el atajo se arme con `NBUProfile.canEdit()`/`NBUProfile.editaRelaciones()` y no con las variables
 directamente (no están en ese scope). Probado en `tests/e2e/casos/vincular.mjs`.
 
-*De paso, al armar este caso apareció un bug preexistente, sin relación con este cambio*: abrir
-una ficha, navegar a otra por hash, cerrar la ficha y entrar a **«Árbol de módulos»** tira
-`TypeError: Cannot set properties of null (setting 'innerHTML')` en la consola (reproduce igual
-en `48dc9f1`, antes de este cambio). No bloquea nada visible todavía; queda para revisar aparte.
+**Atajo «+ Anexar código» dentro de «Cargá esto» (24/8/2026)**: mismo permiso y mismo gesto que
+«Vincular código», pero **no es lo mismo dato ni el mismo significado**. «Vincular» escribe
+`relaciones.incluye` —el código vinculado NO se factura aparte, ya está comprendido—. «Anexar»
+escribe un campo nuevo, `relaciones.anexar` —el código anexado SÍ se factura, aparte, pero el
+administrativo tiene que acordarse de cargarlo junto con éste—. Pedido directo de Juan: son casos
+que el pipeline no puede deducir solo (a diferencia de la urgencia → 661200 o el Acto Bioquímico,
+que ya son reglas automáticas dentro de `comoSeCargaHTML()`).
+
+Por ser un campo nuevo hizo falta sumarlo en tres lugares de `web/index.html` (buscar `anexar` para
+ubicarlos): el snapshot y el merge de `applyCode()` (mismo patrón que `incluye`/`no_incluye`/
+`incluido_en`), el render de los pasos en `comoSeCargaHTML(c, puedeAnexar)` —ahora recibe un
+segundo argumento, para saber si mostrar la × de cada código anexado— y `guardarAnexar(code,
+finArr)`, gemelo de `guardarIncluye()` pero **sin espejo**: no hay `espejarRelacion()` acá porque
+ninguno de los dos códigos «incluye» al otro, los dos se cargan por separado. Expuesto también vía
+`NBUProfile.guardarAnexar()`, mismo motivo de scope que `guardarIncluye()`.
+
+**No hizo falta ninguna migración SQL**: `correcciones_guardia()` ya deja pasar la clave
+`relaciones` entera para el médico administrador (`docs/supabase_relaciones_medico.sql`), sin
+importar qué sub-claves tenga adentro — `anexar` viaja gratis con `incluye`/`no_incluye`/
+`incluido_en`. Tampoco alimenta el Árbol de módulos ni la etiqueta «relaciones» (`hasRel()`): a
+propósito, «anexar» no es una relación de inclusión, es un recordatorio de facturación.
+
+Probado en `tests/e2e/casos/anexar.mjs`.
+
+*Corrección sobre la nota anterior de esta misma sección*: lo que parecía un bug de la app
+(`TypeError: Cannot set properties of null (setting 'innerHTML')` en consola, al cerrar una ficha
+y entrar a «Árbol de módulos») era un falso positivo del propio test. `sinOverlays()` sacaba de
+encima el cartelito de pistas (`#pista`) con `.remove()` en vez de sólo ocultarlo con `.on` —la
+app nunca lo borra, sólo lo apaga y prende—; al borrarlo, `revisarPistas()` (que se dispara al
+cerrar la ficha) intenta escribirle el `innerHTML` a un nodo que el test acababa de eliminar. No
+es nada que un usuario real dispare. Corregido en `casos/relaciones.mjs` y `casos/vincular.mjs`:
+ocultar con `classList.remove('on')`, igual que ya se hacía con `tratoModal`.
 
 ### 4.5 quater ⚠️ Avisos del linter de Supabase — NO seguir la receta al pie de la letra
 

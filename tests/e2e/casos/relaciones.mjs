@@ -23,9 +23,14 @@ const CODIGO = '660102', A_AGREGAR = '660001';
 // completa que tapan al resto: para un caso que sólo prueba el editor de
 // relaciones, no la UI que hay alrededor, sacarlos del medio antes de cada
 // clic sensible es más simple y estable que perseguir cada botón de cierre.
+// OJO: ocultar con la misma clase que usa la app (.on), nunca borrar el nodo
+// con .remove() — la app nunca lo borra, sólo lo apaga y prende, y más
+// adelante (revisarPistas(), al cerrar la ficha) intenta volver a escribirle
+// el innerHTML; si el test lo borró, eso tira un TypeError que no tiene nada
+// que ver con lo que el caso prueba.
 async function sinOverlays(page) {
   await page.evaluate(() => {
-    const p = document.getElementById('pista'); if (p) p.remove();
+    const p = document.getElementById('pista'); if (p) p.classList.remove('on');
     const t = document.getElementById('tratoModal'); if (t) t.classList.remove('on');
   });
 }
