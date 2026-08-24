@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-a19FwwgAn1yNNZwHeYrB4KClmK5sJaYXyTCBrKL1xkQ=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-Owj2vsiIoWj6NfsXzWgJmjLlVpy/CIeUe4DY/TAtA00=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -374,12 +374,19 @@ html,body{margin:0;padding:0}
 .carga .cg-vc-list{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
 .carga .cg-vc{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-mono);font-weight:700;font-size:12px;
   background:var(--surface);border:1px solid var(--line-2);border-radius:6px;padding:2px 5px 2px 8px;color:var(--accent-ink)}
-.carga .cg-vc-x{border:none;background:none;color:var(--faint);font-size:14px;line-height:1;cursor:pointer;padding:2px 3px;font-weight:700}
+.carga .cg-vc-x{border:none;background:none;color:var(--faint);font-size:14px;line-height:1;cursor:pointer;
+  padding:2px 3px;font-weight:700;margin-left:4px;vertical-align:middle}
 .carga .cg-vc-x:hover{color:var(--urg)}
 .carga .cg-vc-empty{font-size:12.5px;color:var(--faint)}
 .carga .cg-vc-add{display:flex;gap:6px}
 .carga .cg-vc-add input{flex:1;min-width:0;padding:6px 9px;border:1px solid var(--line-2);border-radius:7px;
   background:var(--surface);color:var(--ink);font-size:13px;font-family:var(--font-mono)}
+/* Anexar código, adentro de «Cargá esto»: para códigos que también hay que
+   facturar junto con éste —al revés de «Vincular», acá ninguno de los dos
+   queda comprendido en el otro, los dos se cargan—. Reusa el mismo input+
+   botón que «Vincular» (misma clase .cg-vc-add), sólo cambia dónde vive. */
+.carga .cg-anex-add{margin-top:8px}
+.carga .cg-anex-hint{font-size:11.5px;color:var(--faint);margin-top:5px;line-height:1.4}
 .prop-box{margin-top:10px}
 .prop-box textarea{width:100%;min-height:70px;resize:vertical;border:1px solid var(--line-2);border-radius:var(--radius-sm);
   background:var(--surface);color:var(--ink);font:inherit;font-size:14px;padding:9px 11px;line-height:1.5}
@@ -3875,7 +3882,7 @@ function verifHTML(code){
    El propósito de la app es que el agente entienda cómo se carga cada solicitud en el
    sistema donde efectivamente se carga. Los datos para eso ya estaban, pero repartidos
    en seis secciones distintas de la ficha: acá se ordenan como pasos. */
-function comoSeCargaHTML(c){
+function comoSeCargaHTML(c,puedeAnexar){
   /* Cada paso lleva un tipo — no es orden de aparición, es qué clase de acción
      le pide al usuario: «cargar» (facturar un código), «no» (no facturarlo
      aparte) o «verificar» (chequear algo antes, no es carga). El render
@@ -3913,6 +3920,15 @@ function comoSeCargaHTML(c){
     push('cargar',`<li>Si se pidió <b>de urgencia</b>, adicionar el código <b>661200</b> en la misma prescripción.${chips(['661200'])}</li>`);
   if(c.nomenclador==='NBU'&&['PMO','PE'].includes(c.seccion)&&c.code!=='660001')
     push('cargar',`<li>Agregar el <b>Acto Bioquímico</b> una vez por prescripción (o el ABI si es internación).${chips(['660001','661001'])}</li>`);
+  // 3 bis. anexados a mano: códigos que el administrativo tiene que facturar
+  // junto con éste y que el pipeline no puede deducir solo —a diferencia de
+  // «incluye», acá los dos códigos se cargan, ninguno queda comprendido en el
+  // otro—. Editable desde «+ Anexar código», dentro de «Cargá esto».
+  (R.anexar||[]).forEach(k=>{
+    const t=BYCODE[k];
+    push('cargar',`<li>Cargar también <b>${esc(t?t.code:k)}</b>${t?` — ${esc(t.nombre)}`:''}${
+      puedeAnexar?`<button type="button" class="cg-vc-x" data-quitar-anex="${esc(k)}" aria-label="Desanexar ${esc(k)}">×</button>`:''}</li>`);
+  });
   // 4. respaldo de la solicitud — chequeos, no acciones de carga.
   if(c.cobertura_pmo)
     push('verificar',`<li>Tiene <b>${c.cobertura_tipo==='observacion'?'observaciones de cobertura':'obligación de cobertura'}</b>: verificá que el caso encuadre antes de cargar.</li>`);
@@ -4231,7 +4247,15 @@ function openCode(code,origen){
 
   // Cómo se carga: el bloque que da sentido a la app como centro de respaldo.
   (function(){
-    const pasos=comoSeCargaHTML(c);
+    // Vincular/anexar códigos es del mismo rol que ya edita relaciones
+    // (administrador general, médico administrador), y sólo en Modo edición:
+    // mismo permiso y mismo gesto que el resto de la edición de ficha, ahora
+    // también accesible acá, sin abrir otro modal. Se calcula antes de armar
+    // los pasos porque comoSeCargaHTML() necesita saber si mostrar la ×
+    // de cada código anexado a mano.
+    const R=c.relaciones||{};
+    const puedeVincular=!!(window.NBUProfile&&NBUProfile.canEdit&&NBUProfile.canEdit()&&NBUProfile.editaRelaciones&&NBUProfile.editaRelaciones());
+    const pasos=comoSeCargaHTML(c,puedeVincular);
     const grupo=t=>pasos.filter(p=>p.tipo===t).map(p=>p.html).join('');
     const gCargar=grupo('cargar'), gNo=grupo('no'), gVerif=grupo('verificar');
     const nota=c.asoc_extra||null;
@@ -4248,17 +4272,17 @@ function openCode(code,origen){
     const soyMed=!!(window.NBUProfile&&NBUProfile.esMedico&&NBUProfile.esMedico());
     // El médico administrador publica directo: su aporte no espera a nadie.
     const publicoYa=soyMed&&!!(window.NBUProfile.validaMedico&&NBUProfile.validaMedico());
-    // Vincular códigos —lo que arma el Árbol de módulos— es del mismo rol que
-    // ya edita relaciones (administrador general, médico administrador), y
-    // sólo en Modo edición: mismo permiso y mismo gesto que el resto de la
-    // edición de ficha, ahora también accesible acá, sin abrir otro modal.
-    const R=c.relaciones||{};
-    const puedeVincular=!!(window.NBUProfile&&NBUProfile.canEdit&&NBUProfile.canEdit()&&NBUProfile.editaRelaciones&&NBUProfile.editaRelaciones());
     if(!pasos.length&&!nota&&!puedeProponer&&!puedeVincular)return;
     html+=`<div class="sec"><div class="carga">
       <div class="cg-h">▶ Cómo se carga esta solicitud</div>
-      ${pasos.length?`
-        ${gCargar?`<div class="cg-grupo"><div class="cg-glbl">Cargá esto</div><ol>${gCargar}</ol></div>`:''}
+      ${pasos.length||puedeVincular?`
+        ${gCargar||puedeVincular?`<div class="cg-grupo"><div class="cg-glbl">Cargá esto</div><ol id="cgCargarOl">${gCargar}</ol>
+          ${puedeVincular?`<div class="cg-vc-add cg-anex-add">
+            <input type="text" id="cgAnexInput" placeholder="Código a anexar, ej. 660101" autocomplete="off">
+            <button type="button" class="minibtn" id="cgAnexBtn">+ Anexar código</button>
+          </div>
+          <div class="cg-anex-hint">Se suma como paso más, aparte —no como «No cargues aparte»—: es para códigos que también hay que facturar junto con éste.</div>`:''}
+        </div>`:''}
         ${gNo?`<div class="cg-grupo"><div class="cg-glbl">No cargues aparte</div><ul class="cg-no">${gNo}</ul></div>`:''}
         ${gVerif?`<div class="cg-grupo"><div class="cg-glbl">Antes de cargar, verificá</div><ul class="cg-verif">${gVerif}</ul></div>`:''}
       `:'<div style="font-size:13px;color:var(--muted)">Todavía no hay pasos cargados para esta práctica.</div>'}
@@ -4609,6 +4633,35 @@ function openCode(code,origen){
     const R=BYCODE[code].relaciones||{};
     NBUProfile.guardarIncluye(code,(R.incluye||[]).filter(v=>v!==k));
     toast('Código desvinculado');
+    openCode(code);
+  });
+  /* Anexar código, dentro de «Cargá esto»: mismo mecanismo que Vincular, pero
+     sobre relaciones.anexar (sin espejo — ver el comentario de guardarAnexar
+     en el otro <script>). Los códigos anexados aparecen como pasos más de
+     «Cargá esto» (comoSeCargaHTML), con su × ahí mismo cuando hay permiso. */
+  const cgAb=el('cgAnexBtn');
+  if(cgAb){
+    const anexar=()=>{
+      const inp=el('cgAnexInput'),k=inp.value.trim();
+      if(!k)return;
+      if(k===code)return toast('Un código no puede anexarse a sí mismo',true);
+      if(!BYCODE[k])return toast(`El código ${k} no existe`,true);
+      const R=BYCODE[code].relaciones||{};
+      if((R.anexar||[]).includes(k))return toast(`${k} ya está anexado`,true);
+      NBUProfile.guardarAnexar(code,[...(R.anexar||[]),k]);
+      toast('Código anexado');
+      openCode(code);
+    };
+    cgAb.addEventListener('click',anexar);
+    el('cgAnexInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();anexar();}});
+  }
+  const cgCargarOl=el('cgCargarOl');
+  if(cgCargarOl)cgCargarOl.addEventListener('click',e=>{
+    const x=e.target.closest('[data-quitar-anex]');if(!x)return;
+    const k=x.dataset.quitarAnex;
+    const R=BYCODE[code].relaciones||{};
+    NBUProfile.guardarAnexar(code,(R.anexar||[]).filter(v=>v!==k));
+    toast('Código desanexado');
     openCode(code);
   });
   /* Observación del administrador: el mismo bloque se lee y se edita, sin abrir
@@ -5867,7 +5920,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   function applyCode(code){
     const c=BYCODE[code]; if(!c)return; const ov=CONTENT.codes[code];
     if(!c._orig)c._orig={nombre:c.nombre,norma:c.norma?JSON.parse(JSON.stringify(c.norma)):null,auditoria:c.auditoria?c.auditoria.slice():null,asoc_extra:c.asoc_extra||null,
-      relaciones:c.relaciones?{incluye:c.relaciones.incluye.slice(),no_incluye:c.relaciones.no_incluye.slice(),incluido_en:c.relaciones.incluido_en.slice()}:{incluye:[],no_incluye:[],incluido_en:[]}};
+      relaciones:c.relaciones?{incluye:c.relaciones.incluye.slice(),no_incluye:c.relaciones.no_incluye.slice(),incluido_en:c.relaciones.incluido_en.slice(),anexar:(c.relaciones.anexar||[]).slice()}:{incluye:[],no_incluye:[],incluido_en:[],anexar:[]}};
     c.nombre=(ov&&ov.nombre!=null&&ov.nombre!=='')?ov.nombre:c._orig.nombre;
     c.norma=(ov&&'norma'in ov)?ov.norma:c._orig.norma;
     c.auditoria=(ov&&'auditoria'in ov)?ov.auditoria:c._orig.auditoria;
@@ -5876,7 +5929,8 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     c.relaciones={
       incluye:     mergeListaRel(c._orig.relaciones.incluye,     rd&&rd.incluye),
       no_incluye:  mergeListaRel(c._orig.relaciones.no_incluye,  rd&&rd.no_incluye),
-      incluido_en: mergeListaRel(c._orig.relaciones.incluido_en, rd&&rd.incluido_en)
+      incluido_en: mergeListaRel(c._orig.relaciones.incluido_en, rd&&rd.incluido_en),
+      anexar:      mergeListaRel(c._orig.relaciones.anexar,      rd&&rd.anexar)
     };
     rebuildH(c);
   }
@@ -7038,6 +7092,22 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       dInc.quitar.forEach(k=>espejarRelacion(k,'incluido_en','quitar',code));
     }
   }
+  // Mismo patrón que guardarIncluye(), para «anexar»: es lo que usa
+  // «+ Anexar código» dentro de «Cargá esto». Sin espejo a propósito —a
+  // diferencia de incluye/incluido_en, acá los dos códigos se facturan, no
+  // hay un código «padre» que absorba al otro— así que no hace falta tocar
+  // la ficha del código anexado.
+  function guardarAnexar(code,finArr){
+    const c=BYCODE[code];if(!c)return;
+    applyCode(code);
+    const dAnex=deltaListaRel(finArr,c._orig.relaciones.anexar||[]);
+    const relPrevia=Object.assign({},(CONTENT.codes[code]&&CONTENT.codes[code].relaciones)||{});
+    if(dAnex)relPrevia.anexar=dAnex;else delete relPrevia.anexar;
+    const ov={nombre:c.nombre,norma:c.norma,auditoria:c.auditoria,asoc_extra:c.asoc_extra};
+    if(Object.keys(relPrevia).length)ov.relaciones=relPrevia;
+    CONTENT.codes[code]=ov;logEdit('anexó código a cargar',code);persistContent();applyCode(code);
+    if(nubeContenido)enNube(NUBE.guardarCorreccion(code,ov),'guardar el código anexado para el equipo');
+  }
   function editFicha(code){
     const c=BYCODE[code];if(!c)return;
     applyCode(code);   // asegura c._orig.relaciones aunque este código nunca se haya tocado
@@ -8047,6 +8117,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     // de «Cómo se carga esta solicitud»: ese render vive en otro <script> que
     // no ve guardarIncluye() ni espejarRelacion() directamente.
     guardarIncluye:(code,arr)=>guardarIncluye(code,arr),
+    guardarAnexar:(code,arr)=>guardarAnexar(code,arr),
     // Sin argumento: el completo. El esencial sólo lo lanza la primera vez.
     tour:()=>startOnboard(),
     recent:()=>current&&current.recent?current.recent:[],
