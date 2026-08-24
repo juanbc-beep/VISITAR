@@ -92,6 +92,53 @@ async function main() {
     await ctx.close();
   });
 
+  // Los códigos del Único se guardan con el prefijo "U" (scripts/assemble.py)
+  // pero se escriben y se muestran sin él — anexar uno tipeando lo que se ve
+  // en pantalla devolvía "no existe" antes de resolverCodigo(). 200124 (VCC,
+  // PMO) y 430111 (Único) son los códigos reales que reportó Juan.
+  await correrCaso('anexar: un código del Nomenclador Único, tipeado sin el prefijo interno', async () => {
+    const db = crearDB();
+    altaUsuario(db, { nombre: 'Admin General', email: 'admin@visitar.test', password: 'Password123!', rol: 'admin', estado: 'activo' });
+    const ctx = await nuevoContexto(browser);
+    await instalarSimulador(ctx, db);
+    const page = await ctx.newPage();
+    await saltarOnboarding(page);
+    const { errores, csp } = vigilarErrores(page);
+    await page.goto(base);
+    await esperarArranque(page);
+    await page.fill('#nbMail', 'admin@visitar.test');
+    await page.fill('#nbPass', 'Password123!');
+    await page.click('#nbGo');
+    await page.waitForSelector('#acctChip:not([hidden])', { timeout: 5000 });
+    await sinOverlays(page);
+
+    const CODIGO_PMO = '200124', A_UNICO = '430111';
+    await page.evaluate((c) => { location.hash = c; }, CODIGO_PMO);
+    await sinOverlays(page);
+    await page.waitForSelector('#cgAnexBtn', { timeout: 5000 });
+
+    await page.fill('#cgAnexInput', A_UNICO);
+    await page.click('#cgAnexBtn');
+    await page.waitForTimeout(400);
+
+    const cargar = await page.locator('#cgCargarOl').textContent();
+    afirmar(cargar.includes(A_UNICO) && !cargar.includes('no existe'),
+      `anexar ${A_UNICO} (Único) tipeado sin prefijo debería funcionar, "Cargá esto" tiene: ${cargar}`);
+
+    // El botón de quitar guarda la clave real (con el prefijo "U"), no lo tipeado.
+    const btn = page.locator('#cgCargarOl [data-quitar-anex]');
+    afirmar(await btn.count() === 1, 'debería haber un botón para quitar el código anexado');
+    await btn.click();
+    await page.waitForTimeout(400);
+    const cargarTrasQuitar = await page.locator('#cgCargarOl').textContent();
+    afirmar(!cargarTrasQuitar.includes(A_UNICO),
+      `"Cargá esto" no debería mostrar más ${A_UNICO} tras quitarlo, tiene: ${cargarTrasQuitar}`);
+
+    afirmar(errores.length === 0, 'no debería haber errores de JS sin capturar: ' + errores.join(' | '));
+    afirmar(csp.length === 0, 'no debería haber violaciones de CSP: ' + csp.join(' | '));
+    await ctx.close();
+  });
+
   await browser.close();
   srv.close();
 }
