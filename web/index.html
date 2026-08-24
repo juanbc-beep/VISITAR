@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-UAt/Q8KiOH2oKo8ot4NmiVpnQtH7VzoNOaZwiswBt3U=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-RtaOqKmX0WFgmVV9pSpN7n35m8o+XGXE2sA6U1P6j68=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -7271,6 +7271,9 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     if(valida){
       const iFin=M.findIndex(x=>x.t==='Listo');
       M.splice(iFin>=0?iFin:M.length, 0,
+        {sel:'#editModeBtn',t:'Modo edición: relaciones entre códigos',
+         antes:async()=>{closeDrawer();await esperar(160);},
+         d:'Lo activás para <b>agregar o quitar prácticas de las relaciones entre códigos</b> —qué incluye, qué no incluye, en qué código está incluido—, que es lo que arma el <b>Árbol de módulos</b>. Con esto activo, al abrir una ficha vas a ver <b>✎ Editar relaciones</b> en vez del botón completo: el resto —nombre, normas, auditoría— sigue siendo del administrador general.'},
         {sel:'#adminBtn',t:'Tu panel: una sola pestaña',
          antes:async()=>{closeDrawer();await esperar(220);},
          d:'<b>Revisión médica</b>, y nada más. Ahí confirmás o descartás los aportes de los médicos administrativos, y ves las publicadas por si hay que levantar alguna. Las cuentas, los textos, la nube y el respaldo son del administrador general: no aparecen porque no son tuyos.'},
