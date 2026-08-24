@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-9z+QiZp/4zE9TtDJD4qjnmuAIP1u2WLxZuEOoMT3WKw=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-Wmk31/b985aQ3Ey2gGCW8v6IktFnQOprCOCQtCP2Nbs=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1955,11 +1955,22 @@ function distEdicion(a,b,max){
 }
 // erratas toleradas según el largo: en palabras cortas un cambio ya es otra palabra
 const tolerancia = t => t.length<=4?0:(t.length<=7?1:2);
+// Raíz común (stemming liviano): "transvag" buscando "transvaginal" no entra por
+// distancia de edición (la diferencia de largo es mayor que la tolerancia), pero
+// es exactamente el caso de alguien que escribió la palabra a medias. Si el término
+// es prefijo de un token del registro (o al revés) y los dos tienen 5+ letras, cuenta
+// como si fuera una errata: encuentra, pero pesa un poco menos que el match exacto.
 function pareceToken(term,toks){
   const tol=tolerancia(term);
-  if(!tol)return -1;
+  const stemOk=term.length>=5;
+  if(!tol&&!stemOk)return -1;
   let mejor=-1;
   for(const t of toks){
+    if(stemOk&&t.length>=5&&t!==term&&(t.startsWith(term)||term.startsWith(t))){
+      if(mejor<0||1<mejor)mejor=1;
+      continue;
+    }
+    if(!tol)continue;
     if(Math.abs(t.length-term.length)>tol)continue;
     const d=distEdicion(term,t,tol);
     if(d<=tol&&(mejor<0||d<mejor)){mejor=d;if(d===0)break;}
@@ -1967,17 +1978,44 @@ function pareceToken(term,toks){
   return mejor;
 }
 function escRe(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
+// Jerga y siglas de uso diario que NO son parte literal de la palabra completa
+// (a diferencia de "eco", que ya matchea solo por ser substring de "ecografía"):
+// sin este diccionario "rx" o "tac" no encuentran nada porque esa letra no está
+// en el nombre real de la práctica. Uno chico y verificable, no una lista abierta.
+const SINONIMOS_COMUNES={
+  rx:['radiografia'], tac:['tomografia'], tc:['tomografia'],
+  rm:['resonancia'], rmn:['resonancia'], irm:['resonancia'],
+  ecg:['electrocardiograma'], eeg:['electroencefalograma'],
+  hto:['hematocrito'], hb:['hemoglobina'], tp:['protrombina'],
+  vdrl:['sifilis'],
+};
+// Un término coincide "literal" si está en el registro tal cual, o si es una de
+// las siglas de arriba y el registro trae la forma larga.
+function coincideLiteral(rec,t){
+  if(rec._h.includes(t))return t;
+  const syns=SINONIMOS_COMUNES[t];
+  if(syns)for(const s of syns){const sn=norm(s);if(rec._h.includes(sn))return sn;}
+  return null;
+}
 // Puntaje de un registro contra los términos. -1 = no coincide.
 // Vale más el que coincide en el nombre que el que sólo coincide en un sinónimo,
 // y más todavía si el nombre arranca con lo buscado.
 function puntuar(rec,terms,permitirFuzzy){
   let score=0,erratas=0;
+  // El código exacto manda: si toda la búsqueda es un código conocido ("342013"),
+  // esa ficha tiene que quedar primera, no empatada con cualquier otro match parcial.
+  if(terms.length===1){
+    const t0=terms[0];
+    if((rec.code&&norm(rec.code)===t0)||(rec._key&&norm(rec._key)===t0)||(rec.abrev&&norm(rec.abrev)===t0))
+      score+=100;
+  }
   for(const t of terms){
-    if(rec._h.includes(t)){
+    const hit=coincideLiteral(rec,t);
+    if(hit){
       const hn=rec._hn||'';
-      if(hn.startsWith(t))score+=6;
-      else if(new RegExp('\\b'+escRe(t)).test(hn))score+=4;
-      else if(hn.includes(t))score+=3;
+      if(hn.startsWith(hit))score+=6;
+      else if(new RegExp('\\b'+escRe(hit)).test(hn))score+=4;
+      else if(hn.includes(hit))score+=3;
       else score+=2;                       // sólo en código, sinónimo o abreviatura
     }else if(permitirFuzzy){
       const d=pareceToken(t,rec._tk||[]);
