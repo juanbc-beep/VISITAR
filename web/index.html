@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-RtaOqKmX0WFgmVV9pSpN7n35m8o+XGXE2sA6U1P6j68=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-6UpSQP0zbH5J+LxvKHvg3iTHcS4oTI6/KCT/8r6O3dI=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -7265,11 +7265,14 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
        d:'Publicada, la revisión aparece <b>en el resultado del listado</b>, debajo del nombre de la práctica, en verde. Es a propósito: si hay que abrir la ficha para enterarse de que algo no corresponde, se enteraron tarde.'}
     ];
     M.splice(iFicha>=0?iFicha:M.length-1, 0, ...propios);
-    /* El panel va al final, con los demás pasos de panel, y no en el medio de la
-       ficha: su «antes» cierra el cajón y dejaba a los pasos siguientes hablando
-       de una ficha que ya no estaba en pantalla. */
+    /* El panel va con los demás pasos de panel, ANTES de «Instalala» —mismo
+       criterio que ya se aplica arriba para el administrador general (ver su
+       comentario: «Instalala» no es un botón, va después de terminar de
+       mostrar todos)—. Insertarlo antes de «Listo» en cambio lo deja después
+       de «Instalala», y el recorrido vuelve a hablar de botones justo
+       después de haber cerrado el tema. */
     if(valida){
-      const iFin=M.findIndex(x=>x.t==='Listo');
+      const iFin=M.findIndex(x=>x.t==='Instalala en tu computadora');
       M.splice(iFin>=0?iFin:M.length, 0,
         {sel:'#editModeBtn',t:'Modo edición: relaciones entre códigos',
          antes:async()=>{closeDrawer();await esperar(160);},
