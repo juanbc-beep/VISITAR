@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-SdEQ6GR7gM4lZ0M8m7si35T8pqaguGDQ3sbyb/gYpFM=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-Rs0Qo84IFbfAzT2Zkwgk5hfWmnrKI5c+oj7mi+q+fjY=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1693,7 +1693,7 @@ try{if(sessionStorage.getItem('nbu-actualizando')){
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg>
         <span class="pendn" id="pendN" aria-live="polite" aria-atomic="true">0</span>
       </button>
-      <button class="icon-btn pendbtn" id="obsBtn" title="Novedades desde la última vez que entraste" aria-label="Novedades desde la última vez que entraste" hidden>
+      <button class="icon-btn" id="obsBtn" title="Novedades desde la última vez que entraste" aria-label="Novedades desde la última vez que entraste" hidden>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
         <span class="pendn" id="obsN" aria-live="polite" aria-atomic="true">0</span>
       </button>
@@ -5643,6 +5643,12 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       ob.hidden=!puedeVer;
       if(puedeVer){
         const hayNuevas=obsNuevas>0;
+        // .pendbtn es el tratamiento de "hay algo esperando" —fondo y borde
+        // color gestión, pulso al entrar—: iba fijo en el HTML y quedaba
+        // prendido todo el tiempo aunque el numerito estuviera en cero, desde
+        // que la campana pasó a verse siempre (ver el comentario de arriba).
+        // Ahora sólo se prende cuando de verdad hay novedades sin ver.
+        ob.classList.toggle('pendbtn',hayNuevas);
         el('obsN').hidden=!hayNuevas;
         el('obsN').textContent=obsNuevas>99?'99+':String(obsNuevas);
         ob.title=hayNuevas?(obsNuevas===1?'Hay 1 novedad desde la última vez que entraste'
