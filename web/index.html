@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-KU2WcQ6qvwoKlmdzCCo8rKYAYida0jVpz8KWHhCszAE=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-UlhZLGumqsJI9z0WMo30qBvzhIeQYQGYMCN6UFke/1I=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -837,6 +837,7 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
   padding:1px 5px;cursor:help}
 .t-desuso{background:var(--desuso-soft);color:var(--desuso)}
 .t-rel{background:var(--inc-soft);color:var(--inc)}
+.t-anex{background:var(--accent-soft);color:var(--accent-ink)}
 .t-new{background:var(--new-soft);color:var(--new)}
 /* Segundo nivel: estado del dato en la base. Sin color, para no competir con las de decisión. */
 /* Barra de instalación / versión nueva. Abajo y discreta: no debe tapar la ficha. */
@@ -1842,6 +1843,7 @@ try{if(sessionStorage.getItem('nbu-actualizando')){
         <button type="button" class="tag t-freq" data-tl="freq">seriado</button>
         <button type="button" class="tag t-surge" data-tl="surge">SURGE</button>
         <button type="button" class="tag t-rel" data-tl="rel">relaciones</button>
+        <button type="button" class="tag t-anex" data-tl="anex">+ anexos</button>
         <button type="button" class="tag t-unico" data-tl="unico">= Único</button>
         <button type="button" class="tag t-noeq" data-tl="noeq">⚠ sin equivalencia</button>
       </div>
@@ -2490,6 +2492,7 @@ const TAG_LEYENDA={
   freq:'Tiene un máximo de cantidad o frecuencia permitida — el detalle está en «Frecuencia / seriado», dentro de la ficha.',
   surge:'Sujeta al Sistema Único de Reintegro por Gestión de Enfermedades (Res. 731/23).',
   rel:'Tiene códigos que incluye, que no incluye, o que la incluyen a ella — es lo que arma el «Árbol de módulos».',
+  anex:'Hay códigos que también hay que cargar junto con éste —se facturan aparte, no como el «Árbol de módulos»—. Están al final de «Cargá esto», en la ficha.',
   unico:'Existe también en el Nomenclador Único (VISITAR), con la equivalencia ya cargada.',
   noeq:'Del Único: todavía no tiene un código equivalente cargado en otro nomenclador.'
 };
@@ -2762,6 +2765,12 @@ function rowHTML(c){
   if(c.seriado||(c.frecuencia&&c.frecuencia.length))dec.push('<span class="tag t-freq">seriado</span>');
   if(c.surge)dec.push('<span class="tag t-surge">SURGE</span>');
   if(hasRel(c))dec.push('<span class="tag t-rel">relaciones</span>');
+  /* Distinta de «relaciones» a propósito: ésa es el Árbol de módulos
+     (incluye/incluido en), esto es «hay códigos para cargar junto», que se
+     factura aparte. Pedido de Juan: que se vea desde el listado, sin abrir
+     la ficha. */
+  if(c.relaciones&&c.relaciones.anexar&&c.relaciones.anexar.length)
+    dec.push('<span class="tag t-anex" title="Hay códigos que también hay que cargar junto con éste">+ anexos</span>');
   if(c.equivalencia_unico&&c.equivalencia_unico.length)dec.push('<span class="tag t-unico">= Único</span>');
   /* Del lado del Único, la misma etiqueta pero apuntando al otro nomenclador —
      mismo lugar y mismo color que «= Único» del lado PMO/NBU, no un badge

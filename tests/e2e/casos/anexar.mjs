@@ -125,6 +125,21 @@ async function main() {
     afirmar(cargar.includes(A_UNICO) && !cargar.includes('no existe'),
       `anexar ${A_UNICO} (Único) tipeado sin prefijo debería funcionar, "Cargá esto" tiene: ${cargar}`);
 
+    // Se ve desde el listado, sin abrir la ficha (pedido de Juan): una
+    // etiqueta propia, distinta de "relaciones" (eso es el Árbol de módulos).
+    await sinOverlays(page);
+    await page.evaluate(() => { document.getElementById('closeDrawer')?.click(); });
+    await page.click('.modebtn-all');
+    await page.fill('#q', CODIGO_PMO);
+    await page.waitForTimeout(300);
+    const filaListado = page.locator('.row', { hasText: CODIGO_PMO }).first();
+    afirmar(await filaListado.locator('.t-anex').count() === 1,
+      `la fila de ${CODIGO_PMO} en el listado debería mostrar la etiqueta "+ anexos"`);
+
+    await page.evaluate((c) => { location.hash = c; }, CODIGO_PMO);
+    await sinOverlays(page);
+    await page.waitForSelector('#cgCargarOl', { timeout: 5000 });
+
     // El botón de quitar guarda la clave real (con el prefijo "U"), no lo tipeado.
     const btn = page.locator('#cgCargarOl [data-quitar-anex]');
     afirmar(await btn.count() === 1, 'debería haber un botón para quitar el código anexado');
@@ -133,6 +148,16 @@ async function main() {
     const cargarTrasQuitar = await page.locator('#cgCargarOl').textContent();
     afirmar(!cargarTrasQuitar.includes(A_UNICO),
       `"Cargá esto" no debería mostrar más ${A_UNICO} tras quitarlo, tiene: ${cargarTrasQuitar}`);
+
+    // La etiqueta del listado se va con el último anexado.
+    await sinOverlays(page);
+    await page.evaluate(() => { document.getElementById('closeDrawer')?.click(); });
+    await page.click('.modebtn-all');
+    await page.fill('#q', CODIGO_PMO);
+    await page.waitForTimeout(300);
+    const filaTrasQuitar = page.locator('.row', { hasText: CODIGO_PMO }).first();
+    afirmar(await filaTrasQuitar.locator('.t-anex').count() === 0,
+      `la fila de ${CODIGO_PMO} no debería mostrar "+ anexos" tras quitar el único código anexado`);
 
     afirmar(errores.length === 0, 'no debería haber errores de JS sin capturar: ' + errores.join(' | '));
     afirmar(csp.length === 0, 'no debería haber violaciones de CSP: ' + csp.join(' | '));
