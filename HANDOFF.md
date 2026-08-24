@@ -799,6 +799,26 @@ propósito, «anexar» no es una relación de inclusión, es un recordatorio de 
 
 Probado en `tests/e2e/casos/anexar.mjs`.
 
+**Bug: vincular/anexar un código del Nomenclador Único devolvía «no existe» (24/8/2026)**: Juan
+reportó que anexar el código 430111 (Único) a 200124 (VCC, PMO) decía que 430111 no existía.
+Causa: `scripts/assemble.py` guarda los códigos del Único con el prefijo `"U"` —`ukey = "U"+code`—
+para que no choquen con un NBU o PMO que use los mismos dígitos, pero la app **siempre** muestra
+el código sin ese prefijo (`t.code`, no `_key`). Vincular, anexar y el editor completo de
+relaciones (`editFicha()`) buscaban `BYCODE[k]` con `k` tal cual lo tipeaba la persona —lo que ve
+en pantalla—, así que un código del Único nunca resolvía.
+
+Arreglado con `resolverCodigo(k)` —declarada a nivel de archivo, junto a `BYCODE`, no adentro de
+ninguna IIFE, para que la vean por igual el render de la ficha y el editor completo (viven en
+`<script>` distintos)—: prueba `BYCODE[k]` y, si no está, `BYCODE['U'+k]`. Lo que devuelve es la
+clave real, y es eso —no lo tipeado— lo que se guarda en `relaciones.incluye`/`relaciones.anexar`
+y lo que llevan los atributos `data-quitar`/`data-quitar-anex` de los botones de sacar. Mismo
+arreglo en las tres listas del editor completo (`efInc`/`efNoInc`/`efIncEn`).
+
+De paso, el botón de sacar un código anexado (`× Quitar`, antes sólo `×`) pasó de ser un carácter
+suelto al final de una línea larga —código y nombre de la práctica— a tener forma de botón
+propio, en su propia línea: Juan lo pidió después de no encontrarlo (aunque ya estaba). Probado
+en `tests/e2e/casos/anexar.mjs`, segundo caso, con los mismos códigos que reportó Juan.
+
 *Corrección sobre la nota anterior de esta misma sección*: lo que parecía un bug de la app
 (`TypeError: Cannot set properties of null (setting 'innerHTML')` en consola, al cerrar una ficha
 y entrar a «Árbol de módulos») era un falso positivo del propio test. `sinOverlays()` sacaba de

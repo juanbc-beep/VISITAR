@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-fw5TB3QV+A4wtkd+/RhEOSZ8w7kHHstgcKpzDhuM2g4=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-KU2WcQ6qvwoKlmdzCCo8rKYAYida0jVpz8KWHhCszAE=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -387,6 +387,13 @@ html,body{margin:0;padding:0}
    botón que «Vincular» (misma clase .cg-vc-add), sólo cambia dónde vive. */
 .carga .cg-anex-add{margin-top:8px}
 .carga .cg-anex-hint{font-size:11.5px;color:var(--faint);margin-top:5px;line-height:1.4}
+/* La × de desanexar iba suelta al final de una línea larga —código y nombre
+   de la práctica— y se perdía. Con forma de botón chico, igual que cualquier
+   otro control de esta sección, en vez de un carácter perdido en el texto. */
+.carga .cg-anex-x{display:inline-flex;align-items:center;margin-left:8px;padding:2px 8px;
+  border:1px solid var(--line-2);border-radius:999px;background:var(--surface);
+  color:var(--faint);font-size:11px;font-weight:700;cursor:pointer;vertical-align:middle;white-space:nowrap}
+.carga .cg-anex-x:hover{border-color:var(--exc);color:var(--exc);background:var(--exc-soft)}
 .prop-box{margin-top:10px}
 .prop-box textarea{width:100%;min-height:70px;resize:vertical;border:1px solid var(--line-2);border-radius:var(--radius-sm);
   background:var(--surface);color:var(--ink);font:inherit;font-size:14px;padding:9px 11px;line-height:1.5}
@@ -1920,6 +1927,19 @@ const DB = await loadDB();
 Object.entries(DB.codigos).forEach(([k,v])=>{v._key=k;});
 const CODES = Object.values(DB.codigos).sort((a,b)=>a.code.localeCompare(b.code));
 const BYCODE = DB.codigos;
+// Los códigos del Nomenclador Único se guardan con el prefijo "U" —para no
+// chocar con un NBU o PMO que use los mismos dígitos (scripts/assemble.py,
+// «ukey = "U"+code»)— pero se MUESTRAN sin él en toda la app. Quien tipea un
+// código a mano (vincular, anexar, el editor de relaciones) escribe lo que
+// ve en pantalla, no la clave interna: sin este resuelto, cualquier código
+// del Único devuelve «no existe» aunque exista. Declarada a nivel de
+// archivo (no adentro de una IIFE) para que la vean por igual el render de
+// la ficha y el editor completo, que viven en <script> distintos.
+function resolverCodigo(k){
+  if(BYCODE[k])return k;
+  if(BYCODE['U'+k])return 'U'+k;
+  return null;
+}
 const norm = s => (s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
 // precompute search haystack
 CODES.forEach(c=>{ c._h = norm([c.code,c._key,c.nombre,...(c.sinonimos||[]),...(c.abreviaturas||[]),...(c.pedida_como||[])].join(' ')); });
@@ -3927,7 +3947,7 @@ function comoSeCargaHTML(c,puedeAnexar){
   (R.anexar||[]).forEach(k=>{
     const t=BYCODE[k];
     push('cargar',`<li>Cargar también <b>${esc(t?t.code:k)}</b>${t?` — ${esc(t.nombre)}`:''}${
-      puedeAnexar?`<button type="button" class="cg-vc-x" data-quitar-anex="${esc(k)}" aria-label="Desanexar ${esc(k)}">×</button>`:''}</li>`);
+      puedeAnexar?`<button type="button" class="cg-anex-x" data-quitar-anex="${esc(k)}" aria-label="Desanexar ${esc(t?t.code:k)}">× Quitar</button>`:''}</li>`);
   });
   // 4. respaldo de la solicitud — chequeos, no acciones de carga.
   if(c.cobertura_pmo)
@@ -4616,12 +4636,13 @@ function openCode(code,origen){
   const cgVb=el('cgVincBtn');
   if(cgVb){
     const vincular=()=>{
-      const inp=el('cgVincInput'),k=inp.value.trim();
-      if(!k)return;
+      const inp=el('cgVincInput'),tip=inp.value.trim();
+      if(!tip)return;
+      const k=resolverCodigo(tip);
+      if(!k)return toast(`El código ${tip} no existe`,true);
       if(k===code)return toast('Un código no puede tener una relación consigo mismo',true);
-      if(!BYCODE[k])return toast(`El código ${k} no existe`,true);
       const R=BYCODE[code].relaciones||{};
-      if((R.incluye||[]).includes(k))return toast(`${k} ya está vinculado`,true);
+      if((R.incluye||[]).includes(k))return toast(`${tip} ya está vinculado`,true);
       NBUProfile.guardarIncluye(code,[...(R.incluye||[]),k]);
       toast('Código vinculado');
       openCode(code);
@@ -4645,12 +4666,13 @@ function openCode(code,origen){
   const cgAb=el('cgAnexBtn');
   if(cgAb){
     const anexar=()=>{
-      const inp=el('cgAnexInput'),k=inp.value.trim();
-      if(!k)return;
+      const inp=el('cgAnexInput'),tip=inp.value.trim();
+      if(!tip)return;
+      const k=resolverCodigo(tip);
+      if(!k)return toast(`El código ${tip} no existe`,true);
       if(k===code)return toast('Un código no puede anexarse a sí mismo',true);
-      if(!BYCODE[k])return toast(`El código ${k} no existe`,true);
       const R=BYCODE[code].relaciones||{};
-      if((R.anexar||[]).includes(k))return toast(`${k} ya está anexado`,true);
+      if((R.anexar||[]).includes(k))return toast(`${tip} ya está anexado`,true);
       NBUProfile.guardarAnexar(code,[...(R.anexar||[]),k]);
       toast('Código anexado');
       openCode(code);
@@ -7160,11 +7182,22 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       const espejos=[];   // {otro, campo, accion, valor}[]
       if(puedeRel){
         const leer=id=>el(id).value.split('\n').map(s=>s.trim()).filter(Boolean);
-        const finInc=leer('efInc'),finNoInc=leer('efNoInc'),finIncEn=leer('efIncEn');
-        for(const arr of [finInc,finNoInc,finIncEn])for(const k of arr){
-          if(k===code)return toast('Un código no puede tener una relación consigo mismo',true);
-          if(!BYCODE[k])return toast(`El código ${k} no existe`,true);
-        }
+        // Resuelve cada línea tipeada a la clave interna real (ver
+        // resolverCodigo: los códigos del Único se guardan con el prefijo
+        // «U» pero se escriben sin él).
+        const resolverLista=arr=>{
+          const out=[];
+          for(const tip of arr){
+            const k=resolverCodigo(tip);
+            if(!k){toast(`El código ${tip} no existe`,true);return null;}
+            if(k===code){toast('Un código no puede tener una relación consigo mismo',true);return null;}
+            out.push(k);
+          }
+          return out;
+        };
+        const finInc=resolverLista(leer('efInc')); if(finInc===null)return;
+        const finNoInc=resolverLista(leer('efNoInc')); if(finNoInc===null)return;
+        const finIncEn=resolverLista(leer('efIncEn')); if(finIncEn===null)return;
         const cruzados=finInc.filter(k=>finNoInc.includes(k));
         if(cruzados.length)return toast(`${cruzados[0]} no puede estar en «Incluye» y en «No incluye» a la vez`,true);
         const dInc=deltaListaRel(finInc,R.incluye), dNoInc=deltaListaRel(finNoInc,R.no_incluye), dIncEn=deltaListaRel(finIncEn,R.incluido_en);
