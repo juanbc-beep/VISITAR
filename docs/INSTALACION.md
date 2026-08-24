@@ -193,7 +193,7 @@ pendiente**, y hay que habilitarla a mano una única vez.
 1. Entrá a la dirección de la app.
 2. Vas a ver **Entrar al manual**. Abajo, el enlace
    **«No tengo cuenta todavía → crearla»**.
-3. Completá **nombre y apellido**, **correo** y **contraseña** (mínimo 6),
+3. Completá **nombre y apellido**, **correo** y **contraseña** (mínimo 12),
    repetila, y **Crear mi cuenta**.
 4. Aparece: *«Tu cuenta … quedó pendiente de aprobación»*. **Es lo esperado**, no
    es un error. Dejá esa pantalla y seguí.
