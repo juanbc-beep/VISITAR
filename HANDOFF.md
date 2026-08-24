@@ -625,7 +625,8 @@ duplicarlo si ya lo tiene. La elección de «sin tratamiento» se recuerda en
 | dar por buena una revisión médica | ✔ | ✔ | ✗ | ✗ |
 | aviso por práctica (observaciones) | ✔ | ✔ | ✗ | ✗ |
 | validar verificación administrativa | ✔ | ✗ | ✗ | ✗ |
-| editar la ficha (modo edición) | ✔ | ✗ | ✗ | ✗ |
+| editar la ficha completa (modo edición) | ✔ | ✗ | ✗ | ✗ |
+| editar relaciones entre códigos — árbol de módulos (modo edición) | ✔ | ✔ | ✗ | ✗ |
 | cuentas, roles, transferir | ✔ | ✗ | ✗ | ✗ |
 | textos, logo, nube, respaldo | ✔ | ✗ | ✗ | ✗ |
 
@@ -657,8 +658,9 @@ Piezas clave:
 - `es_medico_admin()`, `es_medico()`, `valida_medico()` — mismo patrón `security definer` que
   `es_admin()`, si no las policies de `perfiles` entran en recursión de RLS.
 - **`correcciones_guardia()`** — el trigger que hace real el límite. Al médico administrador
-  le revierte `nombre`, `norma`, `auditoria` y `asoc_extra` al valor anterior; **lo único que
-  le sobrevive es `datos->'revision_medica'`**. Mismo patrón que `perfiles_guardia`.
+  le revierte `nombre`, `norma`, `auditoria` y `asoc_extra` al valor anterior; de `datos` le
+  sobreviven **dos** claves, `revision_medica` y, desde el 24/8/2026, `relaciones` (ver 4.5 ter
+  bis). Mismo patrón que `perfiles_guardia`.
 - `prop_resolver` — el médico administrador sólo cierra propuestas cuyo **autor es médico**.
 - `pendientes()` — sigue devolviendo `json` (nada de cambiarle el tipo de retorno) y suma la
   clave `medicas`. Se le sacó el `where es_admin()` final, que hacía que no devolviera ninguna
@@ -667,7 +669,7 @@ Piezas clave:
 Del lado de la app: `ROLES`, `ROL_VALIDO()`, `rolLabel()` y **`CAP`** — todas las capacidades
 en un solo objeto. Preguntar `role==='admin'` desparramado por treinta lugares fue lo que hizo
 que sumar un rol tocara toda la app; ahora se pregunta `CAP.duenio(p)`, `CAP.validaMedico(p)`,
-`CAP.observa(p)`, `CAP.editaFicha(p)`.
+`CAP.observa(p)`, `CAP.editaFicha(p)`, `CAP.editaRelaciones(p)`.
 
 **Dónde vive la revisión médica:** dentro de `correcciones.datos.revision_medica`
 `{texto, por, de, t}`. `datos` ya era `jsonb` libre → **cero cambios de esquema**.
@@ -709,6 +711,54 @@ sirve para llevársela a una junta.
 **Si la migración todavía no se corrió**, la app no se rompe: el desplegable de rol muestra el
 error real («la base todavía no acepta los roles médicos») y `pendientes()` sin la clave
 `medicas` no pisa el conteo calculado del lado del cliente.
+
+### 4.5 ter bis Relaciones entre códigos, editables por el médico administrador (24/8/2026)
+
+`web/index.html`, sección **«Relaciones entre códigos»** de la ficha (incluye / no incluye /
+incluido en) — lo que arma el **árbol de módulos**. Hasta acá era de sólo lectura, calculada
+por el pipeline; ahora el administrador general y el **médico administrador** pueden agregar o
+quitar prácticas, desde el mismo botón de siempre (**modo edición → «✎ Editar ficha»**, que
+para el médico administrador dice **«✎ Editar relaciones entre códigos»** y muestra sólo eso —
+ni nombre, ni norma, ni auditoría, que siguen siendo del general).
+
+**⚠️ NO se puede hacer sólo en la app, mismo motivo que siempre**: `correcciones_guardia()` ya
+sólo dejaba pasar `datos->'revision_medica'` para el médico administrador; todo lo demás
+—incluida cualquier clave nueva que se le agregue a `datos`— vuelve al valor anterior del lado
+del servidor. Migración: **`docs/supabase_relaciones_medico.sql`** (correr una vez, SQL Editor),
+que suma `datos->'relaciones'` a lo que el guardia deja pasar. `supabase.sql` ya la incluye
+para instalaciones nuevas. **En el proyecto vivo hay que correr `supabase_relaciones_medico.sql`
+una vez** — sin eso, el botón guarda sin error pero el guardia descarta el cambio en silencio y
+la ficha vuelve a la lista de antes en el siguiente `cargarContenidoNube()`.
+
+De paso el guardia dejó de poder vaciar una clave que la escritura no traía: antes, guardar sólo
+la revisión médica podía pisar con `null` una relación ya guardada (y ahora al revés). Las dos
+claves se conservan del valor anterior cuando esta escritura no las trae. Ver el archivo de
+migración para el detalle.
+
+**Cómo se guarda**: agregar/quitar sobre la lista del **pipeline**, no un reemplazo — mismo
+criterio que `correcciones_curadas.json` en el resto de la app. `CONTENT.codes[code].relaciones
+= {incluye:{agregar:[…],quitar:[…]}, no_incluye:{…}, incluido_en:{…}}`, sólo las claves que de
+verdad cambiaron. `applyCode()` lo aplica con `mergeListaRel()` contra `c._orig.relaciones`
+(agregado a la instantánea del original, junto con nombre/norma/auditoria/asoc_extra).
+
+**El espejo — `incluye` ↔ `incluido_en`**: si el código A pasa a incluir a B, B tiene que decir
+que quedó incluido en A, si no el árbol de módulos (que lee `incluye`) y la ficha del hijo más
+el detector de doble facturación de la Mesa de trabajo (que leen `incluido_en`) cuentan cosas
+distintas. `espejarRelacion(otroCodigo, campo, accion, valor)` escribe la corrección del OTRO
+código — sin tocar su nombre/norma/auditoria, que preserva tal cual — cada vez que se
+agrega/quita algo de `incluye` o `incluido_en`. `no_incluye` no tiene campo espejo en el
+esquema (siempre fue de un solo lado) y no se espeja.
+
+**Restaurar**: el general tiene «Restaurar original» (la ficha entera — sigue siendo un
+`DELETE`, que RLS reserva al administrador: CN-003 en `tests/rls/ataques.sql`). El médico
+administrador tiene **«Restaurar relaciones originales»**, más chico: no borra la corrección
+—no podría, RLS se lo rechazaría—, sólo vuelve `incluye`/`no_incluye`/`incluido_en` al valor del
+pipeline y espeja también la vuelta atrás en los códigos afectados.
+
+**Probado**: `tests/rls/regresion.sql` (el médico administrador guarda una relación sin perder
+la revisión médica ya firmada, ni tocar la ficha, y viceversa) y `tests/e2e/casos/relaciones.mjs`
+(la interfaz muestra los campos correctos según el rol, guarda, y el espejo aparece en el otro
+código) — ver la sección de Testing, punto 3.
 
 ### 4.5 quater ⚠️ Avisos del linter de Supabase — NO seguir la receta al pie de la letra
 

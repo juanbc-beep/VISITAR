@@ -54,11 +54,14 @@ escenario "1. Instalación desde cero" \
   "$RAIZ/docs/supabase.sql"
 
 escenario "2. Con las migraciones encima" \
-  "$RAIZ/docs/supabase.sql" "$RAIZ/docs/supabase_seguridad.sql" "$RAIZ/docs/supabase_auditoria.sql"
+  "$RAIZ/docs/supabase.sql" "$RAIZ/docs/supabase_seguridad.sql" "$RAIZ/docs/supabase_auditoria.sql" \
+  "$RAIZ/docs/supabase_relaciones_medico.sql"
 
 escenario "3. Migraciones aplicadas dos veces (idempotencia)" \
   "$RAIZ/docs/supabase.sql" "$RAIZ/docs/supabase_seguridad.sql" "$RAIZ/docs/supabase_auditoria.sql" \
-  "$RAIZ/docs/supabase_seguridad.sql" "$RAIZ/docs/supabase_auditoria.sql"
+  "$RAIZ/docs/supabase_relaciones_medico.sql" \
+  "$RAIZ/docs/supabase_seguridad.sql" "$RAIZ/docs/supabase_auditoria.sql" \
+  "$RAIZ/docs/supabase_relaciones_medico.sql"
 
 echo ""
 echo "══════════════════════════════════════════════════════════════════"

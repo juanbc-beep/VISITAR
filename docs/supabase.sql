@@ -299,10 +299,12 @@ insert into public.ajustes (id) values (1) on conflict (id) do nothing;
 -- 6 bis. EL LÍMITE DEL MÉDICO ADMINISTRADOR
 --    Abrirle «correcciones» sin más le daría la ficha entera: denominación,
 --    norma y líneas de auditoría, que es exactamente el poder del administrador
---    general. Este guardia deja pasar UNA sola cosa cuando quien escribe es
---    médico administrador: la revisión médica, en datos->'revision_medica'.
---    Todo lo demás vuelve al valor anterior, del lado del servidor. Mismo patrón
---    que «perfiles_guardia», que impide que alguien se cambie el rol solo.
+--    general. Este guardia deja pasar DOS cosas cuando quien escribe es médico
+--    administrador: la revisión médica (datos->'revision_medica') y los
+--    agregados/quitados a las relaciones entre códigos —árbol de módulos—
+--    (datos->'relaciones', ver supabase_relaciones_medico.sql). Todo lo demás
+--    vuelve al valor anterior, del lado del servidor. Mismo patrón que
+--    «perfiles_guardia», que impide que alguien se cambie el rol solo.
 -- ---------------------------------------------------------------------
 create or replace function public.correcciones_guardia() returns trigger
   language plpgsql security definer set search_path = public as $$
@@ -329,9 +331,17 @@ begin
   new.norma      := viejo.norma;
   new.auditoria  := viejo.auditoria;
   new.asoc_extra := viejo.asoc_extra;
+  -- Cada clave se conserva del valor anterior cuando esta escritura no la
+  -- trae, y se reemplaza cuando sí la trae —incluido con «null» a propósito,
+  -- para poder borrar una revisión médica o vaciar las relaciones sin tocar
+  -- la otra clave. Sin el «viejo.datos ->» de respaldo, escribir una sola de
+  -- las dos vaciaba la otra en silencio.
   new.datos := coalesce(viejo.datos, '{}'::jsonb)
-               || jsonb_build_object('revision_medica',
-                    coalesce(new.datos -> 'revision_medica', 'null'::jsonb));
+               || jsonb_build_object(
+                    'revision_medica',
+                    coalesce(new.datos -> 'revision_medica', viejo.datos -> 'revision_medica', 'null'::jsonb),
+                    'relaciones',
+                    coalesce(new.datos -> 'relaciones', viejo.datos -> 'relaciones', 'null'::jsonb));
   return new;
 end $$;
 

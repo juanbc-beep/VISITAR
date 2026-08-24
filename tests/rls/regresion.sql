@@ -45,6 +45,49 @@ do $$ begin
 end $$;
 \echo '   ok  el médico administrador firma lo médico y no toca la ficha'
 
+-- --- El médico administrador agrega/quita relaciones (árbol de módulos) ---
+-- Mismo código, misma corrección: la fila ya trae datos.revision_medica de
+-- la prueba anterior. Escribir sólo «relaciones» no puede vaciarla —el
+-- descuido que arregla supabase_relaciones_medico.sql— ni la ficha.
+do $ident$ begin perform set_config('request.jwt.claim.sub',
+                  (select p.id::text from public.perfiles p
+                     join auth.users u on u.id = p.id where u.email = 'medico@test'), false); end $ident$;
+set role authenticated;
+update public.correcciones
+   set datos = datos || '{"relaciones":{"incluye":{"agregar":["420102"],"quitar":[]}}}'::jsonb
+ where codigo = '420101';
+reset role;
+do $$ begin
+  if (select datos -> 'relaciones' -> 'incluye' -> 'agregar' from public.correcciones where codigo = '420101')
+       is distinct from '["420102"]'::jsonb then
+    raise exception 'REG: el médico administrador no pudo agregar una relación.';
+  end if;
+  if (select datos -> 'revision_medica' ->> 'ok' from public.correcciones where codigo = '420101') is distinct from 'true' then
+    raise exception 'REG: guardar una relación borró la revisión médica ya firmada.';
+  end if;
+  if (select nombre from public.correcciones where codigo = '420101') <> 'Consulta NUEVA' then
+    raise exception 'REG: el médico administrador pisó la ficha al guardar una relación.';
+  end if;
+end $$;
+
+-- Y a la inversa: volver a firmar lo médico no puede vaciar la relación que
+-- se acaba de guardar.
+do $ident$ begin perform set_config('request.jwt.claim.sub',
+                  (select p.id::text from public.perfiles p
+                     join auth.users u on u.id = p.id where u.email = 'medico@test'), false); end $ident$;
+set role authenticated;
+update public.correcciones
+   set datos = datos || '{"revision_medica":{"ok":true,"nota":"reconfirmado"}}'::jsonb
+ where codigo = '420101';
+reset role;
+do $$ begin
+  if (select datos -> 'relaciones' -> 'incluye' -> 'agregar' from public.correcciones where codigo = '420101')
+       is distinct from '["420102"]'::jsonb then
+    raise exception 'REG: volver a firmar la revisión médica borró la relación ya guardada.';
+  end if;
+end $$;
+\echo '   ok  el médico administrador agrega relaciones sin perder lo ya guardado, ni tocar la ficha'
+
 -- --- Un administrativo activo lee el contenido del equipo ------------
 do $ident$ begin perform set_config('request.jwt.claim.sub',
                   (select p.id::text from public.perfiles p

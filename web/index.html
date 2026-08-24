@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-Wmk31/b985aQ3Ey2gGCW8v6IktFnQOprCOCQtCP2Nbs=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-5wn0gawbOIcQIU1qOHNxvkxdSqgsMKptG8yirJ/zW9g=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -4027,7 +4027,7 @@ function openCode(code,origen){
         <button class="minibtn" id="dCmp">⇄ Comparar</button>`:''}
         <button class="minibtn" id="dImp">🖨 Imprimir ficha</button>
       </div>
-      ${(window.NBUProfile&&NBUProfile.canEdit())?`<div class="dedit"><button class="minibtn" id="editFichaBtn">✎ Editar ficha</button></div>`:''}
+      ${(window.NBUProfile&&NBUProfile.canEdit())?`<div class="dedit"><button class="minibtn" id="editFichaBtn">✎ ${NBUProfile.editaFicha()?'Editar ficha':'Editar relaciones entre códigos'}</button></div>`:''}
       ${revMedHTML(code)}
       ${esAdministrativo?'':coberturaHTML(c,true)}
       ${obsFichaHTML(code)}
@@ -5312,7 +5312,13 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     observa:     p=>!!(p&&(p.role==='admin'||p.role==='medico_admin')),
     // Edita la ficha entera. Sólo el general: al médico la base le revierte
     // todo lo que no sea la revisión médica.
-    editaFicha:  p=>!!(p&&p.role==='admin')
+    editaFicha:  p=>!!(p&&p.role==='admin'),
+    // Agrega o quita prácticas de las relaciones entre códigos —incluye / no
+    // incluye / incluido en, lo que arma el árbol de módulos—. El médico
+    // administrador la tiene además del general: supabase_relaciones_medico.sql
+    // es lo que hace que la base la deje pasar de verdad; sin correrlo, el
+    // guardia le revierte el cambio en silencio.
+    editaRelaciones: p=>!!(p&&(p.role==='admin'||p.role==='medico_admin'))
   };
   const esDuenio    =()=>CAP.duenio(current);
   const validaMedico=()=>CAP.validaMedico(current);
@@ -5698,13 +5704,29 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     c._h=norm([c.code,c._key,c.nombre].concat(c.sinonimos||[],c.abreviaturas||[],otros).join(' '));
     prepBusqueda(c,c.nombre);
   }catch(e){}}
+  // Agregar/quitar sobre la lista del pipeline, no reemplazarla: mismo criterio
+  // que correcciones_curadas.json en el resto de la app — si el capítulo se
+  // vuelve a barrer y la lista base cambia, lo agregado/quitado a mano sigue
+  // aplicándose encima, no la pisa entera.
+  function mergeListaRel(base,delta){
+    const set=new Set(base||[]);
+    if(delta){(delta.quitar||[]).forEach(x=>set.delete(x));(delta.agregar||[]).forEach(x=>set.add(x));}
+    return [...set];
+  }
   function applyCode(code){
     const c=BYCODE[code]; if(!c)return; const ov=CONTENT.codes[code];
-    if(!c._orig)c._orig={nombre:c.nombre,norma:c.norma?JSON.parse(JSON.stringify(c.norma)):null,auditoria:c.auditoria?c.auditoria.slice():null,asoc_extra:c.asoc_extra||null};
+    if(!c._orig)c._orig={nombre:c.nombre,norma:c.norma?JSON.parse(JSON.stringify(c.norma)):null,auditoria:c.auditoria?c.auditoria.slice():null,asoc_extra:c.asoc_extra||null,
+      relaciones:c.relaciones?{incluye:c.relaciones.incluye.slice(),no_incluye:c.relaciones.no_incluye.slice(),incluido_en:c.relaciones.incluido_en.slice()}:{incluye:[],no_incluye:[],incluido_en:[]}};
     c.nombre=(ov&&ov.nombre!=null&&ov.nombre!=='')?ov.nombre:c._orig.nombre;
     c.norma=(ov&&'norma'in ov)?ov.norma:c._orig.norma;
     c.auditoria=(ov&&'auditoria'in ov)?ov.auditoria:c._orig.auditoria;
     c.asoc_extra=(ov&&ov.asoc_extra)?ov.asoc_extra:(c._orig.asoc_extra||null);
+    const rd=ov&&ov.relaciones;
+    c.relaciones={
+      incluye:     mergeListaRel(c._orig.relaciones.incluye,     rd&&rd.incluye),
+      no_incluye:  mergeListaRel(c._orig.relaciones.no_incluye,  rd&&rd.no_incluye),
+      incluido_en: mergeListaRel(c._orig.relaciones.incluido_en, rd&&rd.incluido_en)
+    };
     rebuildH(c);
   }
   function applyContent(){
@@ -6087,7 +6109,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
        pestaña; el modo edición de la ficha sigue siendo del administrador
        general, porque toca la denominación y las normas. */
     el('adminBtn').hidden=!(CAP.duenio(p)||CAP.validaMedico(p));
-    el('editModeBtn').hidden=!CAP.editaFicha(p);
+    el('editModeBtn').hidden=!(CAP.editaFicha(p)||CAP.editaRelaciones(p));
     const adm=CAP.duenio(p);
     if(window.pintarFiltros)pintarFiltros();   // los filtros médicos dependen del rol
     applyContent();refreshStats();applyMode();render();hideGate();actualizarPendientes();
@@ -6821,36 +6843,134 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   }
 
   /* ============ EDITOR DE FICHA ============ */
+  // Recalcula agregar/quitar contra la lista ORIGINAL del pipeline, no contra
+  // lo que ya estaba corregido: cada guardado reescribe el delta entero, así
+  // que da igual cuántas veces se edite, nunca se acumula basura.
+  function deltaListaRel(finalArr,origArr){
+    const orig=new Set(origArr||[]),fin=new Set(finalArr);
+    const agregar=[...fin].filter(x=>!orig.has(x)),quitar=[...orig].filter(x=>!fin.has(x));
+    return (agregar.length||quitar.length)?{agregar,quitar}:null;
+  }
+  // Escribe el espejo de un cambio de "incluye"/"incluido_en" en el OTRO
+  // código: si 420101 pasa a incluir 420102, 420102 tiene que decir que está
+  // incluido en 420101, si no el árbol de módulos y la ficha del hijo cuentan
+  // cosas distintas. No toca nada más de la ficha del otro código.
+  function espejarRelacion(otroCodigo,campo,accion,valor){
+    const oc=BYCODE[otroCodigo];if(!oc)return;
+    applyCode(otroCodigo);   // asegura oc._orig, aunque este código nunca se haya tocado
+    const origLista=oc._orig.relaciones[campo]||[];
+    const finSet=new Set(oc.relaciones[campo]||[]);
+    if(accion==='agregar')finSet.add(valor);else finSet.delete(valor);
+    const delta=deltaListaRel([...finSet],origLista);
+    const relPrevia=Object.assign({},(CONTENT.codes[otroCodigo]&&CONTENT.codes[otroCodigo].relaciones)||{});
+    if(delta)relPrevia[campo]=delta;else delete relPrevia[campo];
+    const ovOtro={nombre:oc.nombre,norma:oc.norma,auditoria:oc.auditoria,asoc_extra:oc.asoc_extra};
+    if(Object.keys(relPrevia).length)ovOtro.relaciones=relPrevia;
+    CONTENT.codes[otroCodigo]=ovOtro;logEdit('actualizó relación (espejo)',otroCodigo);persistContent();applyCode(otroCodigo);
+    if(nubeContenido)enNube(NUBE.guardarCorreccion(otroCodigo,ovOtro),'actualizar la relación en '+otroCodigo);
+  }
   function editFicha(code){
     const c=BYCODE[code];if(!c)return;
-    const o=c._orig||{};const norma=c.norma||{};
+    applyCode(code);   // asegura c._orig.relaciones aunque este código nunca se haya tocado
+    const norma=c.norma||{};
+    const puedeFicha=CAP.editaFicha(current), puedeRel=CAP.editaRelaciones(current);
+    if(!puedeFicha&&!puedeRel)return;
+    const R=c.relaciones;
+    const listaCampo=(id,label,ayuda,lista)=>`<label>${label}</label>
+      <div class="asub" style="margin:0 0 4px">${ayuda}</div>
+      <textarea id="${id}" placeholder="Un código por línea" style="min-height:70px">${E((lista||[]).join('\n'))}</textarea>`;
     abox.innerHTML=`
       <button class="icon-btn close-x" id="aClose" style="position:absolute;top:16px;right:16px" aria-label="Cerrar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
-      <h3>Editar ficha · ${E(c.code)}</h3>
-      <div class="asub">Los cambios se guardan para todo el equipo. El original queda respaldado (podés restaurarlo).</div>
+      <h3>${puedeFicha?'Editar ficha':'Editar relaciones entre códigos'} · ${E(c.code)}</h3>
+      <div class="asub">Los cambios se guardan para todo el equipo.${puedeFicha?' El original queda respaldado (podés restaurarlo).':''}</div>
+      ${puedeFicha?`
       <label>Nombre / denominación</label><input id="efNom" type="text" value="${E(c.nombre)}">
       <label>Norma mínima de trabajo</label><textarea id="efTrab">${E(norma.trabajo||'')}</textarea>
       <label>Interpretación</label><textarea id="efInt">${E(norma.interpretacion||'')}</textarea>
       <label>Normas de auditoría / facturación (una por línea)</label><textarea id="efAud" style="min-height:110px">${E((c.auditoria||[]).join('\n'))}</textarea>
-      <label>Nota de asociación de códigos (interna)</label><textarea id="efAsoc">${E(c.asoc_extra||'')}</textarea>
+      <label>Nota de asociación de códigos (interna)</label><textarea id="efAsoc">${E(c.asoc_extra||'')}</textarea>`:''}
+      ${puedeRel?`
+      <div style="margin-top:${puedeFicha?'18px':'0'};font-weight:800;font-size:11px;letter-spacing:.7px;text-transform:uppercase;color:var(--accent-ink)">Relaciones entre códigos — árbol de módulos</div>
+      ${listaCampo('efInc','Incluye',`${E(c.code)} las comprende: no se facturan por separado si ya se cargó ${E(c.code)}.`,R.incluye)}
+      ${listaCampo('efNoInc','No incluye','Aunque el nombre se parezca, estas SÍ se facturan aparte.',R.no_incluye)}
+      ${listaCampo('efIncEn','Incluido en',`${E(c.code)} ya está comprendido en estos códigos.`,R.incluido_en)}
+      <div class="asub">Agregar o quitar acá también actualiza «Incluido en» / «Incluye» del otro código, para que las dos fichas digan lo mismo.</div>`:''}
       <div style="margin-top:16px;display:flex;gap:6px;flex-wrap:wrap">
         <button class="minibtn" id="efSave">Guardar cambios</button>
-        <button class="minibtn danger" id="efReset">Restaurar original</button>
+        ${puedeFicha?`<button class="minibtn danger" id="efReset">Restaurar original</button>`
+                    :(puedeRel?`<button class="minibtn danger" id="efResetRel">Restaurar relaciones originales</button>`:'')}
       </div>`;
     el('aClose').addEventListener('click',closeAdmin);
     el('efSave').addEventListener('click',()=>{
-      const trab=el('efTrab').value.trim(),intp=el('efInt').value.trim();
-      const aud=el('efAud').value.split('\n').map(s=>s.trim()).filter(Boolean);
-      const ov={nombre:el('efNom').value.trim(),norma:(trab||intp)?{trabajo:trab,interpretacion:intp}:null,auditoria:aud,asoc_extra:el('efAsoc').value.trim()||null};
-      CONTENT.codes[code]=ov;logEdit('editó ficha',code);persistContent();applyCode(code);
+      const ov={};
+      if(puedeFicha){
+        const trab=el('efTrab').value.trim(),intp=el('efInt').value.trim();
+        const aud=el('efAud').value.split('\n').map(s=>s.trim()).filter(Boolean);
+        ov.nombre=el('efNom').value.trim();
+        ov.norma=(trab||intp)?{trabajo:trab,interpretacion:intp}:null;
+        ov.auditoria=aud;
+        ov.asoc_extra=el('efAsoc').value.trim()||null;
+      }else{
+        // No es lo que este rol puede tocar: se preserva tal cual estaba, para
+        // no pisar con null lo que ya cargó el administrador general.
+        ov.nombre=c.nombre;ov.norma=c.norma;ov.auditoria=c.auditoria;ov.asoc_extra=c.asoc_extra;
+      }
+      const espejos=[];   // {otro, campo, accion, valor}[]
+      if(puedeRel){
+        const leer=id=>el(id).value.split('\n').map(s=>s.trim()).filter(Boolean);
+        const finInc=leer('efInc'),finNoInc=leer('efNoInc'),finIncEn=leer('efIncEn');
+        for(const arr of [finInc,finNoInc,finIncEn])for(const k of arr){
+          if(k===code)return toast('Un código no puede tener una relación consigo mismo',true);
+          if(!BYCODE[k])return toast(`El código ${k} no existe`,true);
+        }
+        const cruzados=finInc.filter(k=>finNoInc.includes(k));
+        if(cruzados.length)return toast(`${cruzados[0]} no puede estar en «Incluye» y en «No incluye» a la vez`,true);
+        const dInc=deltaListaRel(finInc,R.incluye), dNoInc=deltaListaRel(finNoInc,R.no_incluye), dIncEn=deltaListaRel(finIncEn,R.incluido_en);
+        const rel={};
+        if(dInc)rel.incluye=dInc; if(dNoInc)rel.no_incluye=dNoInc; if(dIncEn)rel.incluido_en=dIncEn;
+        if(Object.keys(rel).length)ov.relaciones=rel;
+        if(dInc){
+          dInc.agregar.forEach(k=>espejos.push({otro:k,campo:'incluido_en',accion:'agregar',valor:code}));
+          dInc.quitar.forEach(k=>espejos.push({otro:k,campo:'incluido_en',accion:'quitar',valor:code}));
+        }
+        if(dIncEn){
+          dIncEn.agregar.forEach(k=>espejos.push({otro:k,campo:'incluye',accion:'agregar',valor:code}));
+          dIncEn.quitar.forEach(k=>espejos.push({otro:k,campo:'incluye',accion:'quitar',valor:code}));
+        }
+      }
+      CONTENT.codes[code]=ov;logEdit(puedeFicha?'editó ficha':'editó relaciones',code);persistContent();applyCode(code);
       if(nubeContenido)enNube(NUBE.guardarCorreccion(code,ov),'guardar la ficha para el equipo');
-      if(state.view==='list')render();closeAdmin();openCode(code);toast('Ficha actualizada');
+      espejos.forEach(e=>espejarRelacion(e.otro,e.campo,e.accion,e.valor));
+      if(state.view==='list'||state.view==='tree')render();closeAdmin();openCode(code);
+      toast(puedeFicha?'Ficha actualizada':'Relaciones actualizadas');
     });
-    el('efReset').addEventListener('click',()=>{
+    // Deshace en el OTRO código lo que este código le había espejado —al
+    // volver "incluye"/"incluido_en" al original, el reflejo tiene que
+    // volver con ellos, lo pida el reset completo o el de sólo relaciones.
+    const deshacerEspejos=()=>{
+      const R0=c._orig.relaciones;
+      (R.incluye||[]).filter(k=>!R0.incluye.includes(k)).forEach(k=>espejarRelacion(k,'incluido_en','quitar',code));
+      R0.incluye.filter(k=>!(R.incluye||[]).includes(k)).forEach(k=>espejarRelacion(k,'incluido_en','agregar',code));
+      (R.incluido_en||[]).filter(k=>!R0.incluido_en.includes(k)).forEach(k=>espejarRelacion(k,'incluye','quitar',code));
+      R0.incluido_en.filter(k=>!(R.incluido_en||[]).includes(k)).forEach(k=>espejarRelacion(k,'incluye','agregar',code));
+    };
+    if(puedeFicha)el('efReset').addEventListener('click',()=>{
       if(!confirm('¿Restaurar el contenido original de este código?'))return;
+      deshacerEspejos();
       delete CONTENT.codes[code];logEdit('restauró ficha',code);persistContent();applyCode(code);
       if(nubeContenido)enNube(NUBE.borrarCorreccion(code),'restaurar la ficha para el equipo');
-      if(state.view==='list')render();closeAdmin();openCode(code);toast('Contenido restaurado');
+      if(state.view==='list'||state.view==='tree')render();closeAdmin();openCode(code);toast('Contenido restaurado');
+    });
+    if(!puedeFicha&&puedeRel)el('efResetRel').addEventListener('click',()=>{
+      if(!confirm('¿Restaurar las relaciones originales de este código?'))return;
+      // No se borra la corrección (DELETE es sólo del administrador general,
+      // ver CN-003 en tests/rls/ataques.sql): se reescribe sin la clave
+      // «relaciones», y espejando también la vuelta atrás en el otro código.
+      deshacerEspejos();
+      const ov={nombre:c.nombre,norma:c.norma,auditoria:c.auditoria,asoc_extra:c.asoc_extra};
+      CONTENT.codes[code]=ov;logEdit('restauró relaciones',code);persistContent();applyCode(code);
+      if(nubeContenido)enNube(NUBE.guardarCorreccion(code,ov),'restaurar las relaciones para el equipo');
+      if(state.view==='list'||state.view==='tree')render();closeAdmin();openCode(code);toast('Relaciones restauradas');
     });
     amodal.classList.add('on');
   }
@@ -7682,7 +7802,9 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   }
   window.NBUProfile={
     active:()=>current,
-    canEdit:()=>!!(CAP.editaFicha(current)&&editMode),
+    canEdit:()=>!!((CAP.editaFicha(current)||CAP.editaRelaciones(current))&&editMode),
+    editaFicha:()=>CAP.editaFicha(current),
+    editaRelaciones:()=>CAP.editaRelaciones(current),
     /* Capacidades, para que el resto de la app no tenga que saber cómo se
        llaman los roles. Esto no otorga nada: lo que se puede escribir de
        verdad lo deciden las policies de Supabase. */
