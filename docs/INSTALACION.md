@@ -193,7 +193,7 @@ pendiente**, y hay que habilitarla a mano una única vez.
 1. Entrá a la dirección de la app.
 2. Vas a ver **Entrar al manual**. Abajo, el enlace
    **«No tengo cuenta todavía → crearla»**.
-3. Completá **nombre y apellido**, **correo** y **contraseña** (mínimo 6),
+3. Completá **nombre y apellido**, **correo** y **contraseña** (mínimo 12),
    repetila, y **Crear mi cuenta**.
 4. Aparece: *«Tu cuenta … quedó pendiente de aprobación»*. **Es lo esperado**, no
    es un error. Dejá esa pantalla y seguí.
@@ -339,6 +339,67 @@ publicar una corrección ni arreglar nada.
 
 Por eso el punto que de verdad protege el manual no es una regla de la base: es
 que puedas volver a entrar a Supabase y a GitHub.
+
+## Respaldo mensual
+
+En el plan gratuito de Supabase no hay copias automáticas con las que contar
+—fijate qué te ofrece **Database → Backups**, que depende del plan—. Y el riesgo
+más probable no es que alguien entre: es que se borre algo. Un administrador
+puede borrar correcciones, y está bien que pueda.
+
+Son dos descargas, una vez por mes. Toma tres minutos.
+
+### 1. El contenido, desde la app
+
+**Administración → Respaldo → Descargar respaldo.** Baja un archivo
+`NBU_respaldo_AAAA-MM-DD.json` con las correcciones, observaciones,
+verificaciones, propuestas y los textos de la empresa.
+
+Este es el que sirve para **restaurar de verdad**: se vuelve a cargar desde la
+misma pantalla, con una previa que muestra qué va a cambiar antes de aplicarlo.
+
+### 2. Las cuentas y la auditoría, desde Supabase
+
+El respaldo de la app no incluye las cuentas del equipo ni el rastro de
+auditoría, porque no son contenido del manual. Para eso, en **SQL Editor**:
+
+```sql
+select jsonb_build_object(
+  'exportado',      now(),
+  'perfiles',       (select coalesce(jsonb_agg(to_jsonb(t)),'[]'::jsonb) from public.perfiles       t),
+  'correcciones',   (select coalesce(jsonb_agg(to_jsonb(t)),'[]'::jsonb) from public.correcciones   t),
+  'observaciones',  (select coalesce(jsonb_agg(to_jsonb(t)),'[]'::jsonb) from public.observaciones  t),
+  'verificaciones', (select coalesce(jsonb_agg(to_jsonb(t)),'[]'::jsonb) from public.verificaciones t),
+  'propuestas',     (select coalesce(jsonb_agg(to_jsonb(t)),'[]'::jsonb) from public.propuestas     t),
+  'ajustes',        (select coalesce(jsonb_agg(to_jsonb(t)),'[]'::jsonb) from public.ajustes        t),
+  'auditoria',      (select coalesce(jsonb_agg(to_jsonb(t)),'[]'::jsonb) from public.auditoria      t)
+) as respaldo;
+```
+
+**Download CSV** en el resultado. Renombralo con la fecha:
+`base_AAAA-MM-DD.json`.
+
+Sé honesto con lo que es: **esto no se restaura con un botón.** Es la red de
+seguridad para reconstruir a mano si hiciera falta —quién era administrador, qué
+decía una corrección antes de borrarse—. El de la app sí se restaura solo; éste
+es el que salva cuando el otro no alcanza.
+
+### Dónde guardarlos
+
+No en la carpeta de Descargas. En donde ya guardes lo importante de la empresa,
+y que no sea la misma computadora donde trabajás a diario: si se pierde el
+equipo, se pierden las dos cosas juntas.
+
+Guardá los **últimos tres meses**. Un respaldo de hace un año, cuando el
+nomenclador ya cambió dos veces, sirve de poco.
+
+### Cuándo hacerlo además de la fecha fija
+
+- Antes de correr cualquier archivo `.sql` de `docs/`
+- Antes de una carga grande de correcciones
+- Después de una revisión médica larga
+
+---
 
 ## Las llaves maestras
 
