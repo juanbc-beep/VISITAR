@@ -14,9 +14,13 @@ import { servirWeb, saltarOnboarding, esperarArranque, vigilarErrores, afirmar, 
 const PUERTO = 8615;
 const CODIGO = '660102', A_VINCULAR = '660001';
 
+// Ocultar con la misma clase que usa la app (.on), nunca borrar el nodo con
+// .remove() — ver el comentario en casos/relaciones.mjs: la app nunca lo
+// borra, y borrarlo hace que revisarPistas() tire un TypeError más tarde,
+// al cerrar la ficha, que no tiene nada que ver con lo que este caso prueba.
 async function sinOverlays(page) {
   await page.evaluate(() => {
-    const p = document.getElementById('pista'); if (p) p.remove();
+    const p = document.getElementById('pista'); if (p) p.classList.remove('on');
     const t = document.getElementById('tratoModal'); if (t) t.classList.remove('on');
   });
 }

@@ -771,10 +771,14 @@ del que declara `editMode`/`CAP`/`guardarIncluye`: de ahí también que la condi
 el atajo se arme con `NBUProfile.canEdit()`/`NBUProfile.editaRelaciones()` y no con las variables
 directamente (no están en ese scope). Probado en `tests/e2e/casos/vincular.mjs`.
 
-*De paso, al armar este caso apareció un bug preexistente, sin relación con este cambio*: abrir
-una ficha, navegar a otra por hash, cerrar la ficha y entrar a **«Árbol de módulos»** tira
-`TypeError: Cannot set properties of null (setting 'innerHTML')` en la consola (reproduce igual
-en `48dc9f1`, antes de este cambio). No bloquea nada visible todavía; queda para revisar aparte.
+*Corrección sobre la nota anterior de esta misma sección*: lo que parecía un bug de la app
+(`TypeError: Cannot set properties of null (setting 'innerHTML')` en consola, al cerrar una ficha
+y entrar a «Árbol de módulos») era un falso positivo del propio test. `sinOverlays()` sacaba de
+encima el cartelito de pistas (`#pista`) con `.remove()` en vez de sólo ocultarlo con `.on` —la
+app nunca lo borra, sólo lo apaga y prende—; al borrarlo, `revisarPistas()` (que se dispara al
+cerrar la ficha) intenta escribirle el `innerHTML` a un nodo que el test acababa de eliminar. No
+es nada que un usuario real dispare. Corregido en `casos/relaciones.mjs` y `casos/vincular.mjs`:
+ocultar con `classList.remove('on')`, igual que ya se hacía con `tratoModal`.
 
 ### 4.5 quater ⚠️ Avisos del linter de Supabase — NO seguir la receta al pie de la letra
 
