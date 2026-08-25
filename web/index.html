@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-y711fykf0iFwuc5DqozCBXSgHNIQ7ZFcvmcszyCJ2sk=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-OV8A17vtCuRrW/sEtha8dg/CDyrcCem4ltw807o18yI=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -5573,8 +5573,24 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         const u=await api('/auth/v1/user',{method:'GET'});
         return (u&&u.factors)||[];
       },
-      enrolarTOTP:()=>api('/auth/v1/factors',{method:'POST',
-        body:JSON.stringify({factor_type:'totp',friendly_name:'Administrador'})}),
+      /* Antes de pedir un factor nuevo, borra los que hayan quedado sin
+         verificar de un intento anterior (se recargó la página a mitad del
+         QR, el QR no llegó a mostrarse, etc.). Sin esto, Supabase rechaza el
+         alta con «A factor with the friendly name "Administrador" for this
+         user already exists» y no hay forma de reintentar sin entrar al
+         panel de Supabase a mano — pasó en producción el 25/8/2026. Sólo se
+         tocan los que NUNCA se verificaron: uno verificado es el 2FA activo
+         de verdad y a ése no se le toca un pelo. */
+      async enrolarTOTP(){
+        const previos=await this.factores();
+        for(const f of previos){
+          if(f.factor_type==='totp'&&f.status!=='verified'){
+            try{await this.desenrolarTOTP(f.id);}catch(e){}
+          }
+        }
+        return api('/auth/v1/factors',{method:'POST',
+          body:JSON.stringify({factor_type:'totp',friendly_name:'Administrador'})});
+      },
       /* Desafío + verificación en un solo llamado: no hay pantalla intermedia
          que necesite el id del desafío, así que no vale la pena separarlos. Si
          el código es el de confirmación del alta, esto además activa el factor;
@@ -7900,15 +7916,33 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       const esAdm=!!(current&&current.role==='admin');
       if(mfaEstado===undefined){
         abox.innerHTML=`${closeBtn}<h3>Verificación en dos pasos</h3><div class="asub">Consultando…</div>`;
+      } else if(mfaEnroll&&!mfaEnroll.id){
+        // No debería pasar (enrolarTOTP() tira si Supabase no contesta un
+        // id), pero si algún día la respuesta viene sin factor de verdad,
+        // mejor decirlo que dejar tipear un código contra nada.
+        abox.innerHTML=`${closeBtn}<h3>Verificación en dos pasos</h3>
+          <div class="asub" style="color:var(--exc)">La nube no devolvió un factor nuevo. Probá de nuevo en un momento.</div>
+          <div class="cta-menu"><button class="minibtn" id="cVolver">← Volver</button></div>`;
+        el('cVolver').addEventListener('click',()=>{mfaEnroll=null;volver();});
       } else if(mfaEnroll){
         abox.innerHTML=`${closeBtn}<h3>Verificación en dos pasos</h3>
           <div class="asub">Escaneá este código con una app de autenticación (Google Authenticator, Authy, o la que uses) y escribí abajo el código de 6 dígitos que te muestra, para confirmar que quedó bien cargado.</div>
-          ${mfaEnroll.qr_code?`<img src="${E(mfaEnroll.qr_code)}" alt="Código QR para la app de autenticación" style="display:block;margin:12px auto;max-width:200px;background:#fff;border-radius:8px;padding:8px">`:''}
-          <label>¿No podés escanear? Cargalo a mano</label>
-          <div class="mono" style="user-select:all;padding:8px;background:var(--surface-2);border-radius:8px;word-break:break-all;font-size:12px">${E(mfaEnroll.secret||'')}</div>
+          <div id="cMfaQrBox">${mfaEnroll.qr_code?`<img id="cMfaQr" src="${E(mfaEnroll.qr_code)}" alt="Código QR para la app de autenticación" style="display:block;margin:12px auto;max-width:200px;background:#fff;border-radius:8px;padding:8px">`:''}</div>
+          <label>${mfaEnroll.qr_code?'¿No podés escanear? Cargalo a mano':'No se pudo generar el código QR esta vez — cargá este código a mano'}</label>
+          <div class="mono" style="user-select:all;padding:8px;background:var(--surface-2);border-radius:8px;word-break:break-all;font-size:12px">${E(mfaEnroll.secret||'—')}</div>
           ${field('cMfaCode','Código de la app (6 dígitos)','text',{ac:'one-time-code',im:'numeric'})}
           <div class="cta-menu"><button class="minibtn" id="cMfaConfirm">Confirmar</button>
           <button class="minibtn" id="cVolver">Cancelar</button></div>`;
+        // El <img> con un src roto no siempre avisa por consola de forma
+        // clara, y sin esto la persona se queda mirando un ícono partido sin
+        // saber que el código manual de abajo sigue sirviendo igual. Por CSP
+        // no puede ser un atributo onerror="…" (script inline): se engancha
+        // acá, como el resto de los listeners de la app.
+        const qrImg=el('cMfaQr');
+        if(qrImg)qrImg.addEventListener('error',()=>{
+          el('cMfaQrBox').innerHTML='';
+          toast('No se pudo mostrar el código QR: usá el código manual de abajo.',true);
+        });
         el('cMfaConfirm').addEventListener('click',async()=>{
           const code=gv('cMfaCode');
           if(!/^\d{6}$/.test(code))return toast('Ingresá los 6 dígitos.',true);
@@ -7949,7 +7983,17 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
           const b=el('cMfaStart');b.disabled=true;b.textContent='Generando…';
           try{
             const r=await NUBE.enrolarTOTP();
-            mfaEnroll={id:r.id,qr_code:r.totp&&r.totp.qr_code,secret:r.totp&&r.totp.secret};
+            const totp=(r&&r.totp)||{};
+            mfaEnroll={id:r&&r.id,qr_code:totp.qr_code||null,secret:totp.secret||null};
+            // Si la nube contesta sin QR ni secreto, la pantalla no tiene con
+            // qué armar el alta — se avisa acá en vez de dejar entrar a un
+            // formulario vacío que confirma un código contra nada.
+            if(mfaEnroll.id&&!mfaEnroll.qr_code&&!mfaEnroll.secret){
+              console.warn('NUBE.enrolarTOTP() sin qr_code ni secret:',r);
+              toast('No se pudo empezar: la nube no mandó el código.',true);
+              NUBE.desenrolarTOTP(mfaEnroll.id).catch(()=>{});
+              mfaEnroll=null; b.disabled=false; b.textContent='Activar verificación en dos pasos'; return;
+            }
             renderCuenta();
           }catch(e){ toast('No se pudo empezar: '+e.message,true); b.disabled=false; b.textContent='Activar verificación en dos pasos'; }
         });

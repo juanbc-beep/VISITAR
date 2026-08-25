@@ -17,7 +17,7 @@
 // dos caminos sin implementar la aritmética real.
 
 import { chromium } from 'playwright';
-import { crearDB, altaUsuario, activarMFA, instalarSimulador } from '../simulador.mjs';
+import { crearDB, altaUsuario, activarMFA, dejarFactorPendiente, instalarSimulador } from '../simulador.mjs';
 import { servirWeb, saltarOnboarding, esperarArranque, vigilarErrores, afirmar, correrCaso, nuevoContexto } from '../arranque.mjs';
 
 const PUERTO = 8617;
@@ -190,6 +190,46 @@ async function main() {
     afirmar(await pageB.isHidden('#acctChip'), 'un dispositivo distinto no tendría que heredar la confianza de otro');
     afirmar(csp.length === 0, 'no debería haber violaciones de CSP: ' + csp.join(' | '));
     await ctxB.close();
+  });
+
+  await correrCaso('mfa: un alta anterior sin terminar no bloquea el siguiente intento', async () => {
+    // Bug real de producción del 25/8/2026: el QR no se mostró, y al volver
+    // a tocar "Activar" la nube contestaba "A factor with the friendly name
+    // \"Administrador\" for this user already exists" — quedó un factor sin
+    // verificar de la vez anterior y no había forma de reintentar sin entrar
+    // al panel de Supabase a mano. dejarFactorPendiente() siembra ese mismo
+    // factor huérfano; NUBE.enrolarTOTP() tiene que limpiarlo solo.
+    const db = crearDB();
+    const uid = altaUsuario(db, { nombre: 'Admin General', email: 'admin@visitar.test', password: 'Password123!', rol: 'admin', estado: 'activo' });
+    dejarFactorPendiente(db, uid);
+    const ctx = await nuevoContexto(browser);
+    await instalarSimulador(ctx, db);
+    const page = await ctx.newPage();
+    await saltarOnboarding(page);
+    const { csp } = vigilarErrores(page);
+    await page.goto(base);
+    await esperarArranque(page);
+    await loguear(page);
+    await page.waitForSelector('#acctChip:not([hidden])', { timeout: 5000 });
+
+    await page.click('#acctChip');
+    await page.waitForSelector('[data-cm="mfa"]', { timeout: 5000 });
+    await page.click('[data-cm="mfa"]');
+    await page.waitForSelector('#cMfaStart', { timeout: 5000 });
+    await page.click('#cMfaStart');
+    // Antes del arreglo, acá aparecía el toast de error y la pantalla volvía
+    // al botón "Activar"; ahora tiene que llegar directo al formulario del
+    // código, con el secreto manual ya cargado.
+    await page.waitForSelector('#cMfaCode', { timeout: 5000 });
+    const secreto = await page.textContent('#adminBox .mono');
+    afirmar(!!secreto && secreto.trim() !== '—', 'debería llegar al formulario del código con el secreto cargado, no quedarse en el botón de activar');
+
+    await page.fill('#cMfaCode', CODIGO_OK);
+    await page.click('#cMfaConfirm');
+    await page.waitForSelector('#cMfaOff', { timeout: 5000 });
+
+    afirmar(csp.length === 0, 'no debería haber violaciones de CSP: ' + csp.join(' | '));
+    await ctx.close();
   });
 
   await correrCaso('mfa: sólo se le pide al administrador general, no a otros roles', async () => {
