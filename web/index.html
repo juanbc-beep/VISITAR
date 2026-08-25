@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-qh4VcqG3QTg8WXPZz/OmL5PJJcegfKa3ZhjikhSKBOA=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-PrT4qeymOKZXtcUke+QyboI/p4yUYN9jYi0ET/dZH7o=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -5604,14 +5604,42 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       if(!ses)return false;
       if(Date.now()<ses.expira)return true;
       try{await token({refresh_token:ses.refresh_token},'refresh_token');return true;}
-      catch(e){guardarSes(null);perfil=null;return false;}
+      catch(e){
+        guardarSes(null);perfil=null;
+        // El refresh token puede morir solo (vencimiento propio de Supabase,
+        // o rotación por haber entrado desde otro lado) sin que la app haga
+        // nada raro. Sin este aviso, cerrarSesionMuerta() abajo, cada llamado
+        // que dependía de la sesión (pendientes(), factores(), etc.) seguía
+        // reintentando con la clave pública (anon) en vez de avisar — y como
+        // esas funciones tienen el permiso sacado a propósito para anon, cada
+        // intento quedaba en la base como «permission denied», en silencio,
+        // cada vez que corriera el sondeo (p.ej. refrescarCuentasNube() cada
+        // 60s). Detectado el 26/8/2026 mirando los logs de Postgres.
+        cerrarSesionMuerta('Tu sesión venció. Iniciá sesión de nuevo.');
+        return false;
+      }
     }
-    /* Reintenta una vez si el token venció justo en el medio del llamado. */
+    /* Reintenta una vez si el token venció justo en el medio del llamado.
+       Si la sesión ya está muerta (vigente()===false: no había, o el refresh
+       falló) no tiene sentido seguir — hdrAuth() manda la clave pública como
+       si fuera el usuario, y la base lo rechaza igual pero como error confuso
+       en vez de simplemente no llamar. */
     async function api(ruta,opt){
-      await vigente();
+      if(!(await vigente()))throw new Error('Sesión no vigente.');
       const hacer=()=>fetch(URL_+ruta,Object.assign({},opt,{headers:Object.assign(hdrAuth(),(opt&&opt.headers)||{})}));
       let r=await hacer();
-      if(r.status===401&&ses){try{await token({refresh_token:ses.refresh_token},'refresh_token');r=await hacer();}catch(e){}}
+      // El otro momento en que puede morir: el access token vale por lo que
+      // dice `expira` (vigente() recién lo chequeó y decía que faltaba), pero
+      // el servidor lo invalida antes igual (se cerró la sesión desde otro
+      // lado, por ejemplo). Si el reintento con el refresh también falla, es
+      // el mismo cuadro que en vigente(): no tiene sentido devolver el 401
+      // original como si fuera un error cualquiera de la llamada — hay que
+      // avisar y volver al login, no dejar que cada pantalla que lo atrapa
+      // (casi todas con un `catch` genérico) lo muestre como un error suelto.
+      if(r.status===401&&ses){
+        try{await token({refresh_token:ses.refresh_token},'refresh_token');r=await hacer();}
+        catch(e){guardarSes(null);perfil=null;cerrarSesionMuerta('Tu sesión venció. Iniciá sesión de nuevo.');}
+      }
       return leer(r);
     }
 
@@ -5901,7 +5929,17 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
      después. NUBE.salir() revoca el token en el servidor y limpia lo
      guardado; no hace falta esperarla, nunca tira error (atrapa el fetch
      adentro). */
-  function resetIdle(){if(!current)return;clearTimeout(idleT);idleT=setTimeout(()=>{if(current){current=null;editMode=false;document.body.classList.remove('editmode-on');vigilarCuentas(false);toast('Sesión cerrada por inactividad');if(NUBE.activa)NUBE.salir();renderGate(NUBE.activa?'nubeLogin':'profiles');gate.hidden=false;}},IDLE_MS);}
+  /* Compartida con NUBE.vigente(): ahí también hay que volver al gate cuando
+     el refresh token muere solo, no sólo cuando se cierra por inactividad —
+     ver el comentario en vigente() (web/index.html) del 26/8/2026. */
+  function cerrarSesionMuerta(msg){
+    if(!current)return;
+    current=null;editMode=false;document.body.classList.remove('editmode-on');
+    vigilarCuentas(false);toast(msg);
+    if(NUBE.activa)NUBE.salir();
+    renderGate(NUBE.activa?'nubeLogin':'profiles');gate.hidden=false;
+  }
+  function resetIdle(){if(!current)return;clearTimeout(idleT);idleT=setTimeout(()=>cerrarSesionMuerta('Sesión cerrada por inactividad'),IDLE_MS);}
   ['mousemove','keydown','click','touchstart'].forEach(ev=>document.addEventListener(ev,()=>{if(current)resetIdle();},{passive:true}));
 
   /* El logo no es un dato de confianza: viaja en la fila de ajustes de la base y
