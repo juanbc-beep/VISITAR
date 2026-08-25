@@ -2376,7 +2376,8 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
 ### Propuesto y NO construido (por orden de utilidad para el usuario de carga)
 - ✅ **Editar una propuesta antes de publicarla — construido el 26/8/2026.** Ver el bloque
   de esta misma fecha, después de «Sesión muerta del lado del servidor».
-- **Historial por ficha**: quién la corrigió, cuándo y qué decía antes.
+- ✅ **Historial por ficha — construido el 26/8/2026.** Ver el bloque de esta misma fecha,
+  después de «Editar una propuesta antes de publicarla».
 - **Registro de actividad compartido** (hoy es de cada computadora).
 - ✅ **Intérprete de orden médica — construido el 25/8/2026, como sector aparte.** Nueva
   pestaña **«Intérprete de orden»** junto a Listado / Árbol de módulos / Mesa de trabajo
@@ -2573,6 +2574,38 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
   - Probado en `tests/e2e/casos/editar_propuesta.mjs`: las dos formas de guardar el cambio
     (Guardar aparte, o editar+Aprobar directo) dejan la ficha **y** la fila de la nube con el
     texto corregido, y el botón «Guardar cambios» habilita/deshabilita según corresponda.
+- ✅ **Historial por ficha — construido el 26/8/2026.** Se pedía «quién la corrigió, cuándo
+  y qué decía antes», y no hizo falta ninguna tabla ni migración nueva: **`public.auditoria`
+  ya existe** (`docs/supabase.sql`, sección «7 bis») y ya registraba esto solo desde antes de
+  esta sesión — un trigger `SECURITY DEFINER` (`auditar()`) guarda automáticamente la fila
+  completa de `correcciones` de antes y de después de cada guardado, en cualquiera de los
+  ~12 lugares del código que llaman a `guardarCorreccion()`. Sólo faltaba la pantalla: nadie
+  la había construido todavía.
+  - **`NUBE.historialFicha(codigo)`** (nuevo): `select` a `auditoria` filtrado por
+    `tabla=correcciones` y `clave=<código>`, orden del más nuevo al más viejo. Misma RLS de
+    siempre (`es_admin()`) — **no se tocó ninguna policy**, sólo se sumó el método de
+    lectura del lado del cliente.
+  - Botón **«🕘 Ver historial»**, al lado de «✎ Editar ficha» (mismo criterio de
+    visibilidad: administrador general, modo edición activado, y con la nube encendida —
+    en modo local no hay `auditoria` que consultar). Se pide **al abrirlo**, no en cada
+    render de la ficha: un viaje a la nube de más por cada código que se mira sería
+    desperdiciado la mayoría de las veces.
+  - **`diffCorreccion()`** compara el `antes`/`despues` completos (columna `datos`, la
+    copia exacta que manda — no las columnas sueltas, que no existen para
+    `pedida_como`/`incluye`/etc.) campo por campo, sin asumir cuáles van a estar presentes:
+    cualquiera de los ~12 sitios que guardan una corrección puede mandar un subconjunto
+    distinto de campos (una edición completa de ficha, sólo relaciones, sólo aprobar una
+    propuesta…). Para la primera corrección de un código (`operacion='alta'`, la fila de
+    `correcciones` no existía) no hay «antes» que mostrar — la ficha, antes de la primera
+    corrección, se arma con los datos del pipeline (`data/nbu_db.json`), que `auditoria` no
+    conoce; el historial sólo cubre correcciones hechas **desde la app**, no el contenido
+    original.
+  - Probado en `tests/e2e/casos/historial_ficha.mjs`: sin correcciones todavía dice que no
+    hay nada; la primera corrección aparece como alta, sin «antes»; una segunda corrección
+    sobre la misma ficha sí muestra el valor anterior real, y las dos quedan ordenadas de la
+    más nueva a la más vieja. El simulador (`tests/e2e/simulador.mjs`) emula el trigger a
+    mano —no reproduce Postgres real, eso es lo que prueba `tests/rls/`— sólo para poder
+    ejercitar la pantalla; como no se tocó ninguna RLS, `tests/rls/` no necesitó cambios.
 - **Vista mostrador simplificada**: sólo lo que hay que responderle al afiliado.
 - ~~**Navegación «volver» dentro de la ficha**~~ **ya está construida** (revisado el
   25/8/2026, no hace falta tocarla): `navPila` en `web/index.html` apila el código anterior

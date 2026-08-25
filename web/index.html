@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-0rZ7HEkkrCEIgZygi+LW9xt12Ku2q6b8A5Ll+LDi+mw=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-1ba6yqeGOUt7eYx4WGIL37V3/eVcuqPR78T1Wsbupqw=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -4427,7 +4427,8 @@ function openCode(code,origen){
         <button class="minibtn" id="dCmp">⇄ Comparar</button>`:''}
         <button class="minibtn" id="dImp">🖨 Imprimir ficha</button>
       </div>
-      ${(window.NBUProfile&&NBUProfile.canEdit())?`<div class="dedit"><button class="minibtn" id="editFichaBtn">✎ ${NBUProfile.editaFicha()?'Editar ficha':'Editar relaciones entre códigos'}</button></div>`:''}
+      ${(window.NBUProfile&&NBUProfile.canEdit())?`<div class="dedit"><button class="minibtn" id="editFichaBtn">✎ ${NBUProfile.editaFicha()?'Editar ficha':'Editar relaciones entre códigos'}</button>${(window.NBUProfile.esDuenio&&NBUProfile.esDuenio()&&window.NBUNube&&NBUNube.activa)?`<button class="minibtn" id="histFichaBtn">🕘 Ver historial</button>`:''}</div>`:''}
+      <div id="dHistorial" hidden></div>
       ${revMedHTML(code)}
       ${esAdministrativo?'':coberturaHTML(c,true)}
       ${obsFichaHTML(code)}
@@ -4892,6 +4893,33 @@ function openCode(code,origen){
     if(state.view==='list')render(); openCode(code);
   });
   const ef=el('editFichaBtn');if(ef)ef.addEventListener('click',()=>window.NBUProfile&&NBUProfile.editFicha(code));
+  /* Quién corrigió esta ficha, cuándo, y qué decía antes de cada cambio.
+     Se pide sólo al abrirlo (no en cada render de la ficha): es sólo del
+     administrador general, y sería un viaje a la nube de más en cada
+     código que mira, para un dato que la mayoría de las veces no consulta. */
+  const hb=el('histFichaBtn');
+  if(hb)hb.addEventListener('click',async()=>{
+    const cont=el('dHistorial'); if(!cont)return;
+    if(!cont.hidden){cont.hidden=true;return;}
+    cont.hidden=false;
+    if(cont.dataset.cargado==='1')return;
+    cont.innerHTML='<div class="ahint">Cargando…</div>';
+    try{
+      const filas=await window.NBUNube.historialFicha(code);
+      cont.dataset.cargado='1';
+      if(!filas.length){cont.innerHTML='<div class="ahint">Sin cambios registrados todavía.</div>';return;}
+      cont.innerHTML=`<div class="ahint" style="margin:8px 0">Historial de cambios — sólo lo ve el administrador general.</div>`+
+        filas.map(f=>{
+          const cambios=diffCorreccion(f.antes,f.despues);
+          return `<div class="freq-note" style="margin-bottom:8px">
+            <div class="pmeta"><b>${esc(f.quien_nombre||'—')}</b> · ${new Date(f.cuando).toLocaleString('es-AR')}${f.operacion==='alta'?' · primera vez que se corrige':''}</div>
+            ${cambios.length?`<ul style="margin:6px 0 0;padding-left:18px">${cambios.map(c=>
+              `<li><b>${esc(c.label)}</b>: ${f.operacion==='alta'?'':`${esc(c.antes)} → `}${esc(c.despues)}</li>`).join('')}</ul>`
+              :'<div style="font-size:13px;color:var(--muted);margin-top:4px">Sin cambios de contenido detectados.</div>'}
+          </div>`;
+        }).join('');
+    }catch(e){cont.innerHTML=`<div class="ahint">No se pudo traer el historial: ${esc(e.message)}</div>`;}
+  });
   /* Vincular código, adentro de «Cómo se carga»: mismo guardado que el editor
      completo (guardarIncluye/espejarRelacion), pero en el acto y sin abrir
      ningún modal. Repinta la ficha entera al terminar, mismo patrón que el
@@ -5119,6 +5147,28 @@ function addToValidator(code){
   ta.scrollIntoView({behavior:'smooth',block:'center'});
 }
 function linkCodes(s){return s.replace(/\b(66\d{4})\b/g,(m)=>BYCODE[m]?`<span class="mono" data-goto="${m}" style="cursor:pointer;text-decoration:underline;text-decoration-style:dotted">${m}</span>`:m);}
+// Historial de una ficha (Ver historial): «auditoria» guarda la fila entera de
+// «correcciones» antes y después de cada cambio (docs/supabase.sql), en la
+// columna «datos» —la copia exacta que manda, ver guardarCorreccion()—, no en
+// las columnas sueltas (que no existen para pedida_como/incluye/etc.). El
+// diff compara esas dos copias completas, campo por campo, sin asumir cuáles
+// van a estar presentes: cualquiera de los ~12 sitios que llaman a
+// guardarCorreccion() puede mandar un subconjunto distinto de campos.
+const CAMPO_LABEL_HIST={nombre:'Nombre',norma:'Norma',auditoria:'Auditoría / facturación',
+  asoc_extra:'Cómo se carga en VISITAR',pedida_como:'Puede venir solicitada como',
+  incluye:'Vincula (Árbol de módulos)',no_incluye:'No cargar aparte',incluido_en:'Incluido en'};
+function textoDeCampoHist(k,v){
+  if(v==null)return '—';
+  if(k==='norma')return (v.trabajo||v.interpretacion)?[v.trabajo,v.interpretacion].filter(Boolean).join(' / '):'—';
+  if(Array.isArray(v))return v.length?v.join('; '):'—';
+  return String(v)||'—';
+}
+function diffCorreccion(antes,despues){
+  const a=(antes&&antes.datos)||{}, d=(despues&&despues.datos)||{};
+  const claves=[...new Set([...Object.keys(a),...Object.keys(d)])];
+  return claves.filter(k=>JSON.stringify(a[k]!==undefined?a[k]:null)!==JSON.stringify(d[k]!==undefined?d[k]:null))
+    .map(k=>({label:CAMPO_LABEL_HIST[k]||k,antes:textoDeCampoHist(k,a[k]),despues:textoDeCampoHist(k,d[k])}));
+}
 function closeDrawer(){
   navPila=[];el('drawer').classList.remove('on');el('scrim').classList.remove('on');
   if(location.hash)history.replaceState(null,'',location.pathname+location.search);
@@ -5782,6 +5832,14 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
            actualizado:new Date().toISOString()})}),
       borrarCorreccion:(codigo)=>api('/rest/v1/correcciones?codigo=eq.'+encodeURIComponent(codigo),
         {method:'DELETE',headers:{'Prefer':'return=minimal'}}),
+      /* Quién corrigió esta ficha, cuándo, y qué decía antes. No hace falta
+         ninguna tabla nueva: «auditoria» ya existe (docs/supabase.sql) y ya
+         registra esto solo, por un trigger, desde antes de que hubiera
+         ninguna pantalla que lo mostrara — sólo el administrador general
+         puede leerla (misma RLS de siempre, no se tocó nada acá). */
+      historialFicha:(codigo)=>api(
+        '/rest/v1/auditoria?tabla=eq.correcciones&clave=eq.'+encodeURIComponent(codigo)+
+        '&select=operacion,quien_nombre,cuando,antes,despues&order=cuando.desc',{method:'GET'}),
 
       verificaciones:()=>api('/rest/v1/verificaciones?select=*',{method:'GET'}),
       // Por función: el estado, el autor y las fechas los pone la base.
