@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-6Zc34EPvdvvR+MGB86a9Uj3rvlPCMD9TSwkU0HKoDmc=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-qh4VcqG3QTg8WXPZz/OmL5PJJcegfKa3ZhjikhSKBOA=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1340,6 +1340,11 @@ ul{margin:0;padding:0}
 .int-cand .int-nm{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .int-cand .int-pct{font-size:11px;color:var(--faint);flex-shrink:0;font-variant-numeric:tabular-nums}
 .int-cand.top .int-pct{color:var(--inc);font-weight:700}
+.int-cands-mas{margin-top:6px}
+.int-more{display:block;width:100%;margin-top:8px;padding:7px;border:1px dashed var(--line-2);
+  border-radius:9px;background:transparent;color:var(--accent-ink);font:inherit;font-size:12.5px;
+  font-weight:600;cursor:pointer;transition:.13s}
+.int-more:hover{border-color:var(--accent);background:var(--accent-soft)}
 .int-sin{font-size:13px;color:var(--faint);font-style:italic}
 .int-resumen{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px}
 .int-resumen h4{margin:0 0 10px;font-size:14px}
@@ -3596,6 +3601,14 @@ function initInterprete(){
   el('intGo').addEventListener('click',correrInterprete);
   el('intTexto').addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter')correrInterprete();});
   el('intItems').addEventListener('click',e=>{
+    const t=e.target.closest('[data-int-toggle]');
+    if(t){
+      const mas=t.previousElementSibling;
+      const abrir=mas.hidden;
+      mas.hidden=!abrir;
+      t.textContent=abrir?'Mostrar menos':`Ver ${mas.children.length} más`;
+      return;
+    }
     const b=e.target.closest('[data-int-code]'); if(!b)return;
     const k=b.dataset.intCode;
     const yaElegido=intElegidos.has(k);
@@ -3636,7 +3649,16 @@ function candidatosParaItem(item){
       if(cands.length)usados=reducidos;
     }
   }
-  return {terms:usados,cands:cands.slice(0,5)};
+  // Antes se cortaba en 5 sin condición: para un renglón real de una orden
+  // (una práctica puntual) alcanza y sobra, pero una sigla amplia como "TAC"
+  // o "RMN" tiene decenas de variantes reales (por región, con/sin
+  // contraste, en los tres nomencladores) y 5 tapaba casi todas — el
+  // administrativo no podía elegir la que correspondía sin salir del
+  // Intérprete a buscarla aparte. Ahora se devuelven hasta 30 (visible de a
+  // 5, con «ver más» — ver correrInterprete()); 30 es techo de seguridad
+  // contra un término tan corto que puntúe casi toda la base, no un límite
+  // pensado para pegarse.
+  return {terms:usados,cands:cands.slice(0,30)};
 }
 function correrInterprete(){
   const texto=(el('intTexto').value||'').trim();
@@ -3644,15 +3666,19 @@ function correrInterprete(){
   const items=partirOrden(texto);
   intElegidos.clear();
   if(!items.length){el('intItems').innerHTML='';renderIntResumen();return;}
-  el('intItems').innerHTML=items.map(item=>{
-    const {terms,cands}=candidatosParaItem(item);
-    return `<div class="int-item">
-      <div class="int-src">${esc(item)}</div>
-      ${cands.length?`<div class="int-cands">${cands.map((c,i)=>`
+  const candBtn=(c,i,terms,item)=>`
         <button type="button" class="int-cand${i===0?' top':''}" data-int-code="${esc(c._key)}" data-int-rank="${i}" data-int-item="${esc(item)}">
           <span class="mono">${esc(c.code)}</span><span class="int-nm">${esc(c.nombre)}</span>
           <span class="int-pct">${pctInterprete(c._score,terms.length)}%</span>
-        </button>`).join('')}</div>`
+        </button>`;
+  el('intItems').innerHTML=items.map(item=>{
+    const {terms,cands}=candidatosParaItem(item);
+    const primero=cands.slice(0,5), resto=cands.slice(5);
+    return `<div class="int-item">
+      <div class="int-src">${esc(item)}</div>
+      ${cands.length?`<div class="int-cands">${primero.map((c,i)=>candBtn(c,i,terms,item)).join('')}</div>
+        ${resto.length?`<div class="int-cands int-cands-mas" hidden>${resto.map((c,i)=>candBtn(c,i+5,terms,item)).join('')}</div>
+        <button type="button" class="int-more" data-int-toggle>Ver ${resto.length} más</button>`:''}`
         :`<div class="int-sin">Sin coincidencias claras en la base — revisar a mano.</div>`}
     </div>`;
   }).join('');

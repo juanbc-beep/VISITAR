@@ -2503,6 +2503,17 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
        adentro), con o sin la entrada nueva. Se sumó de todos modos porque no hace daño
        (nunca se usa cuando el literal ya encontró algo), pero no hay que esperar que
        resuelva búsquedas que hoy fallan.
+  5. ⚠️ **El tope de 5 candidatos por renglón, avisado por el usuario el 25/8/2026 al
+     probar «TAC» y «RMN» sueltos.** `candidatosParaItem()` cortaba en 5 sin condición: para
+     un renglón real de una orden (una práctica puntual) alcanza, pero una sigla amplia
+     tiene decenas de variantes reales — "tac" son **36** registros (por región, con/sin
+     contraste, en los tres nomencladores) y "rmn" son **25** — y el corte tapaba casi
+     todas sin forma de verlas. Ahora `candidatosParaItem()` devuelve hasta 30 (techo de
+     seguridad, no un límite pensado para pegarse); `correrInterprete()` sigue mostrando
+     sólo 5 de entrada, pero si hay más agrega un botón «Ver N más» que revela el resto sin
+     recargar nada (`.int-cands-mas`, oculto con `hidden` hasta tocarlo). Probado en
+     `tests/e2e/casos/interprete.mjs`: con «tac» aparecen 5 al principio, el botón está, y
+     tocarlo revela más de 5 y pasa a decir «Mostrar menos».
 - **Vista mostrador simplificada**: sólo lo que hay que responderle al afiliado.
 - ~~**Navegación «volver» dentro de la ficha**~~ **ya está construida** (revisado el
   25/8/2026, no hace falta tocarla): `navPila` en `web/index.html` apila el código anterior
