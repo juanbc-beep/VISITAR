@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-OV8A17vtCuRrW/sEtha8dg/CDyrcCem4ltw807o18yI=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-wEOUTIGI/ROV3/ldBFXaJOXO1Vfp16KFi2u12/i2Zt0=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -7851,6 +7851,24 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
      otra pantalla más de las que ese modal sabe mostrar. */
   let cTab='menu', mfaEstado, mfaEnroll=null;
   function abrirCuenta(t){ cTab=t||'menu'; renderCuenta(); amodal.classList.add('on'); tomarFoco(abox); }
+  /* Encontrado el 25/8/2026, después de que el QR no se mostrara en la
+     cuenta real: Supabase no manda un data URI listo para `<img src>` —
+     manda el marcado SVG crudo (`<svg …>…</svg>`), que puesto directo en
+     `src` no es una URL válida y el navegador no puede cargarlo. Se
+     envuelve acá en un data URI. No se inyecta el SVG directo por
+     `innerHTML` —podría traer `<script>`—: como imagen (`<img src="data:…">`)
+     el navegador no ejecuta nada de lo que traiga adentro, a diferencia de
+     meterlo en el HTML de la página. Es la misma razón por la que el logo
+     de la empresa tampoco acepta SVG (ver LOGO_OK, más arriba). Si en algún
+     momento Supabase cambia y manda el data URI ya armado, esto lo deja
+     pasar tal cual. */
+  function qrComoImagen(qr){
+    if(!qr)return null;
+    const t=String(qr).trim();
+    if(/^data:/i.test(t))return t;
+    if(/^(<\?xml|<svg)/i.test(t))return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(t);
+    return t;
+  }
   /* mfaEstado: undefined mientras se consulta a la nube, null si no hay factor
      verificado, o la fila del factor si la verificación en dos pasos está
      activa. Se recarga cada vez que se entra a la pestaña porque puede haber
@@ -7984,7 +8002,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
           try{
             const r=await NUBE.enrolarTOTP();
             const totp=(r&&r.totp)||{};
-            mfaEnroll={id:r&&r.id,qr_code:totp.qr_code||null,secret:totp.secret||null};
+            mfaEnroll={id:r&&r.id,qr_code:qrComoImagen(totp.qr_code),secret:totp.secret||null};
             // Si la nube contesta sin QR ni secreto, la pantalla no tiene con
             // qué armar el alta — se avisa acá en vez de dejar entrar a un
             // formulario vacío que confirma un código contra nada.
