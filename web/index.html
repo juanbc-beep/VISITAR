@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-cStQ1Wt7q7l6ibxJzCde+TScO+bs1g+xotdjIcIpWCo=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-6Zc34EPvdvvR+MGB86a9Uj3rvlPCMD9TSwkU0HKoDmc=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -2104,6 +2104,37 @@ const SINONIMOS_COMUNES={
   pap:['papanicolau'], bx:['biopsia'], orl:['otorrinolaringologia'],
   tv:['transvaginal'], eab:['acido base'], lcr:['liquido cefalorraquideo'],
   dxa:['densitometria'], emg:['electromiografia'],
+  // Sumadas el 25/8/2026 (segunda tanda) — mismo criterio: cada expansión se
+  // verificó antes contra data/nbu_db.json, armando el mismo _h que arma esta
+  // página (con la propuesta de la equivalencia cruzada incluida) y buscando
+  // la frase con borde de palabra, no adivinada ni copiada de memoria.
+  cvc:['campo visual'], oct:['tomografia de coherencia optica'],
+  fo:['fondo de ojo'], obi:['oftalmoscopia indirecta binocular'],
+  vcc:['colonofibroscopia'], veda:['esofagogastroduodenofibroscopia'],
+  angiormn:['angiorresonancia'], gadolinio:['material de contraste resonancia'],
+  rfg:['retinofluoresceinografia'], arm:['autorrefractometria'],
+  rg:['retinografia'], hiv:['anticuerpos anti hiv'],
+  cd4:['cd4 x citometria de flujo'], cd8:['subpoblacion linfocitaria'],
+  atg:['antibiograma'], cl:['calcemia total'], cea:['cea carcinoembriogenico'],
+  hdl:['colesterol hdl'], ldl:['colesterol ldl'], urea:['uremia'],
+  hbsag:['antigeno de superficie'], dheas:['dehidroepiandrosterona'],
+  ers:['eritrosedimentacion'], e2:['estradiol plasmatico'],
+  p:['fosfatemia'], pcr:['proteina c reactiva'], pth:['parathormona'],
+  hba1c:['hemoglobina glicosilada'], ctx:['beta cross laps'],
+  trabs:['receptor tsh'], scl:['scl 70'], ham:['antimulleriana'],
+};
+// Algunas siglas reales son de dos palabras ("ANTI DNA", "TEST ADOS", "VIT D3"):
+// SINONIMOS_COMUNES no las puede resolver porque busca por término suelto. Estas
+// se buscan como el par de términos consecutivos que escribió quien tipeó, y la
+// forma larga puede traer puntuación real de la base (p.ej. "la, ac. anti") —
+// va tal cual aparece, no una versión "prolija" inventada.
+const SINONIMOS_COMPUESTOS={
+  'anti dna':'antidesoxirribonucleasa', 'acido urico':'uricemia',
+  'contraste tac':'material de contraste tomografia',
+  'test ados':'pruebas psicometricas', 'test adir':'pruebas psicometricas',
+  'citologico completo':'hemograma', 'vit d3':'vitamina d3',
+  'anti la':'la, ac. anti', 'anti ro':'ro, ac. anti',
+  'anti sm':'sm, ac. anti', 'anti rnp':'rnp, ac. anti',
 };
 // Un término coincide "literal" si está en el registro tal cual, o si es una de
 // las siglas de arriba y el registro trae la forma larga.
@@ -2125,7 +2156,27 @@ function puntuar(rec,terms,permitirFuzzy){
     if((rec.code&&norm(rec.code)===t0)||(rec._key&&norm(rec._key)===t0)||(rec.abrev&&norm(rec.abrev)===t0))
       score+=100;
   }
-  for(const t of terms){
+  // Siglas de dos palabras (SINONIMOS_COMPUESTOS): se revisa cada par de términos
+  // consecutivos antes de puntuar término por término. Con \b en las dos puntas
+  // para no "pescar" la frase adentro de otra más larga — sin eso, "anti ro"
+  // encontraba cualquier registro con "...la, Ac. Anti" (p.ej. "pneumophiLA, Ac.
+  // Anti"), porque la frase larga quedaba adentro de otra palabra por casualidad.
+  const cubiertos=new Set();
+  for(let i=0;i<terms.length-1;i++){
+    const exp=SINONIMOS_COMPUESTOS[terms[i]+' '+terms[i+1]];
+    if(exp&&new RegExp('\\b'+escRe(norm(exp))+'\\b').test(rec._h)){
+      // 12 = el máximo que darían los dos términos por separado si cada uno
+      // arrancara el nombre (6+6): la sigla compuesta es más precisa que eso
+      // (confirma la frase entera, no dos coincidencias sueltas), así que no
+      // puede puntuar menos que el mejor caso del camino término por término
+      // — si no, un match exacto de la sigla quedaba tapado por matches
+      // parciales de cualquiera de las dos palabras sueltas.
+      score+=12; cubiertos.add(i); cubiertos.add(i+1);
+    }
+  }
+  for(let ti=0;ti<terms.length;ti++){
+    if(cubiertos.has(ti))continue;
+    const t=terms[ti];
     const hit=coincideLiteral(rec,t);
     if(hit){
       const hn=rec._hn||'';

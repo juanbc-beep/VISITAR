@@ -2443,6 +2443,66 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
      `tests/e2e/casos/sugerencias_pedida_como.mjs` de punta a punta: elegir un candidato
      que no es el primero avisa, el administrador lo ve, lo aprueba, y la ficha queda con
      el texto nuevo en «Puede venir solicitada como».
+  4. **Segunda tanda de jerga (25/8/2026), pedida por el usuario con una lista concreta de
+     ~45 siglas**, con una condición explícita: que cada una quede encontrable **en los tres
+     nomencladores** (Único, NBU, PMO), «lo podés sacar por igualdad de códigos». Eso ya lo
+     hace `_h` solo, por la equivalencia entre nomencladores (ver 4.5 sexies y el bloque de
+     `CODES.forEach` que suma `equivalencia.desc`/`equivalencia_unico[].unico_desc` al índice
+     de cada ficha) — no hizo falta ningún paso nuevo de «registrar en cada nomenclador»,
+     sólo sumar la sigla una vez y confirmar que la equivalencia ya estaba armada, lo que se
+     verificó ficha por ficha antes de tocar código (ver más abajo).
+     - **31 siglas de una palabra** sumadas a `SINONIMOS_COMUNES`: `cvc`, `oct`, `fo`, `obi`,
+       `vcc`, `veda`, `angiormn`, `gadolinio`, `rfg`, `arm`, `rg`, `hiv`, `cd4`, `cd8`, `atg`,
+       `cl`, `cea`, `hdl`, `ldl`, `urea`, `hbsag`, `dheas`, `ers`, `e2`, `p`, `pcr`, `pth`,
+       `hba1c`, `ctx`, `trabs`, `scl`, `ham`.
+     - **Mecanismo nuevo para siglas de dos palabras** (`SINONIMOS_COMPUESTOS`, en
+       `web/index.html`): `SINONIMOS_COMUNES` sólo puede resolver un término suelto, así que
+       "ANTI DNA", "TEST ADOS", "VIT D3" y afines (11 en total) no entraban. `puntuar()` ahora
+       revisa, antes de puntuar término por término, cada par de términos consecutivos de la
+       búsqueda contra este diccionario nuevo; si el registro trae la forma larga, cubre las
+       dos posiciones de una sola vez. Entradas: `anti dna`, `acido urico`, `contraste tac`,
+       `test ados`, `test adir`, `citologico completo`, `vit d3`, `anti la`, `anti ro`,
+       `anti sm`, `anti rnp`.
+     - ⚠️ **Dos bugs reales encontrados armando esto, los dos por el mismo motivo — un
+       "match" que en realidad cae adentro de otra palabra por casualidad**:
+       1. **Verificación con borde de palabra, no sólo `.includes()`.** Antes de tocar
+          código se armó en Python el mismo `_h` que arma la app (con la propuesta cruzada
+          de la equivalencia incluida) y se probó cada frase larga contra los 6.478
+          registros reales. Con `.includes()` liso, `"anti ro"` → `"ro, ac. anti"` traía
+          también 666956/666958/666965 (Legionella Pneumophila, Ac. Anti): la cola de
+          "pneumophi**la**, Ac. Anti" arma el mismo texto por casualidad. Con `"anti ro"` →
+          `"ro, ac. anti"` pasa lo mismo con "centro**ro**..." → en realidad con
+          "cent**ro**mero, Ac. Anti" (CENTROMERO). La condición en `puntuar()` usa
+          `new RegExp('\\b'+escRe(...)+'\\b')`, no `.includes()`, por esto exactamente.
+       2. **El puntaje del match compuesto tiene que ganarle al de dos matches sueltos, o el
+          mecanismo queda invisible en la práctica.** Primera versión sumaba `score+=5` por
+          el par cubierto; en la búsqueda real de "anti ro" en el Intérprete, eso quedaba
+          **por debajo** de registros que ni siquiera son la sigla buscada pero puntúan alto
+          por casualidad término por término (p.ej. "Anticuerpos antitiroglobulina" empieza
+          con "anti" → +6, y contiene "ro" en cualquier lado → +3 más, total 9 > 5): el
+          código correcto (668905, "Ro, Ac. Anti") ni entraba en el top 5 de candidatos.
+          Encontrado recién al probarlo de punta a punta en Playwright, no en la
+          verificación de datos (`tests/e2e/casos/interprete.mjs` tiene ahora un caso para
+          esto). El máximo por término en el camino normal es 6 (nombre arranca con el
+          término); dos términos compuestos cubren dos posiciones, así que el compuesto no
+          puede puntuar menos que el mejor caso posible de esas dos por separado —
+          `score+=12`, no `+=5`.
+     - **Hallazgo de datos, informado sin tocarlo** (no es lugar de esta sesión "corregir"
+       la fuente curada — regla del punto 6): la sigla `CD8` es la abreviatura, no el nombre
+       de un código — el usuario confirmó que resolver al genérico NBU 663538 / Único
+       63663538 («CD, SUBPOBLACION LINFOCITARIA») es lo correcto, no un gap. Lo que sí queda
+       anotado aparte: el NBU 661015 («CD8 - SUB POBLACIÓN LINFOCITARIA», un código distinto
+       del anterior) tiene como equivalente Único a 61661015, que dice
+       **«CD4 x citometria de flujo»** — nombres
+       contradictorios entre las dos puntas de esa equivalencia puntual, no algo que esta
+       sesión haya decidido resolver.
+     - **La sigla `p` (Fosfatemia) es casi un placebo**, y se avisó así al usuario:
+       `coincideLiteral()` prueba primero el término **tal cual lo tipeó** contra `_h`
+       (`rec._h.includes(t)`) antes de mirar el diccionario de sinónimos — y la letra "p"
+       sola ya aparece en el **60%** de los 6.478 registros (cualquier palabra con una "p"
+       adentro), con o sin la entrada nueva. Se sumó de todos modos porque no hace daño
+       (nunca se usa cuando el literal ya encontró algo), pero no hay que esperar que
+       resuelva búsquedas que hoy fallan.
 - **Vista mostrador simplificada**: sólo lo que hay que responderle al afiliado.
 - ~~**Navegación «volver» dentro de la ficha**~~ **ya está construida** (revisado el
   25/8/2026, no hace falta tocarla): `navPila` en `web/index.html` apila el código anterior
