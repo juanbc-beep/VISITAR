@@ -2514,6 +2514,37 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
      recargar nada (`.int-cands-mas`, oculto con `hidden` hasta tocarlo). Probado en
      `tests/e2e/casos/interprete.mjs`: con «tac» aparecen 5 al principio, el botón está, y
      tocarlo revela más de 5 y pasa a decir «Mostrar menos».
+- ✅ **Sesión muerta del lado del servidor — arreglado el 26/8/2026, encontrado por el
+  usuario mirando los logs de Postgres del proyecto (API Gateway/Postgres/Auth de
+  Supabase).** Vio 17 errores de Postgres sobre 21 llamados en una hora; el detalle era
+  `42501 permission denied for function pendientes` justo después de un
+  `POST /auth/v1/token?grant_type=refresh_token` con **400**. Encadenado: el refresh token
+  puede morir solo (venció, o quedó invalidado por un login desde otro lado) sin que la app
+  haga nada raro, y `NUBE.vigente()` ya detectaba eso — pero **`NUBE.api()` ignoraba el
+  resultado** y llamaba igual, con `hdrAuth()` cayendo a la clave pública (`ANON`) como
+  `Authorization` cuando no hay sesión. Como `pendientes()` (y toda función que depende de
+  la sesión) tiene el permiso de ejecución sacado a propósito para `anon` (ver
+  `docs/supabase_permisos_funciones.sql`), cada intento quedaba como «permission denied» en
+  la base — y como el aviso de pendientes se sondea solo cada 60 segundos
+  (`refrescarCuentasNube()`, con `catch(e){}` silencioso), esto se repetía sin que nadie se
+  enterara nunca de que la sesión había muerto. No es un problema de seguridad (los permisos
+  hacían exactamente lo que tenían que hacer); el problema era la falta de aviso.
+  Arreglado en dos puntas, ambas devolviendo al login con «Tu sesión venció. Iniciá sesión
+  de nuevo.» en vez de reintentar en silencio:
+  1. `NUBE.api()` corta antes de llamar si `vigente()` dice que la sesión ya está muerta
+     (no había, o el refresh acaba de fallar) — antes sólo hacía `await vigente();` sin
+     mirar el resultado.
+  2. El reintento cuando el access token muere **entre medio** de un llamado (`api()`,
+     status 401 con sesión) tampoco avisaba si el refresh de ese reintento fallaba — se
+     tragaba el error y dejaba pasar el 401 original como si fuera cualquier otro error de
+     la llamada.
+  Ambas puntas llaman a `cerrarSesionMuerta()`, una función nueva que es el mismo cuerpo que
+  ya tenía `resetIdle()` (cierre por inactividad) sacado aparte — mismo cierre real
+  (`NUBE.salir()`, vuelta al gate), ahora con un único lugar para no repetirlo. Probado en
+  `tests/e2e/casos/sesion_muerta.mjs`: revocando el access token y el refresh token del lado
+  del simulador (mismo cuadro que un refresh vencido de verdad), la app cierra la sesión
+  sola, avisa, borra lo guardado en `localStorage`, y un login nuevo después sigue andando
+  sin nada roto.
 - **Vista mostrador simplificada**: sólo lo que hay que responderle al afiliado.
 - ~~**Navegación «volver» dentro de la ficha**~~ **ya está construida** (revisado el
   25/8/2026, no hace falta tocarla): `navPila` en `web/index.html` apila el código anterior
