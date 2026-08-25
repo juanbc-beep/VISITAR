@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-PrT4qeymOKZXtcUke+QyboI/p4yUYN9jYi0ET/dZH7o=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-0rZ7HEkkrCEIgZygi+LW9xt12Ku2q6b8A5Ll+LDi+mw=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -5811,6 +5811,12 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         {method:'PATCH',headers:{'Prefer':'return=minimal'},
          body:JSON.stringify({estado:estado,resuelta_por:(perfil&&perfil.id)||null,
            resuelta_en:new Date().toISOString()})}),
+      /* Corregir el texto antes de aprobarla — no hace falta rechazarla y
+         pedirle al agente que la vuelva a escribir por un typo. Misma policy
+         de RLS que resolverPropuesta (prop_resolver): no distingue qué
+         columnas cambian, sólo quién puede tocar la fila. */
+      editarPropuesta:(id,texto)=>api('/rest/v1/propuestas?id=eq.'+encodeURIComponent(id),
+        {method:'PATCH',headers:{'Prefer':'return=minimal'},body:JSON.stringify({texto:texto})}),
 
       /* Sugerencias de "pedida como" que deja el Intérprete de orden al
          elegir un candidato que no era el primero. Mismo patrón que
@@ -7100,12 +7106,39 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
           return `<div class="arow" style="align-items:flex-start">
             <div class="grow2">
               <div class="pnm"><span class="mono" style="color:var(--accent-ink)">${E(c?c.code:pr.code)}</span> ${E(c?c.nombre.slice(0,54):'')}</div>
-              <div style="font-size:13px;color:var(--ink-2);margin:5px 0;white-space:pre-wrap">${E(pr.texto)}</div>
+              <textarea class="prop-edittxt" style="width:100%;min-height:54px;resize:vertical;margin:5px 0;padding:6px 8px;font:inherit;font-size:13px;color:var(--ink-2);border:1px solid var(--line-2);border-radius:var(--radius-sm)">${E(pr.texto)}</textarea>
               <div class="pmeta">${E(pr.por||'—')} · ${new Date(pr.t).toLocaleDateString('es-AR')}</div>
             </div>
+            <button class="minibtn" data-psave="${pr.idx}" data-c="${E(pr.code)}" data-id="${E(pr.id||'')}" disabled>Guardar cambios</button>
             <button class="minibtn" data-pact="ok" data-c="${E(pr.code)}" data-i="${pr.idx}" data-id="${E(pr.id||'')}">Aprobar</button>
             <button class="minibtn danger" data-pact="no" data-c="${E(pr.code)}" data-i="${pr.idx}" data-id="${E(pr.id||'')}">Descartar</button>
           </div>`;}).join(''):'<div class="ahint">No hay propuestas pendientes.</div>');
+      /* Habilita «Guardar cambios» sólo cuando el texto realmente cambió — si
+         no, cualquier click ahí sería un PATCH inútil (y en la nube, un viaje
+         de red de más por cada propuesta que se abre nomás para leerla).
+         Ubicado por cercanía en el DOM (closest('.arow')), no por índice: dos
+         propuestas de códigos distintos pueden compartir el mismo `idx`
+         (es la posición dentro de la lista de CADA código, no global), así
+         que buscar el textarea por ese número solo —sin importar de qué fila
+         venía el click— podía traer el de otra propuesta. */
+      p.querySelectorAll('.prop-edittxt').forEach(ta=>{
+        const original=ta.value;
+        ta.addEventListener('input',()=>{
+          const btn=ta.closest('.arow').querySelector('[data-psave]');
+          if(btn)btn.disabled=(ta.value===original);
+        });
+      });
+      p.querySelectorAll('[data-psave]').forEach(b=>b.addEventListener('click',()=>{
+        const code=b.dataset.c, i=+b.dataset.psave, id=b.dataset.id||'';
+        const lista=(CONTENT.propuestas||{})[code]||[];
+        const pr=lista[i]; if(!pr)return;
+        const ta=b.closest('.arow').querySelector('.prop-edittxt');
+        const nuevo=(ta&&ta.value||'').trim();
+        if(!nuevo)return toast('La propuesta no puede quedar vacía',true);
+        pr.texto=nuevo; persistContent(); logEdit('editó una propuesta',code);
+        if(nubeContenido&&id)enNube(NUBE.editarPropuesta(id,nuevo),'guardar la corrección');
+        b.disabled=true; toast('Cambios guardados');
+      }));
       p.querySelectorAll('[data-vact]').forEach(b=>b.addEventListener('click',()=>{
         const code=b.dataset.c;
         if(b.dataset.vact==='ok')window.NBUProfile.validarVerif(code);
@@ -7118,6 +7151,13 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         const lista=(CONTENT.propuestas||{})[code]||[];
         const pr=lista[i]; if(!pr)return;
         const aprueba=b.dataset.pact==='ok';
+        // Si quedó una edición sin guardar en el textarea, aprobar la publica
+        // tal cual quedó escrita — no hace falta un «Guardar» aparte antes de
+        // «Aprobar» para que valga lo último que se tipeó. sinGuardar además
+        // deja la fila de la nube (no sólo lo publicado) con el mismo texto.
+        const ta=b.closest('.arow').querySelector('.prop-edittxt');
+        const sinGuardar=!!(aprueba&&ta&&ta.value.trim()&&ta.value.trim()!==pr.texto);
+        if(sinGuardar)pr.texto=ta.value.trim();
         let ov=null;
         if(aprueba){
           ov=Object.assign({},CONTENT.codes[code]||{},{asoc_extra:pr.texto});
@@ -7130,7 +7170,8 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
            como la decisión. */
         if(nubeContenido&&id){
           const guardar=aprueba
-            ? NUBE.resolverPropuesta(id,'aprobada').then(()=>NUBE.guardarCorreccion(code,ov))
+            ? (sinGuardar?NUBE.editarPropuesta(id,pr.texto):Promise.resolve())
+                .then(()=>NUBE.resolverPropuesta(id,'aprobada')).then(()=>NUBE.guardarCorreccion(code,ov))
             : NUBE.resolverPropuesta(id,'rechazada');
           enNube(guardar,aprueba?'publicar la propuesta':'descartar la propuesta');
         }
