@@ -2611,6 +2611,38 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
     más nueva a la más vieja. El simulador (`tests/e2e/simulador.mjs`) emula el trigger a
     mano —no reproduce Postgres real, eso es lo que prueba `tests/rls/`— sólo para poder
     ejercitar la pantalla; como no se tocó ninguna RLS, `tests/rls/` no necesitó cambios.
+- ✅ **Un corte de señal momentáneo no pierde lo que se estaba guardando — construido el
+  26/8/2026, pedido por el usuario («PWA / offline total»).** Alcance acotado a propósito,
+  charlado con el usuario: esto NO es una cola de cambios que persiste mientras no hay
+  internet por un rato largo (eso necesita mucho más cuidado — dos ediciones del mismo
+  código en cola pueden pisarse, y algunas acciones dependen de una que todavía no se
+  mandó); es sólo que el wifi de la oficina se corte **un momento** —unos segundos, un
+  minuto— y la app no tire un error ni obligue a repetir la acción a mano.
+  - **`hacerConReintento()`** (nuevo, dentro de `NUBE`): envuelve el `fetch` de `api()` y de
+    `token()` (el refresh de sesión). Si sale un corte de red de verdad —un `fetch` que ni
+    siquiera llega a haber respuesta llega como `TypeError` («Failed to fetch» /
+    «NetworkError», mismo patrón que ya usaba `traducir()`, no inventado— reintenta con
+    espera creciente (2s, 5s, 10s; ~17s en total) antes de rendirse. Un error real del
+    servidor (contraseña mal, 403, un 400 genuino) **no** entra acá: tiene respuesta, y
+    reintentar no lo iba a arreglar — demorar ese aviso sería peor que mostrarlo de una.
+  - Primer corte: avisa una vez, sin alarmar («Sin conexión — reintentando…»), y si el
+    reintento llega a andar, la acción original sigue su camino normal — el mismo «Ficha
+    actualizada», el mismo cierre de modal, sin que la pantalla que llamó a `enNube()`
+    tuviera que enterarse de nada raro. No hizo falta tocar ninguno de los ~21 lugares que
+    usan `enNube()`: al estar en `api()`, que es el único punto por el que pasa cualquier
+    llamado a la nube, cubre todos de una.
+  - ⚠️ **De paso, corrigió un efecto secundario real del arreglo de «sesión muerta» del
+    mismo día**: antes de esto, `vigente()` trataba CUALQUIER falla al refrescar el token
+    como sesión muerta — incluido un corte de red pasajero durante ese refresh, que
+    hubiera forzado un logout real por algo que se arreglaba solo en el próximo intento.
+    Ahora `vigente()` (y el reintento de `api()` tras un 401) distinguen: sólo un rechazo
+    de verdad del servidor cuenta como sesión muerta; un corte de red, no.
+  - Probado en `tests/e2e/casos/reintento_red.mjs`: se aborta la primera llamada a
+    `/rest/v1/correcciones` con `route.abort('failed')` (mismo `TypeError` que un corte
+    real) y se deja pasar el resto al simulador de siempre — la app avisa, reintenta sola a
+    los ~2s, y el cambio llega igual a la «nube» (comprobado del lado del simulador, no sólo
+    mirando la pantalla, que ya se había actualizado local antes de que la nube confirmara
+    nada).
 - **Vista mostrador simplificada**: sólo lo que hay que responderle al afiliado.
 - ~~**Navegación «volver» dentro de la ficha**~~ **ya está construida** (revisado el
   25/8/2026, no hace falta tocarla): `navPila` en `web/index.html` apila el código anterior
@@ -2625,7 +2657,12 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
   SURGE ya parseadas).
 - **U.B. por fecha / por convenio** (hoy hay un solo valor por perfil).
 - **Auditoría de facturación por lote**.
-- **App instalable (PWA) + offline total** (manifest + service worker).
+- **App instalable (PWA) + offline total** (manifest + service worker) — instalable y
+  navegar el manual sin internet **ya andan** (4.4 quater); un corte de señal momentáneo al
+  guardar **ya se reintenta solo** (ver el bloque del 26/8/2026, después de «Historial por
+  ficha»). Lo que sigue pendiente, a propósito no construido todavía —el usuario decidió
+  dejarlo así por ahora—: una cola de cambios que persista mientras no hay conexión por un
+  rato **largo** (cargar en el campo, sin señal, y sincronizar todo al volver).
 - **Registro de decisiones / historial de casos** vía Supabase (trazabilidad y estadística).
 - **Novedades normativas / vigencias**.
 - **Chat de consulta con IA**: se conversó, no se decidió. ⚠️ Incompatible con el requisito

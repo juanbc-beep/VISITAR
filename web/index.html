@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-1ba6yqeGOUt7eYx4WGIL37V3/eVcuqPR78T1Wsbupqw=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-lEdWKLswYkaCuKFsiKYh24YtfkTXSHx6YnWtGnou+bg=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -5636,9 +5636,29 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       return s;
     }
 
+    /* Un corte de señal momentáneo (wifi de la oficina, un rato sin datos) no
+       tiene por qué perder lo que se estaba guardando ni forzar un error: se
+       reintenta solo, con espera creciente, antes de darse por vencido.
+       Sólo para eso — un `fetch` que ni siquiera llega a haber respuesta
+       llega como TypeError ("Failed to fetch" / "NetworkError", mismo
+       patrón que ya usa traducir() más arriba). Un error real del servidor
+       (contraseña mal, 403, etc.) SÍ tiene respuesta y no pasa por acá: ahí
+       reintentar no arregla nada, y demorar el aviso sería peor. */
+    const ESPERAS_RED=[2000,5000,10000];   // ~17s en total antes de rendirse
+    async function hacerConReintento(hacer){
+      let avisado=false;
+      for(let i=0;;i++){
+        try{ return await hacer(); }
+        catch(err){
+          if(i>=ESPERAS_RED.length||!/Failed to fetch|NetworkError/i.test(err.message||''))throw err;
+          if(!avisado){avisado=true;toast('Sin conexión — reintentando…');}
+          await new Promise(res=>setTimeout(res,ESPERAS_RED[i]));
+        }
+      }
+    }
     async function token(cuerpo,tipo){
-      const r=await fetch(`${URL_}/auth/v1/token?grant_type=${tipo}`,
-        {method:'POST',headers:hdrBase(),body:JSON.stringify(cuerpo)});
+      const r=await hacerConReintento(()=>fetch(`${URL_}/auth/v1/token?grant_type=${tipo}`,
+        {method:'POST',headers:hdrBase(),body:JSON.stringify(cuerpo)}));
       const d=await leer(r);
       /* El «aal» (nivel de verificación) no lo manda este endpoint: un login con
          contraseña siempre vuelve a aal1, aunque la cuenta tenga el segundo
@@ -5655,6 +5675,13 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       if(Date.now()<ses.expira)return true;
       try{await token({refresh_token:ses.refresh_token},'refresh_token');return true;}
       catch(e){
+        // hacerConReintento() ya reintentó solo un corte de señal momentáneo
+        // (~17s); si igual llega acá por eso, la red sigue caída, no la
+        // sesión — no hay que forzar un logout por algo que se arregla solo
+        // en el próximo intento. Sólo cuenta como sesión muerta un rechazo
+        // real del servidor (esto SÍ tiene que ver con la sesión, no con la
+        // señal).
+        if(/Failed to fetch|NetworkError/i.test(e.message||''))return false;
         guardarSes(null);perfil=null;
         // El refresh token puede morir solo (vencimiento propio de Supabase,
         // o rotación por haber entrado desde otro lado) sin que la app haga
@@ -5677,7 +5704,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     async function api(ruta,opt){
       if(!(await vigente()))throw new Error('Sesión no vigente.');
       const hacer=()=>fetch(URL_+ruta,Object.assign({},opt,{headers:Object.assign(hdrAuth(),(opt&&opt.headers)||{})}));
-      let r=await hacer();
+      let r=await hacerConReintento(hacer);
       // El otro momento en que puede morir: el access token vale por lo que
       // dice `expira` (vigente() recién lo chequeó y decía que faltaba), pero
       // el servidor lo invalida antes igual (se cerró la sesión desde otro
@@ -5687,8 +5714,13 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       // avisar y volver al login, no dejar que cada pantalla que lo atrapa
       // (casi todas con un `catch` genérico) lo muestre como un error suelto.
       if(r.status===401&&ses){
-        try{await token({refresh_token:ses.refresh_token},'refresh_token');r=await hacer();}
-        catch(e){guardarSes(null);perfil=null;cerrarSesionMuerta('Tu sesión venció. Iniciá sesión de nuevo.');}
+        try{await token({refresh_token:ses.refresh_token},'refresh_token');r=await hacerConReintento(hacer);}
+        catch(e){
+          // Mismo criterio que en vigente(): un corte de señal no es que la
+          // sesión haya muerto.
+          if(/Failed to fetch|NetworkError/i.test(e.message||''))throw e;
+          guardarSes(null);perfil=null;cerrarSesionMuerta('Tu sesión venció. Iniciá sesión de nuevo.');
+        }
       }
       return leer(r);
     }
