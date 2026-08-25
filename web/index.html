@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-UlhZLGumqsJI9z0WMo30qBvzhIeQYQGYMCN6UFke/1I=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-y711fykf0iFwuc5DqozCBXSgHNIQ7ZFcvmcszyCJ2sk=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1325,6 +1325,29 @@ ul{margin:0;padding:0}
 @media (max-width:560px){.sem-table .vtrow{grid-template-columns:12px 56px 1fr!important}.vtrow .vnm2{display:none}}
 @media (max-width:560px){.vtrow{grid-template-columns:64px 1fr auto;gap:8px}.vtrow .vub{display:none}}
 
+/* ---------- intérprete de orden médica ---------- */
+.interprete{display:flex;flex-direction:column;gap:16px}
+#intItems{display:flex;flex-direction:column;gap:10px}
+.int-item{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:13px 16px}
+.int-src{font-size:13px;color:var(--muted);margin-bottom:9px;font-style:italic;overflow-wrap:anywhere}
+.int-cands{display:flex;flex-direction:column;gap:6px}
+.int-cand{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:9px 11px;
+  border:1.5px solid var(--line-2);border-radius:9px;background:var(--surface-2);color:var(--ink);
+  font:inherit;font-size:13px;cursor:pointer;transition:.13s}
+.int-cand:hover{border-color:var(--accent)}
+.int-cand.on{border-color:var(--accent);background:var(--accent-soft)}
+.int-cand .mono{color:var(--accent-ink);font-weight:700;flex-shrink:0}
+.int-cand .int-nm{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.int-cand .int-pct{font-size:11px;color:var(--faint);flex-shrink:0;font-variant-numeric:tabular-nums}
+.int-cand.top .int-pct{color:var(--inc);font-weight:700}
+.int-sin{font-size:13px;color:var(--faint);font-style:italic}
+.int-resumen{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px}
+.int-resumen h4{margin:0 0 10px;font-size:14px}
+.int-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.int-chip{display:flex;align-items:center;gap:7px;padding:6px 6px 6px 11px;border-radius:999px;background:var(--accent-soft);color:var(--accent-ink);font-size:12px;font-weight:700}
+.int-chip button{background:none;border:none;color:inherit;cursor:pointer;padding:2px;font-size:13px;line-height:1;border-radius:50%}
+.int-chip button:hover{background:color-mix(in srgb,var(--accent-ink) 15%,transparent)}
+
 /* ---------- cabecera compacta al scrollear ----------
    La cabecera ocupaba 255px en notebook y 518px en celular: se veían 6 y 3 filas de
    resultados. Al scrollear se comprime —las tarjetas quedan como fichas chicas y se
@@ -1821,6 +1844,8 @@ try{if(sessionStorage.getItem('nbu-actualizando')){
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5h7v5H3zM14 3h7v5h-7zM14 16h7v5h-7zM10 7h4M17 8v8M10 18h4"/></svg>Árbol de módulos</button>
       <button class="vtab" data-view="validator" role="tab">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Mesa de trabajo</button>
+      <button class="vtab" data-view="interprete" role="tab">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Intérprete de orden</button>
     </div>
     <div class="resbar">
       <div class="count" id="count"></div>
@@ -1855,6 +1880,7 @@ try{if(sessionStorage.getItem('nbu-actualizando')){
     <button class="more" id="moreBtn" hidden>Ver más resultados</button>
     <div class="tree" id="tree" hidden></div>
     <div class="validator" id="validator" hidden></div>
+    <div class="interprete" id="interprete" hidden></div>
   </main>
 </div>
 
@@ -2395,6 +2421,8 @@ function applyMode(){
   if(!treeOK&&state.view==='tree')state.view='list';
   document.querySelector('.vtab[data-view="validator"]').hidden = noVal; // el validador no aplica a búsqueda global/diagnósticos/abreviaturas/SURGE
   if(noVal&&state.view==='validator')state.view='list';
+  document.querySelector('.vtab[data-view="interprete"]').hidden = noVal; // mismo criterio: busca códigos, no aplica fuera de los nomencladores
+  if(noVal&&state.view==='interprete')state.view='list';
   // limpiar chips de sección/grupo que no correspondan al modo
   document.querySelectorAll('#fSeccion .opt.on').forEach(o=>{if(state.mode!=='NBU'){state.seccion.delete(o.dataset.v);o.classList.remove('on');}});
   buildGroups();
@@ -2920,12 +2948,14 @@ function render(){
   if(v!=='list')el('rapidos').hidden=true;
   el('tree').hidden=v!=='tree';
   el('validator').hidden=v!=='validator';
+  el('interprete').hidden=v!=='interprete';
   el('moreBtn').style.display=v==='list'?'':'none';
   document.querySelectorAll('.vtab').forEach(t=>{
     const act=t.dataset.view===v;
     t.classList.toggle('on',act); t.setAttribute('aria-selected',act?'true':'false');});
   if(v==='tree'){renderTree();return;}
   if(v==='validator'){el('count').textContent='';initValidator();return;}
+  if(v==='interprete'){el('count').textContent='';initInterprete();return;}
   if(state.mode==='ALL'){renderAll();return;}
   if(state.mode==='CIE'){renderCie();return;}
   if(state.mode==='ABR'){renderAbr();return;}
@@ -3452,6 +3482,136 @@ function initValidator(){
     setHint(); if(caseData)renderCase();
   }));
 }
+
+/* ============ Intérprete de orden médica ============
+   Pegar el texto de una orden y que devuelva los códigos candidatos: la
+   mejora que, relevada con el usuario, más le ahorra al mostrador (ver
+   HANDOFF.md, «Propuesto y NO construido»). Reusa el mismo motor de
+   búsqueda tolerante a erratas que ya tiene el buscador principal
+   (buscar()/puntuar()), corrido una vez por cada renglón de la orden en vez
+   de una vez por lo que se escribe en el buscador — no es un modelo nuevo.
+   Por eso es una AYUDA, no un intérprete infalible: acorta el camino hasta
+   el código, no reemplaza mirar la orden y confirmar. */
+let interpreteInit=false;
+let intElegidos=new Set();
+/* Parte el texto pegado en ítems candidatos a una práctica cada uno. Primero
+   por renglón (lo más común: una práctica por línea); dentro de cada
+   renglón, saca la numeración o viñeta inicial y separa por «;», «+» o una
+   coma que no está entre dígitos (para no partir "1,5" en dos). No separa
+   por «y»: aparece dentro de nombres reales de prácticas tanto como entre
+   dos prácticas distintas, y no hay forma genérica de distinguirlos sin
+   arriesgar cortes falsos — si una orden separa con «y», ese renglón entra
+   entero como un solo ítem y buscar() puede encontrar algo igual. */
+function partirOrden(texto){
+  const items=[];
+  (texto||'').split(/\r?\n/).forEach(linea=>{
+    const limpia=linea.replace(/^\s*(?:\d+[.)]|[-•*·])\s*/,'');
+    limpia.split(/[;+]|,(?!\d)/).forEach(p=>{
+      const t=p.trim();
+      if(t)items.push(t);
+    });
+  });
+  return items;
+}
+// Mismo cálculo que matchPct() (más arriba), pero contra los términos de un
+// ítem propio en vez de state.q — acá se corren muchas búsquedas a la vez,
+// una por renglón, y cada una necesita su propio total de términos.
+function pctInterprete(score,nTerms){
+  if(!nTerms)return 0;
+  if(score>=100)return 100;
+  return Math.max(0,Math.min(100,Math.round(score/(6*nTerms)*100)));
+}
+function initInterprete(){
+  if(interpreteInit)return; interpreteInit=true;
+  el('interprete').innerHTML=`
+    <div class="vinput">
+      <label for="intTexto">Texto de la orden médica
+        <button type="button" class="mayuda" id="ayudaInterprete" aria-label="Qué hace el intérprete de orden">?</button></label>
+      <textarea id="intTexto" spellcheck="false" placeholder="Pegá la orden tal como la escribió el médico, una práctica por renglón (o separadas por coma, «;» o «+»).  Ej:&#10;Hemograma completo&#10;Glucemia&#10;Rx tórax F y P"></textarea>
+      <div class="vrow"><button class="vbtn" id="intGo">Interpretar</button></div>
+      <div class="vhint">Busca en <b>todos los nomencladores</b> con el mismo buscador tolerante a erratas del resto de la app. Es una ayuda para no perder tiempo tipeando: <b>confirmá cada código antes de cargarlo</b>, no reemplaza leer la orden.</div>
+    </div>
+    <div id="intItems"></div>
+    <div class="int-resumen" id="intResumen" hidden></div>`;
+  el('ayudaInterprete').addEventListener('click',e=>{e.preventDefault();e.stopPropagation();
+    if(window.NBUPistas)window.NBUPistas.ayuda('#intTexto','Intérprete de orden',
+      'Pegás el texto de la orden y te muestra, renglón por renglón, qué código de la base parece corresponder. Elegís los que están bien y los mandás juntos a la <b>Mesa de trabajo</b>.');});
+  el('intGo').addEventListener('click',correrInterprete);
+  el('intTexto').addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter')correrInterprete();});
+  el('intItems').addEventListener('click',e=>{
+    const b=e.target.closest('[data-int-code]'); if(!b)return;
+    const k=b.dataset.intCode;
+    if(intElegidos.has(k))intElegidos.delete(k); else intElegidos.add(k);
+    b.classList.toggle('on',intElegidos.has(k));
+    renderIntResumen();
+  });
+}
+/* Busca los candidatos de un ítem, y si la búsqueda con todos los términos
+   no encuentra nada, reintenta sin los sueltos de 1-2 letras. buscar()
+   exige que TODOS los términos coincidan (ver puntuar()): un renglón como
+   «Rx tórax F y P» —el propio ejemplo del cuadro de texto— trae «F», «y»
+   y «P» como términos, que ahí son abreviatura de posición (frente/perfil)
+   o conector, no parte del nombre de la práctica, y ninguno va a estar
+   literal en «Radiología tórax». Uno solo así alcanza para tirar abajo un
+   renglón que si no encontraba bien. No se sacan de entrada —a veces son
+   parte real de una sigla corta— sólo cuando dejarlos afuera es lo que
+   hace falta para encontrar algo. */
+function candidatosParaItem(item){
+  const terms=norm(item).split(/\s+/).filter(Boolean);
+  if(!terms.length)return {terms,cands:[]};
+  let cands=buscar(CODES,terms,c=>!ocultoNom(c.nomenclador));
+  let usados=terms;
+  if(!cands.length){
+    const reducidos=terms.filter(t=>t.length>2);
+    if(reducidos.length&&reducidos.length<terms.length){
+      cands=buscar(CODES,reducidos,c=>!ocultoNom(c.nomenclador));
+      if(cands.length)usados=reducidos;
+    }
+  }
+  return {terms:usados,cands:cands.slice(0,5)};
+}
+function correrInterprete(){
+  const texto=(el('intTexto').value||'').trim();
+  if(!texto)return toast('Pegá el texto de la orden primero',true);
+  const items=partirOrden(texto);
+  intElegidos.clear();
+  if(!items.length){el('intItems').innerHTML='';renderIntResumen();return;}
+  el('intItems').innerHTML=items.map(item=>{
+    const {terms,cands}=candidatosParaItem(item);
+    return `<div class="int-item">
+      <div class="int-src">${esc(item)}</div>
+      ${cands.length?`<div class="int-cands">${cands.map((c,i)=>`
+        <button type="button" class="int-cand${i===0?' top':''}" data-int-code="${esc(c._key)}">
+          <span class="mono">${esc(c.code)}</span><span class="int-nm">${esc(c.nombre)}</span>
+          <span class="int-pct">${pctInterprete(c._score,terms.length)}%</span>
+        </button>`).join('')}</div>`
+        :`<div class="int-sin">Sin coincidencias claras en la base — revisar a mano.</div>`}
+    </div>`;
+  }).join('');
+  renderIntResumen();
+  anunciar(`${items.length} renglón${items.length!==1?'es':''} interpretado${items.length!==1?'s':''}`);
+}
+function renderIntResumen(){
+  const cont=el('intResumen');
+  if(!intElegidos.size){cont.hidden=true;cont.innerHTML='';return;}
+  cont.hidden=false;
+  const codes=[...intElegidos].map(k=>BYCODE[k]).filter(Boolean);
+  cont.innerHTML=`<h4>Códigos elegidos (${codes.length})</h4>
+    <div class="int-chips">${codes.map(c=>`<span class="int-chip"><span class="mono">${esc(c.code)}</span>${esc(c.nombre.slice(0,40))}<button type="button" data-int-quitar="${esc(c._key)}" aria-label="Quitar ${esc(c.code)}">✕</button></span>`).join('')}</div>
+    <button class="vbtn" id="intEnviar">Enviar a la Mesa de trabajo →</button>`;
+  cont.querySelectorAll('[data-int-quitar]').forEach(b=>b.addEventListener('click',()=>{
+    const k=b.dataset.intQuitar; intElegidos.delete(k);
+    const cand=el('intItems').querySelector(`[data-int-code="${CSS.escape(k)}"]`); if(cand)cand.classList.remove('on');
+    renderIntResumen();
+  }));
+  el('intEnviar').addEventListener('click',()=>{
+    state.view='validator'; render();
+    el('vcodes').value=codes.map(c=>c.code).join('  ');
+    runValidator();
+    el('validator').scrollIntoView({behavior:'smooth',block:'start'});
+  });
+}
+
 let lastVal=null, caseData=null;
 const SL='font-size:11px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);font-weight:700';
 function runValidator(){runCase();}   // compat (addToValidator)
@@ -5336,8 +5496,14 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       const r=await fetch(`${URL_}/auth/v1/token?grant_type=${tipo}`,
         {method:'POST',headers:hdrBase(),body:JSON.stringify(cuerpo)});
       const d=await leer(r);
+      /* El «aal» (nivel de verificación) no lo manda este endpoint: un login con
+         contraseña siempre vuelve a aal1, aunque la cuenta tenga el segundo
+         paso activado (eso se resuelve aparte, con el código). Al refrescar el
+         token si se mantiene: no tiene sentido pedir el código de vuelta cada
+         vez que el token vence solo, a media sesión. */
       guardarSes({access_token:d.access_token,refresh_token:d.refresh_token,
-        expira:Date.now()+((d.expires_in||3600)*1000)-60000,user:d.user});
+        expira:Date.now()+((d.expires_in||3600)*1000)-60000,user:d.user,
+        aal:(tipo==='refresh_token'&&ses)?ses.aal:'aal1'});
       return d;
     }
     async function vigente(){
@@ -5397,6 +5563,31 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         try{if(ses)await fetch(`${URL_}/auth/v1/logout`,{method:'POST',headers:hdrAuth()});}catch(e){}
         guardarSes(null);perfil=null;
       },
+      /* ---- verificación en dos pasos (TOTP), pensada para la cuenta que puede
+         todo — sólo se ofrece al administrador general. Sigue el mismo patrón
+         REST que el resto de este módulo: nada de esto otorga permisos, lo
+         decide la base; esto es sólo lo que le hace falta a la interfaz para
+         pedir el código en el momento justo. ---- */
+      aal2Activo:()=>!!(ses&&ses.aal==='aal2'),
+      async factores(){
+        const u=await api('/auth/v1/user',{method:'GET'});
+        return (u&&u.factors)||[];
+      },
+      enrolarTOTP:()=>api('/auth/v1/factors',{method:'POST',
+        body:JSON.stringify({factor_type:'totp',friendly_name:'Administrador'})}),
+      /* Desafío + verificación en un solo llamado: no hay pantalla intermedia
+         que necesite el id del desafío, así que no vale la pena separarlos. Si
+         el código es el de confirmación del alta, esto además activa el factor;
+         si es el de un login, esto es lo que sube la sesión a aal2. */
+      async verificarFactor(factorId,code){
+        const ch=await api(`/auth/v1/factors/${encodeURIComponent(factorId)}/challenge`,{method:'POST'});
+        const r=await api(`/auth/v1/factors/${encodeURIComponent(factorId)}/verify`,{method:'POST',
+          body:JSON.stringify({challenge_id:ch.id,code})});
+        if(r&&r.access_token)guardarSes({access_token:r.access_token,refresh_token:r.refresh_token,
+          expira:Date.now()+((r.expires_in||3600)*1000)-60000,user:r.user,aal:'aal2'});
+        return r;
+      },
+      desenrolarTOTP:(factorId)=>api(`/auth/v1/factors/${encodeURIComponent(factorId)}`,{method:'DELETE'}),
       async miPerfil(){
         if(!(await vigente()))return null;
         const f=await api('/rest/v1/perfiles?select=*&id=eq.'+encodeURIComponent(ses.user.id),{method:'GET'});
@@ -5577,7 +5768,16 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   function lockedFor(id){const l=LOCK[lockKey(id)];if(!l)return 0;const rem=Math.ceil((l.until-Date.now())/1000);return rem>0?rem:0;}
   function noteFail(id){const k=lockKey(id);const l=LOCK[k]||{n:0,until:0};l.n++;if(l.n>=5){l.until=Date.now()+30000;l.n=0;}LOCK[k]=l;}
   function noteOk(id){delete LOCK[lockKey(id)];}
-  function resetIdle(){if(!current)return;clearTimeout(idleT);idleT=setTimeout(()=>{if(current){current=null;editMode=false;document.body.classList.remove('editmode-on');vigilarCuentas(false);toast('Sesión cerrada por inactividad');renderGate(NUBE.activa?'nubeLogin':'profiles');gate.hidden=false;}},IDLE_MS);}
+  /* Cerrar por inactividad tiene que invalidar la sesión de verdad, no sólo
+     esconder la pantalla: si sólo se borra `current` y se muestra el gate,
+     el token de Supabase sigue vivo en localStorage y un F5 en la máquina
+     compartida del mostrador vuelve a entrar solo (ver «init», más abajo:
+     con sesión guardada, la app reintenta el login sin pedir nada). En una
+     máquina de uso compartido eso deja la sesión abierta para quien llegue
+     después. NUBE.salir() revoca el token en el servidor y limpia lo
+     guardado; no hace falta esperarla, nunca tira error (atrapa el fetch
+     adentro). */
+  function resetIdle(){if(!current)return;clearTimeout(idleT);idleT=setTimeout(()=>{if(current){current=null;editMode=false;document.body.classList.remove('editmode-on');vigilarCuentas(false);toast('Sesión cerrada por inactividad');if(NUBE.activa)NUBE.salir();renderGate(NUBE.activa?'nubeLogin':'profiles');gate.hidden=false;}},IDLE_MS);}
   ['mousemove','keydown','click','touchstart'].forEach(ev=>document.addEventListener(ev,()=>{if(current)resetIdle();},{passive:true}));
 
   /* El logo no es un dato de confianza: viaja en la fila de ajustes de la base y
@@ -6103,6 +6303,20 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         <button class="gbtn" id="nbGo">Entrar</button>
         <div class="galta">¿Todavía no tenés cuenta? <button type="button" id="nbNew">Crearla</button></div>
       </div>`;
+    } else if(v==='nubeMFA'){
+      html=`<div class="gcard">
+        <div class="glogo brand hasimg">${logoInner('gate')}</div>
+        <h2>Verificación en dos pasos</h2>
+        <div class="gsub">Es la cuenta de administrador: además de la contraseña, pedimos el código de tu app de autenticación.</div>
+        ${field('mfaCode','Código de 6 dígitos','text',{ac:'one-time-code',im:'numeric'})}
+        <label style="display:flex;align-items:center;gap:8px;margin:12px 0 2px;font-size:13px;color:var(--muted);cursor:pointer">
+          <input type="checkbox" id="mfaRecordar" checked style="width:16px;height:16px;flex-shrink:0">
+          Confiar en este dispositivo por 30 días y no volver a pedirlo acá
+        </label>
+        <div class="gerr" id="gErr"></div>
+        <button class="gbtn" id="mfaGo">Verificar</button>
+        <button class="gback" id="mfaBack">← Volver</button>
+      </div>`;
     } else if(v==='nubeOlvide'){
       html=`<div class="gcard">
         <div class="glogo brand hasimg">${logoInner('gate')}</div>
@@ -6260,13 +6474,32 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         const m=gv('nbMail'),p=gv('nbPass');
         if(!m||!p)return gerr('Completá correo y contraseña.');
         const b=el('nbGo');b.disabled=true;b.textContent='Entrando…';gerr('');
-        try{ const pf=await NUBE.entrar(m,p); entrarConNube(pf); }
+        try{ const pf=await NUBE.entrar(m,p); await continuarLogin(pf); }
         catch(e){ gerr(e.message); }
         finally{ if(el('nbGo')){b.disabled=false;b.textContent='Entrar';} }
       };
       el('nbGo').addEventListener('click',go);onEnter(go);
       el('nbNew').addEventListener('click',()=>renderGate('nubeAlta'));
       el('nbOlvide').addEventListener('click',()=>{gate._mail=gv('nbMail');renderGate('nubeOlvide');});
+    } else if(v==='nubeMFA'){
+      const go=async()=>{
+        const code=gv('mfaCode');
+        if(!/^\d{6}$/.test(code))return gerr('Ingresá los 6 dígitos.');
+        const w=lockedFor('_mfa');if(w)return gerr(`Demasiados intentos. Esperá ${w}s.`);
+        const b=el('mfaGo');b.disabled=true;b.textContent='Verificando…';gerr('');
+        try{
+          await NUBE.verificarFactor(gate._mfaFactor,code);
+          noteOk('_mfa');
+          const pf=gate._pfPendiente; gate._pfPendiente=null; gate._mfaFactor=null;
+          if(el('mfaRecordar')&&el('mfaRecordar').checked)confiarDispositivo(pf.id);
+          entrarConNube(pf);
+        }catch(e){ noteFail('_mfa'); gerr('Código incorrecto o vencido.'); b.disabled=false; b.textContent='Verificar'; }
+      };
+      el('mfaGo').addEventListener('click',go);onEnter(go);
+      el('mfaBack').addEventListener('click',async()=>{
+        gate._pfPendiente=null;gate._mfaFactor=null;
+        await NUBE.salir();renderGate('nubeLogin');
+      });
     } else if(v==='nubeOlvide'){
       if(gate._mail)el('olMail').value=gate._mail;
       const go=async()=>{
@@ -6328,6 +6561,44 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     return {id:p.id,name:p.nombre,role:ROL_VALIDO(p.rol),estado:p.estado,
             favs:p.favoritos||[],notes:p.notas||{},recent:p.recientes||[],
             ub:(p.ub!=null?Number(p.ub):null),_nube:true};
+  }
+  /* «Confiar en este dispositivo»: para no pedir el código en cada login
+     desde la misma computadora. Es una comodidad de la interfaz, no un
+     servidor de confianza aparte — vive en localStorage de este navegador,
+     atada a la cuenta (uid) y con vencimiento. Quien tenga acceso a ESTE
+     navegador además de la contraseña se salta el código mientras dure: el
+     mismo trato que cualquier «recordarme 30 días», por eso el checkbox del
+     login queda tildado a propósito pero se puede destildar, y desde «Tu
+     cuenta» se puede revocar en cualquier momento sin esperar a que venza. */
+  const MFA_CONFIA_DIAS=30;
+  const mfaClaveConfia=uid=>'nbu-mfa-confia:'+uid;
+  function dispositivoConfiable(uid){
+    try{const r=JSON.parse(localStorage.getItem(mfaClaveConfia(uid))||'null');return !!(r&&r.hasta>Date.now());}
+    catch(e){return false;}
+  }
+  function confiarDispositivo(uid){
+    try{localStorage.setItem(mfaClaveConfia(uid),JSON.stringify({hasta:Date.now()+MFA_CONFIA_DIAS*86400000}));}catch(e){}
+  }
+  function olvidarDispositivo(uid){
+    try{localStorage.removeItem(mfaClaveConfia(uid));}catch(e){}
+  }
+  /* Frena antes de entrar si esta cuenta es el administrador general y tiene
+     el segundo paso activado (ver «Tu cuenta → Verificación en dos pasos»),
+     salvo que esta sesión ya haya pasado por ahí (aal2) o que este mismo
+     dispositivo haya quedado confiado. Se pregunta por estado==='activo'
+     antes de consultar los factores para no gastar un viaje a la red en una
+     cuenta pendiente o rechazada, que igual no va a entrar. Si la consulta
+     de factores falla (sin red, la nube caída), se deja pasar: frenar al
+     único administrador que hay por un problema de red es peor que el
+     riesgo que esto cubre. */
+  async function continuarLogin(pf){
+    if(pf&&pf.rol==='admin'&&(pf.estado||'activo')==='activo'&&!NUBE.aal2Activo()&&!dispositivoConfiable(pf.id)){
+      try{
+        const factor=(await NUBE.factores()).find(f=>f.factor_type==='totp'&&f.status==='verified');
+        if(factor){gate._pfPendiente=pf;gate._mfaFactor=factor.id;renderGate('nubeMFA');return;}
+      }catch(e){}
+    }
+    entrarConNube(pf);
   }
   function entrarConNube(pf){
     if(!pf){gerr('La cuenta existe pero no tiene perfil en la base. Avisale al administrador.');return;}
@@ -7562,8 +7833,18 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
      nombre o la contraseña propios. Reusa el mismo modal de Administración
      (#adminModal/#adminBox) que ya usan openAdmin y verNovedades — es sólo
      otra pantalla más de las que ese modal sabe mostrar. */
-  let cTab='menu';
+  let cTab='menu', mfaEstado, mfaEnroll=null;
   function abrirCuenta(t){ cTab=t||'menu'; renderCuenta(); amodal.classList.add('on'); tomarFoco(abox); }
+  /* mfaEstado: undefined mientras se consulta a la nube, null si no hay factor
+     verificado, o la fila del factor si la verificación en dos pasos está
+     activa. Se recarga cada vez que se entra a la pestaña porque puede haber
+     cambiado desde otra sesión (o quedado a mitad del alta la vez anterior). */
+  function cargarMFA(){
+    cTab='mfa'; mfaEstado=undefined; mfaEnroll=null; renderCuenta();
+    NUBE.factores().then(fs=>{mfaEstado=fs.find(f=>f.factor_type==='totp'&&f.status==='verified')||null;})
+      .catch(()=>{mfaEstado=null;})
+      .finally(()=>{if(cTab==='mfa')renderCuenta();});
+  }
   function renderCuenta(){
     const closeBtn=`<button class="icon-btn close-x" id="cClose" style="position:absolute;top:16px;right:16px" aria-label="Cerrar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>`;
     const volver=()=>{cTab='menu';renderCuenta();};
@@ -7615,17 +7896,79 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         catch(e){ toast('No se pudo cambiar: '+e.message,true); b.disabled=false; b.textContent='Guardar'; }
       });
       el('cVolver').addEventListener('click',volver);
+    } else if(cTab==='mfa'){
+      const esAdm=!!(current&&current.role==='admin');
+      if(mfaEstado===undefined){
+        abox.innerHTML=`${closeBtn}<h3>Verificación en dos pasos</h3><div class="asub">Consultando…</div>`;
+      } else if(mfaEnroll){
+        abox.innerHTML=`${closeBtn}<h3>Verificación en dos pasos</h3>
+          <div class="asub">Escaneá este código con una app de autenticación (Google Authenticator, Authy, o la que uses) y escribí abajo el código de 6 dígitos que te muestra, para confirmar que quedó bien cargado.</div>
+          ${mfaEnroll.qr_code?`<img src="${E(mfaEnroll.qr_code)}" alt="Código QR para la app de autenticación" style="display:block;margin:12px auto;max-width:200px;background:#fff;border-radius:8px;padding:8px">`:''}
+          <label>¿No podés escanear? Cargalo a mano</label>
+          <div class="mono" style="user-select:all;padding:8px;background:var(--surface-2);border-radius:8px;word-break:break-all;font-size:12px">${E(mfaEnroll.secret||'')}</div>
+          ${field('cMfaCode','Código de la app (6 dígitos)','text',{ac:'one-time-code',im:'numeric'})}
+          <div class="cta-menu"><button class="minibtn" id="cMfaConfirm">Confirmar</button>
+          <button class="minibtn" id="cVolver">Cancelar</button></div>`;
+        el('cMfaConfirm').addEventListener('click',async()=>{
+          const code=gv('cMfaCode');
+          if(!/^\d{6}$/.test(code))return toast('Ingresá los 6 dígitos.',true);
+          const b=el('cMfaConfirm');b.disabled=true;b.textContent='Confirmando…';
+          // El dispositivo desde el que se activa queda confiado de una: ya
+          // se probó que tiene la app de autenticación en la mano, pedirle
+          // el código de nuevo en el próximo login sería el mismo trámite.
+          try{ await NUBE.verificarFactor(mfaEnroll.id,code); confiarDispositivo(current.id); toast('Verificación en dos pasos activada.'); cargarMFA(); }
+          catch(e){ toast('Código incorrecto o vencido.',true); b.disabled=false; b.textContent='Confirmar'; }
+        });
+        el('cVolver').addEventListener('click',()=>{
+          const abortado=mfaEnroll.id; NUBE.desenrolarTOTP(abortado).catch(()=>{}); cargarMFA();
+        });
+      } else if(mfaEstado){
+        const confiado=dispositivoConfiable(current.id);
+        abox.innerHTML=`${closeBtn}<h3>Verificación en dos pasos</h3>
+          <div class="asub">Está <b>activada</b>. Cada vez que entres con tu correo y contraseña, además te vamos a pedir el código de tu app de autenticación${confiado?' — salvo en <b>este</b> dispositivo, que quedó confiado y no lo pide hasta dentro de 30 días o hasta que lo saques.':'.'}</div>
+          <div class="asub" style="color:var(--exc)">⚠️ Si perdés el acceso a la app de autenticación, nadie te puede sacar este paso desde acá: sos el único administrador. Hace falta entrar al panel de Supabase (Authentication → Users → tu cuenta) y borrar el factor desde ahí.</div>
+          <div class="cta-menu">
+          ${confiado?'<button class="minibtn" id="cMfaOlvidar">Dejar de confiar en este dispositivo</button>':''}
+          <button class="minibtn danger" id="cMfaOff">Desactivar</button>
+          <button class="minibtn" id="cVolver">← Volver</button></div>`;
+        if(confiado)el('cMfaOlvidar').addEventListener('click',()=>{
+          olvidarDispositivo(current.id); toast('Este dispositivo va a pedir el código la próxima vez.'); renderCuenta();
+        });
+        el('cMfaOff').addEventListener('click',async()=>{
+          if(!confirm('¿Desactivar la verificación en dos pasos?\n\nDe ahí en más tu cuenta vuelve a entrar sólo con correo y contraseña.'))return;
+          try{ await NUBE.desenrolarTOTP(mfaEstado.id); olvidarDispositivo(current.id); toast('Verificación en dos pasos desactivada.'); cargarMFA(); }
+          catch(e){ toast('No se pudo desactivar: '+e.message,true); }
+        });
+        el('cVolver').addEventListener('click',volver);
+      } else {
+        abox.innerHTML=`${closeBtn}<h3>Verificación en dos pasos</h3>
+          <div class="asub">Hoy tu cuenta entra sólo con correo y contraseña. Esto suma un código de 6 dígitos que genera una app en tu celular (Google Authenticator, Authy, la que uses): aunque alguien consiga tu contraseña, no puede entrar sin tu teléfono.${esAdm?' Recomendado para el administrador general: es la cuenta que puede todo.':''}</div>
+          <div class="cta-menu"><button class="minibtn" id="cMfaStart">Activar verificación en dos pasos</button>
+          <button class="minibtn" id="cVolver">← Volver</button></div>`;
+        el('cMfaStart').addEventListener('click',async()=>{
+          const b=el('cMfaStart');b.disabled=true;b.textContent='Generando…';
+          try{
+            const r=await NUBE.enrolarTOTP();
+            mfaEnroll={id:r.id,qr_code:r.totp&&r.totp.qr_code,secret:r.totp&&r.totp.secret};
+            renderCuenta();
+          }catch(e){ toast('No se pudo empezar: '+e.message,true); b.disabled=false; b.textContent='Activar verificación en dos pasos'; }
+        });
+        el('cVolver').addEventListener('click',volver);
+      }
     } else {
+      const esAdm=!!(current&&current.role==='admin');
       abox.innerHTML=`${closeBtn}<h3>Tu cuenta</h3>
         <div class="asub"><b>${E(current?current.name:'')}</b> · ${E(rolLabel(current&&current.role).toLowerCase())}</div>
         <div class="cta-menu">
           <button class="minibtn" data-cm="nombre">Cambiar nombre</button>
           ${soyMedico()?'<button class="minibtn" data-cm="trato">Cambiar tratamiento (Dr. / Dra.)</button>':''}
           <button class="minibtn" data-cm="pass">Cambiar contraseña</button>
+          ${esAdm&&NUBE.activa?'<button class="minibtn" data-cm="mfa">Verificación en dos pasos</button>':''}
           <button class="minibtn danger" data-cm="salir" style="margin-top:8px">Cerrar sesión</button>
         </div>`;
       abox.querySelectorAll('[data-cm]').forEach(b=>b.addEventListener('click',()=>{
         if(b.dataset.cm==='salir')return cerrarSesionNube();
+        if(b.dataset.cm==='mfa')return cargarMFA();
         cTab=b.dataset.cm; renderCuenta();
       }));
     }
@@ -8324,7 +8667,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     else {
       showGate('nubeLogin');
       if(NUBE.hay()){
-        NUBE.miPerfil().then(pf=>{ if(pf)entrarConNube(pf); }).catch(()=>{});
+        NUBE.miPerfil().then(pf=>{ if(pf)continuarLogin(pf); }).catch(()=>{});
       }
     }
   } else if(!AUTH.company){showGate('setup');}
