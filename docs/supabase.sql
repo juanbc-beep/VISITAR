@@ -293,6 +293,24 @@ create table if not exists public.ajustes (
   contenido    jsonb not null default '{}'::jsonb,
   actualizado  timestamptz not null default now()
 );
+
+-- Sugerencias de «pedida_como» que deja el Intérprete de orden cuando quien
+-- lo usa elige un candidato que no era el primero — señal de que ese
+-- renglón está escrito de una forma que el buscador no reconoce todavía.
+-- El administrador la revisa y, si corresponde, la suma a «pedida_como» del
+-- código (ver supabase_sugerencias_pedida_como.sql para el detalle y el
+-- porqué del SELECT restringido al administrador).
+create table if not exists public.sugerencias_pedida_como (
+  id           uuid primary key default gen_random_uuid(),
+  codigo       text not null,
+  texto        text not null,
+  estado       text not null default 'pendiente' check (estado in ('pendiente','aprobada','descartada')),
+  autor        uuid references public.perfiles(id) on delete set null,
+  creada       timestamptz not null default now(),
+  resuelta_por uuid references public.perfiles(id) on delete set null,
+  resuelta_en  timestamptz
+);
+create index if not exists sugpc_pendientes on public.sugerencias_pedida_como (estado) where estado = 'pendiente';
 insert into public.ajustes (id) values (1) on conflict (id) do nothing;
 
 -- ---------------------------------------------------------------------
@@ -365,6 +383,7 @@ alter table public.observaciones  enable row level security;
 alter table public.verificaciones enable row level security;
 alter table public.propuestas     enable row level security;
 alter table public.ajustes        enable row level security;
+alter table public.sugerencias_pedida_como enable row level security;
 
 -- PERFILES ------------------------------------------------------------
 -- La fila entera —notas personales, favoritos, U.B.— la ve sólo su dueño y el
@@ -506,6 +525,27 @@ create policy ajustes_ver on public.ajustes for select to authenticated
 drop policy if exists ajustes_editar on public.ajustes;
 create policy ajustes_editar on public.ajustes for update to authenticated
   using (public.es_admin()) with check (public.es_admin());
+
+-- SUGERENCIAS DE «PEDIDA COMO» ------------------------------------------
+-- A diferencia de «propuestas» (visible a todo el equipo: son notas de
+-- «cómo se carga» que le sirven a cualquiera), el SELECT queda restringido
+-- al administrador — es texto suelto de una orden pegada, no una nota
+-- pensada para publicarse.
+drop policy if exists sugpc_ver on public.sugerencias_pedida_como;
+create policy sugpc_ver on public.sugerencias_pedida_como for select to authenticated
+  using (public.es_admin());
+
+drop policy if exists sugpc_crear on public.sugerencias_pedida_como;
+create policy sugpc_crear on public.sugerencias_pedida_como for insert to authenticated
+  with check (public.es_activo() and estado = 'pendiente' and autor = auth.uid());
+
+drop policy if exists sugpc_resolver on public.sugerencias_pedida_como;
+create policy sugpc_resolver on public.sugerencias_pedida_como for update to authenticated
+  using (public.es_admin()) with check (public.es_admin());
+
+drop policy if exists sugpc_borrar on public.sugerencias_pedida_como;
+create policy sugpc_borrar on public.sugerencias_pedida_como for delete to authenticated
+  using (public.es_admin());
 
 -- ---------------------------------------------------------------------
 -- 7 bis. VERIFICAR UNA FICHA

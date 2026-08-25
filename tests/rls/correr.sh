@@ -55,16 +55,16 @@ escenario "1. Instalación desde cero" \
 
 escenario "2. Con las migraciones encima" \
   "$RAIZ/docs/supabase.sql" "$RAIZ/docs/supabase_seguridad.sql" "$RAIZ/docs/supabase_auditoria.sql" \
-  "$RAIZ/docs/supabase_relaciones_medico.sql"
+  "$RAIZ/docs/supabase_relaciones_medico.sql" "$RAIZ/docs/supabase_sugerencias_pedida_como.sql"
 
 escenario "3. Migraciones aplicadas dos veces (idempotencia)" \
   "$RAIZ/docs/supabase.sql" "$RAIZ/docs/supabase_seguridad.sql" "$RAIZ/docs/supabase_auditoria.sql" \
-  "$RAIZ/docs/supabase_relaciones_medico.sql" \
+  "$RAIZ/docs/supabase_relaciones_medico.sql" "$RAIZ/docs/supabase_sugerencias_pedida_como.sql" \
   "$RAIZ/docs/supabase_seguridad.sql" "$RAIZ/docs/supabase_auditoria.sql" \
-  "$RAIZ/docs/supabase_relaciones_medico.sql"
+  "$RAIZ/docs/supabase_relaciones_medico.sql" "$RAIZ/docs/supabase_sugerencias_pedida_como.sql"
 
 echo ""
 echo "══════════════════════════════════════════════════════════════════"
-echo "  Todo en verde: 9 ataques bloqueados y la app sigue funcionando,"
+echo "  Todo en verde: 10 ataques bloqueados y la app sigue funcionando,"
 echo "  en los tres escenarios."
 echo "══════════════════════════════════════════════════════════════════"

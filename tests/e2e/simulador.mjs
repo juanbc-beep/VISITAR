@@ -33,6 +33,7 @@ export function crearDB() {
     recovers: [],             // correos que pidieron recuperar contraseña (para el caso "recup")
     factores: new Map(),      // uid -> [{id, factor_type:'totp', status, friendly_name}]
     desafios: new Map(),      // challenge_id -> {uid, factorId}
+    sugerenciasPedidaComo: new Map(), // id (uuid) -> fila, como la tabla real
   };
 }
 
@@ -386,6 +387,31 @@ export async function instalarSimulador(context, db) {
         const p = db.propuestas.get(id);
         if (p) Object.assign(p, leerCuerpo(req));
         return responder(route, esMinimal(req) ? 204 : 200, esMinimal(req) ? undefined : [p]);
+      }
+    }
+
+    // ---------------- REST: sugerencias_pedida_como (Intérprete de orden) ----
+    if (path === '/rest/v1/sugerencias_pedida_como') {
+      if (method === 'GET') {
+        const estado = filtroEq(url, 'estado');
+        let filas = [...db.sugerenciasPedidaComo.values()];
+        if (estado) filas = filas.filter(s => s.estado === estado);
+        filas = filas.slice().sort((a, b) => (b.creada || '').localeCompare(a.creada || ''));
+        return responder(route, 200, filas);
+      }
+      if (method === 'POST') {
+        const body = leerCuerpo(req);
+        const fila = Object.assign({
+          id: crypto.randomUUID(), estado: 'pendiente', creada: new Date().toISOString(),
+        }, body);
+        db.sugerenciasPedidaComo.set(fila.id, fila);
+        return responder(route, esMinimal(req) ? 201 : 200, esMinimal(req) ? undefined : [fila]);
+      }
+      if (method === 'PATCH') {
+        const id = filtroEq(url, 'id');
+        const s = db.sugerenciasPedidaComo.get(id);
+        if (s) Object.assign(s, leerCuerpo(req));
+        return responder(route, esMinimal(req) ? 204 : 200, esMinimal(req) ? undefined : [s]);
       }
     }
 

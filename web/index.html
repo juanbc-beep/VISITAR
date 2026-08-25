@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-wEOUTIGI/ROV3/ldBFXaJOXO1Vfp16KFi2u12/i2Zt0=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-cStQ1Wt7q7l6ibxJzCde+TScO+bs1g+xotdjIcIpWCo=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -2098,6 +2098,12 @@ const SINONIMOS_COMUNES={
   ecg:['electrocardiograma'], eeg:['electroencefalograma'],
   hto:['hematocrito'], hb:['hemoglobina'], tp:['protrombina'],
   vdrl:['sifilis'],
+  // Sumadas el 25/8/2026 — verificadas antes contra data/nbu_db.json (que
+  // el texto largo exista de verdad en algún nombre; ver conversación del
+  // 25/8, «medir antes de proponer»), no adivinadas.
+  pap:['papanicolau'], bx:['biopsia'], orl:['otorrinolaringologia'],
+  tv:['transvaginal'], eab:['acido base'], lcr:['liquido cefalorraquideo'],
+  dxa:['densitometria'], emg:['electromiografia'],
 };
 // Un término coincide "literal" si está en el registro tal cual, o si es una de
 // las siglas de arriba y el registro trae la forma larga.
@@ -3541,8 +3547,19 @@ function initInterprete(){
   el('intItems').addEventListener('click',e=>{
     const b=e.target.closest('[data-int-code]'); if(!b)return;
     const k=b.dataset.intCode;
-    if(intElegidos.has(k))intElegidos.delete(k); else intElegidos.add(k);
+    const yaElegido=intElegidos.has(k);
+    if(yaElegido)intElegidos.delete(k); else intElegidos.add(k);
     b.classList.toggle('on',intElegidos.has(k));
+    // Elegir un candidato que NO era el primero es la señal de que ese
+    // renglón está escrito de una forma que el buscador todavía no
+    // reconoce — se anota para que el administrador la revise (ver
+    // docs/supabase_sugerencias_pedida_como.sql). Sólo al elegir, no al
+    // sacar la marca; sólo si hay con qué identificar a quien lo hizo
+    // (nube activa y con sesión — en modo local no hay tabla para esto).
+    const N=window.NBUNube;
+    if(!yaElegido&&b.dataset.intRank!=='0'&&N&&N.activa&&N.perfil()){
+      N.sugerirPedidaComo(k,b.dataset.intItem).catch(()=>{});
+    }
     renderIntResumen();
   });
 }
@@ -3581,7 +3598,7 @@ function correrInterprete(){
     return `<div class="int-item">
       <div class="int-src">${esc(item)}</div>
       ${cands.length?`<div class="int-cands">${cands.map((c,i)=>`
-        <button type="button" class="int-cand${i===0?' top':''}" data-int-code="${esc(c._key)}">
+        <button type="button" class="int-cand${i===0?' top':''}" data-int-code="${esc(c._key)}" data-int-rank="${i}" data-int-item="${esc(item)}">
           <span class="mono">${esc(c.code)}</span><span class="int-nm">${esc(c.nombre)}</span>
           <span class="int-pct">${pctInterprete(c._score,terms.length)}%</span>
         </button>`).join('')}</div>`
@@ -5690,6 +5707,20 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
          body:JSON.stringify({estado:estado,resuelta_por:(perfil&&perfil.id)||null,
            resuelta_en:new Date().toISOString()})}),
 
+      /* Sugerencias de "pedida como" que deja el Intérprete de orden al
+         elegir un candidato que no era el primero. Mismo patrón que
+         propuestas, pero el SELECT es sólo del administrador (ver
+         docs/supabase_sugerencias_pedida_como.sql): es texto suelto de una
+         orden pegada, no una nota pensada para publicarse. */
+      sugerirPedidaComo:(codigo,texto)=>api('/rest/v1/sugerencias_pedida_como',
+        {method:'POST',headers:{'Prefer':'return=minimal'},
+         body:JSON.stringify({codigo:codigo,texto:texto,autor:(perfil&&perfil.id)||null})}),
+      sugerenciasPedidaComo:()=>api('/rest/v1/sugerencias_pedida_como?select=*&estado=eq.pendiente&order=creada.desc',{method:'GET'}),
+      resolverSugerenciaPedidaComo:(id,estado)=>api('/rest/v1/sugerencias_pedida_como?id=eq.'+encodeURIComponent(id),
+        {method:'PATCH',headers:{'Prefer':'return=minimal'},
+         body:JSON.stringify({estado:estado,resuelta_por:(perfil&&perfil.id)||null,
+           resuelta_en:new Date().toISOString()})}),
+
       /* Observaciones del administrador sobre una práctica. Las escribe él,
          las lee todo el equipo, y cada uno tiene su propia marca de «hasta acá
          vi» para saber qué le quedó nuevo. */
@@ -6155,7 +6186,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   function rebuildH(c){try{
     const otros=[]; const e=c.equivalencia; if(e&&e.desc)otros.push(e.desc);
     (c.equivalencia_unico||[]).forEach(u=>{if(u.unico_desc)otros.push(u.unico_desc);});
-    c._h=norm([c.code,c._key,c.nombre].concat(c.sinonimos||[],c.abreviaturas||[],otros).join(' '));
+    c._h=norm([c.code,c._key,c.nombre].concat(c.sinonimos||[],c.abreviaturas||[],c.pedida_como||[],otros).join(' '));
     prepBusqueda(c,c.nombre);
   }catch(e){}}
   // Agregar/quitar sobre la lista del pipeline, no reemplazarla: mismo criterio
@@ -6170,11 +6201,16 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   function applyCode(code){
     const c=BYCODE[code]; if(!c)return; const ov=CONTENT.codes[code];
     if(!c._orig)c._orig={nombre:c.nombre,norma:c.norma?JSON.parse(JSON.stringify(c.norma)):null,auditoria:c.auditoria?c.auditoria.slice():null,asoc_extra:c.asoc_extra||null,
+      pedida_como:c.pedida_como?c.pedida_como.slice():[],
       relaciones:c.relaciones?{incluye:c.relaciones.incluye.slice(),no_incluye:c.relaciones.no_incluye.slice(),incluido_en:c.relaciones.incluido_en.slice(),anexar:(c.relaciones.anexar||[]).slice()}:{incluye:[],no_incluye:[],incluido_en:[],anexar:[]}};
     c.nombre=(ov&&ov.nombre!=null&&ov.nombre!=='')?ov.nombre:c._orig.nombre;
     c.norma=(ov&&'norma'in ov)?ov.norma:c._orig.norma;
     c.auditoria=(ov&&'auditoria'in ov)?ov.auditoria:c._orig.auditoria;
     c.asoc_extra=(ov&&ov.asoc_extra)?ov.asoc_extra:(c._orig.asoc_extra||null);
+    // Mismo criterio que auditoria: el textarea de ✎ Editar ficha siempre
+    // muestra la lista completa vigente (relevada + lo que ya se sumó), así
+    // que lo que se guarda es esa lista entera, no un agregado por encima.
+    c.pedida_como=(ov&&'pedida_como'in ov)?ov.pedida_como:c._orig.pedida_como;
     const rd=ov&&ov.relaciones;
     c.relaciones={
       incluye:     mergeListaRel(c._orig.relaciones.incluye,     rd&&rd.incluye),
@@ -6678,7 +6714,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
        cuentas, textos, logo, nube y respaldo no son suyos, y mostrárselos
        apagados sólo invita a preguntar por qué no andan. */
     const tabs=esDuenio()
-      ? [['resumen','Resumen'],['perfiles','Perfiles'],['propuestas','Pendientes'],['medicas','Revisión médica'],
+      ? [['resumen','Resumen'],['perfiles','Perfiles'],['propuestas','Pendientes'],['sugerencias','Sugerencias'],['medicas','Revisión médica'],
          ['contenido','Textos'],['nube','Nube'],['registro','Registro'],['respaldo','Respaldo']]
       : [['medicas','Revisión médica']];
     if(!tabs.some(t=>t[0]===aTab))aTab=tabs[0][0];
@@ -6798,6 +6834,50 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       }catch(e){ toast(e.message,true); }
     }));
   }
+  /* Sugerencias de "pedida como" que deja el Intérprete de orden: se leen
+     de la nube cada vez que se abre la pestaña, mismo criterio que
+     paneNube — decidir sobre una lista de hace rato es peor que no verla.
+     Sólo aparece para el administrador (RLS ya lo exige del lado de la
+     base; acá además ni se ofrece la pestaña a nadie más). "Agregar" suma
+     el texto a pedida_como del código (agrega, no reemplaza lo que ya
+     había) usando la misma corrección que ✎ Editar ficha. */
+  async function paneSugerencias(p){
+    p.innerHTML='<div class="ahint">Leyendo las sugerencias…</div>';
+    let filas;
+    try{ filas=await NUBE.sugerenciasPedidaComo(); }
+    catch(e){ p.innerHTML=`<div class="ahint" style="color:var(--exc)">No se pudieron leer las sugerencias: ${E(e.message)}</div>`; return; }
+    p.innerHTML=`<div class="ahint">Cuando alguien usa el <b>Intérprete de orden</b> y elige un candidato que no era el primero, queda anotado acá: es la señal de que ese renglón está escrito de una forma que el buscador todavía no reconoce. «Agregar» lo suma a «Puede venir solicitada como» del código — el mismo campo que se edita a mano desde ✎ Editar ficha.</div>`+
+      (filas.length?filas.map(s=>{const c=BYCODE[s.codigo];
+        return `<div class="arow" style="align-items:flex-start">
+          <div class="grow2">
+            <div class="pnm"><span class="mono" style="color:var(--accent-ink)">${E(c?c.code:s.codigo)}</span> ${E(c?c.nombre.slice(0,54):'')}</div>
+            <div style="font-size:13px;color:var(--ink-2);margin:5px 0;white-space:pre-wrap">${E(s.texto)}</div>
+            <div class="pmeta">${new Date(s.creada).toLocaleDateString('es-AR')}</div>
+          </div>
+          <button class="minibtn" data-sact="ok" data-id="${E(s.id)}" data-c="${E(s.codigo)}" data-t="${E(s.texto)}">Agregar</button>
+          <button class="minibtn danger" data-sact="no" data-id="${E(s.id)}">Descartar</button>
+        </div>`;}).join(''):'<div class="ahint">No hay sugerencias pendientes.</div>');
+    p.querySelectorAll('[data-sact]').forEach(b=>b.addEventListener('click',async()=>{
+      const id=b.dataset.id, aprueba=b.dataset.sact==='ok';
+      try{
+        if(aprueba){
+          const code=b.dataset.c, c=BYCODE[code];
+          if(!c)throw new Error('Ese código ya no existe en la base.');
+          applyCode(code);   // asegura c.pedida_como resuelto (pipeline + lo ya agregado)
+          const actual=c.pedida_como||[];
+          const texto=b.dataset.t;
+          if(!actual.includes(texto)){
+            const ov=Object.assign({},CONTENT.codes[code]||{},{pedida_como:actual.concat([texto])});
+            CONTENT.codes[code]=ov; logEdit('sumó "pedida como" desde una sugerencia',code); applyCode(code); persistContent();
+            if(nubeContenido)await enNube(NUBE.guardarCorreccion(code,ov),'guardar "pedida como" para el equipo');
+          }
+        }
+        await NUBE.resolverSugerenciaPedidaComo(id,aprueba?'aprobada':'descartada');
+        toast(aprueba?'Agregado a "pedida como"':'Sugerencia descartada');
+        paneSugerencias(p);
+      }catch(e){ toast(e.message,true); }
+    }));
+  }
 
   function renderPane(){
     const p=el('aPane');
@@ -6837,6 +6917,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       return;
     }
     if(aTab==='perfiles'&&NUBE.activa){ paneNube(p); return; }
+    if(aTab==='sugerencias'){ paneSugerencias(p); return; }
     if(aTab==='perfiles'){
       const pend=AUTH.profiles.filter(x=>x.estado==='pendiente');
       const activos=AUTH.profiles.filter(x=>x.estado!=='pendiente');
@@ -7207,6 +7288,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
           if('norma'in ov&&JSON.stringify(ov.norma)!==JSON.stringify(or_.norma||null))d.norma=ov.norma;
           if('auditoria'in ov&&JSON.stringify(ov.auditoria)!==JSON.stringify(or_.auditoria||null))d.auditoria=ov.auditoria;
           if(ov.asoc_extra&&ov.asoc_extra!==(or_.asoc_extra||null))d.asoc_extra=ov.asoc_extra;
+          if('pedida_como'in ov&&JSON.stringify(ov.pedida_como)!==JSON.stringify(or_.pedida_como||[]))d.pedida_como=ov.pedida_como;
           if(Object.keys(d).length)corr[code]=d;
         });
         // Las verificaciones también se versionan: si no, cada instalación vuelve a
@@ -7390,7 +7472,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     const delta=deltaListaRel([...finSet],origLista);
     const relPrevia=Object.assign({},(CONTENT.codes[otroCodigo]&&CONTENT.codes[otroCodigo].relaciones)||{});
     if(delta)relPrevia[campo]=delta;else delete relPrevia[campo];
-    const ovOtro={nombre:oc.nombre,norma:oc.norma,auditoria:oc.auditoria,asoc_extra:oc.asoc_extra};
+    const ovOtro={nombre:oc.nombre,norma:oc.norma,auditoria:oc.auditoria,asoc_extra:oc.asoc_extra,pedida_como:oc.pedida_como};
     if(Object.keys(relPrevia).length)ovOtro.relaciones=relPrevia;
     CONTENT.codes[otroCodigo]=ovOtro;logEdit('actualizó relación (espejo)',otroCodigo);persistContent();applyCode(otroCodigo);
     if(nubeContenido)enNube(NUBE.guardarCorreccion(otroCodigo,ovOtro),'actualizar la relación en '+otroCodigo);
@@ -7404,7 +7486,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     const dInc=deltaListaRel(finArr,c._orig.relaciones.incluye||[]);
     const relPrevia=Object.assign({},(CONTENT.codes[code]&&CONTENT.codes[code].relaciones)||{});
     if(dInc)relPrevia.incluye=dInc;else delete relPrevia.incluye;
-    const ov={nombre:c.nombre,norma:c.norma,auditoria:c.auditoria,asoc_extra:c.asoc_extra};
+    const ov={nombre:c.nombre,norma:c.norma,auditoria:c.auditoria,asoc_extra:c.asoc_extra,pedida_como:c.pedida_como};
     if(Object.keys(relPrevia).length)ov.relaciones=relPrevia;
     CONTENT.codes[code]=ov;logEdit('vinculó código en relaciones',code);persistContent();applyCode(code);
     if(nubeContenido)enNube(NUBE.guardarCorreccion(code,ov),'guardar la relación para el equipo');
@@ -7424,7 +7506,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     const dAnex=deltaListaRel(finArr,c._orig.relaciones.anexar||[]);
     const relPrevia=Object.assign({},(CONTENT.codes[code]&&CONTENT.codes[code].relaciones)||{});
     if(dAnex)relPrevia.anexar=dAnex;else delete relPrevia.anexar;
-    const ov={nombre:c.nombre,norma:c.norma,auditoria:c.auditoria,asoc_extra:c.asoc_extra};
+    const ov={nombre:c.nombre,norma:c.norma,auditoria:c.auditoria,asoc_extra:c.asoc_extra,pedida_como:c.pedida_como};
     if(Object.keys(relPrevia).length)ov.relaciones=relPrevia;
     CONTENT.codes[code]=ov;logEdit('anexó código a cargar',code);persistContent();applyCode(code);
     if(nubeContenido)enNube(NUBE.guardarCorreccion(code,ov),'guardar el código anexado para el equipo');
@@ -7448,7 +7530,10 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       <label>Norma mínima de trabajo</label><textarea id="efTrab">${E(norma.trabajo||'')}</textarea>
       <label>Interpretación</label><textarea id="efInt">${E(norma.interpretacion||'')}</textarea>
       <label>Normas de auditoría / facturación (una por línea)</label><textarea id="efAud" style="min-height:110px">${E((c.auditoria||[]).join('\n'))}</textarea>
-      <label>Nota de asociación de códigos (interna)</label><textarea id="efAsoc">${E(c.asoc_extra||'')}</textarea>`:''}
+      <label>Nota de asociación de códigos (interna)</label><textarea id="efAsoc">${E(c.asoc_extra||'')}</textarea>
+      <label>Puede venir solicitada como (una forma por línea)</label>
+      <div class="asub" style="margin:0 0 4px">Nombres con los que puede llegar la orden — el buscador y el Intérprete de orden también van a encontrar el código por estos.</div>
+      <textarea id="efPedidaComo" placeholder="Un nombre por línea">${E((c.pedida_como||[]).join('\n'))}</textarea>`:''}
       ${puedeRel?`
       <div style="margin-top:${puedeFicha?'18px':'0'};font-weight:800;font-size:11px;letter-spacing:.7px;text-transform:uppercase;color:var(--accent-ink)">Relaciones entre códigos — árbol de módulos</div>
       ${listaCampo('efInc','Incluye',`${E(c.code)} las comprende: no se facturan por separado si ya se cargó ${E(c.code)}.`,R.incluye)}
@@ -7470,10 +7555,11 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         ov.norma=(trab||intp)?{trabajo:trab,interpretacion:intp}:null;
         ov.auditoria=aud;
         ov.asoc_extra=el('efAsoc').value.trim()||null;
+        ov.pedida_como=el('efPedidaComo').value.split('\n').map(s=>s.trim()).filter(Boolean);
       }else{
         // No es lo que este rol puede tocar: se preserva tal cual estaba, para
         // no pisar con null lo que ya cargó el administrador general.
-        ov.nombre=c.nombre;ov.norma=c.norma;ov.auditoria=c.auditoria;ov.asoc_extra=c.asoc_extra;
+        ov.nombre=c.nombre;ov.norma=c.norma;ov.auditoria=c.auditoria;ov.asoc_extra=c.asoc_extra;ov.pedida_como=c.pedida_como;
       }
       const espejos=[];   // {otro, campo, accion, valor}[]
       if(puedeRel){
@@ -7538,7 +7624,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       // ver CN-003 en tests/rls/ataques.sql): se reescribe sin la clave
       // «relaciones», y espejando también la vuelta atrás en el otro código.
       deshacerEspejos();
-      const ov={nombre:c.nombre,norma:c.norma,auditoria:c.auditoria,asoc_extra:c.asoc_extra};
+      const ov={nombre:c.nombre,norma:c.norma,auditoria:c.auditoria,asoc_extra:c.asoc_extra,pedida_como:c.pedida_como};
       CONTENT.codes[code]=ov;logEdit('restauró relaciones',code);persistContent();applyCode(code);
       if(nubeContenido)enNube(NUBE.guardarCorreccion(code,ov),'restaurar las relaciones para el equipo');
       if(state.view==='list'||state.view==='tree')render();closeAdmin();openCode(code);toast('Relaciones restauradas');

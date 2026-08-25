@@ -39,4 +39,9 @@ update public.perfiles
    set notas = '{"420101":"nota privada"}'::jsonb, ub = 1250
  where nombre = 'Administrativo';
 
+-- Una sugerencia de "pedida como" del Intérprete de orden, pendiente de
+-- revisión, para probar que sólo el administrador la ve y la resuelve.
+insert into public.sugerencias_pedida_como (codigo, texto, autor)
+  select '420101', 'orden medica de prueba', id from public.perfiles where nombre = 'Administrativo';
+
 do $ident$ begin perform set_config('request.jwt.claim.sub', '', false); end $ident$;
