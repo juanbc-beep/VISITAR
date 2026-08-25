@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-UlhZLGumqsJI9z0WMo30qBvzhIeQYQGYMCN6UFke/1I=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-+wSd8qVUD8F8BgrsIHqtGOfHVR0HtPeo1f1mlv9rDW0=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -5577,7 +5577,16 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   function lockedFor(id){const l=LOCK[lockKey(id)];if(!l)return 0;const rem=Math.ceil((l.until-Date.now())/1000);return rem>0?rem:0;}
   function noteFail(id){const k=lockKey(id);const l=LOCK[k]||{n:0,until:0};l.n++;if(l.n>=5){l.until=Date.now()+30000;l.n=0;}LOCK[k]=l;}
   function noteOk(id){delete LOCK[lockKey(id)];}
-  function resetIdle(){if(!current)return;clearTimeout(idleT);idleT=setTimeout(()=>{if(current){current=null;editMode=false;document.body.classList.remove('editmode-on');vigilarCuentas(false);toast('Sesión cerrada por inactividad');renderGate(NUBE.activa?'nubeLogin':'profiles');gate.hidden=false;}},IDLE_MS);}
+  /* Cerrar por inactividad tiene que invalidar la sesión de verdad, no sólo
+     esconder la pantalla: si sólo se borra `current` y se muestra el gate,
+     el token de Supabase sigue vivo en localStorage y un F5 en la máquina
+     compartida del mostrador vuelve a entrar solo (ver «init», más abajo:
+     con sesión guardada, la app reintenta el login sin pedir nada). En una
+     máquina de uso compartido eso deja la sesión abierta para quien llegue
+     después. NUBE.salir() revoca el token en el servidor y limpia lo
+     guardado; no hace falta esperarla, nunca tira error (atrapa el fetch
+     adentro). */
+  function resetIdle(){if(!current)return;clearTimeout(idleT);idleT=setTimeout(()=>{if(current){current=null;editMode=false;document.body.classList.remove('editmode-on');vigilarCuentas(false);toast('Sesión cerrada por inactividad');if(NUBE.activa)NUBE.salir();renderGate(NUBE.activa?'nubeLogin':'profiles');gate.hidden=false;}},IDLE_MS);}
   ['mousemove','keydown','click','touchstart'].forEach(ev=>document.addEventListener(ev,()=>{if(current)resetIdle();},{passive:true}));
 
   /* El logo no es un dato de confianza: viaja en la fila de ajustes de la base y

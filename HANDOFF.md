@@ -2189,11 +2189,17 @@ Lo que YA está bien y no hay que tocar:
 1. **RESPALDOS. El plan de Supabase es gratuito y NO tiene respaldos automáticos** (ver 4.7).
    No es un ataque: es la pérdida más probable y la más cara. Si el proyecto se borra o se
    corrompe, se va todo lo que escribieron los médicos. Es lo primero.
-2. **XSS almacenado por texto que escriben los médicos.** La revisión médica, las
-   observaciones y «qué abarca» los escribe una persona y se renderizan en la pantalla de
-   otra. Hay 81 usos de `innerHTML`. Se escapa con `esc()` y `csp3.mjs` verifica que la
-   inyección se bloquee, pero **falta una auditoría dirigida a esos tres caminos**, sobre todo
-   al orden de `linkCodes(esc(t))`.
+2. ✅ **XSS almacenado por texto que escriben los médicos — auditado el 25/8/2026, sin
+   hallazgos.** Se revisaron a mano los tres caminos (revisión médica `rev.texto`,
+   observaciones `o.texto`, «qué abarca» `alcance_nn`/`corr.texto`) más `asoc_extra`,
+   `auditoria`, `norma.interpretacion`, `observacion_unico`, notas personales, nombres de
+   usuario (`por`/`quien`/`autor`) y `c.nombre` editable desde ✎ Editar ficha — en total
+   los ~90 usos de `innerHTML` que interpolan datos, uno por uno. El orden `linkCodes(esc(t))`
+   es correcto en **todos** los casos: `esc()` corre primero y `linkCodes()` sólo agrega
+   `<span data-goto>` alrededor de secuencias `\d{6}` que ya quedaron escapadas, así que no
+   hay forma de que el HTML que agrega linkCodes lo controle el texto de origen. `hlList()`
+   (resaltado de búsqueda) también escapa antes de marcar. El logo (`logoInner()`) sigue
+   protegido por `LOGO_OK` + `E()`. No se encontró ningún camino sin escapar.
 3. **Segundo factor en la cuenta del administrador general.** Es la cuenta que puede todo; si
    se la toman, no hay segunda línea.
 4. **`frame-ancestors` no se puede poner.** La directiva **se ignora en un `<meta>`**: sólo
@@ -2206,7 +2212,17 @@ Lo que YA está bien y no hay que tocar:
    estilo es mucho menos grave que inyectar código; sacarlo pide reescribir media interfaz.
 7. **Re-correr los 25 avisos del linter** después de las migraciones 02‑05. ⚠️ Ver 4.5 quater:
    seguir su receta al pie de la letra **rompe la app**.
-8. **Cuánto dura la sesión** de un médico en una máquina compartida.
+8. ✅ **Cuánto dura la sesión — arreglado el 25/8/2026.** Ya existía `resetIdle()`
+   (`web/index.html`, cerca de la línea 5580): 25 minutos sin `mousemove`/`keydown`/`click`/
+   `touchstart` y vuelve a la pantalla de ingreso. **Pero era cosmético**: sólo borraba
+   `current` en memoria y mostraba el gate — el token de Supabase seguía vivo en
+   `localStorage` (`nbu-sesion`), y el arranque de la app (`init`, al final del archivo)
+   **reintenta el login solo si encuentra sesión guardada**. Resultado real: en la máquina
+   del mostrador, después de que saltara el cierre por inactividad, apretar F5 volvía a
+   entrar sin pedir nada — el candado no candaba. Arreglado: ahora `resetIdle()` llama
+   también a `NUBE.salir()` (revoca el token en el servidor y limpia `localStorage`), igual
+   que hace el botón manual «Cerrar sesión». No hace falta segundo factor para que esto
+   importe: es la fuga más simple de todas, la que no requiere ataque.
 
 ### C. Decisiones que esperan a los médicos
 - **Chagas**: `63663576` (ELISA) está atado al NBU `663576`, que es el **PCR**. Error
@@ -2316,7 +2332,15 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
 - **Intérprete de orden médica**: pegar el texto de la orden y que devuelva los códigos
   candidatos. Es la que más le ahorra al mostrador.
 - **Vista mostrador simplificada**: sólo lo que hay que responderle al afiliado.
-- **Navegación «volver» dentro de la ficha** (hoy se pierde el hilo al saltar entre códigos).
+- ~~**Navegación «volver» dentro de la ficha**~~ **ya está construida** (revisado el
+  25/8/2026, no hace falta tocarla): `navPila` en `web/index.html` apila el código anterior
+  sólo cuando el salto sale de **adentro** de una ficha abierta (`data-goto` con
+  `origen==='ficha'`; entrar desde el listado, la búsqueda, la paleta o el comparador
+  siempre empieza un recorrido nuevo). El botón «← Volver a…» (`#dBack`) muestra el código
+  y nombre anterior y llama a `atrasFicha()`, que hace `pop()` de la pila — soporta cadenas
+  de varios saltos (A → B → C → volver a B → volver a A), no sólo un nivel. Este apartado del
+  HANDOFF había quedado desactualizado: la función se construyó en `3bb720a` (ver 7, tanda
+  «De archivo suelto a aplicación de empresa») y nadie tachó el pendiente.
 - **Buscador por droga** para autorizaciones de medicación (121 drogas / 22 patologías
   SURGE ya parseadas).
 - **U.B. por fecha / por convenio** (hoy hay un solo valor por perfil).
