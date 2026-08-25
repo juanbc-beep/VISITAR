@@ -34,6 +34,7 @@ export function crearDB() {
     factores: new Map(),      // uid -> [{id, factor_type:'totp', status, friendly_name}]
     desafios: new Map(),      // challenge_id -> {uid, factorId}
     sugerenciasPedidaComo: new Map(), // id (uuid) -> fila, como la tabla real
+    auditoria: [],             // {tabla, operacion, clave, quien_nombre, cuando, antes, despues}
   };
 }
 
@@ -323,13 +324,35 @@ export async function instalarSimulador(context, db) {
       if (method === 'GET') return responder(route, 200, [...db.correcciones.values()]);
       if (method === 'POST') {
         const body = leerCuerpo(req);
+        // Emula el trigger auditar() de docs/supabase.sql: registra la fila
+        // completa de antes y de después de cada guardado, para que
+        // NUBE.historialFicha() tenga qué mostrar en los casos de e2e — no es
+        // una réplica del trigger real (eso lo prueba tests/rls/ contra
+        // PostgreSQL de verdad), sólo lo que necesita ejercitar la interfaz.
+        const viejo = db.correcciones.get(body.codigo) || null;
+        const yo = identidad(db, req);
         db.correcciones.set(body.codigo, body);
+        db.auditoria.push({
+          tabla: 'correcciones', operacion: viejo ? 'cambio' : 'alta', clave: body.codigo,
+          quien_nombre: (yo && yo.nombre) || 'consola de Supabase',
+          cuando: new Date().toISOString(), antes: viejo, despues: body,
+        });
         return responder(route, esMinimal(req) ? 201 : 200, esMinimal(req) ? undefined : [body]);
       }
       if (method === 'DELETE') {
         db.correcciones.delete(filtroEq(url, 'codigo'));
         return responder(route, 204);
       }
+    }
+
+    // ---------------- REST: auditoria (sólo lectura, ver historialFicha) ---
+    if (path === '/rest/v1/auditoria' && method === 'GET') {
+      const tabla = filtroEq(url, 'tabla'), clave = filtroEq(url, 'clave');
+      let filas = db.auditoria;
+      if (tabla) filas = filas.filter(a => a.tabla === tabla);
+      if (clave) filas = filas.filter(a => a.clave === clave);
+      filas = filas.slice().sort((a, b) => (b.cuando || '').localeCompare(a.cuando || ''));
+      return responder(route, 200, filas);
     }
 
     // ---------------- REST: verificaciones ----------------

@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-0rZ7HEkkrCEIgZygi+LW9xt12Ku2q6b8A5Ll+LDi+mw=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-Q0/aOBwRrmhC/CA5ySOrs/WboUPfS9jE9kbTmWcbOjc=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1171,6 +1171,9 @@ ul{margin:0;padding:0}
 .ley-det .ld-code:hover{border-color:var(--accent);background:var(--accent-soft)}
 .ley-det .ld-temas{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
 .ley-det .ld-tema{font-size:11px;background:var(--surface-3);border-radius:20px;padding:2px 9px;color:var(--muted)}
+.ley-det .ley-doc{background:var(--surface);border:1px dashed var(--line-2);border-radius:8px;padding:9px 11px;margin-top:5px}
+.ley-det .ley-doc+.ley-doc{margin-top:8px}
+.ley-det .ley-doc .pmeta{margin:2px 0 5px}
 .modal .close-x{float:right}
 
 /* ---------- mobile ---------- */
@@ -4427,7 +4430,8 @@ function openCode(code,origen){
         <button class="minibtn" id="dCmp">⇄ Comparar</button>`:''}
         <button class="minibtn" id="dImp">🖨 Imprimir ficha</button>
       </div>
-      ${(window.NBUProfile&&NBUProfile.canEdit())?`<div class="dedit"><button class="minibtn" id="editFichaBtn">✎ ${NBUProfile.editaFicha()?'Editar ficha':'Editar relaciones entre códigos'}</button></div>`:''}
+      ${(window.NBUProfile&&NBUProfile.canEdit())?`<div class="dedit"><button class="minibtn" id="editFichaBtn">✎ ${NBUProfile.editaFicha()?'Editar ficha':'Editar relaciones entre códigos'}</button>${(window.NBUProfile.esDuenio&&NBUProfile.esDuenio()&&window.NBUNube&&NBUNube.activa)?`<button class="minibtn" id="histFichaBtn">🕘 Ver historial</button>`:''}</div>`:''}
+      <div id="dHistorial" hidden></div>
       ${revMedHTML(code)}
       ${esAdministrativo?'':coberturaHTML(c,true)}
       ${obsFichaHTML(code)}
@@ -4892,6 +4896,33 @@ function openCode(code,origen){
     if(state.view==='list')render(); openCode(code);
   });
   const ef=el('editFichaBtn');if(ef)ef.addEventListener('click',()=>window.NBUProfile&&NBUProfile.editFicha(code));
+  /* Quién corrigió esta ficha, cuándo, y qué decía antes de cada cambio.
+     Se pide sólo al abrirlo (no en cada render de la ficha): es sólo del
+     administrador general, y sería un viaje a la nube de más en cada
+     código que mira, para un dato que la mayoría de las veces no consulta. */
+  const hb=el('histFichaBtn');
+  if(hb)hb.addEventListener('click',async()=>{
+    const cont=el('dHistorial'); if(!cont)return;
+    if(!cont.hidden){cont.hidden=true;return;}
+    cont.hidden=false;
+    if(cont.dataset.cargado==='1')return;
+    cont.innerHTML='<div class="ahint">Cargando…</div>';
+    try{
+      const filas=await window.NBUNube.historialFicha(code);
+      cont.dataset.cargado='1';
+      if(!filas.length){cont.innerHTML='<div class="ahint">Sin cambios registrados todavía.</div>';return;}
+      cont.innerHTML=`<div class="ahint" style="margin:8px 0">Historial de cambios — sólo lo ve el administrador general.</div>`+
+        filas.map(f=>{
+          const cambios=diffCorreccion(f.antes,f.despues);
+          return `<div class="freq-note" style="margin-bottom:8px">
+            <div class="pmeta"><b>${esc(f.quien_nombre||'—')}</b> · ${new Date(f.cuando).toLocaleString('es-AR')}${f.operacion==='alta'?' · primera vez que se corrige':''}</div>
+            ${cambios.length?`<ul style="margin:6px 0 0;padding-left:18px">${cambios.map(c=>
+              `<li><b>${esc(c.label)}</b>: ${f.operacion==='alta'?'':`${esc(c.antes)} → `}${esc(c.despues)}</li>`).join('')}</ul>`
+              :'<div style="font-size:13px;color:var(--muted);margin-top:4px">Sin cambios de contenido detectados.</div>'}
+          </div>`;
+        }).join('');
+    }catch(e){cont.innerHTML=`<div class="ahint">No se pudo traer el historial: ${esc(e.message)}</div>`;}
+  });
   /* Vincular código, adentro de «Cómo se carga»: mismo guardado que el editor
      completo (guardarIncluye/espejarRelacion), pero en el acto y sin abrir
      ningún modal. Repinta la ficha entera al terminar, mismo patrón que el
@@ -5119,6 +5150,28 @@ function addToValidator(code){
   ta.scrollIntoView({behavior:'smooth',block:'center'});
 }
 function linkCodes(s){return s.replace(/\b(66\d{4})\b/g,(m)=>BYCODE[m]?`<span class="mono" data-goto="${m}" style="cursor:pointer;text-decoration:underline;text-decoration-style:dotted">${m}</span>`:m);}
+// Historial de una ficha (Ver historial): «auditoria» guarda la fila entera de
+// «correcciones» antes y después de cada cambio (docs/supabase.sql), en la
+// columna «datos» —la copia exacta que manda, ver guardarCorreccion()—, no en
+// las columnas sueltas (que no existen para pedida_como/incluye/etc.). El
+// diff compara esas dos copias completas, campo por campo, sin asumir cuáles
+// van a estar presentes: cualquiera de los ~12 sitios que llaman a
+// guardarCorreccion() puede mandar un subconjunto distinto de campos.
+const CAMPO_LABEL_HIST={nombre:'Nombre',norma:'Norma',auditoria:'Auditoría / facturación',
+  asoc_extra:'Cómo se carga en VISITAR',pedida_como:'Puede venir solicitada como',
+  incluye:'Vincula (Árbol de módulos)',no_incluye:'No cargar aparte',incluido_en:'Incluido en'};
+function textoDeCampoHist(k,v){
+  if(v==null)return '—';
+  if(k==='norma')return (v.trabajo||v.interpretacion)?[v.trabajo,v.interpretacion].filter(Boolean).join(' / '):'—';
+  if(Array.isArray(v))return v.length?v.join('; '):'—';
+  return String(v)||'—';
+}
+function diffCorreccion(antes,despues){
+  const a=(antes&&antes.datos)||{}, d=(despues&&despues.datos)||{};
+  const claves=[...new Set([...Object.keys(a),...Object.keys(d)])];
+  return claves.filter(k=>JSON.stringify(a[k]!==undefined?a[k]:null)!==JSON.stringify(d[k]!==undefined?d[k]:null))
+    .map(k=>({label:CAMPO_LABEL_HIST[k]||k,antes:textoDeCampoHist(k,a[k]),despues:textoDeCampoHist(k,d[k])}));
+}
 function closeDrawer(){
   navPila=[];el('drawer').classList.remove('on');el('scrim').classList.remove('on');
   if(location.hash)history.replaceState(null,'',location.pathname+location.search);
@@ -5318,6 +5371,11 @@ function openInfo(expandLey){
       ${l.cobertura?`<div class="ld-cob"><b>Qué cubre:</b> ${esc(l.cobertura)}</div>`:''}
       ${(l.articulos&&l.articulos.length)?`<span class="ld-lbl">Artículos clave</span><ul>${l.articulos.map(a=>`<li>${esc(a)}</li>`).join('')}</ul>`:''}
       ${(l.codigos&&l.codigos.length)?`<span class="ld-lbl">Prácticas relacionadas</span><div class="ld-codes">${l.codigos.map(c=>BYCODE[c]?`<span class="ld-code" data-goto="${c}" title="${esc(BYCODE[c].nombre)}">${BYCODE[c].code}</span>`:'').join('')}</div>`:''}
+      ${(l.documentos&&l.documentos.length)?`<span class="ld-lbl">Documentos relacionados</span>${l.documentos.map(d=>`<div class="ley-doc">
+        <b>${esc(d.titulo)}</b>${d.url?` <a class="ley-url" href="${esc(d.url)}" target="_blank" rel="noopener">abrir ↗</a>`:''}
+        <div class="pmeta">${esc([d.fuente,d.fecha].filter(Boolean).join(' · '))}</div>
+        ${d.resumen?`<div>${esc(d.resumen)}</div>`:''}
+      </div>`).join('')}`:''}
       ${vtab}
       ${(l.temas&&l.temas.length)?`<div class="ld-temas">${l.temas.map(t=>`<span class="ld-tema">${esc(t)}</span>`).join('')}</div>`:''}
     </div>`:'';
@@ -5586,9 +5644,29 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       return s;
     }
 
+    /* Un corte de señal momentáneo (wifi de la oficina, un rato sin datos) no
+       tiene por qué perder lo que se estaba guardando ni forzar un error: se
+       reintenta solo, con espera creciente, antes de darse por vencido.
+       Sólo para eso — un `fetch` que ni siquiera llega a haber respuesta
+       llega como TypeError ("Failed to fetch" / "NetworkError", mismo
+       patrón que ya usa traducir() más arriba). Un error real del servidor
+       (contraseña mal, 403, etc.) SÍ tiene respuesta y no pasa por acá: ahí
+       reintentar no arregla nada, y demorar el aviso sería peor. */
+    const ESPERAS_RED=[2000,5000,10000];   // ~17s en total antes de rendirse
+    async function hacerConReintento(hacer){
+      let avisado=false;
+      for(let i=0;;i++){
+        try{ return await hacer(); }
+        catch(err){
+          if(i>=ESPERAS_RED.length||!/Failed to fetch|NetworkError/i.test(err.message||''))throw err;
+          if(!avisado){avisado=true;toast('Sin conexión — reintentando…');}
+          await new Promise(res=>setTimeout(res,ESPERAS_RED[i]));
+        }
+      }
+    }
     async function token(cuerpo,tipo){
-      const r=await fetch(`${URL_}/auth/v1/token?grant_type=${tipo}`,
-        {method:'POST',headers:hdrBase(),body:JSON.stringify(cuerpo)});
+      const r=await hacerConReintento(()=>fetch(`${URL_}/auth/v1/token?grant_type=${tipo}`,
+        {method:'POST',headers:hdrBase(),body:JSON.stringify(cuerpo)}));
       const d=await leer(r);
       /* El «aal» (nivel de verificación) no lo manda este endpoint: un login con
          contraseña siempre vuelve a aal1, aunque la cuenta tenga el segundo
@@ -5605,6 +5683,13 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       if(Date.now()<ses.expira)return true;
       try{await token({refresh_token:ses.refresh_token},'refresh_token');return true;}
       catch(e){
+        // hacerConReintento() ya reintentó solo un corte de señal momentáneo
+        // (~17s); si igual llega acá por eso, la red sigue caída, no la
+        // sesión — no hay que forzar un logout por algo que se arregla solo
+        // en el próximo intento. Sólo cuenta como sesión muerta un rechazo
+        // real del servidor (esto SÍ tiene que ver con la sesión, no con la
+        // señal).
+        if(/Failed to fetch|NetworkError/i.test(e.message||''))return false;
         guardarSes(null);perfil=null;
         // El refresh token puede morir solo (vencimiento propio de Supabase,
         // o rotación por haber entrado desde otro lado) sin que la app haga
@@ -5627,7 +5712,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     async function api(ruta,opt){
       if(!(await vigente()))throw new Error('Sesión no vigente.');
       const hacer=()=>fetch(URL_+ruta,Object.assign({},opt,{headers:Object.assign(hdrAuth(),(opt&&opt.headers)||{})}));
-      let r=await hacer();
+      let r=await hacerConReintento(hacer);
       // El otro momento en que puede morir: el access token vale por lo que
       // dice `expira` (vigente() recién lo chequeó y decía que faltaba), pero
       // el servidor lo invalida antes igual (se cerró la sesión desde otro
@@ -5637,8 +5722,13 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       // avisar y volver al login, no dejar que cada pantalla que lo atrapa
       // (casi todas con un `catch` genérico) lo muestre como un error suelto.
       if(r.status===401&&ses){
-        try{await token({refresh_token:ses.refresh_token},'refresh_token');r=await hacer();}
-        catch(e){guardarSes(null);perfil=null;cerrarSesionMuerta('Tu sesión venció. Iniciá sesión de nuevo.');}
+        try{await token({refresh_token:ses.refresh_token},'refresh_token');r=await hacerConReintento(hacer);}
+        catch(e){
+          // Mismo criterio que en vigente(): un corte de señal no es que la
+          // sesión haya muerto.
+          if(/Failed to fetch|NetworkError/i.test(e.message||''))throw e;
+          guardarSes(null);perfil=null;cerrarSesionMuerta('Tu sesión venció. Iniciá sesión de nuevo.');
+        }
       }
       return leer(r);
     }
@@ -5782,6 +5872,14 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
            actualizado:new Date().toISOString()})}),
       borrarCorreccion:(codigo)=>api('/rest/v1/correcciones?codigo=eq.'+encodeURIComponent(codigo),
         {method:'DELETE',headers:{'Prefer':'return=minimal'}}),
+      /* Quién corrigió esta ficha, cuándo, y qué decía antes. No hace falta
+         ninguna tabla nueva: «auditoria» ya existe (docs/supabase.sql) y ya
+         registra esto solo, por un trigger, desde antes de que hubiera
+         ninguna pantalla que lo mostrara — sólo el administrador general
+         puede leerla (misma RLS de siempre, no se tocó nada acá). */
+      historialFicha:(codigo)=>api(
+        '/rest/v1/auditoria?tabla=eq.correcciones&clave=eq.'+encodeURIComponent(codigo)+
+        '&select=operacion,quien_nombre,cuando,antes,despues&order=cuando.desc',{method:'GET'}),
 
       verificaciones:()=>api('/rest/v1/verificaciones?select=*',{method:'GET'}),
       // Por función: el estado, el autor y las fechas los pone la base.

@@ -2376,8 +2376,14 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
 ### Propuesto y NO construido (por orden de utilidad para el usuario de carga)
 - ✅ **Editar una propuesta antes de publicarla — construido el 26/8/2026.** Ver el bloque
   de esta misma fecha, después de «Sesión muerta del lado del servidor».
-- **Historial por ficha**: quién la corrigió, cuándo y qué decía antes.
-- **Registro de actividad compartido** (hoy es de cada computadora).
+- ✅ **Historial por ficha — construido el 26/8/2026.** Ver el bloque de esta misma fecha,
+  después de «Editar una propuesta antes de publicarla».
+- ~~**Registro de actividad compartido**~~ **ya está construido** (revisado el 26/8/2026, no
+  hace falta tocarlo): `CONTENT.actividad` se arma en `cargarNube()` (`web/index.html`) a
+  partir de `correcciones`/`observaciones`/`verificaciones`/`propuestas` — las cuatro ya
+  viven en la nube, no en cada computadora — y se muestra en **Administración → Registro**
+  (`aTab==='registro'`). Este apartado había quedado desactualizado; nadie tachó el
+  pendiente cuando se construyó.
 - ✅ **Intérprete de orden médica — construido el 25/8/2026, como sector aparte.** Nueva
   pestaña **«Intérprete de orden»** junto a Listado / Árbol de módulos / Mesa de trabajo
   (mismo criterio de visibilidad que Mesa de trabajo: no aparece en Buscar en todo, CIE-10,
@@ -2573,6 +2579,88 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
   - Probado en `tests/e2e/casos/editar_propuesta.mjs`: las dos formas de guardar el cambio
     (Guardar aparte, o editar+Aprobar directo) dejan la ficha **y** la fila de la nube con el
     texto corregido, y el botón «Guardar cambios» habilita/deshabilita según corresponda.
+- ✅ **Historial por ficha — construido el 26/8/2026.** Se pedía «quién la corrigió, cuándo
+  y qué decía antes», y no hizo falta ninguna tabla ni migración nueva: **`public.auditoria`
+  ya existe** (`docs/supabase.sql`, sección «7 bis») y ya registraba esto solo desde antes de
+  esta sesión — un trigger `SECURITY DEFINER` (`auditar()`) guarda automáticamente la fila
+  completa de `correcciones` de antes y de después de cada guardado, en cualquiera de los
+  ~12 lugares del código que llaman a `guardarCorreccion()`. Sólo faltaba la pantalla: nadie
+  la había construido todavía.
+  - **`NUBE.historialFicha(codigo)`** (nuevo): `select` a `auditoria` filtrado por
+    `tabla=correcciones` y `clave=<código>`, orden del más nuevo al más viejo. Misma RLS de
+    siempre (`es_admin()`) — **no se tocó ninguna policy**, sólo se sumó el método de
+    lectura del lado del cliente.
+  - Botón **«🕘 Ver historial»**, al lado de «✎ Editar ficha» (mismo criterio de
+    visibilidad: administrador general, modo edición activado, y con la nube encendida —
+    en modo local no hay `auditoria` que consultar). Se pide **al abrirlo**, no en cada
+    render de la ficha: un viaje a la nube de más por cada código que se mira sería
+    desperdiciado la mayoría de las veces.
+  - **`diffCorreccion()`** compara el `antes`/`despues` completos (columna `datos`, la
+    copia exacta que manda — no las columnas sueltas, que no existen para
+    `pedida_como`/`incluye`/etc.) campo por campo, sin asumir cuáles van a estar presentes:
+    cualquiera de los ~12 sitios que guardan una corrección puede mandar un subconjunto
+    distinto de campos (una edición completa de ficha, sólo relaciones, sólo aprobar una
+    propuesta…). Para la primera corrección de un código (`operacion='alta'`, la fila de
+    `correcciones` no existía) no hay «antes» que mostrar — la ficha, antes de la primera
+    corrección, se arma con los datos del pipeline (`data/nbu_db.json`), que `auditoria` no
+    conoce; el historial sólo cubre correcciones hechas **desde la app**, no el contenido
+    original.
+  - Probado en `tests/e2e/casos/historial_ficha.mjs`: sin correcciones todavía dice que no
+    hay nada; la primera corrección aparece como alta, sin «antes»; una segunda corrección
+    sobre la misma ficha sí muestra el valor anterior real, y las dos quedan ordenadas de la
+    más nueva a la más vieja. El simulador (`tests/e2e/simulador.mjs`) emula el trigger a
+    mano —no reproduce Postgres real, eso es lo que prueba `tests/rls/`— sólo para poder
+    ejercitar la pantalla; como no se tocó ninguna RLS, `tests/rls/` no necesitó cambios.
+- ✅ **Un corte de señal momentáneo no pierde lo que se estaba guardando — construido el
+  26/8/2026, pedido por el usuario («PWA / offline total»).** Alcance acotado a propósito,
+  charlado con el usuario: esto NO es una cola de cambios que persiste mientras no hay
+  internet por un rato largo (eso necesita mucho más cuidado — dos ediciones del mismo
+  código en cola pueden pisarse, y algunas acciones dependen de una que todavía no se
+  mandó); es sólo que el wifi de la oficina se corte **un momento** —unos segundos, un
+  minuto— y la app no tire un error ni obligue a repetir la acción a mano.
+  - **`hacerConReintento()`** (nuevo, dentro de `NUBE`): envuelve el `fetch` de `api()` y de
+    `token()` (el refresh de sesión). Si sale un corte de red de verdad —un `fetch` que ni
+    siquiera llega a haber respuesta llega como `TypeError` («Failed to fetch» /
+    «NetworkError», mismo patrón que ya usaba `traducir()`, no inventado— reintenta con
+    espera creciente (2s, 5s, 10s; ~17s en total) antes de rendirse. Un error real del
+    servidor (contraseña mal, 403, un 400 genuino) **no** entra acá: tiene respuesta, y
+    reintentar no lo iba a arreglar — demorar ese aviso sería peor que mostrarlo de una.
+  - Primer corte: avisa una vez, sin alarmar («Sin conexión — reintentando…»), y si el
+    reintento llega a andar, la acción original sigue su camino normal — el mismo «Ficha
+    actualizada», el mismo cierre de modal, sin que la pantalla que llamó a `enNube()`
+    tuviera que enterarse de nada raro. No hizo falta tocar ninguno de los ~21 lugares que
+    usan `enNube()`: al estar en `api()`, que es el único punto por el que pasa cualquier
+    llamado a la nube, cubre todos de una.
+  - ⚠️ **De paso, corrigió un efecto secundario real del arreglo de «sesión muerta» del
+    mismo día**: antes de esto, `vigente()` trataba CUALQUIER falla al refrescar el token
+    como sesión muerta — incluido un corte de red pasajero durante ese refresh, que
+    hubiera forzado un logout real por algo que se arreglaba solo en el próximo intento.
+    Ahora `vigente()` (y el reintento de `api()` tras un 401) distinguen: sólo un rechazo
+    de verdad del servidor cuenta como sesión muerta; un corte de red, no.
+  - Probado en `tests/e2e/casos/reintento_red.mjs`: se aborta la primera llamada a
+    `/rest/v1/correcciones` con `route.abort('failed')` (mismo `TypeError` que un corte
+    real) y se deja pasar el resto al simulador de siempre — la app avisa, reintenta sola a
+    los ~2s, y el cambio llega igual a la «nube» (comprobado del lado del simulador, no sólo
+    mirando la pantalla, que ya se había actualizado local antes de que la nube confirmara
+    nada).
+- ✅ **Guía provincial de IVE/ILE vinculada a la Ley N° 27.610 — agregado el 26/8/2026,
+  a pedido del usuario.** El usuario adjuntó la «Guía de implementación de la interrupción
+  voluntaria del embarazo en la Provincia de Buenos Aires» (2ª edición, septiembre 2021,
+  Ministerio de Salud de la Provincia de Buenos Aires) y pidió anexarla a la Ley N° 27.610
+  ya cargada en el glosario y marco normativo (`ⓘ` → Leyes · Resoluciones · Decretos).
+  No es una ley aparte —es una guía que **complementa** la implementación de la 27.610 en
+  la provincia, no una norma nueva—, así que no se sumó como entrada nueva de `leyes`: se
+  agregó un campo `documentos` (nuevo) a la entrada existente de la 27.610, en
+  `scripts/assemble.py` (fuente) y `data/nbu_db.json` (base ya compilada — el pipeline
+  completo de `assemble.py` necesita intermedios que no viven en el repo, ver 3.2; para un
+  cambio así de acotado, sumarlo a mano en los dos lados y correr
+  `python3 scripts/inject_db.py` es lo que corresponde, no reconstruir todo). Sin `url`: es
+  un PDF que subió el usuario, no un enlace oficial verificado — no se inventa uno.
+  `web/index.html` (`openInfo()`) suma una sección «Documentos relacionados» dentro del
+  detalle de la ley, con el mismo patrón que ya usan `cobertura`/`articulos`/`temas`
+  (título, fuente, fecha, resumen). Verificado a mano en el navegador (buscar «27.610» en
+  el modal trae el texto agregado); no se sumó un caso de e2e dedicado — es contenido, no
+  lógica nueva, mismo criterio que las otras 21 leyes ya cargadas, ninguna con test propio.
 - **Vista mostrador simplificada**: sólo lo que hay que responderle al afiliado.
 - ~~**Navegación «volver» dentro de la ficha**~~ **ya está construida** (revisado el
   25/8/2026, no hace falta tocarla): `navPila` en `web/index.html` apila el código anterior
@@ -2587,7 +2675,12 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
   SURGE ya parseadas).
 - **U.B. por fecha / por convenio** (hoy hay un solo valor por perfil).
 - **Auditoría de facturación por lote**.
-- **App instalable (PWA) + offline total** (manifest + service worker).
+- **App instalable (PWA) + offline total** (manifest + service worker) — instalable y
+  navegar el manual sin internet **ya andan** (4.4 quater); un corte de señal momentáneo al
+  guardar **ya se reintenta solo** (ver el bloque del 26/8/2026, después de «Historial por
+  ficha»). Lo que sigue pendiente, a propósito no construido todavía —el usuario decidió
+  dejarlo así por ahora—: una cola de cambios que persista mientras no hay conexión por un
+  rato **largo** (cargar en el campo, sin señal, y sincronizar todo al volver).
 - **Registro de decisiones / historial de casos** vía Supabase (trazabilidad y estadística).
 - **Novedades normativas / vigencias**.
 - **Chat de consulta con IA**: se conversó, no se decidió. ⚠️ Incompatible con el requisito
