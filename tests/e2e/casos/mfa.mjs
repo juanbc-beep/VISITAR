@@ -68,13 +68,18 @@ async function main() {
     await page.click('[data-cm="mfa"]');
     await page.waitForSelector('#cMfaStart', { timeout: 5000 });
 
-    // Arrancar el alta: tiene que aparecer el secreto manual (QR aparte, no
-    // se puede leer un QR en la prueba, pero el secreto manual es la vía
-    // garantizada — ver el comentario en web/index.html sobre esto).
+    // Arrancar el alta: tiene que aparecer el secreto manual y el QR
+    // tiene que cargar de verdad (el simulador manda SVG crudo, como la API
+    // real — ver qrComoImagen() en web/index.html: sin envolverlo en un
+    // data URI, el <img> no tiene una URL válida y nunca dispara "load").
     await page.click('#cMfaStart');
     await page.waitForSelector('#cMfaCode', { timeout: 5000 });
     const secreto = await page.textContent('#adminBox .mono');
     afirmar(!!secreto && secreto.trim().length > 0, 'debería mostrar el código manual para cargar a mano');
+    const qr = page.locator('#cMfaQr');
+    afirmar(await qr.count() === 1, 'debería mostrar la imagen del código QR');
+    afirmar(await qr.evaluate(img => img.complete && img.naturalWidth > 0),
+      'el QR tendría que cargar de verdad, no quedar como imagen rota');
 
     // Código incorrecto: no confirma, se queda en la misma pantalla de alta.
     await page.fill('#cMfaCode', CODIGO_MAL);

@@ -218,7 +218,12 @@ export async function instalarSimulador(context, db) {
       return responder(route, 200, {
         id, type: 'totp', friendly_name: body.friendly_name || 'totp',
         totp: {
-          qr_code: 'data:image/svg+xml;utf-8,<svg xmlns="http://www.w3.org/2000/svg"></svg>',
+          // SVG crudo, sin el prefijo "data:" — es lo que manda la API real
+          // (encontrado el 25/8/2026 al ver que el QR no se mostraba en
+          // producción; ver qrComoImagen() en web/index.html). Con un
+          // rectángulo visible, para que un screenshot de prueba se note si
+          // alguna vez deja de envolverse en el data URI.
+          qr_code: '<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"><rect width="120" height="120" fill="#fff"/><rect x="10" y="10" width="100" height="100" fill="#000"/></svg>',
           secret: 'SIMULADOR2FASECRETODEPRUEBA',
           uri: `otpauth://totp/VISITAR:${encodeURIComponent(yo.id)}?secret=SIMULADOR2FASECRETODEPRUEBA&issuer=VISITAR`,
         },
