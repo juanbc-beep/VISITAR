@@ -31,6 +31,8 @@ export function crearDB() {
     observaciones: new Map(), // codigo -> fila
     ajustes: { contenido: {} },
     recovers: [],             // correos que pidieron recuperar contraseña (para el caso "recup")
+    factores: new Map(),      // uid -> [{id, factor_type:'totp', status, friendly_name}]
+    desafios: new Map(),      // challenge_id -> {uid, factorId}
   };
 }
 
@@ -46,6 +48,22 @@ export function altaUsuario(db, { nombre, email, password, rol = 'usuario', esta
   });
   return uid;
 }
+
+// Da de alta una cuenta que ya tiene la verificación en dos pasos activada
+// desde antes, para los casos que prueban el candado del login sin tener
+// que pasar primero por el alta desde la app.
+export function activarMFA(db, uid, { factorId, friendlyName = 'Administrador' } = {}) {
+  const id = factorId || crypto.randomUUID();
+  const lista = db.factores.get(uid) || [];
+  lista.push({ id, factor_type: 'totp', status: 'verified', friendly_name: friendlyName });
+  db.factores.set(uid, lista);
+  return id;
+}
+
+// Único código que el simulador acepta como válido en /verify — no hace TOTP
+// de verdad, sólo necesita distinguir "código correcto" de "código incorrecto"
+// para probar los dos caminos del candado.
+const MFA_CODE_OK = '123456';
 
 function emitirTokens(db, uid) {
   const t = 'tok_' + crypto.randomBytes(12).toString('hex');
@@ -151,6 +169,86 @@ export async function instalarSimulador(context, db) {
       const auth = req.headers()['authorization'] || '';
       db.tokens.delete(auth.replace(/^Bearer\s+/i, ''));
       return responder(route, 204);
+    }
+
+    // ---------------- AUTH: verificación en dos pasos (TOTP) ----------------
+    // GET /auth/v1/user siempre existe en la API real (no sólo el PUT de acá
+    // arriba, que sólo entiende cambiar la contraseña): trae el usuario con sus
+    // factores, lo pida o no la cuenta. Antes de sumar esto, un login como
+    // administrador contra el simulador quedaba con un 404 silencioso — el
+    // candado (ver web/index.html, continuarLogin()) lo dejaba pasar igual
+    // porque falla abierto, pero el 404 quedaba en la consola y rompía la
+    // aserción "sin errores de JS" de otros casos que no tienen nada que ver
+    // con esto.
+    if (path === '/auth/v1/user' && method === 'GET') {
+      const yo = identidad(db, req);
+      if (!yo) return responder(route, 401, { error_description: 'JWT inválido' });
+      const u = [...db.users.values()].find(x => x.id === yo.id);
+      return responder(route, 200, {
+        id: yo.id, email: u ? u.email : '',
+        factors: db.factores.get(yo.id) || [],
+      });
+    }
+    if (path === '/auth/v1/factors' && method === 'POST') {
+      const yo = identidad(db, req);
+      if (!yo) return responder(route, 401, { error_description: 'JWT inválido' });
+      const body = leerCuerpo(req);
+      const id = crypto.randomUUID();
+      const lista = db.factores.get(yo.id) || [];
+      lista.push({ id, factor_type: 'totp', status: 'unverified', friendly_name: body.friendly_name || 'totp' });
+      db.factores.set(yo.id, lista);
+      return responder(route, 200, {
+        id, type: 'totp', friendly_name: body.friendly_name || 'totp',
+        totp: {
+          qr_code: 'data:image/svg+xml;utf-8,<svg xmlns="http://www.w3.org/2000/svg"></svg>',
+          secret: 'SIMULADOR2FASECRETODEPRUEBA',
+          uri: `otpauth://totp/VISITAR:${encodeURIComponent(yo.id)}?secret=SIMULADOR2FASECRETODEPRUEBA&issuer=VISITAR`,
+        },
+      });
+    }
+    {
+      const mChallenge = path.match(/^\/auth\/v1\/factors\/([^/]+)\/challenge$/);
+      if (mChallenge && method === 'POST') {
+        const yo = identidad(db, req);
+        if (!yo) return responder(route, 401, { error_description: 'JWT inválido' });
+        const factorId = mChallenge[1];
+        const desafioId = crypto.randomUUID();
+        db.desafios.set(desafioId, { uid: yo.id, factorId });
+        return responder(route, 200, { id: desafioId, expires_at: Math.floor(Date.now() / 1000) + 60 });
+      }
+      const mVerify = path.match(/^\/auth\/v1\/factors\/([^/]+)\/verify$/);
+      if (mVerify && method === 'POST') {
+        const yo = identidad(db, req);
+        if (!yo) return responder(route, 401, { error_description: 'JWT inválido' });
+        const factorId = mVerify[1];
+        const body = leerCuerpo(req);
+        const desafio = db.desafios.get(body.challenge_id);
+        if (!desafio || desafio.uid !== yo.id || desafio.factorId !== factorId)
+          return responder(route, 400, { error_description: 'Challenge no encontrado o vencido' });
+        db.desafios.delete(body.challenge_id);
+        // Como no hay TOTP de verdad, el simulador acepta un único código fijo
+        // — alcanza para probar el camino bueno y el de código incorrecto.
+        if (body.code !== MFA_CODE_OK)
+          return responder(route, 400, { error_description: 'Invalid TOTP code entered' });
+        const lista = db.factores.get(yo.id) || [];
+        const f = lista.find(x => x.id === factorId);
+        if (f) f.status = 'verified';
+        const { access_token, refresh_token } = emitirTokens(db, yo.id);
+        const u = [...db.users.values()].find(x => x.id === yo.id);
+        return responder(route, 200, {
+          access_token, refresh_token, expires_in: 3600, token_type: 'bearer',
+          user: { id: yo.id, email: u ? u.email : '' },
+        });
+      }
+      const mDelete = path.match(/^\/auth\/v1\/factors\/([^/]+)$/);
+      if (mDelete && method === 'DELETE') {
+        const yo = identidad(db, req);
+        if (!yo) return responder(route, 401, { error_description: 'JWT inválido' });
+        const factorId = mDelete[1];
+        const lista = db.factores.get(yo.id) || [];
+        db.factores.set(yo.id, lista.filter(x => x.id !== factorId));
+        return responder(route, 200, {});
+      }
     }
 
     // ---------------- REST: perfiles ----------------

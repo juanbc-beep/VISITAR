@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-+wSd8qVUD8F8BgrsIHqtGOfHVR0HtPeo1f1mlv9rDW0=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-ubglNW+47WUet6WPulub/2YWgO1vqolQrbJUXFqBz9w=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -5336,8 +5336,14 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       const r=await fetch(`${URL_}/auth/v1/token?grant_type=${tipo}`,
         {method:'POST',headers:hdrBase(),body:JSON.stringify(cuerpo)});
       const d=await leer(r);
+      /* El «aal» (nivel de verificación) no lo manda este endpoint: un login con
+         contraseña siempre vuelve a aal1, aunque la cuenta tenga el segundo
+         paso activado (eso se resuelve aparte, con el código). Al refrescar el
+         token si se mantiene: no tiene sentido pedir el código de vuelta cada
+         vez que el token vence solo, a media sesión. */
       guardarSes({access_token:d.access_token,refresh_token:d.refresh_token,
-        expira:Date.now()+((d.expires_in||3600)*1000)-60000,user:d.user});
+        expira:Date.now()+((d.expires_in||3600)*1000)-60000,user:d.user,
+        aal:(tipo==='refresh_token'&&ses)?ses.aal:'aal1'});
       return d;
     }
     async function vigente(){
@@ -5397,6 +5403,31 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         try{if(ses)await fetch(`${URL_}/auth/v1/logout`,{method:'POST',headers:hdrAuth()});}catch(e){}
         guardarSes(null);perfil=null;
       },
+      /* ---- verificación en dos pasos (TOTP), pensada para la cuenta que puede
+         todo — sólo se ofrece al administrador general. Sigue el mismo patrón
+         REST que el resto de este módulo: nada de esto otorga permisos, lo
+         decide la base; esto es sólo lo que le hace falta a la interfaz para
+         pedir el código en el momento justo. ---- */
+      aal2Activo:()=>!!(ses&&ses.aal==='aal2'),
+      async factores(){
+        const u=await api('/auth/v1/user',{method:'GET'});
+        return (u&&u.factors)||[];
+      },
+      enrolarTOTP:()=>api('/auth/v1/factors',{method:'POST',
+        body:JSON.stringify({factor_type:'totp',friendly_name:'Administrador'})}),
+      /* Desafío + verificación en un solo llamado: no hay pantalla intermedia
+         que necesite el id del desafío, así que no vale la pena separarlos. Si
+         el código es el de confirmación del alta, esto además activa el factor;
+         si es el de un login, esto es lo que sube la sesión a aal2. */
+      async verificarFactor(factorId,code){
+        const ch=await api(`/auth/v1/factors/${encodeURIComponent(factorId)}/challenge`,{method:'POST'});
+        const r=await api(`/auth/v1/factors/${encodeURIComponent(factorId)}/verify`,{method:'POST',
+          body:JSON.stringify({challenge_id:ch.id,code})});
+        if(r&&r.access_token)guardarSes({access_token:r.access_token,refresh_token:r.refresh_token,
+          expira:Date.now()+((r.expires_in||3600)*1000)-60000,user:r.user,aal:'aal2'});
+        return r;
+      },
+      desenrolarTOTP:(factorId)=>api(`/auth/v1/factors/${encodeURIComponent(factorId)}`,{method:'DELETE'}),
       async miPerfil(){
         if(!(await vigente()))return null;
         const f=await api('/rest/v1/perfiles?select=*&id=eq.'+encodeURIComponent(ses.user.id),{method:'GET'});
@@ -6112,6 +6143,16 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         <button class="gbtn" id="nbGo">Entrar</button>
         <div class="galta">¿Todavía no tenés cuenta? <button type="button" id="nbNew">Crearla</button></div>
       </div>`;
+    } else if(v==='nubeMFA'){
+      html=`<div class="gcard">
+        <div class="glogo brand hasimg">${logoInner('gate')}</div>
+        <h2>Verificación en dos pasos</h2>
+        <div class="gsub">Es la cuenta de administrador: además de la contraseña, pedimos el código de tu app de autenticación.</div>
+        ${field('mfaCode','Código de 6 dígitos','text',{ac:'one-time-code',im:'numeric'})}
+        <div class="gerr" id="gErr"></div>
+        <button class="gbtn" id="mfaGo">Verificar</button>
+        <button class="gback" id="mfaBack">← Volver</button>
+      </div>`;
     } else if(v==='nubeOlvide'){
       html=`<div class="gcard">
         <div class="glogo brand hasimg">${logoInner('gate')}</div>
@@ -6269,13 +6310,31 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         const m=gv('nbMail'),p=gv('nbPass');
         if(!m||!p)return gerr('Completá correo y contraseña.');
         const b=el('nbGo');b.disabled=true;b.textContent='Entrando…';gerr('');
-        try{ const pf=await NUBE.entrar(m,p); entrarConNube(pf); }
+        try{ const pf=await NUBE.entrar(m,p); await continuarLogin(pf); }
         catch(e){ gerr(e.message); }
         finally{ if(el('nbGo')){b.disabled=false;b.textContent='Entrar';} }
       };
       el('nbGo').addEventListener('click',go);onEnter(go);
       el('nbNew').addEventListener('click',()=>renderGate('nubeAlta'));
       el('nbOlvide').addEventListener('click',()=>{gate._mail=gv('nbMail');renderGate('nubeOlvide');});
+    } else if(v==='nubeMFA'){
+      const go=async()=>{
+        const code=gv('mfaCode');
+        if(!/^\d{6}$/.test(code))return gerr('Ingresá los 6 dígitos.');
+        const w=lockedFor('_mfa');if(w)return gerr(`Demasiados intentos. Esperá ${w}s.`);
+        const b=el('mfaGo');b.disabled=true;b.textContent='Verificando…';gerr('');
+        try{
+          await NUBE.verificarFactor(gate._mfaFactor,code);
+          noteOk('_mfa');
+          const pf=gate._pfPendiente; gate._pfPendiente=null; gate._mfaFactor=null;
+          entrarConNube(pf);
+        }catch(e){ noteFail('_mfa'); gerr('Código incorrecto o vencido.'); b.disabled=false; b.textContent='Verificar'; }
+      };
+      el('mfaGo').addEventListener('click',go);onEnter(go);
+      el('mfaBack').addEventListener('click',async()=>{
+        gate._pfPendiente=null;gate._mfaFactor=null;
+        await NUBE.salir();renderGate('nubeLogin');
+      });
     } else if(v==='nubeOlvide'){
       if(gate._mail)el('olMail').value=gate._mail;
       const go=async()=>{
@@ -6337,6 +6396,23 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     return {id:p.id,name:p.nombre,role:ROL_VALIDO(p.rol),estado:p.estado,
             favs:p.favoritos||[],notes:p.notas||{},recent:p.recientes||[],
             ub:(p.ub!=null?Number(p.ub):null),_nube:true};
+  }
+  /* Frena antes de entrar si esta cuenta es el administrador general y tiene
+     el segundo paso activado (ver «Tu cuenta → Verificación en dos pasos»),
+     salvo que esta sesión ya haya pasado por ahí (aal2). Se pregunta por
+     estado==='activo' antes de consultar los factores para no gastar un
+     viaje a la red en una cuenta pendiente o rechazada, que igual no va a
+     entrar. Si la consulta de factores falla (sin red, la nube caída), se
+     deja pasar: frenar al único administrador que hay por un problema de
+     red es peor que el riesgo que esto cubre. */
+  async function continuarLogin(pf){
+    if(pf&&pf.rol==='admin'&&(pf.estado||'activo')==='activo'&&!NUBE.aal2Activo()){
+      try{
+        const factor=(await NUBE.factores()).find(f=>f.factor_type==='totp'&&f.status==='verified');
+        if(factor){gate._pfPendiente=pf;gate._mfaFactor=factor.id;renderGate('nubeMFA');return;}
+      }catch(e){}
+    }
+    entrarConNube(pf);
   }
   function entrarConNube(pf){
     if(!pf){gerr('La cuenta existe pero no tiene perfil en la base. Avisale al administrador.');return;}
@@ -7571,8 +7647,18 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
      nombre o la contraseña propios. Reusa el mismo modal de Administración
      (#adminModal/#adminBox) que ya usan openAdmin y verNovedades — es sólo
      otra pantalla más de las que ese modal sabe mostrar. */
-  let cTab='menu';
+  let cTab='menu', mfaEstado, mfaEnroll=null;
   function abrirCuenta(t){ cTab=t||'menu'; renderCuenta(); amodal.classList.add('on'); tomarFoco(abox); }
+  /* mfaEstado: undefined mientras se consulta a la nube, null si no hay factor
+     verificado, o la fila del factor si la verificación en dos pasos está
+     activa. Se recarga cada vez que se entra a la pestaña porque puede haber
+     cambiado desde otra sesión (o quedado a mitad del alta la vez anterior). */
+  function cargarMFA(){
+    cTab='mfa'; mfaEstado=undefined; mfaEnroll=null; renderCuenta();
+    NUBE.factores().then(fs=>{mfaEstado=fs.find(f=>f.factor_type==='totp'&&f.status==='verified')||null;})
+      .catch(()=>{mfaEstado=null;})
+      .finally(()=>{if(cTab==='mfa')renderCuenta();});
+  }
   function renderCuenta(){
     const closeBtn=`<button class="icon-btn close-x" id="cClose" style="position:absolute;top:16px;right:16px" aria-label="Cerrar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>`;
     const volver=()=>{cTab='menu';renderCuenta();};
@@ -7624,17 +7710,70 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         catch(e){ toast('No se pudo cambiar: '+e.message,true); b.disabled=false; b.textContent='Guardar'; }
       });
       el('cVolver').addEventListener('click',volver);
+    } else if(cTab==='mfa'){
+      const esAdm=!!(current&&current.role==='admin');
+      if(mfaEstado===undefined){
+        abox.innerHTML=`${closeBtn}<h3>Verificación en dos pasos</h3><div class="asub">Consultando…</div>`;
+      } else if(mfaEnroll){
+        abox.innerHTML=`${closeBtn}<h3>Verificación en dos pasos</h3>
+          <div class="asub">Escaneá este código con una app de autenticación (Google Authenticator, Authy, o la que uses) y escribí abajo el código de 6 dígitos que te muestra, para confirmar que quedó bien cargado.</div>
+          ${mfaEnroll.qr_code?`<img src="${E(mfaEnroll.qr_code)}" alt="Código QR para la app de autenticación" style="display:block;margin:12px auto;max-width:200px;background:#fff;border-radius:8px;padding:8px">`:''}
+          <label>¿No podés escanear? Cargalo a mano</label>
+          <div class="mono" style="user-select:all;padding:8px;background:var(--surface-2);border-radius:8px;word-break:break-all;font-size:12px">${E(mfaEnroll.secret||'')}</div>
+          ${field('cMfaCode','Código de la app (6 dígitos)','text',{ac:'one-time-code',im:'numeric'})}
+          <div class="cta-menu"><button class="minibtn" id="cMfaConfirm">Confirmar</button>
+          <button class="minibtn" id="cVolver">Cancelar</button></div>`;
+        el('cMfaConfirm').addEventListener('click',async()=>{
+          const code=gv('cMfaCode');
+          if(!/^\d{6}$/.test(code))return toast('Ingresá los 6 dígitos.',true);
+          const b=el('cMfaConfirm');b.disabled=true;b.textContent='Confirmando…';
+          try{ await NUBE.verificarFactor(mfaEnroll.id,code); toast('Verificación en dos pasos activada.'); cargarMFA(); }
+          catch(e){ toast('Código incorrecto o vencido.',true); b.disabled=false; b.textContent='Confirmar'; }
+        });
+        el('cVolver').addEventListener('click',()=>{
+          const abortado=mfaEnroll.id; NUBE.desenrolarTOTP(abortado).catch(()=>{}); cargarMFA();
+        });
+      } else if(mfaEstado){
+        abox.innerHTML=`${closeBtn}<h3>Verificación en dos pasos</h3>
+          <div class="asub">Está <b>activada</b>. Cada vez que entres con tu correo y contraseña, además te vamos a pedir el código de tu app de autenticación.</div>
+          <div class="asub" style="color:var(--exc)">⚠️ Si perdés el acceso a la app de autenticación, nadie te puede sacar este paso desde acá: sos el único administrador. Hace falta entrar al panel de Supabase (Authentication → Users → tu cuenta) y borrar el factor desde ahí.</div>
+          <div class="cta-menu"><button class="minibtn danger" id="cMfaOff">Desactivar</button>
+          <button class="minibtn" id="cVolver">← Volver</button></div>`;
+        el('cMfaOff').addEventListener('click',async()=>{
+          if(!confirm('¿Desactivar la verificación en dos pasos?\n\nDe ahí en más tu cuenta vuelve a entrar sólo con correo y contraseña.'))return;
+          try{ await NUBE.desenrolarTOTP(mfaEstado.id); toast('Verificación en dos pasos desactivada.'); cargarMFA(); }
+          catch(e){ toast('No se pudo desactivar: '+e.message,true); }
+        });
+        el('cVolver').addEventListener('click',volver);
+      } else {
+        abox.innerHTML=`${closeBtn}<h3>Verificación en dos pasos</h3>
+          <div class="asub">Hoy tu cuenta entra sólo con correo y contraseña. Esto suma un código de 6 dígitos que genera una app en tu celular (Google Authenticator, Authy, la que uses): aunque alguien consiga tu contraseña, no puede entrar sin tu teléfono.${esAdm?' Recomendado para el administrador general: es la cuenta que puede todo.':''}</div>
+          <div class="cta-menu"><button class="minibtn" id="cMfaStart">Activar verificación en dos pasos</button>
+          <button class="minibtn" id="cVolver">← Volver</button></div>`;
+        el('cMfaStart').addEventListener('click',async()=>{
+          const b=el('cMfaStart');b.disabled=true;b.textContent='Generando…';
+          try{
+            const r=await NUBE.enrolarTOTP();
+            mfaEnroll={id:r.id,qr_code:r.totp&&r.totp.qr_code,secret:r.totp&&r.totp.secret};
+            renderCuenta();
+          }catch(e){ toast('No se pudo empezar: '+e.message,true); b.disabled=false; b.textContent='Activar verificación en dos pasos'; }
+        });
+        el('cVolver').addEventListener('click',volver);
+      }
     } else {
+      const esAdm=!!(current&&current.role==='admin');
       abox.innerHTML=`${closeBtn}<h3>Tu cuenta</h3>
         <div class="asub"><b>${E(current?current.name:'')}</b> · ${E(rolLabel(current&&current.role).toLowerCase())}</div>
         <div class="cta-menu">
           <button class="minibtn" data-cm="nombre">Cambiar nombre</button>
           ${soyMedico()?'<button class="minibtn" data-cm="trato">Cambiar tratamiento (Dr. / Dra.)</button>':''}
           <button class="minibtn" data-cm="pass">Cambiar contraseña</button>
+          ${esAdm&&NUBE.activa?'<button class="minibtn" data-cm="mfa">Verificación en dos pasos</button>':''}
           <button class="minibtn danger" data-cm="salir" style="margin-top:8px">Cerrar sesión</button>
         </div>`;
       abox.querySelectorAll('[data-cm]').forEach(b=>b.addEventListener('click',()=>{
         if(b.dataset.cm==='salir')return cerrarSesionNube();
+        if(b.dataset.cm==='mfa')return cargarMFA();
         cTab=b.dataset.cm; renderCuenta();
       }));
     }
@@ -8333,7 +8472,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     else {
       showGate('nubeLogin');
       if(NUBE.hay()){
-        NUBE.miPerfil().then(pf=>{ if(pf)entrarConNube(pf); }).catch(()=>{});
+        NUBE.miPerfil().then(pf=>{ if(pf)continuarLogin(pf); }).catch(()=>{});
       }
     }
   } else if(!AUTH.company){showGate('setup');}

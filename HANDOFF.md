@@ -2200,8 +2200,35 @@ Lo que YA está bien y no hay que tocar:
    hay forma de que el HTML que agrega linkCodes lo controle el texto de origen. `hlList()`
    (resaltado de búsqueda) también escapa antes de marcar. El logo (`logoInner()`) sigue
    protegido por `LOGO_OK` + `E()`. No se encontró ningún camino sin escapar.
-3. **Segundo factor en la cuenta del administrador general.** Es la cuenta que puede todo; si
-   se la toman, no hay segunda línea.
+3. ✅ **Segundo factor (TOTP) para el administrador general — construido el 25/8/2026.**
+   Autoservicio desde **Tu cuenta → Verificación en dos pasos** (sólo visible para
+   `rol==='admin'`, y sólo en modo nube): activarlo pide escanear un QR o cargar el
+   secreto a mano en una app de autenticación (Google Authenticator, Authy…) y confirmar
+   con un código de 6 dígitos. A partir de ahí, `continuarLogin()` (`web/index.html`)
+   frena el login con contraseña de esa cuenta y pide el código antes de dejar entrar —
+   tanto al loguearse a mano como al reanudar sesión solo al abrir la app (los dos
+   caminos usan la misma función, para que no queden desincronizados). Sigue el flujo
+   estándar de Supabase Auth: `POST /auth/v1/factors` (alta), `.../challenge` +
+   `.../verify` (confirmar o loguear — verify además eleva la sesión a `aal2`, que se
+   guarda en `ses.aal` porque el token que devuelve el login no es un JWT que se pueda
+   inspeccionar acá), `DELETE /auth/v1/factors/:id` (desactivar).
+   ⚠️ **Dos decisiones a propósito, documentadas para no "corregirlas" después:**
+   - **No se fuerza la activación.** El único administrador podría quedar afuera de su
+     propia cuenta por un problema al activarlo; queda ofrecido, no obligatorio.
+   - **Si falla la consulta de qué factores tiene la cuenta (sin red, la nube caída), se
+     deja entrar igual** (`continuarLogin()` atrapa el error y sigue). Frenar al único
+     administrador que hay por un problema de red es peor que el riesgo que esto cubre —
+     no hay segundo administrador que pueda destrabarlo.
+   - **No hay códigos de respaldo.** Si el administrador pierde el teléfono con la app,
+     nadie puede sacarle el segundo paso desde la propia app (hace falta `aal2` para
+     desenrolar un factor verificado, que es justo lo que no tiene). La única salida es
+     el panel de Supabase (**Authentication → Users** → esa cuenta → borrar el factor a
+     mano) — avisado en la propia pantalla de "activada". El usuario es también el dueño
+     del proyecto de Supabase, así que puede hacerlo él mismo si hace falta.
+   Probado en `tests/e2e/casos/mfa.mjs`: alta con código incorrecto y luego correcto,
+   login con código incorrecto y luego correcto, desactivación, y que el candado **no**
+   se le pide a otro rol aunque tenga un factor activado (`activarMFA()` en
+   `simulador.mjs`, que también ganó `GET /auth/v1/user` y las rutas de `/factors`).
 4. **`frame-ancestors` no se puede poner.** La directiva **se ignora en un `<meta>`**: sólo
    funciona como cabecera HTTP, y GitHub Pages no deja mandar cabeceras propias. Queda el
    clickjacking como hueco abierto. Salidas: poner Cloudflare adelante, o aceptarlo y
@@ -2315,7 +2342,7 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
 | Qué | De quién depende |
 |---|---|
 | **Fijar las acciones de GitHub por SHA** en vez de por etiqueta | mío, necesita una sesión con red a GitHub |
-| **Segundo factor** en GitHub y Supabase, y **proteger la rama** | del usuario; se le pidió dos veces |
+| **Segundo factor en las cuentas de GitHub y del panel de Supabase** (no confundir con el 2FA de la app, ya construido — ver 7 bis B, punto 3), y **proteger la rama** | del usuario; se le pidió dos veces |
 | **Rotar la secret key** de Supabase | del usuario |
 | **Cerrar las altas** cuando el equipo esté completo, subir el mínimo de contraseña | del usuario |
 | **Las 119 prácticas «fuera del PMO»** que están en nuestra sección PMO | criterio del usuario |
