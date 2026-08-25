@@ -36,14 +36,26 @@ async function main() {
     await page.waitForSelector('#intTexto', { timeout: 5000 });
 
     // Dos renglones reales, uno con sueltos de una letra (el propio ejemplo
-    // del placeholder del cuadro de texto) y uno inventado que no debería
-    // encontrar nada.
-    await page.fill('#intTexto', 'Hemograma\nGlucemia\nRx torax f y p\nxyzqwerty inventado sin sentido');
+    // del placeholder del cuadro de texto), uno con una sigla compuesta de dos
+    // palabras (SINONIMOS_COMPUESTOS) y uno inventado que no debería encontrar
+    // nada.
+    await page.fill('#intTexto', 'Hemograma\nGlucemia\nRx torax f y p\nanti ro\nxyzqwerty inventado sin sentido');
     await page.click('#intGo');
     await page.waitForSelector('.int-item', { timeout: 5000 });
 
     const items = await page.locator('.int-item').count();
-    afirmar(items === 4, `esperaba 4 renglones interpretados, vinieron ${items}`);
+    afirmar(items === 5, `esperaba 5 renglones interpretados, vinieron ${items}`);
+
+    // «anti ro» es una sigla de dos palabras: 668905 (NBU "Ro, Ac. Anti-
+    // (Ro/SSA)") tiene que aparecer, y NO 666956/666958/666965 (Legionella
+    // Pneumophila, Ac. Anti), que sin el borde de palabra (\b) en
+    // SINONIMOS_COMPUESTOS coincidían por casualidad — ver puntuar() en
+    // web/index.html y HANDOFF.md, 25/8/2026 (segunda tanda).
+    const renglonAntiRo = page.locator('.int-item:has-text("anti ro")');
+    afirmar(await renglonAntiRo.locator('.int-cand[data-int-code="668905"]').count() >= 1,
+      '«anti ro» debería traer 668905 (Ro, Ac. Anti) entre los candidatos');
+    afirmar(await renglonAntiRo.locator('.int-cand[data-int-code="666956"]').count() === 0,
+      '«anti ro» NO debería traer Legionella (666956) por la coincidencia parcial de "...la, Ac. Anti"');
 
     // El primer renglón (Hemograma) tiene que traer 660475 entre los candidatos.
     const cand660475 = page.locator('.int-cand[data-int-code="660475"]');
