@@ -2229,6 +2229,26 @@ Lo que YA está bien y no hay que tocar:
    login con código incorrecto y luego correcto, desactivación, y que el candado **no**
    se le pide a otro rol aunque tenga un factor activado (`activarMFA()` en
    `simulador.mjs`, que también ganó `GET /auth/v1/user` y las rutas de `/factors`).
+
+   ✅ **Ampliado el 25/8/2026: «confiar en este dispositivo», para no pedirlo en cada
+   login.** El usuario lo pidió después de probarlo — con el candado a secas, entrar
+   todos los días desde la misma computadora del administrador se volvía tedioso.
+   `confiarDispositivo()`/`dispositivoConfiable()`/`olvidarDispositivo()` en
+   `web/index.html`: guardan en `localStorage` (no en la base) un vencimiento a 30 días
+   por cuenta (`nbu-mfa-confia:<uid>`). El dispositivo desde el que se activa la
+   verificación queda confiado de una —ya probó tener la app de autenticación en la
+   mano—; el checkbox del login («Confiar en este dispositivo…», tildado por
+   default, se puede destildar) decide si CADA login la deja confiada; y desde
+   **Tu cuenta → Verificación en dos pasos** se puede revocar la confianza de este
+   dispositivo en particular sin esperar los 30 días ni desactivar todo.
+   ⚠️ **Es una comodidad de la interfaz, no un límite que haga cumplir el servidor**:
+   vive en el navegador de quien la activó. Quien tenga acceso a ESE navegador además
+   de la contraseña, entra sin el código mientras dure — el mismo trato que cualquier
+   «recordarme» de cualquier sistema con 2FA, no es un agujero nuevo de este.
+   Probado (mismo archivo): un dispositivo que se activa queda confiado; «dejar de
+   confiar» lo vuelve a pedir; el checkbox destildado no confía y tildado sí; y —caso
+   aparte, con dos `BrowserContext` sobre la misma base— **un dispositivo distinto no
+   hereda la confianza de otro**.
 4. **`frame-ancestors` no se puede poner.** La directiva **se ignora en un `<meta>`**: sólo
    funciona como cabecera HTTP, y GitHub Pages no deja mandar cabeceras propias. Queda el
    clickjacking como hueco abierto. Salidas: poner Cloudflare adelante, o aceptarlo y

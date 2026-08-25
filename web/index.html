@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-ubglNW+47WUet6WPulub/2YWgO1vqolQrbJUXFqBz9w=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-pQSoSdF8GGZzX+OZLyRedpPYsHLjvsthUFIdi3ML6Y8=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -6149,6 +6149,10 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         <h2>Verificación en dos pasos</h2>
         <div class="gsub">Es la cuenta de administrador: además de la contraseña, pedimos el código de tu app de autenticación.</div>
         ${field('mfaCode','Código de 6 dígitos','text',{ac:'one-time-code',im:'numeric'})}
+        <label style="display:flex;align-items:center;gap:8px;margin:12px 0 2px;font-size:13px;color:var(--muted);cursor:pointer">
+          <input type="checkbox" id="mfaRecordar" checked style="width:16px;height:16px;flex-shrink:0">
+          Confiar en este dispositivo por 30 días y no volver a pedirlo acá
+        </label>
         <div class="gerr" id="gErr"></div>
         <button class="gbtn" id="mfaGo">Verificar</button>
         <button class="gback" id="mfaBack">← Volver</button>
@@ -6327,6 +6331,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
           await NUBE.verificarFactor(gate._mfaFactor,code);
           noteOk('_mfa');
           const pf=gate._pfPendiente; gate._pfPendiente=null; gate._mfaFactor=null;
+          if(el('mfaRecordar')&&el('mfaRecordar').checked)confiarDispositivo(pf.id);
           entrarConNube(pf);
         }catch(e){ noteFail('_mfa'); gerr('Código incorrecto o vencido.'); b.disabled=false; b.textContent='Verificar'; }
       };
@@ -6397,16 +6402,37 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
             favs:p.favoritos||[],notes:p.notas||{},recent:p.recientes||[],
             ub:(p.ub!=null?Number(p.ub):null),_nube:true};
   }
+  /* «Confiar en este dispositivo»: para no pedir el código en cada login
+     desde la misma computadora. Es una comodidad de la interfaz, no un
+     servidor de confianza aparte — vive en localStorage de este navegador,
+     atada a la cuenta (uid) y con vencimiento. Quien tenga acceso a ESTE
+     navegador además de la contraseña se salta el código mientras dure: el
+     mismo trato que cualquier «recordarme 30 días», por eso el checkbox del
+     login queda tildado a propósito pero se puede destildar, y desde «Tu
+     cuenta» se puede revocar en cualquier momento sin esperar a que venza. */
+  const MFA_CONFIA_DIAS=30;
+  const mfaClaveConfia=uid=>'nbu-mfa-confia:'+uid;
+  function dispositivoConfiable(uid){
+    try{const r=JSON.parse(localStorage.getItem(mfaClaveConfia(uid))||'null');return !!(r&&r.hasta>Date.now());}
+    catch(e){return false;}
+  }
+  function confiarDispositivo(uid){
+    try{localStorage.setItem(mfaClaveConfia(uid),JSON.stringify({hasta:Date.now()+MFA_CONFIA_DIAS*86400000}));}catch(e){}
+  }
+  function olvidarDispositivo(uid){
+    try{localStorage.removeItem(mfaClaveConfia(uid));}catch(e){}
+  }
   /* Frena antes de entrar si esta cuenta es el administrador general y tiene
      el segundo paso activado (ver «Tu cuenta → Verificación en dos pasos»),
-     salvo que esta sesión ya haya pasado por ahí (aal2). Se pregunta por
-     estado==='activo' antes de consultar los factores para no gastar un
-     viaje a la red en una cuenta pendiente o rechazada, que igual no va a
-     entrar. Si la consulta de factores falla (sin red, la nube caída), se
-     deja pasar: frenar al único administrador que hay por un problema de
-     red es peor que el riesgo que esto cubre. */
+     salvo que esta sesión ya haya pasado por ahí (aal2) o que este mismo
+     dispositivo haya quedado confiado. Se pregunta por estado==='activo'
+     antes de consultar los factores para no gastar un viaje a la red en una
+     cuenta pendiente o rechazada, que igual no va a entrar. Si la consulta
+     de factores falla (sin red, la nube caída), se deja pasar: frenar al
+     único administrador que hay por un problema de red es peor que el
+     riesgo que esto cubre. */
   async function continuarLogin(pf){
-    if(pf&&pf.rol==='admin'&&(pf.estado||'activo')==='activo'&&!NUBE.aal2Activo()){
+    if(pf&&pf.rol==='admin'&&(pf.estado||'activo')==='activo'&&!NUBE.aal2Activo()&&!dispositivoConfiable(pf.id)){
       try{
         const factor=(await NUBE.factores()).find(f=>f.factor_type==='totp'&&f.status==='verified');
         if(factor){gate._pfPendiente=pf;gate._mfaFactor=factor.id;renderGate('nubeMFA');return;}
@@ -7727,21 +7753,30 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
           const code=gv('cMfaCode');
           if(!/^\d{6}$/.test(code))return toast('Ingresá los 6 dígitos.',true);
           const b=el('cMfaConfirm');b.disabled=true;b.textContent='Confirmando…';
-          try{ await NUBE.verificarFactor(mfaEnroll.id,code); toast('Verificación en dos pasos activada.'); cargarMFA(); }
+          // El dispositivo desde el que se activa queda confiado de una: ya
+          // se probó que tiene la app de autenticación en la mano, pedirle
+          // el código de nuevo en el próximo login sería el mismo trámite.
+          try{ await NUBE.verificarFactor(mfaEnroll.id,code); confiarDispositivo(current.id); toast('Verificación en dos pasos activada.'); cargarMFA(); }
           catch(e){ toast('Código incorrecto o vencido.',true); b.disabled=false; b.textContent='Confirmar'; }
         });
         el('cVolver').addEventListener('click',()=>{
           const abortado=mfaEnroll.id; NUBE.desenrolarTOTP(abortado).catch(()=>{}); cargarMFA();
         });
       } else if(mfaEstado){
+        const confiado=dispositivoConfiable(current.id);
         abox.innerHTML=`${closeBtn}<h3>Verificación en dos pasos</h3>
-          <div class="asub">Está <b>activada</b>. Cada vez que entres con tu correo y contraseña, además te vamos a pedir el código de tu app de autenticación.</div>
+          <div class="asub">Está <b>activada</b>. Cada vez que entres con tu correo y contraseña, además te vamos a pedir el código de tu app de autenticación${confiado?' — salvo en <b>este</b> dispositivo, que quedó confiado y no lo pide hasta dentro de 30 días o hasta que lo saques.':'.'}</div>
           <div class="asub" style="color:var(--exc)">⚠️ Si perdés el acceso a la app de autenticación, nadie te puede sacar este paso desde acá: sos el único administrador. Hace falta entrar al panel de Supabase (Authentication → Users → tu cuenta) y borrar el factor desde ahí.</div>
-          <div class="cta-menu"><button class="minibtn danger" id="cMfaOff">Desactivar</button>
+          <div class="cta-menu">
+          ${confiado?'<button class="minibtn" id="cMfaOlvidar">Dejar de confiar en este dispositivo</button>':''}
+          <button class="minibtn danger" id="cMfaOff">Desactivar</button>
           <button class="minibtn" id="cVolver">← Volver</button></div>`;
+        if(confiado)el('cMfaOlvidar').addEventListener('click',()=>{
+          olvidarDispositivo(current.id); toast('Este dispositivo va a pedir el código la próxima vez.'); renderCuenta();
+        });
         el('cMfaOff').addEventListener('click',async()=>{
           if(!confirm('¿Desactivar la verificación en dos pasos?\n\nDe ahí en más tu cuenta vuelve a entrar sólo con correo y contraseña.'))return;
-          try{ await NUBE.desenrolarTOTP(mfaEstado.id); toast('Verificación en dos pasos desactivada.'); cargarMFA(); }
+          try{ await NUBE.desenrolarTOTP(mfaEstado.id); olvidarDispositivo(current.id); toast('Verificación en dos pasos desactivada.'); cargarMFA(); }
           catch(e){ toast('No se pudo desactivar: '+e.message,true); }
         });
         el('cVolver').addEventListener('click',volver);
