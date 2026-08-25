@@ -2374,7 +2374,8 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
 | **Volver la base adentro del `index.html`** si prefiere el archivo único (3.0 bis) | del usuario |
 
 ### Propuesto y NO construido (por orden de utilidad para el usuario de carga)
-- **Editar una propuesta antes de publicarla** (hoy se publica el texto tal cual).
+- ✅ **Editar una propuesta antes de publicarla — construido el 26/8/2026.** Ver el bloque
+  de esta misma fecha, después de «Sesión muerta del lado del servidor».
 - **Historial por ficha**: quién la corrigió, cuándo y qué decía antes.
 - **Registro de actividad compartido** (hoy es de cada computadora).
 - ✅ **Intérprete de orden médica — construido el 25/8/2026, como sector aparte.** Nueva
@@ -2545,6 +2546,33 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
   del simulador (mismo cuadro que un refresh vencido de verdad), la app cierra la sesión
   sola, avisa, borra lo guardado en `localStorage`, y un login nuevo después sigue andando
   sin nada roto.
+- ✅ **Editar una propuesta antes de publicarla — construido el 26/8/2026.** Hasta ahora,
+  en Administración → Pendientes, el administrador sólo podía **Aprobar** el texto de una
+  propuesta («Contá cómo se carga acá») tal cual lo escribió el agente, o **Descartarla**
+  entera — un typo o una frase ambigua obligaba a rechazarla y pedirle a la persona que la
+  volviera a escribir. Se decidió con el usuario que **sólo el administrador edita, al
+  revisarla** (no el autor original mientras está pendiente: eso hubiera necesitado una
+  regla de acceso —RLS— nueva y sus pruebas; esto no tocó ninguna, `prop_resolver` ya le
+  permitía al administrador actualizar cualquier columna de la fila, sólo hacía falta la
+  pantalla).
+  - El texto de cada propuesta pendiente ahora es un `<textarea>` editable
+    (`.prop-edittxt`), no un párrafo fijo.
+  - **«Guardar cambios»** (`NUBE.editarPropuesta()`, nuevo — mismo patrón que
+    `resolverPropuesta()`) queda deshabilitado hasta que el texto realmente cambia, para no
+    mandar un PATCH de la nube por abrir el panel a mirarlo nomás.
+  - **Aprobar directo con una edición sin guardar también vale**: no hace falta el paso de
+    «Guardar» antes de «Aprobar» — se publica lo último que quedó tipeado, y de paso la fila
+    de la nube queda con ese mismo texto (antes de marcarla `aprobada`), no sólo lo que
+    llegó a la ficha.
+  - El textarea y los botones de cada propuesta se ubican por cercanía en el DOM
+    (`closest('.arow')`), no por índice: el `idx` de `propuestasTodas()` es la posición
+    dentro de la lista de **cada código**, no global, así que dos propuestas de códigos
+    distintos pueden compartir el mismo número — buscar el textarea sólo por ese `idx` (como
+    se armó al principio) traía a veces el de otra fila. Encontrado antes de publicar, no en
+    producción.
+  - Probado en `tests/e2e/casos/editar_propuesta.mjs`: las dos formas de guardar el cambio
+    (Guardar aparte, o editar+Aprobar directo) dejan la ficha **y** la fila de la nube con el
+    texto corregido, y el botón «Guardar cambios» habilita/deshabilita según corresponda.
 - **Vista mostrador simplificada**: sólo lo que hay que responderle al afiliado.
 - ~~**Navegación «volver» dentro de la ficha**~~ **ya está construida** (revisado el
   25/8/2026, no hace falta tocarla): `navPila` en `web/index.html` apila el código anterior
