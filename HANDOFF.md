@@ -2643,6 +2643,24 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
     los ~2s, y el cambio llega igual a la «nube» (comprobado del lado del simulador, no sólo
     mirando la pantalla, que ya se había actualizado local antes de que la nube confirmara
     nada).
+- ✅ **Guía provincial de IVE/ILE vinculada a la Ley N° 27.610 — agregado el 26/8/2026,
+  a pedido del usuario.** El usuario adjuntó la «Guía de implementación de la interrupción
+  voluntaria del embarazo en la Provincia de Buenos Aires» (2ª edición, septiembre 2021,
+  Ministerio de Salud de la Provincia de Buenos Aires) y pidió anexarla a la Ley N° 27.610
+  ya cargada en el glosario y marco normativo (`ⓘ` → Leyes · Resoluciones · Decretos).
+  No es una ley aparte —es una guía que **complementa** la implementación de la 27.610 en
+  la provincia, no una norma nueva—, así que no se sumó como entrada nueva de `leyes`: se
+  agregó un campo `documentos` (nuevo) a la entrada existente de la 27.610, en
+  `scripts/assemble.py` (fuente) y `data/nbu_db.json` (base ya compilada — el pipeline
+  completo de `assemble.py` necesita intermedios que no viven en el repo, ver 3.2; para un
+  cambio así de acotado, sumarlo a mano en los dos lados y correr
+  `python3 scripts/inject_db.py` es lo que corresponde, no reconstruir todo). Sin `url`: es
+  un PDF que subió el usuario, no un enlace oficial verificado — no se inventa uno.
+  `web/index.html` (`openInfo()`) suma una sección «Documentos relacionados» dentro del
+  detalle de la ley, con el mismo patrón que ya usan `cobertura`/`articulos`/`temas`
+  (título, fuente, fecha, resumen). Verificado a mano en el navegador (buscar «27.610» en
+  el modal trae el texto agregado); no se sumó un caso de e2e dedicado — es contenido, no
+  lógica nueva, mismo criterio que las otras 21 leyes ya cargadas, ninguna con test propio.
 - **Vista mostrador simplificada**: sólo lo que hay que responderle al afiliado.
 - ~~**Navegación «volver» dentro de la ficha**~~ **ya está construida** (revisado el
   25/8/2026, no hace falta tocarla): `navPila` en `web/index.html` apila el código anterior

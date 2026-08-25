@@ -932,7 +932,18 @@ leyes = [
         "Art. 12 — Cobertura: incorporada al PMO; cobertura integral y gratuita.",
      ],
      "temas": ["IVE", "ILE", "salud sexual y reproductiva", "postaborto"],
-     "codigos": ["661170", "661175", "660433", "660475"]},
+     "codigos": ["661170", "661175", "660433", "660475"],
+     # Guía provincial de implementación, complementaria a la ley (no es la
+     # norma en sí, por eso no es una entrada aparte de "leyes"): la adjuntó
+     # el usuario el 26/8/2026 y pidió vincularla a esta. Sin "url": es un
+     # PDF que subió, no se le inventó un enlace oficial a un texto que no se
+     # verificó — ver la Regla de "medir/verificar antes de proponer".
+     "documentos": [
+        {"titulo": "Guía de implementación de la interrupción voluntaria del embarazo en la Provincia de Buenos Aires (2ª edición)",
+         "fuente": "Ministerio de Salud de la Provincia de Buenos Aires",
+         "fecha": "Septiembre 2021",
+         "resumen": "Contenidos complementarios al protocolo nacional, para la implementación de la Ley N° 27.610 en la Provincia de Buenos Aires: principios de atención de las personas con derecho a la IVE/ILE y en situación de postaborto, circuitos posibles de atención y cuidado de la salud integral a personas gestantes, atención postaborto, procedimientos médicos y quirúrgicos, consideraciones en niñas y adolescentes y en personas con discapacidad, objeción de conciencia, incumplimientos y sanciones previstas, y modelos de solicitud/consentimiento informado y de declaración jurada (anexos)."},
+     ]},
     {"ley": "340/2026", "etiqueta": "Res. 340/2026", "titulo": "Discapacidad — actualización de aranceles del Sistema de Prestaciones Básicas", "sancion": "27/02/2026",
      "resumen": "Actualiza los valores de los aranceles vigentes del Sistema de Prestaciones de Atención Integral a favor de las Personas con Discapacidad (Ley 24.901 / 27.793), y reconoce el adicional por zona desfavorable (Patagonia).",
      "cobertura": "Nuevos valores de arancel de las prestaciones básicas de discapacidad; adicional del 20% sobre el arancel básico por zona desfavorable (provincias patagónicas).",

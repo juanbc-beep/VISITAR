@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-lEdWKLswYkaCuKFsiKYh24YtfkTXSHx6YnWtGnou+bg=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-Q0/aOBwRrmhC/CA5ySOrs/WboUPfS9jE9kbTmWcbOjc=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1171,6 +1171,9 @@ ul{margin:0;padding:0}
 .ley-det .ld-code:hover{border-color:var(--accent);background:var(--accent-soft)}
 .ley-det .ld-temas{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
 .ley-det .ld-tema{font-size:11px;background:var(--surface-3);border-radius:20px;padding:2px 9px;color:var(--muted)}
+.ley-det .ley-doc{background:var(--surface);border:1px dashed var(--line-2);border-radius:8px;padding:9px 11px;margin-top:5px}
+.ley-det .ley-doc+.ley-doc{margin-top:8px}
+.ley-det .ley-doc .pmeta{margin:2px 0 5px}
 .modal .close-x{float:right}
 
 /* ---------- mobile ---------- */
@@ -5368,6 +5371,11 @@ function openInfo(expandLey){
       ${l.cobertura?`<div class="ld-cob"><b>Qué cubre:</b> ${esc(l.cobertura)}</div>`:''}
       ${(l.articulos&&l.articulos.length)?`<span class="ld-lbl">Artículos clave</span><ul>${l.articulos.map(a=>`<li>${esc(a)}</li>`).join('')}</ul>`:''}
       ${(l.codigos&&l.codigos.length)?`<span class="ld-lbl">Prácticas relacionadas</span><div class="ld-codes">${l.codigos.map(c=>BYCODE[c]?`<span class="ld-code" data-goto="${c}" title="${esc(BYCODE[c].nombre)}">${BYCODE[c].code}</span>`:'').join('')}</div>`:''}
+      ${(l.documentos&&l.documentos.length)?`<span class="ld-lbl">Documentos relacionados</span>${l.documentos.map(d=>`<div class="ley-doc">
+        <b>${esc(d.titulo)}</b>${d.url?` <a class="ley-url" href="${esc(d.url)}" target="_blank" rel="noopener">abrir ↗</a>`:''}
+        <div class="pmeta">${esc([d.fuente,d.fecha].filter(Boolean).join(' · '))}</div>
+        ${d.resumen?`<div>${esc(d.resumen)}</div>`:''}
+      </div>`).join('')}`:''}
       ${vtab}
       ${(l.temas&&l.temas.length)?`<div class="ld-temas">${l.temas.map(t=>`<span class="ld-tema">${esc(t)}</span>`).join('')}</div>`:''}
     </div>`:'';
