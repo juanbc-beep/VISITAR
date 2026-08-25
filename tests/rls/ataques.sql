@@ -312,3 +312,60 @@ begin
   end if;
 end $$;
 \echo '   ok  CN-013  el rastro de auditoría es de sólo lectura y sin datos personales'
+
+-- ---------------------------------------------------------------------
+-- CN-014  Las sugerencias de "pedida como" (Intérprete de orden) no se
+--         leen, resuelven ni falsean fuera del administrador general
+--
+--   Guardan texto suelto de una orden pegada: a diferencia de
+--   «propuestas» (pensadas para publicarse) el SELECT queda restringido
+--   al administrador, no a «cualquier cuenta activa».
+-- ---------------------------------------------------------------------
+do $ident$ begin perform set_config('request.jwt.claim.sub',
+                  (select p.id::text from public.perfiles p
+                     join auth.users u on u.id = p.id where u.email = 'user@test'), false); end $ident$;
+set role authenticated;
+do $$
+declare n int;
+begin
+  select count(*) into n from public.sugerencias_pedida_como;
+  if n <> 0 then
+    raise exception 'CN-014: un administrativo activo pudo leer % sugerencia(s) que no son suyas de leer.', n;
+  end if;
+end $$;
+reset role;
+-- Tampoco a nombre de otro: el autor tiene que ser quien está insertando.
+-- El id ajeno se resuelve ANTES de cambiar de rol —una vez como
+-- "user@test" ni se lo puede ver, «perfiles_ver» ya lo esconde— y se pasa
+-- como valor fijo, no como subconsulta bajo su propia sesión.
+do $ident$ begin perform set_config('test.otro_id',
+                  (select p.id::text from public.perfiles p where p.nombre = 'Medico Admin'), false); end $ident$;
+do $ident$ begin perform set_config('request.jwt.claim.sub',
+                  (select p.id::text from public.perfiles p
+                     join auth.users u on u.id = p.id where u.email = 'user@test'), false); end $ident$;
+set role authenticated;
+do $$ begin
+  begin
+    insert into public.sugerencias_pedida_como (codigo, texto, autor)
+      values ('420101', 'a nombre de otro', current_setting('test.otro_id')::uuid);
+    raise exception 'CN-014: se pudo insertar una sugerencia a nombre de otra cuenta.';
+  exception when insufficient_privilege then null;
+  end;
+end $$;
+reset role;
+
+do $ident$ begin perform set_config('request.jwt.claim.sub',
+                  (select p.id::text from public.perfiles p
+                     join auth.users u on u.id = p.id where u.email = 'medico@test'), false); end $ident$;
+set role authenticated;
+update public.sugerencias_pedida_como set estado = 'aprobada' where codigo = '420101';
+reset role;
+do $$
+declare e text;
+begin
+  select estado into e from public.sugerencias_pedida_como where codigo = '420101';
+  if e <> 'pendiente' then
+    raise exception 'CN-014: un médico administrador pudo resolver una sugerencia (quedó en «%»).', e;
+  end if;
+end $$;
+\echo '   ok  CN-014  las sugerencias de "pedida como" son del administrador general'

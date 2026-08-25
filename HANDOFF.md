@@ -2363,6 +2363,7 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
 |---|---|
 | **Fijar las acciones de GitHub por SHA** en vez de por etiqueta | mío, necesita una sesión con red a GitHub |
 | **Segundo factor en las cuentas de GitHub y del panel de Supabase** (no confundir con el 2FA de la app, ya construido — ver 7 bis B, punto 3), y **proteger la rama** | del usuario; se le pidió dos veces |
+| **Correr `docs/supabase_sugerencias_pedida_como.sql`** en el SQL Editor del panel de Supabase (ver 8, «Intérprete de orden médica», punto 3) — sin esto, «Administración → Sugerencias» va a estar vacía y el Intérprete no puede avisar nada (falla en silencio, no rompe la app) | del usuario, una sola vez |
 | **Rotar la secret key** de Supabase | del usuario |
 | **Cerrar las altas** cuando el equipo esté completo, subir el mínimo de contraseña | del usuario |
 | **Las 119 prácticas «fuera del PMO»** que están en nuestra sección PMO | criterio del usuario |
@@ -2399,6 +2400,49 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
   caso de arriba), «sin coincidencias» para texto inventado, elegir/quitar candidatos con el
   resumen actualizándose, y que «Enviar a la Mesa de trabajo» lleva sólo lo elegido y corre
   el análisis.
+
+  ✅ **Ampliado el 25/8/2026, en tres frentes — se conversó con el usuario cómo «alimentar»
+  el intérprete sin sumar una IA externa** (se evaluó y se descartó a propósito: rompe el
+  requisito de funcionar sin servidor, tiene costo por consulta, y el texto de la orden
+  —que puede traer el nombre del paciente arriba— saldría de la app hacia un tercero,
+  justo lo que la Regla 8 evita en el resto del sistema):
+
+  1. **Jerga médica ampliada** en `SINONIMOS_COMUNES` (`web/index.html`): `pap`, `bx`,
+     `orl`, `tv`, `eab`, `lcr`, `dxa`, `emg` — cada una **verificada contra
+     `data/nbu_db.json`** antes de sumarla (que el nombre largo exista de verdad en algún
+     código), no adivinada.
+  2. **`pedida_como` pasó a ser editable desde ✎ Editar ficha** (sólo el administrador
+     general, mismo criterio que nombre/norma/auditoría): un textarea nuevo,
+     «Puede venir solicitada como», que se guarda como reemplazo completo (mismo patrón
+     que `auditoria`, no un agregado por encima). Hasta ahora el campo sólo lo llenaba el
+     pipeline y sólo se mostraba — no había forma de sumarle una forma más de pedir la
+     práctica sin tocar los datos de origen. `rebuildH()` no lo incluía en el índice de
+     búsqueda (aunque el arranque sí, en la primera pasada — inconsistencia real que quedó
+     resuelta de paso) y los **cuatro sitios que reconstruyen el objeto de corrección**
+     (`espejarRelacion`, `guardarIncluye`, `guardarAnexar`, el reset de sólo-relaciones)
+     tuvieron que sumarlo también, o guardar una relación **pisaba en silencio** cualquier
+     `pedida_como` ya cargado — exactamente la clase de descuido que ya pasó una vez con
+     `asoc_extra` (ver `supabase_relaciones_medico.sql`). Probado en
+     `tests/e2e/casos/pedida_como.mjs`: se agrega y se puede buscar por ese texto, y un
+     médico administrador que edita sólo relaciones en la misma ficha **no lo pisa**.
+  3. **Aprende del uso real**: si alguien elige, en el Intérprete de orden, un candidato
+     que **no es el primero** (el que el motor cree más probable), queda anotado como
+     sugerencia — nueva tabla `sugerencias_pedida_como`
+     (`docs/supabase_sugerencias_pedida_como.sql`, **el usuario tiene que correrla en el
+     panel de Supabase**; ya está incorporada a `docs/supabase.sql` para instalaciones
+     nuevas). El administrador la revisa desde **Administración → Sugerencias** (pestaña
+     nueva) y «Agregar» la suma a `pedida_como` del código — mismo mecanismo que la edición
+     manual del punto 2. A diferencia de «propuestas» (visible a todo el equipo porque son
+     notas de «cómo se carga» que le sirven a cualquiera), el **SELECT queda restringido al
+     administrador**: es texto suelto de una orden pegada, no algo pensado para
+     publicarse. No queda enganchada al contador de «Pendientes» de la barra superior —
+     deliberado, para no tocar esa función compartida en la misma tanda; se puede sumar
+     después. **RLS probada contra PostgreSQL real** (`tests/rls/`, CN-014 + un caso de
+     regresión): un administrativo no lee ni resuelve sugerencias ajenas, no puede insertar
+     a nombre de otro, y el administrador sí puede revisar y resolver. Probado también en
+     `tests/e2e/casos/sugerencias_pedida_como.mjs` de punta a punta: elegir un candidato
+     que no es el primero avisa, el administrador lo ve, lo aprueba, y la ficha queda con
+     el texto nuevo en «Puede venir solicitada como».
 - **Vista mostrador simplificada**: sólo lo que hay que responderle al afiliado.
 - ~~**Navegación «volver» dentro de la ficha**~~ **ya está construida** (revisado el
   25/8/2026, no hace falta tocarla): `navPila` en `web/index.html` apila el código anterior

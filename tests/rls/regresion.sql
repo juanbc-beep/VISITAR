@@ -215,3 +215,45 @@ begin
   end if;
 end $$;
 \echo '   ok  la auditoría registra las bajas con autor y contenido'
+
+-- --- El Intérprete de orden puede sugerir, y el administrador revisar ---
+do $ident$ begin perform set_config('request.jwt.claim.sub',
+                  (select p.id::text from public.perfiles p
+                     join auth.users u on u.id = p.id where u.email = 'user@test'), false); end $ident$;
+set role authenticated;
+insert into public.sugerencias_pedida_como (codigo, texto, autor)
+  select '340301', 'rx torax f y p', id from public.perfiles where nombre = 'Administrativo';
+reset role;
+do $$
+declare n int;
+begin
+  select count(*) into n from public.sugerencias_pedida_como where codigo = '340301';
+  if n <> 1 then
+    raise exception 'REG: la sugerencia recién insertada no quedó guardada.';
+  end if;
+end $$;
+
+do $ident$ begin perform set_config('request.jwt.claim.sub',
+                  (select id::text from public.perfiles where nombre = 'Admin General'), false); end $ident$;
+set role authenticated;
+do $$
+declare n int;
+begin
+  -- La sembrada en datos.sql (código 420101) + la que se acaba de insertar.
+  select count(*) into n from public.sugerencias_pedida_como where estado = 'pendiente';
+  if n < 2 then
+    raise exception 'REG: el administrador debería ver las sugerencias pendientes (vio %).', n;
+  end if;
+end $$;
+update public.sugerencias_pedida_como set estado = 'aprobada', resuelta_por = auth.uid(), resuelta_en = now()
+ where codigo = '340301';
+reset role;
+do $$
+declare r record;
+begin
+  select * into r from public.sugerencias_pedida_como where codigo = '340301';
+  if r.estado <> 'aprobada' or r.resuelta_por is null then
+    raise exception 'REG: el administrador no pudo resolver la sugerencia.';
+  end if;
+end $$;
+\echo '   ok  el Intérprete de orden puede sugerir, y el administrador revisar'
