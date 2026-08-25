@@ -60,6 +60,18 @@ export function activarMFA(db, uid, { factorId, friendlyName = 'Administrador' }
   return id;
 }
 
+// Deja un factor SIN verificar, como el que queda cuando un alta anterior
+// se corta a mitad de camino (se recargó la página, el QR no llegó a
+// mostrarse). Sirve para reproducir el bloqueo real de producción del
+// 25/8/2026 y probar que NUBE.enrolarTOTP() lo limpia solo.
+export function dejarFactorPendiente(db, uid, { friendlyName = 'Administrador' } = {}) {
+  const id = crypto.randomUUID();
+  const lista = db.factores.get(uid) || [];
+  lista.push({ id, factor_type: 'totp', status: 'unverified', friendly_name: friendlyName });
+  db.factores.set(uid, lista);
+  return id;
+}
+
 // Único código que el simulador acepta como válido en /verify — no hace TOTP
 // de verdad, sólo necesita distinguir "código correcto" de "código incorrecto"
 // para probar los dos caminos del candado.
@@ -193,9 +205,15 @@ export async function instalarSimulador(context, db) {
       const yo = identidad(db, req);
       if (!yo) return responder(route, 401, { error_description: 'JWT inválido' });
       const body = leerCuerpo(req);
-      const id = crypto.randomUUID();
       const lista = db.factores.get(yo.id) || [];
-      lista.push({ id, factor_type: 'totp', status: 'unverified', friendly_name: body.friendly_name || 'totp' });
+      // Mismo rechazo que la API real (visto en producción el 25/8/2026): un
+      // factor sin verificar de un intento anterior bloquea el alta hasta
+      // que se lo borra — es lo que NUBE.enrolarTOTP() tiene que evitar solo.
+      const nombre = body.friendly_name || 'totp';
+      if (lista.some(f => f.friendly_name === nombre))
+        return responder(route, 422, { error_description: `A factor with the friendly name "${nombre}" for this user already exists` });
+      const id = crypto.randomUUID();
+      lista.push({ id, factor_type: 'totp', status: 'unverified', friendly_name: nombre });
       db.factores.set(yo.id, lista);
       return responder(route, 200, {
         id, type: 'totp', friendly_name: body.friendly_name || 'totp',
