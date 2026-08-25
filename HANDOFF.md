@@ -2674,6 +2674,17 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
 - **Buscador por droga** para autorizaciones de medicación (121 drogas / 22 patologías
   SURGE ya parseadas).
 - **U.B. por fecha / por convenio** (hoy hay un solo valor por perfil).
+- 🆕 **Módulo de contratos de VISITAR, con inclusiones y exclusiones por contrato — pedido
+  por el usuario el 26/8/2026, para pensarlo, NO para construir todavía** («no es para hoy,
+  pero te voy dejando la tarea asentada»). Falta la conversación real con el usuario antes de
+  diseñar nada (qué es un «contrato» acá — ¿una obra social/prepaga con la que VISITAR tiene
+  convenio? ¿algo distinto de eso? — y si esto reemplaza o convive con el ítem de arriba, «U.B.
+  por convenio», que es la misma idea vista sólo desde el precio). Primera intuición, a
+  confirmar con el usuario antes de tocar código: la tensión central no va a ser la pantalla
+  sino el dato — si «incluye X, excluye Y» se escribe una vez por contrato o tiene que
+  engancharse código por código (como ya hace `relaciones.incluye/no_incluye/incluido_en` para
+  el Árbol de módulos, 4.5 ter bis), la segunda es mucho más trabajo pero es la única que no
+  queda desactualizada sola cuando cambia el nomenclador.
 - **Auditoría de facturación por lote**.
 - **App instalable (PWA) + offline total** (manifest + service worker) — instalable y
   navegar el manual sin internet **ya andan** (4.4 quater); un corte de señal momentáneo al
