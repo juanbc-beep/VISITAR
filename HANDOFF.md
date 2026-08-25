@@ -2376,8 +2376,29 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
 - **Editar una propuesta antes de publicarla** (hoy se publica el texto tal cual).
 - **Historial por ficha**: quién la corrigió, cuándo y qué decía antes.
 - **Registro de actividad compartido** (hoy es de cada computadora).
-- **Intérprete de orden médica**: pegar el texto de la orden y que devuelva los códigos
-  candidatos. Es la que más le ahorra al mostrador.
+- ✅ **Intérprete de orden médica — construido el 25/8/2026, como sector aparte.** Nueva
+  pestaña **«Intérprete de orden»** junto a Listado / Árbol de módulos / Mesa de trabajo
+  (mismo criterio de visibilidad que Mesa de trabajo: no aparece en Buscar en todo, CIE-10,
+  Abreviaturas ni SURGE). Se pega el texto de la orden, `partirOrden()` (`web/index.html`)
+  la corta en ítems —por renglón, y dentro de cada renglón por «;», «+» o coma que no está
+  entre dígitos, sacando numeración o viñetas iniciales— y cada ítem se busca con el
+  **mismo motor tolerante a erratas del buscador principal** (`buscar()`/`puntuar()`, sin
+  duplicar lógica), mostrando hasta 5 candidatos con un `%` de coincidencia. Se eligen los
+  que corresponden (quedan marcados) y **«Enviar a la Mesa de trabajo →»** los manda
+  directo al validador (`#vcodes`) y corre el análisis. Es una **ayuda, no un intérprete
+  infalible**: el pie de la pantalla lo dice explícito, «confirmá cada código antes de
+  cargarlo».
+  ⚠️ **Encontrado al probarlo con el propio ejemplo del placeholder** («Rx tórax F y P»):
+  `puntuar()` exige que **todos** los términos coincidan, y «F»/«y»/«P» sueltos —ahí,
+  abreviatura de posición (frente/perfil), no parte del nombre de la práctica— alcanzaban
+  para tirar abajo el renglón entero, aunque «radiología tórax» sí estuviera. Arreglado en
+  `candidatosParaItem()`: si la búsqueda con todos los términos no encuentra nada, reintenta
+  sacando los sueltos de 1-2 letras (nunca de entrada — a veces son parte real de una sigla
+  corta — sólo cuando hace falta para encontrar algo).
+  Probado en `tests/e2e/casos/interprete.mjs`: candidatos correctos por renglón (incluido el
+  caso de arriba), «sin coincidencias» para texto inventado, elegir/quitar candidatos con el
+  resumen actualizándose, y que «Enviar a la Mesa de trabajo» lleva sólo lo elegido y corre
+  el análisis.
 - **Vista mostrador simplificada**: sólo lo que hay que responderle al afiliado.
 - ~~**Navegación «volver» dentro de la ficha**~~ **ya está construida** (revisado el
   25/8/2026, no hace falta tocarla): `navPila` en `web/index.html` apila el código anterior

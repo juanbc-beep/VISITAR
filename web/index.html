@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-pQSoSdF8GGZzX+OZLyRedpPYsHLjvsthUFIdi3ML6Y8=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-y711fykf0iFwuc5DqozCBXSgHNIQ7ZFcvmcszyCJ2sk=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1325,6 +1325,29 @@ ul{margin:0;padding:0}
 @media (max-width:560px){.sem-table .vtrow{grid-template-columns:12px 56px 1fr!important}.vtrow .vnm2{display:none}}
 @media (max-width:560px){.vtrow{grid-template-columns:64px 1fr auto;gap:8px}.vtrow .vub{display:none}}
 
+/* ---------- intérprete de orden médica ---------- */
+.interprete{display:flex;flex-direction:column;gap:16px}
+#intItems{display:flex;flex-direction:column;gap:10px}
+.int-item{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:13px 16px}
+.int-src{font-size:13px;color:var(--muted);margin-bottom:9px;font-style:italic;overflow-wrap:anywhere}
+.int-cands{display:flex;flex-direction:column;gap:6px}
+.int-cand{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:9px 11px;
+  border:1.5px solid var(--line-2);border-radius:9px;background:var(--surface-2);color:var(--ink);
+  font:inherit;font-size:13px;cursor:pointer;transition:.13s}
+.int-cand:hover{border-color:var(--accent)}
+.int-cand.on{border-color:var(--accent);background:var(--accent-soft)}
+.int-cand .mono{color:var(--accent-ink);font-weight:700;flex-shrink:0}
+.int-cand .int-nm{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.int-cand .int-pct{font-size:11px;color:var(--faint);flex-shrink:0;font-variant-numeric:tabular-nums}
+.int-cand.top .int-pct{color:var(--inc);font-weight:700}
+.int-sin{font-size:13px;color:var(--faint);font-style:italic}
+.int-resumen{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px}
+.int-resumen h4{margin:0 0 10px;font-size:14px}
+.int-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.int-chip{display:flex;align-items:center;gap:7px;padding:6px 6px 6px 11px;border-radius:999px;background:var(--accent-soft);color:var(--accent-ink);font-size:12px;font-weight:700}
+.int-chip button{background:none;border:none;color:inherit;cursor:pointer;padding:2px;font-size:13px;line-height:1;border-radius:50%}
+.int-chip button:hover{background:color-mix(in srgb,var(--accent-ink) 15%,transparent)}
+
 /* ---------- cabecera compacta al scrollear ----------
    La cabecera ocupaba 255px en notebook y 518px en celular: se veían 6 y 3 filas de
    resultados. Al scrollear se comprime —las tarjetas quedan como fichas chicas y se
@@ -1821,6 +1844,8 @@ try{if(sessionStorage.getItem('nbu-actualizando')){
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5h7v5H3zM14 3h7v5h-7zM14 16h7v5h-7zM10 7h4M17 8v8M10 18h4"/></svg>Árbol de módulos</button>
       <button class="vtab" data-view="validator" role="tab">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Mesa de trabajo</button>
+      <button class="vtab" data-view="interprete" role="tab">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Intérprete de orden</button>
     </div>
     <div class="resbar">
       <div class="count" id="count"></div>
@@ -1855,6 +1880,7 @@ try{if(sessionStorage.getItem('nbu-actualizando')){
     <button class="more" id="moreBtn" hidden>Ver más resultados</button>
     <div class="tree" id="tree" hidden></div>
     <div class="validator" id="validator" hidden></div>
+    <div class="interprete" id="interprete" hidden></div>
   </main>
 </div>
 
@@ -2395,6 +2421,8 @@ function applyMode(){
   if(!treeOK&&state.view==='tree')state.view='list';
   document.querySelector('.vtab[data-view="validator"]').hidden = noVal; // el validador no aplica a búsqueda global/diagnósticos/abreviaturas/SURGE
   if(noVal&&state.view==='validator')state.view='list';
+  document.querySelector('.vtab[data-view="interprete"]').hidden = noVal; // mismo criterio: busca códigos, no aplica fuera de los nomencladores
+  if(noVal&&state.view==='interprete')state.view='list';
   // limpiar chips de sección/grupo que no correspondan al modo
   document.querySelectorAll('#fSeccion .opt.on').forEach(o=>{if(state.mode!=='NBU'){state.seccion.delete(o.dataset.v);o.classList.remove('on');}});
   buildGroups();
@@ -2920,12 +2948,14 @@ function render(){
   if(v!=='list')el('rapidos').hidden=true;
   el('tree').hidden=v!=='tree';
   el('validator').hidden=v!=='validator';
+  el('interprete').hidden=v!=='interprete';
   el('moreBtn').style.display=v==='list'?'':'none';
   document.querySelectorAll('.vtab').forEach(t=>{
     const act=t.dataset.view===v;
     t.classList.toggle('on',act); t.setAttribute('aria-selected',act?'true':'false');});
   if(v==='tree'){renderTree();return;}
   if(v==='validator'){el('count').textContent='';initValidator();return;}
+  if(v==='interprete'){el('count').textContent='';initInterprete();return;}
   if(state.mode==='ALL'){renderAll();return;}
   if(state.mode==='CIE'){renderCie();return;}
   if(state.mode==='ABR'){renderAbr();return;}
@@ -3452,6 +3482,136 @@ function initValidator(){
     setHint(); if(caseData)renderCase();
   }));
 }
+
+/* ============ Intérprete de orden médica ============
+   Pegar el texto de una orden y que devuelva los códigos candidatos: la
+   mejora que, relevada con el usuario, más le ahorra al mostrador (ver
+   HANDOFF.md, «Propuesto y NO construido»). Reusa el mismo motor de
+   búsqueda tolerante a erratas que ya tiene el buscador principal
+   (buscar()/puntuar()), corrido una vez por cada renglón de la orden en vez
+   de una vez por lo que se escribe en el buscador — no es un modelo nuevo.
+   Por eso es una AYUDA, no un intérprete infalible: acorta el camino hasta
+   el código, no reemplaza mirar la orden y confirmar. */
+let interpreteInit=false;
+let intElegidos=new Set();
+/* Parte el texto pegado en ítems candidatos a una práctica cada uno. Primero
+   por renglón (lo más común: una práctica por línea); dentro de cada
+   renglón, saca la numeración o viñeta inicial y separa por «;», «+» o una
+   coma que no está entre dígitos (para no partir "1,5" en dos). No separa
+   por «y»: aparece dentro de nombres reales de prácticas tanto como entre
+   dos prácticas distintas, y no hay forma genérica de distinguirlos sin
+   arriesgar cortes falsos — si una orden separa con «y», ese renglón entra
+   entero como un solo ítem y buscar() puede encontrar algo igual. */
+function partirOrden(texto){
+  const items=[];
+  (texto||'').split(/\r?\n/).forEach(linea=>{
+    const limpia=linea.replace(/^\s*(?:\d+[.)]|[-•*·])\s*/,'');
+    limpia.split(/[;+]|,(?!\d)/).forEach(p=>{
+      const t=p.trim();
+      if(t)items.push(t);
+    });
+  });
+  return items;
+}
+// Mismo cálculo que matchPct() (más arriba), pero contra los términos de un
+// ítem propio en vez de state.q — acá se corren muchas búsquedas a la vez,
+// una por renglón, y cada una necesita su propio total de términos.
+function pctInterprete(score,nTerms){
+  if(!nTerms)return 0;
+  if(score>=100)return 100;
+  return Math.max(0,Math.min(100,Math.round(score/(6*nTerms)*100)));
+}
+function initInterprete(){
+  if(interpreteInit)return; interpreteInit=true;
+  el('interprete').innerHTML=`
+    <div class="vinput">
+      <label for="intTexto">Texto de la orden médica
+        <button type="button" class="mayuda" id="ayudaInterprete" aria-label="Qué hace el intérprete de orden">?</button></label>
+      <textarea id="intTexto" spellcheck="false" placeholder="Pegá la orden tal como la escribió el médico, una práctica por renglón (o separadas por coma, «;» o «+»).  Ej:&#10;Hemograma completo&#10;Glucemia&#10;Rx tórax F y P"></textarea>
+      <div class="vrow"><button class="vbtn" id="intGo">Interpretar</button></div>
+      <div class="vhint">Busca en <b>todos los nomencladores</b> con el mismo buscador tolerante a erratas del resto de la app. Es una ayuda para no perder tiempo tipeando: <b>confirmá cada código antes de cargarlo</b>, no reemplaza leer la orden.</div>
+    </div>
+    <div id="intItems"></div>
+    <div class="int-resumen" id="intResumen" hidden></div>`;
+  el('ayudaInterprete').addEventListener('click',e=>{e.preventDefault();e.stopPropagation();
+    if(window.NBUPistas)window.NBUPistas.ayuda('#intTexto','Intérprete de orden',
+      'Pegás el texto de la orden y te muestra, renglón por renglón, qué código de la base parece corresponder. Elegís los que están bien y los mandás juntos a la <b>Mesa de trabajo</b>.');});
+  el('intGo').addEventListener('click',correrInterprete);
+  el('intTexto').addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter')correrInterprete();});
+  el('intItems').addEventListener('click',e=>{
+    const b=e.target.closest('[data-int-code]'); if(!b)return;
+    const k=b.dataset.intCode;
+    if(intElegidos.has(k))intElegidos.delete(k); else intElegidos.add(k);
+    b.classList.toggle('on',intElegidos.has(k));
+    renderIntResumen();
+  });
+}
+/* Busca los candidatos de un ítem, y si la búsqueda con todos los términos
+   no encuentra nada, reintenta sin los sueltos de 1-2 letras. buscar()
+   exige que TODOS los términos coincidan (ver puntuar()): un renglón como
+   «Rx tórax F y P» —el propio ejemplo del cuadro de texto— trae «F», «y»
+   y «P» como términos, que ahí son abreviatura de posición (frente/perfil)
+   o conector, no parte del nombre de la práctica, y ninguno va a estar
+   literal en «Radiología tórax». Uno solo así alcanza para tirar abajo un
+   renglón que si no encontraba bien. No se sacan de entrada —a veces son
+   parte real de una sigla corta— sólo cuando dejarlos afuera es lo que
+   hace falta para encontrar algo. */
+function candidatosParaItem(item){
+  const terms=norm(item).split(/\s+/).filter(Boolean);
+  if(!terms.length)return {terms,cands:[]};
+  let cands=buscar(CODES,terms,c=>!ocultoNom(c.nomenclador));
+  let usados=terms;
+  if(!cands.length){
+    const reducidos=terms.filter(t=>t.length>2);
+    if(reducidos.length&&reducidos.length<terms.length){
+      cands=buscar(CODES,reducidos,c=>!ocultoNom(c.nomenclador));
+      if(cands.length)usados=reducidos;
+    }
+  }
+  return {terms:usados,cands:cands.slice(0,5)};
+}
+function correrInterprete(){
+  const texto=(el('intTexto').value||'').trim();
+  if(!texto)return toast('Pegá el texto de la orden primero',true);
+  const items=partirOrden(texto);
+  intElegidos.clear();
+  if(!items.length){el('intItems').innerHTML='';renderIntResumen();return;}
+  el('intItems').innerHTML=items.map(item=>{
+    const {terms,cands}=candidatosParaItem(item);
+    return `<div class="int-item">
+      <div class="int-src">${esc(item)}</div>
+      ${cands.length?`<div class="int-cands">${cands.map((c,i)=>`
+        <button type="button" class="int-cand${i===0?' top':''}" data-int-code="${esc(c._key)}">
+          <span class="mono">${esc(c.code)}</span><span class="int-nm">${esc(c.nombre)}</span>
+          <span class="int-pct">${pctInterprete(c._score,terms.length)}%</span>
+        </button>`).join('')}</div>`
+        :`<div class="int-sin">Sin coincidencias claras en la base — revisar a mano.</div>`}
+    </div>`;
+  }).join('');
+  renderIntResumen();
+  anunciar(`${items.length} renglón${items.length!==1?'es':''} interpretado${items.length!==1?'s':''}`);
+}
+function renderIntResumen(){
+  const cont=el('intResumen');
+  if(!intElegidos.size){cont.hidden=true;cont.innerHTML='';return;}
+  cont.hidden=false;
+  const codes=[...intElegidos].map(k=>BYCODE[k]).filter(Boolean);
+  cont.innerHTML=`<h4>Códigos elegidos (${codes.length})</h4>
+    <div class="int-chips">${codes.map(c=>`<span class="int-chip"><span class="mono">${esc(c.code)}</span>${esc(c.nombre.slice(0,40))}<button type="button" data-int-quitar="${esc(c._key)}" aria-label="Quitar ${esc(c.code)}">✕</button></span>`).join('')}</div>
+    <button class="vbtn" id="intEnviar">Enviar a la Mesa de trabajo →</button>`;
+  cont.querySelectorAll('[data-int-quitar]').forEach(b=>b.addEventListener('click',()=>{
+    const k=b.dataset.intQuitar; intElegidos.delete(k);
+    const cand=el('intItems').querySelector(`[data-int-code="${CSS.escape(k)}"]`); if(cand)cand.classList.remove('on');
+    renderIntResumen();
+  }));
+  el('intEnviar').addEventListener('click',()=>{
+    state.view='validator'; render();
+    el('vcodes').value=codes.map(c=>c.code).join('  ');
+    runValidator();
+    el('validator').scrollIntoView({behavior:'smooth',block:'start'});
+  });
+}
+
 let lastVal=null, caseData=null;
 const SL='font-size:11px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);font-weight:700';
 function runValidator(){runCase();}   // compat (addToValidator)
