@@ -2378,7 +2378,12 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
   de esta misma fecha, después de «Sesión muerta del lado del servidor».
 - ✅ **Historial por ficha — construido el 26/8/2026.** Ver el bloque de esta misma fecha,
   después de «Editar una propuesta antes de publicarla».
-- **Registro de actividad compartido** (hoy es de cada computadora).
+- ~~**Registro de actividad compartido**~~ **ya está construido** (revisado el 26/8/2026, no
+  hace falta tocarlo): `CONTENT.actividad` se arma en `cargarNube()` (`web/index.html`) a
+  partir de `correcciones`/`observaciones`/`verificaciones`/`propuestas` — las cuatro ya
+  viven en la nube, no en cada computadora — y se muestra en **Administración → Registro**
+  (`aTab==='registro'`). Este apartado había quedado desactualizado; nadie tachó el
+  pendiente cuando se construyó.
 - ✅ **Intérprete de orden médica — construido el 25/8/2026, como sector aparte.** Nueva
   pestaña **«Intérprete de orden»** junto a Listado / Árbol de módulos / Mesa de trabajo
   (mismo criterio de visibilidad que Mesa de trabajo: no aparece en Buscar en todo, CIE-10,
