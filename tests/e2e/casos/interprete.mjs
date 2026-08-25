@@ -37,14 +37,27 @@ async function main() {
 
     // Dos renglones reales, uno con sueltos de una letra (el propio ejemplo
     // del placeholder del cuadro de texto), uno con una sigla compuesta de dos
-    // palabras (SINONIMOS_COMPUESTOS) y uno inventado que no debería encontrar
-    // nada.
-    await page.fill('#intTexto', 'Hemograma\nGlucemia\nRx torax f y p\nanti ro\nxyzqwerty inventado sin sentido');
+    // palabras (SINONIMOS_COMPUESTOS), uno con una sigla amplia (TAC: decenas
+    // de variantes reales, tiene que activar «ver más») y uno inventado que no
+    // debería encontrar nada.
+    await page.fill('#intTexto', 'Hemograma\nGlucemia\nRx torax f y p\nanti ro\ntac\nxyzqwerty inventado sin sentido');
     await page.click('#intGo');
     await page.waitForSelector('.int-item', { timeout: 5000 });
 
     const items = await page.locator('.int-item').count();
-    afirmar(items === 5, `esperaba 5 renglones interpretados, vinieron ${items}`);
+    afirmar(items === 6, `esperaba 6 renglones interpretados, vinieron ${items}`);
+
+    // «tac» sola tiene muchas más de 5 variantes reales en la base (por
+    // región, con/sin contraste, en los tres nomencladores): antes se
+    // cortaba en 5 sin forma de ver el resto — ver candidatosParaItem() y
+    // HANDOFF.md, 25/8/2026 (aviso del usuario sobre el Intérprete).
+    const renglonTac = page.locator('.int-item:has-text("tac")').first();
+    afirmar(await renglonTac.locator('.int-cand:visible').count() === 5, 'con «tac» deberían verse 5 candidatos antes de tocar «ver más»');
+    const masTac = renglonTac.locator('[data-int-toggle]');
+    afirmar(await masTac.count() === 1, 'con más de 5 candidatos reales, «tac» debería mostrar el botón «ver más»');
+    await masTac.click();
+    afirmar(await renglonTac.locator('.int-cand:visible').count() > 5, 'tocar «ver más» debería revelar más de 5 candidatos');
+    afirmar((await masTac.textContent()).trim() === 'Mostrar menos', 'tocado «ver más», el botón debería pasar a «Mostrar menos»');
 
     // «anti ro» es una sigla de dos palabras: 668905 (NBU "Ro, Ac. Anti-
     // (Ro/SSA)") tiene que aparecer, y NO 666956/666958/666965 (Legionella
