@@ -2487,12 +2487,13 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
           término); dos términos compuestos cubren dos posiciones, así que el compuesto no
           puede puntuar menos que el mejor caso posible de esas dos por separado —
           `score+=12`, no `+=5`.
-     - **Hallazgos de datos, informados sin tocarlos** (no es lugar de esta sesión
-       "corregir" la fuente curada — regla del punto 6): la sigla `CD8` que pidió el usuario
-       resuelve, por equivalencia real, al código genérico NBU 663538 / Único 63663538 («CD,
-       SUBPOBLACION LINFOCITARIA»), no a un código específico de CD8 — no existe uno separado
-       en la base actual. Y el NBU 661015 («CD8 - SUB POBLACIÓN LINFOCITARIA») tiene como
-       equivalente Único a 61661015, que dice **«CD4 x citometria de flujo»** — nombres
+     - **Hallazgo de datos, informado sin tocarlo** (no es lugar de esta sesión "corregir"
+       la fuente curada — regla del punto 6): la sigla `CD8` es la abreviatura, no el nombre
+       de un código — el usuario confirmó que resolver al genérico NBU 663538 / Único
+       63663538 («CD, SUBPOBLACION LINFOCITARIA») es lo correcto, no un gap. Lo que sí queda
+       anotado aparte: el NBU 661015 («CD8 - SUB POBLACIÓN LINFOCITARIA», un código distinto
+       del anterior) tiene como equivalente Único a 61661015, que dice
+       **«CD4 x citometria de flujo»** — nombres
        contradictorios entre las dos puntas de esa equivalencia puntual, no algo que esta
        sesión haya decidido resolver.
      - **La sigla `p` (Fosfatemia) es casi un placebo**, y se avisó así al usuario:
