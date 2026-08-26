@@ -2561,13 +2561,47 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
        `SINONIMOS_COMUNES`: `radiografia:['radiologia'], radiologia:['radiografia']` — buscar
        cualquiera de las dos ahora trae también los códigos que sólo dicen la otra.
      - Probado en `tests/e2e/casos/interprete.mjs` (candidato `.comp` de 340302 con su nota,
-       tags/observaciones visibles sin abrir la ficha) y a mano con Playwright (el ojo abre
-       el drawer con la ficha de 340301 y menciona la exposición adicional; buscar
-       «radiografia» trae 340301 y buscar «radiologia» trae 340905, en modo «Buscar en todo
-       el manual»). Los locators del test que ubicaban un renglón por `:has-text()` sobre el
-       ítem entero se volvieron ambiguos con las etiquetas nuevas —«Prestaciones Médicas»
-       contiene la subcadena «tac», por ejemplo— y se corrigieron para filtrar por el propio
-       `.int-src` del renglón, no por cualquier texto del ítem.
+       tags/observaciones visibles sin abrir la ficha, y el ojo abre el drawer con la ficha
+       de 340301 mencionando la exposición adicional) y en `tests/e2e/casos/
+       busqueda_sinonimos.mjs`, nuevo (buscar «radiografia» trae 340301 y buscar
+       «radiologia» trae 340905, en modo «Buscar en todo el manual»). Los locators del test
+       que ubicaban un renglón por `:has-text()` sobre el ítem entero se volvieron ambiguos
+       con las etiquetas nuevas —«Prestaciones Médicas» contiene la subcadena «tac», por
+       ejemplo— y se corrigieron para filtrar por el propio `.int-src` del renglón, no por
+       cualquier texto del ítem.
+  7. ✅ **Bug de fondo en `buscar()`, encontrado armando el punto 6 y corregido a
+     continuación en la misma sesión (26/8/2026), pedido explícito del usuario
+     («arrancá con el bug de ranking»).** Al revisar por qué el candidato de exposición
+     adicional a veces se armaba sobre el código equivocado, apareció que `puntuar()`
+     empataba «Radiología tórax» (340301) con «Operación plástica por tórax en carina o
+     excavado» (050102, cirugía, sin relación con una orden de rayos) al buscar «torax»
+     solo —los dos traen el término con borde de palabra en el nombre, mismo puntaje— y
+     `res.sort()` sólo ordenaba por puntaje: a igual puntaje, `Array.prototype.sort` es
+     estable y ganaba el que hubiera entrado antes a `CODES`, que en la práctica es el
+     código más bajo (050102 < 340301) — **cero relación con relevancia clínica.** No es
+     un caso aislado del Intérprete: `buscar()` es el motor tolerante de **toda la
+     búsqueda de la app** (listado principal, CIE-10, abreviaturas, SURGE, el propio
+     Intérprete), así que cualquier término corto y genérico que apareciera en nombres de
+     largo muy distinto tenía el mismo problema.
+     Arreglado agregando un segundo criterio de desempate a `res.sort()` en `buscar()`:
+     a igual puntaje, gana el nombre más corto (`_hn.split(/\s+/).length`, ya calculado
+     por `prepBusqueda()`) — el término buscado es una fracción más grande de lo que dice
+     un nombre corto, así que es más probable que sea justamente lo que se busca. **No
+     toca el puntaje real** (`_score`, el que se muestra como `%` en el listado y en el
+     Intérprete) **ni qué entra a los resultados** (`s>=0`, ya decidido antes de
+     ordenar): sólo cambia el orden entre registros que ya habían empatado en puntaje —
+     riesgo acotado a propósito, sin tocar la fórmula de puntuación que ya estaba
+     afinada con varios casos reales (ver punto 4, «anti ro» / Legionella). Probado en
+     `tests/e2e/casos/busqueda_especificidad.mjs`, nuevo: buscar «torax» trae primero
+     340301, no 050102. Corrida completa de los 24 casos de `tests/e2e/`, dos veces, sin
+     fallas.
+     **Queda pendiente, avisado al usuario, no resuelto en esta tanda:** extender el
+     mismo patrón de «candidato aparte + nota» del punto 6 a otras relaciones que ya
+     están en la base pero hoy sólo se ven adentro de la ficha completa — `seriado.max`
+     (cantidad que excede el seriado habitual), `lateralidad` (bilateral se carga ×1, no
+     ×2) y `muestra` (sangre/orina/etc. no coincide con lo que pide el texto de la
+     orden) — mostrándolo en la vista previa del Intérprete antes de mandar el código a
+     la Mesa de trabajo, no recién ahí.
 - ✅ **Sesión muerta del lado del servidor — arreglado el 26/8/2026, encontrado por el
   usuario mirando los logs de Postgres del proyecto (API Gateway/Postgres/Auth de
   Supabase).** Vio 17 errores de Postgres sobre 21 llamados en una hora; el detalle era

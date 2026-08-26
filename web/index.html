@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-XE1g9kq/Uy5T5RTkudauhtSvZ745K9nHXEnqQgixqmE=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-XrWi1hGc8bYf5L6tv7Nz0PWXK1AZrKMjEo/PORY6JlA=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -2246,7 +2246,21 @@ function buscar(lista,terms,extraFiltro){
   };
   let res=correr(false);
   if(res.length<FUZZY_MIN&&terms.some(t=>tolerancia(t)>0))res=correr(true);
-  res.sort((a,b)=>b[0]-a[0]);
+  /* A igual puntaje, antes ganaba el que hubiera entrado antes a `lista` —en la
+     práctica, el código más bajo— sin ninguna relación con qué tan relevante es.
+     Encontrado armando el candidato de exposición adicional del Intérprete
+     (ver candidatosParaItem): "torax" solo empataba "Radiología tórax" (2
+     palabras en el nombre) con "Operación plástica por tórax en carina o
+     excavado" (8 palabras, un código de cirugía que no tiene nada que ver con
+     una orden de rayos) — el término buscado es casi todo lo que dice el
+     primer nombre y una palabra suelta en el segundo, pero ganaba el segundo
+     por pura casualidad de numeración. Ahora, a igual puntaje, gana el nombre
+     más corto: el término pesa más de lo que dice el nombre. No toca el
+     puntaje real (`_score`, el que se muestra como %) ni qué entra a los
+     resultados (`s>=0`, ya decidido en correr()) — sólo desempata el orden
+     cuando el puntaje quedó exactamente igual. Ver HANDOFF.md, 26/8/2026. */
+  const especificidad=r=>(r._hn||'').split(/\s+/).filter(Boolean).length||1;
+  res.sort((a,b)=>b[0]-a[0]||especificidad(a[1])-especificidad(b[1]));
   return res.map(x=>x[1]);
 }
 
