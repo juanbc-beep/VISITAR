@@ -2800,6 +2800,37 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
   captura: un solo bloque, un solo %, el chip «también en», la nota de exposición
   adicional con sus dos chips, y el bug de `exposicion_siguiente` sólo del lado del PMO.
   Corrida completa de los 21 archivos de `tests/e2e/`, dos veces, sin fallas.
+- ✅ **El bloque agrupado del Intérprete pasa el borde de «ficha» a `.int-grupo` —
+  pedido explícito del usuario (26/8/2026), sobre el punto anterior.** El bloque de
+  arriba juntó los candidatos en un solo `<div class="int-grupo">`, pero el borde y el
+  fondo de tarjeta seguían siendo del `<button class="int-cand">` de adentro: el chip
+  «También en» y la nota de exposición adicional (`.int-cand-otros`/`.int-cand-comp`,
+  hermanos del botón, no pueden ir DENTRO de un `<button>` porque traen sus propios
+  botones) quedaban visualmente **por fuera** de ese borde, flotando debajo. «Deberia
+  aparecer todo dentro de la misma ficha, no por fuera… Establecerlo por fuera es un
+  mal diseño UI». Arreglado moviendo el borde/fondo/padding de `.int-cand` a
+  `.int-grupo` (con `:has(.int-cand:hover)`/`:has(.int-cand.on)` para el estado
+  resaltado, ya que el borde ya no vive en el elemento clickeado) y dejando `.int-cand`
+  sin borde ni fondo propio — sólo layout. Mismo HTML de `grupoBtn()`, sólo CSS.
+  Verificado con captura real («radiografia torax f y p»): el candidato principal, sus
+  etiquetas, «También en: PMO» y la nota ámbar de exposición adicional quedan ahora
+  dentro de un único recuadro. Corrida completa de los 31 archivos de `tests/e2e/`, sin
+  fallas (sólo CSS: no hizo falta resellar la CSP).
+  ⚠️ **Aparte, sobre una captura del usuario con un texto y un % que no coincidían con
+  el código local**: el mismo mensaje traía una captura de «torax f y p» con 340301 al
+  100% y un cartel ámbar con un texto («Si el estudio lleva más de una exposición…») que
+  no existe en ningún lado del código del Intérprete. Se rastreó a `comoSeCargaHTML()`
+  (línea ~4534), que es texto **preexistente** de la sección «Cómo se carga» de la
+  **ficha completa** (`openCode()`) — no del Intérprete — y que ya estaba en el repo
+  antes de esta sesión (`git log -S` no lo encuentra en ningún commit de esta rama).
+  Como el propio punto (a) de este bloque hizo que elegir un candidato abra la ficha
+  completa, ver ese texto junto con la tarjeta del Intérprete es esperable: son dos
+  vistas distintas, mostradas juntas en la misma captura, no una regresión. El 100% (vs.
+  el 67% que da esta búsqueda con los pesos por defecto) es consistente con que la
+  cuenta del usuario tenga sus propios valores guardados en **Administración →
+  Búsqueda** (`BUSQUEDA_CFG`, ver el bloque del 26/8/2026 «el administrador general
+  puede editar los valores de coincidencia del buscador») — no hay ningún bug de
+  puntaje distinto entre lo local y lo desplegado.
 - ✅ **Sesión muerta del lado del servidor — arreglado el 26/8/2026, encontrado por el
   usuario mirando los logs de Postgres del proyecto (API Gateway/Postgres/Auth de
   Supabase).** Vio 17 errores de Postgres sobre 21 llamados en una hora; el detalle era

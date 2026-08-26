@@ -1341,14 +1341,21 @@ ul{margin:0;padding:0}
    entra en .int-grupo, y adentro, el botón principal <button class="int-cand">
    (elige/saca de la Mesa de trabajo) con un <button class="int-ver"> hermano
    (abre la ficha completa — openCode()) en un wrapper sin semántica propia:
-   dos botones reales, no uno anidado dentro del otro. */
-.int-grupo{display:flex;flex-direction:column;gap:6px;width:100%}
+   dos botones reales, no uno anidado dentro del otro. El borde/fondo de
+   "ficha" vive en .int-grupo (no en .int-cand): así el chip "también en", la
+   nota de exposición adicional y el aviso de "sin perfil" —que no pueden ir
+   DENTRO del <button> porque traen sus propios botones— quedan de todos
+   modos visualmente adentro del mismo bloque, no sueltos por fuera de él
+   (antes el borde lo tenía sólo el botón principal y el resto flotaba
+   afuera; pedido explícito del usuario: "eso es mal diseño UI"). */
+.int-grupo{display:flex;flex-direction:column;gap:6px;width:100%;padding:9px 11px;
+  border:1.5px solid var(--line-2);border-radius:9px;background:var(--surface-2);transition:.13s}
+.int-grupo:has(.int-cand:hover){border-color:var(--accent)}
+.int-grupo:has(.int-cand.on){border-color:var(--accent);background:var(--accent-soft)}
 .int-cand-item{display:flex;align-items:flex-start;gap:6px;width:100%}
-.int-cand{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px;text-align:left;padding:9px 11px;
-  border:1.5px solid var(--line-2);border-radius:9px;background:var(--surface-2);color:var(--ink);
-  font:inherit;font-size:13px;cursor:pointer;transition:.13s}
-.int-cand:hover{border-color:var(--accent)}
-.int-cand.on{border-color:var(--accent);background:var(--accent-soft)}
+.int-cand{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px;text-align:left;padding:0;
+  border:none;background:transparent;color:var(--ink);
+  font:inherit;font-size:13px;cursor:pointer}
 .int-cand-top{display:flex;align-items:center;gap:10px;width:100%}
 .int-cand .mono{color:var(--accent-ink);font-weight:700;flex-shrink:0}
 .int-cand .int-nm{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -1387,7 +1394,7 @@ ul{margin:0;padding:0}
   font-weight:600;cursor:pointer;transition:.13s}
 .int-more:hover{border-color:var(--accent);background:var(--accent-soft)}
 .int-sin{font-size:13px;color:var(--faint);font-style:italic}
-.int-note{font-size:12.5px;color:var(--muted);margin-top:10px;display:flex;align-items:center;
+.int-note{font-size:12.5px;color:var(--muted);display:flex;align-items:center;
   gap:8px;flex-wrap:wrap}
 .int-note-ver{flex-shrink:0;padding:4px 9px;border:1px solid var(--line-2);border-radius:7px;
   background:transparent;color:var(--accent-ink);font:inherit;font-size:12px;cursor:pointer}
