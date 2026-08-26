@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-XrWi1hGc8bYf5L6tv7Nz0PWXK1AZrKMjEo/PORY6JlA=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-3XyS3OaUSOMMYy500gE0gEszue8Ylamuk45VVPJouiE=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1352,6 +1352,10 @@ ul{margin:0;padding:0}
 .int-cand.top .int-pct{color:var(--inc);font-weight:700}
 .int-cand .int-comp-lbl{color:var(--accent-ink);font-weight:600}
 .int-cand-nota{font-size:12px;color:var(--muted)}
+.int-cand-avisos{display:flex;flex-direction:column;gap:5px}
+.int-aviso{font-size:12.5px;line-height:1.4;color:var(--ink-2);padding:6px 9px;border-radius:7px;
+  background:#efe4c4;border:1px solid color-mix(in srgb,var(--gestion) 40%,transparent);text-align:left}
+:root[data-theme="dark"] .int-aviso{background:#2e2811}
 .int-cand-tags{display:flex;flex-wrap:wrap;gap:5px}
 .int-ver{flex-shrink:0;width:32px;height:32px;display:flex;align-items:center;justify-content:center;
   border:1.5px solid var(--line-2);border-radius:9px;background:var(--surface-2);color:var(--muted);
@@ -3707,13 +3711,77 @@ function initInterprete(){
 // candidatosParaItem(): cuando aparece uno de estos, se busca si el
 // candidato principal tiene una exposición adicional con código propio.
 const RE_MULTIEXP=/\bf\s*\/\s*p\b|\bf\s*y\s*p\b|\bfrente\s*(?:y|\/)\s*perfil\b|\bcomparativ\w*/;
+// Cantidad pedida en el renglón: «×N» / «xN» al final, mismo criterio que ya
+// usa runCase() para leer cantidades en la Mesa de trabajo (ej. «660102 x3»)
+// — así el aviso de seriado usa la misma sintaxis que la app ya entiende en
+// otro lado, no una nueva.
+const RE_CANTIDAD=/[x×]\s*(\d+)\b/i;
+// Palabras que delatan el tipo de muestra en el texto de la orden, mismo
+// vocabulario que MUESTRA_VAR/MUESTRA_CLS (rowHTML/muestraTag): si la orden
+// nombra una muestra explícita y no es la del código candidato, es más
+// probable que sea la práctica equivocada que un error de tipeo.
+const MUESTRA_DETECTAR={
+  'sangre':['sangre','sanguineo','sanguinea'],
+  'orina':['orina','urinario','urinaria'],
+  'semen':['semen','seminal'],
+  'líquido cefalorraquídeo':['liquido cefalorraquideo','lcr'],
+  'materia fecal':['materia fecal','heces','fecal'],
+  'pelo':['pelo','cabello'],
+  'saliva':['saliva'],
+};
+/* Tres avisos que hoy sólo se ven adentro de la ficha completa (seriado,
+   lateralidad) o recién al facturar (seriado, en renderFacturacion) y que
+   convienen antes de elegir el candidato, no después — mismo espíritu que
+   el candidato de exposición adicional de arriba: usar un dato que la base
+   ya tiene, no adivinar nada nuevo. Pedido del usuario, en este orden
+   (seriado, lateralidad, muestra), ver HANDOFF.md 26/8/2026. */
+function avisosCandidato(c,item){
+  const avisos=[]; const t=norm(item);
+  // Seriado: si la orden pide una cantidad explícita y supera el máximo
+  // habitual del código, mismo aviso que ya da la Mesa de trabajo
+  // (renderFacturacion), pero antes de mandarlo, no después de cargarlo mal.
+  const mCant=t.match(RE_CANTIDAD);
+  if(mCant&&c.seriado){
+    const n=parseInt(mCant[1],10);
+    if(n>c.seriado.max)
+      avisos.push(`Pediste <b>×${n}</b>: supera el seriado habitual de este código (máx. ×${c.seriado.max}).${c.seriado.nota?' '+esc(c.seriado.nota):''}`);
+  }
+  // Lateralidad: la etiqueta (decTags) ya dice «Bilateral»/«Unilateral»; acá
+  // se explica qué significa para la carga — bilateral se carga ×1 aunque
+  // comprenda los dos lados es la confusión más común (ver renderFacturacion,
+  // más abajo en este archivo, para el mismo criterio del lado del validador).
+  if(c.lateralidad==='Bilateral')
+    avisos.push('<b>Bilateral:</b> el código comprende los dos lados — se carga por cantidad 1, no 2.');
+  else if(c.lateralidad==='Unilateral')
+    avisos.push('<b>Unilateral:</b> se carga 1 por lado (ojo, miembro, etc.).');
+  // Muestra: si la orden nombra una muestra explícita que no es la de este
+  // código, avisar antes de elegirlo — después, en la ficha, ya es tarde.
+  if(c.muestra&&c.muestra.length){
+    for(const m in MUESTRA_DETECTAR){
+      if(c.muestra.includes(m))continue;
+      const dicha=MUESTRA_DETECTAR[m].find(p=>new RegExp('\\b'+escRe(p)+'\\b').test(t));
+      if(dicha){avisos.push(`La orden dice <b>"${esc(dicha)}"</b>, pero este código es en <b>${esc(c.muestra.join(' o '))}</b>.`);break;}
+    }
+  }
+  return avisos;
+}
+// Palabras de MUESTRA_DETECTAR, aplanadas una sola vez: candidatosParaItem
+// las saca del reintento igual que los sueltos de 1-2 letras (más abajo) —
+// «acetonuria en sangre» para un código que es en orina no iba a encontrar
+// NADA con «sangre» puesto (buscar() exige que todos los términos
+// coincidan, y «sangre» no está en el texto de un código de orina), así que
+// avisosCandidato() nunca llegaba a correr: no había candidato al que
+// avisarle. Sacando la palabra de muestra del intento de búsqueda —no del
+// texto que lee avisosCandidato(), que sigue viendo el renglón completo—
+// aparece el candidato correcto y recién ahí se puede avisar del choque.
+const MUESTRA_PALABRAS=new Set(Object.values(MUESTRA_DETECTAR).flat());
 function candidatosParaItem(item){
   const terms=norm(item).split(/\s+/).filter(Boolean);
   if(!terms.length)return {terms,cands:[]};
   let cands=buscar(CODES,terms,c=>!ocultoNom(c.nomenclador));
   let usados=terms;
   if(!cands.length){
-    const reducidos=terms.filter(t=>t.length>2);
+    const reducidos=terms.filter(t=>t.length>2&&!MUESTRA_PALABRAS.has(t));
     if(reducidos.length&&reducidos.length<terms.length){
       cands=buscar(CODES,reducidos,c=>!ocultoNom(c.nomenclador));
       if(cands.length)usados=reducidos;
@@ -3778,6 +3846,7 @@ function correrInterprete(){
   const candBtn=(c,i,terms,item,companion)=>{
     const tags=decTags(c);
     const obs=[cruceLinea(c),abarcaLinea(c),obsLinea(c._key)].filter(Boolean).join('');
+    const avisos=avisosCandidato(c,item);
     return `<div class="int-cand-item">
         <button type="button" class="int-cand${i===0&&!companion?' top':''}${companion?' comp':''}" data-int-code="${esc(c._key)}" data-int-rank="${i}" data-int-item="${esc(item)}"${companion?' data-int-companion="1"':''}>
           <div class="int-cand-top">
@@ -3787,6 +3856,7 @@ function correrInterprete(){
           ${companion?`<div class="int-cand-nota">Exposición de perfil / adicional de <span class="mono">${esc(companion.code)}</span> — código independiente, se carga aparte.</div>`:''}
           ${tags.length?`<div class="int-cand-tags">${tags.join('')}</div>`:''}
           ${obs}
+          ${avisos.length?`<div class="int-cand-avisos">${avisos.map(a=>`<div class="int-aviso">⚠ ${a}</div>`).join('')}</div>`:''}
         </button>
         <button type="button" class="int-ver" data-int-ver="${esc(c._key)}" title="Ver ficha completa de ${esc(c.code)}" aria-label="Ver ficha completa de ${esc(c.code)}">👁</button>
       </div>`;
@@ -6255,8 +6325,12 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     CONTENT.obs=observ;
     /* Qué pasó desde la última vez que esta persona miró: observaciones nuevas y
        fichas que se corrigieron. Lo propio no cuenta —nadie necesita que le
-       avisen de lo que acaba de hacer— y el administrador no recibe aviso: para
-       él está la campana de pendientes, que es otra cosa. */
+       avisen de lo que acaba de hacer—. Al administrador general este mismo
+       aviso no le sirve —ve todo lo que pasa igual, no necesita que se lo
+       empujen, y para eso ya está la campana de pendientes—, pero sí le
+       interesa enterarse cuando un médico administrador publica una revisión
+       médica (más abajo, después de armar `codes`): es contenido clínico que
+       él no escribió. */
     const vistas=(NUBE.perfil()&&NUBE.perfil().obs_vistas)?Date.parse(NUBE.perfil().obs_vistas):0;
     const mio=(NUBE.perfil()&&NUBE.perfil().id)||'';
 
@@ -6280,7 +6354,30 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
        Que alguien haya pedido una verificación es trámite, no novedad. */
     CONTENT.novedades=act.filter(e=>e.t>vistas&&e.autor!==mio&&
       (e.que==='dejó una observación'||e.que==='corrigió la ficha'));
-    obsNuevas=esDuenio()?0:CONTENT.novedades.length;
+    /* Revisiones médicas para el administrador general — mismo botón,
+       contenido distinto (ver el comentario de arriba). La revisión vive
+       adentro de `codes[código].revision_medica`, no en una fila de
+       «correcciones» con marca de tiempo propia: esa fila puede haber
+       cambiado después por otro motivo (relaciones entre códigos, que el
+       médico administrador también puede tocar — ver 6 bis de
+       docs/supabase.sql y docs/supabase_relaciones_medico.sql) sin que la
+       revisión en sí sea nueva. Por eso se arma aparte, directamente desde
+       `codes`, con la fecha propia que ya trae cada revisión
+       (`revision_medica.t`, puesta por publicarRevision()). Reusa la misma
+       marca de «vistas» (`obs_vistas`) que el resto del equipo: el
+       administrador general nunca la había usado hasta ahora —esta campana
+       le quedaba siempre oculta—, así que no hay conflicto ni hace falta una
+       columna nueva. `revision_medica.por` es un nombre, no un uuid (lo pone
+       quien publica, ver publicarRevision()), así que lo propio se filtra
+       comparando nombres, no con `mio`. */
+    if(esDuenio())
+      CONTENT.novedades=Object.entries(codes)
+        .filter(([,o])=>o&&o.revision_medica&&o.revision_medica.t>vistas&&
+          o.revision_medica.por!==((current&&current.name)||''))
+        .map(([codigo,o])=>({t:o.revision_medica.t,quien:o.revision_medica.por||'—',
+          que:'publicó una revisión médica',code:codigo,detalle:o.revision_medica.texto||''}))
+        .sort((a,b)=>b.t-a.t);
+    obsNuevas=CONTENT.novedades.length;
 
     CONTENT.codes=codes; CONTENT.verif=verif; CONTENT.propuestas=propuestas;
     // Los conteos salen de lo mismo que se acaba de leer, así el número del
@@ -6427,16 +6524,18 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     if(!document.hidden&&esDuenio())refrescarCuentasNube();
   });
   function actualizarPendientes(){
-    /* Aviso de observaciones: es para los administrativos, no para quien las
-       escribe. Va al lado del de pendientes, con el mismo tratamiento. */
+    /* Aviso de observaciones (o, para el administrador general, de
+       revisiones médicas nuevas — ver cargarContenidoNube()): es para quien
+       no las escribe. Va al lado del de pendientes, con el mismo
+       tratamiento. */
     const ob=el('obsBtn');
     if(ob){
       // Antes la campanita sólo aparecía cuando había algo nuevo, así que no
       // servía para volver a mirar novedades ya vistas. Ahora queda siempre
-      // visible para médicos y administrativos (el dueño sigue sin verla: las
-      // novedades son cambios de otros, y para él ese conteo siempre da 0);
-      // sólo el numerito rojo va y viene con obsNuevas.
-      const puedeVer=!!(current&&!esDuenio());
+      // visible para todo perfil con sesión, dueño incluido —desde que el
+      // dueño también tiene algo que le conviene que le empujen (las
+      // revisiones médicas)—; sólo el numerito rojo va y viene con obsNuevas.
+      const puedeVer=!!current;
       ob.hidden=!puedeVer;
       if(puedeVer){
         const hayNuevas=obsNuevas>0;
@@ -6448,9 +6547,10 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         ob.classList.toggle('pendbtn',hayNuevas);
         el('obsN').hidden=!hayNuevas;
         el('obsN').textContent=obsNuevas>99?'99+':String(obsNuevas);
-        ob.title=hayNuevas?(obsNuevas===1?'Hay 1 novedad desde la última vez que entraste'
-                                          :`Hay ${obsNuevas} novedades desde la última vez que entraste`)
-                          :'Qué pasó desde la última vez que entraste';
+        const rev=esDuenio();
+        ob.title=hayNuevas?(obsNuevas===1?`Hay 1 ${rev?'revisión médica nueva':'novedad desde la última vez que entraste'}`
+                                          :`Hay ${obsNuevas} ${rev?'revisiones médicas nuevas':'novedades desde la última vez que entraste'}`)
+                          :(rev?'Revisiones médicas':'Qué pasó desde la última vez que entraste');
         // El aria-label fijo tapaba el número: quien tabulaba hasta acá escuchaba
         // «Novedades…» sin enterarse de cuántas hay. Ahora dice lo mismo que el title.
         ob.setAttribute('aria-label',ob.title);
@@ -6486,26 +6586,38 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
      por visto: si siguiera marcado como nuevo después de haberlo leído, el aviso
      perdería sentido en dos días. Antes esto mostraba sólo las observaciones;
      ahora también las fichas que alguien corrigió, que es lo otro que cambia lo
-     que la persona va a leer cuando busque esa práctica. */
+     que la persona va a leer cuando busque esa práctica.
+     Para el administrador general la lista trae otra cosa —revisiones médicas,
+     ver cargarContenidoNube()— así que el título y el texto cuando no hay nada
+     cambian con el rol; el resto del modal (fecha, código, detalle) es el
+     mismo para las dos. */
   function verNovedades(lista){
     const m=el('adminModal'), caja=el('adminBox');
     const f=t=>{const d=new Date(t), hoy=new Date();
       const mismo=d.toDateString()===hoy.toDateString();
       return mismo?('hoy '+d.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'}))
                   :d.toLocaleDateString('es-AR');};
+    const paraDuenio=esDuenio();
     caja.innerHTML=`
       <button class="icon-btn close-x" id="obsX" style="position:absolute;top:16px;right:16px" aria-label="Cerrar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
-      <h3>Qué pasó desde la última vez</h3>
-      <div class="asub">${lista.length===1?'Hay 1 novedad':`Hay ${lista.length} novedades`} sobre estas prácticas. Tocá el código para abrir la ficha.</div>
+      <h3>${paraDuenio?'Revisiones médicas':'Qué pasó desde la última vez'}</h3>
+      <div class="asub">${paraDuenio
+        ?(lista.length===1?'Hay 1 revisión médica nueva.':`Hay ${lista.length} revisiones médicas nuevas.`)
+        :`${lista.length===1?'Hay 1 novedad':`Hay ${lista.length} novedades`} sobre estas prácticas.`} Tocá el código para abrir la ficha.</div>
       ${lista.length?lista.map(o=>{const c=BYCODE[o.code];
         const obs=o.que==='dejó una observación';
+        const revMed=o.que==='publicó una revisión médica';
+        const etiqueta=obs?'<span class="robs-i">!</span> Observación del administrador'
+          :revMed?'<span class="rmed-i">🩺</span> Revisión médica':'Ficha corregida';
         return `<div class="arow" style="align-items:flex-start">
           <div class="grow2">
             <button class="minibtn" data-obsir="${E(o.code)}" style="margin-bottom:6px"><span class="mono">${E(c?c.code:o.code)}</span> ${E(c?c.nombre.slice(0,52):'')}</button>
-            <div class="pmeta" style="margin-bottom:3px">${obs?'<span class="robs-i">!</span> Observación del administrador':'Ficha corregida'} · ${E(o.quien)} · ${f(o.t)}</div>
+            <div class="pmeta" style="margin-bottom:3px">${etiqueta} · ${E(o.quien)} · ${f(o.t)}</div>
             ${o.detalle?`<div style="font-size:13px;color:var(--ink-2);white-space:pre-wrap">${E(o.detalle)}</div>`:''}
           </div></div>`;}).join('')
-        :'<div class="ahint">No hay novedades. Cuando el administrador deje una observación o corrija una ficha, te va a aparecer acá.</div>'}`;
+        :`<div class="ahint">${paraDuenio
+            ?'No hay revisiones médicas nuevas. Cuando un médico administrador publique una, te va a aparecer acá.'
+            :'No hay novedades. Cuando el administrador deje una observación o corrija una ficha, te va a aparecer acá.'}</div>`}`;
     m.classList.add('on'); tomarFoco(caja);
     caja.querySelectorAll('[data-obsir]').forEach(b=>b.addEventListener('click',()=>{
       closeAdmin(); openCode(b.dataset.obsir);}));

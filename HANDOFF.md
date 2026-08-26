@@ -2595,13 +2595,71 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
      `tests/e2e/casos/busqueda_especificidad.mjs`, nuevo: buscar «torax» trae primero
      340301, no 050102. Corrida completa de los 24 casos de `tests/e2e/`, dos veces, sin
      fallas.
-     **Queda pendiente, avisado al usuario, no resuelto en esta tanda:** extender el
-     mismo patrón de «candidato aparte + nota» del punto 6 a otras relaciones que ya
-     están en la base pero hoy sólo se ven adentro de la ficha completa — `seriado.max`
-     (cantidad que excede el seriado habitual), `lateralidad` (bilateral se carga ×1, no
-     ×2) y `muestra` (sangre/orina/etc. no coincide con lo que pide el texto de la
-     orden) — mostrándolo en la vista previa del Intérprete antes de mandar el código a
-     la Mesa de trabajo, no recién ahí.
+     Lo que quedaba pendiente de este punto —extender el patrón de «candidato aparte +
+     nota» a `seriado`/`lateralidad`/`muestra`— se resolvió a continuación, en el punto 8.
+  8. ✅ **Los tres avisos que quedaban pendientes del punto 7, pedidos por el usuario en
+     este orden (seriado, lateralidad, muestra), resueltos en la misma sesión
+     (26/8/2026).** `avisosCandidato(c,item)`, nueva, corre por cada candidato visible y
+     junta hasta tres avisos (mismo estilo visual que la observación del administrador,
+     `.int-aviso`, ámbar):
+     - **Seriado**: si el renglón trae una cantidad explícita al final (`×N`/`xN` — misma
+       sintaxis que ya lee `runCase()` para la Mesa de trabajo, no una nueva) y supera
+       `c.seriado.max`, avisa con la cantidad pedida, el máximo habitual y la nota del
+       seriado — mismo dato que ya usaba `renderFacturacion()` para el hallazgo
+       «supera el seriado habitual», pero antes de mandarlo, no después de cargarlo mal.
+     - **Lateralidad**: la etiqueta (`decTags()`, ya sumada en el punto 6) dice
+       «Bilateral»/«Unilateral», pero no qué significa para la carga — acá se explica: un
+       código bilateral se carga por **cantidad 1** aunque comprenda los dos lados (ojos,
+       miembros), que es la confusión real que ya cubre `renderFacturacion()` del lado del
+       validador («figura ×2» → rechazo). El unilateral se carga 1 por lado.
+     - **Muestra**: si el renglón nombra un tipo de muestra explícito (mismo vocabulario
+       que `MUESTRA_VAR`/`MUESTRA_CLS` de `rowHTML()`: sangre, orina, semen, líquido
+       cefalorraquídeo, materia fecal, pelo, saliva) que no es la de ese código, avisa
+       antes de elegirlo.
+       ⚠️ **Encontrado armando la prueba, no en el diseño**: «acetonuria en sangre»
+       —para 660002, que es en orina— no traía NINGÚN candidato, así que
+       `avisosCandidato()` nunca llegaba a correr: `buscar()` exige que **todos** los
+       términos coincidan, y «sangre» no está en el texto de un código de orina, el mismo
+       motivo por el que 340302 nunca aparecía solo para «F y P» en el punto 6. Arreglado
+       igual que ahí: `candidatosParaItem()` ahora también saca las palabras de
+       `MUESTRA_DETECTAR` del reintento sin resultados (antes sólo sacaba los sueltos de
+       1-2 letras) — el texto que lee `avisosCandidato()` para comparar sigue siendo el
+       renglón completo, sólo cambia qué términos usa `buscar()` para encontrar el
+       candidato.
+     Probado en `tests/e2e/casos/interprete_avisos.mjs`, nuevo: los tres avisos con
+     códigos reales (660102 seriado ×5, 030203 bilateral, 660002 orina) y un renglón sin
+     nada que avisar («Hemograma») que no trae ningún `.int-aviso`. Corrida completa de
+     los 26 casos de `tests/e2e/`, sin fallas.
+- ✅ **Revisiones médicas como notificación para el administrador general — pedido
+  explícito del usuario (26/8/2026): «que las revisiones médicas hechas por el médico
+  administrador me aparezcan como notificación en mi perfil de administrador general».**
+  Hasta ahora la campanita de «novedades» (🔔, junto a la de Pendientes) era sólo para
+  administrativos y médicos —observaciones y correcciones de otros—; al administrador
+  general le quedaba **siempre oculta**: «el administrador no recibe aviso: para él está
+  la campana de pendientes, que es otra cosa» (comentario viejo de
+  `cargarContenidoNube()`). Cierto para observaciones/correcciones —el administrador
+  general las ve todas igual, no necesita que se las empujen— pero no para las
+  revisiones médicas que publica un médico administrador (`publicarRevision()`,
+  `datos.revision_medica` en `correcciones`): eso sí es contenido clínico que él no
+  escribió.
+  Reusa la misma campanita y el mismo modal («Qué pasó desde la última vez»), pero con
+  contenido distinto según el rol: para el administrador general, `CONTENT.novedades` se
+  arma directamente desde `codes[código].revision_medica` (no desde las filas de
+  `correcciones` con su `actualizado` genérico — esa fila puede haber cambiado después
+  por otro motivo, como una edición de relaciones entre códigos, sin que la revisión en
+  sí sea nueva; la fecha correcta es la propia `revision_medica.t`, puesta por
+  `publicarRevision()`). Reusa también la misma marca de «vistas» (`obs_vistas`): el
+  administrador general nunca la había usado —la campanita le quedaba oculta—, así que no
+  hay conflicto ni hizo falta una columna nueva. El modal (`verNovedades()`) cambia el
+  título («Revisiones médicas»), la etiqueta de cada fila (🩺) y el texto vacío según el
+  rol; el resto —fecha, código, detalle, tocar para abrir la ficha— es el mismo bloque
+  para las dos cosas.
+  Probado en `tests/e2e/casos/notif_revision_medica.mjs`, nuevo, de punta a punta con dos
+  cuentas reales sobre la misma base compartida (mismo patrón que
+  `sugerencias_pedida_como.mjs`): el médico administrador publica la revisión desde la
+  ficha (🩺 «Escribir la revisión médica»), el administrador general entra después y ve
+  la campanita resaltada con «1», el modal dice quién y qué escribió, tocar el código
+  abre la ficha, y verla la marca como vista (la campanita deja de estar resaltada).
 - ✅ **Sesión muerta del lado del servidor — arreglado el 26/8/2026, encontrado por el
   usuario mirando los logs de Postgres del proyecto (API Gateway/Postgres/Auth de
   Supabase).** Vio 17 errores de Postgres sobre 21 llamados en una hora; el detalle era
