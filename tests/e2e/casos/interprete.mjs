@@ -47,11 +47,20 @@ async function main() {
     const items = await page.locator('.int-item').count();
     afirmar(items === 6, `esperaba 6 renglones interpretados, vinieron ${items}`);
 
+    // Cada renglón se ubica por su propio texto de origen (.int-src), no por
+    // cualquier texto del ítem entero: desde que el Intérprete muestra las
+    // etiquetas y observaciones de cada candidato en la vista previa (ver
+    // HANDOFF.md, 26/8/2026), alguna etiqueta puede traer por casualidad la
+    // misma subcadena que el texto de otro renglón —p.ej. «Prestaciones
+    // Médicas» contiene «tac»— y buscar con :has-text() sobre el ítem
+    // entero dejaba de ser inequívoco.
+    const renglon=texto=>page.locator('.int-item').filter({has:page.locator('.int-src',{hasText:texto})});
+
     // «tac» sola tiene muchas más de 5 variantes reales en la base (por
     // región, con/sin contraste, en los tres nomencladores): antes se
     // cortaba en 5 sin forma de ver el resto — ver candidatosParaItem() y
     // HANDOFF.md, 25/8/2026 (aviso del usuario sobre el Intérprete).
-    const renglonTac = page.locator('.int-item:has-text("tac")').first();
+    const renglonTac = renglon('tac').first();
     afirmar(await renglonTac.locator('.int-cand:visible').count() === 5, 'con «tac» deberían verse 5 candidatos antes de tocar «ver más»');
     const masTac = renglonTac.locator('[data-int-toggle]');
     afirmar(await masTac.count() === 1, 'con más de 5 candidatos reales, «tac» debería mostrar el botón «ver más»');
@@ -64,7 +73,7 @@ async function main() {
     // Pneumophila, Ac. Anti), que sin el borde de palabra (\b) en
     // SINONIMOS_COMPUESTOS coincidían por casualidad — ver puntuar() en
     // web/index.html y HANDOFF.md, 25/8/2026 (segunda tanda).
-    const renglonAntiRo = page.locator('.int-item:has-text("anti ro")');
+    const renglonAntiRo = renglon('anti ro');
     afirmar(await renglonAntiRo.locator('.int-cand[data-int-code="668905"]').count() >= 1,
       '«anti ro» debería traer 668905 (Ro, Ac. Anti) entre los candidatos');
     afirmar(await renglonAntiRo.locator('.int-cand[data-int-code="666956"]').count() === 0,
@@ -78,11 +87,23 @@ async function main() {
     // «f»/«y»/«p» sueltos (abreviatura de posición, no del nombre) tirarían
     // abajo el renglón entero si no se reintentara sin ellos — ver
     // candidatosParaItem() en web/index.html.
-    afirmar(await page.locator('.int-item:has-text("Rx torax f y p") .int-cand').count() >= 1,
+    const renglonTorax = renglon('Rx torax f y p');
+    afirmar(await renglonTorax.locator('.int-cand').count() >= 1,
       '«Rx torax f y p» debería encontrar candidatos reintentando sin los términos sueltos de 1-2 letras');
 
+    // «F y P» pide dos exposiciones: si el candidato principal tiene su
+    // propia exposición adicional (340302, ligado a 340301 por
+    // exposicion_siguiente en la base), tiene que aparecer sola entre los
+    // candidatos, marcada como tal — no sólo el código de la primera
+    // exposición. Ver candidatosParaItem() y HANDOFF.md, 26/8/2026 (aviso
+    // del usuario: «rx torax f y p» → 340301 y 340302).
+    afirmar(await renglonTorax.locator('.int-cand.comp[data-int-code="340302"]').count() === 1,
+      '«Rx torax f y p» debería agregar 340302 (exposición de perfil) como candidato aparte, marcado con la clase "comp"');
+    afirmar((await renglonTorax.locator('.int-cand-nota').first().textContent()).includes('340301'),
+      'la nota del candidato de exposición adicional debería explicar de qué código base sale');
+
     // El tercer renglón (inventado) no debería traer ningún candidato.
-    const sinCoincidencias = await page.locator('.int-item:has-text("xyzqwerty") .int-sin').count();
+    const sinCoincidencias = await renglon('xyzqwerty').locator('.int-sin').count();
     afirmar(sinCoincidencias === 1, 'un renglón sin coincidencias tendría que decirlo, no inventar un candidato');
 
     // Elegir 660475 (Hemograma) y buscar+elegir 660412 (Glucemia) entre sus candidatos.

@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-Q0/aOBwRrmhC/CA5ySOrs/WboUPfS9jE9kbTmWcbOjc=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-XE1g9kq/Uy5T5RTkudauhtSvZ745K9nHXEnqQgixqmE=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1334,21 +1334,40 @@ ul{margin:0;padding:0}
 .int-item{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:13px 16px}
 .int-src{font-size:13px;color:var(--muted);margin-bottom:9px;font-style:italic;overflow-wrap:anywhere}
 .int-cands{display:flex;flex-direction:column;gap:6px}
-.int-cand{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:9px 11px;
+/* Cada candidato es un <button class="int-cand"> (elige/saca de la Mesa de
+   trabajo) con un <button class="int-ver"> hermano (abre la ficha completa
+   — openCode()) adentro de un wrapper sin semántica propia: dos botones
+   reales, no uno anidado dentro del otro. */
+.int-cand-item{display:flex;align-items:flex-start;gap:6px;width:100%}
+.int-cand{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px;text-align:left;padding:9px 11px;
   border:1.5px solid var(--line-2);border-radius:9px;background:var(--surface-2);color:var(--ink);
   font:inherit;font-size:13px;cursor:pointer;transition:.13s}
 .int-cand:hover{border-color:var(--accent)}
 .int-cand.on{border-color:var(--accent);background:var(--accent-soft)}
+.int-cand.comp{border-style:dashed}
+.int-cand-top{display:flex;align-items:center;gap:10px;width:100%}
 .int-cand .mono{color:var(--accent-ink);font-weight:700;flex-shrink:0}
 .int-cand .int-nm{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .int-cand .int-pct{font-size:11px;color:var(--faint);flex-shrink:0;font-variant-numeric:tabular-nums}
 .int-cand.top .int-pct{color:var(--inc);font-weight:700}
+.int-cand .int-comp-lbl{color:var(--accent-ink);font-weight:600}
+.int-cand-nota{font-size:12px;color:var(--muted)}
+.int-cand-tags{display:flex;flex-wrap:wrap;gap:5px}
+.int-ver{flex-shrink:0;width:32px;height:32px;display:flex;align-items:center;justify-content:center;
+  border:1.5px solid var(--line-2);border-radius:9px;background:var(--surface-2);color:var(--muted);
+  font-size:14px;cursor:pointer;transition:.13s}
+.int-ver:hover{border-color:var(--accent);color:var(--accent-ink)}
 .int-cands-mas{margin-top:6px}
 .int-more{display:block;width:100%;margin-top:8px;padding:7px;border:1px dashed var(--line-2);
   border-radius:9px;background:transparent;color:var(--accent-ink);font:inherit;font-size:12.5px;
   font-weight:600;cursor:pointer;transition:.13s}
 .int-more:hover{border-color:var(--accent);background:var(--accent-soft)}
 .int-sin{font-size:13px;color:var(--faint);font-style:italic}
+.int-note{font-size:12.5px;color:var(--muted);margin-top:10px;display:flex;align-items:center;
+  gap:8px;flex-wrap:wrap}
+.int-note-ver{flex-shrink:0;padding:4px 9px;border:1px solid var(--line-2);border-radius:7px;
+  background:transparent;color:var(--accent-ink);font:inherit;font-size:12px;cursor:pointer}
+.int-note-ver:hover{border-color:var(--accent)}
 .int-resumen{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px}
 .int-resumen h4{margin:0 0 10px;font-size:14px}
 .int-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
@@ -2102,6 +2121,15 @@ function escRe(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
 // en el nombre real de la práctica. Uno chico y verificable, no una lista abierta.
 const SINONIMOS_COMUNES={
   rx:['radiografia'], tac:['tomografia'], tc:['tomografia'],
+  // El Catálogo del PMO nombra la sección "Radiología" y el Nomenclador
+  // Nacional (y el habla corriente) dice "radiografía" para la misma
+  // práctica —340905 «Radiografía en quirófano», 340301 «Radiología
+  // tórax»—: sin este par cruzado, buscar por una de las dos palabras se
+  // perdía la mitad de los códigos de la sección (verificado contra
+  // data/nbu_db.json: 16 códigos sólo dicen "radiografía", 36 sólo dicen
+  // "radiología" — ver HANDOFF.md, 26/8/2026, aviso del usuario sobre
+  // radiografía/radiología).
+  radiografia:['radiologia'], radiologia:['radiografia'],
   rm:['resonancia'], rmn:['resonancia'], irm:['resonancia'],
   ecg:['electrocardiograma'], eeg:['electroencefalograma'],
   hto:['hematocrito'], hb:['hemoglobina'], tp:['protrombina'],
@@ -2831,8 +2859,12 @@ function normaNN(c){
   return {alcance:alc, normas:lineas, cat:(c.alcance_nn&&c.alcance_nn.categoria)||''};
 }
 
-function rowHTML(c){
-  const dec=[],met=[];
+/* Etiquetas de «decisión» de un código —lo que cambia cómo se carga la
+   solicitud—, factorizado de rowHTML() para poder mostrar el mismo juego de
+   etiquetas también en las fichas candidatas del Intérprete de orden, sin
+   duplicar esta lista. Ver HANDOFF.md, 26/8/2026 (mejoras al Intérprete). */
+function decTags(c){
+  const dec=[];
   if(c.cobertura_pmo)dec.push(`<span class="tag t-cob">${c.cobertura_tipo==='observacion'?'observación de cobertura':'obligación de cobertura'}</span>`);
   if(c.muestra&&c.muestra.length)dec.push(muestraTag(c));
   if(c.lateralidad)dec.push(`<span class="tag t-lat">${esc(c.lateralidad)}</span>`);
@@ -2874,6 +2906,10 @@ function rowHTML(c){
      la base (abajo, con «valores ✓» y «2024»), no como decisión. */
   if(c.nomenclador==='UNICO'&&c.equivalencia&&c.equivalencia.key)dec.push(`<span class="tag t-unico">= ${esc(c.equivalencia.target_label||c.equivalencia.target_nom||'')}</span>`);
   if(c.nomenclador==='UNICO'&&c.sin_equivalencia)dec.push('<span class="tag t-noeq">⚠ sin equivalencia</span>');
+  return dec;
+}
+function rowHTML(c){
+  const dec=decTags(c),met=[];
   if(c.valores)met.push('<span class="tag t-meta">valores ✓</span>');
   if(c.valor.ub_actualizado_2024!=null)met.push('<span class="tag t-meta">2024</span>');
   if(c.nomenclador==='UNICO'&&c.equivalencia&&!c.equivalencia.key&&!c.sin_equivalencia)met.push(`<span class="tag t-meta" title="La planilla del Único declara esta equivalencia y quedó verificada contra la fuente, pero el código de ${esc(c.equivalencia.target_label||'destino')} todavía no está cargado como ficha propia en la base.">equiv. sin importar</span>`);
@@ -3600,10 +3636,16 @@ function initInterprete(){
     <div class="int-resumen" id="intResumen" hidden></div>`;
   el('ayudaInterprete').addEventListener('click',e=>{e.preventDefault();e.stopPropagation();
     if(window.NBUPistas)window.NBUPistas.ayuda('#intTexto','Intérprete de orden',
-      'Pegás el texto de la orden y te muestra, renglón por renglón, qué código de la base parece corresponder. Elegís los que están bien y los mandás juntos a la <b>Mesa de trabajo</b>.');});
+      'Pegás el texto de la orden y te muestra, renglón por renglón, qué código de la base parece corresponder, con sus etiquetas y observaciones a la vista. Tocá el código para elegirlo (se suma a la Mesa de trabajo) o el ojo 👁 para abrir la ficha completa. Si la orden pide «F y P» y el código tiene una exposición de perfil con código propio, se agrega sola.');});
   el('intGo').addEventListener('click',correrInterprete);
   el('intTexto').addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter')correrInterprete();});
   el('intItems').addEventListener('click',e=>{
+    // Ver ficha completa: abre el drawer de siempre (openCode), con todas las
+    // etiquetas, normas y observaciones del código — sin tocar la elección
+    // del candidato para la Mesa de trabajo (por eso va antes y con
+    // stopPropagation: es un botón hermano del candidato, no adentro).
+    const v=e.target.closest('[data-int-ver]');
+    if(v){e.stopPropagation();openCode(v.dataset.intVer);return;}
     const t=e.target.closest('[data-int-toggle]');
     if(t){
       const mas=t.previousElementSibling;
@@ -3623,8 +3665,13 @@ function initInterprete(){
     // docs/supabase_sugerencias_pedida_como.sql). Sólo al elegir, no al
     // sacar la marca; sólo si hay con qué identificar a quien lo hizo
     // (nube activa y con sesión — en modo local no hay tabla para esto).
+    // El candidato de exposición adicional (data-int-companion) no salió de
+    // buscar() por puntaje de texto — es un código estructuralmente
+    // relacionado (exposicion_siguiente) que se agrega aparte — así que
+    // elegirlo no dice nada sobre cómo escribe la orden quien la tipeó: no
+    // corresponde mandarlo como sugerencia de «pedida como».
     const N=window.NBUNube;
-    if(!yaElegido&&b.dataset.intRank!=='0'&&N&&N.activa&&N.perfil()){
+    if(!yaElegido&&b.dataset.intRank!=='0'&&!b.dataset.intCompanion&&N&&N.activa&&N.perfil()){
       N.sugerirPedidaComo(k,b.dataset.intItem).catch(()=>{});
     }
     renderIntResumen();
@@ -3640,6 +3687,12 @@ function initInterprete(){
    renglón que si no encontraba bien. No se sacan de entrada —a veces son
    parte real de una sigla corta— sólo cuando dejarlos afuera es lo que
    hace falta para encontrar algo. */
+// Indicios de que la orden pide más de una exposición del mismo estudio: «F
+// y P» (frente y perfil) es el ejemplo de manual —el propio placeholder del
+// cuadro de texto—, pero también aparece como «F/P» o «comparativas». Ver
+// candidatosParaItem(): cuando aparece uno de estos, se busca si el
+// candidato principal tiene una exposición adicional con código propio.
+const RE_MULTIEXP=/\bf\s*\/\s*p\b|\bf\s*y\s*p\b|\bfrente\s*(?:y|\/)\s*perfil\b|\bcomparativ\w*/;
 function candidatosParaItem(item){
   const terms=norm(item).split(/\s+/).filter(Boolean);
   if(!terms.length)return {terms,cands:[]};
@@ -3661,7 +3714,41 @@ function candidatosParaItem(item){
   // 5, con «ver más» — ver correrInterprete()); 30 es techo de seguridad
   // contra un término tan corto que puntúe casi toda la base, no un límite
   // pensado para pegarse.
-  return {terms:usados,cands:cands.slice(0,30)};
+  cands=cands.slice(0,30);
+  /* «Rx tórax F y P» tiene que traer 340301 (frente) Y 340302 (la
+     exposición de perfil) — pero 340302 se llama «Por exposición
+     subsiguiente» en la fuente: no comparte ni una palabra con «tórax», así
+     que buscar() por puntaje de texto nunca lo iba a encontrar solo. La
+     relación entre los dos ya está en la base (exposicion_siguiente/
+     exposicion_de, el mismo dato que usa comoSeCargaHTML en la ficha
+     completa): acá se usa para completar el candidato que falta.
+     Se revisan los primeros 5 (los que se ven sin tocar «ver más», no sólo
+     el primero de la lista): a igualdad de puntaje, buscar() desempata por
+     el orden en que el código entró a la base, no por relevancia clínica —
+     «torax» solo, por ejemplo, empata «Radiología tórax» (340301) con
+     «Operación plástica por tórax…» (050102), que no tiene nada que ver con
+     una orden de rayos y queda primero sólo porque es un código más bajo.
+     Si NINGUNO de los 5 visibles tiene una exposición adicional prevista
+     con código propio, se avisa igual (sinPerfil) sobre el primero — la
+     ausencia es un dato tan útil como la presencia, y antes no aparecía en
+     ningún lado de la búsqueda. Ver HANDOFF.md, 26/8/2026 (aviso del
+     usuario sobre el Intérprete: «rx torax f y p», códigos
+     340207/340201/340209/340211). */
+  let comps=[],sinPerfil=null;
+  if(cands.length&&RE_MULTIEXP.test(norm(item))){
+    const visibles=cands.slice(0,5);
+    const yaPresentes=new Set(cands.map(c=>c._key));
+    const vistos=new Set();
+    visibles.forEach(base=>{
+      const sig=base.exposicion_siguiente;
+      if(sig&&BYCODE[sig]&&!yaPresentes.has(sig)&&!vistos.has(sig)){
+        vistos.add(sig);
+        comps.push({code:BYCODE[sig],de:base});
+      }
+    });
+    if(!comps.length)sinPerfil=visibles[0];
+  }
+  return {terms:usados,cands,comps,sinPerfil};
 }
 function correrInterprete(){
   const texto=(el('intTexto').value||'').trim();
@@ -3669,20 +3756,40 @@ function correrInterprete(){
   const items=partirOrden(texto);
   intElegidos.clear();
   if(!items.length){el('intItems').innerHTML='';renderIntResumen();return;}
-  const candBtn=(c,i,terms,item)=>`
-        <button type="button" class="int-cand${i===0?' top':''}" data-int-code="${esc(c._key)}" data-int-rank="${i}" data-int-item="${esc(item)}">
-          <span class="mono">${esc(c.code)}</span><span class="int-nm">${esc(c.nombre)}</span>
-          <span class="int-pct">${pctInterprete(c._score,terms.length)}%</span>
-        </button>`;
+  // Las mismas etiquetas de decisión y las mismas líneas de observación /
+  // alcance / cruce de nomenclador que ya se ven en el listado principal
+  // (rowHTML) — para que el administrativo pueda confirmar el código sin
+  // tener que abrir la ficha completa cada vez. «Ver ficha» (data-int-ver)
+  // sigue estando, para cuando sí hace falta el detalle entero.
+  const candBtn=(c,i,terms,item,companion)=>{
+    const tags=decTags(c);
+    const obs=[cruceLinea(c),abarcaLinea(c),obsLinea(c._key)].filter(Boolean).join('');
+    return `<div class="int-cand-item">
+        <button type="button" class="int-cand${i===0&&!companion?' top':''}${companion?' comp':''}" data-int-code="${esc(c._key)}" data-int-rank="${i}" data-int-item="${esc(item)}"${companion?' data-int-companion="1"':''}>
+          <div class="int-cand-top">
+            <span class="mono">${esc(c.code)}</span><span class="int-nm">${esc(c.nombre)}</span>
+            ${companion?`<span class="int-pct int-comp-lbl">exposición adicional</span>`:`<span class="int-pct">${pctInterprete(c._score,terms.length)}%</span>`}
+          </div>
+          ${companion?`<div class="int-cand-nota">Exposición de perfil / adicional de <span class="mono">${esc(companion.code)}</span> — código independiente, se carga aparte.</div>`:''}
+          ${tags.length?`<div class="int-cand-tags">${tags.join('')}</div>`:''}
+          ${obs}
+        </button>
+        <button type="button" class="int-ver" data-int-ver="${esc(c._key)}" title="Ver ficha completa de ${esc(c.code)}" aria-label="Ver ficha completa de ${esc(c.code)}">👁</button>
+      </div>`;
+  };
   el('intItems').innerHTML=items.map(item=>{
-    const {terms,cands}=candidatosParaItem(item);
+    const {terms,cands,comps,sinPerfil}=candidatosParaItem(item);
     const primero=cands.slice(0,5), resto=cands.slice(5);
+    const compsHTML=comps.map((cp,j)=>candBtn(cp.code,cands.length+j,terms,item,cp.de)).join('');
+    const notaSinPerfil=sinPerfil?`<div class="int-note">Este código no tiene una exposición adicional (de perfil) prevista con código propio: si la orden pide más de una toma, confirmalo en la ficha completa antes de sumar otro código.
+      <button type="button" class="int-note-ver" data-int-ver="${esc(sinPerfil._key)}">Ver ficha de ${esc(sinPerfil.code)}</button></div>`:'';
     return `<div class="int-item">
       <div class="int-src">${esc(item)}</div>
-      ${cands.length?`<div class="int-cands">${primero.map((c,i)=>candBtn(c,i,terms,item)).join('')}</div>
+      ${cands.length?`<div class="int-cands">${primero.map((c,i)=>candBtn(c,i,terms,item)).join('')}${compsHTML}</div>
         ${resto.length?`<div class="int-cands int-cands-mas" hidden>${resto.map((c,i)=>candBtn(c,i+5,terms,item)).join('')}</div>
         <button type="button" class="int-more" data-int-toggle>Ver ${resto.length} más</button>`:''}`
         :`<div class="int-sin">Sin coincidencias claras en la base — revisar a mano.</div>`}
+      ${notaSinPerfil}
     </div>`;
   }).join('');
   renderIntResumen();

@@ -2521,6 +2521,53 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
      recargar nada (`.int-cands-mas`, oculto con `hidden` hasta tocarlo). Probado en
      `tests/e2e/casos/interprete.mjs`: con «tac» aparecen 5 al principio, el botón está, y
      tocarlo revela más de 5 y pasa a decir «Mostrar menos».
+  6. ✅ **Tres pedidos del usuario del 26/8/2026, sobre el Intérprete y la búsqueda
+     general — «cuando elijo una interpretación no pasa nada», radiología/radiografía, y el
+     ejemplo «rx torax f y p»:**
+     - **Elegir un candidato no abría nada.** Cada candidato pasó de ser un botón con sólo
+       código+nombre+% a un `<div class="int-cand-item">` con dos botones hermanos (no uno
+       anidado en el otro): `.int-cand` sigue siendo el de siempre —elige/saca de la Mesa de
+       trabajo, mismo comportamiento, mismos tests— y al lado un `.int-ver` nuevo (el ojo 👁)
+       que llama a `openCode()`, el mismo drawer de siempre con ficha completa, normas y
+       observaciones — sin tocar la elección. Las mismas **etiquetas de decisión y líneas de
+       observación/alcance/cruce de nomenclador** que ya se veían en el listado principal
+       (`rowHTML()`) se factorizaron en `decTags()` y se reusan tal cual en el candidato del
+       Intérprete: se ve si tiene obligación de cobertura, lateralidad, requiere norma, «qué
+       abarca» (primera exposición, etc.) y la observación del administrador **sin abrir la
+       ficha**, que es la «vista previa» que pedía el usuario.
+     - **«rx torax f y p» tiene que traer 340301 (frente) Y 340302 (perfil).** 340302 se
+       llama «Por exposición subsiguiente» en la fuente —no comparte ni una palabra con
+       «tórax»— así que `buscar()` por puntaje de texto nunca lo iba a encontrar solo. La
+       relación ya estaba en la base (`exposicion_siguiente`/`exposicion_de`, el mismo dato
+       que ya usaba `comoSeCargaHTML()` adentro de la ficha completa, para 340301→340302,
+       340207→340208, 340201→340202, 340209→340210, 340211→340212, entre otros — ver el
+       texto de `auditoria` de esos códigos). Nuevo en `candidatosParaItem()`: si el renglón
+       trae un indicio de exposición múltiple (`RE_MULTIEXP`: «f y p», «f/p», «frente y/o
+       perfil», «comparativ…») se revisan los 5 candidatos que se ven sin tocar «ver más»
+       —no sólo el primero: a igualdad de puntaje `buscar()` desempata por el código más
+       bajo, no por relevancia clínica, y para «torax» solo eso ponía primero
+       «Operación plástica por tórax…» (050102) antes que «Radiología tórax» (340301)— y se
+       agrega como candidato aparte (clase `.comp`, con nota explicando de qué código base
+       sale) la exposición adicional de cada uno que la tenga. **El «cuándo no» también
+       queda a la vista**: si ninguno de los 5 visibles tiene exposición adicional prevista
+       con código propio, se muestra una nota (`.int-note`) diciéndolo, con un enlace directo
+       a la ficha del código para confirmarlo — antes ese silencio no aparecía en ningún lado
+       de la búsqueda.
+     - **«radiografía» y «radiología» no traían el mismo listado**, aunque nombran la misma
+       sección («Radiología / Diagnóstico por imágenes»): verificado contra
+       `data/nbu_db.json`, 16 códigos dicen sólo «radiografía» (340905 «Radiografía en
+       quirófano», 340908 «Radiografía a domicilio», …) y 36 dicen sólo «radiología» (340201,
+       340301, …) — buscar por una perdía la mitad de la sección. Agregado el par cruzado a
+       `SINONIMOS_COMUNES`: `radiografia:['radiologia'], radiologia:['radiografia']` — buscar
+       cualquiera de las dos ahora trae también los códigos que sólo dicen la otra.
+     - Probado en `tests/e2e/casos/interprete.mjs` (candidato `.comp` de 340302 con su nota,
+       tags/observaciones visibles sin abrir la ficha) y a mano con Playwright (el ojo abre
+       el drawer con la ficha de 340301 y menciona la exposición adicional; buscar
+       «radiografia» trae 340301 y buscar «radiologia» trae 340905, en modo «Buscar en todo
+       el manual»). Los locators del test que ubicaban un renglón por `:has-text()` sobre el
+       ítem entero se volvieron ambiguos con las etiquetas nuevas —«Prestaciones Médicas»
+       contiene la subcadena «tac», por ejemplo— y se corrigieron para filtrar por el propio
+       `.int-src` del renglón, no por cualquier texto del ítem.
 - ✅ **Sesión muerta del lado del servidor — arreglado el 26/8/2026, encontrado por el
   usuario mirando los logs de Postgres del proyecto (API Gateway/Postgres/Auth de
   Supabase).** Vio 17 errores de Postgres sobre 21 llamados en una hora; el detalle era
