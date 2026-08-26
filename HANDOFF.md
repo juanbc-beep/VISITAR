@@ -2831,6 +2831,39 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
   Búsqueda** (`BUSQUEDA_CFG`, ver el bloque del 26/8/2026 «el administrador general
   puede editar los valores de coincidencia del buscador») — no hay ningún bug de
   puntaje distinto entre lo local y lo desplegado.
+- ✅ **35 códigos PMO con «checksum no cierra» — corroborados contra el PDF fuente y
+  corregidos, pedido explícito del usuario (26/8/2026): «esos todos tienen valores
+  establecidos en el nomenclador que te pasé».** Del bloque anterior (679 códigos PMO
+  sin `valores.galeno`), 35 traían un `total_p` en `nn_values.json` pero con
+  `checksum_ok:false` — el usuario pidió corroborarlos uno por uno contra
+  `data/NOMENCLADOR NACIONAL DE PRESTACIONES MEDICAS CON PMO-COMPRIMIDO.pdf` (ya
+  versionado en el repo) y armar el listado con el valor correcto de cada uno.
+  Se leyó la página real de cada código (con `PyMuPDF`, rasterizando cada página y
+  leyéndola directamente — el PDF es escaneado, sin capa de texto) y se confirmó: **en
+  los 35 casos el nomenclador SÍ trae honorarios**, el checksum fallaba por un bug del
+  extractor por posición (`scripts/parse_nn.py`), no por falta de dato en la fuente.
+  ⚠️ **Encontrado armando la corroboración, no antes**: el campo `page` de
+  `nn_values.json` **no es el número de página impreso del PDF** — está desalineado por
+  capítulo (ej. capítulo 03 estaba corrido 2 páginas respecto del pie de página real;
+  capítulo 07 en adelante, mucho más) — hubo que ubicar cada código navegando el PDF,
+  no confiando en ese campo. Y el bug de fondo en `parse_nn.py`: las bandas de fila se
+  arman a partir de la posición Y del código de la fila siguiente/anterior, así que en
+  filas con nota larga (ej. «Texto retirado por el PMO…» a varios renglones) la columna
+  de anestesista o de gasto a veces toma el valor de la fila de al lado — ej. `020106`
+  tenía anestesista=20.24/gasto=132.04 (los valores de la fila 02.01.05, arriba), cuando
+  los correctos son 18.67/108.39 (suman exacto contra el total impreso, 190.56).
+  ⚠️ **Un solo caso fue una errata real de imprenta, no del extractor**: `060105`
+  imprime el $ del ayudante como «80.2», que no cierra contra el total (41.52+80.2+
+  20.24+108.39=250.35≠178.17); con 8.02 —mismo factor U.→$ que el resto de la fila—
+  cierra exacto. Marcado aparte en el listado, no confundido con los otros 34.
+  Corregidos los 35 en `data/nn_values.json` (`checksum_ok:true`,
+  `corregido_manualmente:true`) y en `data/nbu_db.json` (`valores`/
+  `asociaciones_especificas`, mismo formato que arma `assemble.py`, sin correr el
+  pipeline completo —no había intermedios en el scratchpad de esta sesión— sino
+  aplicando el mismo cálculo a mano sobre los dos JSON). Publicado con
+  `python3 scripts/inject_db.py` (regenera `web/nbu_db.bin`; no toca `<script>` de
+  `index.html`, no hizo falta resellar la CSP). Corrida completa de los 31 archivos de
+  `tests/e2e/`, sin fallas.
 - ✅ **Sesión muerta del lado del servidor — arreglado el 26/8/2026, encontrado por el
   usuario mirando los logs de Postgres del proyecto (API Gateway/Postgres/Auth de
   Supabase).** Vio 17 errores de Postgres sobre 21 llamados en una hora; el detalle era
