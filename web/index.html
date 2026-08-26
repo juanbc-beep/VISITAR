@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-nMM5L2ShhC49CRcVgrX4xxAMZuvdid4qBu9DhtOQGIs=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-oUxd+DuiBnECeiQnYO5btEefTWKKp85K8kjjHFIzp/8=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1336,24 +1336,42 @@ ul{margin:0;padding:0}
 .int-item{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:13px 16px}
 .int-src{font-size:13px;color:var(--muted);margin-bottom:9px;font-style:italic;overflow-wrap:anywhere}
 .int-cands{display:flex;flex-direction:column;gap:6px}
-/* Cada candidato es un <button class="int-cand"> (elige/saca de la Mesa de
-   trabajo) con un <button class="int-ver"> hermano (abre la ficha completa
-   — openCode()) adentro de un wrapper sin semántica propia: dos botones
-   reales, no uno anidado dentro del otro. */
+/* Un candidato es un grupo (una práctica, uno o más nomencladores
+   equivalentes agrupados — ver candidatosParaItem()): el bloque entero
+   entra en .int-grupo, y adentro, el botón principal <button class="int-cand">
+   (elige/saca de la Mesa de trabajo) con un <button class="int-ver"> hermano
+   (abre la ficha completa — openCode()) en un wrapper sin semántica propia:
+   dos botones reales, no uno anidado dentro del otro. */
+.int-grupo{display:flex;flex-direction:column;gap:6px;width:100%}
 .int-cand-item{display:flex;align-items:flex-start;gap:6px;width:100%}
 .int-cand{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px;text-align:left;padding:9px 11px;
   border:1.5px solid var(--line-2);border-radius:9px;background:var(--surface-2);color:var(--ink);
   font:inherit;font-size:13px;cursor:pointer;transition:.13s}
 .int-cand:hover{border-color:var(--accent)}
 .int-cand.on{border-color:var(--accent);background:var(--accent-soft)}
-.int-cand.comp{border-style:dashed}
 .int-cand-top{display:flex;align-items:center;gap:10px;width:100%}
 .int-cand .mono{color:var(--accent-ink);font-weight:700;flex-shrink:0}
 .int-cand .int-nm{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .int-cand .int-pct{font-size:11px;color:var(--faint);flex-shrink:0;font-variant-numeric:tabular-nums}
 .int-cand.top .int-pct{color:var(--inc);font-weight:700}
-.int-cand .int-comp-lbl{color:var(--accent-ink);font-weight:600}
 .int-cand-nota{font-size:12px;color:var(--muted)}
+/* Un mismo código puede existir en más de un nomenclador (340301 en el PMO
+   y en el Único, por ejemplo) — antes cada uno salía como una tarjeta
+   entera aparte, con su propio % (a veces bien distinto, porque cada
+   nomenclador transcribe el nombre distinto), lo que ocupaba el doble de
+   lugar y hacía ver como un error que "el mismo código" tuviera dos
+   porcentajes. Ahora es un solo bloque, con el mejor puntaje del grupo
+   arriba, y estos chips chicos —hermanos del botón principal, no anidados
+   adentro— para elegir puntualmente el código de otro nomenclador si hace
+   falta. Mismo criterio para la exposición adicional (.int-cand-comp):
+   un chip por nomenclador, no una tarjeta entera. */
+.int-cand-otros,.int-cand-comp{display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-size:12px;color:var(--muted);padding:0 2px}
+.int-cand-comp{padding:8px 9px;background:#efe4c4;border:1px solid color-mix(in srgb,var(--gestion) 40%,transparent);border-radius:7px;color:var(--ink-2)}
+:root[data-theme="dark"] .int-cand-comp{background:#2e2811}
+.int-nom-chip{border:1.5px solid var(--line-2);border-radius:7px;padding:3px 9px;background:var(--surface-2);
+  color:inherit;font:inherit;font-size:11.5px;font-weight:700;cursor:pointer;transition:.13s}
+.int-nom-chip:hover{border-color:var(--accent);color:var(--accent-ink)}
+.int-nom-chip.on{border-color:var(--accent);background:var(--accent-soft);color:var(--accent-ink)}
 .int-cand-avisos{display:flex;flex-direction:column;gap:5px}
 .int-aviso{font-size:12.5px;line-height:1.4;color:var(--ink-2);padding:6px 9px;border-radius:7px;
   background:#efe4c4;border:1px solid color-mix(in srgb,var(--gestion) 40%,transparent);text-align:left}
@@ -2233,6 +2251,25 @@ function coincideLiteral(rec,t){
 // Vale más el que coincide en el nombre que el que sólo coincide en un sinónimo,
 // y más todavía si el nombre arranca con lo buscado.
 function puntuar(rec,terms,permitirFuzzy){
+  /* Coincidencia forzada a mano (ficha → ✎ Editar ficha → «Buscarlo así, 100%
+     seguro»): el administrador general fija que buscar exactamente esta
+     frase encuentre este código con coincidencia máxima, sin que dependa de
+     cómo puntúe el resto del motor. Pensado para casos como «urea», que hoy
+     sólo encuentra «Uremia» (60660902) por la equivalencia cruzada con el
+     NBU —una coincidencia real pero de tier más bajo (33%), porque la
+     palabra no está en el NOMBRE de esa ficha, sólo en la de su
+     equivalencia— aunque para quien busca sea exactamente la práctica
+     correcta. Se compara la CONSULTA ENTERA (todos los términos juntos, no
+     uno suelto) contra cada frase guardada: encontrar a mano "urea" no
+     tiene que forzar también cualquier búsqueda de dos palabras que
+     contenga "urea" de pura casualidad. Corta acá, antes que cualquier otra
+     cosa — es una excepción a mano, no compite con el resto de la fórmula.
+     El 100 alcanza para que matchPct()/pctInterprete() lo muestren como
+     100%: mismo mecanismo que ya usan para el código exacto, más abajo. */
+  if(rec.coincidencia_forzada&&rec.coincidencia_forzada.length){
+    const consulta=terms.join(' ');
+    if(rec.coincidencia_forzada.some(f=>norm(f)===consulta))return 100;
+  }
   let score=0,erratas=0;
   // El código exacto manda: si toda la búsqueda es un código conocido ("342013"),
   // esa ficha tiene que quedar primera, no empatada con cualquier otro match parcial.
@@ -3847,40 +3884,77 @@ function candidatosParaItem(item){
   // contra un término tan corto que puntúe casi toda la base, no un límite
   // pensado para pegarse.
   cands=cands.slice(0,30);
-  /* «Rx tórax F y P» tiene que traer 340301 (frente) Y 340302 (la
-     exposición de perfil) — pero 340302 se llama «Por exposición
+  /* Un mismo código puede existir en más de un nomenclador —340301 está
+     tanto en el Catálogo del PMO como en el Único, cada uno con su propio
+     texto (a veces literalmente distinto: uno dice «radiología», el otro
+     «radiografía») y por lo tanto su propio puntaje de coincidencia—, pero
+     para quien pide la práctica es UNA sola cosa. Mostrar cada nomenclador
+     como una tarjeta entera aparte duplicaba el espacio y hacía ver como un
+     error que «el mismo código» apareciera con dos porcentajes distintos.
+     Se agrupan acá usando EQGRUPO (ya armado más arriba en este archivo,
+     misma equivalencia que usan las observaciones y revisiones médicas
+     compartidas entre nomencladores): cada grupo es un array de registros
+     —ya ordenados por puntaje, porque `cands` lo está— con el mejor puntaje
+     del grupo primero. correrInterprete() dibuja un solo bloque por grupo,
+     con chips chicos para elegir puntualmente el código de otro
+     nomenclador si hace falta. Ver HANDOFF.md, 26/8/2026 (aviso del
+     usuario: «demasiado espacio», «la coincidencia es distinta... eso no
+     debería suceder»). */
+  const vistos=new Set(), grupos=[];
+  for(const c of cands){
+    if(vistos.has(c._key))continue;
+    const posibles=EQGRUPO[c._key]||[c._key];
+    const miembros=cands.filter(x=>posibles.includes(x._key));
+    miembros.forEach(m=>vistos.add(m._key));
+    grupos.push(miembros);
+  }
+  /* «Rx tórax F y P» tiene que traer 340301 (frente) Y su exposición
+     adicional, 340302 (perfil) — pero 340302 se llama «Por exposición
      subsiguiente» en la fuente: no comparte ni una palabra con «tórax», así
      que buscar() por puntaje de texto nunca lo iba a encontrar solo. La
      relación entre los dos ya está en la base (exposicion_siguiente/
      exposicion_de, el mismo dato que usa comoSeCargaHTML en la ficha
-     completa): acá se usa para completar el candidato que falta.
-     Se revisan los primeros 5 (los que se ven sin tocar «ver más», no sólo
-     el primero de la lista): a igualdad de puntaje, buscar() desempata por
-     el orden en que el código entró a la base, no por relevancia clínica —
-     «torax» solo, por ejemplo, empata «Radiología tórax» (340301) con
-     «Operación plástica por tórax…» (050102), que no tiene nada que ver con
-     una orden de rayos y queda primero sólo porque es un código más bajo.
-     Si NINGUNO de los 5 visibles tiene una exposición adicional prevista
-     con código propio, se avisa igual (sinPerfil) sobre el primero — la
-     ausencia es un dato tan útil como la presencia, y antes no aparecía en
-     ningún lado de la búsqueda. Ver HANDOFF.md, 26/8/2026 (aviso del
-     usuario sobre el Intérprete: «rx torax f y p», códigos
-     340207/340201/340209/340211). */
-  let comps=[],sinPerfil=null;
-  if(cands.length&&RE_MULTIEXP.test(norm(item))){
-    const visibles=cands.slice(0,5);
-    const yaPresentes=new Set(cands.map(c=>c._key));
-    const vistos=new Set();
-    visibles.forEach(base=>{
+     completa): acá se usa para completar el grupo que falta. La exposición
+     adicional también se agrupa por equivalencia (340302 + su par del
+     Único), y queda COLGADA del grupo base (`g.comp`), no como un grupo
+     aparte — es lo que pidió el usuario: un solo bloque que diga «esto es
+     lo que hay, y este es el código para el perfil», no una tarjeta más.
+     Se revisan los primeros 5 grupos visibles (los que se ven sin tocar
+     «ver más», no sólo el primero): a igualdad de puntaje, buscar()
+     desempata por el orden en que el código entró a la base, no por
+     relevancia clínica — «torax» solo, por ejemplo, empata «Radiología
+     tórax» (340301) con «Operación plástica por tórax…» (050102), que no
+     tiene nada que ver con una orden de rayos y queda primero sólo porque
+     es un código más bajo. Si NINGUNO de los 5 grupos visibles tiene una
+     exposición adicional prevista con código propio, se avisa igual
+     (`sinPerfil`) sobre el primero — la ausencia es un dato tan útil como
+     la presencia. Ver HANDOFF.md, 26/8/2026 (aviso del usuario sobre el
+     Intérprete: «rx torax f y p», códigos 340207/340201/340209/340211). */
+  if(grupos.length&&RE_MULTIEXP.test(norm(item))){
+    const visibles=grupos.slice(0,5);
+    let algunaConComp=false;
+    visibles.forEach(g=>{
+      /* exposicion_siguiente sólo está curado del lado del PMO/Nomenclador
+         Nacional, no siempre en el equivalente del Único (comprobado:
+         340301 lo tiene, U340301 no) — si el principal del grupo resultó
+         ser justo el que no lo trae (p.ej. porque puntuó más buscando
+         "radiografía", que está en el nombre del Único y no en el del
+         PMO), la exposición adicional se perdía en silencio y el bloque
+         decía «no tiene perfil» siendo falso. Se busca en TODO el grupo,
+         no sólo en g[0]. */
+      const base=g.find(m=>m.exposicion_siguiente)||g[0];
       const sig=base.exposicion_siguiente;
-      if(sig&&BYCODE[sig]&&!yaPresentes.has(sig)&&!vistos.has(sig)){
-        vistos.add(sig);
-        comps.push({code:BYCODE[sig],de:base});
+      if(sig&&BYCODE[sig]&&!vistos.has(sig)){
+        const posiblesComp=EQGRUPO[sig]||[sig];
+        const miembrosComp=posiblesComp.map(k=>BYCODE[k]).filter(Boolean);
+        miembrosComp.forEach(m=>vistos.add(m._key));
+        g.comp={miembros:miembrosComp,de:base};
+        algunaConComp=true;
       }
     });
-    if(!comps.length)sinPerfil=visibles[0];
+    if(!algunaConComp&&visibles.length)visibles[0].sinPerfil=true;
   }
-  return {terms:usados,cands,comps,sinPerfil};
+  return {terms:usados,grupos};
 }
 function correrInterprete(){
   const texto=(el('intTexto').value||'').trim();
@@ -3893,37 +3967,61 @@ function correrInterprete(){
   // (rowHTML) — para que el administrativo pueda confirmar el código sin
   // tener que abrir la ficha completa cada vez. «Ver ficha» (data-int-ver)
   // sigue estando, para cuando sí hace falta el detalle entero.
-  const candBtn=(c,i,terms,item,companion)=>{
-    const tags=decTags(c);
-    const obs=[cruceLinea(c),abarcaLinea(c),obsLinea(c._key)].filter(Boolean).join('');
-    const avisos=avisosCandidato(c,item);
-    return `<div class="int-cand-item">
-        <button type="button" class="int-cand${i===0&&!companion?' top':''}${companion?' comp':''}" data-int-code="${esc(c._key)}" data-int-rank="${i}" data-int-item="${esc(item)}"${companion?' data-int-companion="1"':''}>
+  const NOM_LBL={NBU:'NBU',PMO:'PMO',UNICO:'Único',ODO:'Odont.'};
+  /* Chip chico para elegir puntualmente el código de OTRO nomenclador —
+     hermano del botón principal, nunca anidado adentro (dos botones reales,
+     no uno adentro del otro). No lleva %: mostrar dos porcentajes para «el
+     mismo código» es justo lo que este rediseño saca de encima.
+     «companion» sólo va en TRUE para la exposición adicional (comp): ese
+     código nunca pasó por buscar() con puntaje de texto —es una relación
+     estructural (exposicion_siguiente), elegirlo no dice nada de si el
+     texto de la orden estaba bien escrito—, así que siempre queda afuera
+     de la sugerencia «pedida como» (ver el click delegado, más abajo). Un
+     chip de «también en» (otro nomenclador del MISMO grupo que sí
+     matcheó) no lleva esa marca: si el grupo no es el primero (rank!=0),
+     elegirlo sigue siendo la misma señal de siempre — el buscador no puso
+     esa práctica arriba —, con nomenclador y todo. */
+  const nomChip=(r,i,item,companion)=>`<button type="button" class="int-nom-chip" data-int-code="${esc(r._key)}" data-int-rank="${i}" data-int-item="${esc(item)}"${companion?' data-int-companion="1"':''} title="Elegir ${esc(r.code)} (${esc(NOM_LBL[r.nomenclador]||r.nomenclador)}) para la Mesa de trabajo">${esc(NOM_LBL[r.nomenclador]||r.nomenclador)}</button>`;
+  const grupoBtn=(g,i,terms,item)=>{
+    const principal=g[0], otros=g.slice(1);
+    const pct=Math.max(...g.map(m=>pctInterprete(m._score,terms.length)));
+    const tags=decTags(principal);
+    const obs=[cruceLinea(principal),abarcaLinea(principal),obsLinea(principal._key)].filter(Boolean).join('');
+    const avisos=avisosCandidato(principal,item);
+    // Un solo <div class="int-grupo"> por práctica —no varios hermanos
+    // sueltos a la altura de .int-cands—: «ver más»/mas.children.length
+    // (más abajo, en el click delegado) cuenta hijos directos de
+    // .int-cands-mas para saber cuántos candidatos hay escondidos, y cada
+    // grupo tiene que contar como uno solo, tenga o no chips de "también
+    // en"/exposición adicional colgando.
+    return `<div class="int-grupo">
+      <div class="int-cand-item">
+        <button type="button" class="int-cand${i===0?' top':''}" data-int-code="${esc(principal._key)}" data-int-rank="${i}" data-int-item="${esc(item)}">
           <div class="int-cand-top">
-            <span class="mono">${esc(c.code)}</span><span class="int-nm">${esc(c.nombre)}</span>
-            ${companion?`<span class="int-pct int-comp-lbl">exposición adicional</span>`:`<span class="int-pct">${pctInterprete(c._score,terms.length)}%</span>`}
+            <span class="mono">${esc(principal.code)}</span><span class="int-nm">${esc(principal.nombre)}</span>
+            <span class="int-pct">${pct}%</span>
           </div>
-          ${companion?`<div class="int-cand-nota">Exposición de perfil / adicional de <span class="mono">${esc(companion.code)}</span> — código independiente, se carga aparte.</div>`:''}
           ${tags.length?`<div class="int-cand-tags">${tags.join('')}</div>`:''}
           ${obs}
           ${avisos.length?`<div class="int-cand-avisos">${avisos.map(a=>`<div class="int-aviso">⚠ ${a}</div>`).join('')}</div>`:''}
         </button>
-        <button type="button" class="int-ver" data-int-ver="${esc(c._key)}" title="Ver ficha completa de ${esc(c.code)}" aria-label="Ver ficha completa de ${esc(c.code)}">👁</button>
-      </div>`;
+        <button type="button" class="int-ver" data-int-ver="${esc(principal._key)}" title="Ver ficha completa de ${esc(principal.code)}" aria-label="Ver ficha completa de ${esc(principal.code)}">👁</button>
+      </div>
+      ${otros.length?`<div class="int-cand-otros">También en: ${otros.map(m=>nomChip(m,i,item,false)).join('')}</div>`:''}
+      ${g.comp?`<div class="int-cand-comp">⚠ Exposición de perfil / adicional de <b>${esc(g.comp.de.code)}</b> — código <b>${esc(g.comp.miembros[0].code)}</b>, independiente, se carga aparte: ${g.comp.miembros.map(m=>nomChip(m,i,item,true)).join('')}</div>`:''}
+      ${g.sinPerfil?`<div class="int-note">Este código no tiene una exposición adicional (de perfil) prevista con código propio: si la orden pide más de una toma, confirmalo en la ficha completa antes de sumar otro código.
+        <button type="button" class="int-note-ver" data-int-ver="${esc(principal._key)}">Ver ficha de ${esc(principal.code)}</button></div>`:''}
+    </div>`;
   };
   el('intItems').innerHTML=items.map(item=>{
-    const {terms,cands,comps,sinPerfil}=candidatosParaItem(item);
-    const primero=cands.slice(0,5), resto=cands.slice(5);
-    const compsHTML=comps.map((cp,j)=>candBtn(cp.code,cands.length+j,terms,item,cp.de)).join('');
-    const notaSinPerfil=sinPerfil?`<div class="int-note">Este código no tiene una exposición adicional (de perfil) prevista con código propio: si la orden pide más de una toma, confirmalo en la ficha completa antes de sumar otro código.
-      <button type="button" class="int-note-ver" data-int-ver="${esc(sinPerfil._key)}">Ver ficha de ${esc(sinPerfil.code)}</button></div>`:'';
+    const {terms,grupos}=candidatosParaItem(item);
+    const primero=grupos.slice(0,5), resto=grupos.slice(5);
     return `<div class="int-item">
       <div class="int-src">${esc(item)}</div>
-      ${cands.length?`<div class="int-cands">${primero.map((c,i)=>candBtn(c,i,terms,item)).join('')}${compsHTML}</div>
-        ${resto.length?`<div class="int-cands int-cands-mas" hidden>${resto.map((c,i)=>candBtn(c,i+5,terms,item)).join('')}</div>
+      ${grupos.length?`<div class="int-cands">${primero.map((g,i)=>grupoBtn(g,i,terms,item)).join('')}</div>
+        ${resto.length?`<div class="int-cands int-cands-mas" hidden>${resto.map((g,i)=>grupoBtn(g,i+5,terms,item)).join('')}</div>
         <button type="button" class="int-more" data-int-toggle>Ver ${resto.length} más</button>`:''}`
         :`<div class="int-sin">Sin coincidencias claras en la base — revisar a mano.</div>`}
-      ${notaSinPerfil}
     </div>`;
   }).join('');
   renderIntResumen();
@@ -5014,6 +5112,16 @@ function openCode(code,origen){
       <div style="margin-top:6px;font-size:12px;color:var(--faint);font-style:italic">Nombres con los que la orden puede pedir esta misma práctica, relevados por auditoría de VISITAR.</div></div>`;
   }
 
+  // coincidencia forzada a mano por el administrador general (✎ Editar
+  // ficha): visible en la propia ficha para que se entienda por qué este
+  // código aparece con 100% al buscar exactamente una de estas frases, no
+  // sólo para quien lo configuró.
+  if(c.coincidencia_forzada&&c.coincidencia_forzada.length){
+    html+=`<div class="sec"><div class="slabel">Buscarlo así, 100% seguro<span class="ovr-badge">editado</span></div>
+      <div class="chipset">${c.coincidencia_forzada.map(x=>`<span class="pill" style="border-color:color-mix(in srgb,var(--inc) 34%,transparent);color:var(--inc)">${esc(x)}</span>`).join('')}</div>
+      <div style="margin-top:6px;font-size:12px;color:var(--faint);font-style:italic">Buscar exactamente una de estas frases muestra este código con 100% de coincidencia, fijado a mano por el administrador general.</div></div>`;
+  }
+
   // abreviaturas médicas posibles (cómo el médico puede escribir esta práctica en la orden)
   if(c.abrev_posibles&&c.abrev_posibles.length){
     html+=`<div class="sec"><div class="slabel">Puede abreviarse en la orden</div><div class="freq-note" style="background:color-mix(in srgb,var(--cie) 8%,transparent);border-color:color-mix(in srgb,var(--cie) 24%,transparent)">`;
@@ -5400,6 +5508,7 @@ function linkCodes(s){return s.replace(/\b(66\d{4})\b/g,(m)=>BYCODE[m]?`<span cl
 // guardarCorreccion() puede mandar un subconjunto distinto de campos.
 const CAMPO_LABEL_HIST={nombre:'Nombre',norma:'Norma',auditoria:'Auditoría / facturación',
   asoc_extra:'Cómo se carga en VISITAR',pedida_como:'Puede venir solicitada como',
+  coincidencia_forzada:'Buscarlo así, 100% seguro',
   incluye:'Vincula (Árbol de módulos)',no_incluye:'No cargar aparte',incluido_en:'Incluido en'};
 function textoDeCampoHist(k,v){
   if(v==null)return '—';
@@ -6715,6 +6824,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     const c=BYCODE[code]; if(!c)return; const ov=CONTENT.codes[code];
     if(!c._orig)c._orig={nombre:c.nombre,norma:c.norma?JSON.parse(JSON.stringify(c.norma)):null,auditoria:c.auditoria?c.auditoria.slice():null,asoc_extra:c.asoc_extra||null,
       pedida_como:c.pedida_como?c.pedida_como.slice():[],
+      coincidencia_forzada:c.coincidencia_forzada?c.coincidencia_forzada.slice():[],
       relaciones:c.relaciones?{incluye:c.relaciones.incluye.slice(),no_incluye:c.relaciones.no_incluye.slice(),incluido_en:c.relaciones.incluido_en.slice(),anexar:(c.relaciones.anexar||[]).slice()}:{incluye:[],no_incluye:[],incluido_en:[],anexar:[]}};
     c.nombre=(ov&&ov.nombre!=null&&ov.nombre!=='')?ov.nombre:c._orig.nombre;
     c.norma=(ov&&'norma'in ov)?ov.norma:c._orig.norma;
@@ -6724,6 +6834,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     // muestra la lista completa vigente (relevada + lo que ya se sumó), así
     // que lo que se guarda es esa lista entera, no un agregado por encima.
     c.pedida_como=(ov&&'pedida_como'in ov)?ov.pedida_como:c._orig.pedida_como;
+    c.coincidencia_forzada=(ov&&'coincidencia_forzada'in ov)?ov.coincidencia_forzada:c._orig.coincidencia_forzada;
     const rd=ov&&ov.relaciones;
     c.relaciones={
       incluye:     mergeListaRel(c._orig.relaciones.incluye,     rd&&rd.incluye),
@@ -8075,7 +8186,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     const delta=deltaListaRel([...finSet],origLista);
     const relPrevia=Object.assign({},(CONTENT.codes[otroCodigo]&&CONTENT.codes[otroCodigo].relaciones)||{});
     if(delta)relPrevia[campo]=delta;else delete relPrevia[campo];
-    const ovOtro={nombre:oc.nombre,norma:oc.norma,auditoria:oc.auditoria,asoc_extra:oc.asoc_extra,pedida_como:oc.pedida_como};
+    const ovOtro={nombre:oc.nombre,norma:oc.norma,auditoria:oc.auditoria,asoc_extra:oc.asoc_extra,pedida_como:oc.pedida_como,coincidencia_forzada:oc.coincidencia_forzada};
     if(Object.keys(relPrevia).length)ovOtro.relaciones=relPrevia;
     CONTENT.codes[otroCodigo]=ovOtro;logEdit('actualizó relación (espejo)',otroCodigo);persistContent();applyCode(otroCodigo);
     if(nubeContenido)enNube(NUBE.guardarCorreccion(otroCodigo,ovOtro),'actualizar la relación en '+otroCodigo);
@@ -8089,7 +8200,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     const dInc=deltaListaRel(finArr,c._orig.relaciones.incluye||[]);
     const relPrevia=Object.assign({},(CONTENT.codes[code]&&CONTENT.codes[code].relaciones)||{});
     if(dInc)relPrevia.incluye=dInc;else delete relPrevia.incluye;
-    const ov={nombre:c.nombre,norma:c.norma,auditoria:c.auditoria,asoc_extra:c.asoc_extra,pedida_como:c.pedida_como};
+    const ov={nombre:c.nombre,norma:c.norma,auditoria:c.auditoria,asoc_extra:c.asoc_extra,pedida_como:c.pedida_como,coincidencia_forzada:c.coincidencia_forzada};
     if(Object.keys(relPrevia).length)ov.relaciones=relPrevia;
     CONTENT.codes[code]=ov;logEdit('vinculó código en relaciones',code);persistContent();applyCode(code);
     if(nubeContenido)enNube(NUBE.guardarCorreccion(code,ov),'guardar la relación para el equipo');
@@ -8109,7 +8220,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     const dAnex=deltaListaRel(finArr,c._orig.relaciones.anexar||[]);
     const relPrevia=Object.assign({},(CONTENT.codes[code]&&CONTENT.codes[code].relaciones)||{});
     if(dAnex)relPrevia.anexar=dAnex;else delete relPrevia.anexar;
-    const ov={nombre:c.nombre,norma:c.norma,auditoria:c.auditoria,asoc_extra:c.asoc_extra,pedida_como:c.pedida_como};
+    const ov={nombre:c.nombre,norma:c.norma,auditoria:c.auditoria,asoc_extra:c.asoc_extra,pedida_como:c.pedida_como,coincidencia_forzada:c.coincidencia_forzada};
     if(Object.keys(relPrevia).length)ov.relaciones=relPrevia;
     CONTENT.codes[code]=ov;logEdit('anexó código a cargar',code);persistContent();applyCode(code);
     if(nubeContenido)enNube(NUBE.guardarCorreccion(code,ov),'guardar el código anexado para el equipo');
@@ -8136,7 +8247,10 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       <label>Nota de asociación de códigos (interna)</label><textarea id="efAsoc">${E(c.asoc_extra||'')}</textarea>
       <label>Puede venir solicitada como (una forma por línea)</label>
       <div class="asub" style="margin:0 0 4px">Nombres con los que puede llegar la orden — el buscador y el Intérprete de orden también van a encontrar el código por estos.</div>
-      <textarea id="efPedidaComo" placeholder="Un nombre por línea">${E((c.pedida_como||[]).join('\n'))}</textarea>`:''}
+      <textarea id="efPedidaComo" placeholder="Un nombre por línea">${E((c.pedida_como||[]).join('\n'))}</textarea>
+      <label>Buscarlo así, 100% seguro (una frase por línea)</label>
+      <div class="asub" style="margin:0 0 4px">Para cuando el buscador encuentra bien el código pero con poca coincidencia (por ejemplo, sólo por una equivalencia cruzada, no por el nombre) y en realidad es la respuesta correcta. Buscar <b>exactamente</b> una de estas frases —nada más, nada menos— hace que este código aparezca con <b>100% de coincidencia</b>, sin importar el resto de la fórmula. No es lo mismo que «Puede venir solicitada como»: eso ayuda a encontrarlo, esto fuerza el porcentaje.</div>
+      <textarea id="efCoincForzada" placeholder="Ej: urea">${E((c.coincidencia_forzada||[]).join('\n'))}</textarea>`:''}
       ${puedeRel?`
       <div style="margin-top:${puedeFicha?'18px':'0'};font-weight:800;font-size:11px;letter-spacing:.7px;text-transform:uppercase;color:var(--accent-ink)">Relaciones entre códigos — árbol de módulos</div>
       ${listaCampo('efInc','Incluye',`${E(c.code)} las comprende: no se facturan por separado si ya se cargó ${E(c.code)}.`,R.incluye)}
@@ -8159,10 +8273,11 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         ov.auditoria=aud;
         ov.asoc_extra=el('efAsoc').value.trim()||null;
         ov.pedida_como=el('efPedidaComo').value.split('\n').map(s=>s.trim()).filter(Boolean);
+        ov.coincidencia_forzada=el('efCoincForzada').value.split('\n').map(s=>s.trim()).filter(Boolean);
       }else{
         // No es lo que este rol puede tocar: se preserva tal cual estaba, para
         // no pisar con null lo que ya cargó el administrador general.
-        ov.nombre=c.nombre;ov.norma=c.norma;ov.auditoria=c.auditoria;ov.asoc_extra=c.asoc_extra;ov.pedida_como=c.pedida_como;
+        ov.nombre=c.nombre;ov.norma=c.norma;ov.auditoria=c.auditoria;ov.asoc_extra=c.asoc_extra;ov.pedida_como=c.pedida_como;ov.coincidencia_forzada=c.coincidencia_forzada;
       }
       const espejos=[];   // {otro, campo, accion, valor}[]
       if(puedeRel){
@@ -8227,7 +8342,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       // ver CN-003 en tests/rls/ataques.sql): se reescribe sin la clave
       // «relaciones», y espejando también la vuelta atrás en el otro código.
       deshacerEspejos();
-      const ov={nombre:c.nombre,norma:c.norma,auditoria:c.auditoria,asoc_extra:c.asoc_extra,pedida_como:c.pedida_como};
+      const ov={nombre:c.nombre,norma:c.norma,auditoria:c.auditoria,asoc_extra:c.asoc_extra,pedida_como:c.pedida_como,coincidencia_forzada:c.coincidencia_forzada};
       CONTENT.codes[code]=ov;logEdit('restauró relaciones',code);persistContent();applyCode(code);
       if(nubeContenido)enNube(NUBE.guardarCorreccion(code,ov),'restaurar las relaciones para el equipo');
       if(state.view==='list'||state.view==='tree')render();closeAdmin();openCode(code);toast('Relaciones restauradas');

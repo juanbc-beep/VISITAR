@@ -7,10 +7,16 @@
 // paneSugerencias().
 //
 // "Glucemia" trae varios candidatos empatados al 100% (60660412, 60660413,
-// 660412, 660413 — verificado a mano contra data/nbu_db.json): 660412 no es
-// el primero de la lista, así que elegirlo SÍ genera una sugerencia. Es el
-// mismo criterio, no un caso armado — si el orden de empate cambiara el día
-// de mañana, cualquier candidato que no sea cands[0] serviría igual.
+// 660412, 660413 — verificado a mano contra data/nbu_db.json), agrupados de
+// a dos por equivalencia entre nomencladores (EQGRUPO, ver
+// candidatosParaItem()): {60660412, 660412} es el primer grupo (rank 0),
+// {60660413, 660413} el segundo (rank 1). 660413 no es del primer grupo, así
+// que elegirlo SÍ genera una sugerencia — aparece como chip "también en"
+// (data-int-code="660413", sin data-int-companion) dentro de la tarjeta de
+// 60660413, con el rank heredado del grupo (1), no 0. Es el mismo criterio
+// de siempre, no un caso armado — si el orden de empate cambiara el día de
+// mañana, cualquier candidato de un grupo que no sea el primero serviría
+// igual.
 
 import { chromium } from 'playwright';
 import { crearDB, altaUsuario, instalarSimulador } from '../simulador.mjs';
@@ -18,7 +24,7 @@ import { servirWeb, saltarOnboarding, esperarArranque, vigilarErrores, afirmar, 
 
 const PUERTO = 8627;
 const ITEM = 'Glucemia';
-const CODIGO_NO_TOP = '660412';
+const CODIGO_NO_TOP = '660413';
 
 async function sinOverlays(page) {
   await page.evaluate(() => {
@@ -54,9 +60,14 @@ async function main() {
     await page.fill('#intTexto', ITEM);
     await page.click('#intGo');
     await page.waitForSelector('.int-item', { timeout: 5000 });
-    const candidato = page.locator(`.int-cand[data-int-code="${CODIGO_NO_TOP}"]`);
+    // Ya no es necesariamente un <button class="int-cand"> —puede ser el
+    // chip "también en" de un grupo (ver candidatosParaItem())— así que el
+    // locator busca por el atributo, sin asumir qué clase lo envuelve.
+    const candidato = page.locator(`[data-int-code="${CODIGO_NO_TOP}"]`);
     afirmar(await candidato.getAttribute('data-int-rank') !== '0',
-      `${CODIGO_NO_TOP} tendría que NO ser el primer candidato de "${ITEM}" para que este caso pruebe algo`);
+      `${CODIGO_NO_TOP} tendría que ser de un grupo que NO es el primero de "${ITEM}" para que este caso pruebe algo`);
+    afirmar(await candidato.getAttribute('data-int-companion') === null,
+      `${CODIGO_NO_TOP} no debería llevar data-int-companion (eso lo excluiría siempre de la sugerencia, sea cual sea el rank)`);
     await candidato.click();
     await page.waitForTimeout(300); // el aviso al administrador es fire-and-forget
 
