@@ -2709,6 +2709,40 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
   restaurando los valores de fábrica, vuelve a encontrarlo. También que persiste tras
   recargar, que los pesos fuera de orden se reordenan solos, y que un médico
   administrador no ve la pestaña.
+- ✅ **Coincidencia forzada a mano, por código — pedido explícito del usuario (26/8/2026),
+  a partir de un caso real de la propia base.** Buscar «urea» encuentra bien 660902 «UREA,
+  sérica» (100%, coincide con el nombre), pero **U60660902 «Uremia»** —la misma práctica,
+  semánticamente la respuesta correcta— sólo llegaba al **33%**: la palabra «urea» no está
+  en el NOMBRE de esa ficha, sólo en la equivalencia cruzada con el NBU, que `puntuar()`
+  puntúa en el tier más bajo (`solo`, ver punto anterior sobre `BUSQUEDA_CFG`) porque el
+  tier alto (`inicio`/`borde`/`contiene`) sólo mira `_hn` (el nombre), no la equivalencia.
+  Los tres valores de `BUSQUEDA_CFG` (punto anterior) son globales, de toda la búsqueda —
+  no alcanzaban para este caso puntual sin desafinar el resto—, así que se agregó un
+  mecanismo aparte, por código: un campo nuevo `coincidencia_forzada` (lista de frases),
+  editable desde **✎ Editar ficha → «Buscarlo así, 100% seguro»** (mismo permiso que
+  `pedida_como`, sólo el administrador general). `puntuar()` lo revisa **primero, antes
+  que cualquier otra cosa**: si la consulta entera (todos los términos juntos, no uno
+  suelto) coincide exacto con una de las frases guardadas, devuelve `100` de una — mismo
+  mecanismo que ya usa el código exacto para que `matchPct()`/`pctInterprete()` lo
+  muestren como 100%, sin tocar esas funciones. Comparar la consulta **entera** (no
+  término por término) es a propósito: fijar «urea» no tiene que forzar también cualquier
+  búsqueda de dos palabras que la contenga de casualidad.
+  Distinto de `pedida_como` («puede venir solicitada como»): ese ayuda a ENCONTRAR el
+  código (entra a `_h`, tier bajo), esto FUERZA el porcentaje — la diferencia que hacía
+  falta para el caso de «Uremia», que ya se encontraba bien pero con poca confianza
+  visual.
+  Sumado al mismo circuito que `pedida_como`/`asoc_extra`: respaldo en `applyCode()`
+  (`c._orig.coincidencia_forzada`), aplicación de la corrección, restaurar original, los
+  cuatro sitios que reconstruyen `ov` al editar sólo relaciones o espejar (para no
+  pisarlo en silencio — la misma clase de descuido que ya pasó una vez con `asoc_extra`,
+  ver 6 bis de `docs/supabase.sql`), y la etiqueta en `CAMPO_LABEL_HIST` para que se vea
+  bien en «Ver historial». También visible en la propia ficha (sección nueva, con las
+  frases en chips) para que se entienda por qué ese código aparece con 100% sin tener que
+  abrir Editar ficha.
+  Probado en `tests/e2e/casos/coincidencia_forzada.mjs`, nuevo, con el caso real de
+  «urea»/Uremia: antes de forzarla no está resaltada, después sí; la ficha explica la
+  coincidencia forzada; y agregar «urea» no dispara con «urea clearence» (frase distinta),
+  sólo con la consulta exacta.
 - ✅ **Sesión muerta del lado del servidor — arreglado el 26/8/2026, encontrado por el
   usuario mirando los logs de Postgres del proyecto (API Gateway/Postgres/Auth de
   Supabase).** Vio 17 errores de Postgres sobre 21 llamados en una hora; el detalle era

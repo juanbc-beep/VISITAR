@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-nMM5L2ShhC49CRcVgrX4xxAMZuvdid4qBu9DhtOQGIs=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-lc5S3VYUNpiK69iL/opWhDmo9U5HbHq79PDjpW2zWPg=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -2233,6 +2233,25 @@ function coincideLiteral(rec,t){
 // Vale más el que coincide en el nombre que el que sólo coincide en un sinónimo,
 // y más todavía si el nombre arranca con lo buscado.
 function puntuar(rec,terms,permitirFuzzy){
+  /* Coincidencia forzada a mano (ficha → ✎ Editar ficha → «Buscarlo así, 100%
+     seguro»): el administrador general fija que buscar exactamente esta
+     frase encuentre este código con coincidencia máxima, sin que dependa de
+     cómo puntúe el resto del motor. Pensado para casos como «urea», que hoy
+     sólo encuentra «Uremia» (60660902) por la equivalencia cruzada con el
+     NBU —una coincidencia real pero de tier más bajo (33%), porque la
+     palabra no está en el NOMBRE de esa ficha, sólo en la de su
+     equivalencia— aunque para quien busca sea exactamente la práctica
+     correcta. Se compara la CONSULTA ENTERA (todos los términos juntos, no
+     uno suelto) contra cada frase guardada: encontrar a mano "urea" no
+     tiene que forzar también cualquier búsqueda de dos palabras que
+     contenga "urea" de pura casualidad. Corta acá, antes que cualquier otra
+     cosa — es una excepción a mano, no compite con el resto de la fórmula.
+     El 100 alcanza para que matchPct()/pctInterprete() lo muestren como
+     100%: mismo mecanismo que ya usan para el código exacto, más abajo. */
+  if(rec.coincidencia_forzada&&rec.coincidencia_forzada.length){
+    const consulta=terms.join(' ');
+    if(rec.coincidencia_forzada.some(f=>norm(f)===consulta))return 100;
+  }
   let score=0,erratas=0;
   // El código exacto manda: si toda la búsqueda es un código conocido ("342013"),
   // esa ficha tiene que quedar primera, no empatada con cualquier otro match parcial.
@@ -5014,6 +5033,16 @@ function openCode(code,origen){
       <div style="margin-top:6px;font-size:12px;color:var(--faint);font-style:italic">Nombres con los que la orden puede pedir esta misma práctica, relevados por auditoría de VISITAR.</div></div>`;
   }
 
+  // coincidencia forzada a mano por el administrador general (✎ Editar
+  // ficha): visible en la propia ficha para que se entienda por qué este
+  // código aparece con 100% al buscar exactamente una de estas frases, no
+  // sólo para quien lo configuró.
+  if(c.coincidencia_forzada&&c.coincidencia_forzada.length){
+    html+=`<div class="sec"><div class="slabel">Buscarlo así, 100% seguro<span class="ovr-badge">editado</span></div>
+      <div class="chipset">${c.coincidencia_forzada.map(x=>`<span class="pill" style="border-color:color-mix(in srgb,var(--inc) 34%,transparent);color:var(--inc)">${esc(x)}</span>`).join('')}</div>
+      <div style="margin-top:6px;font-size:12px;color:var(--faint);font-style:italic">Buscar exactamente una de estas frases muestra este código con 100% de coincidencia, fijado a mano por el administrador general.</div></div>`;
+  }
+
   // abreviaturas médicas posibles (cómo el médico puede escribir esta práctica en la orden)
   if(c.abrev_posibles&&c.abrev_posibles.length){
     html+=`<div class="sec"><div class="slabel">Puede abreviarse en la orden</div><div class="freq-note" style="background:color-mix(in srgb,var(--cie) 8%,transparent);border-color:color-mix(in srgb,var(--cie) 24%,transparent)">`;
@@ -5400,6 +5429,7 @@ function linkCodes(s){return s.replace(/\b(66\d{4})\b/g,(m)=>BYCODE[m]?`<span cl
 // guardarCorreccion() puede mandar un subconjunto distinto de campos.
 const CAMPO_LABEL_HIST={nombre:'Nombre',norma:'Norma',auditoria:'Auditoría / facturación',
   asoc_extra:'Cómo se carga en VISITAR',pedida_como:'Puede venir solicitada como',
+  coincidencia_forzada:'Buscarlo así, 100% seguro',
   incluye:'Vincula (Árbol de módulos)',no_incluye:'No cargar aparte',incluido_en:'Incluido en'};
 function textoDeCampoHist(k,v){
   if(v==null)return '—';
@@ -6715,6 +6745,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     const c=BYCODE[code]; if(!c)return; const ov=CONTENT.codes[code];
     if(!c._orig)c._orig={nombre:c.nombre,norma:c.norma?JSON.parse(JSON.stringify(c.norma)):null,auditoria:c.auditoria?c.auditoria.slice():null,asoc_extra:c.asoc_extra||null,
       pedida_como:c.pedida_como?c.pedida_como.slice():[],
+      coincidencia_forzada:c.coincidencia_forzada?c.coincidencia_forzada.slice():[],
       relaciones:c.relaciones?{incluye:c.relaciones.incluye.slice(),no_incluye:c.relaciones.no_incluye.slice(),incluido_en:c.relaciones.incluido_en.slice(),anexar:(c.relaciones.anexar||[]).slice()}:{incluye:[],no_incluye:[],incluido_en:[],anexar:[]}};
     c.nombre=(ov&&ov.nombre!=null&&ov.nombre!=='')?ov.nombre:c._orig.nombre;
     c.norma=(ov&&'norma'in ov)?ov.norma:c._orig.norma;
@@ -6724,6 +6755,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     // muestra la lista completa vigente (relevada + lo que ya se sumó), así
     // que lo que se guarda es esa lista entera, no un agregado por encima.
     c.pedida_como=(ov&&'pedida_como'in ov)?ov.pedida_como:c._orig.pedida_como;
+    c.coincidencia_forzada=(ov&&'coincidencia_forzada'in ov)?ov.coincidencia_forzada:c._orig.coincidencia_forzada;
     const rd=ov&&ov.relaciones;
     c.relaciones={
       incluye:     mergeListaRel(c._orig.relaciones.incluye,     rd&&rd.incluye),
@@ -8075,7 +8107,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     const delta=deltaListaRel([...finSet],origLista);
     const relPrevia=Object.assign({},(CONTENT.codes[otroCodigo]&&CONTENT.codes[otroCodigo].relaciones)||{});
     if(delta)relPrevia[campo]=delta;else delete relPrevia[campo];
-    const ovOtro={nombre:oc.nombre,norma:oc.norma,auditoria:oc.auditoria,asoc_extra:oc.asoc_extra,pedida_como:oc.pedida_como};
+    const ovOtro={nombre:oc.nombre,norma:oc.norma,auditoria:oc.auditoria,asoc_extra:oc.asoc_extra,pedida_como:oc.pedida_como,coincidencia_forzada:oc.coincidencia_forzada};
     if(Object.keys(relPrevia).length)ovOtro.relaciones=relPrevia;
     CONTENT.codes[otroCodigo]=ovOtro;logEdit('actualizó relación (espejo)',otroCodigo);persistContent();applyCode(otroCodigo);
     if(nubeContenido)enNube(NUBE.guardarCorreccion(otroCodigo,ovOtro),'actualizar la relación en '+otroCodigo);
@@ -8089,7 +8121,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     const dInc=deltaListaRel(finArr,c._orig.relaciones.incluye||[]);
     const relPrevia=Object.assign({},(CONTENT.codes[code]&&CONTENT.codes[code].relaciones)||{});
     if(dInc)relPrevia.incluye=dInc;else delete relPrevia.incluye;
-    const ov={nombre:c.nombre,norma:c.norma,auditoria:c.auditoria,asoc_extra:c.asoc_extra,pedida_como:c.pedida_como};
+    const ov={nombre:c.nombre,norma:c.norma,auditoria:c.auditoria,asoc_extra:c.asoc_extra,pedida_como:c.pedida_como,coincidencia_forzada:c.coincidencia_forzada};
     if(Object.keys(relPrevia).length)ov.relaciones=relPrevia;
     CONTENT.codes[code]=ov;logEdit('vinculó código en relaciones',code);persistContent();applyCode(code);
     if(nubeContenido)enNube(NUBE.guardarCorreccion(code,ov),'guardar la relación para el equipo');
@@ -8109,7 +8141,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     const dAnex=deltaListaRel(finArr,c._orig.relaciones.anexar||[]);
     const relPrevia=Object.assign({},(CONTENT.codes[code]&&CONTENT.codes[code].relaciones)||{});
     if(dAnex)relPrevia.anexar=dAnex;else delete relPrevia.anexar;
-    const ov={nombre:c.nombre,norma:c.norma,auditoria:c.auditoria,asoc_extra:c.asoc_extra,pedida_como:c.pedida_como};
+    const ov={nombre:c.nombre,norma:c.norma,auditoria:c.auditoria,asoc_extra:c.asoc_extra,pedida_como:c.pedida_como,coincidencia_forzada:c.coincidencia_forzada};
     if(Object.keys(relPrevia).length)ov.relaciones=relPrevia;
     CONTENT.codes[code]=ov;logEdit('anexó código a cargar',code);persistContent();applyCode(code);
     if(nubeContenido)enNube(NUBE.guardarCorreccion(code,ov),'guardar el código anexado para el equipo');
@@ -8136,7 +8168,10 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       <label>Nota de asociación de códigos (interna)</label><textarea id="efAsoc">${E(c.asoc_extra||'')}</textarea>
       <label>Puede venir solicitada como (una forma por línea)</label>
       <div class="asub" style="margin:0 0 4px">Nombres con los que puede llegar la orden — el buscador y el Intérprete de orden también van a encontrar el código por estos.</div>
-      <textarea id="efPedidaComo" placeholder="Un nombre por línea">${E((c.pedida_como||[]).join('\n'))}</textarea>`:''}
+      <textarea id="efPedidaComo" placeholder="Un nombre por línea">${E((c.pedida_como||[]).join('\n'))}</textarea>
+      <label>Buscarlo así, 100% seguro (una frase por línea)</label>
+      <div class="asub" style="margin:0 0 4px">Para cuando el buscador encuentra bien el código pero con poca coincidencia (por ejemplo, sólo por una equivalencia cruzada, no por el nombre) y en realidad es la respuesta correcta. Buscar <b>exactamente</b> una de estas frases —nada más, nada menos— hace que este código aparezca con <b>100% de coincidencia</b>, sin importar el resto de la fórmula. No es lo mismo que «Puede venir solicitada como»: eso ayuda a encontrarlo, esto fuerza el porcentaje.</div>
+      <textarea id="efCoincForzada" placeholder="Ej: urea">${E((c.coincidencia_forzada||[]).join('\n'))}</textarea>`:''}
       ${puedeRel?`
       <div style="margin-top:${puedeFicha?'18px':'0'};font-weight:800;font-size:11px;letter-spacing:.7px;text-transform:uppercase;color:var(--accent-ink)">Relaciones entre códigos — árbol de módulos</div>
       ${listaCampo('efInc','Incluye',`${E(c.code)} las comprende: no se facturan por separado si ya se cargó ${E(c.code)}.`,R.incluye)}
@@ -8159,10 +8194,11 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         ov.auditoria=aud;
         ov.asoc_extra=el('efAsoc').value.trim()||null;
         ov.pedida_como=el('efPedidaComo').value.split('\n').map(s=>s.trim()).filter(Boolean);
+        ov.coincidencia_forzada=el('efCoincForzada').value.split('\n').map(s=>s.trim()).filter(Boolean);
       }else{
         // No es lo que este rol puede tocar: se preserva tal cual estaba, para
         // no pisar con null lo que ya cargó el administrador general.
-        ov.nombre=c.nombre;ov.norma=c.norma;ov.auditoria=c.auditoria;ov.asoc_extra=c.asoc_extra;ov.pedida_como=c.pedida_como;
+        ov.nombre=c.nombre;ov.norma=c.norma;ov.auditoria=c.auditoria;ov.asoc_extra=c.asoc_extra;ov.pedida_como=c.pedida_como;ov.coincidencia_forzada=c.coincidencia_forzada;
       }
       const espejos=[];   // {otro, campo, accion, valor}[]
       if(puedeRel){
@@ -8227,7 +8263,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       // ver CN-003 en tests/rls/ataques.sql): se reescribe sin la clave
       // «relaciones», y espejando también la vuelta atrás en el otro código.
       deshacerEspejos();
-      const ov={nombre:c.nombre,norma:c.norma,auditoria:c.auditoria,asoc_extra:c.asoc_extra,pedida_como:c.pedida_como};
+      const ov={nombre:c.nombre,norma:c.norma,auditoria:c.auditoria,asoc_extra:c.asoc_extra,pedida_como:c.pedida_como,coincidencia_forzada:c.coincidencia_forzada};
       CONTENT.codes[code]=ov;logEdit('restauró relaciones',code);persistContent();applyCode(code);
       if(nubeContenido)enNube(NUBE.guardarCorreccion(code,ov),'restaurar las relaciones para el equipo');
       if(state.view==='list'||state.view==='tree')render();closeAdmin();openCode(code);toast('Relaciones restauradas');
