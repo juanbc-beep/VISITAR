@@ -2521,6 +2521,145 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
      recargar nada (`.int-cands-mas`, oculto con `hidden` hasta tocarlo). Probado en
      `tests/e2e/casos/interprete.mjs`: con «tac» aparecen 5 al principio, el botón está, y
      tocarlo revela más de 5 y pasa a decir «Mostrar menos».
+  6. ✅ **Tres pedidos del usuario del 26/8/2026, sobre el Intérprete y la búsqueda
+     general — «cuando elijo una interpretación no pasa nada», radiología/radiografía, y el
+     ejemplo «rx torax f y p»:**
+     - **Elegir un candidato no abría nada.** Cada candidato pasó de ser un botón con sólo
+       código+nombre+% a un `<div class="int-cand-item">` con dos botones hermanos (no uno
+       anidado en el otro): `.int-cand` sigue siendo el de siempre —elige/saca de la Mesa de
+       trabajo, mismo comportamiento, mismos tests— y al lado un `.int-ver` nuevo (el ojo 👁)
+       que llama a `openCode()`, el mismo drawer de siempre con ficha completa, normas y
+       observaciones — sin tocar la elección. Las mismas **etiquetas de decisión y líneas de
+       observación/alcance/cruce de nomenclador** que ya se veían en el listado principal
+       (`rowHTML()`) se factorizaron en `decTags()` y se reusan tal cual en el candidato del
+       Intérprete: se ve si tiene obligación de cobertura, lateralidad, requiere norma, «qué
+       abarca» (primera exposición, etc.) y la observación del administrador **sin abrir la
+       ficha**, que es la «vista previa» que pedía el usuario.
+     - **«rx torax f y p» tiene que traer 340301 (frente) Y 340302 (perfil).** 340302 se
+       llama «Por exposición subsiguiente» en la fuente —no comparte ni una palabra con
+       «tórax»— así que `buscar()` por puntaje de texto nunca lo iba a encontrar solo. La
+       relación ya estaba en la base (`exposicion_siguiente`/`exposicion_de`, el mismo dato
+       que ya usaba `comoSeCargaHTML()` adentro de la ficha completa, para 340301→340302,
+       340207→340208, 340201→340202, 340209→340210, 340211→340212, entre otros — ver el
+       texto de `auditoria` de esos códigos). Nuevo en `candidatosParaItem()`: si el renglón
+       trae un indicio de exposición múltiple (`RE_MULTIEXP`: «f y p», «f/p», «frente y/o
+       perfil», «comparativ…») se revisan los 5 candidatos que se ven sin tocar «ver más»
+       —no sólo el primero: a igualdad de puntaje `buscar()` desempata por el código más
+       bajo, no por relevancia clínica, y para «torax» solo eso ponía primero
+       «Operación plástica por tórax…» (050102) antes que «Radiología tórax» (340301)— y se
+       agrega como candidato aparte (clase `.comp`, con nota explicando de qué código base
+       sale) la exposición adicional de cada uno que la tenga. **El «cuándo no» también
+       queda a la vista**: si ninguno de los 5 visibles tiene exposición adicional prevista
+       con código propio, se muestra una nota (`.int-note`) diciéndolo, con un enlace directo
+       a la ficha del código para confirmarlo — antes ese silencio no aparecía en ningún lado
+       de la búsqueda.
+     - **«radiografía» y «radiología» no traían el mismo listado**, aunque nombran la misma
+       sección («Radiología / Diagnóstico por imágenes»): verificado contra
+       `data/nbu_db.json`, 16 códigos dicen sólo «radiografía» (340905 «Radiografía en
+       quirófano», 340908 «Radiografía a domicilio», …) y 36 dicen sólo «radiología» (340201,
+       340301, …) — buscar por una perdía la mitad de la sección. Agregado el par cruzado a
+       `SINONIMOS_COMUNES`: `radiografia:['radiologia'], radiologia:['radiografia']` — buscar
+       cualquiera de las dos ahora trae también los códigos que sólo dicen la otra.
+     - Probado en `tests/e2e/casos/interprete.mjs` (candidato `.comp` de 340302 con su nota,
+       tags/observaciones visibles sin abrir la ficha, y el ojo abre el drawer con la ficha
+       de 340301 mencionando la exposición adicional) y en `tests/e2e/casos/
+       busqueda_sinonimos.mjs`, nuevo (buscar «radiografia» trae 340301 y buscar
+       «radiologia» trae 340905, en modo «Buscar en todo el manual»). Los locators del test
+       que ubicaban un renglón por `:has-text()` sobre el ítem entero se volvieron ambiguos
+       con las etiquetas nuevas —«Prestaciones Médicas» contiene la subcadena «tac», por
+       ejemplo— y se corrigieron para filtrar por el propio `.int-src` del renglón, no por
+       cualquier texto del ítem.
+  7. ✅ **Bug de fondo en `buscar()`, encontrado armando el punto 6 y corregido a
+     continuación en la misma sesión (26/8/2026), pedido explícito del usuario
+     («arrancá con el bug de ranking»).** Al revisar por qué el candidato de exposición
+     adicional a veces se armaba sobre el código equivocado, apareció que `puntuar()`
+     empataba «Radiología tórax» (340301) con «Operación plástica por tórax en carina o
+     excavado» (050102, cirugía, sin relación con una orden de rayos) al buscar «torax»
+     solo —los dos traen el término con borde de palabra en el nombre, mismo puntaje— y
+     `res.sort()` sólo ordenaba por puntaje: a igual puntaje, `Array.prototype.sort` es
+     estable y ganaba el que hubiera entrado antes a `CODES`, que en la práctica es el
+     código más bajo (050102 < 340301) — **cero relación con relevancia clínica.** No es
+     un caso aislado del Intérprete: `buscar()` es el motor tolerante de **toda la
+     búsqueda de la app** (listado principal, CIE-10, abreviaturas, SURGE, el propio
+     Intérprete), así que cualquier término corto y genérico que apareciera en nombres de
+     largo muy distinto tenía el mismo problema.
+     Arreglado agregando un segundo criterio de desempate a `res.sort()` en `buscar()`:
+     a igual puntaje, gana el nombre más corto (`_hn.split(/\s+/).length`, ya calculado
+     por `prepBusqueda()`) — el término buscado es una fracción más grande de lo que dice
+     un nombre corto, así que es más probable que sea justamente lo que se busca. **No
+     toca el puntaje real** (`_score`, el que se muestra como `%` en el listado y en el
+     Intérprete) **ni qué entra a los resultados** (`s>=0`, ya decidido antes de
+     ordenar): sólo cambia el orden entre registros que ya habían empatado en puntaje —
+     riesgo acotado a propósito, sin tocar la fórmula de puntuación que ya estaba
+     afinada con varios casos reales (ver punto 4, «anti ro» / Legionella). Probado en
+     `tests/e2e/casos/busqueda_especificidad.mjs`, nuevo: buscar «torax» trae primero
+     340301, no 050102. Corrida completa de los 24 casos de `tests/e2e/`, dos veces, sin
+     fallas.
+     Lo que quedaba pendiente de este punto —extender el patrón de «candidato aparte +
+     nota» a `seriado`/`lateralidad`/`muestra`— se resolvió a continuación, en el punto 8.
+  8. ✅ **Los tres avisos que quedaban pendientes del punto 7, pedidos por el usuario en
+     este orden (seriado, lateralidad, muestra), resueltos en la misma sesión
+     (26/8/2026).** `avisosCandidato(c,item)`, nueva, corre por cada candidato visible y
+     junta hasta tres avisos (mismo estilo visual que la observación del administrador,
+     `.int-aviso`, ámbar):
+     - **Seriado**: si el renglón trae una cantidad explícita al final (`×N`/`xN` — misma
+       sintaxis que ya lee `runCase()` para la Mesa de trabajo, no una nueva) y supera
+       `c.seriado.max`, avisa con la cantidad pedida, el máximo habitual y la nota del
+       seriado — mismo dato que ya usaba `renderFacturacion()` para el hallazgo
+       «supera el seriado habitual», pero antes de mandarlo, no después de cargarlo mal.
+     - **Lateralidad**: la etiqueta (`decTags()`, ya sumada en el punto 6) dice
+       «Bilateral»/«Unilateral», pero no qué significa para la carga — acá se explica: un
+       código bilateral se carga por **cantidad 1** aunque comprenda los dos lados (ojos,
+       miembros), que es la confusión real que ya cubre `renderFacturacion()` del lado del
+       validador («figura ×2» → rechazo). El unilateral se carga 1 por lado.
+     - **Muestra**: si el renglón nombra un tipo de muestra explícito (mismo vocabulario
+       que `MUESTRA_VAR`/`MUESTRA_CLS` de `rowHTML()`: sangre, orina, semen, líquido
+       cefalorraquídeo, materia fecal, pelo, saliva) que no es la de ese código, avisa
+       antes de elegirlo.
+       ⚠️ **Encontrado armando la prueba, no en el diseño**: «acetonuria en sangre»
+       —para 660002, que es en orina— no traía NINGÚN candidato, así que
+       `avisosCandidato()` nunca llegaba a correr: `buscar()` exige que **todos** los
+       términos coincidan, y «sangre» no está en el texto de un código de orina, el mismo
+       motivo por el que 340302 nunca aparecía solo para «F y P» en el punto 6. Arreglado
+       igual que ahí: `candidatosParaItem()` ahora también saca las palabras de
+       `MUESTRA_DETECTAR` del reintento sin resultados (antes sólo sacaba los sueltos de
+       1-2 letras) — el texto que lee `avisosCandidato()` para comparar sigue siendo el
+       renglón completo, sólo cambia qué términos usa `buscar()` para encontrar el
+       candidato.
+     Probado en `tests/e2e/casos/interprete_avisos.mjs`, nuevo: los tres avisos con
+     códigos reales (660102 seriado ×5, 030203 bilateral, 660002 orina) y un renglón sin
+     nada que avisar («Hemograma») que no trae ningún `.int-aviso`. Corrida completa de
+     los 26 casos de `tests/e2e/`, sin fallas.
+- ✅ **Revisiones médicas como notificación para el administrador general — pedido
+  explícito del usuario (26/8/2026): «que las revisiones médicas hechas por el médico
+  administrador me aparezcan como notificación en mi perfil de administrador general».**
+  Hasta ahora la campanita de «novedades» (🔔, junto a la de Pendientes) era sólo para
+  administrativos y médicos —observaciones y correcciones de otros—; al administrador
+  general le quedaba **siempre oculta**: «el administrador no recibe aviso: para él está
+  la campana de pendientes, que es otra cosa» (comentario viejo de
+  `cargarContenidoNube()`). Cierto para observaciones/correcciones —el administrador
+  general las ve todas igual, no necesita que se las empujen— pero no para las
+  revisiones médicas que publica un médico administrador (`publicarRevision()`,
+  `datos.revision_medica` en `correcciones`): eso sí es contenido clínico que él no
+  escribió.
+  Reusa la misma campanita y el mismo modal («Qué pasó desde la última vez»), pero con
+  contenido distinto según el rol: para el administrador general, `CONTENT.novedades` se
+  arma directamente desde `codes[código].revision_medica` (no desde las filas de
+  `correcciones` con su `actualizado` genérico — esa fila puede haber cambiado después
+  por otro motivo, como una edición de relaciones entre códigos, sin que la revisión en
+  sí sea nueva; la fecha correcta es la propia `revision_medica.t`, puesta por
+  `publicarRevision()`). Reusa también la misma marca de «vistas» (`obs_vistas`): el
+  administrador general nunca la había usado —la campanita le quedaba oculta—, así que no
+  hay conflicto ni hizo falta una columna nueva. El modal (`verNovedades()`) cambia el
+  título («Revisiones médicas»), la etiqueta de cada fila (🩺) y el texto vacío según el
+  rol; el resto —fecha, código, detalle, tocar para abrir la ficha— es el mismo bloque
+  para las dos cosas.
+  Probado en `tests/e2e/casos/notif_revision_medica.mjs`, nuevo, de punta a punta con dos
+  cuentas reales sobre la misma base compartida (mismo patrón que
+  `sugerencias_pedida_como.mjs`): el médico administrador publica la revisión desde la
+  ficha (🩺 «Escribir la revisión médica»), el administrador general entra después y ve
+  la campanita resaltada con «1», el modal dice quién y qué escribió, tocar el código
+  abre la ficha, y verla la marca como vista (la campanita deja de estar resaltada).
 - ✅ **Sesión muerta del lado del servidor — arreglado el 26/8/2026, encontrado por el
   usuario mirando los logs de Postgres del proyecto (API Gateway/Postgres/Auth de
   Supabase).** Vio 17 errores de Postgres sobre 21 llamados en una hora; el detalle era
