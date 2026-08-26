@@ -1756,24 +1756,25 @@
   "nombre_ocr": "etoretirado porelPMOIncluye toma delmismo) ENUCLEACIONOEVISCERACIONDELGLOBOOCULAR. extoreiradopore PMOcono sin implante.(Garcia Nocito smilar)",
   "page": 11,
   "esp": {
-   "u": 228.0,
+   "u": 228,
    "p": 53.03
   },
   "ayu": {
    "n": null,
-   "u": 45.0,
+   "u": 45,
    "p": 10.47
   },
   "anes": {
    "u": 80.25,
-   "p": 20.24
+   "p": 18.67
   },
   "gasto": {
-   "u": 220.0,
-   "p": 132.04
+   "u": 220,
+   "p": 108.39
   },
   "total_p": 190.56,
-  "checksum_ok": false
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "020107": {
   "tipo": "priced",
@@ -2937,19 +2938,20 @@
   },
   "ayu": {
    "n": null,
-   "u": 30.0,
-   "p": 8.98
+   "u": 30,
+   "p": 6.98
   },
   "anes": {
    "u": 80.25,
    "p": 18.67
   },
   "gasto": {
-   "u": 121.0,
+   "u": 121,
    "p": 59.62
   },
   "total_p": 103.93,
-  "checksum_ok": false
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "030105": {
   "tipo": "priced",
@@ -3772,8 +3774,8 @@
   "nombre_ocr": "SUTURA DENARIZ.BIOPSIA DE NARIZ.",
   "page": 19,
   "esp": {
-   "u": 9.0,
-   "p": 209.0
+   "u": 9,
+   "p": 2.09
   },
   "ayu": {
    "n": null,
@@ -3785,11 +3787,12 @@
    "p": null
   },
   "gasto": {
-   "u": 26.0,
+   "u": 26,
    "p": 12.81
   },
   "total_p": 14.9,
-  "checksum_ok": false
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "030501": {
   "tipo": "priced",
@@ -3993,19 +3996,20 @@
   },
   "ayu": {
    "n": null,
-   "u": 30.0,
-   "p": 8.98
+   "u": 30,
+   "p": 6.98
   },
   "anes": {
-   "u": 0.25,
+   "u": 80.25,
    "p": 18.67
   },
   "gasto": {
-   "u": 118.0,
+   "u": 118,
    "p": 58.14
   },
   "total_p": 111.52,
-  "checksum_ok": false
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "030510": {
   "tipo": "priced",
@@ -4017,19 +4021,20 @@
   },
   "ayu": {
    "n": null,
-   "u": 30.0,
-   "p": 8.98
+   "u": 30,
+   "p": 6.98
   },
   "anes": {
-   "u": 0.25,
+   "u": 80.25,
    "p": 18.67
   },
   "gasto": {
-   "u": 122.0,
+   "u": 122,
    "p": 60.11
   },
   "total_p": 113.49,
-  "checksum_ok": false
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "030511": {
   "tipo": "priced",
@@ -4497,19 +4502,20 @@
   },
   "ayu": {
    "n": null,
-   "u": 30.0,
-   "p": 8.98
+   "u": 30,
+   "p": 6.98
   },
   "anes": {
    "u": 80.25,
    "p": 18.67
   },
   "gasto": {
-   "u": 78.0,
+   "u": 78,
    "p": 38.43
   },
   "total_p": 78.38,
-  "checksum_ok": false
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "030704": {
   "tipo": "priced",
@@ -4521,19 +4527,20 @@
   },
   "ayu": {
    "n": null,
-   "u": 30.0,
-   "p": 69.0
+   "u": 30,
+   "p": 6.98
   },
   "anes": {
    "u": 80.25,
    "p": 18.67
   },
   "gasto": {
-   "u": 122.0,
+   "u": 122,
    "p": 60.11
   },
   "total_p": 104.42,
-  "checksum_ok": false
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "030705": {
   "tipo": "priced",
@@ -4853,7 +4860,7 @@
   "page": 22,
   "esp": {
    "u": 12.75,
-   "p": 297.0
+   "p": 2.97
   },
   "ayu": {
    "n": null,
@@ -4865,11 +4872,12 @@
    "p": null
   },
   "gasto": {
-   "u": 26.0,
+   "u": 26,
    "p": 12.81
   },
   "total_p": 15.78,
-  "checksum_ok": false
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "030905": {
   "tipo": "priced",
@@ -5145,19 +5153,20 @@
   },
   "ayu": {
    "n": null,
-   "u": 30.0,
-   "p": 869.0
+   "u": 30,
+   "p": 6.98
   },
   "anes": {
-   "u": 0.25,
+   "u": 80.25,
    "p": 18.67
   },
   "gasto": {
-   "u": 162.0,
+   "u": 162,
    "p": 79.82
   },
   "total_p": 119.77,
-  "checksum_ok": false
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "031104": {
   "tipo": "priced",
@@ -5169,19 +5178,20 @@
   },
   "ayu": {
    "n": null,
-   "u": 30.0,
-   "p": 8.98
+   "u": 30,
+   "p": 6.98
   },
   "anes": {
-   "u": 0.25,
+   "u": 80.25,
    "p": 18.67
   },
   "gasto": {
-   "u": 178.0,
+   "u": 178,
    "p": 87.7
   },
   "total_p": 136.9,
-  "checksum_ok": false
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "031105": {
   "tipo": "priced",
@@ -5333,7 +5343,7 @@
   "page": 24,
   "esp": {
    "u": 12.75,
-   "p": 297.0
+   "p": 2.97
   },
   "ayu": {
    "n": null,
@@ -5345,11 +5355,12 @@
    "p": null
   },
   "gasto": {
-   "u": 26.0,
+   "u": 26,
    "p": 12.81
   },
   "total_p": 15.78,
-  "checksum_ok": false
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "031301": {
   "tipo": "priced",
@@ -5537,11 +5548,12 @@
    "p": 18.67
   },
   "gasto": {
-   "u": 121.0,
-   "p": 69.62
+   "u": 121,
+   "p": 59.62
   },
   "total_p": 92.59,
-  "checksum_ok": false
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "031309": {
   "tipo": "priced",
@@ -5597,7 +5609,7 @@
   "page": 25,
   "esp": {
    "u": 12.75,
-   "p": 297.0
+   "p": 2.97
   },
   "ayu": {
    "n": null,
@@ -5609,11 +5621,12 @@
    "p": null
   },
   "gasto": {
-   "u": 26.0,
+   "u": 26,
    "p": 12.81
   },
   "total_p": 15.78,
-  "checksum_ok": false
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "031312": {
   "tipo": "priced",
@@ -6610,18 +6623,19 @@
   "ayu": {
    "n": null,
    "u": 34.5,
-   "p": 80.2
+   "p": 8.02
   },
   "anes": {
-   "u": 87.0,
+   "u": 87,
    "p": 20.24
   },
   "gasto": {
-   "u": 220.0,
+   "u": 220,
    "p": 108.39
   },
   "total_p": 178.17,
-  "checksum_ok": false
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "060106": {
   "tipo": "priced",
@@ -8025,19 +8039,20 @@
   },
   "ayu": {
    "n": null,
-   "u": 30.0,
-   "p": 8.98
+   "u": 30,
+   "p": 6.98
   },
   "anes": {
-   "u": 0.25,
+   "u": 80.25,
    "p": 18.67
   },
   "gasto": {
-   "u": 223.0,
+   "u": 223,
    "p": 109.87
   },
   "total_p": 163.25,
-  "checksum_ok": false
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "070612": {
   "tipo": "priced",
@@ -8385,19 +8400,20 @@
   },
   "ayu": {
    "n": null,
-   "u": 30.0,
-   "p": 8.98
+   "u": 30,
+   "p": 6.98
   },
   "anes": {
    "u": null,
    "p": null
   },
   "gasto": {
-   "u": 89.0,
+   "u": 89,
    "p": 43.85
   },
   "total_p": 81.71,
-  "checksum_ok": false
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "070712": {
   "tipo": "priced",
@@ -10737,19 +10753,20 @@
   },
   "ayu": {
    "n": null,
-   "u": 30.0,
-   "p": 8.98
+   "u": 30,
+   "p": 6.98
   },
   "anes": {
    "u": 80.25,
    "p": 18.67
   },
   "gasto": {
-   "u": 120.0,
+   "u": 120,
    "p": 59.12
   },
   "total_p": 112.51,
-  "checksum_ok": false
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "080605": {
   "tipo": "priced",
@@ -11049,19 +11066,20 @@
   },
   "ayu": {
    "n": null,
-   "u": 30.0,
+   "u": 30,
    "p": 6.98
   },
   "anes": {
-   "u": 0.25,
+   "u": 80.25,
    "p": 18.67
   },
   "gasto": {
-   "u": 120.0,
+   "u": 120,
    "p": 59.12
   },
-  "total_p": 2066.0,
-  "checksum_ok": false
+  "total_p": 99.07,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "080618": {
   "tipo": "sin_valor",
@@ -13017,19 +13035,20 @@
   },
   "ayu": {
    "n": null,
-   "u": 30.0,
-   "p": 8.98
+   "u": 30,
+   "p": 6.98
   },
   "anes": {
    "u": 80.25,
    "p": 18.67
   },
   "gasto": {
-   "u": 222.0,
+   "u": 222,
    "p": 109.38
   },
   "total_p": 153.69,
-  "checksum_ok": false
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "100305": {
   "tipo": "priced",
@@ -13377,7 +13396,7 @@
   },
   "ayu": {
    "n": null,
-   "u": 30.0,
+   "u": 30,
    "p": 6.98
   },
   "anes": {
@@ -13385,11 +13404,12 @@
    "p": 18.67
   },
   "gasto": {
-   "u": 120.0,
-   "p": 69.12
+   "u": 120,
+   "p": 59.12
   },
   "total_p": 103.43,
-  "checksum_ok": false
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "100507": {
   "tipo": "priced",
@@ -14433,19 +14453,20 @@
   },
   "ayu": {
    "n": null,
-   "u": 30.0,
-   "p": 8.98
+   "u": 30,
+   "p": 6.98
   },
   "anes": {
-   "u": 0.25,
+   "u": 80.25,
    "p": 18.67
   },
   "gasto": {
-   "u": 68.0,
+   "u": 68,
    "p": 33.5
   },
   "total_p": 73.45,
-  "checksum_ok": false
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "110215": {
   "tipo": "priced",
@@ -14721,19 +14742,20 @@
   },
   "ayu": {
    "n": null,
-   "u": 30.0,
-   "p": 8.98
+   "u": 30,
+   "p": 6.98
   },
   "anes": {
-   "u": 0.25,
+   "u": 80.25,
    "p": 18.67
   },
   "gasto": {
-   "u": 178.0,
+   "u": 178,
    "p": 87.7
   },
   "total_p": 141.08,
-  "checksum_ok": false
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "110309": {
   "tipo": "priced",
@@ -15916,8 +15938,8 @@
   "nombre_ocr": "ARTROCENTESIS ARTROCENTESISDIAGNOSTICA,TERAPEUTICA,ARTROGRAFIA. ARTROTOMIAS",
   "page": 64,
   "esp": {
-   "u": 9.0,
-   "p": 209.0
+   "u": 9,
+   "p": 2.09
   },
   "ayu": {
    "n": null,
@@ -15929,11 +15951,12 @@
    "p": null
   },
   "gasto": {
-   "u": 7.0,
+   "u": 7,
    "p": 3.45
   },
   "total_p": 5.54,
-  "checksum_ok": false
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "120901": {
   "tipo": "priced",
@@ -16353,19 +16376,20 @@
   },
   "ayu": {
    "n": null,
-   "u": 30.0,
-   "p": 8.98
+   "u": 30,
+   "p": 6.98
   },
   "anes": {
    "u": 80.25,
    "p": 18.67
   },
   "gasto": {
-   "u": 222.0,
+   "u": 222,
    "p": 109.38
   },
   "total_p": 162.76,
-  "checksum_ok": false
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "121203": {
   "tipo": "priced",
@@ -16401,7 +16425,7 @@
   },
   "ayu": {
    "n": null,
-   "u": 30.0,
+   "u": 30,
    "p": 6.98
   },
   "anes": {
@@ -16409,11 +16433,12 @@
    "p": 18.67
   },
   "gasto": {
-   "u": 119.0,
+   "u": 119,
    "p": 58.63
   },
-  "total_p": 8986.0,
-  "checksum_ok": false
+  "total_p": 98.58,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "121301": {
   "tipo": "priced",
@@ -16665,19 +16690,20 @@
   },
   "ayu": {
    "n": null,
-   "u": 30.0,
-   "p": 8.98
+   "u": 30,
+   "p": 6.98
   },
   "anes": {
    "u": 80.25,
    "p": 18.67
   },
   "gasto": {
-   "u": 219.0,
+   "u": 219,
    "p": 107.9
   },
   "total_p": 142.79,
-  "checksum_ok": false
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "121502": {
   "tipo": "priced",
@@ -16713,19 +16739,20 @@
   },
   "ayu": {
    "n": null,
-   "u": 30.0,
-   "p": 8.98
+   "u": 30,
+   "p": 6.98
   },
   "anes": {
-   "u": 0.25,
+   "u": 80.25,
    "p": 18.67
   },
   "gasto": {
-   "u": 230.0,
+   "u": 230,
    "p": 113.32
   },
   "total_p": 166.7,
-  "checksum_ok": false
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "121504": {
   "tipo": "priced",
@@ -16761,19 +16788,20 @@
   },
   "ayu": {
    "n": null,
-   "u": 30.0,
-   "p": 8.98
+   "u": 30,
+   "p": 6.98
   },
   "anes": {
    "u": 80.25,
    "p": 18.67
   },
   "gasto": {
-   "u": 230.0,
+   "u": 230,
    "p": 113.32
   },
   "total_p": 157.63,
-  "checksum_ok": false
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "121506": {
   "tipo": "priced",
@@ -16929,19 +16957,20 @@
   },
   "ayu": {
    "n": null,
-   "u": 30.0,
-   "p": 8.98
+   "u": 30,
+   "p": 6.98
   },
   "anes": {
-   "u": 0.25,
+   "u": 80.25,
    "p": 18.67
   },
   "gasto": {
-   "u": 179.0,
+   "u": 179,
    "p": 88.19
   },
   "total_p": 141.58,
-  "checksum_ok": false
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "121604": {
   "tipo": "priced",
@@ -17049,19 +17078,20 @@
   },
   "ayu": {
    "n": null,
-   "u": 30.0,
-   "p": 8.98
+   "u": 30,
+   "p": 6.98
   },
   "anes": {
    "u": 80.25,
    "p": 18.67
   },
   "gasto": {
-   "u": 65.0,
+   "u": 65,
    "p": 32.03
   },
   "total_p": 71.97,
-  "checksum_ok": false
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "121609": {
   "tipo": "priced",
@@ -17908,8 +17938,8 @@
   "nombre_ocr": "VENDAJEDESHANZ.",
   "page": 71,
   "esp": {
-   "u": 9.0,
-   "p": 209.0
+   "u": 9,
+   "p": 2.09
   },
   "ayu": {
    "n": null,
@@ -17921,11 +17951,12 @@
    "p": null
   },
   "gasto": {
-   "u": 20.0,
+   "u": 20,
    "p": 9.85
   },
   "total_p": 11.95,
-  "checksum_ok": false
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "121906": {
   "tipo": "priced",
@@ -18801,7 +18832,7 @@
   },
   "ayu": {
    "n": null,
-   "u": 30.0,
+   "u": 30,
    "p": 6.98
   },
   "anes": {
@@ -18809,11 +18840,12 @@
    "p": 18.67
   },
   "gasto": {
-   "u": 120.0,
+   "u": 120,
    "p": 59.12
   },
-  "total_p": 2066.0,
-  "checksum_ok": false
+  "total_p": 99.07,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "130103": {
   "tipo": "priced",
@@ -18917,7 +18949,7 @@
   "page": 74,
   "esp": {
    "u": 12.75,
-   "p": 297.0
+   "p": 2.97
   },
   "ayu": {
    "n": null,
@@ -18929,11 +18961,12 @@
    "p": null
   },
   "gasto": {
-   "u": 45.0,
+   "u": 45,
    "p": 22.17
   },
   "total_p": 25.14,
-  "checksum_ok": false
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "130108": {
   "tipo": "priced",
@@ -19233,19 +19266,20 @@
   },
   "ayu": {
    "n": null,
-   "u": 30.0,
-   "p": 8.98
+   "u": 30,
+   "p": 6.98
   },
   "anes": {
    "u": 80.25,
    "p": 18.67
   },
   "gasto": {
-   "u": 178.0,
+   "u": 176,
    "p": 86.72
   },
   "total_p": 126.66,
-  "checksum_ok": false
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "130207": {
   "tipo": "priced",
@@ -19329,7 +19363,7 @@
   },
   "ayu": {
    "n": null,
-   "u": 30.0,
+   "u": 30,
    "p": 6.98
   },
   "anes": {
@@ -19337,11 +19371,12 @@
    "p": 18.67
   },
   "gasto": {
-   "u": 176.0,
-   "p": 88.72
+   "u": 176,
+   "p": 86.72
   },
   "total_p": 121.61,
-  "checksum_ok": false
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "130211": {
   "tipo": "priced",
