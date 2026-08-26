@@ -2660,6 +2660,55 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
   ficha (🩺 «Escribir la revisión médica»), el administrador general entra después y ve
   la campanita resaltada con «1», el modal dice quién y qué escribió, tocar el código
   abre la ficha, y verla la marca como vista (la campanita deja de estar resaltada).
+- ✅ **Configuración de los valores de coincidencia de la búsqueda — pedido explícito del
+  usuario (26/8/2026): «que el administrador pueda modificar los valores de coincidencia
+  de la mesa de trabajo».** Preguntado qué significaba exactamente («valores de
+  coincidencia» no es un término que ya existiera en la app), contestó los tres: la
+  tolerancia a erratas de tipeo, el umbral que resalta una fila como «coincidencia
+  fuerte», y los pesos que usa el buscador para puntuar cada tipo de coincidencia. Los
+  tres eran constantes fijas en el código (`tolerancia()`, `puntuar()`, el `90` de
+  `rowHTML()`) — texto documentado en HANDOFF.md como «afinado con casos reales», no
+  cualquier número: cambiarlos a mano seguía necesitando una sesión de Claude Code.
+  Ahora los tres viven en `BUSQUEDA_CFG` (nueva, arriba de `tolerancia()`, antes de
+  cualquier otra cosa que la use), con sus valores de fábrica en `BUSQUEDA_CFG_DEF`
+  —los mismos números que ya había, así que nadie nota el cambio hasta que alguien entra
+  al panel nuevo— y editables desde **Administración → Búsqueda** (pestaña nueva, sólo
+  para el administrador general, mismo criterio que Textos/Nube/Respaldo):
+  - **Tolerancia**, por largo de palabra (cortas ≤4, medianas 5-7, largas 8+) — mismos
+    tres tramos que ya usaba `tolerancia()`, ahora con el número de erratas toleradas
+    editable en vez de fijo.
+  - **Umbral de «coincidencia fuerte»** (90% de fábrica) — el % desde el que una fila se
+    resalta en el listado (`rowHTML()`, clase `.row-match`).
+  - **Pesos** de cada tipo de coincidencia (empieza con el término / aparece en el nombre
+    con borde de palabra / aparece en cualquier parte / sólo en código-sinónimo-
+    abreviatura) — los mismos 6/4/3/2 de siempre en `puntuar()`, ahora configurables. Se
+    reordenan solos al guardar si alguien los carga fuera de orden (tienen que ir de
+    mayor a menor en ese orden o la búsqueda deja de tener sentido).
+  ⚠️ **Un invariante documentado que había que preservar, no romper**: el bonus de
+  `SINONIMOS_COMPUESTOS` («anti ro» → «Ro, Ac. Anti», ver punto 4 de esta sección) valía
+  `12`, un número fijo elegido a propósito para no puntuar menos que dos coincidencias
+  sueltas de `inicio` (6+6) — si el administrador subiera el peso de `inicio` sin que
+  ese bonus lo acompañara, el bug real que ese `12` arregló (668905 tapado por
+  coincidencias parciales de "Anticuerpos antitiroglucobulina") podía volver a aparecer.
+  Se cambió el `12` fijo por `BUSQUEDA_CFG.pesos.inicio*2`, derivado, para que el
+  invariante se mantenga solo pase lo que pase con el peso de `inicio`.
+  Publicado para todo el equipo (mismo mecanismo que Textos: `guardarAjustesNube()`
+  manda `page`+`equipo`+`busqueda` juntos en cada guardado porque `ajustes.contenido` es
+  una sola columna jsonb que se reemplaza entera, no se mezcla — dejar `busqueda` afuera
+  de un guardado de logo lo habría borrado en silencio la primera vez que alguien tocara
+  Textos). También corregido el mismo riesgo en el flujo de «Restaurar respaldo»
+  (`aplicarRestaurar()`), que llama a `NUBE.guardarAjustes()` aparte: un respaldo de
+  antes de esta función no trae `busqueda`, así que se preserva la configuración ya
+  publicada en vez de vaciarla.
+  Arranca de `localStorage` (`BUSQUEDA_CFG`, mismo patrón que `ubValue`) para que la
+  búsqueda funcione desde el primer segundo sin esperar a la nube, y `cargarContenidoNube()`
+  la actualiza si el equipo publicó una propia.
+  Probado en `tests/e2e/casos/config_busqueda.mjs`, nuevo, contra el efecto real (no sólo
+  contra el valor guardado): con la tolerancia de palabras largas en 0, «hemogrma» (una
+  letra de menos que «hemograma», a un cambio de distancia) deja de encontrar nada;
+  restaurando los valores de fábrica, vuelve a encontrarlo. También que persiste tras
+  recargar, que los pesos fuera de orden se reordenan solos, y que un médico
+  administrador no ve la pestaña.
 - ✅ **Sesión muerta del lado del servidor — arreglado el 26/8/2026, encontrado por el
   usuario mirando los logs de Postgres del proyecto (API Gateway/Postgres/Auth de
   Supabase).** Vio 17 errores de Postgres sobre 21 llamados en una hora; el detalle era

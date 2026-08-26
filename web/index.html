@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-3XyS3OaUSOMMYy500gE0gEszue8Ylamuk45VVPJouiE=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-nMM5L2ShhC49CRcVgrX4xxAMZuvdid4qBu9DhtOQGIs=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -812,9 +812,11 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
   .row:hover{border-color:var(--accent);box-shadow:var(--shadow);transform:translateY(-1px)}
 }
 .row:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-/* Coincidencia fuerte (90%+, ver matchPct()): la ficha entera se destaca, no
-   sólo la palabra encontrada adentro — para que salte a la vista cuál es la
-   respuesta antes de leer una por una. */
+/* Coincidencia fuerte (BUSQUEDA_CFG.umbralFuerte, 90% de fábrica — ver
+   matchPct() y rowHTML()): la ficha entera se destaca, no sólo la palabra
+   encontrada adentro — para que salte a la vista cuál es la respuesta antes
+   de leer una por una. El umbral lo edita el administrador general desde
+   Administración → Búsqueda. */
 .row-match{background:var(--accent-soft);border-color:var(--accent)}
 @media (hover:hover) and (pointer:fine){.row-match:hover{border-color:var(--accent)}}
 .rcode{font-family:var(--font-mono);font-size:14px;font-weight:700;color:var(--accent-ink);letter-spacing:-.3px}
@@ -1704,8 +1706,15 @@ body.tour-on{overscroll-behavior:none}
 .minibtn.danger:hover{border-color:var(--exc);color:var(--exc)}
 .adminbox label{display:block;font-family:var(--font-condensed);font-size:11px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);font-weight:700;margin:12px 0 5px}
 .adminbox input[type=text],.adminbox input[type=password],.adminbox textarea{width:100%;padding:9px 11px;border:1px solid var(--line-2);border-radius:var(--radius-sm);background:var(--surface-2);color:var(--ink);font:inherit;font-size:14px}
+.adminbox input[type=number]{width:100%;padding:9px 11px;border:1px solid var(--line-2);border-radius:var(--radius-sm);background:var(--surface-2);color:var(--ink);font:inherit;font-size:14px;font-variant-numeric:tabular-nums}
 .adminbox textarea{min-height:70px;resize:vertical;line-height:1.5}
 .adminbox input:focus,.adminbox textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+/* Grupo de campos numéricos chicos en una fila (Administración → Búsqueda:
+   tolerancia por largo, pesos por tipo de coincidencia) — cada uno con su
+   propia etiqueta corta arriba, sin el margen grande de .adminbox label. */
+.cfg-grupo{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
+.cfg-grupo>div{flex:1;min-width:100px}
+.cfg-grupo small{display:block;color:var(--faint);margin-bottom:4px;font-size:11.5px}
 .ahint{font-size:12px;color:var(--muted);line-height:1.5;margin:6px 0}
 .rolgrupo{font-family:var(--font-condensed);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);
   margin:16px 0 7px;padding-top:12px;border-top:1px solid var(--line)}
@@ -2094,8 +2103,44 @@ function distEdicion(a,b,max){
   }
   return prev[lb];
 }
+/* Valores de coincidencia de la búsqueda, editables por el administrador
+   general desde Administración → Búsqueda (más abajo en este archivo, junto
+   a CONTENT/NUBE). Arrancan acá, de localStorage —sin esperar a que cargue
+   nada de la nube—, para que la búsqueda funcione desde el primer segundo
+   igual que ubValue; cargarContenidoNube() los actualiza si el equipo
+   publicó una configuración propia. Los nombres de los valores por defecto
+   son los mismos números que ya usaban tolerancia()/puntuar()/rowHTML()
+   antes de ser configurables — nadie nota el cambio hasta que alguien
+   toca el panel. */
+const BUSQUEDA_CFG_DEF={
+  tol:{corta:0,media:1,larga:2},              // erratas toleradas según el largo del término
+  pesos:{inicio:6,borde:4,contiene:3,solo:2}, // puntaje por tipo de coincidencia (ver puntuar())
+  umbralFuerte:90                              // % desde el cual una fila se resalta (rowHTML())
+};
+function normalizarBusquedaCfg(cfg){
+  const c=cfg||{}, t=c.tol||{}, p=c.pesos||{};
+  const num=(v,def,min,max)=>{const n=Number(v);return Number.isFinite(n)?Math.min(max,Math.max(min,n)):def;};
+  return {
+    tol:{corta:num(t.corta,BUSQUEDA_CFG_DEF.tol.corta,0,3),
+         media:num(t.media,BUSQUEDA_CFG_DEF.tol.media,0,3),
+         larga:num(t.larga,BUSQUEDA_CFG_DEF.tol.larga,0,3)},
+    pesos:{inicio:num(p.inicio,BUSQUEDA_CFG_DEF.pesos.inicio,1,20),
+           borde:num(p.borde,BUSQUEDA_CFG_DEF.pesos.borde,1,20),
+           contiene:num(p.contiene,BUSQUEDA_CFG_DEF.pesos.contiene,1,20),
+           solo:num(p.solo,BUSQUEDA_CFG_DEF.pesos.solo,1,20)},
+    umbralFuerte:num(c.umbralFuerte,BUSQUEDA_CFG_DEF.umbralFuerte,50,100)
+  };
+}
+let BUSQUEDA_CFG=(function(){
+  try{return normalizarBusquedaCfg(JSON.parse(localStorage.getItem('nbu-busqueda-cfg')||'null'));}
+  catch(e){return normalizarBusquedaCfg(null);}
+})();
+function aplicarBusquedaCfg(cfg){
+  BUSQUEDA_CFG=normalizarBusquedaCfg(cfg);
+  try{localStorage.setItem('nbu-busqueda-cfg',JSON.stringify(BUSQUEDA_CFG));}catch(e){}
+}
 // erratas toleradas según el largo: en palabras cortas un cambio ya es otra palabra
-const tolerancia = t => t.length<=4?0:(t.length<=7?1:2);
+const tolerancia = t => t.length<=4?BUSQUEDA_CFG.tol.corta:(t.length<=7?BUSQUEDA_CFG.tol.media:BUSQUEDA_CFG.tol.larga);
 // Raíz común (stemming liviano): "transvag" buscando "transvaginal" no entra por
 // distancia de edición (la diferencia de largo es mayor que la tolerancia), pero
 // es exactamente el caso de alguien que escribió la palabra a medias. Si el término
@@ -2205,13 +2250,17 @@ function puntuar(rec,terms,permitirFuzzy){
   for(let i=0;i<terms.length-1;i++){
     const exp=SINONIMOS_COMPUESTOS[terms[i]+' '+terms[i+1]];
     if(exp&&new RegExp('\\b'+escRe(norm(exp))+'\\b').test(rec._h)){
-      // 12 = el máximo que darían los dos términos por separado si cada uno
-      // arrancara el nombre (6+6): la sigla compuesta es más precisa que eso
-      // (confirma la frase entera, no dos coincidencias sueltas), así que no
-      // puede puntuar menos que el mejor caso del camino término por término
-      // — si no, un match exacto de la sigla quedaba tapado por matches
-      // parciales de cualquiera de las dos palabras sueltas.
-      score+=12; cubiertos.add(i); cubiertos.add(i+1);
+      // El máximo que darían los dos términos por separado si cada uno
+      // arrancara el nombre (2×«inicio»): la sigla compuesta es más precisa
+      // que eso (confirma la frase entera, no dos coincidencias sueltas),
+      // así que no puede puntuar menos que el mejor caso del camino término
+      // por término — si no, un match exacto de la sigla quedaba tapado por
+      // matches parciales de cualquiera de las dos palabras sueltas. Se
+      // deriva de «inicio» (no un número aparte) para seguir cumpliendo esto
+      // aunque el administrador cambie los pesos desde Administración →
+      // Búsqueda — ver HANDOFF.md, 25/8/2026 (segunda tanda) para el bug
+      // real que esto evita.
+      score+=BUSQUEDA_CFG.pesos.inicio*2; cubiertos.add(i); cubiertos.add(i+1);
     }
   }
   for(let ti=0;ti<terms.length;ti++){
@@ -2220,10 +2269,11 @@ function puntuar(rec,terms,permitirFuzzy){
     const hit=coincideLiteral(rec,t);
     if(hit){
       const hn=rec._hn||'';
-      if(hn.startsWith(hit))score+=6;
-      else if(new RegExp('\\b'+escRe(hit)).test(hn))score+=4;
-      else if(hn.includes(hit))score+=3;
-      else score+=2;                       // sólo en código, sinónimo o abreviatura
+      const PS=BUSQUEDA_CFG.pesos;
+      if(hn.startsWith(hit))score+=PS.inicio;
+      else if(new RegExp('\\b'+escRe(hit)).test(hn))score+=PS.borde;
+      else if(hn.includes(hit))score+=PS.contiene;
+      else score+=PS.solo;                 // sólo en código, sinónimo o abreviatura
     }else if(permitirFuzzy){
       const d=pareceToken(t,rec._tk||[]);
       if(d<0)return -1;
@@ -2932,7 +2982,7 @@ function rowHTML(c){
   if(c.valor.ub_actualizado_2024!=null)met.push('<span class="tag t-meta">2024</span>');
   if(c.nomenclador==='UNICO'&&c.equivalencia&&!c.equivalencia.key&&!c.sin_equivalencia)met.push(`<span class="tag t-meta" title="La planilla del Único declara esta equivalencia y quedó verificada contra la fuente, pero el código de ${esc(c.equivalencia.target_label||'destino')} todavía no está cargado como ficha propia en la base.">equiv. sin importar</span>`);
   const pct=matchPct(c);
-  return `<button class="row${pct!=null&&pct>=90?' row-match':''}" data-code="${c._key}">
+  return `<button class="row${pct!=null&&pct>=BUSQUEDA_CFG.umbralFuerte?' row-match':''}" data-code="${c._key}">
     ${starBtn(c._key)}
     <div class="rcode">${hlList(c.code)}</div>
     <div class="rmid">
@@ -6397,6 +6447,11 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     const a=(Array.isArray(aj)?aj[0]:aj)||{};
     if(a.contenido&&a.contenido.page)CONTENT.page=a.contenido.page;
     if(a.contenido&&a.contenido.equipo)CONTENT.equipo=a.contenido.equipo;
+    // Valores de coincidencia de la búsqueda (Administración → Búsqueda):
+    // si el equipo publicó una configuración propia, se aplica para todos —
+    // BUSQUEDA_CFG es global (definida arriba de este archivo, antes de
+    // buscar()/puntuar()), no por perfil.
+    if(a.contenido&&a.contenido.busqueda){CONTENT.busqueda=a.contenido.busqueda;aplicarBusquedaCfg(a.contenido.busqueda);}
     save(KEY.content,CONTENT);
     nubeContenido=true;
     applyContent(); refreshStats(); render(); renderPane(); actualizarPendientes();
@@ -6426,7 +6481,13 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
      se cambian de a uno cada muchos meses y no vale la pena una tabla. */
   function guardarAjustesNube(){
     if(!nubeContenido)return;
-    NUBE.guardarAjustes({page:CONTENT.page,equipo:CONTENT.equipo||{}}).catch(err=>
+    // «ajustes» es una sola fila con un solo jsonb (contenido): guardarAjustes()
+    // reemplaza la columna entera, no la mezcla. Por eso los tres van siempre
+    // juntos acá, aunque el que llamó sólo haya tocado uno — si busqueda
+    // quedara afuera, la primera vez que alguien guardara sólo el logo
+    // borraría en silencio la configuración de búsqueda que el administrador
+    // hubiera publicado.
+    NUBE.guardarAjustes({page:CONTENT.page,equipo:CONTENT.equipo||{},busqueda:CONTENT.busqueda||{}}).catch(err=>
       toast('No se pudieron guardar los textos para el equipo: '+err.message,true));
   }
 
@@ -7167,7 +7228,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
        apagados sólo invita a preguntar por qué no andan. */
     const tabs=esDuenio()
       ? [['resumen','Resumen'],['perfiles','Perfiles'],['propuestas','Pendientes'],['sugerencias','Sugerencias'],['medicas','Revisión médica'],
-         ['contenido','Textos'],['nube','Nube'],['registro','Registro'],['respaldo','Respaldo']]
+         ['contenido','Textos'],['busqueda','Búsqueda'],['nube','Nube'],['registro','Registro'],['respaldo','Respaldo']]
       : [['medicas','Revisión médica']];
     if(!tabs.some(t=>t[0]===aTab))aTab=tabs[0][0];
     abox.innerHTML=`
@@ -7606,6 +7667,56 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       });
       if(el('pgLogoDel'))el('pgLogoDel').addEventListener('click',()=>{delete CONTENT.page.logo;persistContent();guardarAjustesNube();applyContent();renderPane();toast('Logo quitado');});
       p.querySelectorAll('[data-goto2]').forEach(b=>b.addEventListener('click',()=>{closeAdmin();openCode(b.dataset.goto2);}));
+    } else if(aTab==='busqueda'){
+      /* Valores de coincidencia de la búsqueda: tolerancia a erratas, umbral de
+         "coincidencia fuerte" y pesos de cada tipo de coincidencia — ver
+         BUSQUEDA_CFG_DEF, tolerancia() y puntuar() más arriba en este archivo.
+         Pedido explícito del usuario (26/8/2026): que el administrador general
+         pueda ajustarlos sin tocar código. Se publican para todo el equipo
+         (guardarConfigBusqueda → guardarAjustesNube), porque son del motor de
+         búsqueda de toda la app, no de esta pantalla sola. */
+      const C=NBUProfile.configBusqueda();
+      p.innerHTML=`<div class="ahint">Estos valores deciden qué tan estricta es la búsqueda tolerante en <b>toda la app</b> —listado principal, CIE-10, abreviaturas, SURGE y el Intérprete de orden—, no una pantalla sola. Los de fábrica ya están afinados con casos reales de la base; cambialos con cuidado y probá una búsqueda conocida después de guardar.</div>
+        <label>Erratas de tipeo toleradas, según el largo del término</label>
+        <div class="cfg-grupo">
+          <div><small>Cortos (≤4 letras)</small><input id="bqTolCorta" type="number" min="0" max="3" step="1" value="${C.tol.corta}"></div>
+          <div><small>Medianos (5–7)</small><input id="bqTolMedia" type="number" min="0" max="3" step="1" value="${C.tol.media}"></div>
+          <div><small>Largos (8 o más)</small><input id="bqTolLarga" type="number" min="0" max="3" step="1" value="${C.tol.larga}"></div>
+        </div>
+        <div class="ahint">Cuántas letras puede diferir un término de lo que dice la ficha y seguir contando como coincidencia. 0 = exacto (nada de erratas).</div>
+        <label>Umbral de "coincidencia fuerte" (%)</label>
+        <input id="bqUmbral" type="number" min="50" max="100" step="1" value="${C.umbralFuerte}" style="max-width:120px">
+        <div class="ahint">Desde qué porcentaje de coincidencia una fila del listado se resalta como respuesta probable.</div>
+        <label>Peso de cada tipo de coincidencia</label>
+        <div class="cfg-grupo">
+          <div><small>Empieza con el término</small><input id="bqPesoInicio" type="number" min="1" max="20" step="1" value="${C.pesos.inicio}"></div>
+          <div><small>Aparece en el nombre</small><input id="bqPesoBorde" type="number" min="1" max="20" step="1" value="${C.pesos.borde}"></div>
+          <div><small>En cualquier parte</small><input id="bqPesoContiene" type="number" min="1" max="20" step="1" value="${C.pesos.contiene}"></div>
+          <div><small>Sólo en código/sinónimo</small><input id="bqPesoSolo" type="number" min="1" max="20" step="1" value="${C.pesos.solo}"></div>
+        </div>
+        <div class="ahint">Cuánto suma cada forma de coincidencia al ordenar los resultados. Tienen que quedar de mayor a menor, en ese orden, o la búsqueda deja de tener sentido — se corrigen solos si los cargás al revés.</div>
+        <button class="minibtn" id="bqSave" style="margin-top:14px">Guardar</button>
+        <button class="minibtn" id="bqReset" style="margin-top:14px;margin-left:6px">Restaurar valores de fábrica</button>`;
+      el('bqSave').addEventListener('click',()=>{
+        const n=id=>parseFloat(el(id).value);
+        // Los pesos tienen que quedar de mayor a menor (inicio ≥ borde ≥
+        // contiene ≥ solo) para que el orden de los resultados siga
+        // teniendo sentido: si alguien los carga al revés por error, se
+        // reordenan solos en vez de guardar una búsqueda rota.
+        const pesos=[n('bqPesoInicio'),n('bqPesoBorde'),n('bqPesoContiene'),n('bqPesoSolo')]
+          .map(v=>Number.isFinite(v)?v:0).sort((a,b)=>b-a);
+        const ok=NBUProfile.guardarConfigBusqueda({
+          tol:{corta:n('bqTolCorta'),media:n('bqTolMedia'),larga:n('bqTolLarga')},
+          pesos:{inicio:pesos[0],borde:pesos[1],contiene:pesos[2],solo:pesos[3]},
+          umbralFuerte:n('bqUmbral')
+        });
+        if(ok){toast('Configuración de búsqueda guardada');renderPane();}
+      });
+      el('bqReset').addEventListener('click',()=>{
+        if(!confirm('¿Volver la búsqueda a los valores de fábrica?'))return;
+        NBUProfile.restaurarConfigBusqueda();
+        toast('Valores de fábrica restaurados'); renderPane();
+      });
     } else if(aTab==='nube'){
       const bld=window.NBU_BUILD||{};
       const propia=bld.commit&&bld.commit!=='local';
@@ -7898,9 +8009,14 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     D.fichas.quitan.forEach(c=>tareas.push(()=>NUBE.borrarCorreccion(c)));
     D.obs.vuelven.concat(D.obs.agregan).forEach(c=>tareas.push(()=>NUBE.guardarObservacion(c,((D2.obs||{})[c]||{}).texto||'')));
     D.obs.quitan.forEach(c=>tareas.push(()=>NUBE.borrarObservacion(c)));
+    // Un respaldo de antes de que existiera esta configuración no trae
+    // «busqueda»: se preserva la que ya está publicada, no se borra —esta
+    // pantalla no tiene un check para restaurarla a propósito, es un ajuste
+    // técnico, no contenido del manual.
     if(D.textos||D.favs)tareas.push(()=>NUBE.guardarAjustes({
       page:D.textos?(D2.page||{}):(CONTENT.page||{}),
-      equipo:D.favs?(D2.equipo||{}):(CONTENT.equipo||{})}));
+      equipo:D.favs?(D2.equipo||{}):(CONTENT.equipo||{}),
+      busqueda:D2.busqueda||CONTENT.busqueda||{}}));
     let hechas=0; const fallos=[];
     for(const t of tareas){
       try{ await t(); }catch(err){ fallos.push(err.message); }
@@ -9133,6 +9249,31 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       if(!esDuenio())return false;
       CONTENT.equipo=CONTENT.equipo||{}; CONTENT.equipo.favoritos=arr.slice();
       logEdit('publicó los favoritos del equipo'); persistContent(); guardarAjustesNube();
+      return true;
+    },
+    /* Valores de coincidencia de la búsqueda (Administración → Búsqueda):
+       tolerancia a erratas, umbral de "coincidencia fuerte" y pesos de cada
+       tipo de coincidencia — ver BUSQUEDA_CFG_DEF más arriba en este
+       archivo. Sólo el administrador general los toca; afecta la búsqueda
+       de toda la app (listado principal, CIE-10, abreviaturas, SURGE, el
+       Intérprete), no una pantalla sola, así que se publica para todo el
+       equipo igual que los textos y el logo. */
+    configBusqueda:()=>Object.assign({},BUSQUEDA_CFG),
+    configBusquedaDef:()=>Object.assign({},BUSQUEDA_CFG_DEF),
+    guardarConfigBusqueda:(cfg)=>{
+      if(!esDuenio())return false;
+      aplicarBusquedaCfg(cfg);
+      CONTENT.busqueda=Object.assign({},BUSQUEDA_CFG);
+      logEdit('cambió la configuración de búsqueda'); persistContent(); guardarAjustesNube();
+      if(state.view==='list')render();
+      return true;
+    },
+    restaurarConfigBusqueda:()=>{
+      if(!esDuenio())return false;
+      aplicarBusquedaCfg(BUSQUEDA_CFG_DEF);
+      delete CONTENT.busqueda;
+      logEdit('restauró la configuración de búsqueda por defecto'); persistContent(); guardarAjustesNube();
+      if(state.view==='list')render();
       return true;
     },
     editFicha:editFicha,
