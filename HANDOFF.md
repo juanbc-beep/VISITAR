@@ -2743,6 +2743,63 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
   «urea»/Uremia: antes de forzarla no está resaltada, después sí; la ficha explica la
   coincidencia forzada; y agregar «urea» no dispara con «urea clearence» (frase distinta),
   sólo con la consulta exacta.
+- ✅ **El Intérprete de orden agrupa por equivalencia entre nomencladores — pedido
+  explícito del usuario (26/8/2026), a partir de una captura real.** «radiografia torax
+  f y p» mostraba TRES tarjetas para lo que es una sola práctica: 340301 del PMO,
+  340301 del Único —**el mismo código, con 83% en un lado y 50% en el otro** («eso no
+  debería suceder, si es la misma práctica»)— y 340302 como candidato aparte para la
+  exposición de perfil («no hacemos todo un bloque entero… que te diga los
+  nomencladores y el código asociado»). Las dos cosas eran la misma raíz: cada
+  candidato era un registro suelto (`c._key`), nunca «la práctica», así que dos
+  nomencladores de un mismo código nunca se reconocían como una sola cosa.
+  Arreglado agrupando en `candidatosParaItem()` con `EQGRUPO` (armado más arriba en
+  este archivo — la misma equivalencia que ya usan las observaciones y revisiones
+  médicas compartidas entre nomencladores, ver 4.5 y HANDOFF.md del 26/8/2026,
+  «Revisiones médicas»): cada grupo es un array de registros (ya vienen ordenados por
+  puntaje, porque `cands` lo está) con el mejor puntaje del grupo primero. La
+  exposición adicional (`g.comp`) y el aviso de «sin perfil» (`g.sinPerfil`, punto 6-8
+  de esta sección) quedaron colgados del grupo, no de un candidato suelto.
+  `correrInterprete()` dibuja un solo `<div class="int-grupo">` por práctica:
+  - El candidato **principal** (mejor puntaje del grupo) es el `<button class="int-cand">`
+    de siempre — mismo comportamiento, mismos tests, un solo porcentaje (el máximo del
+    grupo, no uno por nomenclador: **esto es lo que resuelve la inconsistencia** — un
+    código nunca vuelve a mostrar dos números distintos porque ahora sólo se muestra
+    uno).
+  - Los demás nomencladores del mismo código quedan como chips chicos «También en:
+    [PMO] [Único]» (`.int-nom-chip`, hermanos del botón principal — nunca anidados
+    adentro, dos botones reales) que eligen puntualmente ESE código para la Mesa de
+    trabajo, sin abrir una tarjeta nueva.
+  - La exposición adicional cuelga del mismo bloque como nota (`.int-cand-comp`, mismo
+    tono ámbar que los avisos de seriado/lateralidad/muestra) con sus propios chips por
+    nomenclador — no un candidato más en la lista.
+  ⚠️ **Bug real encontrado armando la prueba, no en el diseño**: `exposicion_siguiente`
+  sólo está cargado del lado del PMO (`340301`), **no** en su equivalente del Único
+  (`U340301`) — comprobado contra `data/nbu_db.json`. Buscando «radiografia» (en vez de
+  «rx» o «radiología»), el nombre del Único («Radiografía de torax») puntúa más que el
+  del PMO («Radiología tórax», que sólo matchea por el sinónimo cruzado del punto
+  anterior), así que el PRINCIPAL del grupo terminaba siendo el del Único — y como
+  `candidatosParaItem()` sólo miraba `g[0].exposicion_siguiente`, la exposición
+  adicional se perdía en silencio, mostrando «este código no tiene exposición
+  adicional» siendo falso. Arreglado buscando el dato en **todo el grupo**
+  (`g.find(m=>m.exposicion_siguiente)`), no sólo en el principal.
+  ⚠️ **Segundo ajuste, también encontrado armando la prueba**: los chips «también en»
+  (otro nomenclador del MISMO grupo, que sí matcheó por texto) no deberían quedar
+  excluidos de la sugerencia «pedida como» —a diferencia de los chips de exposición
+  adicional, que sí quedan siempre afuera, porque ese código nunca pasó por `puntuar()`—:
+  si el grupo no es el primero (`rank!=0`), elegir cualquiera de sus chips sigue siendo
+  la misma señal de siempre («el buscador no puso esta práctica arriba»), tenga el
+  nomenclador que tenga. Se separó `data-int-companion` en dos usos de `nomChip()`: los
+  chips de «también en» no lo llevan (gatean sólo por `rank`, igual que el candidato
+  principal), los de exposición adicional siempre lo llevan.
+  Actualizados `tests/e2e/casos/interprete.mjs` y `sugerencias_pedida_como.mjs` a la
+  estructura nueva (los locators ya no pueden asumir `.int-cand` — un código puede
+  terminar de principal o de chip según cuál nomenclador puntúe más; y en
+  `sugerencias_pedida_como.mjs`, 660412 pasó a formar parte del grupo top —ya no sirve
+  como «candidato que no es el primero»— así que el caso pasa a usar 660413, del
+  segundo grupo). Nuevo `tests/e2e/casos/interprete_grupos.mjs` con el caso real de la
+  captura: un solo bloque, un solo %, el chip «también en», la nota de exposición
+  adicional con sus dos chips, y el bug de `exposicion_siguiente` sólo del lado del PMO.
+  Corrida completa de los 21 archivos de `tests/e2e/`, dos veces, sin fallas.
 - ✅ **Sesión muerta del lado del servidor — arreglado el 26/8/2026, encontrado por el
   usuario mirando los logs de Postgres del proyecto (API Gateway/Postgres/Auth de
   Supabase).** Vio 17 errores de Postgres sobre 21 llamados en una hora; el detalle era

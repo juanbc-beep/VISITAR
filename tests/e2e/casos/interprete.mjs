@@ -69,18 +69,22 @@ async function main() {
     afirmar((await masTac.textContent()).trim() === 'Mostrar menos', 'tocado «ver más», el botón debería pasar a «Mostrar menos»');
 
     // «anti ro» es una sigla de dos palabras: 668905 (NBU "Ro, Ac. Anti-
-    // (Ro/SSA)") tiene que aparecer, y NO 666956/666958/666965 (Legionella
-    // Pneumophila, Ac. Anti), que sin el borde de palabra (\b) en
-    // SINONIMOS_COMPUESTOS coincidían por casualidad — ver puntuar() en
-    // web/index.html y HANDOFF.md, 25/8/2026 (segunda tanda).
+    // (Ro/SSA)") tiene que aparecer —como candidato principal o como chip
+    // "también en" de su equivalente del Único, según cuál puntúe más—, y
+    // NO 666956/666958/666965 (Legionella Pneumophila, Ac. Anti), que sin
+    // el borde de palabra (\b) en SINONIMOS_COMPUESTOS coincidían por
+    // casualidad — ver puntuar() en web/index.html y HANDOFF.md, 25/8/2026
+    // (segunda tanda).
     const renglonAntiRo = renglon('anti ro');
-    afirmar(await renglonAntiRo.locator('.int-cand[data-int-code="668905"]').count() >= 1,
+    afirmar(await renglonAntiRo.locator('[data-int-code="668905"]').count() >= 1,
       '«anti ro» debería traer 668905 (Ro, Ac. Anti) entre los candidatos');
-    afirmar(await renglonAntiRo.locator('.int-cand[data-int-code="666956"]').count() === 0,
+    afirmar(await renglonAntiRo.locator('[data-int-code="666956"]').count() === 0,
       '«anti ro» NO debería traer Legionella (666956) por la coincidencia parcial de "...la, Ac. Anti"');
 
-    // El primer renglón (Hemograma) tiene que traer 660475 entre los candidatos.
-    const cand660475 = page.locator('.int-cand[data-int-code="660475"]');
+    // El primer renglón (Hemograma) tiene que traer 660475 entre los
+    // candidatos — como principal o como chip "también en" de su
+    // equivalente del Único, según cuál del grupo puntúe más.
+    const cand660475 = page.locator('[data-int-code="660475"]');
     afirmar(await cand660475.count() >= 1, 'Hemograma debería traer 660475 entre los candidatos');
 
     // «Rx torax f y p»: buscar() exige que TODOS los términos coincidan, y
@@ -88,19 +92,23 @@ async function main() {
     // abajo el renglón entero si no se reintentara sin ellos — ver
     // candidatosParaItem() en web/index.html.
     const renglonTorax = renglon('Rx torax f y p');
-    afirmar(await renglonTorax.locator('.int-cand').count() >= 1,
+    afirmar(await renglonTorax.locator('.int-grupo').count() >= 1,
       '«Rx torax f y p» debería encontrar candidatos reintentando sin los términos sueltos de 1-2 letras');
 
     // «F y P» pide dos exposiciones: si el candidato principal tiene su
     // propia exposición adicional (340302, ligado a 340301 por
-    // exposicion_siguiente en la base), tiene que aparecer sola entre los
-    // candidatos, marcada como tal — no sólo el código de la primera
-    // exposición. Ver candidatosParaItem() y HANDOFF.md, 26/8/2026 (aviso
-    // del usuario: «rx torax f y p» → 340301 y 340302).
-    afirmar(await renglonTorax.locator('.int-cand.comp[data-int-code="340302"]').count() === 1,
-      '«Rx torax f y p» debería agregar 340302 (exposición de perfil) como candidato aparte, marcado con la clase "comp"');
-    afirmar((await renglonTorax.locator('.int-cand-nota').first().textContent()).includes('340301'),
-      'la nota del candidato de exposición adicional debería explicar de qué código base sale');
+    // exposicion_siguiente en la base), tiene que aparecer COLGADA del
+    // mismo bloque —un solo <div class="int-grupo"> por práctica, no una
+    // tarjeta aparte— como chip dentro de «.int-cand-comp», con su
+    // nomenclador y todo (340302 del PMO y su equivalente del Único).
+    // Ver candidatosParaItem() y HANDOFF.md, 26/8/2026 (aviso del usuario:
+    // «rx torax f y p» → 340301 y 340302; y después, «demasiado espacio» /
+    // «un solo bloque»).
+    const notaComp = renglonTorax.locator('.int-cand-comp').first();
+    afirmar(await notaComp.locator('[data-int-code="340302"]').count() === 1,
+      '«Rx torax f y p» debería agregar 340302 (exposición de perfil, PMO) como chip dentro de la nota de exposición adicional');
+    afirmar((await notaComp.textContent()).includes('340301'),
+      'la nota de exposición adicional debería explicar de qué código base sale');
 
     // El tercer renglón (inventado) no debería traer ningún candidato.
     const sinCoincidencias = await renglon('xyzqwerty').locator('.int-sin').count();
@@ -109,7 +117,7 @@ async function main() {
     // Elegir 660475 (Hemograma) y buscar+elegir 660412 (Glucemia) entre sus candidatos.
     afirmar(await page.isHidden('#intResumen'), 'sin nada elegido todavía, el resumen no debería mostrarse');
     await cand660475.click();
-    const cand660412 = page.locator('.int-cand[data-int-code="660412"]');
+    const cand660412 = page.locator('[data-int-code="660412"]');
     afirmar(await cand660412.count() >= 1, 'Glucemia debería traer 660412 entre los candidatos');
     await cand660412.click();
 

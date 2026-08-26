@@ -45,7 +45,12 @@ async function main() {
     await page.click('#intGo');
     await page.waitForSelector('.int-item', { timeout: 5000 });
 
-    const avisoDe = code => page.locator(`.int-cand[data-int-code="${code}"] .int-aviso`);
+    // Los avisos se calculan sobre el candidato principal del grupo (ver
+    // avisosCandidato() en web/index.html), pero el código de la prueba
+    // puede terminar como principal o como chip "también en" según cuál
+    // nomenclador puntúe más — se busca el bloque entero que lo contiene,
+    // no el propio .int-cand.
+    const avisoDe = code => page.locator(`.int-grupo:has([data-int-code="${code}"]) .int-aviso`);
 
     // Seriado: pedir ×8 de un código con seriado habitual hasta ×5.
     const avSeriado = await avisoDe('660102').first().textContent();
