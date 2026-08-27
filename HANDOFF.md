@@ -3084,6 +3084,34 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
   con el usuario si la radiología se arancela con el mismo esquema de galenos o con otro
   (tope, unidad bioquímica, etc. — HANDOFF ya documenta 38 códigos con «tope PMO» en la
   sección 1), para no forzarle un campo que no le corresponde.
+  ⚠️ **CORRECCIÓN, misma sesión, minutos después: los 23 valores estaban bien en el
+  monto, mal clasificados.** Apareció el PR #58 (`claude/interprete-orden-busqueda-oe7bf9`,
+  commit `e1d0d4b`) — otra sesión, la misma del bloque de los 35+3 códigos, que sí llegó a
+  commitear su barrido de ~65 páginas (capítulos 14 a 44, ~500 códigos) antes de este
+  cierre. Se superpone exactamente con este capítulo 43. Cruzando los 23 códigos: **el
+  total práctica coincide en los 23**, pero el PR #58 carga el monto bajo `galeno.gasto`
+  y acá había quedado bajo `galeno.especialista`. Revisando la página impresa de nuevo con
+  más cuidado (recorte a la altura de fila, no toda la columna): el orden real es
+  `U./$ (etiqueta) → OG/UP (categoría) → número → Total` — el número aparece **después**
+  de la sigla de categoría, en la posición de Gastos, no pegado a la etiqueta `U./$` como
+  se había asumido. Con `430109` («sin honorario de especialista» explícito en el capítulo
+  34, código ajeno usado como referencia) se confirmó el patrón. Semánticamente también
+  cierra mejor: cama de sanatorio, material descartable, oxígeno son gasto de la
+  institución, no honorario médico.
+  Corregido `especialista→gasto` en `data/nn_values.json` (`esp`↔`gasto`, mismos números)
+  y `data/nbu_db.json` (`valores.galeno.gasto`/`pesos_2002.gasto`,
+  `asociaciones_especificas` reescrito a «Gasto: N galenos.»), y sumado
+  `valores.coseguro_hasta` a los 4 códigos que lo traen impreso (`430201`, `430202`,
+  `430401`, `430402`, los 50.00 que en el bloque anterior habían quedado sin cargar) —
+  mismo campo que ya usa el PR #58, para no divergir del esquema que va a terminar siendo
+  el de todo el barrido. Verificado campo por campo contra el `nbu_db.json` del PR #58:
+  **los 23 coinciden exactamente** (`galeno`, `pesos_2002` y `coseguro_hasta` iguales).
+  Publicado de nuevo con `scripts/inject_db.py`; corrida completa de los 21 archivos de
+  `tests/e2e/` (acá y también sobre la rama del PR #58, por separado), sin fallas en
+  ninguna de las dos.
+  **Pendiente para el usuario**: decidir qué hacer con el PR #58 en sí (mergearlo,
+  pedir revisión, etc.) — este bloque sólo corrige la rama propia para que no quede un
+  dato mal clasificado dando vueltas mientras tanto.
 
 ### Lo que queda por confirmar en los datos
 - **84 títulos «denominación a confirmar»** (`titulo_revisar`): ninguna fuente los resuelve

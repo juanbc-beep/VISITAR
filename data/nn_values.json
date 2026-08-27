@@ -36831,8 +36831,8 @@
   "tipo": "priced",
   "page": 136,
   "esp": {
-   "u": 57.0,
-   "p": 32.11
+   "u": null,
+   "p": null
   },
   "ayu": {
    "n": null,
@@ -36844,8 +36844,8 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 57.0,
+   "p": 32.11
   },
   "total_p": 32.11,
   "checksum_ok": true,
@@ -36855,8 +36855,8 @@
   "tipo": "priced",
   "page": 137,
   "esp": {
-   "u": 43,
-   "p": 24.23
+   "u": null,
+   "p": null
   },
   "ayu": {
    "n": null,
@@ -36868,8 +36868,8 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 43,
+   "p": 24.23
   },
   "total_p": 24.23,
   "checksum_ok": true,
@@ -36879,8 +36879,8 @@
   "tipo": "priced",
   "page": 137,
   "esp": {
-   "u": 38,
-   "p": 21.41
+   "u": null,
+   "p": null
   },
   "ayu": {
    "n": null,
@@ -36892,8 +36892,8 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 38,
+   "p": 21.41
   },
   "total_p": 21.41,
   "checksum_ok": true,
@@ -36903,8 +36903,8 @@
   "tipo": "priced",
   "page": 137,
   "esp": {
-   "u": 34,
-   "p": 19.16
+   "u": null,
+   "p": null
   },
   "ayu": {
    "n": null,
@@ -36916,8 +36916,8 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 34,
+   "p": 19.16
   },
   "total_p": 19.16,
   "checksum_ok": true,
@@ -36927,8 +36927,8 @@
   "tipo": "priced",
   "page": 137,
   "esp": {
-   "u": 23,
-   "p": 12.96
+   "u": null,
+   "p": null
   },
   "ayu": {
    "n": null,
@@ -36940,8 +36940,8 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 23,
+   "p": 12.96
   },
   "total_p": 12.96,
   "checksum_ok": true,
@@ -36951,8 +36951,8 @@
   "tipo": "priced",
   "page": 137,
   "esp": {
-   "u": 68,
-   "p": 38.31
+   "u": null,
+   "p": null
   },
   "ayu": {
    "n": null,
@@ -36964,8 +36964,8 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 68,
+   "p": 38.31
   },
   "total_p": 38.31,
   "checksum_ok": true,
@@ -36975,8 +36975,8 @@
   "tipo": "priced",
   "page": 137,
   "esp": {
-   "u": 47,
-   "p": 26.48
+   "u": null,
+   "p": null
   },
   "ayu": {
    "n": null,
@@ -36988,8 +36988,8 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 47,
+   "p": 26.48
   },
   "total_p": 26.48,
   "checksum_ok": true,
@@ -36999,8 +36999,8 @@
   "tipo": "priced",
   "page": 137,
   "esp": {
-   "u": 41,
-   "p": 23.1
+   "u": null,
+   "p": null
   },
   "ayu": {
    "n": null,
@@ -37012,8 +37012,8 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 41,
+   "p": 23.1
   },
   "total_p": 23.1,
   "checksum_ok": true,
@@ -37047,8 +37047,8 @@
   "tipo": "priced",
   "page": 138,
   "esp": {
-   "u": 8.5,
-   "p": 1.04
+   "u": null,
+   "p": null
   },
   "ayu": {
    "n": null,
@@ -37060,8 +37060,8 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 8.5,
+   "p": 1.04
   },
   "total_p": 1.04,
   "checksum_ok": true,
@@ -37071,8 +37071,8 @@
   "tipo": "priced",
   "page": 138,
   "esp": {
-   "u": 25,
-   "p": 3.07
+   "u": null,
+   "p": null
   },
   "ayu": {
    "n": null,
@@ -37084,8 +37084,8 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 25,
+   "p": 3.07
   },
   "total_p": 3.07,
   "checksum_ok": true,
@@ -37095,8 +37095,8 @@
   "tipo": "priced",
   "page": 138,
   "esp": {
-   "u": 2,
-   "p": 0.25
+   "u": null,
+   "p": null
   },
   "ayu": {
    "n": null,
@@ -37108,8 +37108,8 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 2,
+   "p": 0.25
   },
   "total_p": 0.25,
   "checksum_ok": true,
@@ -37119,8 +37119,8 @@
   "tipo": "priced",
   "page": 138,
   "esp": {
-   "u": 5,
-   "p": 0.61
+   "u": null,
+   "p": null
   },
   "ayu": {
    "n": null,
@@ -37132,8 +37132,8 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 5,
+   "p": 0.61
   },
   "total_p": 0.61,
   "checksum_ok": true,
@@ -37143,8 +37143,8 @@
   "tipo": "priced",
   "page": 138,
   "esp": {
-   "u": 10,
-   "p": 1.23
+   "u": null,
+   "p": null
   },
   "ayu": {
    "n": null,
@@ -37156,8 +37156,8 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 10,
+   "p": 1.23
   },
   "total_p": 1.23,
   "checksum_ok": true,
@@ -37167,8 +37167,8 @@
   "tipo": "priced",
   "page": 138,
   "esp": {
-   "u": 26,
-   "p": 14.65
+   "u": null,
+   "p": null
   },
   "ayu": {
    "n": null,
@@ -37180,8 +37180,8 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 26,
+   "p": 14.65
   },
   "total_p": 14.65,
   "checksum_ok": true,
@@ -37191,8 +37191,8 @@
   "tipo": "priced",
   "page": 139,
   "esp": {
-   "u": 19,
-   "p": 2.33
+   "u": null,
+   "p": null
   },
   "ayu": {
    "n": null,
@@ -37204,8 +37204,8 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 19,
+   "p": 2.33
   },
   "total_p": 2.33,
   "checksum_ok": true,
@@ -37215,8 +37215,8 @@
   "tipo": "priced",
   "page": 139,
   "esp": {
-   "u": 20,
-   "p": 11.27
+   "u": null,
+   "p": null
   },
   "ayu": {
    "n": null,
@@ -37228,8 +37228,8 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 20,
+   "p": 11.27
   },
   "total_p": 11.27,
   "checksum_ok": true,
@@ -37239,8 +37239,8 @@
   "tipo": "priced",
   "page": 139,
   "esp": {
-   "u": 5,
-   "p": 2.82
+   "u": null,
+   "p": null
   },
   "ayu": {
    "n": null,
@@ -37252,8 +37252,8 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 5,
+   "p": 2.82
   },
   "total_p": 2.82,
   "checksum_ok": true,
@@ -37263,8 +37263,8 @@
   "tipo": "priced",
   "page": 140,
   "esp": {
-   "u": 12,
-   "p": 6.76
+   "u": null,
+   "p": null
   },
   "ayu": {
    "n": null,
@@ -37276,8 +37276,8 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 12,
+   "p": 6.76
   },
   "total_p": 6.76,
   "checksum_ok": true,
@@ -37287,8 +37287,8 @@
   "tipo": "priced",
   "page": 140,
   "esp": {
-   "u": 8,
-   "p": 4.51
+   "u": null,
+   "p": null
   },
   "ayu": {
    "n": null,
@@ -37300,8 +37300,8 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 8,
+   "p": 4.51
   },
   "total_p": 4.51,
   "checksum_ok": true,
@@ -37311,8 +37311,8 @@
   "tipo": "priced",
   "page": 140,
   "esp": {
-   "u": 42,
-   "p": 23.66
+   "u": null,
+   "p": null
   },
   "ayu": {
    "n": null,
@@ -37324,8 +37324,8 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 42,
+   "p": 23.66
   },
   "total_p": 23.66,
   "checksum_ok": true,
@@ -37335,8 +37335,8 @@
   "tipo": "priced",
   "page": 140,
   "esp": {
-   "u": 64,
-   "p": 36.06
+   "u": null,
+   "p": null
   },
   "ayu": {
    "n": null,
@@ -37348,8 +37348,8 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 64,
+   "p": 36.06
   },
   "total_p": 36.06,
   "checksum_ok": true,
@@ -37359,8 +37359,8 @@
   "tipo": "priced",
   "page": 140,
   "esp": {
-   "u": 32,
-   "p": 18.03
+   "u": null,
+   "p": null
   },
   "ayu": {
    "n": null,
@@ -37372,8 +37372,8 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 32,
+   "p": 18.03
   },
   "total_p": 18.03,
   "checksum_ok": true,
@@ -37383,8 +37383,8 @@
   "tipo": "priced",
   "page": 140,
   "esp": {
-   "u": 128,
-   "p": 72.12
+   "u": null,
+   "p": null
   },
   "ayu": {
    "n": null,
@@ -37396,8 +37396,8 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 128,
+   "p": 72.12
   },
   "total_p": 72.12,
   "checksum_ok": true,
