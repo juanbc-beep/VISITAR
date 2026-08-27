@@ -744,7 +744,7 @@
   "checksum_ok": true
  },
  "010309": {
-  "tipo": "sin_valor",
+  "tipo": "priced",
   "nombre_ocr": "PUNCION LUMBARCON/SINMANOMETRIA. VERTEBROPLASTIAPERCUTANEACONCEMENTOACRILICODEPOLIMETACRILATODEMETILO. ESDE PRIMERAELECCIONENLASINDICACINESQUESEEXPLICITANOUEDANDOLAOSTEOSINTESISYFUACIONESDE",
   "page": 7,
   "esp": {
@@ -761,11 +761,12 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 7,
+   "p": 3.45
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 3.45,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "010310": {
   "tipo": "sin_valor",
@@ -984,7 +985,7 @@
   "checksum_ok": true
  },
  "010409": {
-  "tipo": "sin_valor",
+  "tipo": "priced",
   "nombre_ocr": "BLOQUEOEXTRACRANEALANTIALGICO.",
   "page": 8,
   "esp": {
@@ -1001,11 +1002,12 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 7,
+   "p": 3.45
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 3.45,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "010501": {
   "tipo": "priced",
@@ -1176,7 +1178,7 @@
   "checksum_ok": true
  },
  "010508": {
-  "tipo": "sin_valor",
+  "tipo": "priced",
   "nombre_ocr": "NEUROLISISQUIMICAOBLOQUEOANTIALGICODENERVIOPERIFERICO.",
   "page": 9,
   "esp": {
@@ -1193,11 +1195,12 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 7,
+   "p": 3.45
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 3.45,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "010601": {
   "tipo": "priced",
@@ -1296,7 +1299,7 @@
   "checksum_ok": true
  },
  "010606": {
-  "tipo": "sin_valor",
+  "tipo": "priced",
   "nombre_ocr": "INYECCIONPARAVERTEBRALDETRONCOSYGANGILIDSSIMPATICOS. etretrado pore PMSimpatico cervical,toracico,lumbar,esplacmicoy semilunar).",
   "page": 9,
   "esp": {
@@ -1313,11 +1316,12 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 7,
+   "p": 3.45
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 3.45,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "010607": {
   "tipo": "sin_valor",
@@ -1732,7 +1736,7 @@
   "nombre_ocr": "INTRODUCCIONDESUSTANCIASTERAPEUTICASRETROGLOBULARESINYECTABLES. REPARACIONPLASTICADELA ORBITA CONOSININJERTODEPIEL",
   "page": 11,
   "esp": {
-   "u": 228.0,
+   "u": null,
    "p": null
   },
   "ayu": {
@@ -1745,11 +1749,12 @@
    "p": null
   },
   "gasto": {
-   "u": 268.0,
+   "u": 5,
    "p": 2.46
   },
   "total_p": 2.46,
-  "checksum_ok": null
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "020106": {
   "tipo": "priced",
@@ -2257,7 +2262,7 @@
   "checksum_ok": true
  },
  "020405": {
-  "tipo": "sin_valor",
+  "tipo": "priced",
   "nombre_ocr": "CAUTERIZACIONCORNEAL extorelrado porePMO|con o sin aspadoprevio.",
   "page": 13,
   "esp": {
@@ -2274,11 +2279,12 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 5,
+   "p": 2.46
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 2.46,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "020406": {
   "tipo": "priced",
@@ -3122,7 +3128,7 @@
   "checksum_ok": true
  },
  "030203": {
-  "tipo": "sin_valor",
+  "tipo": "priced",
   "nombre_ocr": "P.M.O.DEINTERVENCIONESQUIRLRGICASCONNOMENCLADORNACIONAL MIRINGOTOMIA CONO SIN COLOCACIONDETUBO DRENAJE. exto refirado porePMOumi o bilateral",
   "page": 18,
   "esp": {
@@ -3139,11 +3145,12 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 26,
+   "p": 12.81
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 12.81,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "030204": {
   "tipo": "priced",
@@ -6373,7 +6380,7 @@
   "checksum_ok": true
  },
  "050408": {
-  "tipo": "sin_valor",
+  "tipo": "priced",
   "nombre_ocr": "PUNCIONDECAVIDADPLEURALPARALAVAJE,OINSTILACIONDESUBSTANCIAS. TextoretiradoporelPMO terapeuticas,PUNCIONPLEURALy/OPULMONAR. extorelradoporePMOdiogndstica,evacuadora.",
   "page": 28,
   "esp": {
@@ -6390,11 +6397,12 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 7,
+   "p": 3.45
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 3.45,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "050409": {
   "tipo": "priced",
@@ -6445,7 +6453,7 @@
   "checksum_ok": true
  },
  "050411": {
-  "tipo": "sin_valor",
+  "tipo": "priced",
   "nombre_ocr": "NEUMOTORAX. extoretrado porePMOporcada inyeccion",
   "page": 28,
   "esp": {
@@ -6462,11 +6470,12 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 7,
+   "p": 3.45
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 3.45,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "050413": {
   "tipo": "sin_valor",
@@ -9424,7 +9433,7 @@
   "checksum_ok": true
  },
  "080212": {
-  "tipo": "sin_valor",
+  "tipo": "priced",
   "nombre_ocr": "PERITONEOCENTESISEVACUADORA,DIAGNOSTICAOPARANEUMOPERITONEO. Texito retiradopore PMO retroneumoperitoneo(Porsesion)",
   "page": 41,
   "esp": {
@@ -9441,11 +9450,12 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 7,
+   "p": 3.45
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 3.45,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "080213": {
   "tipo": "priced",
@@ -11994,7 +12004,7 @@
   "checksum_ok": true
  },
  "090107": {
-  "tipo": "sin_valor",
+  "tipo": "priced",
   "nombre_ocr": "BIOPSIADEGANGLIO LINFATICO PORPUNCION.",
   "page": 49,
   "esp": {
@@ -12011,11 +12021,12 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 26,
+   "p": 12.81
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 12.81,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "090108": {
   "tipo": "priced",
@@ -12834,7 +12845,7 @@
   "checksum_ok": true
  },
  "100209": {
-  "tipo": "sin_valor",
+  "tipo": "priced",
   "nombre_ocr": "CISTOTOMAPORPUNCION CON TROCAR. Texloreiradoporel PMOPuncion evacuadorawesical",
   "page": 52,
   "esp": {
@@ -12851,11 +12862,12 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 7,
+   "p": 3.45
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 3.45,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "100210": {
   "tipo": "priced",
@@ -16894,11 +16906,12 @@
    "p": null
   },
   "gasto": {
-   "u": 50.0,
+   "u": 50,
    "p": 24.64
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 33.89,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "121601": {
   "tipo": "priced",
@@ -17452,7 +17465,8 @@
    "p": null
   },
   "total_p": 58.79,
-  "checksum_ok": null
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "121715": {
   "tipo": "priced",
@@ -19114,7 +19128,7 @@
   "checksum_ok": true
  },
  "130115": {
-  "tipo": "sin_valor",
+  "tipo": "priced",
   "nombre_ocr": "facturarseconsulta medico. IMPILANTACIONDEPELLETSENTEJIDOSUBCUTANEO.",
   "page": 75,
   "esp": {
@@ -19131,11 +19145,12 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 26,
+   "p": 12.81
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 12.81,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "130201": {
   "tipo": "priced",

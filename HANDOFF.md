@@ -3184,6 +3184,58 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
   **Pendiente para el usuario**: decidir qué hacer con el PR #58 en sí (mergearlo,
   pedir revisión, etc.) — este bloque sólo corrige la rama propia para que no quede un
   dato mal clasificado dando vueltas mientras tanto.
+- ✅ **PR #58 mergeado — capítulos 01 a 13 del barrido de «galenos sin cargar»,
+  terminados el 27/8/2026, misma sesión.** El usuario mergeó el PR #58 a
+  `claude/unified-medical-codes-manual-o9nw1w` (commit `cf1a1c7`). Traído a esta rama con
+  un merge real (no reset): `data/nn_values.json` no tuvo conflicto (el PR #58 nunca lo
+  toca), `data/nbu_db.json`/`web/nbu_db.bin` sí —resueltos tomando la versión de origin
+  entera, verificado antes campo por campo que es un superset exacto de los 23 códigos
+  del capítulo 43 corregidos acá (0 diferencias, 0 regresiones)—. Quedaban **618 → 214**
+  códigos PMO sin `valores.galeno` después del PR #58 (los otros 4 capítulos con formato
+  «Prácticas Especializadas» que también corrigió, más lo que ya traía el capítulo 43).
+  De esos 214, se completó **capítulo por capítulo el rango 01-13** (el formato clásico
+  «P.M.O. de Intervenciones Quirúrgicas» — Especialista/Ayudantes/Anestesista/Gasto/Total—
+  que si entiende `scripts/parse_nn.py`/`assemble.py`, a diferencia del rango 14-44 que
+  arregló el PR #58): **92 códigos**, leídos página por página contra el PDF real
+  (`pypdfium2`, páginas de archivo 14 a 83), con el mismo método y la misma validación por
+  checksum de siempre. De esos 92:
+  - **16 con valor real** que el extractor no había levantado (mismo bug de fila
+    contaminada de siempre): la mayoría **I/C** (honorario del especialista incluido en
+    la consulta médica, marcado así en la fuente — no se factura aparte) con sólo un
+    gasto fijo detrás (`010309`, `010409`, `010508`, `010606`, `020104`, `020405`,
+    `030203`, `050408`, `050411`, `080212`, `090107`, `100209`, `130115`, todos con
+    `esp:null`+`gasto` real); dos con especialista propio sin I/C (`121509`, `121714`); y
+    **`101010`** («Plastia unión ureteropiélica»), un caso aparte: la fuente dice
+    literalmente «ídem al código 10.01.10», así que se copió el valor de `100110` en vez
+    de inventar uno.
+  - **76 confirmados «Código agregado por el P.M.O.»** — mayoría en capítulos enteros de
+    prácticas modernas que el Nomenclador Nacional de 1991/2002 no podía tener
+    (angioplastia con stent, trasplantes, cirugía laparoscópica/videoscópica,
+    artroscopia, desfibrilador implantable — capítulos **07 y 08 salieron 100% así**,
+    ninguno con valor real). Ya estaban bien en la base (sin `valores`, correctamente
+    fuera del cálculo), pero con un `valor.arancel` genérico que no explicaba por qué
+    —igual al bug que ya se había visto en la sesión de las 35—; se les puso el mismo
+    texto explícito que usa el PR #58 («Código agregado por el P.M.O.: no está en el
+    Nomenclador Nacional de Prestaciones Médicas, no tiene valorización en galenos.»)
+    para no dejarlo en ambiguo.
+  ⚠️ **La columna «Coseguro Hasta»** vuelve a aparecer suelta en curaciones/nebulizaciones
+  de varios capítulos (mismo caso que el capítulo 43) y **no se cargó** por la misma razón
+  de antes: no es parte de este esquema, es un campo nuevo a decidir con el usuario, no
+  a agregar de oficio.
+  Publicado por tandas con `python3 scripts/inject_db.py`; corrida completa de los 21
+  archivos de `tests/e2e/` después de cada tanda (capítulos 01+02+03+05+06, luego 07+08,
+  luego 09+10+11+12+13), sin fallas en ninguna.
+  **Quedan 198** códigos PMO sin `valores.galeno`, y **del rango 01-13 ya no queda
+  ninguno pendiente de revisar** — los `08`→16 y `07`→14 que todavía figuran en el
+  conteo (junto con el resto de capítulos de ese rango) son exactamente los códigos
+  recién confirmados `agregado_pmo` de este mismo bloque, no un caso abierto: siguen
+  «sin galeno» porque por diseño un `agregado_pmo` no lleva ese campo, no porque falte
+  revisarlos. Todo lo que queda por mirar es **capítulo 66 en adelante y 14 a 44**,
+  donde el PR #58 no llegó a cerrar todo: `66`→16, `34`→13, `18`→9, `42`→9, `24`→8,
+  `26`→8, `35`→7, `20`→6, `17`/`29`/`33`→5 c/u, `28`/`30`/`36`→4 c/u,
+  `22`/`27`/`31`/`43`→3 c/u, y el resto con 2 o menos — todo en formato «Prácticas
+  Especializadas» (Honorarios/Gastos/Total/Coseguro), el mismo trabajo que hizo el PR
+  #58, sin pasar por `nn_values.json`.
 
 ### Lo que queda por confirmar en los datos
 - **84 títulos «denominación a confirmar»** (`titulo_revisar`): ninguna fuente los resuelve
