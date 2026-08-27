@@ -2864,7 +2864,79 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
   `python3 scripts/inject_db.py` (regenera `web/nbu_db.bin`; no toca `<script>` de
   `index.html`, no hizo falta resellar la CSP). Corrida completa de los 31 archivos de
   `tests/e2e/`, sin fallas.
-- ✅ **Sesión muerta del lado del servidor — arreglado el 26/8/2026, encontrado por el
+- ✅ **3 códigos PMO más con valor real — encontrados por el usuario revisando el
+  listado, 26/8/2026: «100503, 121417, 280105, 430201 tiene valores... 010605, 020105
+  tiene valor».** De los cuatro primeros, sólo `100503` (Orquidectomía unilateral)
+  resultó ser un caso simple: `nn_values.json` tenía especialista/ayudante/anestesista/
+  gasto bien parseados pero **le faltaba sólo el total** (`total_p:null`,
+  `checksum_ok:null`, así que `assemble.py` lo descartaba igual que si no tuviera
+  nada) — se reconstruyó sumando los cuatro componentes (99.57, confirmado además
+  contra la página real). `020105` y `010605` no estaban ni siquiera **como entrada**
+  en `nn_values.json` (`nn.get(code) is None`) pese a tener valor real e impreso en la
+  misma página que códigos vecinos ya corregidos — se leyeron directo de la página
+  (`020105`: 215.78; `010605`: 180.25). `280105` y `430201` resultaron ser síntoma de
+  un problema mucho más grande, ver el punto siguiente.
+- ✅ **~500 códigos PMO sin valor eran, en realidad, un segundo formato de tabla que el
+  extractor nunca entendió — investigado y corregido a mano, página por página,
+  26/8/2026.** El usuario, mirando `280105` y `430201`, avisó: «fijate que algunos en
+  la ultima fila dice COSEGURO HASTA, NO total... Los de RETIRADO POR EL PMO, fijate
+  que muchos tiene valor.. pero la suma no te debe estar dando». Tenía razón: a partir
+  del capítulo 14 (`data/NOMENCLADOR NACIONAL DE PRESTACIONES MEDICAS CON
+  PMO-COMPRIMIDO.pdf`, título de sección en la página impresa 82 → índice de PDF 91,
+  hasta la página impresa ~134 → índice de PDF 150, antes de que empiece la sección de
+  odontología en índice 152) el documento cambia de **"P.M.O. de Intervenciones
+  Quirúrgicas"** (Especialista/Ayudantes/Anestesista/Gasto/Total, el formato que sí
+  entendía `scripts/parse_nn.py`) a **"P.M.O. de Prácticas Especializadas"**
+  (Honorarios/Gastos/**Total Práctica**/**Coseguro Hasta**, dos columnas nuevas que
+  `parse_nn.py` no tiene mapeadas). Como el extractor buscaba «Total» donde ahora está
+  Coseguro Hasta (un número redondo tipo 250.00, 100.00, 50.00 — nunca el valor real de
+  la práctica), producía `checksum_ok:false` o, más seguido, ni siquiera encontraba
+  nada (`tipo:'sin_valor'`) — de ahí que capítulos enteros (Cardiología, Medicina
+  Nuclear + Centellograma, Radiología, Genética Humana, Neumonología, etc.)
+  aparecieran 100% sin valor en el listado original: no es que la fuente no los tenga,
+  es que nadie los leyó bien nunca.
+  ⚠️ **Se probó automatizar la lectura con Tesseract antes de tocar nada a mano** (ver
+  el intercambio con el usuario del 26/8/2026: «Probé el parser automático... resultó
+  poco confiable») — en la misma página de Genética Humana ya leída a mano, la pasada
+  de página completa **se comió el código `21.01.01` entero** y en la columna de
+  Coseguro Hasta devolvió basura según el recorte usado. El usuario decidió seguir con
+  lectura manual, página por página, como se venía haciendo — mismo método que ya
+  había demostrado cero errores en los 35+3 códigos anteriores.
+  Se recorrieron ~65 páginas del PDF (capítulos 14 a 44, uno por uno, con
+  `PyMuPDF.get_pixmap(dpi=190-200)` y lectura visual directa) transcribiendo
+  honorarios/gastos/total práctica/coseguro de cada fila, con la misma validación de
+  siempre: honorarios$ + gastos$ tiene que cerrar contra el total práctica impreso
+  (tolerancia `max(0.05, total*0.02)`, algo más laxa que la de `parse_nn.py` porque acá
+  el redondeo de esta sección corre más). Lo que no cerraba, se dejó afuera en vez de
+  forzarlo.
+  Resultado, aplicado directo a `data/nbu_db.json` (sin pasar por `nn_values.json`,
+  que no tiene columnas para este formato — Honorarios/Gastos, sin
+  ayudantes/anestesista, más `coseguro_hasta`; mismo `valores.galeno`/`pesos_2002` que
+  usa `assemble.py`, con los campos que no aplican en `None`):
+  - **427 códigos** con `valores` reales (honorarios/gasto en galenos y en $ 2002, más
+    `coseguro_hasta` cuando la fila lo traía).
+  - **90 códigos** marcados explícitamente como **«Código agregado por el P.M.O.: no
+    está en el Nomenclador Nacional de Prestaciones Médicas, no tiene valorización en
+    galenos»** en `valor.arancel` — pedido explícito del usuario («TODO LO QUE DIGA
+    CODIGO AGREGADO POR PMO, debe aclarar que no tiene valor»): son filas donde el
+    propio documento no imprime ningún honorario ni gasto, sólo el coseguro (cuando lo
+    tiene) — no es un vacío del extractor, es que esa prestación nunca tuvo
+    valorización en el Nomenclador Nacional de 1991/2002 y el PMO la sumó después.
+  - **1 código** marcado «Incluido en la consulta médica (I/C) — no se factura por
+    separado» — la mayoría de las filas «I/C» de la fuente ni siquiera tienen una
+    entrada de 6 dígitos en `nbu_db.json` (no forman parte del catálogo PMO cargado),
+    así que no había nada que marcar en esos casos.
+  - `430201` (CURACIONES, uno de los cuatro códigos que disparó todo esto): la fila
+    real es sólo gasto (sin honorario), total práctica **1.04**, coseguro 50 — muy
+    distinto del `total_p:50.0` que tenía `nn_values.json` antes, que en realidad había
+    mezclado el texto de la norma («Curaciones sin cargo: cirugía hasta 89 u.s. ...»,
+    impreso arriba de la fila) con la fila misma.
+  ⚠️ **Estado al cierre de este bloque**: aplicado a `data/nbu_db.json` y publicado con
+  `python3 scripts/inject_db.py` (regenera `web/nbu_db.bin`). **Falta todavía**: correr
+  la suite completa de `tests/e2e/` sobre este cambio (se interrumpió antes de
+  terminar) y commitear/pushear — el archivo de trabajo con los ~600 códigos leídos
+  (`especializadas.json` y el acumulador `especializadas_acc.py`) quedó en el
+  scratchpad de la sesión, no en el repo.
   usuario mirando los logs de Postgres del proyecto (API Gateway/Postgres/Auth de
   Supabase).** Vio 17 errores de Postgres sobre 21 llamados en una hora; el detalle era
   `42501 permission denied for function pendientes` justo después de un
