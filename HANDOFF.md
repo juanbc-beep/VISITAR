@@ -3028,6 +3028,62 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
 - **Novedades normativas / vigencias**.
 - **Chat de consulta con IA**: se conversó, no se decidió. ⚠️ Incompatible con el requisito
   de funcionar **offline y sin servidor** salvo que se acepte una dependencia externa.
+- ✅ **Capítulo 43 (Prestaciones Sanatoriales) del barrido de «galenos sin cargar» —
+  terminado el 27/8/2026, continuación de la sesión del 26/8/2026** (`35 códigos PMO con
+  «checksum no cierra»`, bloque de arriba). Contexto: de los 679 códigos PMO detectados
+  sin `valores.galeno`, 35 (checksum que no cerraba) y 3 más (hallados por el usuario)
+  ya se habían corregido; quedaban **641**, capítulo por capítulo, y el usuario indicó
+  dónde había quedado la sesión anterior: **capítulo 43, páginas 146-148** (del recorte
+  de `scripts/paginas_nn.py`; páginas impresas 136-140 del PDF).
+  ⚠️ **`scripts/paginas_nn.py` no sirve para esto**: recorta la mitad izquierda de la
+  página (código + descripción, para transcribir «Texto retirado por el PMO», ver 3.8) y
+  **corta justo antes de las columnas de Honorarios/Gastos/Total** que hacen falta acá.
+  Hubo que renderizar la página entera con `pypdfium2` a mano (mismo PDF, sin recorte).
+  Ninguna de las tres —`pypdfium2`, `Pillow`, `pymupdf`— estaba instalada en el entorno de
+  esta sesión; se instalaron con `pip install` (no quedan persistidas si el contenedor se
+  reinicia entre sesiones — dejarlo anotado para no perder tiempo redescubriéndolo).
+  El capítulo 43 tiene un formato de columna **más simple que el quirúrgico** (que sí usa
+  `assemble.py`/`nn_values.json`, ver 3.8): una sola «Honorarios» (U./$.), sin
+  especialista/ayudante/anestesista separados, «Gastos» con sólo una sigla impresa
+  (`og`/`up`/`OG`/`UP`, sin cifra) y «Total Práctica» que en los 23 códigos revisados es
+  **exactamente igual al $ de Honorarios** (el gasto no suma nada). Corroborados los 23
+  contra la página real: **los 23 tenían honorarios impresos** que el extractor por
+  posición (`scripts/parse_nn.py`, mismo bug que las 35 anteriores) no había levantado —
+  `esp`/`ayu`/`anes`/`gasto` quedaban en `null` en `nn_values.json` (`tipo:"sin_valor"`).
+  Corregidos en `data/nn_values.json` (`esp.u`/`esp.p`, `total_p=esp.p`,
+  `checksum_ok:true`, `corregido_manualmente:true`, y el **número de página real
+  impreso** en vez del `page` de la OCR, que ya se sabía desalineado — ver el bloque de
+  las 35) y en `data/nbu_db.json` (`valores.galeno`/`pesos_2002`/`total_2002` y
+  `asociaciones_especificas`, mismo formato que arma `assemble.py`, aplicado a mano sobre
+  los dos JSON como la vez anterior — no hay intermedios del pipeline completo en el
+  scratchpad de esta sesión tampoco). Los otros **3 códigos** del capítulo (`430109`
+  «Observación en guardia o piso hasta 8 horas», `431106` «Monitoreo de presión
+  endocraneana», `431107` «Oximetría por métodos no invasivos») **ya estaban bien**: el
+  original dice «CODIGO AGREGADO POR EL P.M.O.» —no tienen renglón en el Nomenclador
+  Nacional— y la ficha ya lo refleja (`auditoria` con «Código agregado por el P.M.O.»,
+  sin `valores`); no es un caso pendiente, quedan así a propósito.
+  ⚠️ **La columna «Coseguro Hasta»** (50.00 en curaciones y nebulizaciones, `43.02.01`,
+  `43.02.02`, `43.04.01`, `43.04.02`) **no se cargó**: no es parte del esquema
+  `valores.galeno`/`asociaciones_especificas` que arma `assemble.py`, y agregarla es un
+  campo nuevo, no una corrección de este barrido — queda anotado para el usuario, no
+  decidido de oficio.
+  Publicado con `python3 scripts/inject_db.py` (regenera `web/nbu_db.bin`; no se tocó
+  ningún `<script>` de `index.html`, no hizo falta resellar la CSP). Corrida completa de
+  los 21 archivos de `tests/e2e/`, sin fallas.
+  **Capítulo 43 del barrido: terminado** (0 pendientes reales, los 3 `agregado_pmo` no
+  cuentan). **Quedan 618** de los 679 originales, en el resto de los capítulos —
+  `34` (127) y `26` (110) concentran casi el 40%, siguen `20` (25), `18` (22), `24` (21),
+  `17` (20), `31` (19), `30` (18), `08` (17), `42`/`66` (16 c/u), `21` (15), y el resto
+  con menos de 15 cada uno.
+  ⚠️ **El capítulo 34 (radiología) es un caso aparte, sin abrir todavía**: los 127
+  códigos de ese capítulo que faltan **no tienen ni siquiera la clave `valores` en
+  `nbu_db.json`** (no es que el extractor haya fallado con `sin_valor` como en los demás
+  — directamente nunca se le corrió `parse_nn.py`/`assemble.py` encima; ese capítulo se
+  armó aparte con `altas_pmo_cap34.py`/`parse_pmo_titulos.py`, ver 3.4). Antes de tratarlo
+  igual que los demás —capítulo por capítulo, leyendo la página real— conviene confirmar
+  con el usuario si la radiología se arancela con el mismo esquema de galenos o con otro
+  (tope, unidad bioquímica, etc. — HANDOFF ya documenta 38 códigos con «tope PMO» en la
+  sección 1), para no forzarle un campo que no le corresponde.
 
 ### Lo que queda por confirmar en los datos
 - **84 títulos «denominación a confirmar»** (`titulo_revisar`): ninguna fuente los resuelve
