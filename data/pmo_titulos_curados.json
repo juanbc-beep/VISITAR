@@ -635,6 +635,36 @@
    "nombre": "dacriocistorrinostomía, fistulización de saco lagrimal en cavidad nasal, plombaje, operación plástica en canalículos",
    "antes": "dacriocistorrinostomia fistulizacion de saco lagrimal en cavidad nasal, plombaje. Operación plástica",
    "capitulo": "02"
+  },
+  "030109": {
+   "nombre": "escisión de lesión local de conducto auditivo externo, incisión y drenaje de conducto auditivo externo y de piel de oído, biopsia de oído externo",
+   "antes": "Escisión de lesión local de conducto auditivo externo. Incisión y drenaje de conducto auditivo exter",
+   "capitulo": "03"
+  },
+  "030501": {
+   "nombre": "cierre de fístula meníngea (craneorrinorrea) por vía transinusal",
+   "antes": "Cierre de fístula meníngea (craneorrino) por vía transinual",
+   "capitulo": "03"
+  },
+  "030705": {
+   "nombre": "operación comando de encía o de trígono retromolar (escisión de lesión primaria, más vaciamiento ganglionar cervical)",
+   "antes": "Operación comando de encía o de trígono retromolar (escisión de lesión primaria, más vaciamiento gan",
+   "capitulo": "03"
+  },
+  "031004": {
+   "nombre": "resección de labio (por escisión amplia de tumor maligno y sutura), escisión en cuña (como única operación)",
+   "antes": "Resección de labio (por escisión amplia de tumor maligno y sutural). Escisión en cuña (como única op",
+   "capitulo": "03"
+  },
+  "031101": {
+   "nombre": "operación comando de lengua (escisión de lesión primaria y vaciamiento ganglionar cervical)",
+   "antes": "Operación comado de lengua (escisión de lesión primaria y vaciamiento ganglionar cervical)",
+   "capitulo": "03"
+  },
+  "031307": {
+   "nombre": "escisión de divertículo faringoesofágico, escisión de lesión local de faringe, de fístula branquial y/o quiste branquial o vestigio",
+   "antes": "Escisión de divertículo faringoesofágico.Escisión de lesión local de faringe, de fístula branquial y",
+   "capitulo": "03"
   }
  }
 }
