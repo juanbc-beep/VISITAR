@@ -485,6 +485,11 @@
    "nombre": "exploración, drenaje, extracción, incisión, escisión, biopsia, tenotomía, fasciotomía",
    "antes": "Exploración, drenaje, extracción, Incisión, escisión, biopsia, tenotomía, fasciotomía",
    "capitulo": "12"
+  },
+  "121503": {
+   "nombre": "tenoplastia con alargamiento o acortamiento o injerto o transferencia tendinosa de tendón flexor de la muñeca o dedo de la mano",
+   "antes": "Tenoplastia con alargamiento o acortamiento o injerto o transferancia tendinosa de tendón flexor de",
+   "capitulo": "12"
   }
  }
 }
