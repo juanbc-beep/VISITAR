@@ -2065,6 +2065,38 @@ Funciones: `initValidator()`, `runCase()`, `renderCase()`, `renderFacturacion()`
 
 ## 7. Historial de trabajo
 
+**Lo hecho en la tanda del 2026-08-28, parte 5** (misma rama): auditoría completa del
+código a pedido del usuario ("repasá todo el código de la aplicación y verificá qué
+elementos quedaron rotos/sin uso"). Buena noticia: **cero referencias rotas al DOM y cero
+funciones de JS sin usar** en todo `web/index.html` (se revisaron los 236 `function` y 137
+`const/let =>` de nivel superior). Lo que sí apareció y se sacó, a pedido del usuario:
+
+- **8 reglas de CSS sin ninguna referencia**: `.acctbox`, `.gmeta`, `.cr-lbl`,
+  `.int-cand-nota`, `.acode` (todas superadas por otra clase que ya hace lo mismo:
+  `.mono`, `.slabel`, `.ovr-badge`, `.int-cand-avisos` según el caso) y `.tt-rol`/
+  `.tt-prog` (quedaron de un diseño anterior de la tarjeta del tutorial — la propia
+  `pintarPaso()` sólo arma `.tt-n`, nunca badge de rol ni contador `.tt-prog`).
+- **El modal `#onboard`/`#onboardCard`/`.obcard`/`.obicon`/`.obdots`/`.obnav`/`.obskip`
+  completo** (CSS + HTML + las dos llamadas `el('onboard')` en JS): nunca se le asigna
+  contenido en ningún lado, y a su clase `.on` nunca se le hacía `add()`, sólo `remove()`
+  defensivo en `endOnboard()`. El onboarding real usa enteramente el mismo `#tour` del
+  recorrido guiado (`startOnboard()`/`maybeOnboard()`), nunca este modal — código muerto
+  desde antes de esta sesión, no algo que se haya roto ahora.
+- **Verificado, no se tocó**: `.sem-y`/`.sem-g` (semáforo amarillo/verde de autorización)
+  también están sin usar —hoy toda fila de autorización sale en rojo, `.sem-r`— pero
+  podría ser una funcionalidad a medio terminar y no sólo CSS de sobra; queda para que el
+  usuario decida si la termina o la saca. Dos ids huérfanos sin impacto (`abBox`,
+  `auth-css`) quedaron anotados pero sin tocar, por no valer el riesgo de una edición más.
+- **Scripts de `scripts/` que no corre `assemble.py`**: son herramientas manuales a
+  propósito (lo dice el docstring de cada uno) — no son código muerto, no se tocaron.
+  Un puñado de archivos de datos "raw" (`data/nbu_catalog_raw.json`,
+  `data/nbu_intel_raw.json`, `data/pmo_catalog_raw.json`, y algunos PDF/Excel/txt de
+  origen) no los lee ningún script hoy; salvo `data/pmo_titulos_a_revisar.json`
+  (confirmado obsoleto: la tarea que lo generaba cerró el 28/8, ver más abajo en esta
+  misma sección), quedan sin decisión — parecen copias de respaldo del proceso original,
+  no algo para borrar a ciegas.
+- Verificado con `scripts/sellar_csp.py` y la suite completa (34 casos, sin romper nada).
+
 **Lo hecho en la tanda del 2026-08-28, parte 4** (misma rama): el usuario reportó que a
 los administrativos, al abrir el correo de "restablecer contraseña", les daba un error de
 acceso. Causa encontrada — **ya documentada, no es nueva**: ver `docs/INSTALACION.md` 1.3
