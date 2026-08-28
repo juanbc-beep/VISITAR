@@ -1752,6 +1752,13 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from propagar_al_unico import propagar as _propagar_unico
 _propagar_unico(records, log=sys.stderr)
 
+# ---------- el Único (médico) hereda del PMO lo mismo que el de arriba hereda del NBU ----------
+# Mismo problema, mitad médica: valorización de galeno, cobertura PMO, coseguro. El
+# nombre del Único NUNCA se toca (es el nomenclador que usa la empresa) — ver el
+# chequeo de seguridad adentro de propagar_pmo_a_unico.py.
+from propagar_pmo_a_unico import propagar as _propagar_pmo_unico
+_propagar_pmo_unico(records, log=sys.stderr)
+
 # ---------- guarda final: ninguna ficha sin denominación ----------
 # Alguna prestación llega con el título destruido en la fuente (p. ej. 130303, que
 # el OCR del PDF dejó ilegible). No se inventa una denominación: se marca la ficha
