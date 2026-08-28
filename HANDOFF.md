@@ -2065,8 +2065,52 @@ Funciones: `initValidator()`, `runCase()`, `renderCase()`, `renderFacturacion()`
 
 ## 7. Historial de trabajo
 
-**Lo hecho en la tanda del 2026-08-28** (rama `claude/nomenclador-sweep-continue-1ayph3`),
-sobre tres pantallas del panel de administración que el usuario mostró en capturas:
+**Lo hecho en la tanda del 2026-08-28, parte 2** (misma rama), sobre bugs del recorrido
+guiado (onboarding) reportados por el usuario en mobile:
+
+- **Causa raíz de "no me deja volver del paso 7 al 6" / "paso 9 al 8", con captura**: cada
+  paso del tour puede traer un `antes()` que prepara la pantalla (abrir el cajón de filtros,
+  abrir/cerrar una ficha); si después de eso el elemento a señalar sigue sin encontrarse,
+  `pintarPaso()` saltea el paso — pero **siempre sumaba** (`tIdx++`), sin importar si se
+  estaba navegando para adelante o para atrás con «← Atrás». Yendo para atrás, ese salto en
+  la dirección equivocada rebotaba al paso SIGUIENTE, cuyo `antes()` deshacía lo que el paso
+  de atrás acababa de preparar (cerraba el cajón que se acababa de abrir, o reabría la ficha
+  que se acababa de cerrar) — de ahí la sensación de "se cierra el menú hamburguesa" y de que
+  "Atrás" no hace nada. Arreglado con una variable de dirección (`tDir`, ±1 según se tocó
+  Siguiente o Atrás) que ahora se usa en el salto (`tIdx+=tDir`) en vez de sumar siempre.
+- **El disparador real, en el caso del usuario**: casi seguro estaba en modo **«Buscar en
+  todo» (ALL)** cuando corrió el recorrido. En ese modo NINGÚN filtro aplica —ni sección, ni
+  tipo de Único, ni grupo, ni «reglas y estados» (ver `applyMode()` y `buildGroups()`)—, así
+  que el paso «Filtros, en tres bloques» es irreproducible ahí: se salta solo yendo para
+  adelante (comportamiento correcto y ya existente), pero antes del arreglo, yendo para atrás
+  rebotaba sin parar contra el paso «Vistas», abriendo y cerrando el cajón vacío en cada
+  intento — visualmente igual a que el menú hamburguesa "se cerrara solo".
+- **Bug relacionado, encontrado al investigar**: en modo ALL el botón de filtros (☰, mobile)
+  seguía visible aunque el cajón que abre esté completamente vacío — ni un solo filtro que
+  mostrar. Se oculta ahora ese botón (`#filterToggle.hidden`) cuando `state.mode==='ALL'`,
+  mismo criterio (`isAll`) que ya usaba `flagsPanel`. Esto también resuelve, de paso, el "no
+  te muestra absolutamente nada" que describió el usuario al querer filtrar desde «Buscar en
+  todo» en mobile.
+- **La "X" tapando texto de filtros, mobile**: el botón de cerrar (`.rail-close`) es
+  `position:absolute;top:10px;right:10px` DENTRO del cajón (`<aside id="rail">`), que en
+  mobile tenía el mismo padding parejo (16px) en las cuatro puntas — sin espacio reservado
+  para el botón, tapaba las primeras líneas del PRIMER panel visible (cuál es varía según el
+  modo: Sección NBU, Tipo de práctica, Grupo…). Se le agregó `padding-top:58px` (altura del
+  botón + su offset + respiro) sólo en mobile.
+- Los tres arreglos son en `web/index.html` únicamente (sin tocar datos), verificados con
+  `scripts/sellar_csp.py` (se editó `<script>`) y la suite completa de `tests/e2e/` (27 casos
+  existentes + 3 nuevos en `casos/onboarding_tour.mjs`, sin romper nada). El primer caso
+  nuevo se armó reproduciendo el modo ALL explícitamente, y se confirmó que falla sin el
+  arreglo de `tDir` (revirtiéndolo a mano) y pasa con él — no alcanza con "toca los botones y
+  ve si algo revienta": el bug es sobre la DIRECCIÓN del salto, así que el caso tiene que
+  forzar el escenario donde el paso de Filtros es inalcanzable de entrada.
+- **Pendiente, no resuelto acá**: no se pudo ver la imagen que el usuario adjuntó en el chat
+  (no llegó a esta sesión) — el diagnóstico salió de leer el código del tour y de la lógica
+  de filtros por modo, no de la captura. Si algo de lo descrito no queda resuelto con esto,
+  conviene reintentar el envío de la imagen.
+
+**Lo hecho en la tanda del 2026-08-28, parte 1** (misma rama), sobre tres pantallas del
+panel de administración que el usuario mostró en capturas:
 
 - **Textos → «Fichas con contenido editado»**: dibujaba un botón por cada código tocado,
   sin tope — con cientos de fichas editadas ocupaba varios scrolls de puro botón antes de

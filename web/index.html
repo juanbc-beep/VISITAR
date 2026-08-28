@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-deppJXP3nscltezMCnDniPK6bvrtlMOTPCg3CDO8JoM=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-nWnliVwi4mhrr+Yi3Du6X/6HxZMTTMdk2zWLQY7gY5c=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1184,7 +1184,12 @@ ul{margin:0;padding:0}
 @media (max-width:900px){
   .wrap{grid-template-columns:1fr;padding:14px 14px 60px}
   aside{position:fixed;inset:0 auto 0 0;top:0;height:100%;width:290px;max-height:100%;z-index:45;background:var(--bg);
-    padding:16px;transform:translateX(-100%);transition:transform .22s;box-shadow:8px 0 30px rgba(0,0,0,.2)}
+    /* padding-top aparte: el botón de cerrar es absolute dentro de este mismo
+       elemento y con el padding parejo de antes (16px) se comía las primeras
+       líneas de texto del primer panel visible —cuál es el primero varía según
+       el modo (Sección NBU, Grupo, Tipo de práctica...)—. 58px es la altura
+       del botón (42px, ver .icon-btn) más su offset (10px) y un respiro. */
+    padding:58px 16px 16px;transform:translateX(-100%);transition:transform .22s;box-shadow:8px 0 30px rgba(0,0,0,.2)}
   aside.on{transform:translateX(0)}
   /* .icon-btn ya centra con display:grid;place-items:center, pero acá se
      pisa el display a flex — sin repetir el centrado, place-items queda sin
@@ -2620,6 +2625,12 @@ function applyMode(){
   el('tipoUnicoPanel').hidden = state.mode!=='UNICO'; // Prestaciones/Laboratorio, sólo dentro del Único
   if(typeof renderTipoUnico==='function')renderTipoUnico();
   el('flagsPanel').hidden = isAll||state.mode==='SURGE'; // reglas/estados no aplican a búsqueda global/SURGE
+  /* «Buscar en todo» no tiene NINGÚN filtro propio: sección, tipo de Único y
+     grupo tampoco aplican acá (ver buildGroups) — el cajón de filtros queda
+     completamente vacío. Sin ocultar el botón, en mobile invitaba a abrirlo
+     igual y mostraba un cajón en blanco, sin ninguna explicación. */
+  el('filterToggle').hidden = isAll;
+  if(isAll)el('rail').classList.remove('on');
   el('grupoTitle').textContent = state.mode==='NBU' ? 'Grupo · área bioquímica' : (state.mode==='CIE' ? 'Capítulo CIE-10' : (state.mode==='ABR' ? 'Fuente' : (state.mode==='SURGE' ? 'Especialidad' : 'Capítulo · especialidad')));
   const treeOK = state.mode==='NBU'||state.mode==='UNICO'; // árbol de módulos: NBU y Único (lab)
   document.querySelector('.vtab[data-view="tree"]').hidden = !treeOK;
@@ -8670,7 +8681,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     return M;
   }
 
-  let tIdx=0,tPasos=[],tCorriendo=false;
+  let tIdx=0,tPasos=[],tCorriendo=false,tDir=1;
   // La primera vez corre el esencial; «▶ Ver tutorial» corre el completo.
   /* La marca de «ya vio el recorrido» va POR PERSONA, no por navegador. Con una
      sola marca global, la segunda cuenta que entraba en la misma computadora no
@@ -9212,7 +9223,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     cerrarPista(false);                         // el recorrido manda: dos carteles a la vez, no
     tCorriendo=true;
     tPasos=(cual==='esencial')?pasosEsenciales():pasosTour();
-    tIdx=0;                                     // volver a pedirlo reinicia desde el principio
+    tIdx=0;tDir=1;                               // volver a pedirlo reinicia desde el principio
     el('onboard').classList.remove('on');
     el('tour').classList.add('on');
     document.body.classList.add('tour-on');
@@ -9309,8 +9320,8 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         ${!ultimo?'<button class="tt-x" id="tSkip">Saltar</button>':''}
       </div>
       ${paso.extra?`<button class="tt-x tt-extra" id="tExtra">${paso.extra.txt}</button>`:''}`;
-    el('tNext').addEventListener('click',()=>{if(ultimo)endOnboard();else{tIdx++;pintarPaso();}});
-    if(el('tPrev'))el('tPrev').addEventListener('click',()=>{tIdx--;pintarPaso();});
+    el('tNext').addEventListener('click',()=>{if(ultimo)endOnboard();else{tDir=1;tIdx++;pintarPaso();}});
+    if(el('tPrev'))el('tPrev').addEventListener('click',()=>{tDir=-1;tIdx--;pintarPaso();});
     if(el('tSkip'))el('tSkip').addEventListener('click',endOnboard);
     // Enlace al pie de la tarjeta: hoy lo usa el último paso del recorrido esencial
     // para ofrecer el completo sin obligar a ir a buscarlo al panel de Glosario.
@@ -9322,7 +9333,13 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     // Si el elemento no está en pantalla el paso no aporta y se salta; salvo los
     // marcados como forzar —el botón de pendientes sólo aparece cuando hay algo—,
     // que se explican igual con la tarjeta centrada.
-    if(paso.sel&&!n&&!paso.forzar){tIdx++;return pintarPaso();}
+    // El salto respeta la DIRECCIÓN en la que se estaba navegando (tDir): antes
+    // siempre sumaba, así que yendo para atrás con «← Atrás» y sin encontrar el
+    // objetivo (p. ej. un panel que todavía no terminó de abrirse) el paso
+    // saltaba hacia ADELANTE, al paso siguiente — que a su vez podía deshacer
+    // lo que este paso acababa de preparar (cerrar el cajón de filtros, cerrar
+    // la ficha), dando la sensación de que «Atrás» no funciona o cierra cosas.
+    if(paso.sel&&!n&&!paso.forzar){tIdx+=tDir;return pintarPaso();}
     tip.className=n?'':'centro';
     if(n){
       // La tarjeta se planta directo donde va a quedar, calculado sobre la posición
