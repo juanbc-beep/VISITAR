@@ -520,6 +520,26 @@
    "nombre": "colporrafia anterior y/o posterior, con o sin amputación de cuello, con o sin corrección de retroversión uterina, con o sin perineorrafia, incluye tratamiento de la incontinencia de orina",
    "antes": "Colporrafia anterior y/o posterior, con o sin amputación de cuello, con o sin corrección de retrover",
    "capitulo": "11"
+  },
+  "260136": {
+   "nombre": "tratamiento paliativo con P32 de cáncer de mama con metástasis óseas",
+   "antes": "Tratamiento paliativo con P32 de cancer de mama con metastasis oseas",
+   "capitulo": "26"
+  },
+  "260137": {
+   "nombre": "tratamiento con P32 o Au198 por diseminación tumoral en cavidades serosas",
+   "antes": "Tratamiento con P32 o Au198 por diseminacion tumoral en cavidades serosas",
+   "capitulo": "26"
+  },
+  "260402": {
+   "nombre": "prueba de freno de la secreción de somatotrofina con determinación de somatotrofina",
+   "antes": "Prueba de freno de la secreción de somatotrofina con determinación de somatrotofina",
+   "capitulo": "26"
+  },
+  "260405": {
+   "nombre": "prueba de estímulo gonadal con hormona gonadotropa coriónica (HGG) con determinación de estrógenos totales",
+   "antes": "Prueba de estimulo gonadal con hormona gonatropa corionica HGG con determinación deestrogenos totale",
+   "capitulo": "26"
   }
  }
 }
