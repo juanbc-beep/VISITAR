@@ -595,6 +595,31 @@
    "nombre": "cistectomía parcial (diverticulectomía - resección del cuello vesical - denervación vesical - reducción vesical)",
    "antes": "Cistectomía parcial (diverticulectomía-resección del cuello vesical-denervación vesical-reducción ve",
    "capitulo": "10"
+  },
+  "070101": {
+   "nombre": "septostomía interauricular (Blalock-Hanlon), cardiotomía, con exploración, con extracción de cuerpo extraño, valvulotomía cardíaca, pulmonar, mitral, aórtica, comisurotomía, pericardiectomía",
+   "antes": "Septostomía interauricular (Blalock Halon) Cardiotomía (con exploración , con extracción de cuerpo e",
+   "capitulo": "07"
+  },
+  "070206": {
+   "nombre": "cierre defectos septales (auriculares y/o ventriculares), plásticas valvulares únicas o múltiples, anomalías parciales del retorno venoso pulmonar, estenosis no valvulares de la vía de salida de los ventrículos derecho e izquierdo, ventana aortopulmonar, fístula entre aorta o coronarias y cavidades cardíacas, embolectomía de la arteria pulmonar, extracción de cuerpos extraños en cavidades cardíacas, escisión de tumores cardíacos",
+   "antes": "Cierre defectos septales (auriculares y/o ventriculares). Plásticas valvulares únicas o múltiples. A",
+   "capitulo": "07"
+  },
+  "070301": {
+   "nombre": "cirugía de los grandes troncos arteriovenosos de la cavidad torácica: anastomosis, injertos, embolectomías, cerclajes, suturas, estenosis, coartación, ductus, embolias, heridas",
+   "antes": "Cirugía de los grandes troncos arteriovenosos de la cavidad torácica anastomosis, injertos, embolect",
+   "capitulo": "07"
+  },
+  "070501": {
+   "nombre": "cirugía de la arteria carótida o de la vertebral: tromboendarterectomía; endarterectomía, embolectomía; anastomosis; injertos (trombosis, embolias, aneurismas, fístula arteriovenosa); incluye eventual toma de vena para plástica o injerto",
+   "antes": "Cirugía de la arteria carótida o de la vertebral: Tromboendarterectomía; endarterectomia, embolectom",
+   "capitulo": "07"
+  },
+  "070601": {
+   "nombre": "embolectomía en arterias periféricas de miembros",
+   "antes": "Embolectomia en arterias perifericas de miembros",
+   "capitulo": "07"
   }
  }
 }
