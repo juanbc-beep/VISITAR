@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-nWnliVwi4mhrr+Yi3Du6X/6HxZMTTMdk2zWLQY7gY5c=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-tdPi7eVz31raNN89uzoF0kVV87KH8LrjMBImuDL+Gg0=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -9131,6 +9131,25 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     }
     return null;
   }
+  /* Mismo problema que contenedorScroll pero para el costado: en mobile
+     «.viewtabs» (Listado/Árbol/Mesa de trabajo/Intérprete) desborda a los
+     lados y scrollea horizontal. Sin esto, el paso de «Mesa de trabajo»
+     señalaba una pestaña con la mitad tapada por el borde de la pantalla —
+     la caja del resalte queda recortada al viewport (rectoRecorte) y nadie
+     movía la tira para que se viera entera. Nativo y aparte de
+     planScroll/transicion (que sólo mueven vertical) porque scrollIntoView
+     ya sabe centrar dentro de un contenedor angosto sin reinventar esa
+     cuenta; se resuelve ANTES de medir el resto, en el mismo cuadro. */
+  function corregirScrollLateral(n){
+    for(let e=n.parentElement;e&&e!==document.body;e=e.parentElement){
+      const cs=getComputedStyle(e);
+      if(/(auto|scroll)/.test(cs.overflowX)&&e.scrollWidth>e.clientWidth+2){
+        const r=n.getBoundingClientRect();
+        if(r.left<0||r.right>innerWidth)n.scrollIntoView({inline:'center',block:'nearest'});
+        return;
+      }
+    }
+  }
   /* Franja realmente utilizable: descuenta la cabecera pegajosa arriba y, en pantallas
      angostas donde el globo va apoyado abajo, su altura. */
   function franja(){
@@ -9342,6 +9361,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     if(paso.sel&&!n&&!paso.forzar){tIdx+=tDir;return pintarPaso();}
     tip.className=n?'':'centro';
     if(n){
+      corregirScrollLateral(n);
       // La tarjeta se planta directo donde va a quedar, calculado sobre la posición
       // final del elemento: así no se reacomoda a mitad del movimiento.
       const plan=planScroll(n);

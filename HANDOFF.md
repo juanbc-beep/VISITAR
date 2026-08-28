@@ -2109,6 +2109,41 @@ guiado (onboarding) reportados por el usuario en mobile:
   de filtros por modo, no de la captura. Si algo de lo descrito no queda resuelto con esto,
   conviene reintentar el envío de la imagen.
 
+**Lo hecho en la tanda del 2026-08-28, parte 3** (misma rama): a pedido del usuario
+("seguí revisando el resto del onboarding"), un repaso más del recorrido guiado además de
+los tres bugs de la parte 2:
+
+- **Encontrado y arreglado — "Mesa de trabajo" parcialmente tapada por el borde en mobile**:
+  en pantallas angostas (probado a 390px) la tira de vistas (`.viewtabs`: Listado / Árbol de
+  módulos / Mesa de trabajo / Intérprete de orden) desborda y scrollea horizontal
+  (`scrollWidth` 621 vs `clientWidth` 360 a ese ancho). La pestaña "Mesa de trabajo" arranca
+  parcialmente fuera del viewport ya en la posición de scroll inicial. El motor de scroll del
+  recorrido (`planScroll`/`transicion`) sólo sabía mover contenedores que desbordan
+  VERTICAL (`contenedorScroll`, ya existía para la ficha) — nunca se le enseñó el costado, así
+  que el resalte de ese paso quedaba recortado sobre una pestaña a medio tapar por el borde de
+  la pantalla. Se agregó `corregirScrollLateral(n)`, que detecta el mismo caso para el eje
+  horizontal y usa `scrollIntoView({inline:'center',block:'nearest'})` nativo — más simple y
+  con menos riesgo que extender a mano la animación existente (que sólo entiende un eje) para
+  sumarle el segundo. Se llama una vez, antes de medir el resto, en el mismo cuadro.
+  Confirmado con la misma disciplina que el resto de la tanda: el caso nuevo
+  (`casos/onboarding_tour.mjs`) falla revirtiendo el llamado a `corregirScrollLateral` y pasa
+  con él.
+- **Revisado y descartado, no es un bug real**: `#onboard`/`#onboardCard`/`.obcard` (markup y
+  CSS en `web/index.html`) — no se les asigna `innerHTML` en ningún lado y a la clase `.on` de
+  `#onboard` nunca se le hace `add()`, sólo `remove()` (defensivo, en `endOnboard()`). Es
+  código muerto: el onboarding real (`maybeOnboard()`) usa enteramente el mismo `#tour` que el
+  recorrido completo (`startOnboard('esencial')`), nunca este otro modal. No genera ningún
+  síntoma visible porque nunca se muestra — se deja anotado por si en algún momento se
+  encara una limpieza de HTML/CSS sin usar, no hace falta tocarlo para el onboarding en sí.
+- Revisado sin encontrar problemas: el sistema de "pistas" contextuales (`mostrarPista`/
+  `mostrarAyuda`, la campanita de novedades, "pedida como", el "?" de Filtros) — son avisos de
+  una sola vez sin navegación de pasos, así que no comparten el bug de dirección; ya frenan
+  solos si el recorrido está corriendo (`if(tCorriendo||...)return`) y `startOnboard()` cierra
+  cualquier pista abierta antes de empezar. Los z-index no compiten: `#tour` (1200) por encima
+  de `#pista` (1150) y de `#tratoModal` (940), así que ninguno puede quedar tapando al otro.
+- Verificado con `scripts/sellar_csp.py` y la suite completa (31 casos: 27 previos + 4 en
+  `casos/onboarding_tour.mjs`, sumando el de esta parte a los tres de la parte 2).
+
 **Lo hecho en la tanda del 2026-08-28, parte 1** (misma rama), sobre tres pantallas del
 panel de administración que el usuario mostró en capturas:
 

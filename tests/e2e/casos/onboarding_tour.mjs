@@ -185,6 +185,50 @@ async function main() {
     afirmar(errores.length === 0, 'no debe haber errores de JS: ' + errores.join(' | '));
   });
 
+  await correrCaso('onboarding_tour: el paso "Mesa de trabajo" queda entero a la vista en mobile (la tira de vistas scrollea al costado)', async () => {
+    // En 390px de ancho, la tira ".viewtabs" (Listado/Árbol/Mesa de trabajo/
+    // Intérprete) desborda y scrollea horizontal — medido: scrollWidth 621 vs
+    // clientWidth 360. La pestaña "Mesa de trabajo" arranca parcialmente fuera
+    // del viewport (su borde derecho cae más allá de innerWidth). El motor de
+    // scroll del recorrido (planScroll/transicion) sólo entendía contenedores
+    // verticales, así que el resalte de este paso podía quedar recortado sobre
+    // una pestaña a medio tapar por el borde de la pantalla.
+    const db = crearDB();
+    altaUsuario(db, { nombre: 'Admin General', email: 'onb4@visitar.test', password: 'Password123!', rol: 'admin', estado: 'activo' });
+    const ctx = await nuevoContexto(browser);
+    await ctx.setDefaultTimeout(10000);
+    await instalarSimulador(ctx, db);
+    const page = await ctx.newPage();
+    await page.setViewportSize(MOBILE);
+    await saltarOnboarding(page);
+    const { errores, csp } = vigilarErrores(page);
+    await page.goto(base);
+    await esperarArranque(page);
+    await loguear(page, 'onb4@visitar.test');
+
+    await page.evaluate(() => window.NBUProfile.tour());
+    await page.waitForSelector('#tourTip h4', { timeout: 5000 });
+    let titulo = '';
+    for (let i = 0; i < 20; i++) {
+      titulo = (await page.locator('#tourTip h4').textContent()) || '';
+      if (titulo.includes('Mesa de trabajo')) break;
+      await page.click('#tNext');
+      await page.waitForTimeout(160);
+    }
+    afirmar(titulo.includes('Mesa de trabajo'), `no se llegó al paso "Mesa de trabajo"; quedó en "${titulo}"`);
+    await page.waitForTimeout(300); // termina la transición de scroll
+
+    const rect = await page.locator('.vtab[data-view="validator"]').evaluate(n => {
+      const r = n.getBoundingClientRect();
+      return { left: r.left, right: r.right };
+    });
+    afirmar(rect.left >= 0 && rect.right <= 390,
+      `la pestaña "Mesa de trabajo" debería quedar entera dentro del viewport (390px); quedó left=${rect.left} right=${rect.right}`);
+
+    afirmar(csp.length === 0, 'no debe haber violaciones de CSP: ' + csp.join(' | '));
+    afirmar(errores.length === 0, 'no debe haber errores de JS: ' + errores.join(' | '));
+  });
+
   await browser.close();
   await new Promise((resolve) => srv.close(resolve));
 }
