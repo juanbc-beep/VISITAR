@@ -24,6 +24,18 @@
 > un puñado de códigos sueltos en los capítulos 18/42/43 que ya venían resueltos de
 > sesiones anteriores y no tienen coseguro en la fuente).
 >
+> **✅ La lista de 159 denominaciones a revisar (3.5) TERMINÓ el 28/8/2026, misma
+> sesión.** Los 24 capítulos con casos (01, 02, 03, 05, 06, 07, 08, 09, 10, 11, 12, 13,
+> 15, 17, 18, 21, 22, 25, 26, 29, 31, 33, 34, 35) quedaron revisados uno por uno con el
+> usuario, mostrándole cada cambio antes de aplicarlo — el método que pedía el punto 3.5
+> desde el principio. Sólo el capítulo 66 queda fuera, y es a propósito (Unidad
+> Bioquímica, otro problema). Dos hallazgos de método para la próxima vez que aparezca
+> algo así: **`c.alcance_nn.texto`** (el texto del Nomenclador Nacional, ya cargado en
+> la ficha) resuelve casi cualquier duda de redacción sin ir a buscar nada aparte; y
+> ante sospecha de que los *números* de código estén corridos, **cruzar contra
+> `data/unico_equivalencias.xlsx`** (numeración propia, independiente del PDF del PMO)
+> antes de tocar nada — ver el detalle completo en 3.5.
+>
 > **Lo más importante que cambió respecto del traspaso anterior:** la app dejó de ser un
 > archivo que cada uno guarda en su computadora y pasó a ser una **aplicación de empresa
 > publicada, con cuentas reales y base compartida**. Si venís del HANDOFF viejo, leé
@@ -281,13 +293,19 @@ es la exposición va en el paso de la carga y en la auditoría.
 
 ### 3.5 Lo que este cotejo dejó ver y NO se tocó
 
-`data/pmo_titulos_a_revisar.json` — **159 denominaciones** del PMO donde la base y
-el renglón impreso no coinciden, con las dos versiones al lado. Se van revisando
-por capítulo y las corregidas quedan en `data/pmo_titulos_curados.json` (**125**
-entradas al 28/8/2026). **Capítulos completos: 01, 02, 03, 07, 08, 09, 10, 11, 12,
-17, 18, 21, 22, 25, 26, 29, 31, 33, 34, 35** (20 de los ~25 capítulos con casos).
-**Quedan sólo 4 capítulos con casos sueltos**: 05(3), 06(3), 13(3), 15(4) — 13
-códigos en total — y el 66, fuera de alcance (Unidad Bioquímica, ver 7 bis D).
+✅ **TERMINADA el 28/8/2026.** `data/pmo_titulos_a_revisar.json` tenía **159
+denominaciones** del PMO donde la base y el renglón impreso no coincidían, con las
+dos versiones al lado. Se revisaron **los 24 capítulos con casos, uno por uno con
+el usuario** (01, 02, 03, 05, 06, 07, 08, 09, 10, 11, 12, 13, 15, 17, 18, 21, 22, 25,
+26, 29, 31, 33, 34, 35) y las corregidas quedaron en `data/pmo_titulos_curados.json`
+(**129** entradas). Sólo el capítulo 66 queda fuera, a propósito (Unidad Bioquímica
+de laboratorio, ver 7 bis D, es un problema distinto).
+
+⚠️ **Un caso quedó con las dos formas a propósito, no resuelto a una sola:**
+`130101` — la base decía «sacrococcígeo» y el catálogo PMO «sacrocoxígeo»; ninguna
+fuente desempataba (quedó anotado como «a decisión de auditoría» desde una sesión
+anterior y nunca se había resuelto). A pedido del usuario quedó **«sacrococcígeo
+(sacrocoxígeo)»**, con la segunda forma entre paréntesis en vez de elegir una.
 
 ⚠️ **Dos hallazgos nuevos al cerrar 17 y 02, además del de `alcance_nn` / la
 numeración del Único (ver más abajo):**
@@ -2400,17 +2418,13 @@ Lo que YA está bien y no hay que tocar:
 
 ### ⚠️ Lo primero que hay que preguntar al retomar
 
-**Los dos barridos grandes del Nomenclador Nacional terminaron** (el de 3.8 «Texto retirado
-por el PMO», ver 1072, y el de «galenos sin cargar», ver el bloque fechado 28/8/2026 más
-abajo en esta sección). No hay una tanda de transcripción en curso para retomar sin
-preguntar — si el usuario pide seguir con «el barrido», conviene confirmar cuál (quedan el
-capítulo **66**, que es un trabajo distinto de Unidad Bioquímica de laboratorio, ver 7 bis D;
-y **las 159 denominaciones a revisar** de 3.5, que es cotejo de nombres, no de valores).
-
-Antes de eso venía el cotejo del **Nomenclador de Prestaciones Médicas** capítulo por
-capítulo, con el usuario midiendo contra la fuente (ver 3.4 y 3.5). Lo que quedó de ahí es
-**la lista de 159 denominaciones a revisar** (3.5), de a un capítulo y mostrándole los
-cambios antes de aplicarlos.
+**Los tres barridos grandes del Nomenclador Nacional/PMO terminaron**: el de 3.8 «Texto
+retirado por el PMO» (ver 1072), el de «galenos sin cargar» y **el de las 159
+denominaciones a revisar (3.5)** — los tres cerrados el 28/8/2026. No hay una tanda de
+transcripción o cotejo en curso para retomar sin preguntar. Si el usuario pide seguir con
+«el barrido» o «las denominaciones», lo único que queda de esa familia es el capítulo
+**66** (Unidad Bioquímica de laboratorio, un problema distinto, ver 7 bis D) — y ojo que
+eso es *valores*, no nombres; la lista de nombres (3.5) ya no tiene pendientes.
 
 Dos propuestas suyas quedaron abiertas y él las nombró:
 
@@ -2436,7 +2450,6 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
 | **Cerrar las altas** cuando el equipo esté completo, subir el mínimo de contraseña | del usuario |
 | **Las 119 prácticas «fuera del PMO»** que están en nuestra sección PMO | criterio del usuario |
 | **Las 113 prácticas del Excel** que no están en la base (comparación de julio) | decisión conjunta |
-| **159 denominaciones del PMO a cotejar** con el renglón impreso (3.5) | de a un capítulo, con su visto |
 | **17 títulos del capítulo 34 «a confirmar»** y 2 ilegibles (`340803`, `340813`) | del usuario, o de otra planilla |
 | **Redacción del aviso «sin confirmar»** en las propuestas visibles al equipo | del usuario (se publicó una versión y ofreció cambiarla) |
 | **Volver la base adentro del `index.html`** si prefiere el archivo único (3.0 bis) | del usuario |
