@@ -2090,6 +2090,37 @@ sobre tres pantallas del panel de administración que el usuario mostró en capt
   de commitear; no quedó en `tests/e2e/casos/` porque no correspondía a un flujo de usuario
   nuevo, sólo a una redistribución visual — si se vuelve a tocar esta zona, conviene sumar un
   caso real ahí.
+- **⚠️ Corrección importante, a pedido del usuario: los dos barridos anteriores (galenos sin
+  cargar y las 159 denominaciones) sólo se habían aplicado del lado de Prestaciones Médicas
+  (PMO/NBU) — el código equivalente del Nomenclador ÚNICO se quedó con el nombre viejo o sin
+  valores, cuando la equivalencia entre ambos ya existía y son la misma práctica. Regla que
+  queda escrita para no repetir el error: **si dos códigos están vinculados por
+  `equivalencia_unico`/`equivalencia`, cualquier corrección tiene que aplicarse a los dos
+  lados, no sólo al que se estaba editando.**
+  - **Nombres**: de los 129 códigos corregidos en 3.5, en **46** el Único todavía tenía
+    textual el nombre VIEJO (antes de la corrección) — se le puso el nombre nuevo, y se
+    actualizaron también las copias que usa la ficha para mostrar la equivalencia
+    (`equivalencia_unico[].unico_desc` del lado PMO, `equivalencia.desc` del lado Único).
+    Los otros 83 códigos de esa lista **no se tocaron**: el Único ya tenía una redacción
+    propia distinta de la vieja (no es que se haya desincronizado por nuestro barrido, es
+    una transcripción independiente — capitalización, abreviada distinto, a veces cortada a
+    los 100 caracteres que corta la planilla origen). Forzar ahí el texto del PMO por
+    encima sin mirar cada caso hubiera podido pisar una transcripción del Único que ya
+    estaba bien. **Queda pendiente, aparte:** hay bastante más divergencia de redacción
+    entre PMO y Único que no tiene que ver con estos barridos —preexistente, de cuando se
+    cargó cada nomenclador por separado—; un repaso caso por caso de esa lista más grande es
+    un trabajo propio, no algo para resolver con un script ciego.
+  - **Valores de galeno**: de los códigos con `valores` reales cargados (barrido de galenos),
+    en **94** el Único no tenía ningún valor propio —decía literalmente «sin valorización
+    cargada»—, así que se le copiaron `valores` y `asociaciones_especificas` tal cual del
+    lado de Prestaciones Médicas: son números de la misma fuente (Nomenclador Nacional),
+    no una redacción a criterio, así que acá no hay ambigüedad para copiar.
+  - Lo que **no** se tocó a propósito: `coseguro_hasta` y el texto de `valor.arancel` con
+    «Coseguro hasta $X» de los códigos «agregado por PMO» — es una obligación de cobertura
+    específica del catálogo PMO, no un dato de la práctica en sí, y el Único no tiene ese
+    concepto (todavía «en elaboración», sin catálogo de cobertura propio).
+  - Verificado con `scripts/inject_db.py` + la suite completa de `tests/e2e/` (27 casos, sin
+    romper nada).
 
 **Lo hecho en la tanda del 2026-08-18** (rama `claude/nomenclador-chapters-30-29-21-0c4v9o`),
 toda sobre el barrido de 3.8:
@@ -2479,6 +2510,7 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
 | **17 títulos del capítulo 34 «a confirmar»** y 2 ilegibles (`340803`, `340813`) | del usuario, o de otra planilla |
 | **Redacción del aviso «sin confirmar»** en las propuestas visibles al equipo | del usuario (se publicó una versión y ofreció cambiarla) |
 | **Volver la base adentro del `index.html`** si prefiere el archivo único (3.0 bis) | del usuario |
+| **Divergencia de redacción PMO ↔ Único preexistente** (más de 80 códigos donde, aun siendo la misma práctica por `equivalencia_unico`, cada nomenclador la transcribió distinto — no es un desprolijo de los barridos, viene de cuando se cargó cada uno por separado; ver 7, tanda del 28/8/2026) | criterio del usuario: ¿homologar redacción, o dejarlas como transcripciones independientes de cada fuente? |
 
 ### Propuesto y NO construido (por orden de utilidad para el usuario de carga)
 - ✅ **Editar una propuesta antes de publicarla — construido el 26/8/2026.** Ver el bloque
