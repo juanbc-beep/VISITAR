@@ -620,6 +620,21 @@
    "nombre": "embolectomía en arterias periféricas de miembros",
    "antes": "Embolectomia en arterias perifericas de miembros",
    "capitulo": "07"
+  },
+  "020103": {
+   "nombre": "orbitotomía con escisión de lesión de órbita, con extracción de cuerpo extraño, con exploración, biopsia, etc. (con o sin apertura de pared de órbita)",
+   "antes": "Orbitotomía con escisión de lesión de órbita, con extracción de cuerpo extraño, con exploración, bio",
+   "capitulo": "02"
+  },
+  "020301": {
+   "nombre": "conjuntivoplastia (injerto libre de conjuntiva o membrana mucosa del labio, operación colgajo: flaping de conjuntiva)",
+   "antes": "Conjuntivoplastia ( injerto libre de conjuntiva o membrana mucosa del labio. Operación colgajo: Flap",
+   "capitulo": "02"
+  },
+  "020801": {
+   "nombre": "dacriocistorrinostomía, fistulización de saco lagrimal en cavidad nasal, plombaje, operación plástica en canalículos",
+   "antes": "dacriocistorrinostomia fistulizacion de saco lagrimal en cavidad nasal, plombaje. Operación plástica",
+   "capitulo": "02"
   }
  }
 }
