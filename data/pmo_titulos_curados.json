@@ -665,6 +665,11 @@
    "nombre": "escisión de divertículo faringoesofágico, escisión de lesión local de faringe, de fístula branquial y/o quiste branquial o vestigio",
    "antes": "Escisión de divertículo faringoesofágico.Escisión de lesión local de faringe, de fístula branquial y",
    "capitulo": "03"
+  },
+  "290202": {
+   "nombre": "polisomnografía con oximetría nocturna en adultos con presión positiva continua en la vía aérea",
+   "antes": "Polisomnografía con oximetria nocturna en adultos con Presión Positiva Continua en la Vía Aérea",
+   "capitulo": "29"
   }
  }
 }
