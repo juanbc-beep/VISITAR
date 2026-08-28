@@ -540,6 +540,36 @@
    "nombre": "prueba de estímulo gonadal con hormona gonadotropa coriónica (HGG) con determinación de estrógenos totales",
    "antes": "Prueba de estimulo gonadal con hormona gonatropa corionica HGG con determinación deestrogenos totale",
    "capitulo": "26"
+  },
+  "080101": {
+   "nombre": "esofaguectomía total (tipo Lewis-Siewert-McKeann) con reconstrucción, con/sin linfadenectomía",
+   "antes": "Esofaguectomía total Tipo Lewis-Siewert-McKeann) con reconstruccion C/S linfadenectomia",
+   "capitulo": "08"
+  },
+  "080110": {
+   "nombre": "esofagotomía o esofagorrafía de esófago cervical (exploradora, extracción de cuerpo extraño, herida, ruptura)",
+   "antes": "Esofagotomía o esofagorrafía de esófago cervical (exploradora extracción de cuerpo extraño, herida",
+   "capitulo": "08"
+  },
+  "080613": {
+   "nombre": "esfinterotomía o esfinterectomía (como única operación)",
+   "antes": "Esfinterotomía o esfinterectomía (como única operacion)",
+   "capitulo": "08"
+  },
+  "080701": {
+   "nombre": "lobectomía hepática, hepatectomía derecha o izquierda",
+   "antes": "Lobectomia hepática. Hepatectomia derecha o izquierda",
+   "capitulo": "08"
+  },
+  "080710": {
+   "nombre": "sección de ampolla de Vater, transduodenal. Papilotomía: con o sin colecistectomía o coledocotomía",
+   "antes": "Sección de ampolla Vater, transduodenal. Papilotomía : con o sin colecistectomía o coledocotomía",
+   "capitulo": "08"
+  },
+  "080803": {
+   "nombre": "escisión local de lesión de páncreas (adenoma-secuestrectomía). Drenaje de seudoquiste",
+   "antes": "Escisión local de lesión de páncreas ( adenoma-secuestrectomía). Drenaje de seudo quiste",
+   "capitulo": "08"
   }
  }
 }
