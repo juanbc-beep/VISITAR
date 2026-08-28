@@ -455,6 +455,242 @@
    "antes": "digo 661145. test rápido de fauces",
    "por": "Traía pegado adelante «digo 661145.», el final de «código 661145».",
    "capitulo": "66"
+  },
+  "120303": {
+   "nombre": "reducción osteosíntesis cúbito radio tercio inferior carpo primer metacarpo - tarso maxilares",
+   "antes": "Reducción y osteosintesis Cúbito radio, tercio inferior, uno o más huesos del carpo, primer metacarp",
+   "capitulo": "12"
+  },
+  "120503": {
+   "nombre": "resección total de cúbito radio peroné carpo astragalo calcáneo tarso costillas malar",
+   "antes": "Reseccion total de huesos: Cúbito, radio, peroné, carpo(uno o más huesos), astrágalo y/o calcaneo",
+   "capitulo": "12"
+  },
+  "121104": {
+   "nombre": "artrodesis esterno clavicular muñeca tarso tibiotarsal tarsometatarsiana sinfisis pubiana",
+   "antes": "Artrodesis: Esterno-clavicular, muñeca, tarso (simple, tibiotarsiana), tarso, metatarsiana, sínfisi",
+   "capitulo": "12"
+  },
+  "120305": {
+   "nombre": "reducción osteosíntesis metacarpiano (excepto el primer metacarpiano) o metatarsiano, falanges (de un mismo dedo), malar, propio de la nariz",
+   "antes": "Reducción y osteosintesis Metacarpiano (excepto el primer metacarpiano)o metatarsiano falanges (de u",
+   "capitulo": "12"
+  },
+  "121401": {
+   "nombre": "miectomías (miositis osificante, hipertrofias, neoplasias) con vaciamiento de celda muscular, o extirpación total de grupo muscular",
+   "antes": "Miectomías, (miositis oscificante, hipertrofias, neoplastias) con vaciamiento de celda muscular o ex",
+   "capitulo": "12"
+  },
+  "121501": {
+   "nombre": "exploración, drenaje, extracción, incisión, escisión, biopsia, tenotomía, fasciotomía",
+   "antes": "Exploración, drenaje, extracción, Incisión, escisión, biopsia, tenotomía, fasciotomía",
+   "capitulo": "12"
+  },
+  "121503": {
+   "nombre": "tenoplastia con alargamiento o acortamiento o injerto o transferencia tendinosa de tendón flexor de la muñeca o dedo de la mano",
+   "antes": "Tenoplastia con alargamiento o acortamiento o injerto o transferancia tendinosa de tendón flexor de",
+   "capitulo": "12"
+  },
+  "121505": {
+   "nombre": "tenoplastia con alargamiento o acortamiento o injerto o transferencia de tendón extensor de la muñeca o dedo de la mano",
+   "antes": "Tenoplastia con alargamiento o acortamiento o injerto o transferencia de tendón extensor de la muñec",
+   "capitulo": "12"
+  },
+  "121705": {
+   "nombre": "operaciones en el hueco supraclavicular por síndrome del escaleno (resección de costilla cervical supernumeraria, tenotomía o miectomía, escisión, etc.)",
+   "antes": "Operaciones en el hueco supraclavicular por síndrome del escaleno (resección de costilla cervical su",
+   "capitulo": "12"
+  },
+  "121707": {
+   "nombre": "aponeurectomía palmar, parcial o total, con o sin injerto (fasciotomía subcutánea)",
+   "antes": "Dupuytren: Aponeurotomía (fasciotomía subcutanea)",
+   "capitulo": "12"
+  },
+  "110101": {
+   "nombre": "resección cuneiforme de ovarios, extirpación de ovario, ooforoplastía (implantación de ovario en útero), ooforosalpingectomía, salpingoplastía, salpingectomía, salpingostomía, uni o bilaterales",
+   "antes": "Resección cuneiforme de ovarios. Extirpación de ovario. Ooforoplastía (implantación de ovario en úte",
+   "capitulo": "11"
+  },
+  "110301": {
+   "nombre": "tratamiento quirúrgico de la agenesia vaginal por procedimientos visceroplásticos",
+   "antes": "Tratamiento quirúrgico de la agenesia vaginal",
+   "capitulo": "11"
+  },
+  "110303": {
+   "nombre": "colporrafia anterior y/o posterior, con o sin amputación de cuello, con o sin corrección de retroversión uterina, con o sin perineorrafia, incluye tratamiento de la incontinencia de orina",
+   "antes": "Colporrafia anterior y/o posterior, con o sin amputación de cuello, con o sin corrección de retrover",
+   "capitulo": "11"
+  },
+  "260136": {
+   "nombre": "tratamiento paliativo con P32 de cáncer de mama con metástasis óseas",
+   "antes": "Tratamiento paliativo con P32 de cancer de mama con metastasis oseas",
+   "capitulo": "26"
+  },
+  "260137": {
+   "nombre": "tratamiento con P32 o Au198 por diseminación tumoral en cavidades serosas",
+   "antes": "Tratamiento con P32 o Au198 por diseminacion tumoral en cavidades serosas",
+   "capitulo": "26"
+  },
+  "260402": {
+   "nombre": "prueba de freno de la secreción de somatotrofina con determinación de somatotrofina",
+   "antes": "Prueba de freno de la secreción de somatotrofina con determinación de somatrotofina",
+   "capitulo": "26"
+  },
+  "260405": {
+   "nombre": "prueba de estímulo gonadal con hormona gonadotropa coriónica (HGG) con determinación de estrógenos totales",
+   "antes": "Prueba de estimulo gonadal con hormona gonatropa corionica HGG con determinación deestrogenos totale",
+   "capitulo": "26"
+  },
+  "080101": {
+   "nombre": "esofaguectomía total (tipo Lewis-Siewert-McKeann) con reconstrucción, con/sin linfadenectomía",
+   "antes": "Esofaguectomía total Tipo Lewis-Siewert-McKeann) con reconstruccion C/S linfadenectomia",
+   "capitulo": "08"
+  },
+  "080110": {
+   "nombre": "esofagotomía o esofagorrafía de esófago cervical (exploradora, extracción de cuerpo extraño, herida, ruptura)",
+   "antes": "Esofagotomía o esofagorrafía de esófago cervical (exploradora extracción de cuerpo extraño, herida",
+   "capitulo": "08"
+  },
+  "080613": {
+   "nombre": "esfinterotomía o esfinterectomía (como única operación)",
+   "antes": "Esfinterotomía o esfinterectomía (como única operacion)",
+   "capitulo": "08"
+  },
+  "080701": {
+   "nombre": "lobectomía hepática, hepatectomía derecha o izquierda",
+   "antes": "Lobectomia hepática. Hepatectomia derecha o izquierda",
+   "capitulo": "08"
+  },
+  "080710": {
+   "nombre": "sección de ampolla de Vater, transduodenal. Papilotomía: con o sin colecistectomía o coledocotomía",
+   "antes": "Sección de ampolla Vater, transduodenal. Papilotomía : con o sin colecistectomía o coledocotomía",
+   "capitulo": "08"
+  },
+  "080803": {
+   "nombre": "escisión local de lesión de páncreas (adenoma-secuestrectomía). Drenaje de seudoquiste",
+   "antes": "Escisión local de lesión de páncreas ( adenoma-secuestrectomía). Drenaje de seudo quiste",
+   "capitulo": "08"
+  },
+  "100101": {
+   "nombre": "nefrectomía total",
+   "antes": "Nefrectomia total",
+   "capitulo": "10"
+  },
+  "100109": {
+   "nombre": "biopsia renal percutánea, pielografía percutánea",
+   "antes": "Biopsia renal percutanea pielografia percutanea",
+   "capitulo": "10"
+  },
+  "100110": {
+   "nombre": "plastia de la unión ureteropiélica, pieloplastia, plastias del uréter, plastia de la unión uretero-vesical (ureterocistostomía) y tratamiento del ureterocele con técnica antirreflujo (Boari, Casatti o similar)",
+   "antes": "Plastia de la unión ureteropiélica. Pieloplastia. Plastias del uréter. Plastia de la unión urétero-v",
+   "capitulo": "10"
+  },
+  "100201": {
+   "nombre": "cistectomía total con derivación ureteral a asa delgada o colon, o neovejiga, Bricker",
+   "antes": "Cistectomia total con derivación ureteral a asa delgada o colon, o neovejiga, Bricker",
+   "capitulo": "10"
+  },
+  "100203": {
+   "nombre": "cistectomía parcial (diverticulectomía - resección del cuello vesical - denervación vesical - reducción vesical)",
+   "antes": "Cistectomía parcial (diverticulectomía-resección del cuello vesical-denervación vesical-reducción ve",
+   "capitulo": "10"
+  },
+  "070101": {
+   "nombre": "septostomía interauricular (Blalock-Hanlon), cardiotomía, con exploración, con extracción de cuerpo extraño, valvulotomía cardíaca, pulmonar, mitral, aórtica, comisurotomía, pericardiectomía",
+   "antes": "Septostomía interauricular (Blalock Halon) Cardiotomía (con exploración , con extracción de cuerpo e",
+   "capitulo": "07"
+  },
+  "070206": {
+   "nombre": "cierre defectos septales (auriculares y/o ventriculares), plásticas valvulares únicas o múltiples, anomalías parciales del retorno venoso pulmonar, estenosis no valvulares de la vía de salida de los ventrículos derecho e izquierdo, ventana aortopulmonar, fístula entre aorta o coronarias y cavidades cardíacas, embolectomía de la arteria pulmonar, extracción de cuerpos extraños en cavidades cardíacas, escisión de tumores cardíacos",
+   "antes": "Cierre defectos septales (auriculares y/o ventriculares). Plásticas valvulares únicas o múltiples. A",
+   "capitulo": "07"
+  },
+  "070301": {
+   "nombre": "cirugía de los grandes troncos arteriovenosos de la cavidad torácica: anastomosis, injertos, embolectomías, cerclajes, suturas, estenosis, coartación, ductus, embolias, heridas",
+   "antes": "Cirugía de los grandes troncos arteriovenosos de la cavidad torácica anastomosis, injertos, embolect",
+   "capitulo": "07"
+  },
+  "070501": {
+   "nombre": "cirugía de la arteria carótida o de la vertebral: tromboendarterectomía; endarterectomía, embolectomía; anastomosis; injertos (trombosis, embolias, aneurismas, fístula arteriovenosa); incluye eventual toma de vena para plástica o injerto",
+   "antes": "Cirugía de la arteria carótida o de la vertebral: Tromboendarterectomía; endarterectomia, embolectom",
+   "capitulo": "07"
+  },
+  "070601": {
+   "nombre": "embolectomía en arterias periféricas de miembros",
+   "antes": "Embolectomia en arterias perifericas de miembros",
+   "capitulo": "07"
+  },
+  "020103": {
+   "nombre": "orbitotomía con escisión de lesión de órbita, con extracción de cuerpo extraño, con exploración, biopsia, etc. (con o sin apertura de pared de órbita)",
+   "antes": "Orbitotomía con escisión de lesión de órbita, con extracción de cuerpo extraño, con exploración, bio",
+   "capitulo": "02"
+  },
+  "020301": {
+   "nombre": "conjuntivoplastia (injerto libre de conjuntiva o membrana mucosa del labio, operación colgajo: flaping de conjuntiva)",
+   "antes": "Conjuntivoplastia ( injerto libre de conjuntiva o membrana mucosa del labio. Operación colgajo: Flap",
+   "capitulo": "02"
+  },
+  "020801": {
+   "nombre": "dacriocistorrinostomía, fistulización de saco lagrimal en cavidad nasal, plombaje, operación plástica en canalículos",
+   "antes": "dacriocistorrinostomia fistulizacion de saco lagrimal en cavidad nasal, plombaje. Operación plástica",
+   "capitulo": "02"
+  },
+  "030109": {
+   "nombre": "escisión de lesión local de conducto auditivo externo, incisión y drenaje de conducto auditivo externo y de piel de oído, biopsia de oído externo",
+   "antes": "Escisión de lesión local de conducto auditivo externo. Incisión y drenaje de conducto auditivo exter",
+   "capitulo": "03"
+  },
+  "030501": {
+   "nombre": "cierre de fístula meníngea (craneorrinorrea) por vía transinusal",
+   "antes": "Cierre de fístula meníngea (craneorrino) por vía transinual",
+   "capitulo": "03"
+  },
+  "030705": {
+   "nombre": "operación comando de encía o de trígono retromolar (escisión de lesión primaria, más vaciamiento ganglionar cervical)",
+   "antes": "Operación comando de encía o de trígono retromolar (escisión de lesión primaria, más vaciamiento gan",
+   "capitulo": "03"
+  },
+  "031004": {
+   "nombre": "resección de labio (por escisión amplia de tumor maligno y sutura), escisión en cuña (como única operación)",
+   "antes": "Resección de labio (por escisión amplia de tumor maligno y sutural). Escisión en cuña (como única op",
+   "capitulo": "03"
+  },
+  "031101": {
+   "nombre": "operación comando de lengua (escisión de lesión primaria y vaciamiento ganglionar cervical)",
+   "antes": "Operación comado de lengua (escisión de lesión primaria y vaciamiento ganglionar cervical)",
+   "capitulo": "03"
+  },
+  "031307": {
+   "nombre": "escisión de divertículo faringoesofágico, escisión de lesión local de faringe, de fístula branquial y/o quiste branquial o vestigio",
+   "antes": "Escisión de divertículo faringoesofágico.Escisión de lesión local de faringe, de fístula branquial y",
+   "capitulo": "03"
+  },
+  "290202": {
+   "nombre": "polisomnografía con oximetría nocturna en adultos con presión positiva continua en la vía aérea",
+   "antes": "Polisomnografía con oximetria nocturna en adultos con Presión Positiva Continua en la Vía Aérea",
+   "capitulo": "29"
+  },
+  "060108": {
+   "nombre": "escisión local de lesión de mama (quiste, fibroadenoma o tejido mamario aberrante), de lesión de conducto de pezón, escisión de lesión de mama o pezón para biopsia",
+   "antes": "Escisión local de lesión de mama (quiste, fibroadenoma o tejido mamario aberrante) de lesión de cond",
+   "capitulo": "06"
+  },
+  "130101": {
+   "nombre": "escisión de quiste dermoideo sacrococcígeo (sacrocoxígeo)",
+   "antes": "Escisión de quiste dermoideo sacrococcigeo",
+   "capitulo": "13",
+   "motivo": "las dos formas conviven en las fuentes (base: sacrococcígeo; PMO: sacrocoxígeo); a pedido del usuario se ponen ambas"
+  },
+  "130304": {
+   "nombre": "escisión de escaras postquemaduras y/o curación del paciente quemado en quirófano con anestesia general (por sesión y por cada 10% de superficie corporal)",
+   "antes": "Escisión de escaras postquemaduras y/o curación del paciente quemado en quirófano con anestesia gene",
+   "capitulo": "13"
+  },
+  "150101": {
+   "nombre": "biopsia por incisión o por punción (ganglio, lesión de piel, trozo de ovario, cilindro de hígado, etc.)",
+   "antes": "Biopsia por incisión o por punción. Ganglio, lesión de piel, trozo de ovario, cilindro de hígado,etc",
+   "capitulo": "15"
   }
  }
 }

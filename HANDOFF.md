@@ -1,20 +1,40 @@
 # TRASPASO DE SESIÓN — Manual Inteligente Unificado (VISITAR SRL)
 
 > Documento para retomar el trabajo en una sesión nueva sobre **la misma app**.
-> Última actualización: 2026-08-18, rama `claude/unified-medical-codes-manual-o9nw1w`,
-> tras fusionar dos ramas de sesiones en paralelo (`nomenclador-chapters-30-29-21-0c4v9o`,
-> que ya traía consigo `nomenclador-chapters-20-24-17-eoittj`, y
-> `nomenclador-nacional-barrido-gjii29`). El clon es superficial y el total de commits no se
-> puede contar, así que se identifica por rama.
+> Última actualización: 2026-08-28, rama `claude/nomenclador-sweep-continue-1ayph3`
+> (sobre `claude/unified-medical-codes-manual-o9nw1w`, que ya trae mergeado el PR #58).
 >
-> **✅ El barrido del Nomenclador Nacional (3.8) terminó, capítulo por capítulo y de punta a
-> punta** —transcribir a ojo el recuadro «Texto retirado por el PMO» que el catálogo del PMO
-> no reproduce. Los 32 capítulos del PMO están hechos (844 de 1.353 fichas, 62%) y el
-> **capítulo 66** (análisis clínicos, 36 páginas) también se completó el 19/8/2026: 134
-> códigos con texto sumado a fichas del **NBU** existentes (no al PMO — ver 3.8, «Capítulo
-> 66»). Quedan casos «dudoso» documentados página por página en `data/alcance_nn_pmo.json`
-> (nombre o método parecido pero no idéntico) para revisión manual; no son urgentes. La
-> agenda de 7 bis A ya no tiene barrido pendiente — ver el punto 7 bis para lo que sigue.
+> **✅ El barrido del Nomenclador Nacional (3.8, «Texto retirado por el PMO») terminó** —
+> ver el párrafo viejo más abajo si hace falta el detalle.
+>
+> **✅ El barrido de «galenos sin cargar» TERMINÓ el 28/8/2026** — códigos PMO sin
+> `valores.galeno` en `data/nbu_db.json` porque el extractor automático
+> (`scripts/parse_nn.py`) sólo entiende el formato de tabla de los capítulos 01-13
+> («Intervenciones Quirúrgicas»); los capítulos 14 en adelante usan un formato distinto
+> («Prácticas Especializadas», Honorarios/Gastos/Total/Coseguro) que hubo que leer a
+> mano, página por página, contra `data/NOMENCLADOR NACIONAL DE PRESTACIONES MEDICAS
+> CON PMO-COMPRIMIDO.pdf`. Ver la sección 8, «Pendientes concretos», el bloque fechado
+> 28/8/2026 (el último, al final de la lista de bloques de este barrido), que tiene el
+> detalle completo de los 15 capítulos que quedaban (22, 23, 24, 26, 27, 28, 29, 30, 31,
+> 33, 34, 35, 36, 38, 15) — qué se corrigió, dos casos donde la numeración del PMO **no**
+> coincidía con la del Nomenclador Nacional impreso y hubo que rastrear por nombre en vez
+> de por número (26.01.01-04 y 34.08.17, que resultaron tener **valor real**, no
+> «agregado por el PMO» como se esperaba), y qué quedó **fuera de alcance a propósito**
+> (capítulo 66, es un problema de Unidad Bioquímica de laboratorio, no de este barrido;
+> un puñado de códigos sueltos en los capítulos 18/42/43 que ya venían resueltos de
+> sesiones anteriores y no tienen coseguro en la fuente).
+>
+> **✅ La lista de 159 denominaciones a revisar (3.5) TERMINÓ el 28/8/2026, misma
+> sesión.** Los 24 capítulos con casos (01, 02, 03, 05, 06, 07, 08, 09, 10, 11, 12, 13,
+> 15, 17, 18, 21, 22, 25, 26, 29, 31, 33, 34, 35) quedaron revisados uno por uno con el
+> usuario, mostrándole cada cambio antes de aplicarlo — el método que pedía el punto 3.5
+> desde el principio. Sólo el capítulo 66 queda fuera, y es a propósito (Unidad
+> Bioquímica, otro problema). Dos hallazgos de método para la próxima vez que aparezca
+> algo así: **`c.alcance_nn.texto`** (el texto del Nomenclador Nacional, ya cargado en
+> la ficha) resuelve casi cualquier duda de redacción sin ir a buscar nada aparte; y
+> ante sospecha de que los *números* de código estén corridos, **cruzar contra
+> `data/unico_equivalencias.xlsx`** (numeración propia, independiente del PDF del PMO)
+> antes de tocar nada — ver el detalle completo en 3.5.
 >
 > **Lo más importante que cambió respecto del traspaso anterior:** la app dejó de ser un
 > archivo que cada uno guarda en su computadora y pasó a ser una **aplicación de empresa
@@ -273,10 +293,39 @@ es la exposición va en el paso de la carga y en la auditoría.
 
 ### 3.5 Lo que este cotejo dejó ver y NO se tocó
 
-`data/pmo_titulos_a_revisar.json` — **159 denominaciones** del PMO donde la base y
-el renglón impreso no coinciden, con las dos versiones al lado. Se van revisando
-por capítulo y las corregidas quedan en `data/pmo_titulos_curados.json` (62 hasta
-ahora: capítulos 34, 12, 03 y la pasada mecánica).
+✅ **TERMINADA el 28/8/2026.** `data/pmo_titulos_a_revisar.json` tenía **159
+denominaciones** del PMO donde la base y el renglón impreso no coincidían, con las
+dos versiones al lado. Se revisaron **los 24 capítulos con casos, uno por uno con
+el usuario** (01, 02, 03, 05, 06, 07, 08, 09, 10, 11, 12, 13, 15, 17, 18, 21, 22, 25,
+26, 29, 31, 33, 34, 35) y las corregidas quedaron en `data/pmo_titulos_curados.json`
+(**129** entradas). Sólo el capítulo 66 queda fuera, a propósito (Unidad Bioquímica
+de laboratorio, ver 7 bis D, es un problema distinto).
+
+⚠️ **Un caso quedó con las dos formas a propósito, no resuelto a una sola:**
+`130101` — la base decía «sacrococcígeo» y el catálogo PMO «sacrocoxígeo»; ninguna
+fuente desempataba (quedó anotado como «a decisión de auditoría» desde una sesión
+anterior y nunca se había resuelto). A pedido del usuario quedó **«sacrococcígeo
+(sacrocoxígeo)»**, con la segunda forma entre paréntesis en vez de elegir una.
+
+⚠️ **Dos hallazgos nuevos al cerrar 17 y 02, además del de `alcance_nn` / la
+numeración del Único (ver más abajo):**
+- **El campo `en_el_pdf` de esta lista puede traer basura por «sangrado» de la
+  obligación de cobertura**, no sólo por columnas de otro capítulo (eso ya se
+  sabía del 26). En el capítulo 17, la extracción se mezcló con el bloque
+  «Obligación de cobertura en los siguientes casos: — Pacientes con…» que sigue
+  a varios códigos cardiológicos (mismo patrón que ya se vio al cargar el valor
+  real de `170201` en el barrido de galenos). Los 6 códigos de ese capítulo
+  quedaron **sin cambios, confirmados por longitud y por no estar cortados** —
+  no hizo falta `alcance_nn` porque ninguno tenía.
+- **La lista de 159 puede estar desactualizada para códigos que ya se
+  realinearon fuera de este mecanismo.** En el capítulo 02, `020106` a `020110`
+  y `020902` ya estaban resueltos desde la corrección del corrimiento contada
+  en el párrafo de abajo (`titulo_origen: "realineado"`), pero seguían
+  apareciendo en `pmo_titulos_a_revisar.json` con el texto viejo. **Antes de
+  proponer un cambio, mirar `titulo_origen` en la ficha: si dice `"realineado"`
+  y el nombre ya se ve completo y sensato, probablemente no hay nada que
+  hacer** — confirmarlo y seguir, no hace falta tocar `pmo_titulos_curados.json`
+  para eso.
 
 ⚠️ **No son 159 defectos, y el renglón impreso solo no alcanza para decidir.** Dos
 correcciones al criterio con el que se armó esta lista:
@@ -284,12 +333,52 @@ correcciones al criterio con el que se armó esta lista:
 - En buena parte de los casos **la base es MÁS completa** que el renglón: el
   nombre sigue en otra columna y el lector lo corta. En el capítulo 03, de 17
   casos sólo 6 eran defectos.
-- **El método bueno es cruzar tres fuentes**: la base, la planilla del
-  Nomenclador Único y el OCR del Nacional (`data/nn_values.json`). Con eso se
-  resolvió el capítulo 11, donde el PDF parecía mostrar un corrimiento de once
-  códigos y **no lo había**: el nombre de `110211` se derrama sobre el renglón del
-  `110212` y el lector asigna todo al código anterior. El Único y el Nacional
-  coinciden con la base.
+- **El método bueno es cruzar varias fuentes**: la base, la planilla del
+  Nomenclador Único (`data/unico_equivalencias.xlsx`, **numeración propia,
+  independiente de `data/pmo.pdf`** — ver más abajo por qué esto importa) y el
+  OCR del Nacional (`c.alcance_nn.texto`, ver el párrafo siguiente).
+
+⚠️ **`data/pmo.pdf` (el catálogo, no el Nomenclador Nacional) tiene números de
+código faltantes en el propio impreso**, y eso rompe cualquier lectura que
+empareje «lista de números» con «lista de textos» por posición en vez de por
+lo que está escrito al lado en la página. Pasó dos veces en el capítulo 11: la
+ya documentada entre `110211`/`110212`, y una segunda **recién encontrada el
+28/8/2026** entre `110305` y `110306` (el renglón impreso trae «colporrafia
+posterior con reconstrucción del esfínter del / colpopexia por vía abdominal»
+como si fuera un solo código, sin número en el medio). Cada hueco de estos
+corre la lectura secuencial un lugar para todo lo que sigue — así fue como
+esta sesión llegó a sospechar, en frío, que la base tenía **corrido todo el
+capítulo 11 a partir del `110212`**. **Estaba mal sospechado**: la planilla del
+Único usa su propia numeración, no lee este PDF en absoluto, y confirmó
+código por código que la base siempre estuvo bien. **La lección: ante
+cualquier sospecha de corrimiento de números de código (no sólo de
+redacción), cruzar primero contra `unico_equivalencias.xlsx` —columna
+`unico_codigo`/`unico_descripcion`— antes de tocar nada; es más confiable que
+releer el PDF por posición, justo porque no depende de que el PDF haya
+impreso bien todos los números.** Con ese cruce, del capítulo 11 (16 códigos)
+sólo **3 estaban incompletos** (`110101`, `110301`, `110303` — truncados o con
+una palabra clave de menos, no corridos) y **13 ya estaban bien**, incluidos
+los 4 que ya se habían corregido antes.
+
+⚠️ **La tercera fuente casi siempre ya está en la propia ficha, no hace falta ir a
+buscarla aparte: es `c.alcance_nn.texto`** (el recuadro «Texto retirado por el
+PMO», transcripto a mano en el barrido de 3.8) — cuando existe para un código de
+la lista de 159, decide la duda casi siempre. Así se cerró el **capítulo 12
+completo (23/23) el 28/8/2026**: de los 8 casos donde el catálogo PMO y la base
+no coincidían y no era sólo el corte de los 100 caracteres del Único,
+`alcance_nn` confirmó que **la base tenía razón en 6** (el catálogo PMO había
+simplificado el renglón impreso y se comía una palabra — "escisión", "flexor",
+"o transferencia (tendinosa)" —, no al revés) y sólo hizo falta **corregir la
+base en 2**: `120305` (el Único cortaba antes de "malar, propio de la nariz",
+que sí es parte del mismo código, comprobado por `alcance_nn`) y **`121707`**,
+el más delicado — la base decía «Dupuytren: Aponeurotomía (fasciotomía
+subcutánea)» y tanto el catálogo PMO como `alcance_nn` coinciden en
+«**Aponeurectomía** palmar, parcial o total, con o sin injerto (fasciotomía
+subcutánea)»: no es la misma técnica (aponeurectomía es resección quirúrgica,
+aponeurotomía es sólo el corte percutáneo). Dupuytren se dejó como indicación
+clínica en `auditoria`, no como parte del nombre. **Antes de asumir que un
+código de la lista de 159 es un defecto de la base o del PDF, mirar primero si
+tiene `alcance_nn` cargado.**
 
 ⚠️ **Corrección de un dato que estuvo escrito acá:** se afirmó que `020106` tenía
 el nombre de `020105` y que el corrimiento seguía en `020107` y `020108`. Con las
@@ -2329,20 +2418,13 @@ Lo que YA está bien y no hay que tocar:
 
 ### ⚠️ Lo primero que hay que preguntar al retomar
 
-Lo último que se estuvo trabajando —y lo que conviene retomar sin preguntar, porque el
-usuario ya lo pidió varias sesiones seguidas— es el **barrido del Nomenclador Nacional** (3.8):
-transcribir a ojo el recuadro «Texto retirado por el PMO», capítulo por capítulo. Van **827
-de 1.353 fichas (61%)** y sólo quedan el **35, 36 y 38**, que todavía no tienen páginas en el
-índice —hay que sacarlas primero con `rapidocr_onnxruntime`— y el **66** (NBU laboratorio,
-un trabajo distinto, ver 7 bis D). Receta completa en **7 bis A**. Todo lo que hace falta para
-arrancar en frío está en 3.8: índice de páginas, receta, reglas de alcance y el orden sugerido.
-**Sesión nueva para cada tanda** — las páginas son imágenes y se reenvían en todos los pedidos
-siguientes.
-
-Antes de eso venía el cotejo del **Nomenclador de Prestaciones Médicas** capítulo por
-capítulo, con el usuario midiendo contra la fuente (ver 3.4 y 3.5). Lo que quedó de ahí es
-**la lista de 159 denominaciones a revisar** (3.5), de a un capítulo y mostrándole los
-cambios antes de aplicarlos.
+**Los tres barridos grandes del Nomenclador Nacional/PMO terminaron**: el de 3.8 «Texto
+retirado por el PMO» (ver 1072), el de «galenos sin cargar» y **el de las 159
+denominaciones a revisar (3.5)** — los tres cerrados el 28/8/2026. No hay una tanda de
+transcripción o cotejo en curso para retomar sin preguntar. Si el usuario pide seguir con
+«el barrido» o «las denominaciones», lo único que queda de esa familia es el capítulo
+**66** (Unidad Bioquímica de laboratorio, un problema distinto, ver 7 bis D) — y ojo que
+eso es *valores*, no nombres; la lista de nombres (3.5) ya no tiene pendientes.
 
 Dos propuestas suyas quedaron abiertas y él las nombró:
 
@@ -2368,7 +2450,6 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
 | **Cerrar las altas** cuando el equipo esté completo, subir el mínimo de contraseña | del usuario |
 | **Las 119 prácticas «fuera del PMO»** que están en nuestra sección PMO | criterio del usuario |
 | **Las 113 prácticas del Excel** que no están en la base (comparación de julio) | decisión conjunta |
-| **159 denominaciones del PMO a cotejar** con el renglón impreso (3.5) | de a un capítulo, con su visto |
 | **17 títulos del capítulo 34 «a confirmar»** y 2 ilegibles (`340803`, `340813`) | del usuario, o de otra planilla |
 | **Redacción del aviso «sin confirmar»** en las propuestas visibles al equipo | del usuario (se publicó una versión y ofreció cambiarla) |
 | **Volver la base adentro del `index.html`** si prefiere el archivo único (3.0 bis) | del usuario |
@@ -3100,6 +3181,223 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
 - **Novedades normativas / vigencias**.
 - **Chat de consulta con IA**: se conversó, no se decidió. ⚠️ Incompatible con el requisito
   de funcionar **offline y sin servidor** salvo que se acepte una dependencia externa.
+- ✅ **Capítulo 43 (Prestaciones Sanatoriales) del barrido de «galenos sin cargar» —
+  terminado el 27/8/2026, continuación de la sesión del 26/8/2026** (`35 códigos PMO con
+  «checksum no cierra»`, bloque de arriba). Contexto: de los 679 códigos PMO detectados
+  sin `valores.galeno`, 35 (checksum que no cerraba) y 3 más (hallados por el usuario)
+  ya se habían corregido; quedaban **641**, capítulo por capítulo, y el usuario indicó
+  dónde había quedado la sesión anterior: **capítulo 43, páginas 146-148** (del recorte
+  de `scripts/paginas_nn.py`; páginas impresas 136-140 del PDF).
+  ⚠️ **`scripts/paginas_nn.py` no sirve para esto**: recorta la mitad izquierda de la
+  página (código + descripción, para transcribir «Texto retirado por el PMO», ver 3.8) y
+  **corta justo antes de las columnas de Honorarios/Gastos/Total** que hacen falta acá.
+  Hubo que renderizar la página entera con `pypdfium2` a mano (mismo PDF, sin recorte).
+  Ninguna de las tres —`pypdfium2`, `Pillow`, `pymupdf`— estaba instalada en el entorno de
+  esta sesión; se instalaron con `pip install` (no quedan persistidas si el contenedor se
+  reinicia entre sesiones — dejarlo anotado para no perder tiempo redescubriéndolo).
+  El capítulo 43 tiene un formato de columna **más simple que el quirúrgico** (que sí usa
+  `assemble.py`/`nn_values.json`, ver 3.8): una sola «Honorarios» (U./$.), sin
+  especialista/ayudante/anestesista separados, «Gastos» con sólo una sigla impresa
+  (`og`/`up`/`OG`/`UP`, sin cifra) y «Total Práctica» que en los 23 códigos revisados es
+  **exactamente igual al $ de Honorarios** (el gasto no suma nada). Corroborados los 23
+  contra la página real: **los 23 tenían honorarios impresos** que el extractor por
+  posición (`scripts/parse_nn.py`, mismo bug que las 35 anteriores) no había levantado —
+  `esp`/`ayu`/`anes`/`gasto` quedaban en `null` en `nn_values.json` (`tipo:"sin_valor"`).
+  Corregidos en `data/nn_values.json` (`esp.u`/`esp.p`, `total_p=esp.p`,
+  `checksum_ok:true`, `corregido_manualmente:true`, y el **número de página real
+  impreso** en vez del `page` de la OCR, que ya se sabía desalineado — ver el bloque de
+  las 35) y en `data/nbu_db.json` (`valores.galeno`/`pesos_2002`/`total_2002` y
+  `asociaciones_especificas`, mismo formato que arma `assemble.py`, aplicado a mano sobre
+  los dos JSON como la vez anterior — no hay intermedios del pipeline completo en el
+  scratchpad de esta sesión tampoco). Los otros **3 códigos** del capítulo (`430109`
+  «Observación en guardia o piso hasta 8 horas», `431106` «Monitoreo de presión
+  endocraneana», `431107` «Oximetría por métodos no invasivos») **ya estaban bien**: el
+  original dice «CODIGO AGREGADO POR EL P.M.O.» —no tienen renglón en el Nomenclador
+  Nacional— y la ficha ya lo refleja (`auditoria` con «Código agregado por el P.M.O.»,
+  sin `valores`); no es un caso pendiente, quedan así a propósito.
+  ⚠️ **La columna «Coseguro Hasta»** (50.00 en curaciones y nebulizaciones, `43.02.01`,
+  `43.02.02`, `43.04.01`, `43.04.02`) **no se cargó**: no es parte del esquema
+  `valores.galeno`/`asociaciones_especificas` que arma `assemble.py`, y agregarla es un
+  campo nuevo, no una corrección de este barrido — queda anotado para el usuario, no
+  decidido de oficio.
+  Publicado con `python3 scripts/inject_db.py` (regenera `web/nbu_db.bin`; no se tocó
+  ningún `<script>` de `index.html`, no hizo falta resellar la CSP). Corrida completa de
+  los 21 archivos de `tests/e2e/`, sin fallas.
+  **Capítulo 43 del barrido: terminado** (0 pendientes reales, los 3 `agregado_pmo` no
+  cuentan). **Quedan 618** de los 679 originales, en el resto de los capítulos —
+  `34` (127) y `26` (110) concentran casi el 40%, siguen `20` (25), `18` (22), `24` (21),
+  `17` (20), `31` (19), `30` (18), `08` (17), `42`/`66` (16 c/u), `21` (15), y el resto
+  con menos de 15 cada uno.
+  ⚠️ **El capítulo 34 (radiología) es un caso aparte, sin abrir todavía**: los 127
+  códigos de ese capítulo que faltan **no tienen ni siquiera la clave `valores` en
+  `nbu_db.json`** (no es que el extractor haya fallado con `sin_valor` como en los demás
+  — directamente nunca se le corrió `parse_nn.py`/`assemble.py` encima; ese capítulo se
+  armó aparte con `altas_pmo_cap34.py`/`parse_pmo_titulos.py`, ver 3.4). Antes de tratarlo
+  igual que los demás —capítulo por capítulo, leyendo la página real— conviene confirmar
+  con el usuario si la radiología se arancela con el mismo esquema de galenos o con otro
+  (tope, unidad bioquímica, etc. — HANDOFF ya documenta 38 códigos con «tope PMO» en la
+  sección 1), para no forzarle un campo que no le corresponde.
+  ⚠️ **CORRECCIÓN, misma sesión, minutos después: los 23 valores estaban bien en el
+  monto, mal clasificados.** Apareció el PR #58 (`claude/interprete-orden-busqueda-oe7bf9`,
+  commit `e1d0d4b`) — otra sesión, la misma del bloque de los 35+3 códigos, que sí llegó a
+  commitear su barrido de ~65 páginas (capítulos 14 a 44, ~500 códigos) antes de este
+  cierre. Se superpone exactamente con este capítulo 43. Cruzando los 23 códigos: **el
+  total práctica coincide en los 23**, pero el PR #58 carga el monto bajo `galeno.gasto`
+  y acá había quedado bajo `galeno.especialista`. Revisando la página impresa de nuevo con
+  más cuidado (recorte a la altura de fila, no toda la columna): el orden real es
+  `U./$ (etiqueta) → OG/UP (categoría) → número → Total` — el número aparece **después**
+  de la sigla de categoría, en la posición de Gastos, no pegado a la etiqueta `U./$` como
+  se había asumido. Con `430109` («sin honorario de especialista» explícito en el capítulo
+  34, código ajeno usado como referencia) se confirmó el patrón. Semánticamente también
+  cierra mejor: cama de sanatorio, material descartable, oxígeno son gasto de la
+  institución, no honorario médico.
+  Corregido `especialista→gasto` en `data/nn_values.json` (`esp`↔`gasto`, mismos números)
+  y `data/nbu_db.json` (`valores.galeno.gasto`/`pesos_2002.gasto`,
+  `asociaciones_especificas` reescrito a «Gasto: N galenos.»), y sumado
+  `valores.coseguro_hasta` a los 4 códigos que lo traen impreso (`430201`, `430202`,
+  `430401`, `430402`, los 50.00 que en el bloque anterior habían quedado sin cargar) —
+  mismo campo que ya usa el PR #58, para no divergir del esquema que va a terminar siendo
+  el de todo el barrido. Verificado campo por campo contra el `nbu_db.json` del PR #58:
+  **los 23 coinciden exactamente** (`galeno`, `pesos_2002` y `coseguro_hasta` iguales).
+  Publicado de nuevo con `scripts/inject_db.py`; corrida completa de los 21 archivos de
+  `tests/e2e/` (acá y también sobre la rama del PR #58, por separado), sin fallas en
+  ninguna de las dos.
+  **Pendiente para el usuario**: decidir qué hacer con el PR #58 en sí (mergearlo,
+  pedir revisión, etc.) — este bloque sólo corrige la rama propia para que no quede un
+  dato mal clasificado dando vueltas mientras tanto.
+- ✅ **PR #58 mergeado — capítulos 01 a 13 del barrido de «galenos sin cargar»,
+  terminados el 27/8/2026, misma sesión.** El usuario mergeó el PR #58 a
+  `claude/unified-medical-codes-manual-o9nw1w` (commit `cf1a1c7`). Traído a esta rama con
+  un merge real (no reset): `data/nn_values.json` no tuvo conflicto (el PR #58 nunca lo
+  toca), `data/nbu_db.json`/`web/nbu_db.bin` sí —resueltos tomando la versión de origin
+  entera, verificado antes campo por campo que es un superset exacto de los 23 códigos
+  del capítulo 43 corregidos acá (0 diferencias, 0 regresiones)—. Quedaban **618 → 214**
+  códigos PMO sin `valores.galeno` después del PR #58 (los otros 4 capítulos con formato
+  «Prácticas Especializadas» que también corrigió, más lo que ya traía el capítulo 43).
+  De esos 214, se completó **capítulo por capítulo el rango 01-13** (el formato clásico
+  «P.M.O. de Intervenciones Quirúrgicas» — Especialista/Ayudantes/Anestesista/Gasto/Total—
+  que si entiende `scripts/parse_nn.py`/`assemble.py`, a diferencia del rango 14-44 que
+  arregló el PR #58): **92 códigos**, leídos página por página contra el PDF real
+  (`pypdfium2`, páginas de archivo 14 a 83), con el mismo método y la misma validación por
+  checksum de siempre. De esos 92:
+  - **16 con valor real** que el extractor no había levantado (mismo bug de fila
+    contaminada de siempre): la mayoría **I/C** (honorario del especialista incluido en
+    la consulta médica, marcado así en la fuente — no se factura aparte) con sólo un
+    gasto fijo detrás (`010309`, `010409`, `010508`, `010606`, `020104`, `020405`,
+    `030203`, `050408`, `050411`, `080212`, `090107`, `100209`, `130115`, todos con
+    `esp:null`+`gasto` real); dos con especialista propio sin I/C (`121509`, `121714`); y
+    **`101010`** («Plastia unión ureteropiélica»), un caso aparte: la fuente dice
+    literalmente «ídem al código 10.01.10», así que se copió el valor de `100110` en vez
+    de inventar uno.
+  - **76 confirmados «Código agregado por el P.M.O.»** — mayoría en capítulos enteros de
+    prácticas modernas que el Nomenclador Nacional de 1991/2002 no podía tener
+    (angioplastia con stent, trasplantes, cirugía laparoscópica/videoscópica,
+    artroscopia, desfibrilador implantable — capítulos **07 y 08 salieron 100% así**,
+    ninguno con valor real). Ya estaban bien en la base (sin `valores`, correctamente
+    fuera del cálculo), pero con un `valor.arancel` genérico que no explicaba por qué
+    —igual al bug que ya se había visto en la sesión de las 35—; se les puso el mismo
+    texto explícito que usa el PR #58 («Código agregado por el P.M.O.: no está en el
+    Nomenclador Nacional de Prestaciones Médicas, no tiene valorización en galenos.»)
+    para no dejarlo en ambiguo.
+  ⚠️ **La columna «Coseguro Hasta»** vuelve a aparecer suelta en curaciones/nebulizaciones
+  de varios capítulos (mismo caso que el capítulo 43) y **no se cargó** por la misma razón
+  de antes: no es parte de este esquema, es un campo nuevo a decidir con el usuario, no
+  a agregar de oficio.
+  Publicado por tandas con `python3 scripts/inject_db.py`; corrida completa de los 21
+  archivos de `tests/e2e/` después de cada tanda (capítulos 01+02+03+05+06, luego 07+08,
+  luego 09+10+11+12+13), sin fallas en ninguna.
+  **Quedan 198** códigos PMO sin `valores.galeno`, y **del rango 01-13 ya no queda
+  ninguno pendiente de revisar** — los `08`→16 y `07`→14 que todavía figuran en el
+  conteo (junto con el resto de capítulos de ese rango) son exactamente los códigos
+  recién confirmados `agregado_pmo` de este mismo bloque, no un caso abierto: siguen
+  «sin galeno» porque por diseño un `agregado_pmo` no lleva ese campo, no porque falte
+  revisarlos. Todo lo que queda por mirar es **capítulo 66 en adelante y 14 a 44**,
+  donde el PR #58 no llegó a cerrar todo: `66`→16, `34`→13, `18`→9, `42`→9, `24`→8,
+  `26`→8, `35`→7, `20`→6, `17`/`29`/`33`→5 c/u, `28`/`30`/`36`→4 c/u,
+  `22`/`27`/`31`/`43`→3 c/u, y el resto con 2 o menos — todo en formato «Prácticas
+  Especializadas» (Honorarios/Gastos/Total/Coseguro), el mismo trabajo que hizo el PR
+  #58, sin pasar por `nn_values.json`.
+- ✅ **Capítulos 17, 18, 19, 20, 21 y 42 del barrido — terminados el 27/8/2026, misma
+  sesión, formato «Prácticas Especializadas».** Continuación directa del bloque anterior.
+  ⚠️ **Corrección sobre lo que decía el bloque anterior: el capítulo 66 NO es parte de
+  este barrido.** Se había contado como pendiente (16 códigos) pero al revisar el
+  primero (`660185`) su `valor.arancel` ya dice explícito «Práctica de laboratorio del
+  Catálogo PMO no presente en el NBU 2012/2016 cargado» — es un problema distinto
+  (falta valorización en **Unidad Bioquímica**, del catálogo de laboratorio, no en
+  **galenos** del Nomenclador Nacional de 1991) y **no tiene página en este PDF**. Los
+  16 códigos de `66` se excluyeron del conteo de pendientes reales de ahora en más
+  (quedó una consulta con `'no presente en el NBU' in valor.arancel` para no repetir el
+  error). El total real bajó de 198 a **182**.
+  Resultado de los 6 capítulos revisados (43 códigos): **ninguno tenía valor real** —
+  los seis salieron **100% «Código agregado por el P.M.O.»** o variante de coseguro sin
+  valorización propia, coherente con que son prácticas modernas (ecodoppler, ablación
+  por radiofrecuencia, tilt-test, estudio electrofisiológico, genética humana,
+  consultas por categoría de especialidad) posteriores al Nomenclador Nacional de
+  1991/2002:
+  - **34 confirmados «agregado por el P.M.O.»**, cada uno con su `Coseguro hasta $N`
+    cuando la fila lo trae impreso (ej. `170201`→$250, `180201`→$100) — mismo texto que
+    ya usa el PR #58, con el coseguro agregado a mano porque el PR #58 no lo pone en el
+    texto (queda solo en un campo `coseguro_hasta` que acá no se usó, ver más abajo).
+  - **9 códigos del capítulo 42** (`420101A-E`, `420201A-D`) son un caso nuevo, no visto
+    antes: **no** dicen «agregado por el PMO» — son variantes de coseguro por categoría
+    de un código **base ya valorizado** (`420101`/`420201`, cargados por el PR #58).
+    Ej. `420101C` «Pediatras» no tiene fila de Honorarios/Gastos propia, sólo un
+    Coseguro Hasta $80 — la prestación en sí es la misma consulta del código base, lo
+    que cambia es cuánto coseguro paga el afiliado según la especialidad del médico.
+    Redactado un `arancel` explicando esto y remitiendo al código base, en vez de
+    reusar el texto de «agregado» (sería engañoso: si no existiera el código base
+    tampoco existiría el coseguro).
+  ⚠️ **Decisión de esquema, no tocada todavía**: el `Coseguro Hasta` se sigue guardando
+  sólo como texto dentro de `valor.arancel`, nunca en un campo `valores.coseguro_hasta`
+  estructurado (eso rompería el filtro `no v.get('valores',{}).get('galeno')` que se usa
+  para contar pendientes, porque un `valores` con sólo `coseguro_hasta` y `galeno` en
+  `None` sigue siendo un diccionario «truthy»). Si se decide en algún momento cargarlo
+  estructurado, hay que revisar ese filtro primero.
+  Publicado con `scripts/inject_db.py`; corrida completa de los 21 archivos de
+  `tests/e2e/`, sin fallas.
+- ✅ **Barrido de «galenos sin cargar» — TERMINADO el 28/8/2026, sesión aparte.**
+  Los **75 códigos reales** que quedaban en los 15 capítulos (22, 23, 24, 26, 27, 28,
+  29, 30, 31, 33, 34, 35, 36, 38, 15) ya están cargados. Método: `pypdfium2` para
+  renderizar cada página de archivo a imagen (nunca `scripts/paginas_nn.py`, que
+  recorta antes de las columnas de valor) y lectura directa contra
+  `data/NOMENCLADOR NACIONAL DE PRESTACIONES MEDICAS CON PMO-COMPRIMIDO.pdf`, edición
+  puntual de `data/nbu_db.json` con Python (sin volver a correr `assemble.py` completo,
+  para no arriesgar el resto del pipeline) y `scripts/inject_db.py` al final.
+  ⚠️ **`230234` (único código del capítulo 23 no retirado por el PMO) ya estaba
+  resuelto de una sesión anterior** — se verificó contra la página pero no se tocó.
+  Resultado por capítulo:
+  - **22**: `220301`/`220401` agregados por el PMO ($100 c/u). `220108` ya venía resuelto.
+  - **24**: 8 códigos, todos agregados por el PMO ($50-$250 según fila).
+  - **26**: 8 códigos. **Los primeros 4 (`260101`-`260104`) tenían valor real** en el
+    Nomenclador Nacional (Curva de captación tiroidea y afines, sección 26.01) — no
+    eran «agregados» como se esperaba; se cargó `valores.galeno` igual que un código
+    de los capítulos 01-13. Los otros 4 (`260231`-`260234`, SPECT cardíaco) sí son
+    agregados por el PMO, con una obligación de cobertura larga (lista de diagnósticos
+    cardíacos) que se guardó completa en `cobertura_pmo`.
+  - **27, 28, 29, 30, 31, 33, 36, 38, 15**: todos agregados por el PMO. Varios traen
+    obligación de cobertura con criterios clínicos puntuales (apnea del sueño,
+    holter EEG, hospital de día/noche, queratocono, etc.) — se transcribieron enteros a
+    `cobertura_pmo`, no resumidos.
+  - **34** (13 residuales): 12 agregados por el PMO (`341101`, `341201` y los 10 de
+    RMN `3420xx`, sección 34.20 — la única de todo este barrido que **el mismo PDF**
+    dice que termina a mitad de página, empalmando con el capítulo 35 en la misma
+    fila). ⚠️ **`340617` («Esplenoportografía, por cada exposición subsiguiente»)
+    tenía valor real** pero **la numeración del PMO no coincide con la del Nomenclador
+    Nacional impreso para este código**: en el PDF aparece como `34.08.17`, no
+    `34.06.17` (que ni siquiera existe — el 34.06 impreso termina en `.08`). Se
+    encontró rastreando el nombre, no el número. **Si aparece otro código de este
+    capítulo con número "hueco" en el PDF, buscarlo por nombre antes de asumir que es
+    agregado por el PMO** — este barrido asumió eso por default y en dos casos
+    (`260101`-`104` y `340617`) estaba mal.
+  - **35**: 7 códigos (radioterapia con acelerador lineal y braquiterapia/betaterapia),
+    todos agregados por el PMO, $250 c/u.
+  Publicado con `scripts/inject_db.py` (modo aparte, `web/nbu_db.bin`). Corridos
+  `tests/e2e/casos/login.mjs` y `nubelocal.mjs` sin fallas (no se tocó `web/index.html`,
+  así que no hizo falta `scripts/sellar_csp.py` ni la suite completa).
+  **No quedan códigos PMO de capítulo ≥14 sin resolver**, salvo el capítulo 66
+  (fuera de alcance, ver arriba) y un puñado suelto en 18/42/43 que ya estaban resueltos
+  de sesiones previas sin coseguro en la fuente (no es un pendiente, es cómo es la
+  fuente — ver el método de detección en el bloque de abajo si hace falta repetirlo).
 
 ### Lo que queda por confirmar en los datos
 - **84 títulos «denominación a confirmar»** (`titulo_revisar`): ninguna fuente los resuelve

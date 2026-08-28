@@ -744,7 +744,7 @@
   "checksum_ok": true
  },
  "010309": {
-  "tipo": "sin_valor",
+  "tipo": "priced",
   "nombre_ocr": "PUNCION LUMBARCON/SINMANOMETRIA. VERTEBROPLASTIAPERCUTANEACONCEMENTOACRILICODEPOLIMETACRILATODEMETILO. ESDE PRIMERAELECCIONENLASINDICACINESQUESEEXPLICITANOUEDANDOLAOSTEOSINTESISYFUACIONESDE",
   "page": 7,
   "esp": {
@@ -761,11 +761,12 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 7,
+   "p": 3.45
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 3.45,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "010310": {
   "tipo": "sin_valor",
@@ -984,7 +985,7 @@
   "checksum_ok": true
  },
  "010409": {
-  "tipo": "sin_valor",
+  "tipo": "priced",
   "nombre_ocr": "BLOQUEOEXTRACRANEALANTIALGICO.",
   "page": 8,
   "esp": {
@@ -1001,11 +1002,12 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 7,
+   "p": 3.45
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 3.45,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "010501": {
   "tipo": "priced",
@@ -1176,7 +1178,7 @@
   "checksum_ok": true
  },
  "010508": {
-  "tipo": "sin_valor",
+  "tipo": "priced",
   "nombre_ocr": "NEUROLISISQUIMICAOBLOQUEOANTIALGICODENERVIOPERIFERICO.",
   "page": 9,
   "esp": {
@@ -1193,11 +1195,12 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 7,
+   "p": 3.45
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 3.45,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "010601": {
   "tipo": "priced",
@@ -1296,7 +1299,7 @@
   "checksum_ok": true
  },
  "010606": {
-  "tipo": "sin_valor",
+  "tipo": "priced",
   "nombre_ocr": "INYECCIONPARAVERTEBRALDETRONCOSYGANGILIDSSIMPATICOS. etretrado pore PMSimpatico cervical,toracico,lumbar,esplacmicoy semilunar).",
   "page": 9,
   "esp": {
@@ -1313,11 +1316,12 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 7,
+   "p": 3.45
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 3.45,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "010607": {
   "tipo": "sin_valor",
@@ -1732,7 +1736,7 @@
   "nombre_ocr": "INTRODUCCIONDESUSTANCIASTERAPEUTICASRETROGLOBULARESINYECTABLES. REPARACIONPLASTICADELA ORBITA CONOSININJERTODEPIEL",
   "page": 11,
   "esp": {
-   "u": 228.0,
+   "u": null,
    "p": null
   },
   "ayu": {
@@ -1745,11 +1749,12 @@
    "p": null
   },
   "gasto": {
-   "u": 268.0,
+   "u": 5,
    "p": 2.46
   },
   "total_p": 2.46,
-  "checksum_ok": null
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "020106": {
   "tipo": "priced",
@@ -2257,7 +2262,7 @@
   "checksum_ok": true
  },
  "020405": {
-  "tipo": "sin_valor",
+  "tipo": "priced",
   "nombre_ocr": "CAUTERIZACIONCORNEAL extorelrado porePMO|con o sin aspadoprevio.",
   "page": 13,
   "esp": {
@@ -2274,11 +2279,12 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 5,
+   "p": 2.46
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 2.46,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "020406": {
   "tipo": "priced",
@@ -3122,7 +3128,7 @@
   "checksum_ok": true
  },
  "030203": {
-  "tipo": "sin_valor",
+  "tipo": "priced",
   "nombre_ocr": "P.M.O.DEINTERVENCIONESQUIRLRGICASCONNOMENCLADORNACIONAL MIRINGOTOMIA CONO SIN COLOCACIONDETUBO DRENAJE. exto refirado porePMOumi o bilateral",
   "page": 18,
   "esp": {
@@ -3139,11 +3145,12 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 26,
+   "p": 12.81
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 12.81,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "030204": {
   "tipo": "priced",
@@ -6373,7 +6380,7 @@
   "checksum_ok": true
  },
  "050408": {
-  "tipo": "sin_valor",
+  "tipo": "priced",
   "nombre_ocr": "PUNCIONDECAVIDADPLEURALPARALAVAJE,OINSTILACIONDESUBSTANCIAS. TextoretiradoporelPMO terapeuticas,PUNCIONPLEURALy/OPULMONAR. extorelradoporePMOdiogndstica,evacuadora.",
   "page": 28,
   "esp": {
@@ -6390,11 +6397,12 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 7,
+   "p": 3.45
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 3.45,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "050409": {
   "tipo": "priced",
@@ -6445,7 +6453,7 @@
   "checksum_ok": true
  },
  "050411": {
-  "tipo": "sin_valor",
+  "tipo": "priced",
   "nombre_ocr": "NEUMOTORAX. extoretrado porePMOporcada inyeccion",
   "page": 28,
   "esp": {
@@ -6462,11 +6470,12 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 7,
+   "p": 3.45
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 3.45,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "050413": {
   "tipo": "sin_valor",
@@ -9424,7 +9433,7 @@
   "checksum_ok": true
  },
  "080212": {
-  "tipo": "sin_valor",
+  "tipo": "priced",
   "nombre_ocr": "PERITONEOCENTESISEVACUADORA,DIAGNOSTICAOPARANEUMOPERITONEO. Texito retiradopore PMO retroneumoperitoneo(Porsesion)",
   "page": 41,
   "esp": {
@@ -9441,11 +9450,12 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 7,
+   "p": 3.45
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 3.45,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "080213": {
   "tipo": "priced",
@@ -11994,7 +12004,7 @@
   "checksum_ok": true
  },
  "090107": {
-  "tipo": "sin_valor",
+  "tipo": "priced",
   "nombre_ocr": "BIOPSIADEGANGLIO LINFATICO PORPUNCION.",
   "page": 49,
   "esp": {
@@ -12011,11 +12021,12 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 26,
+   "p": 12.81
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 12.81,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "090108": {
   "tipo": "priced",
@@ -12834,7 +12845,7 @@
   "checksum_ok": true
  },
  "100209": {
-  "tipo": "sin_valor",
+  "tipo": "priced",
   "nombre_ocr": "CISTOTOMAPORPUNCION CON TROCAR. Texloreiradoporel PMOPuncion evacuadorawesical",
   "page": 52,
   "esp": {
@@ -12851,11 +12862,12 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 7,
+   "p": 3.45
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 3.45,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "100210": {
   "tipo": "priced",
@@ -16894,11 +16906,12 @@
    "p": null
   },
   "gasto": {
-   "u": 50.0,
+   "u": 50,
    "p": 24.64
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 33.89,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "121601": {
   "tipo": "priced",
@@ -17452,7 +17465,8 @@
    "p": null
   },
   "total_p": 58.79,
-  "checksum_ok": null
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "121715": {
   "tipo": "priced",
@@ -19114,7 +19128,7 @@
   "checksum_ok": true
  },
  "130115": {
-  "tipo": "sin_valor",
+  "tipo": "priced",
   "nombre_ocr": "facturarseconsulta medico. IMPILANTACIONDEPELLETSENTEJIDOSUBCUTANEO.",
   "page": 75,
   "esp": {
@@ -19131,11 +19145,12 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 26,
+   "p": 12.81
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 12.81,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "130201": {
   "tipo": "priced",
@@ -36828,9 +36843,8 @@
   "checksum_ok": null
  },
  "430101": {
-  "tipo": "sin_valor",
-  "nombre_ocr": "INTERNACIONES CAMA EN HABITACION DEDOS CONBANO PRIVADO.",
-  "page": 62,
+  "tipo": "priced",
+  "page": 136,
   "esp": {
    "u": null,
    "p": null
@@ -36845,16 +36859,16 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 57.0,
+   "p": 32.11
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 32.11,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "430102": {
-  "tipo": "sin_valor",
-  "nombre_ocr": "P.M.O.DE PRACTICASESPECIALIZADASCON NOMENCLADOR NACIONAL Texto retrado porelPMO INCLUYE:Uso de cama,ropa limpia,higienizacion del paciente,limpieza def ambiente,afimentaciony los mediosmecesarios para brindarle un ambiente confortable alpaciente-ambiente climatizado-. PERSONAL:Inciuyeasistencia del medico deguardia interno,atencion delasenfermerasymucamas depiso. EXCLUYE:Los consultas especializadas. losmismosserealicendurante la internacion. FACTuRACiOn:El dia deingreso sefactura con arancelcompleto en la facturacion,independientemente de Ia hora en que se hayaproducido el ingreso.El dia deegreso seexcluye delafacturacion independientemente de la horg enque se haya producido,con laexcepcion delalta porfallecimiento luegode las11horas,ocuando elaitaacargo dela obra social,que debio ser informoddcon la debida antelacion,seefectivice despues delas 11horas.La obro socialtendrederechoasolicitarprotocolosanatorialdelperiododeinternacion. Textorefrado porelPMOUna cama enhabitacion de dosconbano intermedio",
-  "page": 63,
+  "tipo": "priced",
+  "page": 137,
   "esp": {
    "u": null,
    "p": null
@@ -36869,16 +36883,16 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 43,
+   "p": 24.23
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 24.23,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "430103": {
-  "tipo": "sin_valor",
-  "nombre_ocr": "Texto reEradoporelPMO] Una cama en habitacion de trescon baio incluido.",
-  "page": 63,
+  "tipo": "priced",
+  "page": 137,
   "esp": {
    "u": null,
    "p": null
@@ -36893,16 +36907,16 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 38,
+   "p": 21.41
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 21.41,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "430104": {
-  "tipo": "sin_valor",
-  "nombre_ocr": "extoretrado porelPMOUnd cama en hubitacion demas de trescon banio incluido.",
-  "page": 63,
+  "tipo": "priced",
+  "page": 137,
   "esp": {
    "u": null,
    "p": null
@@ -36917,16 +36931,16 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 34,
+   "p": 19.16
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 19.16,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "430105": {
-  "tipo": "sin_valor",
-  "nombre_ocr": "ATENCIONDELRECIENNACIDO ENHABITACION extorefradoporel PMO|delamadre-ARNSHMYloNuRSERY. TextorefradoporelPMO A.ATENCIONDELRECIEN NACIDOSANO ENHABITACIONMATERNARNSHM laenfermera,desarrollando los conocimientos de puericuitura necesarios. COMPRENDE:Uso de cuna,limpieza delambiente,asistencia por personalespecializado,cuidado delrecien nacido (control de peso,respiracion,vigilan",
-  "page": 63,
+  "tipo": "priced",
+  "page": 137,
   "esp": {
    "u": null,
    "p": null
@@ -36941,16 +36955,16 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 23,
+   "p": 12.96
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 12.96,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "430106": {
-  "tipo": "sin_valor",
-  "nombre_ocr": "cia de nutricion),cambio de ropa e higienizacion,alimentos especiales y/o artificiafes. La habitacion debe permitir una adecuada circulacion,disponer de lavuboy estar destinoda aobstetricia oginecologia no infectada.Asimismo debe cum plimentarse hoja de controi con signos de alarma B.NURSERY:Idem segundo parafoCOMPRENDEmas ambiente climatizado. CAMAPARAACOMPANANTE. TextoretiradoporelPMOen habitacion dedoscamascon bano privado OBLIGACIONDECOEERTURAENLOS SIGUIENTES CASOS INTERNACIONENMENORESDE TS ANOS,AFINDEASEGLRARIUNAADECUADACONTENCIONPORPARTEDEUNFAMLIAR DURANTEUNMOMENTO CRITICDCOMOESLAINTERNACIONY,SOERETODO,ENESTEGRUPO DEPERSONAS Texto relirado pore PMO INCLuyE:Uso decama,ropa de camay desayumo.Enecaso demenores de diez afos,losmismos tendran derechoacompaante sinque medie autorizocion",
-  "page": 63,
+  "tipo": "priced",
+  "page": 137,
   "esp": {
    "u": null,
    "p": null
@@ -36965,16 +36979,16 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 68,
+   "p": 38.31
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 38.31,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "430107": {
-  "tipo": "sin_valor",
-  "nombre_ocr": "por parte dela Obra Social.En elcaso depacientes mayores dediezanios,la ObraSocial,porvid de excepcion podro autorizarlapresencia de un acompo hante,cudndo lagravedoddel pacientelo requiera,debiendo ser prescriptapor medico tratante,autorizadapor la Obra Socialy contar con la conformi dad del medico director delestablecimiento. AMPLIACiONDELANORMA:Nocorrespondereconoceracompariante enelcaso deun menor de 10 ahosmientras permanezcainternodoen terapiaintensiva. Textoretirato porelPMoUna camo para acompariante en habitacion de doscamas conbaro inter- medio.",
-  "page": 63,
+  "tipo": "priced",
+  "page": 137,
   "esp": {
    "u": null,
    "p": null
@@ -36989,16 +37003,16 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 47,
+   "p": 26.48
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 26.48,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "430108": {
-  "tipo": "sin_valor",
-  "nombre_ocr": "TexlorefradoporePMO1camapara acompanante enhabitacion de tres cams con bano incluido.",
-  "page": 63,
+  "tipo": "priced",
+  "page": 137,
   "esp": {
    "u": null,
    "p": null
@@ -37013,11 +37027,12 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 41,
+   "p": 23.1
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 23.1,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "430109": {
   "tipo": "sin_valor",
@@ -37045,10 +37060,9 @@
  },
  "430201": {
   "tipo": "priced",
-  "nombre_ocr": "Texto refrado porel PMO CURACIONESSIN CARGO: Cirugia hasta 89u.s.....3curaciones Cirugia hasta262u.......5curaciones Las normas especiales para este codigo,que anteceden,no fueron expresamente suprimidas por la resolucion7/85 delaSecretaria de Salud,aunque se de duce que carecen de aplicacion apartir dela vigenci dela misma. CURACIONES",
-  "page": 64,
+  "page": 138,
   "esp": {
-   "u": 142.4,
+   "u": null,
    "p": null
   },
   "ayu": {
@@ -37058,19 +37072,19 @@
   },
   "anes": {
    "u": null,
-   "p": 1.04
+   "p": null
   },
   "gasto": {
-   "u": null,
+   "u": 8.5,
    "p": 1.04
   },
-  "total_p": 50.0,
-  "checksum_ok": null
+  "total_p": 1.04,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "430202": {
-  "tipo": "sin_valor",
-  "nombre_ocr": "CURACIONESENQUEMADOS.",
-  "page": 64,
+  "tipo": "priced",
+  "page": 138,
   "esp": {
    "u": null,
    "p": null
@@ -37085,16 +37099,16 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 25,
+   "p": 3.07
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 3.07,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "430301": {
-  "tipo": "sin_valor",
-  "nombre_ocr": "exto refrado pore PMOEnconsultorio externo,cada aplicacion.",
-  "page": 64,
+  "tipo": "priced",
+  "page": 138,
   "esp": {
    "u": null,
    "p": null
@@ -37109,16 +37123,16 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 2,
+   "p": 0.25
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 0.25,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "430401": {
-  "tipo": "sin_valor",
-  "nombre_ocr": "NEBULIZACIONES NEBULIZACION(INCLUIDO OXIGENO) extorefiradoporel PMOcon nebulizador",
-  "page": 64,
+  "tipo": "priced",
+  "page": 138,
   "esp": {
    "u": null,
    "p": null
@@ -37133,16 +37147,16 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 5,
+   "p": 0.61
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 0.61,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "430402": {
-  "tipo": "sin_valor",
-  "nombre_ocr": "NEBULIZACIONCONRESPIRADOR(INCLUIDOOXIGENO) TextorefiradoporelPMonebulizadorultrasonico",
-  "page": 64,
+  "tipo": "priced",
+  "page": 138,
   "esp": {
    "u": null,
    "p": null
@@ -37157,16 +37171,16 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 10,
+   "p": 1.23
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 1.23,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "430501": {
-  "tipo": "sin_valor",
-  "nombre_ocr": "INCUBADORAS INCUBADORATIPOISOLETTEOSIMILAR. extorelradoporePMOporda extorefradoporel PMO|Este gasto se podra facturar unicamente cuandola prestacion no seefectue en cuidados especiafes oen terapia intensiva pediatricd.",
-  "page": 64,
+  "tipo": "priced",
+  "page": 138,
   "esp": {
    "u": null,
    "p": null
@@ -37181,16 +37195,16 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 26,
+   "p": 14.65
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 14.65,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "430601": {
-  "tipo": "sin_valor",
-  "nombre_ocr": "P.M.O.DEPRACTICASESPECIALIZADASCON NOMENCLADORNACIONAL LUMINOTERAPIA LUMINOTERAPIA. Textorefiradopore PMOPardia exto refirado pore PMoEste gasto se podra facturar unicamente cuando la prestacion no se efectue en cuidados especiales o en terapia intensfva pediatrica. Sub-capilulo del NomNac.refirado par e PMO OXIGENOTERAPIA",
-  "page": 65,
+  "tipo": "priced",
+  "page": 139,
   "esp": {
    "u": null,
    "p": null
@@ -37205,16 +37219,16 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 19,
+   "p": 2.33
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 2.33,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "430901": {
-  "tipo": "sin_valor",
-  "nombre_ocr": "Sefacturara deacuerdo afvafor del oxigeno en plaza en elmomento delsuministro,con extepcion de aquellos casos en que este incluido en Ia prestocion. Sub-capitulo del Nom.Nac.refrado par e PMO RECARGOENINTERNACIONESESPECIALES Pordia Este codigo sera de aplicacion enloscasosde grandes quemados,enfermas conincontinencias deesfinteryana contrenatura,cuandorequieran uncufdado especiol. Sub-capitulo del NomNac.refirado por e PMO",
-  "page": 65,
+  "tipo": "priced",
+  "page": 139,
   "esp": {
    "u": null,
    "p": null
@@ -37229,16 +37243,16 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 20,
+   "p": 11.27
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 11.27,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "431001": {
-  "tipo": "sin_valor",
-  "nombre_ocr": "Estos codigossefacturaran por cada dia de internacion de acuerdo con las normas de internacion y unfcamente en las internaciones clinicas,quirurgicas, El codigo43.10.01sefacturara juntocon loscodigos43.01.01 al04.El codigo43.10.02 sefacturara junto conloscodigos40.01.01y 41.01.01. Uso de material descartuble(jeringas.agujas,guantes,en internacian general.Por dia de in-U. ternacion.",
-  "page": 65,
+  "tipo": "priced",
+  "page": 139,
   "esp": {
    "u": null,
    "p": null
@@ -37253,16 +37267,16 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 5,
+   "p": 2.82
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 2.82,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "431002": {
-  "tipo": "sin_valor",
-  "nombre_ocr": "P.M.O.DEPRACTICASESPECIALIZADASCON NOMENCLADOR NACIONAL Uo de materiafdescartable (jeringas,agujas,gudntes),en terapid intersivay cuidados especia les.Por dia de internacion en la unidad.",
-  "page": 66,
+  "tipo": "priced",
+  "page": 140,
   "esp": {
    "u": null,
    "p": null
@@ -37277,16 +37291,16 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 12,
+   "p": 6.76
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 6.76,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "431101": {
-  "tipo": "sin_valor",
-  "nombre_ocr": "CONSUMOADICIONALDEOXIGENO Teto refradoporel PMO Intervencion quirirgica con anestesiageneral.Par acto quirurgico.",
-  "page": 66,
+  "tipo": "priced",
+  "page": 140,
   "esp": {
    "u": null,
    "p": null
@@ -37301,16 +37315,16 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 8,
+   "p": 4.51
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 4.51,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "431102": {
-  "tipo": "sin_valor",
-  "nombre_ocr": "extorerado porePMOIntervencion quirirgica con circufacien extracorporea.Por actoquirurgico.",
-  "page": 66,
+  "tipo": "priced",
+  "page": 140,
   "esp": {
    "u": null,
    "p": null
@@ -37325,16 +37339,16 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 42,
+   "p": 23.66
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 23.66,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "431103": {
-  "tipo": "sin_valor",
-  "nombre_ocr": "ASISTENCIA RESPIRATORIA ENTERAPIAINTENSIVA. TextoretradoporePMOPordia deinternacion",
-  "page": 66,
+  "tipo": "priced",
+  "page": 140,
   "esp": {
    "u": null,
    "p": null
@@ -37349,16 +37363,16 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 64,
+   "p": 36.06
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 36.06,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "431104": {
-  "tipo": "sin_valor",
-  "nombre_ocr": "ASISTENCIA RESPIRATORIAENCUIDADOSESPECIALES. etorefiradoporePMOPordia deinternacion",
-  "page": 66,
+  "tipo": "priced",
+  "page": 140,
   "esp": {
    "u": null,
    "p": null
@@ -37373,16 +37387,16 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 32,
+   "p": 18.03
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 18.03,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "431105": {
-  "tipo": "sin_valor",
-  "nombre_ocr": "ASISTENCIA RESPIRATORIA ENNEONATOLOGICA. etorefirado porePMOPor dia deinternacion",
-  "page": 66,
+  "tipo": "priced",
+  "page": 140,
   "esp": {
    "u": null,
    "p": null
@@ -37397,11 +37411,12 @@
    "p": null
   },
   "gasto": {
-   "u": null,
-   "p": null
+   "u": 128,
+   "p": 72.12
   },
-  "total_p": null,
-  "checksum_ok": null
+  "total_p": 72.12,
+  "checksum_ok": true,
+  "corregido_manualmente": true
  },
  "431106": {
   "tipo": "sin_valor",
