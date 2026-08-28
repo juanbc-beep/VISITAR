@@ -283,8 +283,8 @@ es la exposición va en el paso de la carga y en la auditoría.
 
 `data/pmo_titulos_a_revisar.json` — **159 denominaciones** del PMO donde la base y
 el renglón impreso no coinciden, con las dos versiones al lado. Se van revisando
-por capítulo y las corregidas quedan en `data/pmo_titulos_curados.json` (**70**
-hasta ahora: capítulos 34, 12 —completo, 23/23—, 03 y la pasada mecánica).
+por capítulo y las corregidas quedan en `data/pmo_titulos_curados.json` (**73**
+hasta ahora: capítulos 34, 12 y 11 —los dos completos—, 03 y la pasada mecánica).
 
 ⚠️ **No son 159 defectos, y el renglón impreso solo no alcanza para decidir.** Dos
 correcciones al criterio con el que se armó esta lista:
@@ -292,11 +292,32 @@ correcciones al criterio con el que se armó esta lista:
 - En buena parte de los casos **la base es MÁS completa** que el renglón: el
   nombre sigue en otra columna y el lector lo corta. En el capítulo 03, de 17
   casos sólo 6 eran defectos.
-- **El método bueno es cruzar tres fuentes**: la base, la planilla del
-  Nomenclador Único y el OCR del Nacional. Con eso se resolvió el capítulo 11,
-  donde el PDF parecía mostrar un corrimiento de once códigos y **no lo había**:
-  el nombre de `110211` se derrama sobre el renglón del `110212` y el lector
-  asigna todo al código anterior. El Único y el Nacional coinciden con la base.
+- **El método bueno es cruzar varias fuentes**: la base, la planilla del
+  Nomenclador Único (`data/unico_equivalencias.xlsx`, **numeración propia,
+  independiente de `data/pmo.pdf`** — ver más abajo por qué esto importa) y el
+  OCR del Nacional (`c.alcance_nn.texto`, ver el párrafo siguiente).
+
+⚠️ **`data/pmo.pdf` (el catálogo, no el Nomenclador Nacional) tiene números de
+código faltantes en el propio impreso**, y eso rompe cualquier lectura que
+empareje «lista de números» con «lista de textos» por posición en vez de por
+lo que está escrito al lado en la página. Pasó dos veces en el capítulo 11: la
+ya documentada entre `110211`/`110212`, y una segunda **recién encontrada el
+28/8/2026** entre `110305` y `110306` (el renglón impreso trae «colporrafia
+posterior con reconstrucción del esfínter del / colpopexia por vía abdominal»
+como si fuera un solo código, sin número en el medio). Cada hueco de estos
+corre la lectura secuencial un lugar para todo lo que sigue — así fue como
+esta sesión llegó a sospechar, en frío, que la base tenía **corrido todo el
+capítulo 11 a partir del `110212`**. **Estaba mal sospechado**: la planilla del
+Único usa su propia numeración, no lee este PDF en absoluto, y confirmó
+código por código que la base siempre estuvo bien. **La lección: ante
+cualquier sospecha de corrimiento de números de código (no sólo de
+redacción), cruzar primero contra `unico_equivalencias.xlsx` —columna
+`unico_codigo`/`unico_descripcion`— antes de tocar nada; es más confiable que
+releer el PDF por posición, justo porque no depende de que el PDF haya
+impreso bien todos los números.** Con ese cruce, del capítulo 11 (16 códigos)
+sólo **3 estaban incompletos** (`110101`, `110301`, `110303` — truncados o con
+una palabra clave de menos, no corridos) y **13 ya estaban bien**, incluidos
+los 4 que ya se habían corregido antes.
 
 ⚠️ **La tercera fuente casi siempre ya está en la propia ficha, no hace falta ir a
 buscarla aparte: es `c.alcance_nn.texto`** (el recuadro «Texto retirado por el
