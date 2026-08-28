@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-oUxd+DuiBnECeiQnYO5btEefTWKKp85K8kjjHFIzp/8=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-deppJXP3nscltezMCnDniPK6bvrtlMOTPCg3CDO8JoM=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -5721,6 +5721,32 @@ function cerrarInfo(){el('modal').classList.remove('on');devolverFoco();}
 function openInfo(expandLey){
   const g=DB.glosario;
   const gl=Object.entries(g).map(([k,v])=>`<div class="grow"><span class="gk">${esc(k)}</span><span class="gv">${linkCodes(esc(v))}</span></div>`).join('');
+  /* «Referencias y flags» sólo explicaba las siglas de origen (U, N, #, PCR,
+     U.B., los códigos del acto bioquímico): ni una palabra de los badges que
+     se fueron sumando después a la ficha (cobertura PMO, NN, relaciones,
+     anexos, equivalencia con el Único, seriado, SURGE, lateralidad, «valores
+     ✓»/2024). Van en su propia lista, con el badge tal cual se ve en la ficha
+     al lado de la explicación, para que no se desactualice de nuevo en
+     silencio: si se agrega un badge acá, se agrega también a esta lista. */
+  const AVISOS=[
+    ['<span class="tag t-cob">obligación de cobertura</span>','El P.M.O. exige cubrir esta práctica (o, como «observación de cobertura», con una salvedad puntual que la ficha aclara).'],
+    ['<span class="tag t-urg">U</span>','Práctica de urgencia: además de esta sigla, agregar el código 661200 a la prescripción.'],
+    ['<span class="tag t-norma">N</span>','Requiere autorización previa: ver la norma citada en la ficha.'],
+    ['<span class="tag t-nn">NN</span>','Hay una norma o un alcance del Nomenclador Nacional que el P.M.O. retiró de su catálogo. El manual la conserva — conviene leerla antes de cargar.'],
+    ['<span class="tag t-desuso"># desuso</span>','Código en desuso: existe en el nomenclador pero no tiene valores de referencia vigentes.'],
+    ['<span class="tag t-rel">relaciones</span>','Tiene prácticas incluidas, no incluidas o incluidas-en relacionadas (Árbol de módulos), listadas al pie de la ficha.'],
+    ['<span class="tag t-anex">+ anexos</span>','Hay códigos que también hay que cargar junto con éste; se facturan aparte.'],
+    ['<span class="tag t-unico">= Único</span>','Tiene equivalencia resuelta con el Nomenclador ÚNICO de VISITAR SRL.'],
+    ['<span class="tag t-noeq">⚠ sin equivalencia</span>','Código del Único: la planilla todavía no le encontró equivalencia en Prestaciones Médicas.'],
+    ['<span class="tag t-freq">seriado</span>','Tiene una frecuencia u orden de sesiones a respetar; se explica en la ficha.'],
+    ['<span class="tag t-surge">SURGE</span>','Prestación incluida en el sistema SURGE.'],
+    ['<span class="tag t-lat">lateralidad</span>','La práctica requiere aclarar de qué lado (izquierda / derecha / bilateral) al cargarla.'],
+    ['<span class="tag t-meta">valores ✓</span>','La ficha tiene cargado el valor real de honorarios de galeno, no sólo el arancel NBU/PMO.'],
+    ['<span class="tag t-meta">2024</span>','La U.B. de esta práctica ya está actualizada al valor del Anexo Enero 2024.'],
+  ];
+  const avisos=AVISOS.map(([tag,txt])=>`<div style="display:flex;align-items:flex-start;gap:14px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px">
+    <span style="flex:0 0 150px">${tag}</span><span class="gv">${txt}</span>
+  </div>`).join('');
   const ley=DB.leyes.map(l=>{
     const vtab=l.valores?`<span class="ld-lbl">${esc(l.valores.nota||'Valores')}</span><table class="disc-tab">${l.valores.modalidades.map(m=>`<tr><td>${esc(m[0])}</td><td>$${esc(m[1])}</td></tr>`).join('')}</table>`:'';
     const det=l.resumen?`<div class="ley-det">
@@ -5776,7 +5802,10 @@ function openInfo(expandLey){
       <button class="mnav-b tut" id="tourBtn">▶ Ver tutorial</button></nav>
     <details class="mdsec" id="iRef" open>
     <summary>Referencias y flags</summary>
+    <div class="pmeta" style="font-weight:700;color:var(--ink);margin-bottom:6px">Siglas y marcadores</div>
     <div class="gtable">${gl}</div>
+    <div class="pmeta" style="font-weight:700;color:var(--ink);margin:16px 0 6px">Avisos y badges de la ficha</div>
+    <div class="gtable">${avisos}</div>
     </details>
     <details class="mdsec" id="iLey">
     <summary>Leyes · Resoluciones · Decretos vigentes<span class="mcount">${DB.leyes.length}</span></summary>
@@ -7772,8 +7801,31 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         <label>Subtítulo</label><input id="pgSub" type="text" value="${E(CONTENT.page.subtitle||DEF.subtitle)}">
         <button class="minibtn" id="pgSave" style="margin-top:14px">Guardar textos</button>
         <button class="minibtn" id="pgReset" style="margin-top:14px;margin-left:6px">Restaurar por defecto</button>
-        <div style="margin-top:16px"><div class="pmeta" style="font-weight:700;color:var(--ink)">Fichas con contenido editado: ${Object.keys(CONTENT.codes).length}</div>
-        ${Object.keys(CONTENT.codes).length?`<div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:5px">${Object.keys(CONTENT.codes).map(c=>`<button class="minibtn" data-goto2="${c}">${c}</button>`).join('')}</div>`:''}</div>`;
+        ${(()=>{
+          /* Antes esto dibujaba un botón por cada código con contenido editado, sin
+             tope: con cientos de fichas tocadas, la pantalla quedaba varios scrolls
+             de puro botón antes de llegar al resto del panel. Ahora: contador +
+             buscador + las últimas tocadas (según el registro local) + el resto
+             detrás de «Ver todas». */
+          const todos=Object.keys(CONTENT.codes);
+          if(!todos.length)return `<div style="margin-top:16px"><div class="pmeta" style="font-weight:700;color:var(--ink)">Fichas con contenido editado: 0</div></div>`;
+          const vistos=new Set(); const recientes=[];
+          for(const e of (CONTENT.log||[])){
+            if(e.code&&CONTENT.codes[e.code]&&!vistos.has(e.code)){vistos.add(e.code);recientes.push(e.code);if(recientes.length>=5)break;}
+          }
+          const boton=c=>`<button class="minibtn" data-goto2="${E(c)}">${E(c)}</button>`;
+          return `<div style="margin-top:16px">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+              <div class="pmeta" style="font-weight:700;color:var(--ink)">Fichas con contenido editado</div>
+              <div class="mono" style="font-size:15px;font-weight:700;color:var(--accent-ink)">${todos.length}</div>
+            </div>
+            <input id="txtBuscarFichas" type="text" placeholder="Buscar código…" style="margin-top:8px">
+            ${recientes.length?`<div class="ahint" style="margin:8px 0 4px">Tocadas más recientemente en esta computadora</div>
+            <div id="txtFichasRecientes" style="display:flex;flex-wrap:wrap;gap:5px">${recientes.map(boton).join('')}</div>`:''}
+            <div id="txtFichasTodas" hidden style="margin-top:8px;display:flex;flex-wrap:wrap;gap:5px;max-height:280px;overflow:auto">${todos.map(boton).join('')}</div>
+            <button class="minibtn" id="txtVerTodas" style="margin-top:8px">Ver todas (${todos.length})</button>
+          </div>`;
+        })()}`;
       el('pgSave').addEventListener('click',()=>{CONTENT.page.title=gv('pgTitle');CONTENT.page.subtitle=gv('pgSub');logEdit('editó textos generales');persistContent();guardarAjustesNube();applyContent();toast('Textos guardados');});
       el('pgReset').addEventListener('click',()=>{const lg=CONTENT.page.logo;CONTENT.page={};if(lg)CONTENT.page.logo=lg;persistContent();guardarAjustesNube();applyContent();renderPane();toast('Textos restaurados');});
       el('pgLogo').addEventListener('change',e=>{
@@ -7785,6 +7837,17 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       });
       if(el('pgLogoDel'))el('pgLogoDel').addEventListener('click',()=>{delete CONTENT.page.logo;persistContent();guardarAjustesNube();applyContent();renderPane();toast('Logo quitado');});
       p.querySelectorAll('[data-goto2]').forEach(b=>b.addEventListener('click',()=>{closeAdmin();openCode(b.dataset.goto2);}));
+      if(el('txtVerTodas'))el('txtVerTodas').addEventListener('click',()=>{
+        const t=el('txtFichasTodas'), b=el('txtVerTodas');
+        t.hidden=!t.hidden; b.textContent=t.hidden?`Ver todas (${t.querySelectorAll('[data-goto2]').length})`:'Ocultar';
+      });
+      if(el('txtBuscarFichas'))el('txtBuscarFichas').addEventListener('input',()=>{
+        const q=gv('txtBuscarFichas').trim().toLowerCase(), t=el('txtFichasTodas');
+        if(q&&t.hidden)t.hidden=false;
+        p.querySelectorAll('#txtFichasRecientes [data-goto2], #txtFichasTodas [data-goto2]').forEach(b=>{
+          b.style.display=(q&&!b.dataset.goto2.toLowerCase().includes(q))?'none':'';
+        });
+      });
     } else if(aTab==='busqueda'){
       /* Valores de coincidencia de la búsqueda: tolerancia a erratas, umbral de
          "coincidencia fuerte" y pesos de cada tipo de coincidencia — ver
@@ -7925,6 +7988,34 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
           : `<span class="lg-c est">${E(e.code)}</span>`):''}
         ${e.detalle?`<span class="lg-d" title="${E(e.detalle)}">${E(e.detalle.slice(0,70))}${e.detalle.length>70?'…':''}</span>`:''}
       </div>`;
+      /* Una tanda de correcciones (un barrido de capítulo, por ejemplo) deja
+         renglones idénticos salvo el código, uno detrás de otro. A partir de 3
+         seguidos del mismo quién+qué se resumen en un solo renglón con
+         «ver las N», en vez de ocupar una línea por código. */
+      const RUN_MIN=3;
+      const corridas=items=>{
+        const out=[]; let i=0;
+        while(i<items.length){
+          const quien=items[i].quien||items[i].who||'', que=items[i].que||items[i].action||'';
+          let j=i+1;
+          while(j<items.length&&(items[j].quien||items[j].who||'')===quien&&(items[j].que||items[j].action||'')===que)j++;
+          const corrida=items.slice(i,j);
+          if(corrida.length>=RUN_MIN)out.push({corrida});else corrida.forEach(e=>out.push({e}));
+          i=j;
+        }
+        return out;
+      };
+      const lineaCorrida=(corrida,conCodigo)=>{
+        const quien=E(corrida[0].quien||corrida[0].who||'—'), que=E(corrida[0].que||corrida[0].action||'');
+        const desde=hora(corrida[corrida.length-1].t), hasta=hora(corrida[0].t);
+        return `<div class="lgline">
+          <span class="lg-h">${desde===hasta?desde:desde+'–'+hasta}</span>
+          <span class="lg-q">${quien}</span>
+          <span class="lg-a">${que} · ${corrida.length} fichas</span>
+          <button class="minibtn" data-lggver data-n="${corrida.length}" style="margin-left:auto">ver las ${corrida.length}</button>
+        </div>
+        <div class="lgg-det" hidden style="margin-left:18px;border-left:1px solid var(--line);padding-left:8px">${corrida.map(e=>linea(e,conCodigo)).join('')}</div>`;
+      };
       /* Cada sección lleva su propio contador: abrir más de la actividad del
          equipo no tiene por qué desplegar también el registro local. */
       const bloque=(lista,conCodigo,vacio,clave)=>{
@@ -7932,7 +8023,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         const {dias,resto}=porDia(lista,tope(clave));
         return dias.map((g,i)=>`<details class="lgdia"${i===0?' open':''}>
           <summary>${rotulo(g.dia)} <span class="lg-n">${g.items.length}</span></summary>
-          ${g.items.map(e=>linea(e,conCodigo)).join('')}
+          ${corridas(g.items).map(x=>x.corrida?lineaCorrida(x.corrida,conCodigo):linea(x.e,conCodigo)).join('')}
         </details>`).join('')+
         (resto>0?`<button class="minibtn" data-vermas="${clave}" style="margin-top:9px">Ver ${Math.min(resto,60)} más · quedan ${resto}</button>`:'');
       };
@@ -7948,6 +8039,10 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         closeAdmin(); openCode(b.dataset.actir);}));
       p.querySelectorAll('[data-vermas]').forEach(b=>b.addEventListener('click',()=>{
         const k=b.dataset.vermas; aVerMas[k]=(aVerMas[k]||30)+60; renderPane();}));
+      p.querySelectorAll('[data-lggver]').forEach(b=>b.addEventListener('click',()=>{
+        const det=b.closest('.lgline').nextElementSibling, abrir=det.hidden;
+        det.hidden=!abrir; b.textContent=abrir?'ocultar':`ver las ${b.dataset.n}`;
+      }));
       if(el('logClear'))el('logClear').addEventListener('click',()=>{if(confirm('¿Vaciar el registro de esta computadora?\n\nLo que está en la base no se toca.')){CONTENT.log=[];persistContent();renderPane();}});
     } else if(aTab==='respaldo'){
       /* Con la base de la empresa encendida, este respaldo no lleva las cuentas:

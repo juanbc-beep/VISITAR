@@ -2065,6 +2065,65 @@ Funciones: `initValidator()`, `runCase()`, `renderCase()`, `renderFacturacion()`
 
 ## 7. Historial de trabajo
 
+**Lo hecho en la tanda del 2026-08-28** (rama `claude/nomenclador-sweep-continue-1ayph3`),
+sobre tres pantallas del panel de administración que el usuario mostró en capturas:
+
+- **Textos → «Fichas con contenido editado»**: dibujaba un botón por cada código tocado,
+  sin tope — con cientos de fichas editadas ocupaba varios scrolls de puro botón antes de
+  llegar al resto del panel. Ahora: contador + buscador + las últimas tocadas (según
+  `CONTENT.log`, el registro local) + el resto detrás de «Ver todas».
+- **Registro (log de actividad)**: una tanda de correcciones (un barrido de capítulo, por
+  ejemplo) dejaba un renglón idéntico por código, uno detrás de otro. A partir de 3 renglones
+  seguidos del mismo quién+qué se resumen en uno solo con «ver las N» (el detalle sigue a un
+  clic). La paginación por día (`porDia`/`tope()`) ya alcanzaba a «Hoy» igual que a cualquier
+  otro día — no hacía falta tocarla.
+- **Glosario → «Referencias y flags»**: sólo explicaba las siglas de origen (U, N, #, PCR,
+  U.B., los códigos del acto bioquímico) y no decía nada de los badges que se fueron sumando
+  después a la ficha. Se agregó una segunda lista, «Avisos y badges de la ficha», con el
+  badge real (mismas clases CSS que la ficha: `t-cob`, `t-nn`, `t-rel`, `t-anex`, `t-unico`,
+  etc.) al lado de su explicación, para que quien no usó la app desde el principio entienda
+  qué está viendo.
+- Antes de tocar código se armó un boceto visual de las tres pantallas (Claude Design canvas,
+  ANTES/PROPUESTA con los tokens reales del tema oscuro) para que el usuario aprobara la
+  dirección antes de implementar.
+- Se agregó un caso de prueba ad hoc (Playwright, no versionado) para las tres pantallas antes
+  de commitear; no quedó en `tests/e2e/casos/` porque no correspondía a un flujo de usuario
+  nuevo, sólo a una redistribución visual — si se vuelve a tocar esta zona, conviene sumar un
+  caso real ahí.
+- **⚠️ Corrección importante, a pedido del usuario: los dos barridos anteriores (galenos sin
+  cargar y las 159 denominaciones) sólo se habían aplicado del lado de Prestaciones Médicas
+  (PMO/NBU) — el código equivalente del Nomenclador ÚNICO se quedó sin la información
+  adicional (valores de galeno, cobertura PMO, coseguro), cuando la equivalencia entre ambos
+  ya existía y son la misma práctica.**
+  - **Primer intento, corregido por el usuario:** al principio también se igualó el
+    **nombre** del Único al de Prestaciones Médicas en 46 códigos donde el Único todavía
+    tenía el nombre viejo. El usuario frenó esto: **el nombre del Único NO se toca nunca**
+    — es el nomenclador que usa la empresa, y su redacción vale aunque difiera de cómo lo
+    dice la planilla de Prestaciones Médicas. Se revirtieron los 46 nombres (y las copias
+    `unico_desc`/`equivalencia.desc` que los reflejaban) a como estaban antes de esta tanda;
+    verificado contra el commit anterior a todo esto que quedaron los 6.372+ nombres
+    idénticos, cero diferencias.
+  - **Lo que sí correspondía — y ya existía un mecanismo para el mismo problema del otro
+    lado**: `scripts/propagar_al_unico.py` (NBU↔Único, de laboratorio) y
+    `scripts/propagar_abarca_unico.py` (`alcance_nn`, las dos puntas) ya resolvían exactamente
+    esto para otros campos, con la misma regla de no tocar nombres. Faltaba el equivalente
+    para PMO↔Único (prestaciones médicas), así que se escribió
+    **`scripts/propagar_pmo_a_unico.py`**, mismo patrón: hereda sólo cuando el Único no tiene
+    nada propio, nunca pisa, y aborta si detecta que movió un nombre (mismo chequeo de
+    seguridad que `propagar_abarca_unico.py`). Corrido sobre **toda la base** (no sólo los
+    códigos de estos dos barridos: el problema era estructural, no de estos barridos en
+    particular) dio, sobre 1.313 pares PMO↔Único: **383** con valorización de galeno heredada
+    (`valores` + `asociaciones_especificas`, con una línea de auditoría que dice de dónde
+    salió), **94** con coseguro heredado (`coseguro_hasta` + la misma frase agregada al
+    `valor.arancel` del Único, marcada como heredada), y **95** con otros campos (cobertura
+    PMO, tope, referencias, sinónimos, abreviaturas, SURGE, seriado, frecuencia). También se
+    volvió a correr `propagar_abarca_unico.py`, que sumó 9 «qué abarca» nuevos y actualizó 2.
+  - Lo que sigue sin tocarse, todavía: la **redacción** del nombre en sí donde diverge entre
+    Único y Prestaciones Médicas (más de 80 casos, ver la fila nueva en la tabla de
+    pendientes) — eso es criterio del usuario, no algo para que decida un script.
+  - Verificado con `scripts/inject_db.py` + la suite completa de `tests/e2e/` (27 casos, sin
+    romper nada) después de cada corrida.
+
 **Lo hecho en la tanda del 2026-08-18** (rama `claude/nomenclador-chapters-30-29-21-0c4v9o`),
 toda sobre el barrido de 3.8:
 
@@ -2453,6 +2512,7 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
 | **17 títulos del capítulo 34 «a confirmar»** y 2 ilegibles (`340803`, `340813`) | del usuario, o de otra planilla |
 | **Redacción del aviso «sin confirmar»** en las propuestas visibles al equipo | del usuario (se publicó una versión y ofreció cambiarla) |
 | **Volver la base adentro del `index.html`** si prefiere el archivo único (3.0 bis) | del usuario |
+| **Divergencia de redacción PMO ↔ Único preexistente** (más de 80 códigos donde, aun siendo la misma práctica por `equivalencia_unico`, cada nomenclador la transcribió distinto) — **el usuario ya definió el criterio (28/8/2026): el nombre del Único NO se toca**, es el nomenclador que usa la empresa; esto queda anotado sólo por si algún día se quiere revisar la calidad de esas 80 transcripciones puntuales, no para homologarlas con el PMO | ninguno — resuelto: no tocar |
 
 ### Propuesto y NO construido (por orden de utilidad para el usuario de carga)
 - ✅ **Editar una propuesta antes de publicarla — construido el 26/8/2026.** Ver el bloque
