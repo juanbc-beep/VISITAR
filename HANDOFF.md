@@ -2065,8 +2065,172 @@ Funciones: `initValidator()`, `runCase()`, `renderCase()`, `renderFacturacion()`
 
 ## 7. Historial de trabajo
 
-**Lo hecho en la tanda del 2026-08-28** (rama `claude/nomenclador-sweep-continue-1ayph3`),
-sobre tres pantallas del panel de administración que el usuario mostró en capturas:
+**Lo hecho en la tanda del 2026-08-28, parte 5** (misma rama): auditoría completa del
+código a pedido del usuario ("repasá todo el código de la aplicación y verificá qué
+elementos quedaron rotos/sin uso"). Buena noticia: **cero referencias rotas al DOM y cero
+funciones de JS sin usar** en todo `web/index.html` (se revisaron los 236 `function` y 137
+`const/let =>` de nivel superior). Lo que sí apareció y se sacó, a pedido del usuario:
+
+- **8 reglas de CSS sin ninguna referencia**: `.acctbox`, `.gmeta`, `.cr-lbl`,
+  `.int-cand-nota`, `.acode` (todas superadas por otra clase que ya hace lo mismo:
+  `.mono`, `.slabel`, `.ovr-badge`, `.int-cand-avisos` según el caso) y `.tt-rol`/
+  `.tt-prog` (quedaron de un diseño anterior de la tarjeta del tutorial — la propia
+  `pintarPaso()` sólo arma `.tt-n`, nunca badge de rol ni contador `.tt-prog`).
+- **El modal `#onboard`/`#onboardCard`/`.obcard`/`.obicon`/`.obdots`/`.obnav`/`.obskip`
+  completo** (CSS + HTML + las dos llamadas `el('onboard')` en JS): nunca se le asigna
+  contenido en ningún lado, y a su clase `.on` nunca se le hacía `add()`, sólo `remove()`
+  defensivo en `endOnboard()`. El onboarding real usa enteramente el mismo `#tour` del
+  recorrido guiado (`startOnboard()`/`maybeOnboard()`), nunca este modal — código muerto
+  desde antes de esta sesión, no algo que se haya roto ahora.
+- **Verificado, no se tocó**: `.sem-y`/`.sem-g` (semáforo amarillo/verde de autorización)
+  también están sin usar —hoy toda fila de autorización sale en rojo, `.sem-r`— pero
+  podría ser una funcionalidad a medio terminar y no sólo CSS de sobra; queda para que el
+  usuario decida si la termina o la saca. Dos ids huérfanos sin impacto (`abBox`,
+  `auth-css`) quedaron anotados pero sin tocar, por no valer el riesgo de una edición más.
+- **Scripts de `scripts/` que no corre `assemble.py`**: son herramientas manuales a
+  propósito (lo dice el docstring de cada uno) — no son código muerto, no se tocaron.
+  Un puñado de archivos de datos "raw" (`data/nbu_catalog_raw.json`,
+  `data/nbu_intel_raw.json`, `data/pmo_catalog_raw.json`, y algunos PDF/Excel/txt de
+  origen) no los lee ningún script hoy; salvo `data/pmo_titulos_a_revisar.json`
+  (confirmado obsoleto: la tarea que lo generaba cerró el 28/8, ver más abajo en esta
+  misma sección), quedan sin decisión — parecen copias de respaldo del proceso original,
+  no algo para borrar a ciegas.
+- Verificado con `scripts/sellar_csp.py` y la suite completa (34 casos, sin romper nada).
+
+**Lo hecho en la tanda del 2026-08-28, parte 4** (misma rama): el usuario reportó que a
+los administrativos, al abrir el correo de "restablecer contraseña", les daba un error de
+acceso. Causa encontrada — **ya documentada, no es nueva**: ver `docs/INSTALACION.md` 1.3
+bis y `HANDOFF.md` (tabla de errores conocidos, "El enlace de restablecer llevaba a
+`localhost`"). El enlace del correo depende de **Site URL**, un ajuste del panel de
+Supabase que vive AFUERA de este repositorio; si quedó apuntando a `localhost` (el valor
+de fábrica) o a una dirección vieja, el enlace lleva a un lugar que no existe y el
+navegador contesta "No se puede acceder" — ni siquiera llega a esta app.
+
+- **Arreglo de este lado, en `NUBE.recuperar()`**: ahora manda `redirect_to` explícito en
+  el pedido a `/auth/v1/recover`, calculado de `location.origin+location.pathname` —la
+  dirección real donde está corriendo la app en ese momento, no un valor fijo—. Esto saca
+  a la app de depender ÚNICAMENTE de que el ajuste de Site URL del panel siga bien puesto:
+  si alguna vez se resetea o se configura mal, el enlace sigue andando igual. Sigue
+  exigiendo que esa dirección esté en la lista de **Redirect URLs** del mismo panel (ya lo
+  pedía el paso 1.3 bis, no es un requisito nuevo).
+- **⚠️ Esto NO alcanza solo**: si el problema real de los administrativos es que **Site
+  URL** en el panel de Supabase está mal (lo más probable, dado el síntoma exacto que
+  describieron — "error de acceso" calza con el "No se puede acceder" documentado), hay
+  que **entrar al panel de Supabase y revisar/corregir Authentication → URL Configuration
+  → Site URL y Redirect URLs**, poniendo `https://juanbc-beep.github.io/VISITAR/` (la
+  dirección real de GitHub Pages de este repo, confirmada contra
+  `.github/workflows/pages.yml`). Esto es un ajuste de panel, no de código: no lo pude
+  tocar desde esta sesión.
+- Se agregó `casos/recuperar_password.mjs` (3 casos: que el pedido manda `redirect_to`,
+  que un enlace vencido avisa en vez de romperse, y que uno válido deja elegir la
+  contraseña y después entrar con ella). Se confirmó que el primero falla sin el arreglo
+  de `redirect_to` y pasa con él. De paso quedó documentado un detalle menor de UX: el
+  botón dice "Guardar y entrar" pero lo que hace es guardar y volver al login — no arma
+  sesión sola con el token de recuperación, hay que volver a escribir la contraseña recién
+  puesta. No se tocó porque no es lo que reportó el usuario; queda anotado por si alguna
+  vez se decide que sí debería entrar directo.
+- Se exportó `emitirTokens` de `tests/e2e/simulador.mjs` (antes interno) para poder armar
+  un enlace de recuperación válido en el caso de prueba nuevo, y `db.recovers` ahora
+  guarda `{email, redirect_to}` en vez de sólo el correo (nada más lo usaba).
+
+**Investigado, sin poder reproducir — el usuario también reportó que el check "confiar en
+este dispositivo" del login del administrador general (verificación en dos pasos) no
+funciona.** Repasé todo el circuito (`continuarLogin()`, `confiarDispositivo()`/
+`dispositivoConfiable()`/`olvidarDispositivo()`, el checkbox `#mfaRecordar` del login) y
+está consistente: el mismo `id` de perfil se usa para escribir y para leer la marca de
+confianza, la marca vive en `localStorage` con vencimiento a 30 días, y el circuito
+COMPLETO —activarla, confiar, "dejar de confiar", entrar de nuevo con el checkbox tildado
+y destildado— ya estaba cubierto por `casos/mfa.mjs` **y pasa** contra el simulador. No
+encontré un bug de código reproducible con lo que hay hoy en el repo. Puede ser algo del
+entorno real que el simulador no reproduce (Safari con prevención de rastreo agresiva
+puede borrar `localStorage` de un sitio poco visitado a los 7 días; una ventana privada;
+la app instalada como PWA con almacenamiento separado del navegador normal). **Antes de
+seguir cazando este bug hace falta más información del lado real**: ¿en qué navegador
+pasa?, ¿es siempre, o después de un tiempo?, ¿pasa también si NO se cierra la sesión (se
+queda en la misma pestaña) o sólo al volver a entrar más tarde?, ¿hay algún error en la
+consola del navegador al tildar el check o al loguearse?
+
+**Lo hecho en la tanda del 2026-08-28, parte 2** (misma rama), sobre bugs del recorrido
+guiado (onboarding) reportados por el usuario en mobile:
+
+- **Causa raíz de "no me deja volver del paso 7 al 6" / "paso 9 al 8", con captura**: cada
+  paso del tour puede traer un `antes()` que prepara la pantalla (abrir el cajón de filtros,
+  abrir/cerrar una ficha); si después de eso el elemento a señalar sigue sin encontrarse,
+  `pintarPaso()` saltea el paso — pero **siempre sumaba** (`tIdx++`), sin importar si se
+  estaba navegando para adelante o para atrás con «← Atrás». Yendo para atrás, ese salto en
+  la dirección equivocada rebotaba al paso SIGUIENTE, cuyo `antes()` deshacía lo que el paso
+  de atrás acababa de preparar (cerraba el cajón que se acababa de abrir, o reabría la ficha
+  que se acababa de cerrar) — de ahí la sensación de "se cierra el menú hamburguesa" y de que
+  "Atrás" no hace nada. Arreglado con una variable de dirección (`tDir`, ±1 según se tocó
+  Siguiente o Atrás) que ahora se usa en el salto (`tIdx+=tDir`) en vez de sumar siempre.
+- **El disparador real, en el caso del usuario**: casi seguro estaba en modo **«Buscar en
+  todo» (ALL)** cuando corrió el recorrido. En ese modo NINGÚN filtro aplica —ni sección, ni
+  tipo de Único, ni grupo, ni «reglas y estados» (ver `applyMode()` y `buildGroups()`)—, así
+  que el paso «Filtros, en tres bloques» es irreproducible ahí: se salta solo yendo para
+  adelante (comportamiento correcto y ya existente), pero antes del arreglo, yendo para atrás
+  rebotaba sin parar contra el paso «Vistas», abriendo y cerrando el cajón vacío en cada
+  intento — visualmente igual a que el menú hamburguesa "se cerrara solo".
+- **Bug relacionado, encontrado al investigar**: en modo ALL el botón de filtros (☰, mobile)
+  seguía visible aunque el cajón que abre esté completamente vacío — ni un solo filtro que
+  mostrar. Se oculta ahora ese botón (`#filterToggle.hidden`) cuando `state.mode==='ALL'`,
+  mismo criterio (`isAll`) que ya usaba `flagsPanel`. Esto también resuelve, de paso, el "no
+  te muestra absolutamente nada" que describió el usuario al querer filtrar desde «Buscar en
+  todo» en mobile.
+- **La "X" tapando texto de filtros, mobile**: el botón de cerrar (`.rail-close`) es
+  `position:absolute;top:10px;right:10px` DENTRO del cajón (`<aside id="rail">`), que en
+  mobile tenía el mismo padding parejo (16px) en las cuatro puntas — sin espacio reservado
+  para el botón, tapaba las primeras líneas del PRIMER panel visible (cuál es varía según el
+  modo: Sección NBU, Tipo de práctica, Grupo…). Se le agregó `padding-top:58px` (altura del
+  botón + su offset + respiro) sólo en mobile.
+- Los tres arreglos son en `web/index.html` únicamente (sin tocar datos), verificados con
+  `scripts/sellar_csp.py` (se editó `<script>`) y la suite completa de `tests/e2e/` (27 casos
+  existentes + 3 nuevos en `casos/onboarding_tour.mjs`, sin romper nada). El primer caso
+  nuevo se armó reproduciendo el modo ALL explícitamente, y se confirmó que falla sin el
+  arreglo de `tDir` (revirtiéndolo a mano) y pasa con él — no alcanza con "toca los botones y
+  ve si algo revienta": el bug es sobre la DIRECCIÓN del salto, así que el caso tiene que
+  forzar el escenario donde el paso de Filtros es inalcanzable de entrada.
+- **Pendiente, no resuelto acá**: no se pudo ver la imagen que el usuario adjuntó en el chat
+  (no llegó a esta sesión) — el diagnóstico salió de leer el código del tour y de la lógica
+  de filtros por modo, no de la captura. Si algo de lo descrito no queda resuelto con esto,
+  conviene reintentar el envío de la imagen.
+
+**Lo hecho en la tanda del 2026-08-28, parte 3** (misma rama): a pedido del usuario
+("seguí revisando el resto del onboarding"), un repaso más del recorrido guiado además de
+los tres bugs de la parte 2:
+
+- **Encontrado y arreglado — "Mesa de trabajo" parcialmente tapada por el borde en mobile**:
+  en pantallas angostas (probado a 390px) la tira de vistas (`.viewtabs`: Listado / Árbol de
+  módulos / Mesa de trabajo / Intérprete de orden) desborda y scrollea horizontal
+  (`scrollWidth` 621 vs `clientWidth` 360 a ese ancho). La pestaña "Mesa de trabajo" arranca
+  parcialmente fuera del viewport ya en la posición de scroll inicial. El motor de scroll del
+  recorrido (`planScroll`/`transicion`) sólo sabía mover contenedores que desbordan
+  VERTICAL (`contenedorScroll`, ya existía para la ficha) — nunca se le enseñó el costado, así
+  que el resalte de ese paso quedaba recortado sobre una pestaña a medio tapar por el borde de
+  la pantalla. Se agregó `corregirScrollLateral(n)`, que detecta el mismo caso para el eje
+  horizontal y usa `scrollIntoView({inline:'center',block:'nearest'})` nativo — más simple y
+  con menos riesgo que extender a mano la animación existente (que sólo entiende un eje) para
+  sumarle el segundo. Se llama una vez, antes de medir el resto, en el mismo cuadro.
+  Confirmado con la misma disciplina que el resto de la tanda: el caso nuevo
+  (`casos/onboarding_tour.mjs`) falla revirtiendo el llamado a `corregirScrollLateral` y pasa
+  con él.
+- **Revisado y descartado, no es un bug real**: `#onboard`/`#onboardCard`/`.obcard` (markup y
+  CSS en `web/index.html`) — no se les asigna `innerHTML` en ningún lado y a la clase `.on` de
+  `#onboard` nunca se le hace `add()`, sólo `remove()` (defensivo, en `endOnboard()`). Es
+  código muerto: el onboarding real (`maybeOnboard()`) usa enteramente el mismo `#tour` que el
+  recorrido completo (`startOnboard('esencial')`), nunca este otro modal. No genera ningún
+  síntoma visible porque nunca se muestra — se deja anotado por si en algún momento se
+  encara una limpieza de HTML/CSS sin usar, no hace falta tocarlo para el onboarding en sí.
+- Revisado sin encontrar problemas: el sistema de "pistas" contextuales (`mostrarPista`/
+  `mostrarAyuda`, la campanita de novedades, "pedida como", el "?" de Filtros) — son avisos de
+  una sola vez sin navegación de pasos, así que no comparten el bug de dirección; ya frenan
+  solos si el recorrido está corriendo (`if(tCorriendo||...)return`) y `startOnboard()` cierra
+  cualquier pista abierta antes de empezar. Los z-index no compiten: `#tour` (1200) por encima
+  de `#pista` (1150) y de `#tratoModal` (940), así que ninguno puede quedar tapando al otro.
+- Verificado con `scripts/sellar_csp.py` y la suite completa (31 casos: 27 previos + 4 en
+  `casos/onboarding_tour.mjs`, sumando el de esta parte a los tres de la parte 2).
+
+**Lo hecho en la tanda del 2026-08-28, parte 1** (misma rama), sobre tres pantallas del
+panel de administración que el usuario mostró en capturas:
 
 - **Textos → «Fichas con contenido editado»**: dibujaba un botón por cada código tocado,
   sin tope — con cientos de fichas editadas ocupaba varios scrolls de puro botón antes de
