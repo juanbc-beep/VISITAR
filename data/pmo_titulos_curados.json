@@ -505,6 +505,21 @@
    "nombre": "aponeurectomía palmar, parcial o total, con o sin injerto (fasciotomía subcutánea)",
    "antes": "Dupuytren: Aponeurotomía (fasciotomía subcutanea)",
    "capitulo": "12"
+  },
+  "110101": {
+   "nombre": "resección cuneiforme de ovarios, extirpación de ovario, ooforoplastía (implantación de ovario en útero), ooforosalpingectomía, salpingoplastía, salpingectomía, salpingostomía, uni o bilaterales",
+   "antes": "Resección cuneiforme de ovarios. Extirpación de ovario. Ooforoplastía (implantación de ovario en úte",
+   "capitulo": "11"
+  },
+  "110301": {
+   "nombre": "tratamiento quirúrgico de la agenesia vaginal por procedimientos visceroplásticos",
+   "antes": "Tratamiento quirúrgico de la agenesia vaginal",
+   "capitulo": "11"
+  },
+  "110303": {
+   "nombre": "colporrafia anterior y/o posterior, con o sin amputación de cuello, con o sin corrección de retroversión uterina, con o sin perineorrafia, incluye tratamiento de la incontinencia de orina",
+   "antes": "Colporrafia anterior y/o posterior, con o sin amputación de cuello, con o sin corrección de retrover",
+   "capitulo": "11"
   }
  }
 }
