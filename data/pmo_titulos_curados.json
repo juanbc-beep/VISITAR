@@ -490,6 +490,11 @@
    "nombre": "tenoplastia con alargamiento o acortamiento o injerto o transferencia tendinosa de tendón flexor de la muñeca o dedo de la mano",
    "antes": "Tenoplastia con alargamiento o acortamiento o injerto o transferancia tendinosa de tendón flexor de",
    "capitulo": "12"
+  },
+  "121505": {
+   "nombre": "tenoplastia con alargamiento o acortamiento o injerto o transferencia de tendón extensor de la muñeca o dedo de la mano",
+   "antes": "Tenoplastia con alargamiento o acortamiento o injerto o transferencia de tendón extensor de la muñec",
+   "capitulo": "12"
   }
  }
 }
