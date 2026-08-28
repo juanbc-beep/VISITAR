@@ -283,11 +283,11 @@ es la exposición va en el paso de la carga y en la auditoría.
 
 `data/pmo_titulos_a_revisar.json` — **159 denominaciones** del PMO donde la base y
 el renglón impreso no coinciden, con las dos versiones al lado. Se van revisando
-por capítulo y las corregidas quedan en `data/pmo_titulos_curados.json` (**124**
-entradas al 28/8/2026). **Capítulos completos: 01, 02, 03, 07, 08, 10, 11, 12, 17,
-26, 34** (11 de los ~25 capítulos con casos). Quedan con casos sueltos: 05(3),
-06(3), 09(2), 13(3), 15(4), 18(2), 21(1), 22(1), 25(1), 29(2), 31(1), 33(1), 35(2)
-— y el 66, fuera de alcance (Unidad Bioquímica, ver 7 bis D).
+por capítulo y las corregidas quedan en `data/pmo_titulos_curados.json` (**125**
+entradas al 28/8/2026). **Capítulos completos: 01, 02, 03, 07, 08, 09, 10, 11, 12,
+17, 18, 21, 22, 25, 26, 29, 31, 33, 34, 35** (20 de los ~25 capítulos con casos).
+**Quedan sólo 4 capítulos con casos sueltos**: 05(3), 06(3), 13(3), 15(4) — 13
+códigos en total — y el 66, fuera de alcance (Unidad Bioquímica, ver 7 bis D).
 
 ⚠️ **Dos hallazgos nuevos al cerrar 17 y 02, además del de `alcance_nn` / la
 numeración del Único (ver más abajo):**
