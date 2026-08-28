@@ -2065,6 +2065,59 @@ Funciones: `initValidator()`, `runCase()`, `renderCase()`, `renderFacturacion()`
 
 ## 7. Historial de trabajo
 
+**Lo hecho en la tanda del 2026-08-28, parte 4** (misma rama): el usuario reportó que a
+los administrativos, al abrir el correo de "restablecer contraseña", les daba un error de
+acceso. Causa encontrada — **ya documentada, no es nueva**: ver `docs/INSTALACION.md` 1.3
+bis y `HANDOFF.md` (tabla de errores conocidos, "El enlace de restablecer llevaba a
+`localhost`"). El enlace del correo depende de **Site URL**, un ajuste del panel de
+Supabase que vive AFUERA de este repositorio; si quedó apuntando a `localhost` (el valor
+de fábrica) o a una dirección vieja, el enlace lleva a un lugar que no existe y el
+navegador contesta "No se puede acceder" — ni siquiera llega a esta app.
+
+- **Arreglo de este lado, en `NUBE.recuperar()`**: ahora manda `redirect_to` explícito en
+  el pedido a `/auth/v1/recover`, calculado de `location.origin+location.pathname` —la
+  dirección real donde está corriendo la app en ese momento, no un valor fijo—. Esto saca
+  a la app de depender ÚNICAMENTE de que el ajuste de Site URL del panel siga bien puesto:
+  si alguna vez se resetea o se configura mal, el enlace sigue andando igual. Sigue
+  exigiendo que esa dirección esté en la lista de **Redirect URLs** del mismo panel (ya lo
+  pedía el paso 1.3 bis, no es un requisito nuevo).
+- **⚠️ Esto NO alcanza solo**: si el problema real de los administrativos es que **Site
+  URL** en el panel de Supabase está mal (lo más probable, dado el síntoma exacto que
+  describieron — "error de acceso" calza con el "No se puede acceder" documentado), hay
+  que **entrar al panel de Supabase y revisar/corregir Authentication → URL Configuration
+  → Site URL y Redirect URLs**, poniendo `https://juanbc-beep.github.io/VISITAR/` (la
+  dirección real de GitHub Pages de este repo, confirmada contra
+  `.github/workflows/pages.yml`). Esto es un ajuste de panel, no de código: no lo pude
+  tocar desde esta sesión.
+- Se agregó `casos/recuperar_password.mjs` (3 casos: que el pedido manda `redirect_to`,
+  que un enlace vencido avisa en vez de romperse, y que uno válido deja elegir la
+  contraseña y después entrar con ella). Se confirmó que el primero falla sin el arreglo
+  de `redirect_to` y pasa con él. De paso quedó documentado un detalle menor de UX: el
+  botón dice "Guardar y entrar" pero lo que hace es guardar y volver al login — no arma
+  sesión sola con el token de recuperación, hay que volver a escribir la contraseña recién
+  puesta. No se tocó porque no es lo que reportó el usuario; queda anotado por si alguna
+  vez se decide que sí debería entrar directo.
+- Se exportó `emitirTokens` de `tests/e2e/simulador.mjs` (antes interno) para poder armar
+  un enlace de recuperación válido en el caso de prueba nuevo, y `db.recovers` ahora
+  guarda `{email, redirect_to}` en vez de sólo el correo (nada más lo usaba).
+
+**Investigado, sin poder reproducir — el usuario también reportó que el check "confiar en
+este dispositivo" del login del administrador general (verificación en dos pasos) no
+funciona.** Repasé todo el circuito (`continuarLogin()`, `confiarDispositivo()`/
+`dispositivoConfiable()`/`olvidarDispositivo()`, el checkbox `#mfaRecordar` del login) y
+está consistente: el mismo `id` de perfil se usa para escribir y para leer la marca de
+confianza, la marca vive en `localStorage` con vencimiento a 30 días, y el circuito
+COMPLETO —activarla, confiar, "dejar de confiar", entrar de nuevo con el checkbox tildado
+y destildado— ya estaba cubierto por `casos/mfa.mjs` **y pasa** contra el simulador. No
+encontré un bug de código reproducible con lo que hay hoy en el repo. Puede ser algo del
+entorno real que el simulador no reproduce (Safari con prevención de rastreo agresiva
+puede borrar `localStorage` de un sitio poco visitado a los 7 días; una ventana privada;
+la app instalada como PWA con almacenamiento separado del navegador normal). **Antes de
+seguir cazando este bug hace falta más información del lado real**: ¿en qué navegador
+pasa?, ¿es siempre, o después de un tiempo?, ¿pasa también si NO se cierra la sesión (se
+queda en la misma pestaña) o sólo al volver a entrar más tarde?, ¿hay algún error en la
+consola del navegador al tildar el check o al loguearse?
+
 **Lo hecho en la tanda del 2026-08-28, parte 2** (misma rama), sobre bugs del recorrido
 guiado (onboarding) reportados por el usuario en mobile:
 

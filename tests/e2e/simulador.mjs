@@ -79,7 +79,7 @@ export function dejarFactorPendiente(db, uid, { friendlyName = 'Administrador' }
 // para probar los dos caminos del candado.
 const MFA_CODE_OK = '123456';
 
-function emitirTokens(db, uid) {
+export function emitirTokens(db, uid) {
   const t = 'tok_' + crypto.randomBytes(12).toString('hex');
   const r = 'ref_' + crypto.randomBytes(12).toString('hex');
   db.tokens.set(t, uid);
@@ -163,7 +163,7 @@ export async function instalarSimulador(context, db) {
 
     if (path === '/auth/v1/recover') {
       const body = leerCuerpo(req);
-      db.recovers.push(body.email);
+      db.recovers.push({ email: body.email, redirect_to: url.searchParams.get('redirect_to') });
       return responder(route, 200, {}); // Supabase contesta lo mismo exista o no la cuenta
     }
 

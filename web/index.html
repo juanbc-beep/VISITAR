@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-tdPi7eVz31raNN89uzoF0kVV87KH8LrjMBImuDL+Gg0=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-GQB9of1k1APPOmWX530FPOYtaWCmF5LJCd0fuJRNGpI=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -6153,9 +6153,21 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         return await this.miPerfil();
       },
       /* Restablecer contraseña, sin que el administrador tenga que entrar al
-         panel de Supabase cada vez que alguien se la olvida. */
+         panel de Supabase cada vez que alguien se la olvida.
+
+         El enlace del correo depende de a dónde Supabase decida mandar a
+         quien lo toca, y sin `redirect_to` eso sale enteramente de un ajuste
+         del panel (Authentication → URL Configuration → Site URL) que vive
+         AFUERA de este repositorio — ver docs/INSTALACION.md, 1.3 bis, y
+         HANDOFF.md: es un problema ya documentado («el enlace llevaba a
+         localhost, el navegador contestaba "No se puede acceder"»). Pasarlo
+         acá, calculado de la dirección real donde corre la app en este
+         momento, saca a la app de depender de que ese ajuste del panel siga
+         bien puesto: Supabase igual exige que la dirección esté en la lista
+         de «Redirect URLs» del mismo panel, así que no abre nada nuevo. */
       async recuperar(correo){
-        const r=await fetch(`${URL_}/auth/v1/recover`,{method:'POST',headers:hdrBase(),
+        const destino=encodeURIComponent(location.origin+location.pathname);
+        const r=await fetch(`${URL_}/auth/v1/recover?redirect_to=${destino}`,{method:'POST',headers:hdrBase(),
           body:JSON.stringify({email:correo})});
         return await leer(r);
       },
