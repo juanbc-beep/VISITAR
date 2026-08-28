@@ -283,8 +283,8 @@ es la exposición va en el paso de la carga y en la auditoría.
 
 `data/pmo_titulos_a_revisar.json` — **159 denominaciones** del PMO donde la base y
 el renglón impreso no coinciden, con las dos versiones al lado. Se van revisando
-por capítulo y las corregidas quedan en `data/pmo_titulos_curados.json` (62 hasta
-ahora: capítulos 34, 12, 03 y la pasada mecánica).
+por capítulo y las corregidas quedan en `data/pmo_titulos_curados.json` (**70**
+hasta ahora: capítulos 34, 12 —completo, 23/23—, 03 y la pasada mecánica).
 
 ⚠️ **No son 159 defectos, y el renglón impreso solo no alcanza para decidir.** Dos
 correcciones al criterio con el que se armó esta lista:
@@ -293,11 +293,30 @@ correcciones al criterio con el que se armó esta lista:
   nombre sigue en otra columna y el lector lo corta. En el capítulo 03, de 17
   casos sólo 6 eran defectos.
 - **El método bueno es cruzar tres fuentes**: la base, la planilla del
-  Nomenclador Único y el OCR del Nacional (`data/nn_values.json`). Con eso se
-  resolvió el capítulo 11, donde el PDF parecía mostrar un corrimiento de once
-  códigos y **no lo había**: el nombre de `110211` se derrama sobre el renglón del
-  `110212` y el lector asigna todo al código anterior. El Único y el Nacional
-  coinciden con la base.
+  Nomenclador Único y el OCR del Nacional. Con eso se resolvió el capítulo 11,
+  donde el PDF parecía mostrar un corrimiento de once códigos y **no lo había**:
+  el nombre de `110211` se derrama sobre el renglón del `110212` y el lector
+  asigna todo al código anterior. El Único y el Nacional coinciden con la base.
+
+⚠️ **La tercera fuente casi siempre ya está en la propia ficha, no hace falta ir a
+buscarla aparte: es `c.alcance_nn.texto`** (el recuadro «Texto retirado por el
+PMO», transcripto a mano en el barrido de 3.8) — cuando existe para un código de
+la lista de 159, decide la duda casi siempre. Así se cerró el **capítulo 12
+completo (23/23) el 28/8/2026**: de los 8 casos donde el catálogo PMO y la base
+no coincidían y no era sólo el corte de los 100 caracteres del Único,
+`alcance_nn` confirmó que **la base tenía razón en 6** (el catálogo PMO había
+simplificado el renglón impreso y se comía una palabra — "escisión", "flexor",
+"o transferencia (tendinosa)" —, no al revés) y sólo hizo falta **corregir la
+base en 2**: `120305` (el Único cortaba antes de "malar, propio de la nariz",
+que sí es parte del mismo código, comprobado por `alcance_nn`) y **`121707`**,
+el más delicado — la base decía «Dupuytren: Aponeurotomía (fasciotomía
+subcutánea)» y tanto el catálogo PMO como `alcance_nn` coinciden en
+«**Aponeurectomía** palmar, parcial o total, con o sin injerto (fasciotomía
+subcutánea)»: no es la misma técnica (aponeurectomía es resección quirúrgica,
+aponeurotomía es sólo el corte percutáneo). Dupuytren se dejó como indicación
+clínica en `auditoria`, no como parte del nombre. **Antes de asumir que un
+código de la lista de 159 es un defecto de la base o del PDF, mirar primero si
+tiene `alcance_nn` cargado.**
 
 ⚠️ **Corrección de un dato que estuvo escrito acá:** se afirmó que `020106` tenía
 el nombre de `020105` y que el corrimiento seguía en `020107` y `020108`. Con las
