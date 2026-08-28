@@ -108,11 +108,11 @@ async function main() {
     // contraseña recién puesta. Documentado así a propósito acá — si el
     // texto del botón se corrige para que refleje esto, o si se decide que
     // sí debería entrar directo, este caso es el que hay que actualizar.
-    await page.waitForSelector('#nbMail', { timeout: 8000 });
+    await page.waitForSelector('#nbMail', { timeout: 15000 });
     await page.fill('#nbMail', 'admin@visitar.test');
     await page.fill('#nbPass', 'NuevaPassword456!');
     await page.click('#nbGo');
-    await page.waitForSelector('#acctChip:not([hidden])', { timeout: 8000 });
+    await page.waitForSelector('#acctChip:not([hidden])', { timeout: 15000 });
     afirmar(await page.isHidden('#gate'), 'con la contraseña nueva debería poder entrar');
 
     afirmar(csp.length === 0, 'no debe haber violaciones de CSP: ' + csp.join(' | '));

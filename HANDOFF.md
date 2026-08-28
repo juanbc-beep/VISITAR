@@ -2065,6 +2065,30 @@ Funciones: `initValidator()`, `runCase()`, `renderCase()`, `renderFacturacion()`
 
 ## 7. Historial de trabajo
 
+**Lo hecho en la tanda del 2026-08-28, parte 7** (misma rama): dos bugs de mobile que el
+usuario encontró mirando la tanda anterior, antes de pedir el PR:
+
+- **La "X" de cerrar el cajón de filtros (`#railClose`) quedaba descentrada.** Mismo bug,
+  letra por letra, que el que ya tenía documentado `.filter-toggle` un poco más arriba en
+  el CSS: `.rail-close` pisa el `display:grid;place-items:center` de `.icon-btn` con
+  `display:flex`, pero sin repetir `align-items`/`justify-content` — sin eso el ícono se
+  corre hacia la izquierda. Mismo arreglo: agregarlos.
+- **El chip de cuenta (`#acctChip`, "A Admin General") podía quedar cortado fuera de la
+  pantalla en mobile.** Con varios botones habilitados (administración, modo edición,
+  pendientes, novedades) la fila de íconos + el chip no entraban en una sola línea — y como
+  `.hbtns` no tenía un ancho propio contra el cual desbordar, `flex-wrap` no alcanzaba: sin
+  un límite de ancho, un ítem de flex simplemente se sigue armando de punta a punta. Se le
+  dio `width:100%` (para que SÍ tenga contra qué desbordar) + `flex-wrap:wrap`, y al chip
+  `margin-left:auto` para que termine siempre pegado al margen derecho — envuelva sólo o
+  con algún ícono, nunca cortado. La versión web no se tocó (el usuario confirmó que esa
+  está bien): los dos ajustes van dentro de las media queries de mobile únicamente.
+- Se agregó `casos/header_mobile.mjs` (2 casos), confirmados fallando sin cada arreglo
+  (revertido a mano) y pasando con él puesto. De paso, `casos/recuperar_password.mjs` volvió
+  a flaquear bajo la corrida completa incluso a 8s — se subió a 15s; dos corridas seguidas
+  de la suite entera quedaron limpias después.
+- Verificado con `scripts/sellar_csp.py` (no hizo falta resellar: no se tocó ningún
+  `<script>`, sólo CSS) y la suite completa (36 casos).
+
 **Lo hecho en la tanda del 2026-08-28, parte 6** (misma rama): regla nueva del usuario —
 **el recorrido guiado siempre tiene que arrancar en Laboratorio (NBU)**, porque si arranca
 en «Buscar en todo» varios pasos se rompen (ver parte 2 de este mismo día: en ese modo
