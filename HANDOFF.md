@@ -283,8 +283,31 @@ es la exposición va en el paso de la carga y en la auditoría.
 
 `data/pmo_titulos_a_revisar.json` — **159 denominaciones** del PMO donde la base y
 el renglón impreso no coinciden, con las dos versiones al lado. Se van revisando
-por capítulo y las corregidas quedan en `data/pmo_titulos_curados.json` (**73**
-hasta ahora: capítulos 34, 12 y 11 —los dos completos—, 03 y la pasada mecánica).
+por capítulo y las corregidas quedan en `data/pmo_titulos_curados.json` (**124**
+entradas al 28/8/2026). **Capítulos completos: 01, 02, 03, 07, 08, 10, 11, 12, 17,
+26, 34** (11 de los ~25 capítulos con casos). Quedan con casos sueltos: 05(3),
+06(3), 09(2), 13(3), 15(4), 18(2), 21(1), 22(1), 25(1), 29(2), 31(1), 33(1), 35(2)
+— y el 66, fuera de alcance (Unidad Bioquímica, ver 7 bis D).
+
+⚠️ **Dos hallazgos nuevos al cerrar 17 y 02, además del de `alcance_nn` / la
+numeración del Único (ver más abajo):**
+- **El campo `en_el_pdf` de esta lista puede traer basura por «sangrado» de la
+  obligación de cobertura**, no sólo por columnas de otro capítulo (eso ya se
+  sabía del 26). En el capítulo 17, la extracción se mezcló con el bloque
+  «Obligación de cobertura en los siguientes casos: — Pacientes con…» que sigue
+  a varios códigos cardiológicos (mismo patrón que ya se vio al cargar el valor
+  real de `170201` en el barrido de galenos). Los 6 códigos de ese capítulo
+  quedaron **sin cambios, confirmados por longitud y por no estar cortados** —
+  no hizo falta `alcance_nn` porque ninguno tenía.
+- **La lista de 159 puede estar desactualizada para códigos que ya se
+  realinearon fuera de este mecanismo.** En el capítulo 02, `020106` a `020110`
+  y `020902` ya estaban resueltos desde la corrección del corrimiento contada
+  en el párrafo de abajo (`titulo_origen: "realineado"`), pero seguían
+  apareciendo en `pmo_titulos_a_revisar.json` con el texto viejo. **Antes de
+  proponer un cambio, mirar `titulo_origen` en la ficha: si dice `"realineado"`
+  y el nombre ya se ve completo y sensato, probablemente no hay nada que
+  hacer** — confirmarlo y seguir, no hace falta tocar `pmo_titulos_curados.json`
+  para eso.
 
 ⚠️ **No son 159 defectos, y el renglón impreso solo no alcanza para decidir.** Dos
 correcciones al criterio con el que se armó esta lista:
