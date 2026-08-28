@@ -670,6 +670,27 @@
    "nombre": "polisomnografía con oximetría nocturna en adultos con presión positiva continua en la vía aérea",
    "antes": "Polisomnografía con oximetria nocturna en adultos con Presión Positiva Continua en la Vía Aérea",
    "capitulo": "29"
+  },
+  "060108": {
+   "nombre": "escisión local de lesión de mama (quiste, fibroadenoma o tejido mamario aberrante), de lesión de conducto de pezón, escisión de lesión de mama o pezón para biopsia",
+   "antes": "Escisión local de lesión de mama (quiste, fibroadenoma o tejido mamario aberrante) de lesión de cond",
+   "capitulo": "06"
+  },
+  "130101": {
+   "nombre": "escisión de quiste dermoideo sacrococcígeo (sacrocoxígeo)",
+   "antes": "Escisión de quiste dermoideo sacrococcigeo",
+   "capitulo": "13",
+   "motivo": "las dos formas conviven en las fuentes (base: sacrococcígeo; PMO: sacrocoxígeo); a pedido del usuario se ponen ambas"
+  },
+  "130304": {
+   "nombre": "escisión de escaras postquemaduras y/o curación del paciente quemado en quirófano con anestesia general (por sesión y por cada 10% de superficie corporal)",
+   "antes": "Escisión de escaras postquemaduras y/o curación del paciente quemado en quirófano con anestesia gene",
+   "capitulo": "13"
+  },
+  "150101": {
+   "nombre": "biopsia por incisión o por punción (ganglio, lesión de piel, trozo de ovario, cilindro de hígado, etc.)",
+   "antes": "Biopsia por incisión o por punción. Ganglio, lesión de piel, trozo de ovario, cilindro de hígado,etc",
+   "capitulo": "15"
   }
  }
 }
