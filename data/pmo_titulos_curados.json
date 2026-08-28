@@ -570,6 +570,31 @@
    "nombre": "escisión local de lesión de páncreas (adenoma-secuestrectomía). Drenaje de seudoquiste",
    "antes": "Escisión local de lesión de páncreas ( adenoma-secuestrectomía). Drenaje de seudo quiste",
    "capitulo": "08"
+  },
+  "100101": {
+   "nombre": "nefrectomía total",
+   "antes": "Nefrectomia total",
+   "capitulo": "10"
+  },
+  "100109": {
+   "nombre": "biopsia renal percutánea, pielografía percutánea",
+   "antes": "Biopsia renal percutanea pielografia percutanea",
+   "capitulo": "10"
+  },
+  "100110": {
+   "nombre": "plastia de la unión ureteropiélica, pieloplastia, plastias del uréter, plastia de la unión uretero-vesical (ureterocistostomía) y tratamiento del ureterocele con técnica antirreflujo (Boari, Casatti o similar)",
+   "antes": "Plastia de la unión ureteropiélica. Pieloplastia. Plastias del uréter. Plastia de la unión urétero-v",
+   "capitulo": "10"
+  },
+  "100201": {
+   "nombre": "cistectomía total con derivación ureteral a asa delgada o colon, o neovejiga, Bricker",
+   "antes": "Cistectomia total con derivación ureteral a asa delgada o colon, o neovejiga, Bricker",
+   "capitulo": "10"
+  },
+  "100203": {
+   "nombre": "cistectomía parcial (diverticulectomía - resección del cuello vesical - denervación vesical - reducción vesical)",
+   "antes": "Cistectomía parcial (diverticulectomía-resección del cuello vesical-denervación vesical-reducción ve",
+   "capitulo": "10"
   }
  }
 }
