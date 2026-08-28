@@ -2065,6 +2065,29 @@ Funciones: `initValidator()`, `runCase()`, `renderCase()`, `renderFacturacion()`
 
 ## 7. Historial de trabajo
 
+**Lo hecho en la tanda del 2026-08-28, parte 6** (misma rama): regla nueva del usuario —
+**el recorrido guiado siempre tiene que arrancar en Laboratorio (NBU)**, porque si arranca
+en «Buscar en todo» varios pasos se rompen (ver parte 2 de este mismo día: en ese modo
+ningún filtro aplica). `startOnboard()` ahora llama `setMode('NBU')` antes de pintar el
+primer paso, sin importar en qué modo se haya quedado la persona la última vez — aplica
+tanto al recorrido esencial (primer uso) como al completo (▶ Ver tutorial).
+
+- Esto **elimina de raíz** el disparador más realista del bug de la parte 2 (arrancar el
+  recorrido en modo ALL): ya no se puede llegar a ese estado por la vía pública
+  (`NBUProfile.tour()`/`maybeOnboard()`). El caso de prueba que lo reproducía forzando el
+  modo antes de llamar a `tour()` se retiró de `casos/onboarding_tour.mjs` —su premisa ya
+  no ocurre—, y se sumó uno nuevo que confirma que el modo pasa a NBU al arrancar y que el
+  paso de Filtros aparece con contenido real. El arreglo de dirección (`tDir`) se mantiene
+  de todos modos: sigue siendo la corrección correcta para cualquier paso que en el futuro
+  quede inalcanzable por otro motivo.
+- De paso se encontró y arregló una demora (no relacionada con esto) en
+  `casos/recuperar_password.mjs`: el último login del tercer caso tardaba más de 5s bajo
+  la corrida completa de la suite (pasaba siempre suelto) — se subió ese timeout puntual a
+  8s. No es un bug de la app, es margen de tiempo corto para una corrida larga y secuencial
+  de muchos casos.
+- Verificado con `scripts/sellar_csp.py` y dos corridas seguidas de la suite completa (34
+  casos, sin fallas en ninguna).
+
 **Lo hecho en la tanda del 2026-08-28, parte 5** (misma rama): auditoría completa del
 código a pedido del usuario ("repasá todo el código de la aplicación y verificá qué
 elementos quedaron rotos/sin uso"). Buena noticia: **cero referencias rotas al DOM y cero

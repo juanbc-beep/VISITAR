@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-Ozn2xfKKgixQHNuglY7QXoLrO3s3gwwgTtFaWc0YzmA=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-moLxo0w0TxczqXzT7ZCURZcvD70Dk5X7XoAG6Zr+rm4=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -9227,6 +9227,12 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
 
   async function startOnboard(cual){
     cerrarPista(false);                         // el recorrido manda: dos carteles a la vez, no
+    // El recorrido siempre arranca en Laboratorio (NBU): en «Buscar en todo»
+    // ningún filtro aplica (ver applyMode()) y varios pasos —Filtros, U.B.,
+    // Árbol de módulos— quedan inalcanzables o a medio explicar. Se saltean
+    // solos si hace falta (ver el tDir de pintarPaso()), pero es mejor
+    // recorrido si ni siquiera hace falta saltear nada.
+    setMode('NBU');
     tCorriendo=true;
     tPasos=(cual==='esencial')?pasosEsenciales():pasosTour();
     tIdx=0;tDir=1;                               // volver a pedirlo reinicia desde el principio
