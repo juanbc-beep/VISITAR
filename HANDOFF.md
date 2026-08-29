@@ -2065,6 +2065,53 @@ Funciones: `initValidator()`, `runCase()`, `renderCase()`, `renderFacturacion()`
 
 ## 7. Historial de trabajo
 
+**Lo hecho en la tanda del 2026-08-28, parte 7** (misma rama): dos bugs de mobile que el
+usuario encontró mirando la tanda anterior, antes de pedir el PR:
+
+- **La "X" de cerrar el cajón de filtros (`#railClose`) quedaba descentrada.** Mismo bug,
+  letra por letra, que el que ya tenía documentado `.filter-toggle` un poco más arriba en
+  el CSS: `.rail-close` pisa el `display:grid;place-items:center` de `.icon-btn` con
+  `display:flex`, pero sin repetir `align-items`/`justify-content` — sin eso el ícono se
+  corre hacia la izquierda. Mismo arreglo: agregarlos.
+- **El chip de cuenta (`#acctChip`, "A Admin General") podía quedar cortado fuera de la
+  pantalla en mobile.** Con varios botones habilitados (administración, modo edición,
+  pendientes, novedades) la fila de íconos + el chip no entraban en una sola línea — y como
+  `.hbtns` no tenía un ancho propio contra el cual desbordar, `flex-wrap` no alcanzaba: sin
+  un límite de ancho, un ítem de flex simplemente se sigue armando de punta a punta. Se le
+  dio `width:100%` (para que SÍ tenga contra qué desbordar) + `flex-wrap:wrap`, y al chip
+  `margin-left:auto` para que termine siempre pegado al margen derecho — envuelva sólo o
+  con algún ícono, nunca cortado. La versión web no se tocó (el usuario confirmó que esa
+  está bien): los dos ajustes van dentro de las media queries de mobile únicamente.
+- Se agregó `casos/header_mobile.mjs` (2 casos), confirmados fallando sin cada arreglo
+  (revertido a mano) y pasando con él puesto. De paso, `casos/recuperar_password.mjs` volvió
+  a flaquear bajo la corrida completa incluso a 8s — se subió a 15s; dos corridas seguidas
+  de la suite entera quedaron limpias después.
+- Verificado con `scripts/sellar_csp.py` (no hizo falta resellar: no se tocó ningún
+  `<script>`, sólo CSS) y la suite completa (36 casos).
+
+**Lo hecho en la tanda del 2026-08-28, parte 6** (misma rama): regla nueva del usuario —
+**el recorrido guiado siempre tiene que arrancar en Laboratorio (NBU)**, porque si arranca
+en «Buscar en todo» varios pasos se rompen (ver parte 2 de este mismo día: en ese modo
+ningún filtro aplica). `startOnboard()` ahora llama `setMode('NBU')` antes de pintar el
+primer paso, sin importar en qué modo se haya quedado la persona la última vez — aplica
+tanto al recorrido esencial (primer uso) como al completo (▶ Ver tutorial).
+
+- Esto **elimina de raíz** el disparador más realista del bug de la parte 2 (arrancar el
+  recorrido en modo ALL): ya no se puede llegar a ese estado por la vía pública
+  (`NBUProfile.tour()`/`maybeOnboard()`). El caso de prueba que lo reproducía forzando el
+  modo antes de llamar a `tour()` se retiró de `casos/onboarding_tour.mjs` —su premisa ya
+  no ocurre—, y se sumó uno nuevo que confirma que el modo pasa a NBU al arrancar y que el
+  paso de Filtros aparece con contenido real. El arreglo de dirección (`tDir`) se mantiene
+  de todos modos: sigue siendo la corrección correcta para cualquier paso que en el futuro
+  quede inalcanzable por otro motivo.
+- De paso se encontró y arregló una demora (no relacionada con esto) en
+  `casos/recuperar_password.mjs`: el último login del tercer caso tardaba más de 5s bajo
+  la corrida completa de la suite (pasaba siempre suelto) — se subió ese timeout puntual a
+  8s. No es un bug de la app, es margen de tiempo corto para una corrida larga y secuencial
+  de muchos casos.
+- Verificado con `scripts/sellar_csp.py` y dos corridas seguidas de la suite completa (34
+  casos, sin fallas en ninguna).
+
 **Lo hecho en la tanda del 2026-08-28, parte 5** (misma rama): auditoría completa del
 código a pedido del usuario ("repasá todo el código de la aplicación y verificá qué
 elementos quedaron rotos/sin uso"). Buena noticia: **cero referencias rotas al DOM y cero

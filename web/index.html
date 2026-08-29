@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-Ozn2xfKKgixQHNuglY7QXoLrO3s3gwwgTtFaWc0YzmA=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-moLxo0w0TxczqXzT7ZCURZcvD70Dk5X7XoAG6Zr+rm4=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1195,11 +1195,25 @@ ul{margin:0;padding:0}
   .filter-toggle{display:inline-flex;align-items:center;justify-content:center}
   /* El cajón de filtros tapa el botón que lo abrió — sin esto no había forma
      de cerrarlo salvo tocar el fondo oscuro (que tampoco se activaba, ver
-     #filterToggle más abajo). */
-  .rail-close{display:flex;position:absolute;top:10px;right:10px;z-index:1}
+     #filterToggle más abajo). Mismo pisado de display que .filter-toggle
+     arriba, y el mismo arreglo: sin repetir el centrado la "X" quedaba
+     corrida hacia la izquierda dentro del botón. */
+  .rail-close{display:flex;align-items:center;justify-content:center;position:absolute;top:10px;right:10px;z-index:1}
   .hbar{flex-wrap:wrap;row-gap:10px}                 /* la búsqueda baja a su propia fila */
   .search{order:3;flex-basis:100%;max-width:none}
   .brand p{display:none}
+  /* Con varios botones habilitados (admin, pendientes, novedades…) la fila de
+     íconos ya llega justa al borde, y el chip de cuenta —más ancho que un
+     ícono, lleva nombre— quedaba empujado fuera de la pantalla, cortado. Que
+     los íconos puedan pasar a una segunda línea y que el chip se empuje
+     siempre al margen derecho (con su propio hueco, nunca pegado al último
+     ícono) es lo que lo mantiene siempre entero y visible. */
+  /* «width:100%» es lo que de verdad importa acá: sin un ancho propio, este
+     grupo de botones es un ítem más de .hbar (que si envuelve), y adentro
+     suyo se sigue armando de punta a punta sin límite — flex-wrap sin un
+     ancho contra el cual desbordar no envuelve nada. */
+  .hbtns{flex-wrap:wrap;row-gap:8px;width:100%}
+  #acctChip{margin-left:auto}
 }
 @media (max-width:560px){
   .hbar{flex-wrap:wrap;gap:10px;padding:10px 14px}
@@ -9227,6 +9241,12 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
 
   async function startOnboard(cual){
     cerrarPista(false);                         // el recorrido manda: dos carteles a la vez, no
+    // El recorrido siempre arranca en Laboratorio (NBU): en «Buscar en todo»
+    // ningún filtro aplica (ver applyMode()) y varios pasos —Filtros, U.B.,
+    // Árbol de módulos— quedan inalcanzables o a medio explicar. Se saltean
+    // solos si hace falta (ver el tDir de pintarPaso()), pero es mejor
+    // recorrido si ni siquiera hace falta saltear nada.
+    setMode('NBU');
     tCorriendo=true;
     tPasos=(cual==='esencial')?pasosEsenciales():pasosTour();
     tIdx=0;tDir=1;                               // volver a pedirlo reinicia desde el principio

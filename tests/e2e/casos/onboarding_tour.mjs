@@ -28,6 +28,18 @@
 // Único, ni grupo, ni "reglas y estados"— así que el cajón de filtros queda
 // completamente vacío. En mobile el botón de filtros seguía visible igual,
 // invitando a abrir un cajón en blanco sin ninguna explicación.
+//
+// Regla nueva del usuario (28/8/2026): el recorrido SIEMPRE arranca en
+// Laboratorio (NBU), sin importar en qué modo se haya quedado la persona la
+// última vez — startOnboard() fuerza el modo antes de pintar el primer
+// paso. Esto elimina de raíz el disparador más realista del bug de arriba
+// (arrancar el recorrido en modo ALL): ya no se puede llegar a ese estado
+// por la vía pública (NBUProfile.tour()/maybeOnboard()), así que el caso
+// que lo reproducía forzando el modo antes de llamar a tour() quedó retirado
+// —su premisa ya no ocurre—. El arreglo de dirección (tDir) en pintarPaso()
+// se mantiene de todos modos: sigue siendo la corrección correcta para
+// cualquier otro paso que en el futuro quede inalcanzable por otro motivo
+// (un rol, un elemento oculto), no sólo para el modo ALL.
 
 import { chromium } from 'playwright';
 import { crearDB, altaUsuario, instalarSimulador } from '../simulador.mjs';
@@ -55,65 +67,6 @@ async function main() {
   const srv = await servirWeb(PUERTO);
   const base = `http://localhost:${PUERTO}/`;
   const browser = await chromium.launch();
-
-  await correrCaso('onboarding_tour: en "Buscar en todo", "← Atrás" desde "Vistas" sigue retrocediendo (no rebota a "Vistas" de nuevo)', async () => {
-    // Reproduce el caso real que reportó el usuario: hizo el recorrido estando
-    // en modo "Buscar en todo" (ALL), donde NINGÚN filtro aplica (ni sección,
-    // ni tipo de Único, ni grupo, ni "reglas y estados" — ver applyMode() y
-    // buildGroups()). El paso "Filtros, en tres bloques" nunca puede mostrar
-    // nada en ese modo: yendo para adelante eso lo salta correctamente, pero
-    // yendo para atrás el bug lo hacía rebotar de nuevo hacia "Vistas" en vez
-    // de seguir retrocediendo — de ahí "parece que se cierra el menú
-    // hamburguesa": el cajón se abre (antes() de "Filtros") y se cierra en el
-    // mismo instante (antes() de "Vistas", al rebotar), en cada intento.
-    const db = crearDB();
-    altaUsuario(db, { nombre: 'Admin General', email: 'onb1@visitar.test', password: 'Password123!', rol: 'admin', estado: 'activo' });
-    const ctx = await nuevoContexto(browser);
-    await ctx.setDefaultTimeout(10000);
-    await instalarSimulador(ctx, db);
-    const page = await ctx.newPage();
-    await page.setViewportSize(MOBILE);
-    await saltarOnboarding(page);
-    const { errores, csp } = vigilarErrores(page);
-    await page.goto(base);
-    await esperarArranque(page);
-    await loguear(page, 'onb1@visitar.test');
-
-    await page.selectOption('#modeSel', 'ALL');
-    await page.waitForTimeout(120);
-
-    // Arrancar el recorrido completo y avanzar hasta "Vistas" (el paso
-    // siguiente a "Filtros, en tres bloques", que en modo ALL es inalcanzable
-    // y se saltea solo yendo para adelante).
-    await page.evaluate(() => window.NBUProfile.tour());
-    await page.waitForSelector('#tourTip h4', { timeout: 5000 });
-    let titulo = '';
-    for (let i = 0; i < 10; i++) {
-      titulo = (await page.locator('#tourTip h4').textContent()) || '';
-      if (titulo.includes('Vistas')) break;
-      await page.click('#tNext');
-      await page.waitForTimeout(180);
-    }
-    afirmar(titulo.includes('Vistas'), `no se llegó al paso "Vistas"; quedó en "${titulo}"`);
-    // El paso anterior visible en el recorrido es "Valor de la Unidad
-    // Bioquímica" (el de "Filtros" no aplica en modo ALL y se salteó solo).
-    const pasoPrevioEsperado = 'Unidad Bioquímica';
-
-    // El bug: tocar "← Atrás" debería retroceder hasta el paso anterior de
-    // verdad (saltando "Filtros", que sigue sin aplicar), no quedarse
-    // rebotando entre "Vistas" y el cajón abriéndose/cerrándose en el mismo
-    // lugar.
-    await page.click('#tPrev');
-    await page.waitForTimeout(250);
-    const tituloAtras = (await page.locator('#tourTip h4').textContent()) || '';
-    afirmar(!tituloAtras.includes('Vistas'),
-      `"← Atrás" desde "Vistas" no debería rebotar de nuevo a "Vistas" (bug: se comporta "como si se cerrara el menú hamburguesa")`);
-    afirmar(tituloAtras.includes(pasoPrevioEsperado),
-      `"← Atrás" desde "Vistas" en modo ALL debería llegar a "${pasoPrevioEsperado}"; quedó en "${tituloAtras}"`);
-
-    afirmar(csp.length === 0, 'no debe haber violaciones de CSP: ' + csp.join(' | '));
-    afirmar(errores.length === 0, 'no debe haber errores de JS: ' + errores.join(' | '));
-  });
 
   await correrCaso('onboarding_tour: "← Atrás" desde "La respuesta corta" cierra la ficha en vez de reabrirla de nuevo', async () => {
     const db = crearDB();
@@ -148,6 +101,49 @@ async function main() {
     afirmar(tituloAtras.includes('Cada resultado'), `"← Atrás" debería volver a "Cada resultado, y qué significa el color"; quedó en "${tituloAtras}"`);
     afirmar(!(await page.locator('.drawer').evaluate(n => n.classList.contains('on'))),
       '"← Atrás" a "Cada resultado" debería cerrar la ficha y mostrar el listado');
+
+    afirmar(csp.length === 0, 'no debe haber violaciones de CSP: ' + csp.join(' | '));
+    afirmar(errores.length === 0, 'no debe haber errores de JS: ' + errores.join(' | '));
+  });
+
+  await correrCaso('onboarding_tour: el recorrido siempre arranca en Laboratorio (NBU), aunque se haya quedado en "Buscar en todo"', async () => {
+    // Regla del usuario: si el recorrido arranca en "Buscar en todo" varios
+    // pasos se saltean o quedan a medio explicar (Filtros, U.B., Árbol de
+    // módulos no aplican ahí). startOnboard() ahora fuerza el modo a NBU
+    // antes de pintar el primer paso, sin importar en qué modo se haya
+    // quedado la persona la última vez.
+    const db = crearDB();
+    altaUsuario(db, { nombre: 'Admin General', email: 'onb5@visitar.test', password: 'Password123!', rol: 'admin', estado: 'activo' });
+    const ctx = await nuevoContexto(browser);
+    await instalarSimulador(ctx, db);
+    const page = await ctx.newPage();
+    await page.setViewportSize(MOBILE);
+    await saltarOnboarding(page);
+    const { errores, csp } = vigilarErrores(page);
+    await page.goto(base);
+    await esperarArranque(page);
+    await loguear(page, 'onb5@visitar.test');
+
+    await page.selectOption('#modeSel', 'ALL');
+    await page.waitForTimeout(120);
+    afirmar((await page.locator('#modeSel').inputValue()) === 'ALL', 'el modo debería haber quedado en ALL antes de arrancar el recorrido');
+
+    await page.evaluate(() => window.NBUProfile.tour());
+    await page.waitForSelector('#tourTip h4', { timeout: 5000 });
+    afirmar((await page.locator('#modeSel').inputValue()) === 'NBU',
+      'el recorrido debería haber pasado el modo a NBU (Laboratorio) al arrancar, aunque estuviera en "Buscar en todo"');
+
+    // Y el paso de Filtros, que en modo ALL era inalcanzable, ahora aparece
+    // de verdad, con contenido, sin tener que saltearlo.
+    let titulo = '';
+    for (let i = 0; i < 10; i++) {
+      titulo = (await page.locator('#tourTip h4').textContent()) || '';
+      if (titulo.includes('Filtros')) break;
+      await page.click('#tNext');
+      await page.waitForTimeout(160);
+    }
+    afirmar(titulo.includes('Filtros'), `el paso de Filtros debería aparecer en el recorrido; quedó en "${titulo}"`);
+    afirmar(await page.locator('#fFlags .opt').count() > 0, 'el paso de Filtros debería mostrar opciones reales, no quedar vacío');
 
     afirmar(csp.length === 0, 'no debe haber violaciones de CSP: ' + csp.join(' | '));
     afirmar(errores.length === 0, 'no debe haber errores de JS: ' + errores.join(' | '));
