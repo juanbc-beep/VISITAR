@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-moLxo0w0TxczqXzT7ZCURZcvD70Dk5X7XoAG6Zr+rm4=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-YmURCD9Zfwqzb4RoPMdCHEVk4VltXVj1eZXYjcQYhI8=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1690,6 +1690,10 @@ body.tour-on{overscroll-behavior:none}
   visibility:hidden;opacity:0;pointer-events:none;transition:opacity .25s var(--ease-out),visibility 0s linear .25s}
 #tratoModal.on{visibility:visible;opacity:1;pointer-events:auto;transition:opacity .25s var(--ease-out)}
 .tratobox{max-width:440px}
+#contrModal{position:fixed;inset:0;z-index:900;background:rgba(19,32,41,.44);display:flex;align-items:flex-start;justify-content:center;padding:40px 18px;overflow:auto;
+  visibility:hidden;opacity:0;pointer-events:none;transition:opacity .25s var(--ease-out),visibility 0s linear .25s}
+#contrModal.on{visibility:visible;opacity:1;pointer-events:auto;transition:opacity .25s var(--ease-out)}
+.contrbox{max-width:860px}
 .trato-op{display:flex;gap:9px;margin:16px 0 4px;flex-wrap:wrap}
 .trato-op button{flex:1 1 0;min-width:96px;border:1.5px solid var(--line-2);background:var(--surface);
   color:var(--ink);border-radius:10px;padding:14px 10px;font:inherit;font-size:16px;font-weight:700;
@@ -1703,7 +1707,7 @@ body.tour-on{overscroll-behavior:none}
 .cta-menu .minibtn{width:100%;padding:9px;text-align:center}
 .adminbox{width:100%;max-width:680px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;position:relative;
   transform:scale(.97);transition:transform .25s var(--ease-out)}
-#adminModal.on .adminbox,#tratoModal.on .adminbox{transform:scale(1)}
+#adminModal.on .adminbox,#tratoModal.on .adminbox,#contrModal.on .adminbox{transform:scale(1)}
 .adminbox h3{font-size:18px;margin:0 0 4px;color:var(--ink)}
 .adminbox .asub{font-size:13px;color:var(--muted);margin-bottom:16px}
 .atabs{display:flex;gap:6px;border-bottom:1px solid var(--line);margin-bottom:16px;flex-wrap:wrap}
@@ -1745,6 +1749,23 @@ body.tour-on{overscroll-behavior:none}
 .adminbox input[type=number]{width:100%;padding:9px 11px;border:1px solid var(--line-2);border-radius:var(--radius-sm);background:var(--surface-2);color:var(--ink);font:inherit;font-size:14px;font-variant-numeric:tabular-nums}
 .adminbox textarea{min-height:70px;resize:vertical;line-height:1.5}
 .adminbox input:focus,.adminbox textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+/* ---------- Contrataciones: grilla del prestador -> equivalencias Único ---------- */
+.contr-drop{border:2px dashed var(--line-2);border-radius:var(--radius-sm);padding:22px;text-align:center;color:var(--muted);font-size:13px;margin-top:8px}
+.contr-drop b{color:var(--ink)}
+.contr-resumen{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.contr-chip{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:20px;font-size:12px;font-weight:700}
+.contr-chip.ok{background:var(--inc-soft);color:var(--inc)}
+.contr-chip.warn{background:var(--urg-soft);color:var(--urg)}
+.contr-chip.err{background:var(--exc-soft);color:var(--exc)}
+.contr-tbl-wrap{max-height:340px;overflow:auto;border:1px solid var(--line);border-radius:var(--radius-sm);margin-top:8px}
+.contr-tbl{width:100%;border-collapse:collapse;font-size:12px}
+.contr-tbl th{position:sticky;top:0;background:var(--surface-2);text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+.contr-tbl td{padding:6px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+.contr-tbl tr:last-child td{border-bottom:none}
+.contr-pill{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap}
+.contr-pill.ok{background:var(--inc-soft);color:var(--inc)}
+.contr-pill.warn{background:var(--urg-soft);color:var(--urg)}
+.contr-pill.err{background:var(--exc-soft);color:var(--exc)}
 /* Grupo de campos numéricos chicos en una fila (Administración → Búsqueda:
    tolerancia por largo, pesos por tipo de coincidencia) — cada uno con su
    propia etiqueta corta arriba, sin el margen grande de .adminbox label. */
@@ -1792,6 +1813,11 @@ try{if(sessionStorage.getItem('nbu-actualizando')){
 <div id="gate" hidden></div>
 <div id="adminModal"><div class="adminbox" id="adminBox" role="dialog" aria-modal="true" aria-label="Administración"></div></div>
 <div id="tratoModal"><div class="adminbox tratobox" id="tratoBox" role="dialog" aria-modal="true" aria-label="Cómo te firmamos"></div></div>
+<!-- Contrataciones: pantalla aparte del panel de administración a propósito
+     —no es una pantalla de configuración de la app, es una herramienta de
+     trabajo de un equipo puntual—. Por ahora sólo la ve CAP.contrataciones()
+     (= admin); cuando exista un rol propio, el gate cambia en un solo lugar. -->
+<div id="contrModal"><div class="adminbox contrbox" id="contrBox" role="dialog" aria-modal="true" aria-label="Contrataciones"></div></div>
 <div id="tour"><div id="tourHole"></div><div id="tourTip"></div></div>
 <div id="pista" role="status" aria-live="polite"></div>
 <header>
@@ -1831,6 +1857,9 @@ try{if(sessionStorage.getItem('nbu-actualizando')){
       </button>
       <button class="icon-btn" id="adminBtn" title="Administración" aria-label="Administración" hidden>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1V21a2 2 0 0 1-4 0v-.1A1.6 1.6 0 0 0 7 19.4a1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0-1.1-2.7H1a2 2 0 0 1 0-4h.1A1.6 1.6 0 0 0 2.6 7a1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3H7a1.6 1.6 0 0 0 1-1.5V1a2 2 0 0 1 4 0v.1a1.6 1.6 0 0 0 2.7 1.1l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8V7a1.6 1.6 0 0 0 1.5 1H23a2 2 0 0 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/></svg>
+      </button>
+      <button class="icon-btn" id="contrBtn" title="Contrataciones — equivalencias por grilla" aria-label="Contrataciones" hidden>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
       </button>
       <button class="acctchip" id="acctChip" title="Cuenta / cambiar perfil" hidden><span class="aav" id="acctAv">?</span><span class="anm" id="acctNm">—</span></button>
     </div>
@@ -1963,6 +1992,11 @@ try{if(sessionStorage.getItem('nbu-actualizando')){
      queda vacío a propósito: con «--embebido» se llena y la app pasa a ser un
      archivo único. -->
 <script id="nbu-db-gz" type="text/plain"></script>
+<!-- SheetJS (xlsx.full.min.js v0.18.5, Apache-2.0, sheetjs.com) — sólo lo usa
+     Contrataciones para leer/escribir el Excel de equivalencias. Archivo local
+     (no CDN): la CSP no permite scripts de otro origen. Sin huella SHA porque
+     no lleva contenido inline (ver scripts/sellar_csp.py). -->
+<script src="vendor/xlsx.full.min.js"></script>
 <script>
 (async()=>{
 /* La base se descomprime en el navegador. Puede venir de dos lados: metida en este
@@ -5558,7 +5592,7 @@ function devolverFoco(){
 const FOCABLES='a[href],button:not([disabled]),input:not([disabled]),select,textarea,[tabindex]:not([tabindex="-1"])';
 function atraparFoco(e){
   if(e.key!=='Tab')return;
-  const cont=[el('drawer'),el('modal'),el('adminModal')]
+  const cont=[el('drawer'),el('modal'),el('adminModal'),el('contrModal')]
     .find(x=>x&&(x.classList.contains('on')||(x.id==='drawer'&&x.classList.contains('on'))));
   if(!cont)return;
   const f=[...cont.querySelectorAll(FOCABLES)].filter(x=>x.offsetParent!==null);
@@ -6395,7 +6429,11 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     // administrador la tiene además del general: supabase_relaciones_medico.sql
     // es lo que hace que la base la deje pasar de verdad; sin correrlo, el
     // guardia le revierte el cambio en silencio.
-    editaRelaciones: p=>!!(p&&(p.role==='admin'||p.role==='medico_admin'))
+    editaRelaciones: p=>!!(p&&(p.role==='admin'||p.role==='medico_admin')),
+    // Ve Contrataciones (grilla de valores del prestador -> equivalencias
+    // Único). Restringido a admin por ahora, a pedido; cuando exista un rol
+    // propio para ese equipo, cambia sólo acá.
+    contrataciones: p=>!!(p&&p.role==='admin')
   };
   const esDuenio    =()=>CAP.duenio(current);
   const validaMedico=()=>CAP.validaMedico(current);
@@ -7344,6 +7382,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
        general, porque toca la denominación y las normas. */
     el('adminBtn').hidden=!(CAP.duenio(p)||CAP.validaMedico(p));
     el('editModeBtn').hidden=!(CAP.editaFicha(p)||CAP.editaRelaciones(p));
+    el('contrBtn').hidden=!CAP.contrataciones(p);
     const adm=CAP.duenio(p);
     if(window.pintarFiltros)pintarFiltros();   // los filtros médicos dependen del rol
     applyContent();refreshStats();applyMode();render();hideGate();actualizarPendientes();
@@ -7498,6 +7537,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
           await NUBE.transferir(id); toast('Transferiste la administración');
           const mio=await NUBE.miPerfil();
           if(mio&&mio.rol!=='admin'){current.role='user';el('adminBtn').hidden=true;el('editModeBtn').hidden=true;
+            el('contrBtn').hidden=true;closeContr();
             editMode=false;document.body.classList.remove('editmode-on');closeAdmin();vigilarCuentas(false);return;} }
         else if(acc==='del'){ if(f.rol==='admin')return toast('No se puede eliminar al administrador. Transferí el rol primero.',true);
           if(!confirm(`¿Eliminar la cuenta de "${f.nombre}"? Se pierden sus favoritos y notas.`))return;
@@ -8264,8 +8304,8 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       if(!confirm(`¿Transferir la administración a "${pr.name}"?\n\nVas a dejar de ser administrador: sólo puede haber uno.`))return;
       AUTH.profiles.forEach(x=>{if(x.role==='admin'){x.role='usuario';x.updated=Date.now();}});
       pr.role='admin';pr.estado='activo';pr.updated=Date.now();persistAuth();
-      if(current){const sigo=current.role==='admin';el('adminBtn').hidden=!sigo;el('editModeBtn').hidden=!sigo;
-        if(!sigo){editMode=false;document.body.classList.remove('editmode-on');closeAdmin();toast('Transferiste la administración');}}
+      if(current){const sigo=current.role==='admin';el('adminBtn').hidden=!sigo;el('editModeBtn').hidden=!sigo;el('contrBtn').hidden=!sigo;
+        if(!sigo){editMode=false;document.body.classList.remove('editmode-on');closeAdmin();closeContr();toast('Transferiste la administración');}}
       renderPane();actualizarPendientes();
     } else if(act==='reset'){
       const np=prompt('Nueva contraseña para '+pr.name+' (mín. 4):');if(!np)return;if(np.length<4)return toast('Muy corta',true);
@@ -9418,12 +9458,207 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   });
 
 
+  /* ============ Contrataciones: grilla del prestador -> equivalencias Único ============
+     El equipo de Contrataciones sube el Excel con los valores que VISITAR pactó con
+     un prestador (códigos del Nomenclador Nacional/PMO). Se devuelve el mismo
+     archivo con el código y nombre del Nomenclador Único agregados, para poder
+     cargar el mismo convenio del lado Único. No hay motor de matching nuevo: se
+     reusa `equivalencia_unico`, que assemble.py ya calcula para cada código PMO
+     (scripts/parse_unico.py, contra data/unico_equivalencias.xlsx). Pantalla
+     aparte del panel de administración a propósito — ver el comentario en el
+     <div id="contrModal"> del HTML. Restringido a CAP.contrataciones(). */
+  const CONTR_UMBRAL_FUERTE=0.88; // mismo criterio que usa el resto de la app para "similitud fuerte"
+  let contrArchivo=null, contrWS=null, contrFilas=null, contrEncabezado=null, contrColCodigo=-1, contrResultado=null;
+
+  // Los códigos del Nacional son 6 dígitos sin puntos acá adentro (ver BYCODE),
+  // pero la planilla de un prestador puede traerlos con puntos ("07.02.09") o
+  // sin el cero inicial ("70209"). Se normaliza antes de buscar.
+  function contrNormalizarCodigo(v){
+    let s=(v==null?'':String(v)).trim();
+    if(!s)return '';
+    if(/^\d{1,2}(\.\d{1,3}){1,3}$/.test(s))
+      return s.split('.').map(p=>p.padStart(2,'0')).join('');
+    s=s.replace(/\D/g,'');
+    if(!s)return '';
+    return s.length<6?s.padStart(6,'0'):s;
+  }
+  // El CSV no lleva tipos de celda, así que Excel —y SheetJS, para leerlo
+  // igual que Excel— adivina: un código como "07.02.09" se confunde con una
+  // fecha y se guarda como 7/2/2009. Se deshace acá antes de normalizar: el
+  // mes/día/año caen en el mismo orden que capítulo.sección.ítem porque los
+  // tres son pares de dos dígitos separados por punto, así que reconstruir
+  // devuelve el código original. En un .xlsx real esto no pasa si la celda
+  // vino tipeada como texto (lo normal cuando alguien quiere conservar los
+  // puntos y el cero inicial) — sólo hace falta para CSV/planillas sueltas.
+  function contrCeldaCodigo(filaIdx,col){
+    if(!contrWS||col<0)return '';
+    const cell=contrWS[XLSX.utils.encode_cell({r:filaIdx+1,c:col})]; // +1: la fila 0 es el encabezado
+    if(!cell||cell.v===undefined||cell.v==='')return '';
+    if(cell.t==='n'&&typeof cell.w==='string'&&/^\d{1,2}\/\d{1,2}\/\d{2,4}$/.test(cell.w)){
+      const fd=XLSX.SSF.parse_date_code(cell.v);
+      if(fd)return String(fd.m).padStart(2,'0')+String(fd.d).padStart(2,'0')+String(fd.y%100).padStart(2,'0');
+    }
+    return cell.w!=null?String(cell.w):String(cell.v);
+  }
+  // Un código PMO puede tener más de un código Único apuntándole (equivalencia_unico
+  // es una lista, no un único valor). Se toma el de mejor confianza como principal:
+  // score null (equivalencia cargada a mano, ver unico_med_extra.json/unico_lab.json)
+  // antes que cualquier score numérico, y entre los numéricos, el más alto.
+  function contrMejorCandidato(eq){
+    return eq.slice().sort((a,b)=>(b.score==null?2:b.score)-(a.score==null?2:a.score))[0];
+  }
+  function contrMatch(codigoCrudo){
+    const codigo=contrNormalizarCodigo(codigoCrudo);
+    if(!codigo)return {estado:'sin_codigo',codigo:''};
+    const c=BYCODE[codigo];
+    if(!c||c.nomenclador!=='PMO')return {estado:'no_encontrado',codigo};
+    const eq=c.equivalencia_unico||[];
+    if(!eq.length)return {estado:'sin_equivalencia',codigo,nombrePmo:c.nombre};
+    const mejor=contrMejorCandidato(eq);
+    const estado=mejor.score==null?'confirmado':(mejor.score>=CONTR_UMBRAL_FUERTE?'automatico':'revisar');
+    return {estado,codigo,nombrePmo:c.nombre,codigoUnico:mejor.unico_code,nombreUnico:mejor.unico_desc,
+      score:mejor.score,candidatos:eq.length};
+  }
+  const CONTR_ESTADOS={
+    sin_codigo:      {txt:'Sin código en la fila',                    cls:'err'},
+    no_encontrado:   {txt:'Código PMO no encontrado en la base',      cls:'err'},
+    sin_equivalencia:{txt:'Sin equivalencia Único cargada',           cls:'warn'},
+    revisar:         {txt:'A revisar (similitud baja)',               cls:'warn'},
+    automatico:      {txt:'Automático (alta similitud)',              cls:'ok'},
+    confirmado:      {txt:'Confirmado (equivalencia cargada a mano)', cls:'ok'}
+  };
+  // Auto-detecta la columna del código probando cada una contra las primeras
+  // filas: gana la que más matchea. Sigue eligible a mano si se equivocó.
+  function contrDetectarColumna(filas){
+    if(!filas.length)return -1;
+    const ancho=Math.max(...filas.map(f=>f.length));
+    const muestra=filas.slice(0,60);
+    let mejorCol=-1, mejorN=0;
+    for(let col=0;col<ancho;col++){
+      let n=0;
+      for(let i=0;i<muestra.length;i++){const r=contrMatch(contrCeldaCodigo(i,col));if(r.estado!=='sin_codigo'&&r.estado!=='no_encontrado')n++;}
+      if(n>mejorN){mejorN=n;mejorCol=col;}
+    }
+    return mejorN>0?mejorCol:-1;
+  }
+  function closeContr(){
+    el('contrModal').classList.remove('on');
+    contrArchivo=null;contrWS=null;contrFilas=null;contrEncabezado=null;contrColCodigo=-1;contrResultado=null;
+    devolverFoco();
+  }
+  function openContr(){
+    if(!CAP.contrataciones(current))return;
+    renderContr();el('contrModal').classList.add('on');tomarFoco(el('contrBox'));
+  }
+  el('contrModal').addEventListener('click',e=>{if(e.target===el('contrModal'))closeContr();});
+  function renderContr(){
+    const box=el('contrBox');
+    box.innerHTML=`
+      <button class="icon-btn close-x" id="contrClose" style="position:absolute;top:16px;right:16px" aria-label="Cerrar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      <h3>Contrataciones</h3>
+      <div class="asub">Grilla de valores pactados con un prestador (códigos del Nomenclador Nacional/PMO) — se devuelve el mismo archivo con el código y nombre equivalentes del Nomenclador Único agregados.</div>
+      ${!contrFilas?`
+        <div class="contr-drop">
+          Subí el Excel del prestador (<b>.xlsx</b>, <b>.xls</b> o <b>.csv</b>).<br>
+          La primera fila tiene que ser el encabezado de columnas.
+          <div style="margin-top:12px"><input type="file" id="contrFile" accept=".xlsx,.xls,.csv"></div>
+        </div>`:contrHTMLProcesado()}`;
+    el('contrClose').addEventListener('click',closeContr);
+    if(!contrFilas)el('contrFile').addEventListener('change',contrCargarArchivo);
+    else contrWireProcesado();
+  }
+  function contrHTMLProcesado(){
+    const opciones=contrEncabezado.map((h,i)=>`<option value="${i}"${i===contrColCodigo?' selected':''}>${esc(h||('Columna '+(i+1)))}</option>`).join('');
+    let resumenHTML='', tablaHTML='';
+    if(contrResultado){
+      const conteo={};contrResultado.forEach(r=>{conteo[r.estado]=(conteo[r.estado]||0)+1;});
+      resumenHTML=`<div class="contr-resumen">${Object.entries(conteo).map(([k,n])=>
+        `<span class="contr-chip ${CONTR_ESTADOS[k].cls}">${n} · ${esc(CONTR_ESTADOS[k].txt)}</span>`).join('')}</div>`;
+      tablaHTML=`<div class="contr-tbl-wrap"><table class="contr-tbl"><thead><tr>
+          <th>Código PMO</th><th>Código Único</th><th>Nombre Único</th><th>Estado</th>
+        </tr></thead><tbody>${contrResultado.slice(0,300).map(r=>`<tr>
+          <td class="mono">${esc(r.codigo||'—')}</td>
+          <td class="mono">${esc(r.codigoUnico||'—')}</td>
+          <td>${esc(r.nombreUnico||'—')}</td>
+          <td><span class="contr-pill ${CONTR_ESTADOS[r.estado].cls}">${esc(CONTR_ESTADOS[r.estado].txt)}</span></td>
+        </tr>`).join('')}</tbody></table></div>
+        ${contrResultado.length>300?`<div class="ahint" style="margin-top:6px">Mostrando las primeras 300 filas de ${contrResultado.length}. El archivo descargado las trae todas.</div>`:''}`;
+    }
+    return `
+      <div class="ahint" style="margin-top:4px">${esc(contrArchivo.name)} · ${contrFilas.length} fila${contrFilas.length===1?'':'s'} de datos${contrArchivo._hoja?' · hoja «'+esc(contrArchivo._hoja)+'»':''}</div>
+      <label>Columna con el código del Nomenclador Nacional / PMO</label>
+      <select class="minibtn" id="contrColSel" style="width:100%;padding:8px 10px">${opciones}</select>
+      <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+        <button class="minibtn" id="contrOtroArchivo">Elegir otro archivo</button>
+        <button class="minibtn" id="contrProcesar" style="border-color:var(--accent);color:var(--accent-ink)">Procesar</button>
+        <button class="minibtn" id="contrDescargar" ${contrResultado?'':'disabled'} style="border-color:var(--inc);color:var(--inc)">Descargar Excel con las equivalencias</button>
+      </div>
+      ${resumenHTML}${tablaHTML}`;
+  }
+  function contrWireProcesado(){
+    el('contrColSel').addEventListener('change',e=>{contrColCodigo=+e.target.value;contrResultado=null;renderContr();});
+    el('contrOtroArchivo').addEventListener('click',()=>{contrArchivo=null;contrWS=null;contrFilas=null;contrEncabezado=null;contrColCodigo=-1;contrResultado=null;renderContr();});
+    el('contrProcesar').addEventListener('click',()=>{
+      if(contrColCodigo<0)return toast('Elegí la columna del código primero',true);
+      contrResultado=contrFilas.map((f,i)=>contrMatch(contrCeldaCodigo(i,contrColCodigo)));
+      renderContr();
+    });
+    if(el('contrDescargar'))el('contrDescargar').addEventListener('click',contrDescargarExcel);
+  }
+  function contrCargarArchivo(e){
+    const f=e.target.files[0];if(!f)return;
+    const rd=new FileReader();
+    rd.onload=()=>{
+      try{
+        // codepage:65001 (UTF-8): sin esto, un .csv con tildes se lee mal —cada
+        // acento sale como dos caracteres sueltos (ej. "Código" -> "CÃ³digo")—
+        // porque el CSV no declara su codificación y SheetJS, al leer bytes
+        // crudos, no la adivina. Un .xlsx real no depende de esto: declara su
+        // propia codificación adentro.
+        const wb=XLSX.read(rd.result,{type:'array',codepage:65001});
+        const nombreHoja=wb.SheetNames[0];
+        const hoja=wb.Sheets[nombreHoja];
+        // Sin blankrows:false a propósito: contrCeldaCodigo ubica cada celda por
+        // (fila de datos + 1) = fila real de la hoja. Si se salteara una fila en
+        // blanco acá, esa correspondencia se corre y el resto del archivo queda
+        // desalineado.
+        const filas=XLSX.utils.sheet_to_json(hoja,{header:1,defval:'',raw:false});
+        if(!filas.length)throw new Error('el archivo no tiene filas');
+        contrEncabezado=(filas[0]||[]).map(h=>String(h||'').trim());
+        contrFilas=filas.slice(1);
+        contrWS=hoja;
+        contrArchivo=f;contrArchivo._hoja=wb.SheetNames.length>1?nombreHoja:'';
+        contrColCodigo=contrDetectarColumna(contrFilas);
+        contrResultado=null;
+        renderContr();
+      }catch(err){ toast('Ese archivo no se pudo leer: '+err.message,true); }
+    };
+    rd.onerror=()=>toast('No se pudo leer el archivo',true);
+    rd.readAsArrayBuffer(f);
+  }
+  function contrDescargarExcel(){
+    if(!contrResultado)return;
+    const encabezadoSalida=[...contrEncabezado,'Código Único','Nombre Único','Estado de la equivalencia','Similitud'];
+    const filasSalida=contrFilas.map((f,i)=>{
+      const r=contrResultado[i];
+      const sim=r.score==null?'':Math.round(r.score*100)+'%';
+      return [...f,r.codigoUnico||'',r.nombreUnico||'',CONTR_ESTADOS[r.estado].txt,sim];
+    });
+    const ws=XLSX.utils.aoa_to_sheet([encabezadoSalida,...filasSalida]);
+    const wb=XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb,ws,'Equivalencias');
+    const base=(contrArchivo.name||'contrataciones').replace(/\.(xlsx|xls|csv)$/i,'');
+    XLSX.writeFile(wb,base+'_equivalencias.xlsx');
+    toast('Archivo descargado');
+  }
+
   /* ============ header wiring ============ */
   el('acctChip').addEventListener('click',()=>{
     if(NUBE.activa)return abrirCuenta('menu');
     if(companyAuthed)renderGate('profiles'),gate.hidden=false;
   });
   el('adminBtn').addEventListener('click',()=>openAdmin());
+  el('contrBtn').addEventListener('click',()=>openContr());
   el('editModeBtn').addEventListener('click',()=>{
     editMode=!editMode;document.body.classList.toggle('editmode-on',editMode);
     if(el('drawer').classList.contains('on')&&currentCode)openCode(currentCode);

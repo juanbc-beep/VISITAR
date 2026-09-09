@@ -17,7 +17,8 @@ const CACHE   = 'manual-nbu-' + VERSION;
    la pida, la primera vez sin señal la app abriría sin datos. */
 const SHELL = [
   '.', 'index.html', 'nbu_db.bin', 'manifest.webmanifest',
-  'icons/icon-32.png', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/maskable-512.png'
+  'icons/icon-32.png', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/maskable-512.png',
+  'vendor/xlsx.full.min.js'
 ];
 
 self.addEventListener('install', e => {

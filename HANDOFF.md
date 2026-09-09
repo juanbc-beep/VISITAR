@@ -11,6 +11,14 @@
 > un typo) y se corrigieron contra el PDF, y queda 1 (`130303`) sin denominación legible en
 > la fuente, a propósito, para cargar a mano.
 >
+> **✅ Pantalla nueva: Contrataciones (9/9/2026)** — pedida por el usuario. El equipo de
+> Contrataciones sube el Excel de valores pactados con un prestador (códigos del
+> Nomenclador Nacional/PMO) y la app devuelve el mismo archivo con el código y nombre
+> equivalentes del Nomenclador Único agregados. Ver **4.9** para el detalle completo:
+> restringido a `admin` por ahora (a pedido, el rol propio queda para después), pantalla
+> aparte del panel de administración (también a pedido), sin motor de matching nuevo
+> (reusa `equivalencia_unico`), y con SheetJS sumado como `web/vendor/xlsx.full.min.js`.
+>
 > **✅ El barrido del Nomenclador Nacional (3.8, «Texto retirado por el PMO») terminó** —
 > ver el párrafo viejo más abajo si hace falta el detalle.
 >
@@ -1982,6 +1990,87 @@ antes del texto —«sin confirmar», «no es norma»—, recuadro punteado y co
 gestión. La regla es que lo no confirmado **nunca** se vea igual que lo
 confirmado: si tuviera el mismo peso, alguien cargaría con eso creyendo que es
 norma. No aparecen en el listado de resultados, sólo dentro de la ficha.
+
+### 4.9 Contrataciones — grilla del prestador → equivalencias Único (9/9/2026)
+Pantalla nueva, **pedida por el usuario**: el equipo de Contrataciones sube el Excel
+con los valores que VISITAR pactó con un prestador (códigos del Nomenclador
+Nacional/PMO), y la app devuelve el mismo archivo con el código y nombre
+equivalentes del **Nomenclador Único** agregados — para poder cargar el mismo
+convenio del lado Único sin transcribir a mano.
+
+⚠️ **Decisión del usuario, explícita**: por ahora restringido a `CAP.contrataciones`
+(= sólo `admin`) — *"alcanza con restringirlo a admin por ahora. Luego crearemos el
+rol."* Cuando exista un rol propio para ese equipo, el gate cambia en **un solo
+lugar** (esa función, en `web/index.html`), no hay que tocar treinta sitios — mismo
+criterio que ya usa `CAP` para los otros roles (ver 4.5 ter).
+
+⚠️ **Pantalla aparte del panel de administración, a propósito** — pedido explícito:
+*"no creo que sea conveniente sumarlo al panel de admin"*. No es una pantalla de
+configuración de la app (eso es lo que vive en Administración: textos, logo,
+cuentas, búsqueda); es una herramienta de trabajo de un equipo puntual. Botón propio
+en la barra superior (`#contrBtn`, icono de grilla) y modal propio (`#contrModal` /
+`#contrBox`, misma clase `.adminbox` que Administración y «Cómo te firmamos» para
+que se vea consistente, pero es un modal independiente).
+
+**No hay motor de matching nuevo.** Reusa `equivalencia_unico`, que
+`scripts/assemble.py` ya calcula para cada código PMO a partir de
+`data/unico_equivalencias.xlsx` (ver 3.5 y el barrido de «galenos sin cargar» en el
+punto 8). Un código PMO puede tener más de un candidato Único apuntándole; se toma
+el de mejor confianza: `score:null` (equivalencia cargada a mano, en
+`unico_med_extra.json`/`unico_lab.json`) primero, después el `score` numérico más
+alto. Estados que distingue la pantalla (con su color): **confirmado** / **automático**
+(score ≥ 0,88, mismo umbral que ya usa el resto de la app para "similitud fuerte") en
+verde; **a revisar** (score bajo) / **sin equivalencia Único cargada** en ámbar;
+**código no encontrado** / **sin código en la fila** en rojo — nunca se deja una fila
+en blanco en silencio, mismo criterio que "sin equivalencia hallada" en la ficha.
+
+**SheetJS** (`web/vendor/xlsx.full.min.js`, v0.18.5, Apache-2.0, build `full` —no
+`core`, para no perder soporte de `.xls` viejo con codificación no-UTF8—) lee y
+escribe el Excel en el navegador. Es un `<script src>` externo, **no inline**: la CSP
+(`script-src 'self' …`) ya permite cualquier archivo del propio origen sin hash —
+`scripts/sellar_csp.py` lo confirma («`<script src=…>` no lleva huella»). Sólo hizo
+falta re-sellar por los cambios en el script inline principal (la lógica de
+Contrataciones), no por sumar la librería. Se agregó a `SHELL` en `web/sw.js` para
+que quede disponible sin internet.
+
+⚠️ **Dos bugs reales encontrados probando con Playwright, no evidentes leyendo el
+código** (ver `tests/e2e/casos/contrataciones.mjs`):
+1. **Un código con puntos en un `.csv` se confunde con una fecha.** El CSV no lleva
+   tipos de celda: al leerlo, SheetJS adivina igual que Excel, y `"07.02.09"` se
+   guarda como 7/2/2009. `contrCeldaCodigo()` lo deshace: mes/día/año caen en el
+   mismo orden que capítulo.sección.ítem (los tres son pares de dos dígitos
+   separados por punto), así que reconstruir con `XLSX.SSF.parse_date_code()`
+   devuelve el código original. Un `.xlsx` real no tiene este problema si la celda
+   vino tipeada como texto (lo normal cuando alguien quiere conservar los puntos y
+   el cero inicial). Consecuencia de diseño: `contrCargarArchivo` lee la hoja
+   **sin** `blankrows:false`, porque `contrCeldaCodigo` ubica cada celda por
+   posición real de fila (`filaIdx+1`) — saltear filas en blanco correría esa
+   correspondencia y desalinearía el resto del archivo.
+2. **Un `.csv` con tildes se leía mal** (`"Código"` → `"CÃ³digo"`, mojibake clásico
+   de UTF-8 reinterpretado como Latin-1). `XLSX.read` no adivina la codificación de
+   un CSV a partir de los bytes crudos. Se agregó `codepage:65001` a la llamada —
+   confirmado que no interfiere con la lectura de un `.xlsx` real (declara su propia
+   codificación adentro).
+
+Probado con Playwright: subida de `.csv`, autodetección de columna (prueba cada
+columna contra códigos reales de la base, gana la que más matchea), los seis estados
+con códigos reales de la base (`010217` confirmado, `010101` automático, `01.02.02`
+→ `010202` a revisar, `010708` sin equivalencia, `999999` inexistente, fila vacía),
+descarga del `.xlsx` de salida verificada por firma ZIP (`PK`) y nombre de archivo,
+gate de acceso (un usuario administrativo no ve el botón), sin violaciones de CSP ni
+errores de JS. `tests/e2e/casos/contrataciones.mjs`, 2 casos, ambos verdes.
+
+⚠️ **Nota de la corrida de la suite completa, no relacionada con este cambio**: al
+correr `tests/e2e/correr.sh` completo aparece de forma intermitente (confirmado
+también sobre el código sin tocar, con `git stash`) un error de consola *"Failed to
+load resource: 404"* pidiendo literalmente `${E(src)}` como URL — un template
+literal de `web/index.html:~6506` (`` `<img src="${E(src)}"…` ``) que en algún
+momento se está sirviendo como texto en vez de evaluarse. No se investigó a
+fondo ni se tocó: no aparece en una corrida aislada de ningún caso, sólo bajo la
+carga de correr los ~24 casos seguidos en este entorno, y no tiene relación con
+Contrataciones. Para quien lo retome: buscar dónde ese template podría quedar
+guardado como string (`CONTENT`, `localStorage`) y re-insertarse por `innerHTML`
+sin volver a evaluarse.
 
 ### Vistas
 **Listado** (filtros por sección/grupo/reglas, favoritos, CSV/PDF) · **Árbol de módulos**
