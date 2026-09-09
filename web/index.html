@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-YmURCD9Zfwqzb4RoPMdCHEVk4VltXVj1eZXYjcQYhI8=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-BT3HZJLhHc39kotYbUi/fh484XDVmwbxgXnrVjw6gEk=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -6503,7 +6503,21 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   function logoInner(variante){
     const propio=CONTENT.page.logo;
     const src=logoValido(propio)?propio:(variante==='gate'?LOGO_COMPLETO:LOGO_ISO);
-    return `<img src="${E(src)}" alt="VISITAR — Management en salud">`;
+    // Armado con el DOM, no escribiendo la etiqueta de imagen entera como texto
+    // en un template literal. El preload scanner del navegador escanea el HTML
+    // crudo buscando ese patrón —la etiqueta seguida del atributo de origen
+    // pegado a la comilla que abre el valor— y no distingue si esos bytes están
+    // todavía sin evaluar, adentro de un bloque de script: si los encuentra,
+    // disparaba una descarga especulativa de lo que hubiera entre las comillas
+    // —el marcador de interpolación tal cual, sin evaluar, pedido como si fuera
+    // una URL real—. Se vio como un 404 intermitente en la consola (más
+    // frecuente cuanto más grande el archivo, que es cuando más chance tiene el
+    // scanner de pasar por esta zona). Construyendo el elemento con el DOM, esa
+    // combinación de caracteres nunca existe en el archivo tal como viaja por
+    // la red — sólo se arma en memoria, ya evaluada.
+    const img=document.createElement('img');
+    img.src=src; img.alt='VISITAR — Management en salud';
+    return img.outerHTML;
   }
 
 
@@ -7838,12 +7852,20 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         }
       }));
     } else if(aTab==='contenido'){
+      // «hasimg» siempre: la vista previa muestra una imagen sí o sí, la que cargó
+      // la empresa o la de fábrica. Sin la clase quedaba el recuadro celeste de
+      // fondo y el dibujo sin medida, a tamaño natural.
+      // (Comentario JS a propósito, no HTML dentro del template literal: la
+      // apertura de un comentario HTML —signo menor, admiración, guion, guion—
+      // escrita tal cual dentro del texto de un bloque de script puede confundir
+      // al preload scanner del navegador, que tokeniza ese texto igual que HTML.
+      // Se vio como un 404 intermitente pidiendo, literal, texto de JS sin
+      // evaluar como si fuera una URL real. Por eso ningún comentario de este
+      // archivo —ni siquiera uno que hable del bug— debe escribir esa apertura
+      // tal cual dentro de un bloque de script.)
       p.innerHTML=`<div class="ahint">Editá los textos generales de la página. El contenido de cada código (nombre, normas, auditoría, asociaciones) se edita desde su ficha con el botón <b>✎ Editar ficha</b> (activá el <b>modo edición</b> en la barra superior).</div>
         <label>Logo de la empresa (PNG/JPG/SVG)</label>
         <div class="logo-row" style="display:flex;align-items:center;gap:12px;margin-top:4px">
-          <!-- «hasimg» siempre: la vista previa muestra una imagen sí o sí, la que
-               cargó la empresa o la de fábrica. Sin la clase quedaba el recuadro
-               celeste de fondo y el dibujo sin medida, a tamaño natural. -->
           <div class="logo hasimg" style="height:44px">${logoInner()}</div>
           <input id="pgLogo" type="file" accept="image/png,image/jpeg,image/gif,image/webp" style="border:none;padding:0;background:none;flex:1">
           ${CONTENT.page.logo?'<button class="minibtn danger" id="pgLogoDel">Quitar</button>':''}
@@ -8810,12 +8832,12 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   let cTab='menu', mfaEstado, mfaEnroll=null;
   function abrirCuenta(t){ cTab=t||'menu'; renderCuenta(); amodal.classList.add('on'); tomarFoco(abox); }
   /* Encontrado el 25/8/2026, después de que el QR no se mostrara en la
-     cuenta real: Supabase no manda un data URI listo para `<img src>` —
-     manda el marcado SVG crudo (`<svg …>…</svg>`), que puesto directo en
-     `src` no es una URL válida y el navegador no puede cargarlo. Se
-     envuelve acá en un data URI. No se inyecta el SVG directo por
-     `innerHTML` —podría traer `<script>`—: como imagen (`<img src="data:…">`)
-     el navegador no ejecuta nada de lo que traiga adentro, a diferencia de
+     cuenta real: Supabase no manda un data URI listo para el atributo de
+     origen de una imagen — manda el marcado SVG crudo (`<svg …>…</svg>`),
+     que puesto directo ahí no es una URL válida y el navegador no puede
+     cargarlo. Se envuelve acá en un data URI. No se inyecta el SVG directo
+     por `innerHTML` —podría traer un bloque de script—: como imagen, el
+     navegador no ejecuta nada de lo que traiga adentro, a diferencia de
      meterlo en el HTML de la página. Es la misma razón por la que el logo
      de la empresa tampoco acepta SVG (ver LOGO_OK, más arriba). Si en algún
      momento Supabase cambia y manda el data URI ya armado, esto lo deja
@@ -8903,12 +8925,26 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       } else if(mfaEnroll){
         abox.innerHTML=`${closeBtn}<h3>Verificación en dos pasos</h3>
           <div class="asub">Escaneá este código con una app de autenticación (Google Authenticator, Authy, o la que uses) y escribí abajo el código de 6 dígitos que te muestra, para confirmar que quedó bien cargado.</div>
-          <div id="cMfaQrBox">${mfaEnroll.qr_code?`<img id="cMfaQr" src="${E(mfaEnroll.qr_code)}" alt="Código QR para la app de autenticación" style="display:block;margin:12px auto;max-width:200px;background:#fff;border-radius:8px;padding:8px">`:''}</div>
+          <div id="cMfaQrBox"></div>
           <label>${mfaEnroll.qr_code?'¿No podés escanear? Cargalo a mano':'No se pudo generar el código QR esta vez — cargá este código a mano'}</label>
           <div class="mono" style="user-select:all;padding:8px;background:var(--surface-2);border-radius:8px;word-break:break-all;font-size:12px">${E(mfaEnroll.secret||'—')}</div>
           ${field('cMfaCode','Código de la app (6 dígitos)','text',{ac:'one-time-code',im:'numeric'})}
           <div class="cta-menu"><button class="minibtn" id="cMfaConfirm">Confirmar</button>
           <button class="minibtn" id="cVolver">Cancelar</button></div>`;
+        // El QR se arma con el DOM y se agrega después, no como una etiqueta de
+        // imagen completa escrita en el template de arriba: ese patrón —la
+        // etiqueta seguida del atributo de origen pegado a la comilla que abre
+        // el valor— es lo que el preload scanner del navegador anda buscando en
+        // el HTML crudo, sin distinguir si esos bytes están todavía sin evaluar
+        // adentro de un bloque de script (mismo caso que logoInner() más
+        // arriba, mismo bug de fondo: un 404 intermitente pidiendo el marcador
+        // de interpolación sin evaluar como si fuera una URL real).
+        if(mfaEnroll.qr_code){
+          const qi=document.createElement('img');
+          qi.id='cMfaQr';qi.src=mfaEnroll.qr_code;qi.alt='Código QR para la app de autenticación';
+          qi.style.cssText='display:block;margin:12px auto;max-width:200px;background:#fff;border-radius:8px;padding:8px';
+          el('cMfaQrBox').appendChild(qi);
+        }
         // El <img> con un src roto no siempre avisa por consola de forma
         // clara, y sin esto la persona se queda mirando un ícono partido sin
         // saber que el código manual de abajo sigue sirviendo igual. Por CSP

@@ -19,6 +19,15 @@
 > aparte del panel de administración (también a pedido), sin motor de matching nuevo
 > (reusa `equivalencia_unico`), y con SheetJS sumado como `web/vendor/xlsx.full.min.js`.
 >
+> **✅ Bug preexistente resuelto de paso: 404 intermitente del preload scanner
+> (9/9/2026)** — apareció en el CI del PR de Contrataciones, sin relación con ese
+> cambio. Causa real: `logoInner()` y el QR de MFA armaban `<img src="...">` como
+> texto literal de un template dentro de un `<script>`; el preload scanner del
+> navegador escanea ese texto crudo buscando patrones de recurso sin distinguir si
+> está sin evaluar todavía, y pedía el marcador de interpolación como si fuera una
+> URL real. Corregido armando esas imágenes con el DOM en vez de texto. Ver 4.9
+> para el detalle completo y la regla para no repetirlo.
+>
 > **✅ El barrido del Nomenclador Nacional (3.8, «Texto retirado por el PMO») terminó** —
 > ver el párrafo viejo más abajo si hace falta el detalle.
 >
@@ -2060,17 +2069,35 @@ descarga del `.xlsx` de salida verificada por firma ZIP (`PK`) y nombre de archi
 gate de acceso (un usuario administrativo no ve el botón), sin violaciones de CSP ni
 errores de JS. `tests/e2e/casos/contrataciones.mjs`, 2 casos, ambos verdes.
 
-⚠️ **Nota de la corrida de la suite completa, no relacionada con este cambio**: al
-correr `tests/e2e/correr.sh` completo aparece de forma intermitente (confirmado
-también sobre el código sin tocar, con `git stash`) un error de consola *"Failed to
-load resource: 404"* pidiendo literalmente `${E(src)}` como URL — un template
-literal de `web/index.html:~6506` (`` `<img src="${E(src)}"…` ``) que en algún
-momento se está sirviendo como texto en vez de evaluarse. No se investigó a
-fondo ni se tocó: no aparece en una corrida aislada de ningún caso, sólo bajo la
-carga de correr los ~24 casos seguidos en este entorno, y no tiene relación con
-Contrataciones. Para quien lo retome: buscar dónde ese template podría quedar
-guardado como string (`CONTENT`, `localStorage`) y re-insertarse por `innerHTML`
-sin volver a evaluarse.
+✅ **RESUELTO — bug preexistente encontrado y corregido en esta misma tanda, tras
+fallar en CI.** El PR de Contrataciones tiraba rojo en GitHub Actions con un 404
+intermitente pidiendo literal `${E(src)}` como URL — no relacionado con
+Contrataciones (confirmado antes de tocar nada con `git stash`: reproduce igual
+sobre el código sin este cambio). Encontrado el mecanismo real con la sesión de
+Chrome DevTools Protocol (`Network.requestWillBeSent`, campo `initiator`): el
+pedido lo dispara el **preload scanner** del navegador, no el JS de la app. Ese
+scanner escanea el HTML/JS crudo tal como viaja por la red buscando patrones de
+recurso (`<img … src="…">`, `<link href="…">`, etc.) **sin distinguir si esos
+bytes están todavía sin evaluar, adentro de un `<script>`** — un optimización
+deliberadamente naive del navegador (dispara descargas especulativas antes de que
+el HTML termine de parsearse). `logoInner()` (`web/index.html`, cerca de la línea
+6503) y el QR de MFA (cerca de la línea 8928) armaban la etiqueta `<img
+src="${…}">` como texto de un template literal — exactamente ese patrón — así que
+cuando el scanner pasaba por esa zona del archivo (más chance cuanto más grande
+el archivo, de ahí la intermitencia) tomaba el marcador de interpolación sin
+evaluar como si fuera la URL real y la pedía. **Corregido armando esas dos
+imágenes con el DOM** (`document.createElement('img')` + `.src=`/`.alt=`, en vez
+de un template `<img src="…">` literal) — esa secuencia de caracteres ya no
+existe en el archivo tal como viaja por la red, sólo se arma en memoria, ya
+evaluada. De paso se sacó también un `<!--…-->` de HTML escrito literal dentro de
+un template dentro de un `<script>` (mismo tipo de riesgo, aunque no era la causa
+de este bug puntual — un comentario HTML real, bien formado, no dispara el
+preload scanner por sí solo). Verificado con un stress-test de 50 corridas
+seguidas contra el bug reproducido (0/50 fallos, contra 2/30 antes del arreglo) y
+la suite completa (`tests/e2e/correr.sh`, 46 casos) corrida limpia, sin ninguna
+falla. **Regla para no repetirlo**: nunca escribir una etiqueta de imagen (u otro
+recurso) completa, con su atributo de origen y el valor entre comillas, como
+texto literal dentro de un template de un `<script>` — construirla con el DOM.
 
 ### Vistas
 **Listado** (filtros por sección/grupo/reglas, favoritos, CSV/PDF) · **Árbol de módulos**
