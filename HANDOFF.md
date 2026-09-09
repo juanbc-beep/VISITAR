@@ -1,8 +1,32 @@
 # TRASPASO DE SESIÓN — Manual Inteligente Unificado (VISITAR SRL)
 
 > Documento para retomar el trabajo en una sesión nueva sobre **la misma app**.
-> Última actualización: 2026-08-28, rama `claude/nomenclador-sweep-continue-1ayph3`
+> Última actualización: 2026-09-09, rama `claude/nomenclador-sweep-continue-1ayph3`
 > (sobre `claude/unified-medical-codes-manual-o9nw1w`, que ya trae mergeado el PR #58).
+>
+> **✅ Los títulos «denominación a confirmar» (`titulo_revisar`) quedaron revisados el
+> 9/9/2026** — ver «Lo que queda por confirmar en los datos» más abajo para el detalle
+> completo. Eran 76, no 84 (8 ya se habían corregido sin bajar el flag); 72 ya estaban bien
+> y sólo se les bajó el flag, 4 tenían un error real (dos truncados, una palabra repetida,
+> un typo) y se corrigieron contra el PDF, y queda 1 (`130303`) sin denominación legible en
+> la fuente, a propósito, para cargar a mano.
+>
+> **✅ Pantalla nueva: Contrataciones (9/9/2026)** — pedida por el usuario. El equipo de
+> Contrataciones sube el Excel de valores pactados con un prestador (códigos del
+> Nomenclador Nacional/PMO) y la app devuelve el mismo archivo con el código y nombre
+> equivalentes del Nomenclador Único agregados. Ver **4.9** para el detalle completo:
+> restringido a `admin` por ahora (a pedido, el rol propio queda para después), pantalla
+> aparte del panel de administración (también a pedido), sin motor de matching nuevo
+> (reusa `equivalencia_unico`), y con SheetJS sumado como `web/vendor/xlsx.full.min.js`.
+>
+> **✅ Bug preexistente resuelto de paso: 404 intermitente del preload scanner
+> (9/9/2026)** — apareció en el CI del PR de Contrataciones, sin relación con ese
+> cambio. Causa real: `logoInner()` y el QR de MFA armaban `<img src="...">` como
+> texto literal de un template dentro de un `<script>`; el preload scanner del
+> navegador escanea ese texto crudo buscando patrones de recurso sin distinguir si
+> está sin evaluar todavía, y pedía el marcador de interpolación como si fuera una
+> URL real. Corregido armando esas imágenes con el DOM en vez de texto. Ver 4.9
+> para el detalle completo y la regla para no repetirlo.
 >
 > **✅ El barrido del Nomenclador Nacional (3.8, «Texto retirado por el PMO») terminó** —
 > ver el párrafo viejo más abajo si hace falta el detalle.
@@ -1976,6 +2000,105 @@ gestión. La regla es que lo no confirmado **nunca** se vea igual que lo
 confirmado: si tuviera el mismo peso, alguien cargaría con eso creyendo que es
 norma. No aparecen en el listado de resultados, sólo dentro de la ficha.
 
+### 4.9 Contrataciones — grilla del prestador → equivalencias Único (9/9/2026)
+Pantalla nueva, **pedida por el usuario**: el equipo de Contrataciones sube el Excel
+con los valores que VISITAR pactó con un prestador (códigos del Nomenclador
+Nacional/PMO), y la app devuelve el mismo archivo con el código y nombre
+equivalentes del **Nomenclador Único** agregados — para poder cargar el mismo
+convenio del lado Único sin transcribir a mano.
+
+⚠️ **Decisión del usuario, explícita**: por ahora restringido a `CAP.contrataciones`
+(= sólo `admin`) — *"alcanza con restringirlo a admin por ahora. Luego crearemos el
+rol."* Cuando exista un rol propio para ese equipo, el gate cambia en **un solo
+lugar** (esa función, en `web/index.html`), no hay que tocar treinta sitios — mismo
+criterio que ya usa `CAP` para los otros roles (ver 4.5 ter).
+
+⚠️ **Pantalla aparte del panel de administración, a propósito** — pedido explícito:
+*"no creo que sea conveniente sumarlo al panel de admin"*. No es una pantalla de
+configuración de la app (eso es lo que vive en Administración: textos, logo,
+cuentas, búsqueda); es una herramienta de trabajo de un equipo puntual. Botón propio
+en la barra superior (`#contrBtn`, icono de grilla) y modal propio (`#contrModal` /
+`#contrBox`, misma clase `.adminbox` que Administración y «Cómo te firmamos» para
+que se vea consistente, pero es un modal independiente).
+
+**No hay motor de matching nuevo.** Reusa `equivalencia_unico`, que
+`scripts/assemble.py` ya calcula para cada código PMO a partir de
+`data/unico_equivalencias.xlsx` (ver 3.5 y el barrido de «galenos sin cargar» en el
+punto 8). Un código PMO puede tener más de un candidato Único apuntándole; se toma
+el de mejor confianza: `score:null` (equivalencia cargada a mano, en
+`unico_med_extra.json`/`unico_lab.json`) primero, después el `score` numérico más
+alto. Estados que distingue la pantalla (con su color): **confirmado** / **automático**
+(score ≥ 0,88, mismo umbral que ya usa el resto de la app para "similitud fuerte") en
+verde; **a revisar** (score bajo) / **sin equivalencia Único cargada** en ámbar;
+**código no encontrado** / **sin código en la fila** en rojo — nunca se deja una fila
+en blanco en silencio, mismo criterio que "sin equivalencia hallada" en la ficha.
+
+**SheetJS** (`web/vendor/xlsx.full.min.js`, v0.18.5, Apache-2.0, build `full` —no
+`core`, para no perder soporte de `.xls` viejo con codificación no-UTF8—) lee y
+escribe el Excel en el navegador. Es un `<script src>` externo, **no inline**: la CSP
+(`script-src 'self' …`) ya permite cualquier archivo del propio origen sin hash —
+`scripts/sellar_csp.py` lo confirma («`<script src=…>` no lleva huella»). Sólo hizo
+falta re-sellar por los cambios en el script inline principal (la lógica de
+Contrataciones), no por sumar la librería. Se agregó a `SHELL` en `web/sw.js` para
+que quede disponible sin internet.
+
+⚠️ **Dos bugs reales encontrados probando con Playwright, no evidentes leyendo el
+código** (ver `tests/e2e/casos/contrataciones.mjs`):
+1. **Un código con puntos en un `.csv` se confunde con una fecha.** El CSV no lleva
+   tipos de celda: al leerlo, SheetJS adivina igual que Excel, y `"07.02.09"` se
+   guarda como 7/2/2009. `contrCeldaCodigo()` lo deshace: mes/día/año caen en el
+   mismo orden que capítulo.sección.ítem (los tres son pares de dos dígitos
+   separados por punto), así que reconstruir con `XLSX.SSF.parse_date_code()`
+   devuelve el código original. Un `.xlsx` real no tiene este problema si la celda
+   vino tipeada como texto (lo normal cuando alguien quiere conservar los puntos y
+   el cero inicial). Consecuencia de diseño: `contrCargarArchivo` lee la hoja
+   **sin** `blankrows:false`, porque `contrCeldaCodigo` ubica cada celda por
+   posición real de fila (`filaIdx+1`) — saltear filas en blanco correría esa
+   correspondencia y desalinearía el resto del archivo.
+2. **Un `.csv` con tildes se leía mal** (`"Código"` → `"CÃ³digo"`, mojibake clásico
+   de UTF-8 reinterpretado como Latin-1). `XLSX.read` no adivina la codificación de
+   un CSV a partir de los bytes crudos. Se agregó `codepage:65001` a la llamada —
+   confirmado que no interfiere con la lectura de un `.xlsx` real (declara su propia
+   codificación adentro).
+
+Probado con Playwright: subida de `.csv`, autodetección de columna (prueba cada
+columna contra códigos reales de la base, gana la que más matchea), los seis estados
+con códigos reales de la base (`010217` confirmado, `010101` automático, `01.02.02`
+→ `010202` a revisar, `010708` sin equivalencia, `999999` inexistente, fila vacía),
+descarga del `.xlsx` de salida verificada por firma ZIP (`PK`) y nombre de archivo,
+gate de acceso (un usuario administrativo no ve el botón), sin violaciones de CSP ni
+errores de JS. `tests/e2e/casos/contrataciones.mjs`, 2 casos, ambos verdes.
+
+✅ **RESUELTO — bug preexistente encontrado y corregido en esta misma tanda, tras
+fallar en CI.** El PR de Contrataciones tiraba rojo en GitHub Actions con un 404
+intermitente pidiendo literal `${E(src)}` como URL — no relacionado con
+Contrataciones (confirmado antes de tocar nada con `git stash`: reproduce igual
+sobre el código sin este cambio). Encontrado el mecanismo real con la sesión de
+Chrome DevTools Protocol (`Network.requestWillBeSent`, campo `initiator`): el
+pedido lo dispara el **preload scanner** del navegador, no el JS de la app. Ese
+scanner escanea el HTML/JS crudo tal como viaja por la red buscando patrones de
+recurso (`<img … src="…">`, `<link href="…">`, etc.) **sin distinguir si esos
+bytes están todavía sin evaluar, adentro de un `<script>`** — un optimización
+deliberadamente naive del navegador (dispara descargas especulativas antes de que
+el HTML termine de parsearse). `logoInner()` (`web/index.html`, cerca de la línea
+6503) y el QR de MFA (cerca de la línea 8928) armaban la etiqueta `<img
+src="${…}">` como texto de un template literal — exactamente ese patrón — así que
+cuando el scanner pasaba por esa zona del archivo (más chance cuanto más grande
+el archivo, de ahí la intermitencia) tomaba el marcador de interpolación sin
+evaluar como si fuera la URL real y la pedía. **Corregido armando esas dos
+imágenes con el DOM** (`document.createElement('img')` + `.src=`/`.alt=`, en vez
+de un template `<img src="…">` literal) — esa secuencia de caracteres ya no
+existe en el archivo tal como viaja por la red, sólo se arma en memoria, ya
+evaluada. De paso se sacó también un `<!--…-->` de HTML escrito literal dentro de
+un template dentro de un `<script>` (mismo tipo de riesgo, aunque no era la causa
+de este bug puntual — un comentario HTML real, bien formado, no dispara el
+preload scanner por sí solo). Verificado con un stress-test de 50 corridas
+seguidas contra el bug reproducido (0/50 fallos, contra 2/30 antes del arreglo) y
+la suite completa (`tests/e2e/correr.sh`, 46 casos) corrida limpia, sin ninguna
+falla. **Regla para no repetirlo**: nunca escribir una etiqueta de imagen (u otro
+recurso) completa, con su atributo de origen y el valor entre comillas, como
+texto literal dentro de un template de un `<script>` — construirla con el DOM.
+
 ### Vistas
 **Listado** (filtros por sección/grupo/reglas, favoritos, CSV/PDF) · **Árbol de módulos**
 (NBU y Único) · **Mesa de trabajo** (punto 5).
@@ -3671,8 +3794,38 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
   fuente — ver el método de detección en el bloque de abajo si hace falta repetirlo).
 
 ### Lo que queda por confirmar en los datos
-- **84 títulos «denominación a confirmar»** (`titulo_revisar`): ninguna fuente los resuelve
-  sin ambigüedad. Se corrigen desde **✎ Editar ficha** y vuelven al repo por 3.1.
+- ✅ **RESUELTO (9/9/2026): los títulos «denominación a confirmar» (`titulo_revisar`),
+  revisados uno por uno contra el PDF del Nomenclador Nacional.** Eran 76 en la base (no
+  84 — 8 ya se habían corregido en sesiones previas sin bajar el flag). Método: página del
+  PDF de cada código con `pypdfium2` (mismo método que el barrido de «galenos sin cargar»),
+  comparado a mano contra `nombre` y contra el candidato `equivalencia_unico`. **72 títulos
+  ya eran correctos** — el algoritmo de `assemble.py` los había marcado por baja similitud
+  contra la referencia OCR (sobre todo los 17 del capítulo 34, con `titulo_origen` lleno de
+  basura de OCR tipo «Textorefirado pore PMO…», pero el `nombre` ya bien elegido) — se les
+  bajó el flag sin tocar el texto. **4 tenían un error real**, corregido contra el PDF:
+  - `070803` — truncado a mitad de palabra: «…con Rotablator /» → «…con Rotablator /
+    Simpson» (el nombre completo ya estaba en `equivalencia_unico`, no se usó).
+  - `080106` — truncado: «…esofagogastro o» → «…esofagogastro o esófago yeyuno
+    anastomosis».
+  - `120504` — palabra repetida en vez de la segunda: «…metatarsiano o metatarsiano
+    falange…» → «…metatarsiano o metacarpiano falange…» (el PDF y el propio
+    `equivalencia_unico` decían «metacarpiano»; quedó mal transcripto en `nombre`).
+  - `121001` — typo de tipeo: «Artoplastia cadera» → «Artroplastia cadera».
+  **Queda 1 sin resolver, a propósito: `130303`** (Capítulo 13, Cirugía Plástica) — el PDF
+  no trae denominación legible en ese renglón (ya documentado antes de esta revisión); se
+  carga a mano desde **✎ Editar ficha** cuando alguien tenga la fuente en papel.
+  ⚠️ Dos hallazgos de método para la próxima revisión de este tipo: (1) cuando el título
+  actual ya es correcto pero corto/distinto del Único (ej. `010310` «Vertebroplastias» vs.
+  el nombre largo del PDF, o `170112` «Curvas de dilución» vs. el detalle del Único), **no
+  es un error** — es el título en negrita del propio recuadro del PMO, y el resto es texto
+  de «Texto retirado por el PMO» que no va en el nombre. (2) No se tocaron diferencias sólo
+  de acentuación dudosa (`260101` «tiróidea», ambas fuentes traen esa tilde) — no alcanza
+  para justificar una edición.
+  Aplicado con edición puntual de `data/nbu_db.json` (reemplazo de texto sobre el JSON
+  compacto, sin re-serializar todo el archivo, para no romper el diff) y
+  `scripts/inject_db.py` (modo aparte). No se tocó `web/index.html`, así que no hizo falta
+  `scripts/sellar_csp.py`. Corridos `tests/e2e/casos/login.mjs` y `nubelocal.mjs`, sin
+  fallas.
 - **139 fichas con el texto cortado en el origen** (`texto_truncado`): la planilla del Único
   capa las descripciones a **100 caracteres**. No es recuperable desde el PDF del PMO (trae
   títulos aún más cortos). Haría falta una planilla sin el capado.
