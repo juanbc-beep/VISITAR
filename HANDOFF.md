@@ -1,8 +1,15 @@
 # TRASPASO DE SESIÓN — Manual Inteligente Unificado (VISITAR SRL)
 
 > Documento para retomar el trabajo en una sesión nueva sobre **la misma app**.
-> Última actualización: 2026-08-28, rama `claude/nomenclador-sweep-continue-1ayph3`
+> Última actualización: 2026-09-09, rama `claude/nomenclador-sweep-continue-1ayph3`
 > (sobre `claude/unified-medical-codes-manual-o9nw1w`, que ya trae mergeado el PR #58).
+>
+> **✅ Los títulos «denominación a confirmar» (`titulo_revisar`) quedaron revisados el
+> 9/9/2026** — ver «Lo que queda por confirmar en los datos» más abajo para el detalle
+> completo. Eran 76, no 84 (8 ya se habían corregido sin bajar el flag); 72 ya estaban bien
+> y sólo se les bajó el flag, 4 tenían un error real (dos truncados, una palabra repetida,
+> un typo) y se corrigieron contra el PDF, y queda 1 (`130303`) sin denominación legible en
+> la fuente, a propósito, para cargar a mano.
 >
 > **✅ El barrido del Nomenclador Nacional (3.8, «Texto retirado por el PMO») terminó** —
 > ver el párrafo viejo más abajo si hace falta el detalle.
@@ -3671,8 +3678,38 @@ posiciones llega en el texto de la solicitud; se le preguntó y no contestó tod
   fuente — ver el método de detección en el bloque de abajo si hace falta repetirlo).
 
 ### Lo que queda por confirmar en los datos
-- **84 títulos «denominación a confirmar»** (`titulo_revisar`): ninguna fuente los resuelve
-  sin ambigüedad. Se corrigen desde **✎ Editar ficha** y vuelven al repo por 3.1.
+- ✅ **RESUELTO (9/9/2026): los títulos «denominación a confirmar» (`titulo_revisar`),
+  revisados uno por uno contra el PDF del Nomenclador Nacional.** Eran 76 en la base (no
+  84 — 8 ya se habían corregido en sesiones previas sin bajar el flag). Método: página del
+  PDF de cada código con `pypdfium2` (mismo método que el barrido de «galenos sin cargar»),
+  comparado a mano contra `nombre` y contra el candidato `equivalencia_unico`. **72 títulos
+  ya eran correctos** — el algoritmo de `assemble.py` los había marcado por baja similitud
+  contra la referencia OCR (sobre todo los 17 del capítulo 34, con `titulo_origen` lleno de
+  basura de OCR tipo «Textorefirado pore PMO…», pero el `nombre` ya bien elegido) — se les
+  bajó el flag sin tocar el texto. **4 tenían un error real**, corregido contra el PDF:
+  - `070803` — truncado a mitad de palabra: «…con Rotablator /» → «…con Rotablator /
+    Simpson» (el nombre completo ya estaba en `equivalencia_unico`, no se usó).
+  - `080106` — truncado: «…esofagogastro o» → «…esofagogastro o esófago yeyuno
+    anastomosis».
+  - `120504` — palabra repetida en vez de la segunda: «…metatarsiano o metatarsiano
+    falange…» → «…metatarsiano o metacarpiano falange…» (el PDF y el propio
+    `equivalencia_unico` decían «metacarpiano»; quedó mal transcripto en `nombre`).
+  - `121001` — typo de tipeo: «Artoplastia cadera» → «Artroplastia cadera».
+  **Queda 1 sin resolver, a propósito: `130303`** (Capítulo 13, Cirugía Plástica) — el PDF
+  no trae denominación legible en ese renglón (ya documentado antes de esta revisión); se
+  carga a mano desde **✎ Editar ficha** cuando alguien tenga la fuente en papel.
+  ⚠️ Dos hallazgos de método para la próxima revisión de este tipo: (1) cuando el título
+  actual ya es correcto pero corto/distinto del Único (ej. `010310` «Vertebroplastias» vs.
+  el nombre largo del PDF, o `170112` «Curvas de dilución» vs. el detalle del Único), **no
+  es un error** — es el título en negrita del propio recuadro del PMO, y el resto es texto
+  de «Texto retirado por el PMO» que no va en el nombre. (2) No se tocaron diferencias sólo
+  de acentuación dudosa (`260101` «tiróidea», ambas fuentes traen esa tilde) — no alcanza
+  para justificar una edición.
+  Aplicado con edición puntual de `data/nbu_db.json` (reemplazo de texto sobre el JSON
+  compacto, sin re-serializar todo el archivo, para no romper el diff) y
+  `scripts/inject_db.py` (modo aparte). No se tocó `web/index.html`, así que no hizo falta
+  `scripts/sellar_csp.py`. Corridos `tests/e2e/casos/login.mjs` y `nubelocal.mjs`, sin
+  fallas.
 - **139 fichas con el texto cortado en el origen** (`texto_truncado`): la planilla del Único
   capa las descripciones a **100 caracteres**. No es recuperable desde el PDF del PMO (trae
   títulos aún más cortos). Haría falta una planilla sin el capado.
