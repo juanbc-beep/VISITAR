@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-hpWljJ9u07GYNW2Ln52AzbMlrh3biYk12bi6J+KDiR0=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-Z0TAA2hEX0fdc5LpHR+NF0UGm6o/QziKNLaId1a82gg=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1763,6 +1763,11 @@ body:has(#modal.on,#adminModal.on,#tratoModal.on,#contrModal.on) #pista{display:
 .contr-archivo{display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius-sm);font-size:13px;color:var(--muted)}
 .contr-archivo b{color:var(--ink)}
 .contr-archivo>span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.contr-retomado{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:8px;padding:8px 12px;border-radius:var(--radius-sm);
+  background:var(--norma-soft);color:var(--norma);font-size:12.5px;font-weight:600}
+.contr-retomado span{flex:1;min-width:0}
+.contr-retomado .contr-link{color:var(--norma)}
+.contr-guardado{margin-top:6px;font-size:11.5px;color:var(--faint)}
 .contr-cfg{margin-top:10px;border:1px solid var(--line);border-radius:var(--radius-sm);padding:0 12px}
 .contr-cfg>summary{cursor:pointer;padding:10px 0;font-size:13px;font-weight:700;color:var(--ink);list-style:none;user-select:none}
 .contr-cfg>summary::-webkit-details-marker{display:none}
@@ -10057,19 +10062,83 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     contrRes=final;
   }
 
+  // ---------- lo decidido no se pierde ----------
+  // Cerrar la ventana ya no borra nada: el trabajo sigue en memoria. Además cada
+  // decisión se guarda en este navegador, por usuario y por archivo (huella del
+  // contenido, no del nombre): recargar la app retoma el último archivo, y volver
+  // a subir una grilla ya trabajada trae de vuelta lo que se decidió sobre ella.
+  // En localStorage y no en la nube a propósito: es trabajo en curso de una
+  // persona, no algo que el resto del equipo tenga que ver.
+  const CONTR_MAX_ARCHIVOS=20, CONTR_MAX_B64=3e6;
+  let contrHuella='', contrRestaurado=0, contrDuenio=null;
+  const contrClaveLS=suf=>'nbu-contr:'+((current&&current.id)||'-')+':'+suf;
+  function contrLeerLS(suf){try{return JSON.parse(localStorage.getItem(contrClaveLS(suf))||'null');}catch(e){return null;}}
+  function contrEscribirLS(suf,v){try{if(v==null)localStorage.removeItem(contrClaveLS(suf));else localStorage.setItem(contrClaveLS(suf),JSON.stringify(v));return true;}catch(e){return false;}}
+  function contrHuellaDe(buf){
+    const b=new Uint8Array(buf);let h=0x811c9dc5;
+    for(let i=0;i<b.length;i++){h^=b[i];h=Math.imul(h,0x01000193);}
+    return (h>>>0).toString(36)+'-'+b.length;
+  }
+  function contrGuardar(){
+    if(!contrHuella||!contrCfg)return;
+    const todos=contrLeerLS('archivos')||{};
+    const c=contrCfg;
+    todos[contrHuella]={nombre:contrArchivo.name,t:Date.now(),
+      cfg:{fila:c.fila,colCodigo:c.colCodigo,colDesc:c.colDesc,colArea:c.colArea,areaDef:c.areaDef,valores:c.valores.map(v=>({col:v.col,rol:v.rol,area:v.area}))},
+      edit:contrEdit,elegido:contrElegido,area:contrAreaFila,confirmado:contrConfirmado,falta:contrFalta,salida:contrNombre,formato:contrFormato};
+    Object.keys(todos).sort((a,b)=>todos[b].t-todos[a].t).slice(CONTR_MAX_ARCHIVOS).forEach(k=>delete todos[k]);
+    contrEscribirLS('archivos',todos);
+  }
+  function contrAplicarGuardado(g){
+    const c=g.cfg||{};
+    if(Number.isInteger(c.fila)&&c.fila!==contrCfg.fila&&c.fila<contrAOA.length)contrConfigurar(c.fila);
+    const col=j=>Number.isInteger(j)&&j<contrCfg.ancho?j:-1;
+    if(c.colCodigo!=null)contrCfg.colCodigo=col(c.colCodigo);
+    if(c.colDesc!=null)contrCfg.colDesc=col(c.colDesc);
+    if(c.colArea!=null)contrCfg.colArea=col(c.colArea);
+    if(CONTR_AREAS[c.areaDef])contrCfg.areaDef=c.areaDef;
+    for(const v of contrCfg.valores){const gv=(c.valores||[]).find(x=>x.col===v.col);if(gv){if(CONTR_ROLES[gv.rol])v.rol=gv.rol;v.area=CONTR_AREAS[gv.area]?gv.area:'';}}
+    contrEdit=g.edit||{};contrElegido=g.elegido||{};contrAreaFila=g.area||{};contrConfirmado=g.confirmado||{};contrFalta=g.falta||{};
+    contrNombre=g.salida||'';contrFormato=g.formato==='xlsx'?'xlsx':'xls';
+  }
+  function contrHayDecisiones(g){
+    return !!g&&[g.edit,g.elegido,g.area,g.confirmado,g.falta].some(o=>o&&Object.keys(o).length)||!!(g&&g.salida);
+  }
+  // El último archivo viaja entero (base64) para poder retomarlo después de
+  // recargar; si es muy grande sólo se guardan las decisiones.
+  function contrGuardarUltimo(buf,nombre){
+    const b=new Uint8Array(buf);
+    if(b.length*1.37>CONTR_MAX_B64){contrEscribirLS('ultimo',null);return;}
+    let bin='';for(let i=0;i<b.length;i+=0x8000)bin+=String.fromCharCode.apply(null,b.subarray(i,i+0x8000));
+    if(!contrEscribirLS('ultimo',{nombre,b64:btoa(bin)}))contrEscribirLS('ultimo',null);
+  }
+  function contrRetomarUltimo(){
+    const u=contrLeerLS('ultimo');if(!u||!u.b64)return;
+    try{
+      const bin=atob(u.b64),b=new Uint8Array(bin.length);
+      for(let i=0;i<bin.length;i++)b[i]=bin.charCodeAt(i);
+      contrAbrirLibro(b.buffer,u.nombre,false);
+    }catch(e){contrReiniciar();contrEscribirLS('ultimo',null);}
+  }
+
   // ---------- pantalla ----------
   function contrReiniciar(){
     contrArchivo=null;contrWS=null;contrAOA=null;contrCfg=null;contrRes=null;
     contrEdit={};contrElegido={};contrAreaFila={};contrConfirmado={};contrFalta={};
-    contrBuscando=null;contrBuscaQ='';contrFiltro='todo';contrNombre='';
+    contrBuscando=null;contrBuscaQ='';contrFiltro='todo';contrNombre='';contrFormato='xls';
+    contrHuella='';contrRestaurado=0;
   }
   function closeContr(){
     el('contrModal').classList.remove('on');
-    contrReiniciar();
+    contrBuscando=null;
     devolverFoco();
   }
   function openContr(){
     if(!CAP.contrataciones(current))return;
+    // Lo que está en memoria es de quien lo cargó: con otra sesión se arranca de
+    // lo que esa persona tenga guardado.
+    if(contrDuenio!==(current&&current.id)){contrReiniciar();contrDuenio=current&&current.id;}
+    if(!contrAOA)contrRetomarUltimo();
     renderContr();el('contrModal').classList.add('on');tomarFoco(el('contrBox'));
   }
   el('contrModal').addEventListener('click',e=>{if(e.target===el('contrModal'))closeContr();});
@@ -10169,6 +10238,11 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         <span><b>${esc(contrArchivo.name)}</b>${contrArchivo._hoja?' · hoja «'+esc(contrArchivo._hoja)+'»':''}</span>
         <button class="minibtn" id="contrOtroArchivo">Cambiar archivo</button>
       </div>
+      ${contrRestaurado?`<div class="contr-retomado" role="status">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+          <span>Se recuperó lo que decidiste sobre este archivo ${(d=>`el ${d.getDate()}/${d.getMonth()+1} a las ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`)(new Date(contrRestaurado))}.</span>
+          <button class="contr-link" id="contrDeCero">Empezar de cero</button>
+        </div>`:`<div class="contr-guardado">Lo que decidas se guarda solo en esta computadora: podés cerrar la ventana y seguir después.</div>`}
       <details class="contr-cfg"${c.colCodigo<0?' open':''}>
         <summary>Columnas de la grilla <span class="contr-mute">· detectadas solas, cambialas si algo no cuadra</span></summary>
         <div class="contr-cfg-grid">
@@ -10222,10 +10296,17 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       <div class="ahint contr-export-h">Se exportan <b>${exportables.length}</b> fila${exportables.length===1?'':'s'}${cuenta.warn?`, ${cuenta.warn} marcada${cuenta.warn===1?'':'s'} para revisar`:''}.
         ${pendientes.length?`Los <b>${pendientes.length}</b> renglones sin equivalencia, sin código en el Único, repetidos u omitidos van aparte, en la hoja «Sin equivalencia» del mismo archivo.`:'No quedó ningún código sin equivalencia.'}</div>`;
   }
-  function contrRehacer(){contrProcesar();renderContr();}
+  function contrRehacer(){contrProcesar();contrGuardar();renderContr();}
   function contrWireProcesado(){
     const box=el('contrBox');
-    el('contrOtroArchivo').addEventListener('click',()=>{contrReiniciar();renderContr();});
+    el('contrOtroArchivo').addEventListener('click',()=>{contrReiniciar();contrEscribirLS('ultimo',null);renderContr();});
+    if(el('contrDeCero'))el('contrDeCero').addEventListener('click',()=>{
+      if(!confirm('¿Descartar todo lo que decidiste sobre este archivo?\n\nVuelve a quedar como recién subido.'))return;
+      const todos=contrLeerLS('archivos')||{};delete todos[contrHuella];contrEscribirLS('archivos',todos);
+      contrEdit={};contrElegido={};contrAreaFila={};contrConfirmado={};contrFalta={};contrBuscando=null;contrNombre='';contrFormato='xls';
+      contrCfg=null;contrConfigurar(contrDetectarEncabezado());
+      contrRestaurado=0;contrRehacer();toast('Listo: el archivo quedó como recién subido');
+    });
     el('contrFila').addEventListener('change',e=>{contrEdit={};contrElegido={};contrAreaFila={};contrConfirmado={};contrFalta={};contrBuscando=null;contrConfigurar(+e.target.value);contrRehacer();});
     el('contrColCod').addEventListener('change',e=>{contrCfg.colCodigo=+e.target.value;contrRehacer();});
     el('contrColDesc').addEventListener('change',e=>{contrCfg.colDesc=+e.target.value;contrRehacer();});
@@ -10233,7 +10314,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     box.querySelectorAll('[data-vrol]').forEach(s=>s.addEventListener('change',()=>{contrCfg.valores[+s.dataset.vrol].rol=s.value;contrRehacer();}));
     box.querySelectorAll('[data-varea]').forEach(s=>s.addEventListener('change',()=>{contrCfg.valores[+s.dataset.varea].area=s.value;contrRehacer();}));
     box.querySelectorAll('#contrAreaDef button').forEach(b=>b.addEventListener('click',()=>{contrCfg.areaDef=b.dataset.v;contrRehacer();}));
-    box.querySelectorAll('#contrFormato button').forEach(b=>b.addEventListener('click',()=>{contrFormato=b.dataset.v;renderContr();}));
+    box.querySelectorAll('#contrFormato button').forEach(b=>b.addEventListener('click',()=>{contrFormato=b.dataset.v;contrGuardar();renderContr();}));
     box.querySelectorAll('[data-filtro]').forEach(b=>b.addEventListener('click',()=>{contrFiltro=b.dataset.filtro;renderContr();}));
     box.querySelectorAll('.contr-cod').forEach(inp=>{
       inp.addEventListener('change',()=>{
@@ -10279,32 +10360,39 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     const nom=el('contrNombre');
     if(nom)nom.addEventListener('input',()=>{
       contrNombre=nom.value;
+      clearTimeout(nom._t);nom._t=setTimeout(contrGuardar,300);
       el('contrDescargar').disabled=!(contrNombre.trim()&&contrRes&&contrRes.some(contrExporta));
     });
     if(el('contrDescargar'))el('contrDescargar').addEventListener('click',contrDescargarExcel);
+  }
+  function contrAbrirLibro(buf,nombre,nuevo){
+    // codepage:65001 (UTF-8): sin esto un .csv con tildes se lee mal
+    // ("Código" -> "CÃ³digo"). Un .xlsx declara su propia codificación.
+    const wb=XLSX.read(buf,{type:'array',codepage:65001});
+    const nombreHoja=wb.SheetNames[0];
+    const hoja=wb.Sheets[nombreHoja];
+    if(!hoja||!hoja['!ref'])throw new Error('el archivo no tiene filas');
+    // Sin blankrows:false a propósito: cada índice de contrAOA tiene que ser
+    // la fila real de la hoja (contrCel la ubica por posición).
+    const aoa=XLSX.utils.sheet_to_json(hoja,{header:1,defval:'',raw:false,blankrows:true});
+    if(!aoa.length)throw new Error('el archivo no tiene filas');
+    contrReiniciar();
+    const rg=XLSX.utils.decode_range(hoja['!ref']);
+    contrOrig={r:rg.s.r,c:rg.s.c};contrWS=hoja;contrAOA=aoa;
+    contrArchivo={name:nombre,_hoja:wb.SheetNames.length>1?nombreHoja:''};
+    contrHuella=contrHuellaDe(buf);contrDuenio=current&&current.id;
+    contrConfigurar(contrDetectarEncabezado());
+    const g=(contrLeerLS('archivos')||{})[contrHuella];
+    if(g){contrAplicarGuardado(g);if(contrHayDecisiones(g))contrRestaurado=g.t||Date.now();}
+    if(nuevo)contrGuardarUltimo(buf,nombre);
+    contrRehacer();
   }
   function contrCargarArchivo(e){
     const f=e.target.files[0];if(!f)return;
     const rd=new FileReader();
     rd.onload=()=>{
-      try{
-        // codepage:65001 (UTF-8): sin esto un .csv con tildes se lee mal
-        // ("Código" -> "CÃ³digo"). Un .xlsx declara su propia codificación.
-        const wb=XLSX.read(rd.result,{type:'array',codepage:65001});
-        const nombreHoja=wb.SheetNames[0];
-        const hoja=wb.Sheets[nombreHoja];
-        if(!hoja||!hoja['!ref'])throw new Error('el archivo no tiene filas');
-        // Sin blankrows:false a propósito: cada índice de contrAOA tiene que ser
-        // la fila real de la hoja (contrCel la ubica por posición).
-        const aoa=XLSX.utils.sheet_to_json(hoja,{header:1,defval:'',raw:false,blankrows:true});
-        if(!aoa.length)throw new Error('el archivo no tiene filas');
-        contrReiniciar();
-        const rg=XLSX.utils.decode_range(hoja['!ref']);
-        contrOrig={r:rg.s.r,c:rg.s.c};contrWS=hoja;contrAOA=aoa;
-        contrArchivo=f;contrArchivo._hoja=wb.SheetNames.length>1?nombreHoja:'';
-        contrConfigurar(contrDetectarEncabezado());
-        contrRehacer();
-      }catch(err){ toast('Ese archivo no se pudo leer: '+err.message,true); }
+      try{contrAbrirLibro(rd.result,f.name,true);}
+      catch(err){ toast('Ese archivo no se pudo leer: '+err.message,true); }
     };
     rd.onerror=()=>toast('No se pudo leer el archivo',true);
     rd.readAsArrayBuffer(f);

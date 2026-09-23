@@ -170,6 +170,70 @@ async function main() {
     await ctx.close();
   });
 
+  await correrCaso('contrataciones: lo decidido no se pierde al cerrar, al recargar ni al volver a subir el archivo', async () => {
+    const db = crearDB();
+    altaUsuario(db, { nombre: 'Admin General', email: 'admin@visitar.test', password: 'Password123!', rol: 'admin', estado: 'activo' });
+    const ctx = await nuevoContexto(browser);
+    await instalarSimulador(ctx, db);
+    const page = await ctx.newPage();
+    const { errores, csp } = vigilarErrores(page);
+    await entrar(page, base, 'admin@visitar.test');
+    const subir = (csv = CSV) => page.setInputFiles('#contrFile', { name: 'grilla_prestador.csv', mimeType: 'text/csv', buffer: Buffer.from(csv, 'utf-8') });
+    const abrir = async () => { await page.click('#contrBtn'); await page.waitForSelector('#contrModal.on'); };
+    const tabla = () => page.locator('.contr-tbl tbody').innerText();
+    const decisionesPuestas = async (que) => {
+      await page.waitForSelector('.contr-tbl');
+      afirmar((await tabla()).includes('Valor confirmado'), `${que}: la densitometría debería seguir confirmada`);
+      afirmar(await page.inputValue('.contr-area-sel[data-akey^="5|"]') === 'A', `${que}: el rango de ecografías debería seguir en área A`);
+      afirmar(await page.inputValue('#contrNombre') === '37547', `${que}: el nombre del archivo de salida debería seguir puesto`);
+      afirmar((await page.textContent('[data-filtro="info"]')).includes('1'), `${que}: 10180122 debería seguir como «Falta en el Único»`);
+    };
+
+    await abrir();
+    await subir();
+    await page.waitForSelector('.contr-tbl');
+    await page.selectOption('.contr-area-sel[data-akey^="5|"]', 'A');
+    await page.click('.contr-tbl [data-confirmar^="341201|"]');
+    await page.click('[data-falta$="|10180122"]');
+    await page.fill('#contrNombre', '37547');
+    await page.waitForTimeout(400);
+
+    await page.click('#contrClose');
+    await abrir();
+    await decisionesPuestas('al cerrar y volver a abrir la ventana');
+
+    await page.reload();
+    await esperarArranque(page);
+    if (await page.isVisible('#nbMail')) {
+      await page.fill('#nbMail', 'admin@visitar.test'); await page.fill('#nbPass', 'Password123!'); await page.click('#nbGo');
+    }
+    await page.waitForSelector('#acctChip:not([hidden])', { timeout: 5000 });
+    await sinOverlays(page);
+    await abrir();
+    await decisionesPuestas('al recargar la app');
+    afirmar(await page.isVisible('.contr-retomado'), 'debería avisar que se recuperó lo decidido');
+
+    await page.click('#contrOtroArchivo');
+    await page.waitForSelector('#contrFile', { state: 'attached' });
+    await subir();
+    await decisionesPuestas('al volver a subir el mismo archivo');
+
+    page.once('dialog', d => d.accept());
+    await page.click('#contrDeCero');
+    await page.waitForFunction(() => !document.querySelector('.contr-retomado'));
+    afirmar(!(await tabla()).includes('Valor confirmado'), '«Empezar de cero» debería descartar la confirmación');
+    afirmar(await page.inputValue('.contr-area-sel[data-akey^="5|"]') === 'D', '«Empezar de cero» debería volver el área a la de siempre');
+
+    await page.click('#contrOtroArchivo');
+    await subir(CSV.replace('9712.55', '9800.00'));
+    await page.waitForSelector('.contr-tbl');
+    afirmar(!(await page.isVisible('.contr-retomado')), 'un archivo distinto no debería traer decisiones de otro');
+
+    afirmar(csp.length === 0, 'no debería haber violaciones de CSP: ' + csp.join(' | '));
+    afirmar(errores.length === 0, 'no debería haber errores de JS sin capturar: ' + errores.join(' | '));
+    await ctx.close();
+  });
+
   await correrCaso('contrataciones: un usuario administrativo (no admin) no ve el botón', async () => {
     const db = crearDB();
     altaUsuario(db, { nombre: 'Ana Activa', email: 'ana@visitar.test', password: 'Password123!', rol: 'usuario', estado: 'activo' });
