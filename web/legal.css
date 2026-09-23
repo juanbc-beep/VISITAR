@@ -78,7 +78,7 @@ th{background:var(--surface-2);font-size:13px;color:var(--ink)}
 tr:last-child td{border-bottom:none}
 td{color:var(--ink-2)}
 
-.nota{border-left:4px solid var(--aviso);background:var(--aviso-soft);color:var(--ink);border-radius:0 10px 10px 0;padding:12px 16px;margin:14px 0}
+.nota{border:1px solid color-mix(in srgb,var(--aviso) 35%,transparent);background:var(--aviso-soft);color:var(--ink);border-radius:10px;padding:12px 16px;margin:14px 0}
 .nota p{color:var(--ink);margin:0}
 .leyenda{border:1px solid var(--line);border-radius:10px;padding:14px 18px;font-size:14.5px;margin-top:10px}
 
