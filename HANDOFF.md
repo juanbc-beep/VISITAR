@@ -11,6 +11,12 @@
 > un typo) y se corrigieron contra el PDF, y queda 1 (`130303`) sin denominación legible en
 > la fuente, a propósito, para cargar a mano.
 >
+> **✅ Contrataciones ahora exporta la grilla de carga del Único (23/9/2026)** — a pedido
+> del usuario, con un ejemplo real de entrada y de salida. Ya no devuelve el mismo archivo
+> con columnas agregadas: arma la grilla que se carga en el sistema (`nom_nom`,
+> `cta_cdesde`, `cta_chasta`, `area`, `imp_esp/ayu/ane/gto`, `uni_esp/ayu/ane/gto`), con
+> una revisión en pantalla y una hoja «Sin equivalencia». Ver **4.9 bis**.
+>
 > **✅ Pantalla nueva: Contrataciones (9/9/2026)** — pedida por el usuario. El equipo de
 > Contrataciones sube el Excel de valores pactados con un prestador (códigos del
 > Nomenclador Nacional/PMO) y la app devuelve el mismo archivo con el código y nombre
@@ -2068,6 +2074,66 @@ con códigos reales de la base (`010217` confirmado, `010101` automático, `01.0
 descarga del `.xlsx` de salida verificada por firma ZIP (`PK`) y nombre de archivo,
 gate de acceso (un usuario administrativo no ve el botón), sin violaciones de CSP ni
 errores de JS. `tests/e2e/casos/contrataciones.mjs`, 2 casos, ambos verdes.
+
+### 4.9 bis Contrataciones — salida con el formato de la grilla de carga del Único (23/9/2026)
+Pedido del usuario, con una grilla real de entrada (centro de diagnóstico, agosto 2026) y
+la salida que arma hoy el equipo a mano. **Lo de 4.9 sobre qué devuelve el archivo quedó
+viejo**: ya no es "el mismo Excel con columnas agregadas", es otra grilla.
+
+**Entrada típica** (la que manda el prestador): títulos arriba del encabezado; columna de
+códigos (Nacional/PMO, propios del Único de 8 dígitos o internos del prestador), práctica
+según el contrato, y una o más columnas de valor (normalmente una "Vigencia dd/mm/aaaa").
+La celda de código puede traer un código, un rango (`180104 al 180121`), una lista
+(`180218/180216/180303`), una lista abreviada (`180201/04` = 180201 y 180204) o `NBU`.
+
+**Salida** (una hoja con el nombre que ingresa el usuario, `.xls` o `.xlsx` a elección):
+`nom_nom` (siempre `Unico`), `cta_cdesde`/`cta_chasta` (numéricos; iguales si es un
+código), `area`, `imp_esp`, `imp_ayu`, `imp_ane`, `imp_gto`, `uni_esp`, `uni_ayu`,
+`uni_ane`, `uni_gto`. Ordenada por código. Segunda hoja **«Sin equivalencia»**: lo que no
+se exportó (sin equivalencia, valor repetido que no se usó, renglones omitidos) con el motivo.
+
+Reglas, **confirmadas por el usuario** (respuestas del 23/9/2026):
+- **Área**: viene en la grilla cuando la trae (columna "Área" por fila, o el título de una
+  columna de valor dice ambulatorio/internación: un prestador puede tener valores distintos
+  para la misma práctica según el área). Si no, se usa el área por defecto, `D`, cambiable
+  en pantalla (un prestador todo ambulatorio -> `A`).
+- **Tipo de importe**: viene en la grilla (títulos especialista/honorarios, ayudante,
+  anestesista, gasto). Una columna de valor genérica ("Vigencia…") va a `imp_gto`, salvo
+  consultas (capítulo 42) que van a `imp_esp` — así está en la salida de ejemplo.
+- **Valor por unidad** ("NN X 333,36", "NBU X 420,22"): importes en 0 y la unidad por
+  nombre. Radiología (cap. 34) -> `uni_esp` GALENO RADIOLOGICO / `uni_gto` UNIDAD
+  RADIOLOGICA; laboratorio -> `uni_gto` UNICO_NBU con el rango completo del Único lab
+  (60660001–64669990, calculado del catálogo). **En otros capítulos no se sabe qué unidad
+  va**: queda "Unidad de valor a definir" y no se exporta — preguntar si aparece.
+- **Rangos**: salen de la grilla que se sube, no se inventan. Un rango se parte alrededor
+  de los códigos que la grilla valoriza aparte (340101 al 340304 con 340214 propio ->
+  340101–340213 y 340215–340304), recorriendo los códigos que existen en el Único.
+- **Mismo código con valores distintos** (densitometría por regiones, espinograma F / F y P):
+  "depende" — se exporta el primero y en la revisión se elige otro con un clic. Con el mismo
+  valor (o un centavo de diferencia, redondeo de la planilla) va una sola vez.
+- **Sin equivalencia**: se informa, en pantalla y en la hoja 2; nunca se exporta en silencio.
+
+**Equivalencia por código y por práctica.** Por código, en este orden: la ficha PMO/NBU
+(`equivalencia_unico`, prefiere el mismo código si está entre los candidatos), el mismo
+código en el Único, y la equivalencia declarada del lado Único (`equivalencia.code` /
+`code_declarado`, índice inverso — ej. 180342 -> 10180730). Después se compara la práctica
+escrita en la grilla contra los nombres del Único del mismo capítulo: si otra práctica se
+parece mucho más (≥0,5 y 0,25 por encima), gana esa, marcada "Elegido por la práctica ·
+revisar" y con un clic para volver a la de código (caso real: "180201/04 Eco Doppler Color
+Cardíaco" -> 180301). Si el código no está en ningún lado, se usa la práctica sólo si es
+clara (≥0,6 y 0,1 por encima de la segunda); si no, queda como sugerencia. En una lista, si
+la práctica viene separada igual ("partes blandas/transvaginal/transrectal"), cada código
+se busca con su parte. Todo código se puede corregir a mano en la tabla.
+
+**Límites conocidos** (probado contra la salida real del usuario): el Holter "3 canales"
+(170104) queda en 170104, cuando la salida real usa 170118 ("más de 1 canal") — la
+comparación de palabras no razona números; se corrige a mano. 10180122 (translucencia
+nucal / scan fetal) no está en la base: ofrece "Exportar tal cual". Las ampliaciones de
+rango que el equipo hacía a mano (342014 -> 342001–342014, etc.) no se hacen solas.
+
+Test: `tests/e2e/casos/contrataciones.mjs` (grilla CSV con títulos, rango, lista abreviada,
+NN/NBU, código repetido, área por fila, dos columnas de importe, corrección a mano; lee el
+`.xls` descargado con SheetJS y compara fila por fila).
 
 ✅ **RESUELTO — bug preexistente encontrado y corregido en esta misma tanda, tras
 fallar en CI.** El PR de Contrataciones tiraba rojo en GitHub Actions con un 404
