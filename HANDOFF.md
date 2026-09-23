@@ -2147,6 +2147,26 @@ Test: `tests/e2e/casos/contrataciones.mjs` (grilla CSV con títulos, rango, list
 NN/NBU, código repetido, área por fila, dos columnas de importe, corrección a mano; lee el
 `.xls` descargado con SheetJS y compara fila por fila).
 
+### 4.9 ter Contrataciones — revisión: área por línea, buscador del Único, confirmar, asociar omitidas, «falta en el Único» (23/9/2026)
+Pedidos del usuario sobre la tabla de revisión, todos por renglón (no globales):
+- **Área por línea**: cada línea exportable tiene su selector D/A/I (`contrAreaFila`,
+  clave `renglón|código|área original`). El «Área por defecto» sigue siendo global; una
+  línea cambiada a mano queda en naranja con «Área por defecto» para deshacer. Se aplica
+  antes de agrupar repetidos y de partir rangos (el área es parte de la clave de ambos).
+- **Buscar en el Único por nombre**: lupa al lado del código de cada línea editable. Abre
+  un buscador debajo de la fila, ya con la práctica de la grilla; busca por código
+  (prefijo) o por nombre con el mismo `buscar()` de la app (sinónimos, erratas) y, como
+  `buscar()` exige todas las palabras, completa con `contrParecido` (≥0,34). Enter elige el
+  primero, Escape cierra.
+- **Repetidos con otro valor**: «Confirmar valor» deja el elegido como «Valor confirmado»
+  (verde). Los descartados también tienen la lupa: si en realidad eran otra práctica
+  (cambia la descripción, ej. densitometría por regiones), se les busca su código.
+- **Omitidas**: un renglón sin código (o con código no reconocido) que tiene importe se
+  puede asociar a un código con la lupa; queda en `contrEdit` con la clave `renglón|*`.
+- **«Falta código en el Único»**: en una línea sin equivalencia, la reconoce como tal
+  (estado `falta_unico`, azul, chip propio). No se exporta; va a la hoja «Sin
+  equivalencia» con ese motivo, después de las que siguen sin resolver.
+
 ✅ **RESUELTO — bug preexistente encontrado y corregido en esta misma tanda, tras
 fallar en CI.** El PR de Contrataciones tiraba rojo en GitHub Actions con un 404
 intermitente pidiendo literal `${E(src)}` como URL — no relacionado con

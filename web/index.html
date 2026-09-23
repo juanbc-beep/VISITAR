@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-ZCiU/yqgjsE7S/DcKm9ug2rRyq7vDNRgiZcFwcsEoWo=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-hpWljJ9u07GYNW2Ln52AzbMlrh3biYk12bi6J+KDiR0=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1806,6 +1806,7 @@ body:has(#modal.on,#adminModal.on,#tratoModal.on,#contrModal.on) #pista{display:
 .contr-cod:hover,.contr-st-warn .contr-cod,.contr-st-err .contr-cod{border-color:var(--line-2);background:var(--surface-2)}
 .contr-st-err .contr-cod:placeholder-shown{border-style:dashed;border-color:var(--exc)}
 .contr-tbl tbody tr:hover td{background:color-mix(in srgb,var(--accent) 4%,transparent)}
+.contr-cod::placeholder{font-family:var(--font-ui);font-weight:500;font-size:12px;color:var(--faint)}
 .contr-cod:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
 .contr-codtxt{font-weight:700;white-space:nowrap}
 .contr-flecha{color:var(--faint);margin:0 5px;font-family:inherit}
@@ -1824,6 +1825,35 @@ body:has(#modal.on,#adminModal.on,#tratoModal.on,#contrModal.on) #pista{display:
 .contr-pill.err{background:var(--exc-soft);color:var(--exc)}
 .contr-pill.mute{background:var(--desuso-soft);color:var(--desuso)}
 .contr-nota{font-size:11.5px;color:var(--muted);margin-top:5px;line-height:1.45;max-width:280px}
+.contr-chip.info,.contr-pill.info{background:var(--norma-soft);color:var(--norma)}
+.contr-tbl tr.contr-st-info td:first-child{box-shadow:inset 3px 0 0 var(--norma)}
+.contr-codbox{display:flex;align-items:center;gap:4px}
+.contr-lupa{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;flex:0 0 28px;border:1px solid var(--line-2);border-radius:6px;
+  background:var(--surface);color:var(--muted);cursor:pointer;transition:border-color .14s,color .14s,background .14s}
+.contr-lupa:hover,.contr-lupa.on{border-color:var(--accent);color:var(--accent-ink);background:var(--accent-soft)}
+.contr-area-sel{appearance:none;-webkit-appearance:none;width:auto!important;min-width:34px;padding:3px 8px!important;border-radius:6px!important;text-align:center;
+  border:1px solid transparent!important;background:var(--accent-soft)!important;color:var(--accent-ink)!important;font-weight:800!important;font-size:12px!important;cursor:pointer}
+.contr-area-sel:hover,.contr-area-sel:focus{border-color:var(--accent)!important}
+.contr-area-sel.editada{background:var(--urg-soft)!important;color:var(--urg)!important}
+.contr-acc{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-top:6px}
+.contr-act{border:1px solid currentColor;background:var(--surface);border-radius:6px;padding:3px 9px;font:inherit;font-size:11.5px;font-weight:700;cursor:pointer;color:var(--accent-ink);transition:background .14s}
+.contr-act:hover{background:var(--accent-soft)}
+.contr-st-err .contr-act{color:var(--norma)}
+.contr-st-err .contr-act:hover{background:var(--norma-soft)}
+.contr-st-warn .contr-act{color:var(--urg)}
+.contr-st-warn .contr-act:hover{background:var(--urg-soft)}
+.contr-busca-tr td{background:var(--surface-2)!important;padding:10px 12px 12px!important}
+.contr-busca{border:1px solid var(--accent);border-radius:var(--radius-sm);background:var(--surface);box-shadow:0 0 0 3px var(--accent-soft);overflow:hidden}
+.contr-busca-h{display:flex;align-items:center;gap:8px;padding:6px 8px 6px 12px;border-bottom:1px solid var(--line);color:var(--muted)}
+.contr-busca-h input{flex:1;min-width:0;border:none!important;background:none!important;box-shadow:none!important;padding:6px 2px!important;font:inherit;font-size:14px;color:var(--ink);outline:none}
+.contr-busca-res{max-height:260px;overflow:auto;padding:4px}
+.contr-res{display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;border:none;background:none;border-radius:6px;padding:7px 9px;font:inherit;color:var(--ink);cursor:pointer}
+.contr-res:hover,.contr-res:focus-visible{background:var(--accent-soft);outline:none}
+.contr-res:first-child{box-shadow:inset 0 0 0 1px var(--line-2)}
+.contr-res-c{flex:0 0 76px;font-weight:700;color:var(--accent-ink);font-size:12.5px;padding-top:1px}
+.contr-res-n{font-size:13px;line-height:1.35}
+.contr-res-n small{display:block;font-size:11px;color:var(--faint);margin-top:1px}
+.contr-busca-vacio{padding:14px;text-align:center;color:var(--muted);font-size:12.5px}
 .contr-link{border:none;background:none;padding:0;font:inherit;font-weight:700;color:var(--accent-ink);cursor:pointer;text-decoration:underline;text-underline-offset:2px}
 .contr-link:hover{color:var(--accent)}
 .contr-export{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
@@ -9603,8 +9633,10 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     nombre:          {txt:'Elegido por la práctica · revisar',  cls:'warn'},
     manual_fuera:    {txt:'A mano · no está en la base',        cls:'warn'},
     conflicto:       {txt:'Código repetido con otro valor',     cls:'warn'},
+    valor_ok:        {txt:'Valor confirmado',                   cls:'ok'},
     sin_equivalencia:{txt:'Sin equivalencia en el Único',       cls:'err'},
     unidad:          {txt:'Unidad de valor a definir',          cls:'err'},
+    falta_unico:     {txt:'Falta código en el Único',           cls:'info'},
     descartada:      {txt:'Valor no usado (código repetido)',   cls:'mute'},
     duplicada:       {txt:'Repetida con el mismo valor',        cls:'mute'},
     cubierto:        {txt:'Rango tapado por valores propios',   cls:'mute'},
@@ -9612,10 +9644,15 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   };
   const contrExporta=l=>!!l.desde&&(CONTR_EST[l.estado].cls==='ok'||CONTR_EST[l.estado].cls==='warn');
   // Va a la hoja «Sin equivalencia» del archivo: lo que tenía algo para cargar y no se exportó.
-  const contrPendiente=l=>['err'].includes(CONTR_EST[l.estado].cls)||l.estado==='descartada'||l.estado==='omitida';
+  const contrPendiente=l=>['err','info'].includes(CONTR_EST[l.estado].cls)||l.estado==='descartada'||l.estado==='omitida';
 
   let contrArchivo=null, contrWS=null, contrOrig={r:0,c:0}, contrAOA=null, contrCfg=null, contrRes=null;
-  let contrEdit={}, contrElegido={}, contrFiltro='todo', contrNombre='', contrFormato='xls', contrIdx=null;
+  // Decisiones de la revisión, por renglón de la grilla: código elegido a mano
+  // (clave "fila|código", o "fila|*" para un renglón que no traía código), área
+  // de una línea puntual, valor confirmado entre repetidos, y códigos que se
+  // reconocen como faltantes en el Único.
+  let contrEdit={}, contrElegido={}, contrAreaFila={}, contrConfirmado={}, contrFalta={};
+  let contrBuscando=null, contrBuscaQ='', contrFiltro='todo', contrNombre='', contrFormato='xls', contrIdx=null;
 
   function contrCel(i,j){
     if(!contrWS||j<0)return null;
@@ -9813,6 +9850,41 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     const cabeza=(p[0].match(/^\S+/)||[''])[0];
     return p.map((x,k)=>k&&contrTokens(x).length<3&&!norm(x).startsWith(norm(cabeza))?cabeza+' '+x:x);
   }
+  // Buscador del Único para la revisión: por código (prefijo) o por nombre con
+  // el mismo buscar() de la app (sinónimos, erratas). buscar() exige todas las
+  // palabras, así que si trae poco se completa con la comparación por palabras
+  // de contrParecido — lo que permite abrirlo ya con la práctica de la grilla.
+  function contrBuscarUnico(q){
+    const limpio=norm(q||'').replace(/[^a-z0-9]+/g,' ').trim();
+    if(!limpio)return [];
+    const out=[],vistos=new Set();
+    const sumar=c=>{if(!vistos.has(c.code)){vistos.add(c.code);out.push(c);}};
+    const dig=limpio.replace(/ /g,'');
+    if(/^\d{3,}$/.test(dig))for(const c of CODES)if(c.nomenclador==='UNICO'&&c.code.startsWith(dig))sumar(c);
+    for(const c of buscar(CODES,limpio.split(' '),c=>c.nomenclador==='UNICO').slice(0,12))sumar(c);
+    if(out.length<8){
+      const td=contrTokens(q);
+      if(td.length){
+        const lst=[];
+        for(const c of CODES){
+          if(c.nomenclador!=='UNICO')continue;
+          const s=contrParecido(td,c._ctk||(c._ctk=contrTokens(c.nombre)));
+          if(s>=0.34)lst.push([s,c]);
+        }
+        lst.sort((a,b)=>b[0]-a[0]).slice(0,12).forEach(x=>sumar(x[1]));
+      }
+    }
+    return out.slice(0,12);
+  }
+  function contrResultadosHTML(q){
+    const res=contrBuscarUnico(q);
+    if(!q.trim())return '<div class="contr-busca-vacio">Escribí el nombre de la práctica o parte del código.</div>';
+    if(!res.length)return '<div class="contr-busca-vacio">No se encontró nada en el Único con eso.</div>';
+    return res.map(c=>`<button type="button" class="contr-res" data-pick="${esc(c.code)}">
+      <span class="mono contr-res-c">${esc(c.code)}</span>
+      <span class="contr-res-n">${esc(c.nombre)}<small>${esc(c.grupo||'')}${c.unico_tipo==='lab'?' · laboratorio':''}</small></span>
+    </button>`).join('');
+  }
   const contrFmt=n=>'$ '+Number(n).toLocaleString('es-AR',{minimumFractionDigits:2,maximumFractionDigits:2});
   const contrRed=n=>Math.round(n*100)/100;
 
@@ -9884,12 +9956,19 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       const vals=valCols.map(vc=>({vc,v:contrValor(i,vc.col)})).filter(x=>x.v);
       if(!codTxt&&!vals.length)continue; // título de sección o renglón vacío
       const valorTxt=vals.map(({v})=>v.num!=null?contrFmt(v.num):v.unidad?v.txt:v.texto).join(' · ');
-      const base={fila:contrOrig.r+i+1,codTxt,desc,valorTxt,imp:{esp:0,ayu:0,ane:0,gto:0},uni:{esp:'',ayu:'',ane:'',gto:''}};
-      const omitir=motivo=>lineas.push({...base,estado:'omitida',motivo,area:'',desde:'',hasta:''});
-      if(!codTxt){if(desc&&vals.some(({v})=>v.num!==0))omitir('Sin código en la fila');continue;}
-      const cods=contrParsearCodigos(codTxt);
-      if(!cods){omitir('Código no reconocido');continue;}
+      const filaN=contrOrig.r+i+1, claveFila=filaN+'|*';
+      const base={fila:filaN,codTxt,desc,valorTxt,imp:{esp:0,ayu:0,ane:0,gto:0},uni:{esp:'',ayu:'',ane:'',gto:''}};
       const utiles=vals.filter(x=>!x.v.texto);
+      // Un renglón omitido con un importe se puede asociar a un código del Único
+      // desde la revisión: ese código queda en contrEdit con la clave "fila|*".
+      const omitir=motivo=>lineas.push({...base,estado:'omitida',motivo,area:'',desde:'',hasta:'',clave:claveFila,buscable:utiles.length>0});
+      let cods;
+      if(contrEdit[claveFila])cods={items:[{desde:contrEdit[claveFila],hasta:contrEdit[claveFila]}],aMano:true};
+      else{
+        if(!codTxt){if(desc&&vals.some(({v})=>v.num!==0))omitir('Sin código en la fila');continue;}
+        cods=contrParsearCodigos(codTxt);
+        if(!cods){omitir('Código no reconocido');continue;}
+      }
       if(!utiles.length){omitir(vals.length?'El valor no es un importe':'Sin valor');continue;}
       const areaFila=cfg.colArea>=0?contrArea(contrTexto(i,cfg.colArea)):'';
       const porArea={};
@@ -9905,13 +9984,17 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
             :{desde:'',hasta:'',estado:'sin_equivalencia',origen:it.desde+' al '+it.hasta});
           return;
         }
-        const x=it.desde,clave=(contrOrig.r+i+1)+'|'+x,man=contrEdit[clave];
+        const x=it.desde,clave=cods.aMano?claveFila:filaN+'|'+x,man=contrEdit[clave];
         const r=man?{code:man,nombre:BYCODE['U'+man]?BYCODE['U'+man].nombre:'',estado:BYCODE['U'+man]?'manual':'manual_fuera'}
                    :contrResolver(x,partes?partes[k]:desc);
+        if(r.estado==='sin_equivalencia'&&contrFalta[clave])Object.assign(r,{estado:'falta_unico',motivo:'Reconocido: la práctica no tiene código en el Único',sugerencia:null,talCual:''});
         destinos.push({...r,desde:r.code,hasta:r.code,origen:x,clave,editable:true});
       });
       for(const d of destinos)for(const a of Object.keys(porArea)){
-        const lin={...base,imp:{...base.imp},uni:{...base.uni},area:a,desde:d.desde,hasta:d.hasta,rango:!!d.rango,codigos:d.codigos,
+        // El área se puede cambiar línea por línea desde la revisión, sin tocar
+        // el área por defecto ni las demás líneas con el mismo código.
+        const areaClave=(d.clave||filaN+'|'+(d.origen||codTxt))+'|'+a;
+        const lin={...base,imp:{...base.imp},uni:{...base.uni},area:contrAreaFila[areaClave]||a,areaClave,areaEditada:!!contrAreaFila[areaClave],desde:d.desde,hasta:d.hasta,rango:!!d.rango,codigos:d.codigos,
           origen:d.origen||codTxt,clave:d.clave,editable:!!d.editable,estado:d.estado,nombre:d.nombre||'',alternativa:d.alternativa,sugerencia:d.sugerencia,score:d.score,motivo:d.motivo||'',talCual:d.talCual||''};
         if(d.desde){
           const esLab=d.esLab||(d.desde.length===8&&d.desde[0]==='6');
@@ -9947,7 +10030,11 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       const elegida=g.find(l=>l.fila===contrElegido[k])||g[0];
       for(const l of g){
         l.conflicto=k;
-        if(l===elegida){l.estado='conflicto';l.motivo=`Aparece ${g.length} veces con valores distintos. Se usa este.`;}
+        if(l===elegida){
+          const ok=contrConfirmado[k]===l.fila;
+          l.estado=ok?'valor_ok':'conflicto';
+          l.motivo=ok?`Elegido entre ${g.length} valores del mismo código.`:`Aparece ${g.length} veces con valores distintos. Se usa este.`;
+        }
         else if(firma(l)===firma(elegida)){l.estado='duplicada';l.motivo='Mismo código y valor que la fila '+elegida.fila;}
         else{l.estado='descartada';l.motivo='Se exportó el valor de la fila '+elegida.fila;}
       }
@@ -9973,7 +10060,8 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   // ---------- pantalla ----------
   function contrReiniciar(){
     contrArchivo=null;contrWS=null;contrAOA=null;contrCfg=null;contrRes=null;
-    contrEdit={};contrElegido={};contrFiltro='todo';contrNombre='';
+    contrEdit={};contrElegido={};contrAreaFila={};contrConfirmado={};contrFalta={};
+    contrBuscando=null;contrBuscaQ='';contrFiltro='todo';contrNombre='';
   }
   function closeContr(){
     el('contrModal').classList.remove('on');
@@ -10020,30 +10108,58 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     for(const k in R)if(l.uni[k])p.push(`<span class="contr-imp uni"><small>uni_${k}</small>${esc(l.uni[k])}</span>`);
     return p.length?p.join(''):`<span class="contr-mute">${esc(l.valorTxt||'—')}</span>`;
   }
-  function contrFilaHTML(l,n){
+  const CONTR_LUPA='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>';
+  function contrFilaHTML(l){
     const e=CONTR_EST[l.estado];
+    const editable=(l.editable&&l.estado!=='duplicada')||(l.estado==='omitida'&&l.buscable);
     let cod;
-    if(l.editable&&l.estado!=='duplicada'&&l.estado!=='descartada'){
-      cod=`<input class="contr-cod" data-clave="${esc(l.clave)}" value="${esc(l.desde)}" placeholder="Cargar código" inputmode="numeric" aria-label="Código Único para ${esc(l.origen)}">`;
+    if(editable){
+      cod=`<div class="contr-codbox">
+        <input class="contr-cod" data-clave="${esc(l.clave)}" value="${esc(l.desde)}" placeholder="Cargar código" inputmode="numeric" aria-label="Código Único para la fila ${l.fila}">
+        <button type="button" class="contr-lupa${contrBuscando===l.clave?' on':''}" data-buscar="${esc(l.clave)}" data-q="${esc(l.desc||'')}" title="Buscar en el Único por nombre" aria-label="Buscar en el Único por nombre">${CONTR_LUPA}</button>
+      </div>`;
     }else if(l.desde){
       cod=`<span class="mono contr-codtxt">${esc(l.desde)}${l.hasta!==l.desde?`<span class="contr-flecha">→</span>${esc(l.hasta)}`:''}</span>`;
     }else cod='<span class="contr-mute">—</span>';
-    const extra=[];
-    if(l.nombre)extra.push(`<div class="contr-nom">${esc(l.nombre)}</div>`);
-    const notas=[];
+    const nom=l.nombre?`<div class="contr-nom">${esc(l.nombre)}</div>`:'';
+    const area=contrExporta(l)
+      ?`<select class="contr-area-sel${l.areaEditada?' editada':''}" data-akey="${esc(l.areaClave)}" title="${esc(CONTR_AREAS[l.area])}${l.areaEditada?' · cambiada a mano':''}" aria-label="Área de la fila ${l.fila}">${
+          Object.keys(CONTR_AREAS).map(k=>`<option value="${k}"${k===l.area?' selected':''}>${k}</option>`).join('')}</select>`
+      :(l.area?`<span class="contr-area" title="${esc(CONTR_AREAS[l.area])}">${esc(l.area)}</span>`:'');
+    const notas=[],acciones=[];
     if(l.motivo)notas.push(esc(l.motivo));
-    if(l.alternativa)notas.push(`Por código era <b class="mono">${esc(l.alternativa.code)}</b> · ${esc(l.alternativa.nombre||'')} <button class="contr-link" data-usar="${esc(l.alternativa.code)}" data-clave="${esc(l.clave)}">Usar ese</button>`);
-    if(l.talCual)notas.push(`<button class="contr-link" data-usar="${esc(l.talCual)}" data-clave="${esc(l.clave)}">Exportar ${esc(l.talCual)} tal cual</button>`);
-    if(l.sugerencia)notas.push(`Parecida: <b class="mono">${esc(l.sugerencia.code)}</b> · ${esc(l.sugerencia.nombre)} <button class="contr-link" data-usar="${esc(l.sugerencia.code)}" data-clave="${esc(l.clave)}">Usar esta</button>`);
-    if(l.estado==='descartada'&&l.conflicto)notas.push(`<button class="contr-link" data-elegir="${esc(l.conflicto)}" data-fila="${l.fila}">Usar este valor</button>`);
-    if(l.estado==='manual'||l.estado==='manual_fuera')notas.push(`<button class="contr-link" data-deshacer="${esc(l.clave)}">Volver a la sugerencia</button>`);
-    return `<tr class="contr-st-${e.cls}">
-      <td>${cod}${extra.join('')}</td>
-      <td>${l.area?`<span class="contr-area" title="${esc(CONTR_AREAS[l.area])}">${esc(l.area)}</span>`:''}</td>
+    if(l.alternativa){notas.push(`Por código era <b class="mono">${esc(l.alternativa.code)}</b> · ${esc(l.alternativa.nombre||'')}`);
+      acciones.push(`<button class="contr-link" data-usar="${esc(l.alternativa.code)}" data-clave="${esc(l.clave)}">Usar ese</button>`);}
+    if(l.sugerencia){notas.push(`Parecida: <b class="mono">${esc(l.sugerencia.code)}</b> · ${esc(l.sugerencia.nombre)}`);
+      acciones.push(`<button class="contr-link" data-usar="${esc(l.sugerencia.code)}" data-clave="${esc(l.clave)}">Usar esta</button>`);}
+    if(l.talCual)acciones.push(`<button class="contr-link" data-usar="${esc(l.talCual)}" data-clave="${esc(l.clave)}">Exportar ${esc(l.talCual)} tal cual</button>`);
+    if(l.estado==='sin_equivalencia'&&l.clave)acciones.push(`<button class="contr-act" data-falta="${esc(l.clave)}">Falta código en el Único</button>`);
+    if(l.estado==='falta_unico')acciones.push(`<button class="contr-link" data-nofalta="${esc(l.clave)}">Deshacer</button>`);
+    if(l.estado==='conflicto')acciones.push(`<button class="contr-act" data-confirmar="${esc(l.conflicto)}" data-fila="${l.fila}">Confirmar valor</button>`);
+    if(l.estado==='valor_ok')acciones.push(`<button class="contr-link" data-desconfirmar="${esc(l.conflicto)}">Deshacer</button>`);
+    if(l.estado==='descartada'&&l.conflicto){notas.push('Si es otra práctica, buscale su código con la lupa.');
+      acciones.push(`<button class="contr-link" data-elegir="${esc(l.conflicto)}" data-fila="${l.fila}">Usar este valor</button>`);}
+    if(l.estado==='omitida'&&l.buscable)notas.push('Buscale un código con la lupa para exportarla.');
+    if((l.estado==='manual'||l.estado==='manual_fuera')&&l.clave)acciones.push(`<button class="contr-link" data-deshacer="${esc(l.clave)}">${l.clave.endsWith('|*')?'Quitar el código':'Volver a la sugerencia'}</button>`);
+    if(l.areaEditada)acciones.push(`<button class="contr-link" data-noarea="${esc(l.areaClave)}">Área por defecto</button>`);
+    const fila=`<tr class="contr-st-${e.cls}">
+      <td>${cod}${nom}</td>
+      <td>${area}</td>
       <td class="contr-vals-td">${contrValorHTML(l)}</td>
       <td><div class="contr-orig"><span class="mono">${esc(l.codTxt||'—')}</span>${l.desc?` · ${esc(l.desc)}`:''}</div><div class="contr-mute">fila ${l.fila}</div></td>
-      <td><span class="contr-pill ${e.cls}">${esc(e.txt)}</span>${notas.length?`<div class="contr-nota">${notas.join('<br>')}</div>`:''}</td>
+      <td><span class="contr-pill ${e.cls}">${esc(e.txt)}</span>${notas.length?`<div class="contr-nota">${notas.join('<br>')}</div>`:''}${acciones.length?`<div class="contr-acc">${acciones.join('')}</div>`:''}</td>
     </tr>`;
+    if(!editable||contrBuscando!==l.clave)return fila;
+    return fila+`<tr class="contr-busca-tr"><td colspan="5">
+      <div class="contr-busca" role="search">
+        <div class="contr-busca-h">
+          ${CONTR_LUPA}
+          <input type="search" id="contrBuscaQ" value="${esc(contrBuscaQ)}" placeholder="Buscar en el Nomenclador Único por nombre o código" autocomplete="off" aria-label="Buscar en el Nomenclador Único">
+          <button type="button" class="minibtn" id="contrBuscaX">Cerrar</button>
+        </div>
+        <div class="contr-busca-res" id="contrBuscaRes">${contrResultadosHTML(contrBuscaQ)}</div>
+      </div>
+    </td></tr>`;
   }
   function contrHTMLProcesado(){
     const c=contrCfg;
@@ -10076,10 +10192,10 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         <span class="contr-mute">Se usa cuando la grilla no aclara el área.</span>
       </div>`;
     if(!contrRes)return cfgHTML+`<div class="contr-vacio">Elegí la columna del código del prestador para ver el resultado.</div>`;
-    const cuenta={ok:0,warn:0,err:0,mute:0};
+    const cuenta={ok:0,warn:0,err:0,info:0,mute:0};
     contrRes.forEach(l=>cuenta[CONTR_EST[l.estado].cls]++);
     const exportables=contrRes.filter(contrExporta),pendientes=contrRes.filter(contrPendiente);
-    const filtros=[['todo','Todo',contrRes.length,''],['ok','Listas',cuenta.ok,'ok'],['warn','A revisar',cuenta.warn,'warn'],['err','Sin equivalencia',cuenta.err,'err'],['mute','Omitidas',cuenta.mute,'mute']];
+    const filtros=[['todo','Todo',contrRes.length,''],['ok','Listas',cuenta.ok,'ok'],['warn','A revisar',cuenta.warn,'warn'],['err','Sin equivalencia',cuenta.err,'err'],['info','Falta en el Único',cuenta.info,'info'],['mute','Omitidas',cuenta.mute,'mute']];
     const vis=contrRes.filter(l=>contrFiltro==='todo'||CONTR_EST[l.estado].cls===contrFiltro);
     const LIM=600;
     const nombreOk=!!contrNombre.trim();
@@ -10104,13 +10220,13 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         </button>
       </div>
       <div class="ahint contr-export-h">Se exportan <b>${exportables.length}</b> fila${exportables.length===1?'':'s'}${cuenta.warn?`, ${cuenta.warn} marcada${cuenta.warn===1?'':'s'} para revisar`:''}.
-        ${pendientes.length?`Los <b>${pendientes.length}</b> renglones sin equivalencia, repetidos u omitidos van aparte, en la hoja «Sin equivalencia» del mismo archivo.`:'No quedó ningún código sin equivalencia.'}</div>`;
+        ${pendientes.length?`Los <b>${pendientes.length}</b> renglones sin equivalencia, sin código en el Único, repetidos u omitidos van aparte, en la hoja «Sin equivalencia» del mismo archivo.`:'No quedó ningún código sin equivalencia.'}</div>`;
   }
   function contrRehacer(){contrProcesar();renderContr();}
   function contrWireProcesado(){
     const box=el('contrBox');
     el('contrOtroArchivo').addEventListener('click',()=>{contrReiniciar();renderContr();});
-    el('contrFila').addEventListener('change',e=>{contrEdit={};contrElegido={};contrConfigurar(+e.target.value);contrRehacer();});
+    el('contrFila').addEventListener('change',e=>{contrEdit={};contrElegido={};contrAreaFila={};contrConfirmado={};contrFalta={};contrBuscando=null;contrConfigurar(+e.target.value);contrRehacer();});
     el('contrColCod').addEventListener('change',e=>{contrCfg.colCodigo=+e.target.value;contrRehacer();});
     el('contrColDesc').addEventListener('change',e=>{contrCfg.colDesc=+e.target.value;contrRehacer();});
     el('contrColArea').addEventListener('change',e=>{contrCfg.colArea=+e.target.value;contrRehacer();});
@@ -10127,9 +10243,39 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       });
       inp.addEventListener('keydown',e=>{if(e.key==='Enter')inp.blur();});
     });
-    box.querySelectorAll('[data-usar]').forEach(b=>b.addEventListener('click',()=>{contrEdit[b.dataset.clave]=b.dataset.usar;contrRehacer();}));
+    box.querySelectorAll('[data-usar]').forEach(b=>b.addEventListener('click',()=>{contrEdit[b.dataset.clave]=b.dataset.usar;delete contrFalta[b.dataset.clave];contrRehacer();}));
     box.querySelectorAll('[data-deshacer]').forEach(b=>b.addEventListener('click',()=>{delete contrEdit[b.dataset.deshacer];contrRehacer();}));
-    box.querySelectorAll('[data-elegir]').forEach(b=>b.addEventListener('click',()=>{contrElegido[b.dataset.elegir]=+b.dataset.fila;contrRehacer();}));
+    box.querySelectorAll('[data-elegir]').forEach(b=>b.addEventListener('click',()=>{contrElegido[b.dataset.elegir]=+b.dataset.fila;delete contrConfirmado[b.dataset.elegir];contrRehacer();}));
+    box.querySelectorAll('[data-confirmar]').forEach(b=>b.addEventListener('click',()=>{contrConfirmado[b.dataset.confirmar]=+b.dataset.fila;contrRehacer();}));
+    box.querySelectorAll('[data-desconfirmar]').forEach(b=>b.addEventListener('click',()=>{delete contrConfirmado[b.dataset.desconfirmar];contrRehacer();}));
+    box.querySelectorAll('[data-falta]').forEach(b=>b.addEventListener('click',()=>{contrFalta[b.dataset.falta]=true;contrRehacer();}));
+    box.querySelectorAll('[data-nofalta]').forEach(b=>b.addEventListener('click',()=>{delete contrFalta[b.dataset.nofalta];contrRehacer();}));
+    box.querySelectorAll('[data-noarea]').forEach(b=>b.addEventListener('click',()=>{delete contrAreaFila[b.dataset.noarea];contrRehacer();}));
+    box.querySelectorAll('.contr-area-sel').forEach(sel=>sel.addEventListener('change',()=>{contrAreaFila[sel.dataset.akey]=sel.value;contrRehacer();}));
+    box.querySelectorAll('[data-buscar]').forEach(b=>b.addEventListener('click',()=>{
+      if(contrBuscando===b.dataset.buscar){contrBuscando=null;renderContr();return;}
+      contrBuscando=b.dataset.buscar;contrBuscaQ=b.dataset.q||'';renderContr();
+    }));
+    const bq=el('contrBuscaQ');
+    if(bq){
+      const elegir=()=>el('contrBuscaRes').querySelectorAll('[data-pick]').forEach(b=>b.addEventListener('click',()=>{
+        contrEdit[contrBuscando]=b.dataset.pick;delete contrFalta[contrBuscando];contrBuscando=null;contrRehacer();
+      }));
+      let t=null;
+      bq.addEventListener('input',()=>{
+        contrBuscaQ=bq.value;clearTimeout(t);
+        t=setTimeout(()=>{el('contrBuscaRes').innerHTML=contrResultadosHTML(contrBuscaQ);elegir();},140);
+      });
+      bq.addEventListener('keydown',e=>{
+        if(e.key==='Escape'){e.stopPropagation();e.preventDefault();contrBuscando=null;renderContr();}
+        if(e.key==='Enter'){e.preventDefault();const p=el('contrBuscaRes').querySelector('[data-pick]');if(p)p.click();}
+      });
+      el('contrBuscaX').addEventListener('click',()=>{contrBuscando=null;renderContr();});
+      elegir();
+      bq.focus();bq.setSelectionRange(bq.value.length,bq.value.length);
+      const tr=bq.closest('tr'),w=box.querySelector('.contr-tbl-wrap');
+      if(tr&&w){const tb=tr.previousElementSibling||tr;if(tb.offsetTop<w.scrollTop||tr.offsetTop+tr.offsetHeight>w.scrollTop+w.clientHeight)w.scrollTop=Math.max(0,tb.offsetTop-40);}
+    }
     const nom=el('contrNombre');
     if(nom)nom.addEventListener('input',()=>{
       contrNombre=nom.value;
@@ -10174,7 +10320,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     const hoja=XLSX.utils.aoa_to_sheet([CONTR_COLS,...filas]);
     hoja['!cols']=CONTR_COLS.map(c=>({wch:c.startsWith('uni')?22:12}));
     XLSX.utils.book_append_sheet(wb,hoja,nombre.replace(/[\[\]:*?\/\\]/g,'').slice(0,31)||'Grilla');
-    const orden={err:0,mute:1};
+    const orden={err:0,info:1,mute:2};
     const pend=contrRes.filter(contrPendiente).sort((x,y)=>(orden[CONTR_EST[x.estado].cls]-orden[CONTR_EST[y.estado].cls])||(x.estado==='omitida')-(y.estado==='omitida')||x.fila-y.fila);
     if(pend.length){
       const h2=XLSX.utils.aoa_to_sheet([['Fila','Código del prestador','Práctica según prestador','Valor en la grilla','Área','Código Único','Motivo'],

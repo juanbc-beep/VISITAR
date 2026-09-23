@@ -33,6 +33,7 @@ const CSV = [
   '010101,Encefalomeningocele,Internación,150000,80000',
   '999999,Práctica con código inventado,,,5000',
   ',ECG riesgo quirurgico,,,18378',
+  '10180122,Ecografia de translucencia nucal,,,15262.58',
 ].join('\r\n');
 
 async function sinOverlays(page) {
@@ -94,16 +95,36 @@ async function main() {
     afirmar(texto.includes('999999') && texto.includes('Sin equivalencia en el Único'), '999999 debería quedar sin equivalencia');
     afirmar(texto.includes('ECG riesgo quirurgico') && texto.includes('Sin código en la fila'), 'el renglón sin código debería informarse');
 
-    // A mano: el código inventado se reemplaza por uno del Único.
+    // Buscar por nombre: la lupa del código inventado abre el buscador del Único
+    // con la práctica de la grilla; se busca otra y se elige de la lista.
     await page.click('[data-filtro="err"]');
-    await page.fill('.contr-cod[data-clave$="|999999"]', '180601');
-    await page.press('.contr-cod[data-clave$="|999999"]', 'Enter');
-    await page.waitForSelector('.contr-tbl tbody:has-text("Corregido a mano")', { timeout: 3000 }).catch(() => {});
+    await page.click('[data-buscar$="|999999"]');
+    await page.waitForSelector('#contrBuscaQ');
+    afirmar(await page.inputValue('#contrBuscaQ') === 'Práctica con código inventado', 'el buscador debería abrir con la práctica de la grilla');
+    await page.fill('#contrBuscaQ', 'ecografia partes blandas');
+    await page.waitForSelector('#contrBuscaRes [data-pick="180601"]', { timeout: 3000 });
+    await page.click('#contrBuscaRes [data-pick="180601"]');
     await page.click('[data-filtro="todo"]');
-    afirmar((await page.locator('.contr-tbl tbody').innerText()).includes('Corregido a mano'), 'el código cargado a mano debería marcarse como corregido');
+    afirmar((await page.locator('.contr-tbl tbody').innerText()).includes('Corregido a mano'), 'el código elegido en el buscador debería marcarse como corregido');
 
-    // Densitometría por regiones: se elige el segundo valor en vez del primero.
+    // Falta código en el Único: se reconoce y deja de contar como sin equivalencia.
+    await page.click('[data-falta$="|10180122"]');
+    afirmar((await page.textContent('[data-filtro="info"]')).includes('1'), 'debería contar 1 en «Falta en el Único»');
+
+    // Renglón omitido (sin código) asociado a un código con el buscador.
+    await page.click('[data-filtro="mute"]');
+    await page.click('[data-buscar="15|*"]');
+    await page.waitForSelector('#contrBuscaRes [data-pick="170101"]', { timeout: 3000 });
+    await page.click('#contrBuscaRes [data-pick="170101"]');
+    await page.click('[data-filtro="todo"]');
+
+    // Área de una sola línea: el rango de ecografías pasa a Ambulatorio, el resto sigue Dual.
+    await page.selectOption('.contr-area-sel[data-akey^="5|"]', 'A');
+
+    // Densitometría por regiones: se elige el segundo valor y se confirma.
     await page.click('.contr-tbl [data-elegir^="341201|"]');
+    await page.click('.contr-tbl [data-confirmar^="341201|"]');
+    afirmar((await page.locator('.contr-tbl tbody').innerText()).includes('Valor confirmado'), 'el valor elegido debería quedar confirmado');
 
     afirmar(await page.isDisabled('#contrDescargar'), 'sin nombre de archivo no debería dejar descargar');
     await page.fill('#contrNombre', '37547');
@@ -123,7 +144,8 @@ async function main() {
     const fila = (d, a = 'D') => filas.find(f => f[1] === d && f[3] === a);
     const igual = (f, esperado, que) => afirmar(f && JSON.stringify(f) === JSON.stringify(esperado), `${que}: esperaba ${JSON.stringify(esperado)}, vino ${JSON.stringify(f)}`);
     afirmar(filas.every(f => f[0] === 'Unico'), 'nom_nom siempre "Unico"');
-    igual(fila(180104), ['Unico', 180104, 180121, 'D', 0, 0, 0, 12487.57, '', '', '', ''], 'rango de la grilla');
+    igual(fila(180104, 'A'), ['Unico', 180104, 180121, 'A', 0, 0, 0, 12487.57, '', '', '', ''], 'rango de la grilla, con el área cambiada sólo en esa línea');
+    igual(fila(170101), ['Unico', 170101, 170101, 'D', 0, 0, 0, 18378, '', '', '', ''], 'renglón sin código asociado con el buscador');
     igual(fila(180301), ['Unico', 180301, 180301, 'D', 0, 0, 0, 59449.6, '', '', '', ''], '180201/04 -> una sola fila 180301');
     igual(fila(420103), ['Unico', 420103, 420103, 'D', 25220.84, 0, 0, 0, '', '', '', ''], 'honorarios -> imp_esp');
     igual(fila(340101), ['Unico', 340101, 340213, 'D', 0, 0, 0, 0, 'GALENO RADIOLOGICO', '', '', 'UNIDAD RADIOLOGICA'], 'rango radiológico por unidad, tramo 1');
@@ -132,15 +154,16 @@ async function main() {
     igual(fila(60660001), ['Unico', 60660001, 64669990, 'D', 0, 0, 0, 0, '', '', '', 'UNICO_NBU'], 'NBU -> laboratorio completo del Único');
     igual(fila(341201), ['Unico', 341201, 341201, 'D', 0, 0, 0, 20812.61, '', '', '', ''], 'densitometría con el valor elegido');
     igual(fila(10101, 'I'), ['Unico', 10101, 10101, 'I', 150000, 0, 0, 80000, '', '', '', ''], 'dos importes y área de la fila');
-    igual(fila(180601), ['Unico', 180601, 180601, 'D', 0, 0, 0, 5000, '', '', '', ''], 'código corregido a mano');
-    afirmar(filas.length === 10, `esperaba 10 filas exportadas, vinieron ${filas.length}: ${JSON.stringify(filas.map(f => f[1]))}`);
+    igual(fila(180601), ['Unico', 180601, 180601, 'D', 0, 0, 0, 5000, '', '', '', ''], 'código elegido en el buscador');
+    afirmar(filas.length === 11, `esperaba 11 filas exportadas, vinieron ${filas.length}: ${JSON.stringify(filas.map(f => f[1]))}`);
     const numeros = filas.map(f => f[1]);
     afirmar(numeros.every((n, i) => !i || numeros[i - 1] <= n), 'las filas deberían salir ordenadas por código');
 
     const pend = libro[1].filas.slice(1).map(f => f.join(' | '));
-    afirmar(pend.some(f => f.includes('ECG riesgo quirurgico') && f.includes('Sin código')), 'la hoja 2 debería listar el renglón sin código');
     afirmar(pend.some(f => f.includes('Densitometria 1 region') && f.includes('código repetido')), 'la hoja 2 debería listar el valor de densitometría que no se usó');
     afirmar(!pend.some(f => f.includes('999999')), '999999 ya se corrigió a mano: no debería quedar como pendiente');
+    afirmar(pend.some(f => f.includes('10180122') && f.includes('Falta código en el Único')), 'la hoja 2 debería decir que 10180122 falta en el Único');
+    afirmar(!pend.some(f => f.includes('ECG riesgo quirurgico')), 'el renglón sin código ya se asoció: no debería quedar pendiente');
 
     afirmar(csp.length === 0, 'no debería haber violaciones de CSP: ' + csp.join(' | '));
     afirmar(errores.length === 0, 'no debería haber errores de JS sin capturar: ' + errores.join(' | '));
