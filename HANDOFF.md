@@ -11,6 +11,14 @@
 > un typo) y se corrigieron contra el PDF, y queda 1 (`130303`) sin denominación legible en
 > la fuente, a propósito, para cargar a mano.
 >
+> **✅ Legales, privacidad y accesibilidad (23/9/2026)** — pedido del usuario («no quiero
+> que me demanden»). Páginas `web/privacy-policy.html`, `web/terms-conditions.html` y
+> `web/cookie-policy.html` (HTML estático, no `.tsx`: la app no usa React), consentimiento
+> registrado al crear cuenta y al entrar, minimización de datos del Intérprete de orden,
+> WCAG 2.2 AA sin violaciones automáticas, y un informe de riesgos. **Hay datos que sólo
+> puede completar VISITAR SRL** (CUIT, domicilio, correo de privacidad, región de
+> Supabase): quedan marcados en naranja en las páginas. Ver **4.10**.
+>
 > **✅ La pista «Novedad · Acá te avisamos qué cambió» ya no sale a cada rato (23/9/2026)** —
 > reporte del usuario. Tres causas en el sistema de pistas (`PISTAS`/`mostrarPista` en
 > `web/index.html`): se reevaluaba con cualquier scroll de cualquier lado (listener en
@@ -2176,6 +2184,118 @@ Pedidos del usuario sobre la tabla de revisión, todos por renglón (no globales
   ~2 MB) para retomarlo después de recargar la app. Aviso «Se recuperó lo que decidiste…»
   con «Empezar de cero». En el navegador y no en la nube a propósito: es trabajo en curso
   de una persona — si se quiere compartir entre computadoras, es pasarlo a Supabase.
+
+### 4.10 Legales, privacidad y accesibilidad (23/9/2026)
+Pedido del usuario: páginas legales, revisar consentimiento de cookies, política de
+reembolsos y consentimientos, minimizar datos, revisar analytics y terceros, accesibilidad,
+leyes locales y cualquier otro riesgo. **Nada de esto reemplaza la revisión de un abogado
+matriculado**: los textos están escritos sobre lo que la app hace de verdad (verificado
+contra el código y `docs/supabase.sql`), pero la responsabilidad legal es de VISITAR SRL.
+
+**Relevamiento (hechos, verificados en el código):**
+- **Sin analytics, píxeles, iframes, CDNs ni cookies.** Las únicas conexiones externas son
+  Supabase (`connect-src`) y el propio GitHub Pages. Fuentes, íconos y SheetJS locales.
+- **Datos en la nube:** email y contraseña (Supabase Auth, con hash), nombre, rol, estado,
+  favoritos, notas, recientes, U.B., `obs_vistas`, factores TOTP, lo publicado (correcciones,
+  observaciones, propuestas, verificaciones, sugerencias) y la auditoría (quién, cuándo,
+  antes/después). RLS: el perfil completo lo ven su dueño y el admin; el equipo ve sólo
+  nombre/rol/estado vía `equipo()`; la auditoría sólo el admin.
+- **Navegador:** sólo `localStorage`/`sessionStorage`/Cache Storage, todo técnico o de
+  preferencia (inventario completo en `cookie-policy.html`). **Por eso no hay banner de
+  cookies**: Argentina no tiene una norma específica de cookies, y aun con el criterio
+  europeo lo estrictamente necesario y las preferencias elegidas por la persona están
+  exentas. Si algún día se suma analytics o contenido de terceros, hay que pedir
+  consentimiento ANTES de activarlo (lo dice la propia política).
+- **No hay pagos.** La «política de reembolsos» es la sección 11 de los Términos: dice que
+  el uso es gratuito y no hay nada que reembolsar. Una página de reembolsos aparte daría a
+  entender que hay algo pago. Si se cobra algo en el futuro, además de la política aplica
+  Defensa del Consumidor (Ley 24.240) y el «botón de arrepentimiento» (Res. SCI 424/2020).
+
+**Riesgo real encontrado y corregido — datos de pacientes que salían del dispositivo.** El
+Intérprete de orden mandaba a `sugerencias_pedida_como` el texto COMPLETO del renglón al
+elegir un candidato que no era el primero. Si la orden pegada traía nombre, DNI o número de
+afiliado, eso es un dato de salud (sensible, Ley 25.326 art. 2 y 7) guardado sin que nadie
+lo supiera. Ahora `textoSugerible()` (expuesta como `window.NBUPrivacidad` para el test):
+descarta el renglón entero si trae un marcador de identidad (paciente, DNI, afiliado,
+Sr./Sra., tel, edad, años, HC, domicilio…) y del resto sólo deja palabras del vocabulario
+del manual (`_tk` de los códigos + abreviaturas) o de 1-2 letras («F y P»). Probado con
+nombres y apellidos comunes: no pasan. Aviso visible junto al cuadro de texto: «pegá sólo
+las prácticas». En la práctica el riesgo ya era bajo (`buscar()` exige todas las palabras,
+así que un renglón con un nombre casi nunca trae candidatos), pero ahora no depende de eso.
+
+**Consentimiento (Ley 25.326 art. 5, 6 y 12):**
+- Alta (nube y modo local): casilla obligatoria «Leí y acepto los Términos y la Política de
+  privacidad, incluida la transferencia de mis datos a proveedores de EE. UU.». Sin ella no
+  se crea la cuenta.
+- Se registra en los metadatos de la cuenta (`auth.users.raw_user_meta_data`:
+  `legales_version`, `legales_aceptado_en`) — **sin cambio de esquema**, no hace falta correr
+  SQL. En modo local va en el perfil (`legales`).
+- Cuentas existentes: `entrarConNube()` pide la aceptación una sola vez («Antes de seguir»)
+  si `legales_version` no es la vigente. Antes de pedirla consulta `/auth/v1/user` (pudo
+  aceptarla en otra computadora). «Cerrar sesión» no deja entrar sin aceptar.
+- **Para cambiar los textos:** editar las páginas, actualizar «Versión/Vigente desde» y
+  cambiar `LEGALES_VERSION` en `web/index.html` → a todos se les vuelve a pedir. El
+  simulador de tests la lee de ahí solo.
+- La transferencia internacional se apoya en el consentimiento porque EE. UU. no está en la
+  lista de países adecuados (Disposición DNPDP 60-E/2016).
+
+**Accesibilidad (WCAG 2.2 AA):** axe-core 4.10.3 (fijado en `tests/e2e/package.json`) sobre
+acceso, alta, aceptación, listados NBU/PMO/Único, fichas, árbol, Mesa, Intérprete,
+Contrataciones (con buscador), todas las pestañas de Administración y las tres páginas
+legales, en tema claro y oscuro: **0 violaciones**. Lo que se corrigió:
+- Contraste: `--faint` (#677984→#5f6f79 claro, #768792→#8897a0 oscuro), `--muted`
+  (#5d6e79→#586873), `--med` (#2a7253), `--unico` (#8a30dc), `--orina` (#915806),
+  `.ab-pie` pasa a `--muted`, `.val2024` a `--accent-ink`. Todos ≥4.5:1 en su fondo real.
+- «Consulta rápida»: el `role=tablist` contenía el título y el «?»; ahora las tres
+  pestañas van en `.consulta-tabs` y las flechas siguen funcionando.
+- «Reglas y estados»: el «?» estaba DENTRO del `<summary>` (control dentro de control);
+  ahora va al lado (`.panel-ayuda`), mismo lugar visual.
+- `.mayuda` 18→24 px (objetivo táctil mínimo, WCAG 2.5.8).
+- Campos de Administración (Textos, Búsqueda, Respaldo) sin etiqueta asociada.
+- Casillas del acceso: `.gcard input{appearance:none}` les borraba la tilde (también a
+  «Confiar en este dispositivo» del 2FA) — marcada o no se veía igual.
+- Foco automático del acceso: a los 40 ms enfocaba el primer campo aunque ya se estuviera
+  escribiendo en otro. Era además lo que volvía intermitentes algunos tests.
+Ley 26.653 (accesibilidad web) obliga al Estado y a ciertas empresas (servicios públicos,
+contratistas, subsidiadas); si VISITAR entra o no es para el abogado. Se cumple igual.
+
+**Otros cambios de seguridad hechos de paso:**
+- **Service worker:** para CUALQUIER navegación sin copia en caché devolvía `index.html`.
+  Abrir por primera vez una página legal mostraba la app y disparaba un falso «hay versión
+  nueva». Ahora el respaldo y la comparación de versión son sólo para la app (`esApp`), y las
+  páginas legales van precacheadas (`SHELL`). Ojo: el SW viejo que ya está instalado en cada
+  equipo puede hacer esto UNA vez, hasta que se actualiza solo con este deploy.
+- **Clickjacking:** GitHub Pages no deja enviar `frame-ancestors`/`X-Frame-Options`. El
+  primer script oculta la app si está dentro de un marco ajeno (probado: oculta en iframe,
+  normal fuera).
+- `pages.yml` falla el deploy si falta alguna página legal.
+
+**Pendiente de VISITAR SRL (no se puede resolver desde el código):**
+1. Completar en las páginas lo marcado en naranja: CUIT, domicilio legal, correo de contacto
+   de privacidad y **región del proyecto Supabase** (Settings → General en el panel).
+2. **Inscribir la base en el Registro Nacional de Bases de Datos** de la AAIP (Ley 25.326,
+   art. 21): es obligatorio para bases privadas que no son de uso personal.
+3. Firmar/aceptar el acuerdo de tratamiento de datos (DPA) que ofrece Supabase y revisar
+   las condiciones de GitHub; con eso la transferencia internacional no queda apoyada sólo
+   en el consentimiento.
+4. **Contenido de terceros en el repositorio público:** `data/` tiene PDFs y planillas de
+   terceros (Nomenclador Nacional/PMO, CIE-10, NBU, SURGE) y el repo es público, así que se
+   están redistribuyendo. La normativa oficial es pública, pero la CIE-10 (OMS/OPS) y el NBU
+   tienen titulares con derechos: que lo confirme el abogado, o mover esos archivos fuera del
+   repo público.
+5. Definir un plazo de conservación para `auditoria` (hoy es indefinido; la política lo dice
+   así, «mientras el manual esté en uso»).
+6. Capacitar al equipo: no escribir datos de pacientes en notas, propuestas ni
+   observaciones (el filtro cubre el Intérprete, no el texto libre).
+7. Contrataciones guarda las grillas de prestadores (datos comerciales) en el navegador:
+   en computadoras compartidas, «Empezar de cero» o cerrar sesión y borrar datos del sitio.
+8. Revisar en Supabase: confirmación de correo, protección de contraseñas filtradas y
+   límites de intentos de login (Authentication → Settings).
+9. Probar con lector de pantalla real (NVDA/VoiceOver): axe no cubre todo.
+10. **Baja de cuentas:** «Borrar» en Administración borra la fila de `perfiles` (la API
+   pública no puede borrar usuarios de Supabase Auth), así que el correo y el hash de la
+   contraseña quedan en Authentication → Users. Ante un pedido de supresión (art. 16, 5
+   días hábiles) hay que borrarlo también ahí. La política de privacidad lo dice así.
 
 ✅ **RESUELTO — bug preexistente encontrado y corregido en esta misma tanda, tras
 fallar en CI.** El PR de Contrataciones tiraba rojo en GitHub Actions con un 404

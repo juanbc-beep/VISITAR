@@ -28,11 +28,13 @@
      ejecutar código acá adentro, el navegador no lo deja mandar nada a otro
      servidor, y sin poder sacar los datos el robo no se completa.
      «frame-ancestors» queda afuera porque no funciona en una etiqueta meta:
-     sólo como cabecera HTTP, y GitHub Pages no deja poner cabeceras. Es un
-     riesgo residual conocido, no un olvido. -->
+     sólo como cabecera HTTP, y GitHub Pages no deja poner cabeceras. Lo cubre
+     en parte el primer script de la página (la app no se muestra dentro de un
+     marco ajeno); la cabecera sigue siendo lo ideal si algún día se cambia de
+     alojamiento. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-Z0TAA2hEX0fdc5LpHR+NF0UGm6o/QziKNLaId1a82gg=';
+  script-src 'self' 'sha256-MXq2q5t2rrJvd00GMwTNlFpKjlTqi7XRxh3rt8KhP2E=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-2wz0oPHs/E9HsHnyrEEe4PEZW+jcCh0XI3imR5K1O6A=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -67,6 +69,17 @@
      valor cambia acá hay que tocarlo también. -->
 <link rel="preconnect" href="https://gavfxnoigomxbteagneu.supabase.co" crossorigin>
 <script>
+/* Contra el «clickjacking»: otro sitio que cargue la app dentro de un iframe
+   invisible para hacer que alguien toque el login o un botón sin saberlo. Lo
+   correcto sería la cabecera frame-ancestors, pero GitHub Pages no deja poner
+   cabeceras y en una etiqueta meta no funciona (ver la CSP de arriba). Esto es
+   lo que queda: dentro de un marco ajeno, la app no se muestra y pide abrirse
+   sola. Si el marco bloquea los scripts, no hay app: todo se dibuja con JS. */
+if (window.top !== window.self) {
+  document.documentElement.style.display = 'none';
+  try { window.top.location = window.self.location.href; } catch (e) {}
+}
+
 /* Sello de origen. Lo completa sola la acción de publicación con el commit que
    generó esta versión; en una copia local queda en «local». Sirve para dos
    cosas: saber exactamente qué versión está usando alguien cuando reporta un
@@ -144,7 +157,7 @@ window.NBUUpdate = { estado:'idle', comprobar:function(){}, pintar:function(){} 
   font-display:swap;src:url('fonts/IBMPlexMono-Bold.woff2') format('woff2')}
 :root{
   --bg:#e9eef2; --surface:#ffffff; --surface-2:#f4f7f9; --surface-3:#eef3f6;
-  --ink:#132029; --ink-2:#33454f; --muted:#5d6e79; --faint:#677984;
+  --ink:#132029; --ink-2:#33454f; --muted:#586873; --faint:#5f6f79;
   --line:#dae2e8; --line-2:#84959e;
   --accent:#0d7a86; --accent-ink:#0a5a63; --accent-soft:#d6ecee; --sobre-acento:#ffffff;
   --urg:#a9510b; --urg-soft:#fbe7d3;
@@ -174,7 +187,7 @@ window.NBUUpdate = { estado:'idle', comprobar:function(){}, pintar:function(){} 
 @media (prefers-color-scheme:dark){
   :root{
     --bg:#0c1317; --surface:#141e25; --surface-2:#1a262e; --surface-3:#202e37;
-    --ink:#e7eef2; --ink-2:#c3d0d8; --muted:#93a3ad; --faint:#768792;
+    --ink:#e7eef2; --ink-2:#c3d0d8; --muted:#93a3ad; --faint:#8897a0;
     --line:#26333c; --line-2:#516c79;
     --accent:#2cb6c3; --accent-ink:#8ddbe2; --accent-soft:#123037; --sobre-acento:#08222a;
     --urg:#e08a4a; --urg-soft:#3a2413;
@@ -191,7 +204,7 @@ window.NBUUpdate = { estado:'idle', comprobar:function(){}, pintar:function(){} 
 }
 :root[data-theme="light"]{
   --bg:#e9eef2; --surface:#ffffff; --surface-2:#f4f7f9; --surface-3:#eef3f6;
-  --ink:#132029; --ink-2:#33454f; --muted:#5d6e79; --faint:#677984;
+  --ink:#132029; --ink-2:#33454f; --muted:#586873; --faint:#5f6f79;
   --line:#dae2e8; --line-2:#84959e;
   --accent:#0d7a86; --accent-ink:#0a5a63; --accent-soft:#d6ecee; --sobre-acento:#ffffff;
   --urg:#a9510b; --urg-soft:#fbe7d3; --norma:#1c62b0; --norma-soft:#dde9f8;
@@ -203,7 +216,7 @@ window.NBUUpdate = { estado:'idle', comprobar:function(){}, pintar:function(){} 
 }
 :root[data-theme="dark"]{
   --bg:#0c1317; --surface:#141e25; --surface-2:#1a262e; --surface-3:#202e37;
-  --ink:#e7eef2; --ink-2:#c3d0d8; --muted:#93a3ad; --faint:#768792;
+  --ink:#e7eef2; --ink-2:#c3d0d8; --muted:#93a3ad; --faint:#8897a0;
   --line:#26333c; --line-2:#516c79;
   --accent:#2cb6c3; --accent-ink:#8ddbe2; --accent-soft:#123037; --sobre-acento:#08222a;
   --urg:#e08a4a; --urg-soft:#3a2413; --norma:#6aa8ee; --norma-soft:#132741;
@@ -248,6 +261,7 @@ html,body{margin:0;padding:0}
 }
 @media (max-width:620px){.modeswitch{grid-template-columns:1fr 1fr}}
 @media (max-width:380px){.modeswitch{grid-template-columns:1fr}}
+.consulta-tabs{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .consultarow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;max-width:1500px;margin:2px auto 0;padding:10px 20px 10px;
   border-top:1px solid var(--line)}
 .consulta-head{display:flex;flex-direction:column;gap:2px;margin-right:2px}
@@ -277,8 +291,8 @@ html,body{margin:0;padding:0}
 :root{--odo:#0f766e}@media (prefers-color-scheme:dark){:root{--odo:#2dd4bf}}
 :root[data-theme="light"]{--odo:#0f766e}:root[data-theme="dark"]{--odo:#2dd4bf}
 .b-odo{background:color-mix(in srgb,var(--odo) 16%,transparent);color:var(--odo)}
-:root{--unico:#9333ea}@media (prefers-color-scheme:dark){:root{--unico:#c084fc}}
-:root[data-theme="light"]{--unico:#9333ea}:root[data-theme="dark"]{--unico:#c084fc}
+:root{--unico:#8a30dc}@media (prefers-color-scheme:dark){:root{--unico:#c084fc}}
+:root[data-theme="light"]{--unico:#8a30dc}:root[data-theme="dark"]{--unico:#c084fc}
 .b-unico{background:color-mix(in srgb,var(--unico) 16%,transparent);color:var(--unico)}
 :root{--cie:#b45309}@media (prefers-color-scheme:dark){:root{--cie:#fbbf24}}
 :root[data-theme="light"]{--cie:#b45309}:root[data-theme="dark"]{--cie:#fbbf24}
@@ -412,8 +426,8 @@ html,body{margin:0;padding:0}
 /* ---------- revisión médica ----------
    El token va con los tres estados como el resto: claro por defecto, y
    redefinido para «oscuro del sistema» y para «oscuro elegido a mano». */
-:root{--med:#2e7d5b}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--med:#6ee7a8}}
-:root[data-theme="light"]{--med:#2e7d5b}:root[data-theme="dark"]{--med:#6ee7a8}
+:root{--med:#2a7253}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--med:#6ee7a8}}
+:root[data-theme="light"]{--med:#2a7253}:root[data-theme="dark"]{--med:#6ee7a8}
 /* Verde clínico, distinto del ámbar de las propuestas y del azul de la
    verificación: son tres cosas que dicen cosas distintas y si se parecen, la
    persona deja de leer cuál es cuál. */
@@ -491,7 +505,7 @@ html,body{margin:0;padding:0}
 .revmed .rm-b.ok:hover{background:color-mix(in srgb,var(--med) 16%,transparent);
   border-color:var(--med);color:var(--med)}
 /* «Qué abarca este código», ahora corregible. */
-.ab-pie{margin-top:7px;font-size:12px;color:var(--faint);font-style:italic;line-height:1.5}
+.ab-pie{margin-top:7px;font-size:12px;color:var(--muted);font-style:italic;line-height:1.5}
 .ab-pie b{font-style:normal;color:var(--ink-2)}
 .ab-orig{color:var(--muted)}
 .ab-acc{display:flex;gap:7px;margin-top:9px;flex-wrap:wrap}
@@ -543,6 +557,10 @@ html,body{margin:0;padding:0}
 .autoria .au-t{font-size:13px;color:var(--muted)}
 .autoria .au-n{font-size:13px;font-weight:800;color:var(--ink-2);letter-spacing:.2px}
 .autoria .au-p{font-size:12px;color:var(--muted);flex-basis:100%}
+.autoria .au-legales{flex-basis:100%;display:flex;justify-content:center;flex-wrap:wrap;gap:4px 16px;font-size:12.5px}
+.autoria .au-legales a{color:var(--muted);text-decoration:underline;text-underline-offset:2px}
+.autoria .au-legales a:hover{color:var(--accent-ink)}
+@media print{.autoria .au-legales{display:none}}
 .gcard .au-gate{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);
   font-size:12px;color:var(--faint);text-align:center;line-height:1.5}
 .gcard .au-gate b{color:var(--muted);font-weight:800}
@@ -591,8 +609,8 @@ html,body{margin:0;padding:0}
 @media (max-width:560px){.rgrid{grid-template-columns:1fr 1fr}.rcard .rn{white-space:normal}}
 :root{--sangre:#be123c}@media (prefers-color-scheme:dark){:root{--sangre:#fb7185}}
 :root[data-theme="light"]{--sangre:#be123c}:root[data-theme="dark"]{--sangre:#fb7185}
-:root{--orina:#a16207}@media (prefers-color-scheme:dark){:root{--orina:#fcd34d}}
-:root[data-theme="light"]{--orina:#a16207}:root[data-theme="dark"]{--orina:#fcd34d}
+:root{--orina:#915806}@media (prefers-color-scheme:dark){:root{--orina:#fcd34d}}
+:root[data-theme="light"]{--orina:#915806}:root[data-theme="dark"]{--orina:#fcd34d}
 /* Cada tipo de muestra lleva su color: en el mostrador, confundir la muestra es cargar
    mal la práctica, y eso vale igual para semen o materia fecal que para sangre u orina. */
 :root{--semen:#0e7490;--lcr:#4338ca;--fecal:#7c4a1e;--pelo:#57534e;--saliva:#65a30d}
@@ -764,6 +782,11 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
   font-size:11px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);
   margin:0;padding:13px 15px 9px;font-weight:700}
 .panel>summary::-webkit-details-marker{display:none}
+/* El «?» va al lado del título, no adentro del <summary>: un botón dentro de otro
+   control no se puede usar con teclado ni lo anuncia bien un lector de pantalla. */
+.panel-ayuda{position:relative}
+.panel-ayuda>.mayuda{position:absolute;top:8px;right:12px;margin:0}
+.panel-ayuda>.panel>summary{padding-right:48px}
 .panel>summary::before{content:'▸';font-size:11px;color:var(--accent);transition:transform .16s;flex-shrink:0}
 .panel[open]>summary::before{transform:rotate(90deg)}
 /* Mientras se cierra con altura animada, .panel sigue con [open] puesto
@@ -1035,7 +1058,7 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
 .valcard .big{font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-size:30px;font-weight:800;color:var(--ink);line-height:1}
 .valcard .lbl{font-size:13px;color:var(--muted)}
 .valcard .arancel{flex-basis:100%;font-size:13px;color:var(--muted);border-top:1px dashed var(--line-2);padding-top:10px;margin-top:2px}
-.val2024{margin-top:8px;font-size:13px;background:var(--new-soft);color:var(--new);border:1px solid color-mix(in srgb,var(--new) 30%,transparent);padding:8px 12px;border-radius:8px;flex-basis:100%}
+.val2024{margin-top:8px;font-size:13px;background:var(--new-soft);color:var(--accent-ink);border:1px solid color-mix(in srgb,var(--new) 30%,transparent);padding:8px 12px;border-radius:8px;flex-basis:100%}
 .val2024 b{font-family:var(--font-mono)}
 .kv{font-size:14px;color:var(--ink-2)}
 .chipset{display:flex;gap:7px;flex-wrap:wrap}
@@ -1465,6 +1488,7 @@ header.compact .logo{height:32px;min-width:32px}
   .consultarow{border-top:none;padding-top:0;padding-bottom:10px;gap:6px;flex-wrap:nowrap;
     overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
   .consultarow::-webkit-scrollbar{display:none}
+  .consulta-tabs{flex:0 0 auto;flex-wrap:nowrap;gap:6px}
   /* el rótulo "Consulta rápida" se comía una fila entera en una pantalla donde
      apenas entraban tres resultados */
   .consultarow .consulta-head{display:none}
@@ -1543,8 +1567,8 @@ body:has(#modal.on,#adminModal.on,#tratoModal.on,#contrModal.on) #pista{display:
 #pista .pi-x:hover{color:var(--ink)}
 /* Acceso permanente a la explicación de una función puntual (mostrarAyuda),
    a diferencia de la pista automática que se ve una sola vez. */
-.mayuda{width:18px;height:18px;border-radius:50%;border:1px solid var(--line-2);background:var(--surface-2);
-  color:var(--muted);font:700 11px/1 var(--font-ui);cursor:pointer;flex-shrink:0;display:inline-grid;place-items:center;
+.mayuda{width:24px;height:24px;border-radius:50%;border:1px solid var(--line-2);background:var(--surface-2);
+  color:var(--muted);font:700 12px/1 var(--font-ui);cursor:pointer;flex-shrink:0;display:inline-grid;place-items:center;
   padding:0;margin-left:5px;vertical-align:middle;text-transform:none;transition:border-color .13s,color .13s}
 .mayuda:hover{border-color:var(--accent);color:var(--accent-ink)}
 #tourTip.centro{top:50%!important;left:50%!important;transform:translate(-50%,-50%);width:min(430px,calc(100vw - 28px))}
@@ -1626,6 +1650,19 @@ body:has(#modal.on,#adminModal.on,#tratoModal.on,#contrModal.on) #pista{display:
   background:var(--surface-2);color:var(--ink);font:inherit;font-size:14px;line-height:1.35;
   -webkit-appearance:none;appearance:none;transition:border-color .13s,box-shadow .13s}
 .gcard input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);background:var(--surface)}
+/* La regla de arriba le saca la apariencia nativa a todos los campos: a una
+   casilla eso le borraba la tilde, y marcada o no se veía igual. */
+.gcard input[type=checkbox]{-webkit-appearance:checkbox;appearance:auto;width:18px;height:18px;padding:0;margin:1px 0 0;flex-shrink:0;accent-color:var(--accent);cursor:pointer}
+.gcard input[type=checkbox]:focus-visible{outline:3px solid var(--accent-soft);outline-offset:1px;box-shadow:none}
+.gcard label.gacepto{display:flex;align-items:flex-start;gap:10px;margin:16px 0 4px;font-family:inherit;font-size:13px;line-height:1.45;
+  text-transform:none;letter-spacing:0;font-weight:500;color:var(--ink-2);cursor:pointer}
+.gcard label.gacepto a{color:var(--accent-ink);font-weight:700}
+.gresumen{margin:0 0 4px;padding:12px 14px 12px 30px;border-radius:var(--radius-sm);background:var(--surface-2);border:1px solid var(--line);
+  font-size:13px;line-height:1.5;color:var(--ink-2)}
+.gresumen li{margin:3px 0}
+.glegales{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 14px;margin-top:10px;font-size:12px}
+.glegales a{color:var(--muted);text-decoration:underline;text-underline-offset:2px}
+.glegales a:hover{color:var(--accent-ink)}
 .gcard input::placeholder{color:var(--faint)}
 /* Por debajo de 16px iOS hace zoom al enfocar y descuadra la pantalla entera. */
 @media (max-width:620px){.gcard input{font-size:16px;padding:12px}}
@@ -1883,7 +1920,7 @@ body:has(#modal.on,#adminModal.on,#tratoModal.on,#contrModal.on) #pista{display:
    propia etiqueta corta arriba, sin el margen grande de .adminbox label. */
 .cfg-grupo{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
 .cfg-grupo>div{flex:1;min-width:100px}
-.cfg-grupo small{display:block;color:var(--faint);margin-bottom:4px;font-size:11.5px}
+.cfg-grupo small,.adminbox .cfg-grupo .cfg-lbl{display:block;color:var(--faint);margin:0 0 4px;font-size:11.5px;font-family:inherit;text-transform:none;letter-spacing:0;font-weight:400}
 .ahint{font-size:12px;color:var(--muted);line-height:1.5;margin:6px 0}
 .rolgrupo{font-family:var(--font-condensed);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);
   margin:16px 0 7px;padding-top:12px;border-top:1px solid var(--line)}
@@ -1994,11 +2031,12 @@ try{if(sessionStorage.getItem('nbu-actualizando')){
       <span><b>Único</b><small>VISITAR · equivalencias</small></span></button>
   </div>
   <div class="modesel"><select id="modeSel" aria-label="Nomenclador"></select></div>
-  <div class="consultarow" role="tablist" aria-label="Consulta rápida">
+  <div class="consultarow" role="group" aria-label="Consulta rápida">
     <div class="consulta-head">
       <span class="consultalbl">Consulta rápida <button type="button" class="mayuda" id="ayudaConsulta" aria-label="Qué es Consulta rápida">?</button></span>
       <span class="consulta-sub">Interpretar y autorizar la orden</span>
     </div>
+    <div class="consulta-tabs" role="tablist" aria-label="Consulta rápida">
     <button class="cbtn" data-mode="CIE" role="tab" aria-label="Diagnósticos CIE-10">
       <span class="cbicon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M9 2h6a1 1 0 0 1 1 1v2h2a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2V3a1 1 0 0 1 1-1zM10 13h4M12 11v4"/></svg></span>
       <span class="cbtxt"><b>Diagnósticos</b><small>CIE-10</small></span></button>
@@ -2008,6 +2046,7 @@ try{if(sessionStorage.getItem('nbu-actualizando')){
     <button class="cbtn cbtn-surge" data-mode="SURGE" role="tab" aria-label="SURGE — reintegros por gestión de enfermedades">
       <span class="cbicon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A3.5 3.5 0 0 0 15.5 5 3.5 3.5 0 0 0 12 8 3.5 3.5 0 0 0 8.5 5 3.5 3.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/></svg></span>
       <span class="cbtxt"><b>SURGE</b><small>Reintegros / patologías</small></span></button>
+    </div>
   </div>
   <div class="stats" id="stats"></div>
 </header>
@@ -2029,10 +2068,13 @@ try{if(sessionStorage.getItem('nbu-actualizando')){
       <summary id="grupoTitle">Grupo · especialidad</summary>
       <div class="fgroup" id="fGrupo"></div>
     </details>
-    <details class="panel" id="flagsPanel" open>
-      <summary>Reglas y estados<button type="button" class="mayuda" id="ayudaFlags" aria-label="Qué son estos filtros" style="margin-left:auto">?</button></summary>
-      <div class="fgroup" id="fFlags"></div>
-    </details>
+    <div class="panel-ayuda">
+      <details class="panel" id="flagsPanel" open>
+        <summary>Reglas y estados</summary>
+        <div class="fgroup" id="fFlags"></div>
+      </details>
+      <button type="button" class="mayuda" id="ayudaFlags" aria-label="Qué son estos filtros">?</button>
+    </div>
     <button class="clearf" id="clearFilters">Limpiar filtros</button>
   </aside>
 
@@ -2089,6 +2131,11 @@ try{if(sessionStorage.getItem('nbu-actualizando')){
   <span class="au-t">Diseñado por</span>
   <span class="au-n">Juan Pablo Besada</span>
   <span class="au-p">Manual Inteligente · VISITAR SRL</span>
+  <nav class="au-legales" aria-label="Documentos legales">
+    <a href="privacy-policy.html" target="_blank" rel="noopener">Privacidad</a>
+    <a href="terms-conditions.html" target="_blank" rel="noopener">Términos y condiciones</a>
+    <a href="cookie-policy.html" target="_blank" rel="noopener">Cookies</a>
+  </nav>
 </footer>
 
 <div class="scrim" id="scrim"></div>
@@ -2812,7 +2859,7 @@ function activarFlechasTabs(cont){
     e.preventDefault(); ts[j].focus(); ts[j].click(); marcar(ts[j]);
   });
 }
-[el('modeSwitch'),document.querySelector('.consultarow'),document.querySelector('.viewtabs')].forEach(activarFlechasTabs);
+[el('modeSwitch'),document.querySelector('.consulta-tabs'),document.querySelector('.viewtabs')].forEach(activarFlechasTabs);
 
 /* El navegador no anima el open/close nativo de <details>: el contenido
    aparece o desaparece de un fotograma a otro. Se intercepta el click de
@@ -3888,7 +3935,7 @@ function initInterprete(){
         <button type="button" class="mayuda" id="ayudaInterprete" aria-label="Qué hace el intérprete de orden">?</button></label>
       <textarea id="intTexto" spellcheck="false" placeholder="Pegá la orden tal como la escribió el médico, una práctica por renglón (o separadas por coma, «;» o «+»).  Ej:&#10;Hemograma completo&#10;Glucemia&#10;Rx tórax F y P"></textarea>
       <div class="vrow"><button class="vbtn" id="intGo">Interpretar</button></div>
-      <div class="vhint">Busca en <b>todos los nomencladores</b> con el mismo buscador tolerante a erratas del resto de la app. Es una ayuda para no perder tiempo tipeando: <b>confirmá cada código antes de cargarlo</b>, no reemplaza leer la orden.</div>
+      <div class="vhint">Busca en <b>todos los nomencladores</b> con el mismo buscador tolerante a erratas del resto de la app. Es una ayuda para no perder tiempo tipeando: <b>confirmá cada código antes de cargarlo</b>, no reemplaza leer la orden. <b>Pegá sólo las prácticas: no hace falta el nombre, el DNI ni el número de afiliado del paciente.</b></div>
     </div>
     <div id="intItems"></div>
     <div class="int-resumen" id="intResumen" hidden></div>`;
@@ -3930,11 +3977,41 @@ function initInterprete(){
     // corresponde mandarlo como sugerencia de «pedida como».
     const N=window.NBUNube;
     if(!yaElegido&&b.dataset.intRank!=='0'&&!b.dataset.intCompanion&&N&&N.activa&&N.perfil()){
-      N.sugerirPedidaComo(k,b.dataset.intItem).catch(()=>{});
+      const txt=textoSugerible(b.dataset.intItem);
+      if(txt)N.sugerirPedidaComo(k,txt).catch(()=>{});
     }
     renderIntResumen();
   });
 }
+/* Minimización de datos (Ley 25.326, art. 4): el renglón de una orden pegada
+   puede traer datos del paciente —nombre, DNI, número de afiliado, teléfono—, y
+   eso es un dato de salud. Para la sugerencia de «pedida como» sólo hace falta
+   cómo se escribió la práctica, así que sólo viajan las palabras que el manual
+   ya conoce (nombres de prácticas, sinónimos, abreviaturas) y las abreviaturas
+   de una o dos letras («F y P»). Un número suelto o una palabra que no es del
+   vocabulario médico no sale del dispositivo. Si no queda nada que describa la
+   práctica, no se manda nada. */
+let VOCAB_MED=null;
+function vocabMedico(){
+  if(VOCAB_MED)return VOCAB_MED;
+  const v=new Set();
+  for(const c of CODES)for(const t of (c._tk||tokens(c._h||c.nombre||'')))v.add(t);
+  for(const g of ABREV_UNIQ)for(const t of tokens(g._h||g.abrev||''))v.add(t);
+  return VOCAB_MED=v;
+}
+// Un renglón que nombra al paciente (o a su documento, afiliación, teléfono o
+// edad) no se manda: aunque el resto se filtre, es justo el renglón donde más
+// probable es que quede algo que lo identifique.
+const MARCA_IDENTIDAD=/\b(pacientes?|pte|sra?|srta|dni|d\.n\.i|documento|afiliad[oa]s?|n[°º]\s*afil|credencial|tel|telefono|cel|celular|edad|anos|nacimiento|domicilio|hc|historia clinica)\b/;
+function textoSugerible(txt){
+  if(MARCA_IDENTIDAD.test(norm(String(txt||'')).replace(/[.:,;()]/g,' ')))return '';
+  const voc=vocabMedico();
+  const ok=w=>{const ps=tokens(w);return ps.length>0&&ps.every(t=>/[a-z]/.test(t)&&(t.length<=2||voc.has(t)));};
+  const quedan=String(txt||'').split(/\s+/).filter(ok);
+  if(!quedan.some(w=>tokens(w).some(t=>t.length>2)))return '';
+  return quedan.join(' ').slice(0,80).trim();
+}
+window.NBUPrivacidad={textoSugerible};
 /* Busca los candidatos de un ítem, y si la búsqueda con todos los términos
    no encuentra nada, reintenta sin los sueltos de 1-2 letras. buscar()
    exige que TODOS los términos coincidan (ver puntuar()): un renglón como
@@ -6277,9 +6354,12 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       headers:()=>hdrAuth(),
       correo:()=>ses&&ses.user&&ses.user.email||'',
 
-      async registrar(nombre,correo,pass){
+      // La aceptación de términos y privacidad queda en los metadatos de la
+      // cuenta (auth.users.raw_user_meta_data): versión y fecha, sin tocar el
+      // esquema de la base.
+      async registrar(nombre,correo,pass,legales){
         const r=await fetch(`${URL_}/auth/v1/signup`,{method:'POST',headers:hdrBase(),
-          body:JSON.stringify({email:correo,password:pass,data:{nombre:nombre}})});
+          body:JSON.stringify({email:correo,password:pass,data:{nombre:nombre,legales_version:legales,legales_aceptado_en:new Date().toISOString()}})});
         await leer(r);
         // No se inicia sesión: la cuenta nace pendiente y no entra hasta que la aprueben.
       },
@@ -6314,6 +6394,19 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
           headers:Object.assign(hdrBase(),{'Authorization':'Bearer '+t}),
           body:JSON.stringify({password:nueva})});
         return await leer(r);
+      },
+      legalesAceptados:()=>(ses&&ses.user&&ses.user.user_metadata&&ses.user.user_metadata.legales_version)||'',
+      // La sesión guardada en este dispositivo puede ser de antes de aceptar en
+      // otro: antes de pedir la aceptación se pregunta a la nube.
+      async refrescarUsuario(){
+        const u=await api('/auth/v1/user',{method:'GET'});
+        if(ses&&u&&u.user_metadata){ses.user=Object.assign({},ses.user,{user_metadata:u.user_metadata});guardarSes(ses);}
+      },
+      async aceptarLegales(version){
+        const r=await fetch(`${URL_}/auth/v1/user`,{method:'PUT',headers:hdrAuth(),
+          body:JSON.stringify({data:{legales_version:version,legales_aceptado_en:new Date().toISOString()}})});
+        const u=await leer(r);
+        if(ses){ses.user=Object.assign({},ses.user,{user_metadata:Object.assign({},(ses.user&&ses.user.user_metadata)||{},(u&&u.user_metadata)||{legales_version:version})});guardarSes(ses);}
       },
       async salir(){
         try{if(ses)await fetch(`${URL_}/auth/v1/logout`,{method:'POST',headers:hdrAuth()});}catch(e){}
@@ -7081,6 +7174,12 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   /* «opts» trae lo que cambia el teclado del celular y habilita el gestor de
      contraseñas: sin autocomplete el navegador no ofrece guardar ni completar, y
      sin autocapitalize el teclado arranca en mayúscula justo sobre el correo. */
+  // Versión de Términos + Privacidad. Cambiarla (con la fecha del documento
+  // nuevo) hace que a cada cuenta se le vuelva a pedir la aceptación al entrar.
+  const LEGALES_VERSION='2026-09-23';
+  const LEGALES_LINKS=`<a href="terms-conditions.html" target="_blank" rel="noopener">Términos y condiciones</a> y la <a href="privacy-policy.html" target="_blank" rel="noopener">Política de privacidad</a>`;
+  const aceptoHTML=id=>`<label class="gacepto" for="${id}"><input type="checkbox" id="${id}">
+      <span>Leí y acepto los ${LEGALES_LINKS}, incluida la transferencia de mis datos a proveedores de Estados Unidos (Supabase y GitHub).</span></label>`;
   function field(id,label,type,opts){
     const o=opts||{}, t=type||'text';
     const attrs=[`autocomplete="${o.ac||'off'}"`];
@@ -7205,6 +7304,22 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         <button class="gbtn" id="mfaGo">Verificar</button>
         <button class="gback" id="mfaBack">← Volver</button>
       </div>`;
+    } else if(v==='nubeLegales'){
+      html=`<div class="gcard">
+        <div class="glogo brand hasimg">${logoInner('gate')}</div>
+        <h2>Antes de seguir</h2>
+        <div class="gsub">Publicamos los términos de uso y la política de privacidad del manual. Leelos y aceptalos para continuar.</div>
+        <ul class="gresumen">
+          <li>Guardamos sólo tu nombre, tu correo, tu contraseña y lo que hacés en la app.</li>
+          <li>Sin publicidad, analítica ni cookies.</li>
+          <li>Los datos se alojan en Supabase y GitHub, en Estados Unidos.</li>
+          <li><b>No cargues datos de pacientes.</b></li>
+        </ul>
+        ${aceptoHTML('lgAcepto')}
+        <div class="gerr" id="gErr"></div>
+        <button class="gbtn" id="lgGo">Aceptar y entrar</button>
+        <button class="gback" id="lgSalir">Cerrar sesión</button>
+      </div>`;
     } else if(v==='nubeOlvide'){
       html=`<div class="gcard">
         <div class="glogo brand hasimg">${logoInner('gate')}</div>
@@ -7238,6 +7353,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         ${field('naMail','Correo','email',{ac:'username',im:'email'})}
         ${field('naPass',`Contraseña (mínimo ${PASS_MIN})`,'password',{ac:'new-password'})}
         ${field('naPass2','Repetir contraseña','password',{ac:'new-password'})}
+        ${aceptoHTML('naAcepto')}
         <div class="gerr" id="gErr"></div>
         <button class="gbtn" id="naGo">Crear mi cuenta</button>
         <button class="gback" id="naBack">← Volver</button>
@@ -7257,6 +7373,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         ${field('npName','Nombre')}
         ${field('npPass','Contraseña','password')}
         ${field('npPass2','Repetir contraseña','password')}
+        ${aceptoHTML('npAcepto')}
         <div class="gerr" id="gErr"></div>
         <button class="gbtn" id="npGo">Crear mi cuenta</button>
         <button class="gback" id="npBack">← Volver</button>
@@ -7267,6 +7384,9 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     const card=gate.querySelector('.gcard');
     if(card){const au=document.createElement('div');au.className='au-gate';
       au.innerHTML='Diseñado por <b>Juan Pablo Besada</b>';card.appendChild(au);
+      const lg=document.createElement('nav');lg.className='glegales';lg.setAttribute('aria-label','Documentos legales');
+      lg.innerHTML='<a href="privacy-policy.html" target="_blank" rel="noopener">Privacidad</a><a href="terms-conditions.html" target="_blank" rel="noopener">Términos</a><a href="cookie-policy.html" target="_blank" rel="noopener">Cookies</a>';
+      card.appendChild(lg);
       // Antes había que cerrar la pestaña del todo para saber si había una
       // versión nueva. Este botón lo pregunta al toque, sin esperar a que
       // alguien se dé cuenta del cartel de abajo o cierre y reabra.
@@ -7283,7 +7403,12 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     const eb=el('gErr'); if(eb){eb.setAttribute('role','alert');eb.setAttribute('aria-live','assertive');}
     // En el celular, enfocar solo levanta el teclado y tapa la tarjeta apenas se abre.
     const first=gate.querySelector('input');
-    if(first&&matchMedia('(pointer:fine)').matches)setTimeout(()=>first.focus(),40);
+    // Sólo si nadie eligió ya otro campo en esos 40 ms: si no, el foco
+    // saltaba al primero y lo que se estaba escribiendo quedaba en otro lado.
+    if(first&&matchMedia('(pointer:fine)').matches)setTimeout(()=>{
+      const a=document.activeElement;
+      if(!a||a===document.body||!gate.contains(a))first.focus();
+    },40);
   }
   const gv=id=>{const e=el(id);return e?e.value.trim():'';};
   const gerr=m=>{const e=el('gErr');if(e)e.textContent=m||'';
@@ -7344,10 +7469,12 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         if(AUTH.profiles.some(x=>x.name.toLowerCase()===nm.toLowerCase()))return gerr('Ya existe un perfil con ese nombre.');
         if(p1.length<4)return gerr('La contraseña debe tener al menos 4 caracteres.');
         if(p1!==p2)return gerr('Las contraseñas no coinciden.');
+        if(!el('npAcepto').checked)return gerr('Para crear la cuenta tenés que aceptar los términos y la política de privacidad.');
         const ph=await mkHash(p1);
         // La cuenta nace pendiente: la habilita el administrador.
         const prof={id:uid(),name:nm,role:'usuario',estado:'pendiente',hash:ph.hash,salt:ph.salt,it:ph.it,
-                    favs:[],ub:null,created:Date.now(),updated:Date.now()};
+                    favs:[],ub:null,created:Date.now(),updated:Date.now(),
+                    legales:{version:LEGALES_VERSION,en:new Date().toISOString()}};
         AUTH.profiles.push(prof);persistAuth();
         gate._nuevo=nm; renderGate('espera');
       };
@@ -7425,6 +7552,18 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         };
         el('cpGo').addEventListener('click',go);onEnter(go);
       }
+    } else if(v==='nubeLegales'){
+      const go=async()=>{
+        if(!el('lgAcepto').checked)return gerr('Para entrar tenés que aceptar los términos y la política de privacidad.');
+        const b=el('lgGo');b.disabled=true;b.textContent='Guardando…';gerr('');
+        try{
+          await NUBE.aceptarLegales(LEGALES_VERSION);
+          const pf=gate._pfPendiente;gate._pfPendiente=null;
+          enterProfile(perfilDesdeNube(pf));
+        }catch(e){gerr('No se pudo guardar la aceptación: '+e.message);if(el('lgGo')){b.disabled=false;b.textContent='Aceptar y entrar';}}
+      };
+      el('lgGo').addEventListener('click',go);
+      el('lgSalir').addEventListener('click',async()=>{gate._pfPendiente=null;await NUBE.salir();renderGate('nubeLogin');});
     } else if(v==='nubeAlta'){
       const go=async()=>{
         const nm=gv('naNom'),m=gv('naMail'),p1=gv('naPass'),p2=gv('naPass2');
@@ -7432,8 +7571,9 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m))return gerr('Revisá el correo.');
         if(p1.length<PASS_MIN)return gerr(`La contraseña debe tener al menos ${PASS_MIN} caracteres.`);
         if(p1!==p2)return gerr('Las contraseñas no coinciden.');
+        if(!el('naAcepto').checked)return gerr('Para crear la cuenta tenés que aceptar los términos y la política de privacidad.');
         const b=el('naGo');b.disabled=true;b.textContent='Creando…';gerr('');
-        try{ await NUBE.registrar(nm,m,p1); gate._nuevo=nm; renderGate('espera'); }
+        try{ await NUBE.registrar(nm,m,p1,LEGALES_VERSION); gate._nuevo=nm; renderGate('espera'); }
         catch(e){ gerr(e.message); if(el('naGo')){b.disabled=false;b.textContent='Crear mi cuenta';} }
       };
       el('naGo').addEventListener('click',go);onEnter(go);
@@ -7492,6 +7632,11 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     if(!pf){gerr('La cuenta existe pero no tiene perfil en la base. Avisale al administrador.');return;}
     if(pf.estado==='pendiente'){gate._nuevo=pf.nombre;return renderGate('espera');}
     if(pf.estado==='rechazado')return renderGate('nubeRechazada');
+    if(NUBE.legalesAceptados()!==LEGALES_VERSION){
+      const pedir=()=>{gate._pfPendiente=pf;renderGate('nubeLegales');};
+      NUBE.refrescarUsuario().then(()=>NUBE.legalesAceptados()===LEGALES_VERSION?enterProfile(perfilDesdeNube(pf)):pedir()).catch(pedir);
+      return;
+    }
     enterProfile(perfilDesdeNube(pf));
   }
 
@@ -7976,15 +8121,15 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       // archivo —ni siquiera uno que hable del bug— debe escribir esa apertura
       // tal cual dentro de un bloque de script.)
       p.innerHTML=`<div class="ahint">Editá los textos generales de la página. El contenido de cada código (nombre, normas, auditoría, asociaciones) se edita desde su ficha con el botón <b>✎ Editar ficha</b> (activá el <b>modo edición</b> en la barra superior).</div>
-        <label>Logo de la empresa (PNG/JPG/SVG)</label>
+        <label for="pgLogo">Logo de la empresa (PNG/JPG/SVG)</label>
         <div class="logo-row" style="display:flex;align-items:center;gap:12px;margin-top:4px">
           <div class="logo hasimg" style="height:44px">${logoInner()}</div>
           <input id="pgLogo" type="file" accept="image/png,image/jpeg,image/gif,image/webp" style="border:none;padding:0;background:none;flex:1">
           ${CONTENT.page.logo?'<button class="minibtn danger" id="pgLogoDel">Quitar</button>':''}
         </div>
         <div class="ahint">Se muestra en la barra superior y en las pantallas de acceso. Recomendado: fondo transparente, alto ~80px.</div>
-        <label>Título</label><input id="pgTitle" type="text" value="${E(CONTENT.page.title||DEF.title)}">
-        <label>Subtítulo</label><input id="pgSub" type="text" value="${E(CONTENT.page.subtitle||DEF.subtitle)}">
+        <label for="pgTitle">Título</label><input id="pgTitle" type="text" value="${E(CONTENT.page.title||DEF.title)}">
+        <label for="pgSub">Subtítulo</label><input id="pgSub" type="text" value="${E(CONTENT.page.subtitle||DEF.subtitle)}">
         <button class="minibtn" id="pgSave" style="margin-top:14px">Guardar textos</button>
         <button class="minibtn" id="pgReset" style="margin-top:14px;margin-left:6px">Restaurar por defecto</button>
         ${(()=>{
@@ -8046,20 +8191,20 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       p.innerHTML=`<div class="ahint">Estos valores deciden qué tan estricta es la búsqueda tolerante en <b>toda la app</b> —listado principal, CIE-10, abreviaturas, SURGE y el Intérprete de orden—, no una pantalla sola. Los de fábrica ya están afinados con casos reales de la base; cambialos con cuidado y probá una búsqueda conocida después de guardar.</div>
         <label>Erratas de tipeo toleradas, según el largo del término</label>
         <div class="cfg-grupo">
-          <div><small>Cortos (≤4 letras)</small><input id="bqTolCorta" type="number" min="0" max="3" step="1" value="${C.tol.corta}"></div>
-          <div><small>Medianos (5–7)</small><input id="bqTolMedia" type="number" min="0" max="3" step="1" value="${C.tol.media}"></div>
-          <div><small>Largos (8 o más)</small><input id="bqTolLarga" type="number" min="0" max="3" step="1" value="${C.tol.larga}"></div>
+          <div><label class="cfg-lbl" for="bqTolCorta">Cortos (≤4 letras)</label><input id="bqTolCorta" type="number" min="0" max="3" step="1" value="${C.tol.corta}"></div>
+          <div><label class="cfg-lbl" for="bqTolMedia">Medianos (5–7)</label><input id="bqTolMedia" type="number" min="0" max="3" step="1" value="${C.tol.media}"></div>
+          <div><label class="cfg-lbl" for="bqTolLarga">Largos (8 o más)</label><input id="bqTolLarga" type="number" min="0" max="3" step="1" value="${C.tol.larga}"></div>
         </div>
         <div class="ahint">Cuántas letras puede diferir un término de lo que dice la ficha y seguir contando como coincidencia. 0 = exacto (nada de erratas).</div>
-        <label>Umbral de "coincidencia fuerte" (%)</label>
+        <label for="bqUmbral">Umbral de "coincidencia fuerte" (%)</label>
         <input id="bqUmbral" type="number" min="50" max="100" step="1" value="${C.umbralFuerte}" style="max-width:120px">
         <div class="ahint">Desde qué porcentaje de coincidencia una fila del listado se resalta como respuesta probable.</div>
         <label>Peso de cada tipo de coincidencia</label>
         <div class="cfg-grupo">
-          <div><small>Empieza con el término</small><input id="bqPesoInicio" type="number" min="1" max="20" step="1" value="${C.pesos.inicio}"></div>
-          <div><small>Aparece en el nombre</small><input id="bqPesoBorde" type="number" min="1" max="20" step="1" value="${C.pesos.borde}"></div>
-          <div><small>En cualquier parte</small><input id="bqPesoContiene" type="number" min="1" max="20" step="1" value="${C.pesos.contiene}"></div>
-          <div><small>Sólo en código/sinónimo</small><input id="bqPesoSolo" type="number" min="1" max="20" step="1" value="${C.pesos.solo}"></div>
+          <div><label class="cfg-lbl" for="bqPesoInicio">Empieza con el término</label><input id="bqPesoInicio" type="number" min="1" max="20" step="1" value="${C.pesos.inicio}"></div>
+          <div><label class="cfg-lbl" for="bqPesoBorde">Aparece en el nombre</label><input id="bqPesoBorde" type="number" min="1" max="20" step="1" value="${C.pesos.borde}"></div>
+          <div><label class="cfg-lbl" for="bqPesoContiene">En cualquier parte</label><input id="bqPesoContiene" type="number" min="1" max="20" step="1" value="${C.pesos.contiene}"></div>
+          <div><label class="cfg-lbl" for="bqPesoSolo">Sólo en código/sinónimo</label><input id="bqPesoSolo" type="number" min="1" max="20" step="1" value="${C.pesos.solo}"></div>
         </div>
         <div class="ahint">Cuánto suma cada forma de coincidencia al ordenar los resultados. Tienen que quedar de mayor a menor, en ese orden, o la búsqueda deja de tener sentido — se corrigen solos si los cargás al revés.</div>
         <button class="minibtn" id="bqSave" style="margin-top:14px">Guardar</button>
@@ -8268,10 +8413,10 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         ? `<div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--line)">
              <div class="pmeta" style="font-weight:700;color:var(--ink);font-size:14px">Restaurar el trabajo del equipo</div>
              <div class="ahint">Elegí un respaldo bajado antes y te muestro <b>qué cambiaría</b> en la base. Nada se escribe hasta que lo confirmes. No toca las cuentas ni los pedidos en curso —verificaciones y propuestas—, sólo las fichas corregidas, las observaciones y los textos.</div>
-             <input id="bkImp" type="file" accept="application/json,.json" style="border:none;padding:6px 0;background:none">
+             <input id="bkImp" type="file" accept="application/json,.json" aria-label="Elegir un respaldo para restaurar" style="border:none;padding:6px 0;background:none">
              <div id="bkPrev"></div>
            </div>`
-        : `<label style="margin-top:16px">Restaurar desde archivo</label>
+        : `<label for="bkImp" style="margin-top:16px">Restaurar desde archivo</label>
         <input id="bkImp" type="file" accept="application/json,.json" style="border:none;padding:6px 0;background:none">
         <div class="ahint" style="color:var(--urg);margin-top:6px">Restaurar reemplaza los perfiles y ediciones de esta computadora.</div>`}`;
       (function(){

@@ -18,7 +18,8 @@ const CACHE   = 'manual-nbu-' + VERSION;
 const SHELL = [
   '.', 'index.html', 'nbu_db.bin', 'manifest.webmanifest',
   'icons/icon-32.png', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/maskable-512.png',
-  'vendor/xlsx.full.min.js'
+  'vendor/xlsx.full.min.js',
+  'privacy-policy.html', 'terms-conditions.html', 'cookie-policy.html', 'legal.css'
 ];
 
 self.addEventListener('install', e => {
@@ -46,10 +47,16 @@ self.addEventListener('fetch', e => {
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
 
+  /* La copia de index.html sólo sirve de respaldo para abrir la APP. Antes se
+     usaba para cualquier navegación: abrir por primera vez otra página del
+     sitio (las legales, p. ej.) mostraba la app en su lugar, y la comparación
+     de versiones de abajo daba un falso «hay versión nueva». */
+  const esApp = req.mode === 'navigate' && /\/(index\.html)?$/.test(url.pathname);
+
   e.respondWith((async () => {
     const cache = await caches.open(CACHE);
     const enCache = await cache.match(req, { ignoreSearch: true })
-                 || (req.mode === 'navigate' ? await cache.match('index.html') : null);
+                 || (esApp ? await cache.match('index.html') : null);
 
     /* La copia se saca ACÁ, antes de devolver «enCache» más abajo. Al devolverlo,
        el navegador consume su cuerpo, y clonar una respuesta ya leída lanza
@@ -61,7 +68,7 @@ self.addEventListener('fetch', e => {
     const red = fetch(req).then(async r => {
       if (r && r.ok) {
         await cache.put(req, r.clone());
-        if (copiaVieja && req.mode === 'navigate') {
+        if (copiaVieja && esApp) {
           const viejo = await copiaVieja.text();
           const nuevo = await r.clone().text();
           if (huboCambio(viejo, nuevo)) avisar('nueva-version');

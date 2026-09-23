@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; font-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<title>Cookies y almacenamiento · Manual VISITAR</title>
+<meta name="description" content="El Manual Inteligente de VISITAR SRL no usa cookies. Qué guarda en tu dispositivo, para qué y cómo borrarlo.">
+<link rel="icon" href="icons/icon-32.png" sizes="32x32">
+<link rel="stylesheet" href="legal.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cab">
+  <div class="cab-in">
+    <a class="marca" href="./"><img src="icons/icon-192.png" alt="" width="32" height="32"><span>Manual Inteligente<small>VISITAR SRL</small></span></a>
+    <a class="volver" href="./">← Volver al manual</a>
+  </div>
+  <nav class="nav" aria-label="Documentos legales">
+    <a href="privacy-policy.html">Privacidad</a>
+    <a href="terms-conditions.html">Términos y condiciones</a>
+    <a href="cookie-policy.html" aria-current="page">Cookies y almacenamiento</a>
+  </nav>
+</header>
+
+<main id="contenido">
+<article class="doc">
+  <h1>Cookies y almacenamiento en tu dispositivo</h1>
+  <p class="meta">Versión 1 · Vigente desde el 23 de septiembre de 2026</p>
+
+  <section class="resumen" aria-labelledby="res-t">
+    <h2 id="res-t">En pocas palabras</h2>
+    <ul>
+      <li>El manual <strong>no usa cookies</strong>, ni propias ni de terceros.</li>
+      <li>No hay analítica, publicidad ni seguimiento.</li>
+      <li>Sí guarda algunas cosas en tu navegador para funcionar: tu sesión, tus preferencias y una copia del manual para usarlo sin conexión.</li>
+      <li>Como todo eso es necesario o es una preferencia que elegiste vos, <strong>no te pedimos una aceptación aparte</strong>.</li>
+    </ul>
+  </section>
+
+  <h2 id="que-son">1. Cookies y almacenamiento local</h2>
+  <p>Una <strong>cookie</strong> es un pequeño archivo que un sitio deja en tu navegador y que viaja con cada pedido, a veces a otros sitios. El manual no usa cookies.</p>
+  <p>Lo que sí usa es el <strong>almacenamiento local del navegador</strong> (<code>localStorage</code>, <code>sessionStorage</code> y la caché de la app). Queda en tu dispositivo y no se envía a otros sitios. La app sólo lo usa para funcionar.</p>
+
+  <h2 id="que-guarda">2. Qué guarda y para qué</h2>
+  <h3>Necesario para que la app funcione</h3>
+  <div class="tabla">
+    <table>
+      <caption class="vh">Almacenamiento necesario</caption>
+      <thead><tr><th scope="col">Nombre</th><th scope="col">Para qué</th><th scope="col">Cuánto dura</th></tr></thead>
+      <tbody>
+        <tr><td><code>nbu-sesion</code></td><td>Tu sesión iniciada (credenciales temporales de acceso). Sin esto tendrías que entrar en cada página.</td><td>Hasta que cierres sesión o venza.</td></tr>
+        <tr><td><code>nbu-mfa-confia:…</code></td><td>Que no te pida el código de verificación en dos pasos en un dispositivo que marcaste como confiable.</td><td>30 días.</td></tr>
+        <tr><td><code>nbu-content-v1</code></td><td>Copia de los ajustes y correcciones del manual para usarlo sin conexión.</td><td>Hasta que borres los datos del sitio.</td></tr>
+        <tr><td><code>nbu-auth-v2</code></td><td>Sólo en el modo sin nube: perfiles de este dispositivo, con la contraseña protegida con <em>hash</em>.</td><td>Hasta que borres los datos del sitio.</td></tr>
+        <tr><td>Caché de la app (<code>manual-nbu-…</code>)</td><td>Los archivos del manual, para que abra rápido y funcione sin internet.</td><td>Hasta la próxima versión de la app.</td></tr>
+        <tr><td><code>nbu-actualizando</code>, <code>nbu-autoactualizada</code> (sesión)</td><td>Evitar que la app se recargue dos veces al actualizarse.</td><td>Hasta cerrar la pestaña.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Preferencias y trabajo en curso</h3>
+  <div class="tabla">
+    <table>
+      <caption class="vh">Almacenamiento de preferencias</caption>
+      <thead><tr><th scope="col">Nombre</th><th scope="col">Para qué</th><th scope="col">Cuánto dura</th></tr></thead>
+      <tbody>
+        <tr><td><code>nbu-theme</code></td><td>Tema claro u oscuro.</td><td>Hasta que lo cambies o borres los datos.</td></tr>
+        <tr><td><code>nbu-mode</code>, <code>nbu-secs</code></td><td>Qué sección del manual tenías abierta y qué partes de la ficha dejaste plegadas.</td><td>Idem.</td></tr>
+        <tr><td><code>nbu-ub-value</code>, <code>nbu-favs</code></td><td>Valor de U.B. y favoritos en este dispositivo.</td><td>Idem.</td></tr>
+        <tr><td><code>nbu-busqueda-cfg</code></td><td>Ajustes del buscador que definió el administrador.</td><td>Idem.</td></tr>
+        <tr><td><code>nbu-onboarded:…</code>, <code>nbu-pista:…</code>, <code>nbu-trato:…</code></td><td>Que no se repitan el recorrido guiado ni los avisos que ya viste, y cómo preferís que te firmemos (Dr./Dra.).</td><td>Idem.</td></tr>
+        <tr><td><code>nbu-contr:…</code></td><td>Contrataciones: lo que decidiste sobre cada grilla y el último archivo abierto, para que no pierdas el trabajo al cerrar la ventana. Hasta 20 grillas.</td><td>Hasta que elijas «Empezar de cero» o borres los datos.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Los nombres que terminan en <code>:…</code> llevan el identificador interno de tu cuenta, para que dos personas que comparten una computadora no se pisen.</p>
+
+  <h2 id="consentimiento">3. Por qué no te pedimos que aceptes cookies</h2>
+  <p>No hay cookies ni nada que siga tu navegación. Lo que se guarda es indispensable para que la app funcione o es una preferencia que elegiste vos, y no sale de tu dispositivo salvo lo que la app sincroniza con tu cuenta (ver la <a href="privacy-policy.html">política de privacidad</a>). Por eso no hace falta un aviso de aceptación.</p>
+  <p>Si algún día sumáramos analítica, contenido de terceros o cualquier otra cosa que no sea necesaria, te lo vamos a pedir antes de activarlo.</p>
+
+  <h2 id="terceros">4. Terceros</h2>
+  <p>El manual no carga nada de otros sitios: las tipografías, íconos y librerías se sirven desde el mismo sitio. Sólo se conecta con Supabase, el proveedor de base de datos y cuentas, para iniciar sesión y sincronizar. GitHub Pages, que publica el sitio, registra la dirección IP de cada visita por seguridad. Ver la <a href="privacy-policy.html#proveedores">política de privacidad</a>.</p>
+
+  <h2 id="borrar">5. Cómo borrarlo</h2>
+  <ul>
+    <li><strong>Cerrar sesión</strong> (en <strong>Tu cuenta</strong>) borra la sesión de este dispositivo.</li>
+    <li>En tu navegador, en la configuración de privacidad (<em>Datos de sitios</em> o <em>Borrar datos de navegación</em>), podés borrar todo lo que guardó el manual. Vas a tener que volver a iniciar sesión y se pierden las preferencias de este dispositivo.</li>
+    <li>Si instalaste la app, al desinstalarla algunos navegadores ofrecen borrar también sus datos. Si no, borralos desde la configuración del navegador como en el punto anterior.</li>
+  </ul>
+</article>
+</main>
+
+<footer class="pie">
+  <span>© 2026 VISITAR SRL · Diseñado por Juan Pablo Besada</span>
+  <a href="privacy-policy.html">Privacidad</a>
+  <a href="terms-conditions.html">Términos y condiciones</a>
+</footer>
+</body>
+</html>
