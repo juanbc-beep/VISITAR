@@ -11,6 +11,18 @@
 > un typo) y se corrigieron contra el PDF, y queda 1 (`130303`) sin denominación legible en
 > la fuente, a propósito, para cargar a mano.
 >
+> **✅ La pista «Novedad · Acá te avisamos qué cambió» ya no sale a cada rato (23/9/2026)** —
+> reporte del usuario. Tres causas en el sistema de pistas (`PISTAS`/`mostrarPista` en
+> `web/index.html`): se reevaluaba con cualquier scroll de cualquier lado (listener en
+> captura), y la campanita siempre está a la vista; «Después» y Escape no guardaban nada,
+> así que volvía al scroll siguiente; y no miraba si había una ventana abierta, así que
+> salía encima de Contrataciones o Administración. Ahora: «Después»/Escape la posponen
+> hasta la próxima vez que se abre la app (en memoria, `pistasPospuestas`); con una
+> ventana abierta no se muestra (`hayVentanaEncima()`) y una ya visible se tapa por CSS
+> (`body:has(...) #pista`); el scroll de adentro de una ventana no cuenta. «Entendido»
+> sigue marcándola para siempre (localStorage, por usuario). Test: `casos/pistas.mjs`,
+> confirmado que falla sin el arreglo.
+>
 > **✅ Contrataciones ahora exporta la grilla de carga del Único (23/9/2026)** — a pedido
 > del usuario, con un ejemplo real de entrada y de salida. Ya no devuelve el mismo archivo
 > con columnas agregadas: arma la grilla que se carga en el sistema (`nom_nom`,

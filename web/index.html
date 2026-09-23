@@ -32,7 +32,7 @@
      riesgo residual conocido, no un olvido. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-YrPijn40Oi7DgMgRZMlLQxDd5D66SaWBlyJRUFVz2zM=';
+  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-ZCiU/yqgjsE7S/DcKm9ug2rRyq7vDNRgiZcFwcsEoWo=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1527,6 +1527,8 @@ body.tour-on{overscroll-behavior:none}
   padding:12px 14px;box-shadow:0 14px 34px rgba(8,15,20,.22);display:none;
   animation:pistaIn .22s ease-out}
 #pista.on{display:block}
+/* Una ventana abierta encima tapa la pista al instante, sin esperar a un scroll. */
+body:has(#modal.on,#adminModal.on,#tratoModal.on,#contrModal.on) #pista{display:none}
 @keyframes pistaIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){#pista{animation:none}}
 #pista .pi-n{font-size:11px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:var(--accent)}
@@ -9134,10 +9136,17 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   function pistaVista(id){try{return !!localStorage.getItem(pistaClave(id));}catch(e){return true;}}
   function marcarPista(id){try{localStorage.setItem(pistaClave(id),'1');}catch(e){}}
   let pistaActiva=null, pistaAncla=null;
-  function cerrarPista(marcando){
+  // «Después» (o Escape) la guarda hasta la próxima vez que se abra la app: sin
+  // esto volvía al siguiente scroll, que en la práctica era enseguida.
+  const pistasPospuestas=new Set();
+  function cerrarPista(marcando,posponer){
     if(pistaActiva&&marcando)marcarPista(pistaActiva);
+    if(pistaActiva&&posponer)pistasPospuestas.add(pistaActiva);
     pistaActiva=null; pistaAncla=null; el('pista').classList.remove('on');
   }
+  // Con una ventana encima (Contrataciones, Administración, Cuenta, info) la
+  // persona está en otra cosa: la pista no se abre por arriba.
+  const hayVentanaEncima=()=>!!document.querySelector('#modal.on,#adminModal.on,#tratoModal.on,#contrModal.on')||!el('gate').hidden;
   /* «A la vista» no es asomar cuatro píxeles por el borde: con eso la pista salía
      tapando media ficha para señalar un bloque que todavía no se leía. Se pide que
      se vea un pedazo con el que la persona pueda reconocer de qué se le habla. */
@@ -9161,7 +9170,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   }
   /* Una por vez y nunca durante el recorrido: la persona ya está leyendo otra cosa. */
   function mostrarPista(id,sel){
-    if(tCorriendo||pistaActiva||pistaVista(id))return false;
+    if(tCorriendo||pistaActiva||pistaVista(id)||pistasPospuestas.has(id)||hayVentanaEncima())return false;
     const def=PISTAS[id]; if(!def)return false;
     const n=document.querySelector(sel);
     // Todavía no la tiene delante: la ficha es larga y esta sección puede estar
@@ -9178,7 +9187,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     el('piOk').addEventListener('click',()=>cerrarPista(true));
     // «Después» no la marca: vuelve a aparecer, porque puede que esta vez estuviera
     // en el medio de algo. La que se entendió se cierra con «Entendido».
-    el('piLuego').addEventListener('click',()=>cerrarPista(false));
+    el('piLuego').addEventListener('click',()=>cerrarPista(false,true));
     return true;
   }
   /* Ayuda permanente, a pedido: a diferencia de mostrarPista (una vez sola,
@@ -9203,13 +9212,18 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   el('ayudaFlags').addEventListener('click',e=>{e.stopPropagation();e.preventDefault();
     mostrarAyuda('#fFlags','Filtros, en tres bloques',
       '<b>Para decidir</b> junta lo que cambia la carga: obligación de cobertura, sangre u orina, urgencia, desuso. <b>Mi trabajo</b> son tus favoritos, lo visto hace poco y el estado de verificación. <b>Estado del dato</b> es cómo quedó cargado en este manual.');});
-  addEventListener('keydown',e=>{if(e.key==='Escape'&&pistaActiva)cerrarPista(false);});
+  addEventListener('keydown',e=>{if(e.key==='Escape'&&pistaActiva)cerrarPista(false,!pistaActiva.startsWith('ayuda:'));});
   /* Al scrollear, la pista abierta sigue a su elemento y se cierra si éste se fue
      de pantalla; y si no hay ninguna abierta, se prueba de nuevo, porque puede que
      recién ahora la persona haya llegado a la sección que explica. Sin marcarla
      como vista: se cierra porque dejó de estar a la vista, no porque se entendió. */
   let pistaT=null;
-  function alScrollear(){
+  function alScrollear(e){
+    // El scroll de una ventana encima (la tabla de Contrataciones, el panel de
+    // Administración) no es la persona llegando a una sección nueva de la app.
+    const t=e&&e.target;
+    if(pistaActiva&&hayVentanaEncima())return cerrarPista(false);
+    if(t&&t.nodeType===1&&t.closest('#modal,#adminModal,#tratoModal,#contrModal,#pista'))return;
     if(pistaActiva){
       if(!pistaAncla||!aLaVista(pistaAncla))return cerrarPista(false);
       return ubicarPista(pistaAncla);
