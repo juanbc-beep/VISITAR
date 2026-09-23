@@ -34,7 +34,7 @@
      alojamiento. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-MXq2q5t2rrJvd00GMwTNlFpKjlTqi7XRxh3rt8KhP2E=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-b4TFsQKK23bc2qSHzLlTtsGIDbFfCA+P6Pf0goDDR2Y=';
+  script-src 'self' 'sha256-MXq2q5t2rrJvd00GMwTNlFpKjlTqi7XRxh3rt8KhP2E=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-kpqKLKXImX0Nd71718N/DbYsspEZKADInp0UsCCAj0E=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1857,6 +1857,11 @@ body:has(#modal.on,#adminModal.on,#tratoModal.on,#contrModal.on) #pista{display:
 .contr-vals-td{white-space:nowrap}
 .contr-imp{display:block;font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-weight:700;line-height:1.35}
 .contr-imp+.contr-imp{margin-top:3px}
+.contr-rol-sel{display:block;appearance:none;-webkit-appearance:none;width:auto!important;margin:0 0 2px -6px;padding:1px 18px 1px 6px!important;
+  border:1px dashed var(--line-2)!important;border-radius:5px!important;background:transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%235f6f79'/%3E%3C/svg%3E") no-repeat right 6px center!important;
+  font-family:var(--font-condensed)!important;font-size:10.5px!important;letter-spacing:.5px;text-transform:uppercase;font-weight:700!important;color:var(--muted)!important;cursor:pointer;min-height:22px}
+.contr-rol-sel:hover,.contr-rol-sel:focus{border-style:solid!important;border-color:var(--accent)!important;color:var(--accent-ink)!important}
+.contr-rol-sel.editado{border-style:solid!important;border-color:transparent!important;background-color:var(--urg-soft)!important;color:var(--urg)!important}
 .contr-imp small{display:block;font-family:var(--font-condensed);font-size:10px;letter-spacing:.5px;text-transform:uppercase;color:var(--faint);font-weight:700}
 .contr-imp.uni{font-size:11.5px}
 .contr-orig{max-width:300px;line-height:1.4}
@@ -9819,7 +9824,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   // (clave "fila|código", o "fila|*" para un renglón que no traía código), área
   // de una línea puntual, valor confirmado entre repetidos, y códigos que se
   // reconocen como faltantes en el Único.
-  let contrEdit={}, contrElegido={}, contrAreaFila={}, contrConfirmado={}, contrFalta={};
+  let contrEdit={}, contrElegido={}, contrAreaFila={}, contrConfirmado={}, contrFalta={}, contrRolFila={};
   let contrBuscando=null, contrBuscaQ='', contrFiltro='todo', contrNombre='', contrFormato='xls', contrIdx=null;
 
   function contrCel(i,j){
@@ -10053,6 +10058,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       <span class="contr-res-n">${esc(c.nombre)}<small>${esc(c.grupo||'')}${c.unico_tipo==='lab'?' · laboratorio':''}</small></span>
     </button>`).join('');
   }
+  const CONTR_IMP={esp:'Especialista',ayu:'Ayudante',ane:'Anestesista',gto:'Gasto'};
   const contrFmt=n=>'$ '+Number(n).toLocaleString('es-AR',{minimumFractionDigits:2,maximumFractionDigits:2});
   const contrRed=n=>Math.round(n*100)/100;
 
@@ -10140,7 +10146,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       if(!utiles.length){omitir(vals.length?'El valor no es un importe':'Sin valor');continue;}
       const areaFila=cfg.colArea>=0?contrArea(contrTexto(i,cfg.colArea)):'';
       const porArea={};
-      for(const {vc,v} of utiles){const a=vc.area||areaFila||cfg.areaDef;(porArea[a]=porArea[a]||[]).push({rol:vc.rol,v});}
+      for(const {vc,v} of utiles){const a=vc.area||areaFila||cfg.areaDef;(porArea[a]=porArea[a]||[]).push({rol:vc.rol,v,col:vc.col});}
       const destinos=[];
       if(cods.nbu)destinos.push({desde:idx.labMin,hasta:idx.labMax,rango:true,estado:'rango',nombre:'Laboratorio completo (Único NBU)',esLab:true});
       const partes=cods.items.length>1?contrPartirDesc(desc,cods.items.length):null;
@@ -10162,13 +10168,20 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         // El área se puede cambiar línea por línea desde la revisión, sin tocar
         // el área por defecto ni las demás líneas con el mismo código.
         const areaClave=(d.clave||filaN+'|'+(d.origen||codTxt))+'|'+a;
-        const lin={...base,imp:{...base.imp},uni:{...base.uni},area:contrAreaFila[areaClave]||a,areaClave,areaEditada:!!contrAreaFila[areaClave],desde:d.desde,hasta:d.hasta,rango:!!d.rango,codigos:d.codigos,
+        const lin={...base,imp:{...base.imp},uni:{...base.uni},importes:[],area:contrAreaFila[areaClave]||a,areaClave,areaEditada:!!contrAreaFila[areaClave],desde:d.desde,hasta:d.hasta,rango:!!d.rango,codigos:d.codigos,
           origen:d.origen||codTxt,clave:d.clave,editable:!!d.editable,estado:d.estado,nombre:d.nombre||'',alternativa:d.alternativa,sugerencia:d.sugerencia,score:d.score,motivo:d.motivo||'',talCual:d.talCual||''};
         if(d.desde){
           const esLab=d.esLab||(d.desde.length===8&&d.desde[0]==='6');
           const cap=contrCapitulo(d.desde);
-          for(const {rol,v} of porArea[a]){
-            if(v.num!=null){lin.imp[rol==='auto'?(cap==='42'?'esp':'gto'):rol]=contrRed(v.num);}
+          for(const {rol,v,col} of porArea[a]){
+            if(v.num!=null){
+              // El tipo de importe sale de la columna (o de «Automático»); quien
+              // revisa lo puede cambiar para esta fila sola (contrRolFila).
+              const def=rol==='auto'?(cap==='42'?'esp':'gto'):rol, rk=areaClave+'|'+col;
+              const r2=CONTR_IMP[contrRolFila[rk]]?contrRolFila[rk]:def;
+              lin.imp[r2]=contrRed(v.num);
+              lin.importes.push({rk,rol:r2,def,editado:r2!==def,valor:contrRed(v.num)});
+            }
             else if(v.unidad){
               if(esLab||v.unidad==='NBU'||v.unidad==='UB')lin.uni.gto='UNICO_NBU';
               else if(cap==='34'){lin.uni.esp='GALENO RADIOLOGICO';lin.uni.gto='UNIDAD RADIOLOGICA';}
@@ -10248,7 +10261,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     const c=contrCfg;
     todos[contrHuella]={nombre:contrArchivo.name,t:Date.now(),
       cfg:{fila:c.fila,colCodigo:c.colCodigo,colDesc:c.colDesc,colArea:c.colArea,areaDef:c.areaDef,valores:c.valores.map(v=>({col:v.col,rol:v.rol,area:v.area}))},
-      edit:contrEdit,elegido:contrElegido,area:contrAreaFila,confirmado:contrConfirmado,falta:contrFalta,salida:contrNombre,formato:contrFormato};
+      edit:contrEdit,elegido:contrElegido,area:contrAreaFila,confirmado:contrConfirmado,falta:contrFalta,rol:contrRolFila,salida:contrNombre,formato:contrFormato};
     Object.keys(todos).sort((a,b)=>todos[b].t-todos[a].t).slice(CONTR_MAX_ARCHIVOS).forEach(k=>delete todos[k]);
     contrEscribirLS('archivos',todos);
   }
@@ -10261,11 +10274,11 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     if(c.colArea!=null)contrCfg.colArea=col(c.colArea);
     if(CONTR_AREAS[c.areaDef])contrCfg.areaDef=c.areaDef;
     for(const v of contrCfg.valores){const gv=(c.valores||[]).find(x=>x.col===v.col);if(gv){if(CONTR_ROLES[gv.rol])v.rol=gv.rol;v.area=CONTR_AREAS[gv.area]?gv.area:'';}}
-    contrEdit=g.edit||{};contrElegido=g.elegido||{};contrAreaFila=g.area||{};contrConfirmado=g.confirmado||{};contrFalta=g.falta||{};
+    contrEdit=g.edit||{};contrElegido=g.elegido||{};contrAreaFila=g.area||{};contrConfirmado=g.confirmado||{};contrFalta=g.falta||{};contrRolFila=g.rol||{};
     contrNombre=g.salida||'';contrFormato=g.formato==='xlsx'?'xlsx':'xls';
   }
   function contrHayDecisiones(g){
-    return !!g&&[g.edit,g.elegido,g.area,g.confirmado,g.falta].some(o=>o&&Object.keys(o).length)||!!(g&&g.salida);
+    return !!g&&[g.edit,g.elegido,g.area,g.confirmado,g.falta,g.rol].some(o=>o&&Object.keys(o).length)||!!(g&&g.salida);
   }
   // El último archivo viaja entero (base64) para poder retomarlo después de
   // recargar; si es muy grande sólo se guardan las decisiones.
@@ -10287,7 +10300,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   // ---------- pantalla ----------
   function contrReiniciar(){
     contrArchivo=null;contrWS=null;contrAOA=null;contrCfg=null;contrRes=null;
-    contrEdit={};contrElegido={};contrAreaFila={};contrConfirmado={};contrFalta={};
+    contrEdit={};contrElegido={};contrAreaFila={};contrConfirmado={};contrFalta={};contrRolFila={};
     contrBuscando=null;contrBuscaQ='';contrFiltro='todo';contrNombre='';contrFormato='xls';
     contrHuella='';contrRestaurado=0;
   }
@@ -10335,8 +10348,16 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   }
   function contrValorHTML(l){
     const p=[];
-    const R={esp:'Especialista',ayu:'Ayudante',ane:'Anestesista',gto:'Gasto'};
-    for(const k in R)if(l.imp[k])p.push(`<span class="contr-imp"><small>${R[k]}</small>${contrFmt(l.imp[k])}</span>`);
+    const R=CONTR_IMP;
+    if(contrExporta(l)&&l.importes&&l.importes.length){
+      // Un selector por monto: a qué campo de la grilla de carga va. Los campos
+      // que ya usa otro monto de la misma fila no se ofrecen (se pisarían).
+      for(const im of l.importes){
+        const usados=new Set(l.importes.filter(o=>o!==im).map(o=>o.rol));
+        p.push(`<span class="contr-imp"><select class="contr-rol-sel${im.editado?' editado':''}" data-rkey="${esc(im.rk)}" data-def="${im.def}" aria-label="Tipo de importe de ${contrFmt(im.valor)} (fila ${l.fila})" title="Campo de la grilla de carga: imp_${im.rol}${im.editado?' · cambiado a mano':''}">${
+          Object.entries(R).map(([k,t])=>`<option value="${k}"${k===im.rol?' selected':''}${usados.has(k)?' disabled':''}>${t}</option>`).join('')}</select>${contrFmt(im.valor)}</span>`);
+      }
+    }else for(const k in R)if(l.imp[k])p.push(`<span class="contr-imp"><small>${R[k]}</small>${contrFmt(l.imp[k])}</span>`);
     for(const k in R)if(l.uni[k])p.push(`<span class="contr-imp uni"><small>uni_${k}</small>${esc(l.uni[k])}</span>`);
     return p.length?p.join(''):`<span class="contr-mute">${esc(l.valorTxt||'—')}</span>`;
   }
@@ -10374,6 +10395,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     if(l.estado==='omitida'&&l.buscable)notas.push('Buscale un código con la lupa para exportarla.');
     if((l.estado==='manual'||l.estado==='manual_fuera')&&l.clave)acciones.push(`<button class="contr-link" data-deshacer="${esc(l.clave)}">${l.clave.endsWith('|*')?'Quitar el código':'Volver a la sugerencia'}</button>`);
     if(l.areaEditada)acciones.push(`<button class="contr-link" data-noarea="${esc(l.areaClave)}">Área por defecto</button>`);
+    if(contrExporta(l)&&(l.importes||[]).some(im=>im.editado))acciones.push(`<button class="contr-link" data-norol="${esc(l.importes.filter(im=>im.editado).map(im=>im.rk).join('\n'))}">Tipo de importe por defecto</button>`);
     const fila=`<tr class="contr-st-${e.cls}">
       <td>${cod}${nom}</td>
       <td>${area}</td>
@@ -10421,7 +10443,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
             <select data-vrol="${n}" aria-label="Tipo de importe de ${esc(v.titulo)}">${Object.entries(CONTR_ROLES).map(([k,t])=>`<option value="${k}"${k===v.rol?' selected':''}>${t}</option>`).join('')}</select>
             <select data-varea="${n}" aria-label="Área de ${esc(v.titulo)}"><option value=""${!v.area?' selected':''}>Área según fila</option>${Object.entries(CONTR_AREAS).map(([k,t])=>`<option value="${k}"${k===v.area?' selected':''}>${k} · ${t}</option>`).join('')}</select>
           </div>`).join('')}</div>
-          <div class="ahint">«Automático» carga el importe en <b>imp_gto</b>, salvo las consultas (capítulo 42), que van en <b>imp_esp</b>. Si la grilla trae una columna por especialista, ayudante, anestesista o gasto, se reconoce por el título.</div>`
+          <div class="ahint">«Automático» carga el importe en <b>imp_gto</b>, salvo las consultas (capítulo 42), que van en <b>imp_esp</b>. Si la grilla trae una columna por especialista, ayudante, anestesista o gasto, se reconoce por el título. Para una fila puntual, cambialo en la tabla, sobre el monto.</div>`
         :'<div class="ahint">No se encontró ninguna columna con importes.</div>'}
       </details>
       <div class="contr-def">
@@ -10466,11 +10488,11 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     if(el('contrDeCero'))el('contrDeCero').addEventListener('click',()=>{
       if(!confirm('¿Descartar todo lo que decidiste sobre este archivo?\n\nVuelve a quedar como recién subido.'))return;
       const todos=contrLeerLS('archivos')||{};delete todos[contrHuella];contrEscribirLS('archivos',todos);
-      contrEdit={};contrElegido={};contrAreaFila={};contrConfirmado={};contrFalta={};contrBuscando=null;contrNombre='';contrFormato='xls';
+      contrEdit={};contrElegido={};contrAreaFila={};contrConfirmado={};contrFalta={};contrRolFila={};contrBuscando=null;contrNombre='';contrFormato='xls';
       contrCfg=null;contrConfigurar(contrDetectarEncabezado());
       contrRestaurado=0;contrRehacer();toast('Listo: el archivo quedó como recién subido');
     });
-    el('contrFila').addEventListener('change',e=>{contrEdit={};contrElegido={};contrAreaFila={};contrConfirmado={};contrFalta={};contrBuscando=null;contrConfigurar(+e.target.value);contrRehacer();});
+    el('contrFila').addEventListener('change',e=>{contrEdit={};contrElegido={};contrAreaFila={};contrConfirmado={};contrFalta={};contrRolFila={};contrBuscando=null;contrConfigurar(+e.target.value);contrRehacer();});
     el('contrColCod').addEventListener('change',e=>{contrCfg.colCodigo=+e.target.value;contrRehacer();});
     el('contrColDesc').addEventListener('change',e=>{contrCfg.colDesc=+e.target.value;contrRehacer();});
     el('contrColArea').addEventListener('change',e=>{contrCfg.colArea=+e.target.value;contrRehacer();});
@@ -10496,6 +10518,11 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     box.querySelectorAll('[data-nofalta]').forEach(b=>b.addEventListener('click',()=>{delete contrFalta[b.dataset.nofalta];contrRehacer();}));
     box.querySelectorAll('[data-noarea]').forEach(b=>b.addEventListener('click',()=>{delete contrAreaFila[b.dataset.noarea];contrRehacer();}));
     box.querySelectorAll('.contr-area-sel').forEach(sel=>sel.addEventListener('change',()=>{contrAreaFila[sel.dataset.akey]=sel.value;contrRehacer();}));
+    box.querySelectorAll('.contr-rol-sel').forEach(sel=>sel.addEventListener('change',()=>{
+      if(sel.value===sel.dataset.def)delete contrRolFila[sel.dataset.rkey];else contrRolFila[sel.dataset.rkey]=sel.value;
+      contrRehacer();
+    }));
+    box.querySelectorAll('[data-norol]').forEach(b=>b.addEventListener('click',()=>{b.dataset.norol.split('\n').forEach(k=>delete contrRolFila[k]);contrRehacer();}));
     box.querySelectorAll('[data-buscar]').forEach(b=>b.addEventListener('click',()=>{
       if(contrBuscando===b.dataset.buscar){contrBuscando=null;renderContr();return;}
       contrBuscando=b.dataset.buscar;contrBuscaQ=b.dataset.q||'';renderContr();

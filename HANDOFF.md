@@ -2174,6 +2174,13 @@ Pedidos del usuario sobre la tabla de revisión, todos por renglón (no globales
 - **«Falta código en el Único»**: en una línea sin equivalencia, la reconoce como tal
   (estado `falta_unico`, azul, chip propio). No se exporta; va a la hoja «Sin
   equivalencia» con ese motivo, después de las que siguen sin resolver.
+- **Tipo de importe por línea** (pedido del usuario): cada monto de una fila exportable
+  lleva un selector Especialista / Ayudante / Anestesista / Gasto (`contrRolFila`, clave
+  `renglón|código|área original|columna`). Por defecto vale lo de la columna en
+  «Columnas de la grilla» (o «Automático»: gasto, consultas → especialista); cambiado a mano
+  queda en naranja con «Tipo de importe por defecto». En una fila con dos montos, el campo
+  que ya usa uno no se ofrece al otro (se pisarían). Se aplica antes de agrupar repetidos, y
+  se guarda con el resto de las decisiones.
 - **Lo decidido no se pierde** (pedido del usuario): cerrar la ventana ya no borra nada
   (queda en memoria). Además cada decisión se guarda en `localStorage`, por usuario
   (`nbu-contr:<id>:archivos`) y por archivo — la clave es una huella del contenido (FNV-1a
