@@ -2166,6 +2166,16 @@ Pedidos del usuario sobre la tabla de revisión, todos por renglón (no globales
 - **«Falta código en el Único»**: en una línea sin equivalencia, la reconoce como tal
   (estado `falta_unico`, azul, chip propio). No se exporta; va a la hoja «Sin
   equivalencia» con ese motivo, después de las que siguen sin resolver.
+- **Lo decidido no se pierde** (pedido del usuario): cerrar la ventana ya no borra nada
+  (queda en memoria). Además cada decisión se guarda en `localStorage`, por usuario
+  (`nbu-contr:<id>:archivos`) y por archivo — la clave es una huella del contenido (FNV-1a
+  + tamaño), no el nombre, así que volver a subir la misma grilla trae lo decidido y una
+  grilla distinta con el mismo nombre no. Se guardan columnas, área por defecto, las cinco
+  decisiones por renglón, nombre y formato de salida; hasta 20 archivos, los más viejos se
+  descartan. El último archivo se guarda entero en base64 (`…:ultimo`, si pesa menos de
+  ~2 MB) para retomarlo después de recargar la app. Aviso «Se recuperó lo que decidiste…»
+  con «Empezar de cero». En el navegador y no en la nube a propósito: es trabajo en curso
+  de una persona — si se quiere compartir entre computadoras, es pasarlo a Supabase.
 
 ✅ **RESUELTO — bug preexistente encontrado y corregido en esta misma tanda, tras
 fallar en CI.** El PR de Contrataciones tiraba rojo en GitHub Actions con un 404
