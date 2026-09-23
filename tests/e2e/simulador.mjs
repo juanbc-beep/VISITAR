@@ -16,12 +16,23 @@
 // token.
 
 import crypto from 'node:crypto';
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+// La versión vigente de Términos + Privacidad sale de la propia app: si se la
+// cambia, las cuentas sembradas siguen «al día» sin tocar este archivo, y el
+// caso que prueba la re-aceptación (casos/legales.mjs) usa la vieja a propósito.
+export const LEGALES_VERSION = (readFileSync(
+  path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../web/index.html'), 'utf8'
+).match(/const LEGALES_VERSION='([^']+)'/) || [])[1];
+if (!LEGALES_VERSION) throw new Error('simulador: no encontré LEGALES_VERSION en web/index.html');
 
 export const SUPABASE_HOST = 'https://gavfxnoigomxbteagneu.supabase.co';
 
 export function crearDB() {
   return {
-    users: new Map(),         // email -> {id, email, password, nombre}
+    users: new Map(),         // email -> {id, email, password, nombre, meta (user_metadata)}
     tokens: new Map(),        // access_token -> uid
     refresh: new Map(),       // refresh_token -> uid
     perfiles: new Map(),      // id -> fila de public.perfiles
@@ -40,9 +51,11 @@ export function crearDB() {
 
 // Da de alta una cuenta ya aprobada (o no) sin pasar por el flujo de alta —
 // para sembrar el escenario de cada test sin repetir el formulario cada vez.
-export function altaUsuario(db, { nombre, email, password, rol = 'usuario', estado = 'activo', id } = {}) {
+export function altaUsuario(db, { nombre, email, password, rol = 'usuario', estado = 'activo', id, legales = LEGALES_VERSION } = {}) {
   const uid = id || crypto.randomUUID();
-  db.users.set(email, { id: uid, email, password, nombre });
+  const meta = { nombre };
+  if (legales) { meta.legales_version = legales; meta.legales_aceptado_en = new Date().toISOString(); }
+  db.users.set(email, { id: uid, email, password, nombre, meta });
   db.perfiles.set(uid, {
     id: uid, nombre, rol, estado,
     favoritos: [], notas: {}, recientes: [], ub: null,
@@ -136,7 +149,7 @@ export async function instalarSimulador(context, db) {
         const { access_token, refresh_token } = emitirTokens(db, u.id);
         return responder(route, 200, {
           access_token, refresh_token, expires_in: 3600, token_type: 'bearer',
-          user: { id: u.id, email: u.email },
+          user: { id: u.id, email: u.email, user_metadata: { ...(u.meta || {}) } },
         });
       }
       if (grant === 'refresh_token') {
@@ -146,7 +159,7 @@ export async function instalarSimulador(context, db) {
         const { access_token, refresh_token } = emitirTokens(db, uid);
         return responder(route, 200, {
           access_token, refresh_token, expires_in: 3600, token_type: 'bearer',
-          user: { id: uid, email: u ? u.email : '' },
+          user: { id: uid, email: u ? u.email : '', user_metadata: { ...((u && u.meta) || {}) } },
         });
       }
       return responder(route, 400, { error_description: 'grant_type no soportado por el simulador' });
@@ -157,7 +170,8 @@ export async function instalarSimulador(context, db) {
       if (db.users.has(body.email))
         return responder(route, 400, { error_description: 'User already registered' });
       const nombre = (body.data && body.data.nombre) || body.email.split('@')[0];
-      altaUsuario(db, { nombre, email: body.email, password: body.password, rol: 'usuario', estado: 'pendiente' });
+      altaUsuario(db, { nombre, email: body.email, password: body.password, rol: 'usuario', estado: 'pendiente', legales: null });
+      Object.assign(db.users.get(body.email).meta, body.data || {});
       return responder(route, 200, { user: { email: body.email } });
     }
 
@@ -176,7 +190,9 @@ export async function instalarSimulador(context, db) {
       if (!uid) return responder(route, 401, { error_description: 'JWT inválido' });
       const u = [...db.users.values()].find(x => x.id === uid);
       if (u && body.password) u.password = body.password;
-      return responder(route, 200, { id: uid });
+      // Como la API real: «data» se mezcla con user_metadata, no lo reemplaza.
+      if (u && body.data) u.meta = Object.assign(u.meta || {}, body.data);
+      return responder(route, 200, { id: uid, email: u ? u.email : '', user_metadata: { ...((u && u.meta) || {}) } });
     }
 
     if (path === '/auth/v1/logout') {
@@ -200,6 +216,7 @@ export async function instalarSimulador(context, db) {
       const u = [...db.users.values()].find(x => x.id === yo.id);
       return responder(route, 200, {
         id: yo.id, email: u ? u.email : '',
+        user_metadata: { ...((u && u.meta) || {}) },
         factors: db.factores.get(yo.id) || [],
       });
     }

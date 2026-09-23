@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<!-- Página estática: sin scripts ni nada de terceros. Si algún día se agrega
+     algo acá, hay que abrir la CSP a propósito, no por descuido. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; font-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<title>Política de privacidad · Manual VISITAR</title>
+<meta name="description" content="Qué datos personales trata el Manual Inteligente de VISITAR SRL, para qué, con quién se comparten y cómo ejercer tus derechos (Ley 25.326).">
+<link rel="icon" href="icons/icon-32.png" sizes="32x32">
+<link rel="stylesheet" href="legal.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cab">
+  <div class="cab-in">
+    <a class="marca" href="./"><img src="icons/icon-192.png" alt="" width="32" height="32"><span>Manual Inteligente<small>VISITAR SRL</small></span></a>
+    <a class="volver" href="./">← Volver al manual</a>
+  </div>
+  <nav class="nav" aria-label="Documentos legales">
+    <a href="privacy-policy.html" aria-current="page">Privacidad</a>
+    <a href="terms-conditions.html">Términos y condiciones</a>
+    <a href="cookie-policy.html">Cookies y almacenamiento</a>
+  </nav>
+</header>
+
+<main id="contenido">
+<article class="doc">
+  <h1>Política de privacidad</h1>
+  <p class="meta">Versión 1 · Vigente desde el 23 de septiembre de 2026</p>
+
+  <section class="resumen" aria-labelledby="res-t">
+    <h2 id="res-t">En pocas palabras</h2>
+    <ul>
+      <li>Pedimos sólo lo necesario para que tengas tu cuenta: <strong>nombre, correo y contraseña</strong>.</li>
+      <li><strong>No hay publicidad, ni analítica, ni seguimiento</strong>, ni contenido de terceros que te siga.</li>
+      <li>Los datos se guardan en <strong>Supabase</strong> (base de datos y cuentas) y el sitio lo sirve <strong>GitHub Pages</strong>. Los dos son proveedores de Estados Unidos.</li>
+      <li><strong>No cargues datos de pacientes</strong> en la app: no está pensada para eso y no hace falta.</li>
+      <li>Podés pedir ver, corregir o borrar tus datos cuando quieras.</li>
+    </ul>
+  </section>
+
+  <nav class="indice" aria-label="Índice">
+    <p>Contenido</p>
+    <ol>
+      <li><a href="#responsable">Quién es responsable</a></li>
+      <li><a href="#datos">Qué datos tratamos</a></li>
+      <li><a href="#no-datos">Qué datos no tratamos</a></li>
+      <li><a href="#pacientes">Datos de pacientes</a></li>
+      <li><a href="#finalidad">Para qué los usamos</a></li>
+      <li><a href="#base">Por qué podemos tratarlos</a></li>
+      <li><a href="#acceso">Quién los ve</a></li>
+      <li><a href="#proveedores">Proveedores y transferencia internacional</a></li>
+      <li><a href="#conservacion">Cuánto tiempo los guardamos</a></li>
+      <li><a href="#seguridad">Cómo los protegemos</a></li>
+      <li><a href="#derechos">Tus derechos</a></li>
+      <li><a href="#cambios">Cambios a esta política</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="responsable">1. Quién es responsable</h2>
+  <p>El responsable de la base de datos es <strong>VISITAR SRL</strong>, CUIT <span class="completar">CUIT a completar</span>, con domicilio en <span class="completar">domicilio legal a completar</span>.</p>
+  <p>Esta política se aplica al <strong>Manual Inteligente</strong>, la herramienta interna de consulta de códigos y nomencladores del personal de VISITAR SRL, publicada en <code>juanbc-beep.github.io/VISITAR</code>, incluida la versión instalada como aplicación.</p>
+  <p>Para cualquier consulta sobre tus datos escribinos a <span class="completar">correo de contacto de privacidad a completar</span>.</p>
+
+  <h2 id="datos">2. Qué datos tratamos</h2>
+  <div class="tabla">
+    <table>
+      <caption class="vh">Datos personales que trata la app</caption>
+      <thead><tr><th scope="col">Dato</th><th scope="col">De dónde sale</th><th scope="col">Para qué</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Nombre y apellido</strong></td><td>Lo escribís al crear tu cuenta.</td><td>Identificarte en el equipo y firmar lo que publicás.</td></tr>
+        <tr><td><strong>Correo electrónico</strong></td><td>Lo escribís al crear tu cuenta.</td><td>Iniciar sesión y recuperar la contraseña.</td></tr>
+        <tr><td><strong>Contraseña</strong></td><td>La elegís vos.</td><td>Iniciar sesión. Supabase la guarda cifrada con un <em>hash</em>: nadie, ni el administrador, puede leerla.</td></tr>
+        <tr><td><strong>Rol y estado de la cuenta</strong></td><td>Lo asigna el administrador.</td><td>Saber qué podés ver y editar, y si tu cuenta está aprobada.</td></tr>
+        <tr><td><strong>Verificación en dos pasos</strong></td><td>Si la activás (sólo el administrador general).</td><td>Proteger la cuenta con más permisos. Se guarda el factor de verificación, no tu teléfono.</td></tr>
+        <tr><td><strong>Favoritos, notas personales, prácticas vistas hace poco y valor de U.B. elegido</strong></td><td>Lo que usás dentro de la app.</td><td>Que encuentres lo tuyo desde cualquier dispositivo.</td></tr>
+        <tr><td><strong>Lo que publicás o proponés</strong> (correcciones, observaciones, propuestas, pedidos de verificación y sugerencias)</td><td>Lo que escribís en la app.</td><td>Mantener el manual al día, con registro de quién lo hizo.</td></tr>
+        <tr><td><strong>Registro de cambios (auditoría)</strong></td><td>Se genera solo cuando alguien modifica el contenido.</td><td>Saber quién cambió qué y cuándo, y poder volver atrás.</td></tr>
+        <tr><td><strong>Datos técnicos de conexión</strong> (dirección IP, fecha y hora, navegador)</td><td>Los registran nuestros proveedores al atender cada pedido.</td><td>Seguridad y funcionamiento del servicio. La app no los usa para nada más.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Además, tu navegador guarda algunas cosas en tu propio dispositivo para que la app funcione: tu sesión, preferencias y una copia del manual para usarlo sin conexión. Está detallado en la <a href="cookie-policy.html">política de cookies y almacenamiento</a>.</p>
+
+  <h2 id="no-datos">3. Qué datos no tratamos</h2>
+  <ul>
+    <li>No usamos herramientas de analítica, publicidad ni seguimiento, ni píxeles de redes sociales.</li>
+    <li>No cargamos contenido de terceros (videos, mapas, fuentes o scripts externos) que pueda registrar tu visita.</li>
+    <li>No pedimos tu ubicación, ni DNI, ni teléfono, ni datos bancarios. La app no tiene pagos.</li>
+    <li>No vendemos ni cedemos tus datos a nadie.</li>
+    <li>No tomamos decisiones sobre personas en forma automatizada. La app sugiere códigos: la decisión es siempre de quien carga.</li>
+  </ul>
+
+  <h2 id="pacientes">4. Datos de pacientes</h2>
+  <p>El manual sirve para consultar prácticas y códigos. No necesita ni debe recibir <strong>datos de pacientes</strong>: nombre, DNI, número de afiliado, diagnóstico asociado a una persona ni ningún otro dato que la identifique. Los datos de salud son <strong>datos sensibles</strong> (Ley 25.326, art. 2 y 7).</p>
+  <div class="nota"><p><strong>Pegá sólo las prácticas.</strong> El Intérprete de orden médica procesa el texto en tu dispositivo. Cuando elegís un candidato que no era el primero, la app le propone al administrador sumar esa forma de escribir la práctica al buscador. Para eso envía sólo las palabras que el manual reconoce como parte del nombre de una práctica. Si el renglón menciona al paciente (paciente, DNI, afiliado, Sr./Sra., teléfono, edad, historia clínica), no se envía nada.</p></div>
+  <p>Tampoco escribas datos de pacientes en notas, propuestas ni observaciones.</p>
+
+  <h2 id="finalidad">5. Para qué usamos los datos</h2>
+  <ul>
+    <li>Darte acceso a la herramienta y mantener tu cuenta segura.</li>
+    <li>Que el administrador apruebe, cambie de rol o dé de baja cuentas.</li>
+    <li>Guardar tus preferencias y lo que marcás como favorito.</li>
+    <li>Publicar y revisar las mejoras del manual, con registro de autoría.</li>
+    <li>Detectar y corregir errores, y reconstruir un cambio si hace falta.</li>
+  </ul>
+  <p>No usamos los datos para otra finalidad distinta de éstas.</p>
+
+  <h2 id="base">6. Por qué podemos tratarlos</h2>
+  <p>El manual es una herramienta de trabajo. Los datos de tu cuenta son necesarios para la relación laboral o profesional que tenés con VISITAR SRL (Ley 25.326, art. 5, inc. 2, ap. d). Sin nombre, correo y contraseña no se puede crear la cuenta; el resto de los datos se genera al usar la app.</p>
+  <p>Al crear tu cuenta, o la primera vez que entrás después de un cambio de esta política, te pedimos que la aceptes. Esa aceptación incluye tu <strong>consentimiento para la transferencia internacional</strong> que se describe en el punto 8. Guardamos la versión aceptada y la fecha.</p>
+
+  <h2 id="acceso">7. Quién los ve</h2>
+  <ul>
+    <li><strong>El resto del equipo</strong> ve tu nombre, tu rol y el estado de tu cuenta, para saber quién hizo cada cosa. No ve tus notas, favoritos ni recientes.</li>
+    <li><strong>El administrador general</strong> ve las cuentas y el registro de cambios. La base también le permite leer el perfil completo de cada cuenta, incluidas notas, favoritos y recientes, para poder administrarlas.</li>
+    <li><strong>Quien administra técnicamente la base en Supabase</strong> tiene acceso a todos los datos, incluido el correo de cada cuenta, como en cualquier sistema. Sólo accede para mantenerlo.</li>
+  </ul>
+
+  <h2 id="proveedores">8. Proveedores y transferencia internacional</h2>
+  <p>Usamos dos proveedores que tratan datos por cuenta de VISITAR SRL:</p>
+  <div class="tabla">
+    <table>
+      <caption class="vh">Proveedores</caption>
+      <thead><tr><th scope="col">Proveedor</th><th scope="col">Qué hace</th><th scope="col">Dónde</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Supabase, Inc.</strong></td><td>Base de datos, cuentas e inicio de sesión.</td><td>Empresa de EE.&nbsp;UU. Servidores en la región <span class="completar">región del proyecto a completar</span>.</td></tr>
+        <tr><td><strong>GitHub, Inc.</strong> (GitHub Pages)</td><td>Publica los archivos de la app. Registra la dirección IP de quien visita el sitio por motivos de seguridad.</td><td>EE.&nbsp;UU.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Estados Unidos no figura entre los países que la autoridad argentina considera con protección adecuada (Disposición DNPDP 60-E/2016). Por eso esta transferencia se hace con tu consentimiento expreso (Ley 25.326, art. 12).</p>
+
+  <h2 id="conservacion">9. Cuánto tiempo los guardamos</h2>
+  <ul>
+    <li><strong>Datos de la cuenta, favoritos, notas y recientes:</strong> mientras tu cuenta exista. Al darla de baja desde la app se borran tu perfil, favoritos, notas y recientes. Tu correo y tu contraseña cifrada quedan en el sistema de cuentas de Supabase hasta que se los borra desde su panel; si pedís la supresión, se borran también.</li>
+    <li><strong>Lo que publicaste:</strong> queda en el manual porque forma parte del trabajo del equipo. Al borrarse tu cuenta deja de estar vinculado a ella.</li>
+    <li><strong>Registro de cambios:</strong> se conserva con el nombre de quien hizo cada cambio mientras el manual esté en uso, porque es lo que permite reconstruir una norma o una corrección.</li>
+    <li><strong>Datos técnicos de conexión:</strong> según los plazos de cada proveedor.</li>
+  </ul>
+
+  <h2 id="seguridad">10. Cómo los protegemos</h2>
+  <ul>
+    <li>Toda la comunicación viaja cifrada (HTTPS).</li>
+    <li>Las contraseñas se guardan con <em>hash</em>; nadie puede leerlas.</li>
+    <li>La base aplica permisos por rol en cada tabla: cada persona sólo puede leer y escribir lo que su rol permite, aunque intente saltearse la app.</li>
+    <li>Las cuentas nuevas no entran hasta que el administrador las aprueba.</li>
+    <li>La cuenta con más permisos puede protegerse con verificación en dos pasos.</li>
+    <li>La app bloquea el envío de datos a cualquier servidor que no sea el propio o Supabase (política de seguridad de contenido).</li>
+    <li>Cada cambio al contenido queda registrado con su autor.</li>
+  </ul>
+  <p>Si detectamos un incidente que afecte tus datos, te lo vamos a informar.</p>
+
+  <h2 id="derechos">11. Tus derechos</h2>
+  <p>Según la Ley 25.326 podés:</p>
+  <ul>
+    <li><strong>Acceder</strong> a tus datos, en forma gratuita, a intervalos no menores a seis meses (art. 14). Respondemos dentro de los <strong>10 días corridos</strong>.</li>
+    <li><strong>Rectificar, actualizar o suprimir</strong> tus datos (art. 16). Lo hacemos dentro de los <strong>5 días hábiles</strong>.</li>
+    <li><strong>Retirar tu consentimiento</strong> para la transferencia internacional. Como la app funciona sobre esos proveedores, retirarlo implica dar de baja la cuenta.</li>
+  </ul>
+  <p>Tu nombre y tu contraseña los podés cambiar vos desde <strong>Tu cuenta</strong>. Para lo demás escribí a <span class="completar">correo de contacto de privacidad a completar</span> desde el correo de tu cuenta.</p>
+  <div class="leyenda">
+    <p>El titular de los datos personales tiene la facultad de ejercer el derecho de acceso a los mismos en forma gratuita a intervalos no inferiores a seis meses, salvo que se acredite un interés legítimo al efecto conforme lo establecido en el artículo 14, inciso 3 de la Ley N° 25.326.</p>
+    <p>La AGENCIA DE ACCESO A LA INFORMACIÓN PÚBLICA, en su carácter de Órgano de Control de la Ley N° 25.326, tiene la atribución de atender las denuncias y reclamos que interpongan quienes resulten afectados en sus derechos por incumplimiento de las normas vigentes en materia de protección de datos personales.</p>
+  </div>
+
+  <h2 id="cambios">12. Cambios a esta política</h2>
+  <p>Si cambiamos algo importante, actualizamos la versión y la fecha de arriba. La próxima vez que entres te vamos a pedir que la aceptes de nuevo.</p>
+</article>
+</main>
+
+<footer class="pie">
+  <span>© 2026 VISITAR SRL · Diseñado por Juan Pablo Besada</span>
+  <a href="terms-conditions.html">Términos y condiciones</a>
+  <a href="cookie-policy.html">Cookies y almacenamiento</a>
+</footer>
+</body>
+</html>

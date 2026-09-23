@@ -28,11 +28,13 @@
      ejecutar código acá adentro, el navegador no lo deja mandar nada a otro
      servidor, y sin poder sacar los datos el robo no se completa.
      «frame-ancestors» queda afuera porque no funciona en una etiqueta meta:
-     sólo como cabecera HTTP, y GitHub Pages no deja poner cabeceras. Es un
-     riesgo residual conocido, no un olvido. -->
+     sólo como cabecera HTTP, y GitHub Pages no deja poner cabeceras. Lo cubre
+     en parte el primer script de la página (la app no se muestra dentro de un
+     marco ajeno); la cabecera sigue siendo lo ideal si algún día se cambia de
+     alojamiento. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-r8sr/QaC6ZHuoAMvrEFSFlSA4BCauciPGo8FOzMThnI=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-ZCiU/yqgjsE7S/DcKm9ug2rRyq7vDNRgiZcFwcsEoWo=';
+  script-src 'self' 'sha256-MXq2q5t2rrJvd00GMwTNlFpKjlTqi7XRxh3rt8KhP2E=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-b4TFsQKK23bc2qSHzLlTtsGIDbFfCA+P6Pf0goDDR2Y=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -67,6 +69,17 @@
      valor cambia acá hay que tocarlo también. -->
 <link rel="preconnect" href="https://gavfxnoigomxbteagneu.supabase.co" crossorigin>
 <script>
+/* Contra el «clickjacking»: otro sitio que cargue la app dentro de un iframe
+   invisible para hacer que alguien toque el login o un botón sin saberlo. Lo
+   correcto sería la cabecera frame-ancestors, pero GitHub Pages no deja poner
+   cabeceras y en una etiqueta meta no funciona (ver la CSP de arriba). Esto es
+   lo que queda: dentro de un marco ajeno, la app no se muestra y pide abrirse
+   sola. Si el marco bloquea los scripts, no hay app: todo se dibuja con JS. */
+if (window.top !== window.self) {
+  document.documentElement.style.display = 'none';
+  try { window.top.location = window.self.location.href; } catch (e) {}
+}
+
 /* Sello de origen. Lo completa sola la acción de publicación con el commit que
    generó esta versión; en una copia local queda en «local». Sirve para dos
    cosas: saber exactamente qué versión está usando alguien cuando reporta un
@@ -144,7 +157,7 @@ window.NBUUpdate = { estado:'idle', comprobar:function(){}, pintar:function(){} 
   font-display:swap;src:url('fonts/IBMPlexMono-Bold.woff2') format('woff2')}
 :root{
   --bg:#e9eef2; --surface:#ffffff; --surface-2:#f4f7f9; --surface-3:#eef3f6;
-  --ink:#132029; --ink-2:#33454f; --muted:#5d6e79; --faint:#677984;
+  --ink:#132029; --ink-2:#33454f; --muted:#586873; --faint:#5f6f79;
   --line:#dae2e8; --line-2:#84959e;
   --accent:#0d7a86; --accent-ink:#0a5a63; --accent-soft:#d6ecee; --sobre-acento:#ffffff;
   --urg:#a9510b; --urg-soft:#fbe7d3;
@@ -174,7 +187,7 @@ window.NBUUpdate = { estado:'idle', comprobar:function(){}, pintar:function(){} 
 @media (prefers-color-scheme:dark){
   :root{
     --bg:#0c1317; --surface:#141e25; --surface-2:#1a262e; --surface-3:#202e37;
-    --ink:#e7eef2; --ink-2:#c3d0d8; --muted:#93a3ad; --faint:#768792;
+    --ink:#e7eef2; --ink-2:#c3d0d8; --muted:#93a3ad; --faint:#8897a0;
     --line:#26333c; --line-2:#516c79;
     --accent:#2cb6c3; --accent-ink:#8ddbe2; --accent-soft:#123037; --sobre-acento:#08222a;
     --urg:#e08a4a; --urg-soft:#3a2413;
@@ -191,7 +204,7 @@ window.NBUUpdate = { estado:'idle', comprobar:function(){}, pintar:function(){} 
 }
 :root[data-theme="light"]{
   --bg:#e9eef2; --surface:#ffffff; --surface-2:#f4f7f9; --surface-3:#eef3f6;
-  --ink:#132029; --ink-2:#33454f; --muted:#5d6e79; --faint:#677984;
+  --ink:#132029; --ink-2:#33454f; --muted:#586873; --faint:#5f6f79;
   --line:#dae2e8; --line-2:#84959e;
   --accent:#0d7a86; --accent-ink:#0a5a63; --accent-soft:#d6ecee; --sobre-acento:#ffffff;
   --urg:#a9510b; --urg-soft:#fbe7d3; --norma:#1c62b0; --norma-soft:#dde9f8;
@@ -203,7 +216,7 @@ window.NBUUpdate = { estado:'idle', comprobar:function(){}, pintar:function(){} 
 }
 :root[data-theme="dark"]{
   --bg:#0c1317; --surface:#141e25; --surface-2:#1a262e; --surface-3:#202e37;
-  --ink:#e7eef2; --ink-2:#c3d0d8; --muted:#93a3ad; --faint:#768792;
+  --ink:#e7eef2; --ink-2:#c3d0d8; --muted:#93a3ad; --faint:#8897a0;
   --line:#26333c; --line-2:#516c79;
   --accent:#2cb6c3; --accent-ink:#8ddbe2; --accent-soft:#123037; --sobre-acento:#08222a;
   --urg:#e08a4a; --urg-soft:#3a2413; --norma:#6aa8ee; --norma-soft:#132741;
@@ -248,6 +261,7 @@ html,body{margin:0;padding:0}
 }
 @media (max-width:620px){.modeswitch{grid-template-columns:1fr 1fr}}
 @media (max-width:380px){.modeswitch{grid-template-columns:1fr}}
+.consulta-tabs{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .consultarow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;max-width:1500px;margin:2px auto 0;padding:10px 20px 10px;
   border-top:1px solid var(--line)}
 .consulta-head{display:flex;flex-direction:column;gap:2px;margin-right:2px}
@@ -277,8 +291,8 @@ html,body{margin:0;padding:0}
 :root{--odo:#0f766e}@media (prefers-color-scheme:dark){:root{--odo:#2dd4bf}}
 :root[data-theme="light"]{--odo:#0f766e}:root[data-theme="dark"]{--odo:#2dd4bf}
 .b-odo{background:color-mix(in srgb,var(--odo) 16%,transparent);color:var(--odo)}
-:root{--unico:#9333ea}@media (prefers-color-scheme:dark){:root{--unico:#c084fc}}
-:root[data-theme="light"]{--unico:#9333ea}:root[data-theme="dark"]{--unico:#c084fc}
+:root{--unico:#8a30dc}@media (prefers-color-scheme:dark){:root{--unico:#c084fc}}
+:root[data-theme="light"]{--unico:#8a30dc}:root[data-theme="dark"]{--unico:#c084fc}
 .b-unico{background:color-mix(in srgb,var(--unico) 16%,transparent);color:var(--unico)}
 :root{--cie:#b45309}@media (prefers-color-scheme:dark){:root{--cie:#fbbf24}}
 :root[data-theme="light"]{--cie:#b45309}:root[data-theme="dark"]{--cie:#fbbf24}
@@ -412,8 +426,8 @@ html,body{margin:0;padding:0}
 /* ---------- revisión médica ----------
    El token va con los tres estados como el resto: claro por defecto, y
    redefinido para «oscuro del sistema» y para «oscuro elegido a mano». */
-:root{--med:#2e7d5b}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--med:#6ee7a8}}
-:root[data-theme="light"]{--med:#2e7d5b}:root[data-theme="dark"]{--med:#6ee7a8}
+:root{--med:#2a7253}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--med:#6ee7a8}}
+:root[data-theme="light"]{--med:#2a7253}:root[data-theme="dark"]{--med:#6ee7a8}
 /* Verde clínico, distinto del ámbar de las propuestas y del azul de la
    verificación: son tres cosas que dicen cosas distintas y si se parecen, la
    persona deja de leer cuál es cuál. */
@@ -491,7 +505,7 @@ html,body{margin:0;padding:0}
 .revmed .rm-b.ok:hover{background:color-mix(in srgb,var(--med) 16%,transparent);
   border-color:var(--med);color:var(--med)}
 /* «Qué abarca este código», ahora corregible. */
-.ab-pie{margin-top:7px;font-size:12px;color:var(--faint);font-style:italic;line-height:1.5}
+.ab-pie{margin-top:7px;font-size:12px;color:var(--muted);font-style:italic;line-height:1.5}
 .ab-pie b{font-style:normal;color:var(--ink-2)}
 .ab-orig{color:var(--muted)}
 .ab-acc{display:flex;gap:7px;margin-top:9px;flex-wrap:wrap}
@@ -543,6 +557,10 @@ html,body{margin:0;padding:0}
 .autoria .au-t{font-size:13px;color:var(--muted)}
 .autoria .au-n{font-size:13px;font-weight:800;color:var(--ink-2);letter-spacing:.2px}
 .autoria .au-p{font-size:12px;color:var(--muted);flex-basis:100%}
+.autoria .au-legales{flex-basis:100%;display:flex;justify-content:center;flex-wrap:wrap;gap:4px 16px;font-size:12.5px}
+.autoria .au-legales a{color:var(--muted);text-decoration:underline;text-underline-offset:2px}
+.autoria .au-legales a:hover{color:var(--accent-ink)}
+@media print{.autoria .au-legales{display:none}}
 .gcard .au-gate{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);
   font-size:12px;color:var(--faint);text-align:center;line-height:1.5}
 .gcard .au-gate b{color:var(--muted);font-weight:800}
@@ -591,8 +609,8 @@ html,body{margin:0;padding:0}
 @media (max-width:560px){.rgrid{grid-template-columns:1fr 1fr}.rcard .rn{white-space:normal}}
 :root{--sangre:#be123c}@media (prefers-color-scheme:dark){:root{--sangre:#fb7185}}
 :root[data-theme="light"]{--sangre:#be123c}:root[data-theme="dark"]{--sangre:#fb7185}
-:root{--orina:#a16207}@media (prefers-color-scheme:dark){:root{--orina:#fcd34d}}
-:root[data-theme="light"]{--orina:#a16207}:root[data-theme="dark"]{--orina:#fcd34d}
+:root{--orina:#915806}@media (prefers-color-scheme:dark){:root{--orina:#fcd34d}}
+:root[data-theme="light"]{--orina:#915806}:root[data-theme="dark"]{--orina:#fcd34d}
 /* Cada tipo de muestra lleva su color: en el mostrador, confundir la muestra es cargar
    mal la práctica, y eso vale igual para semen o materia fecal que para sangre u orina. */
 :root{--semen:#0e7490;--lcr:#4338ca;--fecal:#7c4a1e;--pelo:#57534e;--saliva:#65a30d}
@@ -764,6 +782,11 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
   font-size:11px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);
   margin:0;padding:13px 15px 9px;font-weight:700}
 .panel>summary::-webkit-details-marker{display:none}
+/* El «?» va al lado del título, no adentro del <summary>: un botón dentro de otro
+   control no se puede usar con teclado ni lo anuncia bien un lector de pantalla. */
+.panel-ayuda{position:relative}
+.panel-ayuda>.mayuda{position:absolute;top:8px;right:12px;margin:0}
+.panel-ayuda>.panel>summary{padding-right:48px}
 .panel>summary::before{content:'▸';font-size:11px;color:var(--accent);transition:transform .16s;flex-shrink:0}
 .panel[open]>summary::before{transform:rotate(90deg)}
 /* Mientras se cierra con altura animada, .panel sigue con [open] puesto
@@ -1035,7 +1058,7 @@ aside{position:sticky;top:128px;display:flex;flex-direction:column;gap:16px;max-
 .valcard .big{font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-size:30px;font-weight:800;color:var(--ink);line-height:1}
 .valcard .lbl{font-size:13px;color:var(--muted)}
 .valcard .arancel{flex-basis:100%;font-size:13px;color:var(--muted);border-top:1px dashed var(--line-2);padding-top:10px;margin-top:2px}
-.val2024{margin-top:8px;font-size:13px;background:var(--new-soft);color:var(--new);border:1px solid color-mix(in srgb,var(--new) 30%,transparent);padding:8px 12px;border-radius:8px;flex-basis:100%}
+.val2024{margin-top:8px;font-size:13px;background:var(--new-soft);color:var(--accent-ink);border:1px solid color-mix(in srgb,var(--new) 30%,transparent);padding:8px 12px;border-radius:8px;flex-basis:100%}
 .val2024 b{font-family:var(--font-mono)}
 .kv{font-size:14px;color:var(--ink-2)}
 .chipset{display:flex;gap:7px;flex-wrap:wrap}
@@ -1465,6 +1488,7 @@ header.compact .logo{height:32px;min-width:32px}
   .consultarow{border-top:none;padding-top:0;padding-bottom:10px;gap:6px;flex-wrap:nowrap;
     overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
   .consultarow::-webkit-scrollbar{display:none}
+  .consulta-tabs{flex:0 0 auto;flex-wrap:nowrap;gap:6px}
   /* el rótulo "Consulta rápida" se comía una fila entera en una pantalla donde
      apenas entraban tres resultados */
   .consultarow .consulta-head{display:none}
@@ -1543,8 +1567,8 @@ body:has(#modal.on,#adminModal.on,#tratoModal.on,#contrModal.on) #pista{display:
 #pista .pi-x:hover{color:var(--ink)}
 /* Acceso permanente a la explicación de una función puntual (mostrarAyuda),
    a diferencia de la pista automática que se ve una sola vez. */
-.mayuda{width:18px;height:18px;border-radius:50%;border:1px solid var(--line-2);background:var(--surface-2);
-  color:var(--muted);font:700 11px/1 var(--font-ui);cursor:pointer;flex-shrink:0;display:inline-grid;place-items:center;
+.mayuda{width:24px;height:24px;border-radius:50%;border:1px solid var(--line-2);background:var(--surface-2);
+  color:var(--muted);font:700 12px/1 var(--font-ui);cursor:pointer;flex-shrink:0;display:inline-grid;place-items:center;
   padding:0;margin-left:5px;vertical-align:middle;text-transform:none;transition:border-color .13s,color .13s}
 .mayuda:hover{border-color:var(--accent);color:var(--accent-ink)}
 #tourTip.centro{top:50%!important;left:50%!important;transform:translate(-50%,-50%);width:min(430px,calc(100vw - 28px))}
@@ -1626,6 +1650,19 @@ body:has(#modal.on,#adminModal.on,#tratoModal.on,#contrModal.on) #pista{display:
   background:var(--surface-2);color:var(--ink);font:inherit;font-size:14px;line-height:1.35;
   -webkit-appearance:none;appearance:none;transition:border-color .13s,box-shadow .13s}
 .gcard input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);background:var(--surface)}
+/* La regla de arriba le saca la apariencia nativa a todos los campos: a una
+   casilla eso le borraba la tilde, y marcada o no se veía igual. */
+.gcard input[type=checkbox]{-webkit-appearance:checkbox;appearance:auto;width:18px;height:18px;padding:0;margin:1px 0 0;flex-shrink:0;accent-color:var(--accent);cursor:pointer}
+.gcard input[type=checkbox]:focus-visible{outline:3px solid var(--accent-soft);outline-offset:1px;box-shadow:none}
+.gcard label.gacepto{display:flex;align-items:flex-start;gap:10px;margin:16px 0 4px;font-family:inherit;font-size:13px;line-height:1.45;
+  text-transform:none;letter-spacing:0;font-weight:500;color:var(--ink-2);cursor:pointer}
+.gcard label.gacepto a{color:var(--accent-ink);font-weight:700}
+.gresumen{margin:0 0 4px;padding:12px 14px 12px 30px;border-radius:var(--radius-sm);background:var(--surface-2);border:1px solid var(--line);
+  font-size:13px;line-height:1.5;color:var(--ink-2)}
+.gresumen li{margin:3px 0}
+.glegales{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 14px;margin-top:10px;font-size:12px}
+.glegales a{color:var(--muted);text-decoration:underline;text-underline-offset:2px}
+.glegales a:hover{color:var(--accent-ink)}
 .gcard input::placeholder{color:var(--faint)}
 /* Por debajo de 16px iOS hace zoom al enfocar y descuadra la pantalla entera. */
 @media (max-width:620px){.gcard input{font-size:16px;padding:12px}}
@@ -1763,6 +1800,11 @@ body:has(#modal.on,#adminModal.on,#tratoModal.on,#contrModal.on) #pista{display:
 .contr-archivo{display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius-sm);font-size:13px;color:var(--muted)}
 .contr-archivo b{color:var(--ink)}
 .contr-archivo>span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.contr-retomado{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:8px;padding:8px 12px;border-radius:var(--radius-sm);
+  background:var(--norma-soft);color:var(--norma);font-size:12.5px;font-weight:600}
+.contr-retomado span{flex:1;min-width:0}
+.contr-retomado .contr-link{color:var(--norma)}
+.contr-guardado{margin-top:6px;font-size:11.5px;color:var(--faint)}
 .contr-cfg{margin-top:10px;border:1px solid var(--line);border-radius:var(--radius-sm);padding:0 12px}
 .contr-cfg>summary{cursor:pointer;padding:10px 0;font-size:13px;font-weight:700;color:var(--ink);list-style:none;user-select:none}
 .contr-cfg>summary::-webkit-details-marker{display:none}
@@ -1806,6 +1848,7 @@ body:has(#modal.on,#adminModal.on,#tratoModal.on,#contrModal.on) #pista{display:
 .contr-cod:hover,.contr-st-warn .contr-cod,.contr-st-err .contr-cod{border-color:var(--line-2);background:var(--surface-2)}
 .contr-st-err .contr-cod:placeholder-shown{border-style:dashed;border-color:var(--exc)}
 .contr-tbl tbody tr:hover td{background:color-mix(in srgb,var(--accent) 4%,transparent)}
+.contr-cod::placeholder{font-family:var(--font-ui);font-weight:500;font-size:12px;color:var(--faint)}
 .contr-cod:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
 .contr-codtxt{font-weight:700;white-space:nowrap}
 .contr-flecha{color:var(--faint);margin:0 5px;font-family:inherit}
@@ -1824,6 +1867,35 @@ body:has(#modal.on,#adminModal.on,#tratoModal.on,#contrModal.on) #pista{display:
 .contr-pill.err{background:var(--exc-soft);color:var(--exc)}
 .contr-pill.mute{background:var(--desuso-soft);color:var(--desuso)}
 .contr-nota{font-size:11.5px;color:var(--muted);margin-top:5px;line-height:1.45;max-width:280px}
+.contr-chip.info,.contr-pill.info{background:var(--norma-soft);color:var(--norma)}
+.contr-tbl tr.contr-st-info td:first-child{box-shadow:inset 3px 0 0 var(--norma)}
+.contr-codbox{display:flex;align-items:center;gap:4px}
+.contr-lupa{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;flex:0 0 28px;border:1px solid var(--line-2);border-radius:6px;
+  background:var(--surface);color:var(--muted);cursor:pointer;transition:border-color .14s,color .14s,background .14s}
+.contr-lupa:hover,.contr-lupa.on{border-color:var(--accent);color:var(--accent-ink);background:var(--accent-soft)}
+.contr-area-sel{appearance:none;-webkit-appearance:none;width:auto!important;min-width:34px;padding:3px 8px!important;border-radius:6px!important;text-align:center;
+  border:1px solid transparent!important;background:var(--accent-soft)!important;color:var(--accent-ink)!important;font-weight:800!important;font-size:12px!important;cursor:pointer}
+.contr-area-sel:hover,.contr-area-sel:focus{border-color:var(--accent)!important}
+.contr-area-sel.editada{background:var(--urg-soft)!important;color:var(--urg)!important}
+.contr-acc{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-top:6px}
+.contr-act{border:1px solid currentColor;background:var(--surface);border-radius:6px;padding:3px 9px;font:inherit;font-size:11.5px;font-weight:700;cursor:pointer;color:var(--accent-ink);transition:background .14s}
+.contr-act:hover{background:var(--accent-soft)}
+.contr-st-err .contr-act{color:var(--norma)}
+.contr-st-err .contr-act:hover{background:var(--norma-soft)}
+.contr-st-warn .contr-act{color:var(--urg)}
+.contr-st-warn .contr-act:hover{background:var(--urg-soft)}
+.contr-busca-tr td{background:var(--surface-2)!important;padding:10px 12px 12px!important}
+.contr-busca{border:1px solid var(--accent);border-radius:var(--radius-sm);background:var(--surface);box-shadow:0 0 0 3px var(--accent-soft);overflow:hidden}
+.contr-busca-h{display:flex;align-items:center;gap:8px;padding:6px 8px 6px 12px;border-bottom:1px solid var(--line);color:var(--muted)}
+.contr-busca-h input{flex:1;min-width:0;border:none!important;background:none!important;box-shadow:none!important;padding:6px 2px!important;font:inherit;font-size:14px;color:var(--ink);outline:none}
+.contr-busca-res{max-height:260px;overflow:auto;padding:4px}
+.contr-res{display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;border:none;background:none;border-radius:6px;padding:7px 9px;font:inherit;color:var(--ink);cursor:pointer}
+.contr-res:hover,.contr-res:focus-visible{background:var(--accent-soft);outline:none}
+.contr-res:first-child{box-shadow:inset 0 0 0 1px var(--line-2)}
+.contr-res-c{flex:0 0 76px;font-weight:700;color:var(--accent-ink);font-size:12.5px;padding-top:1px}
+.contr-res-n{font-size:13px;line-height:1.35}
+.contr-res-n small{display:block;font-size:11px;color:var(--faint);margin-top:1px}
+.contr-busca-vacio{padding:14px;text-align:center;color:var(--muted);font-size:12.5px}
 .contr-link{border:none;background:none;padding:0;font:inherit;font-weight:700;color:var(--accent-ink);cursor:pointer;text-decoration:underline;text-underline-offset:2px}
 .contr-link:hover{color:var(--accent)}
 .contr-export{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
@@ -1848,7 +1920,7 @@ body:has(#modal.on,#adminModal.on,#tratoModal.on,#contrModal.on) #pista{display:
    propia etiqueta corta arriba, sin el margen grande de .adminbox label. */
 .cfg-grupo{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
 .cfg-grupo>div{flex:1;min-width:100px}
-.cfg-grupo small{display:block;color:var(--faint);margin-bottom:4px;font-size:11.5px}
+.cfg-grupo small,.adminbox .cfg-grupo .cfg-lbl{display:block;color:var(--faint);margin:0 0 4px;font-size:11.5px;font-family:inherit;text-transform:none;letter-spacing:0;font-weight:400}
 .ahint{font-size:12px;color:var(--muted);line-height:1.5;margin:6px 0}
 .rolgrupo{font-family:var(--font-condensed);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);
   margin:16px 0 7px;padding-top:12px;border-top:1px solid var(--line)}
@@ -1959,11 +2031,12 @@ try{if(sessionStorage.getItem('nbu-actualizando')){
       <span><b>Único</b><small>VISITAR · equivalencias</small></span></button>
   </div>
   <div class="modesel"><select id="modeSel" aria-label="Nomenclador"></select></div>
-  <div class="consultarow" role="tablist" aria-label="Consulta rápida">
+  <div class="consultarow" role="group" aria-label="Consulta rápida">
     <div class="consulta-head">
       <span class="consultalbl">Consulta rápida <button type="button" class="mayuda" id="ayudaConsulta" aria-label="Qué es Consulta rápida">?</button></span>
       <span class="consulta-sub">Interpretar y autorizar la orden</span>
     </div>
+    <div class="consulta-tabs" role="tablist" aria-label="Consulta rápida">
     <button class="cbtn" data-mode="CIE" role="tab" aria-label="Diagnósticos CIE-10">
       <span class="cbicon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M9 2h6a1 1 0 0 1 1 1v2h2a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2V3a1 1 0 0 1 1-1zM10 13h4M12 11v4"/></svg></span>
       <span class="cbtxt"><b>Diagnósticos</b><small>CIE-10</small></span></button>
@@ -1973,6 +2046,7 @@ try{if(sessionStorage.getItem('nbu-actualizando')){
     <button class="cbtn cbtn-surge" data-mode="SURGE" role="tab" aria-label="SURGE — reintegros por gestión de enfermedades">
       <span class="cbicon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A3.5 3.5 0 0 0 15.5 5 3.5 3.5 0 0 0 12 8 3.5 3.5 0 0 0 8.5 5 3.5 3.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/></svg></span>
       <span class="cbtxt"><b>SURGE</b><small>Reintegros / patologías</small></span></button>
+    </div>
   </div>
   <div class="stats" id="stats"></div>
 </header>
@@ -1994,10 +2068,13 @@ try{if(sessionStorage.getItem('nbu-actualizando')){
       <summary id="grupoTitle">Grupo · especialidad</summary>
       <div class="fgroup" id="fGrupo"></div>
     </details>
-    <details class="panel" id="flagsPanel" open>
-      <summary>Reglas y estados<button type="button" class="mayuda" id="ayudaFlags" aria-label="Qué son estos filtros" style="margin-left:auto">?</button></summary>
-      <div class="fgroup" id="fFlags"></div>
-    </details>
+    <div class="panel-ayuda">
+      <details class="panel" id="flagsPanel" open>
+        <summary>Reglas y estados</summary>
+        <div class="fgroup" id="fFlags"></div>
+      </details>
+      <button type="button" class="mayuda" id="ayudaFlags" aria-label="Qué son estos filtros">?</button>
+    </div>
     <button class="clearf" id="clearFilters">Limpiar filtros</button>
   </aside>
 
@@ -2054,6 +2131,11 @@ try{if(sessionStorage.getItem('nbu-actualizando')){
   <span class="au-t">Diseñado por</span>
   <span class="au-n">Juan Pablo Besada</span>
   <span class="au-p">Manual Inteligente · VISITAR SRL</span>
+  <nav class="au-legales" aria-label="Documentos legales">
+    <a href="privacy-policy.html" target="_blank" rel="noopener">Privacidad</a>
+    <a href="terms-conditions.html" target="_blank" rel="noopener">Términos y condiciones</a>
+    <a href="cookie-policy.html" target="_blank" rel="noopener">Cookies</a>
+  </nav>
 </footer>
 
 <div class="scrim" id="scrim"></div>
@@ -2777,7 +2859,7 @@ function activarFlechasTabs(cont){
     e.preventDefault(); ts[j].focus(); ts[j].click(); marcar(ts[j]);
   });
 }
-[el('modeSwitch'),document.querySelector('.consultarow'),document.querySelector('.viewtabs')].forEach(activarFlechasTabs);
+[el('modeSwitch'),document.querySelector('.consulta-tabs'),document.querySelector('.viewtabs')].forEach(activarFlechasTabs);
 
 /* El navegador no anima el open/close nativo de <details>: el contenido
    aparece o desaparece de un fotograma a otro. Se intercepta el click de
@@ -3853,7 +3935,7 @@ function initInterprete(){
         <button type="button" class="mayuda" id="ayudaInterprete" aria-label="Qué hace el intérprete de orden">?</button></label>
       <textarea id="intTexto" spellcheck="false" placeholder="Pegá la orden tal como la escribió el médico, una práctica por renglón (o separadas por coma, «;» o «+»).  Ej:&#10;Hemograma completo&#10;Glucemia&#10;Rx tórax F y P"></textarea>
       <div class="vrow"><button class="vbtn" id="intGo">Interpretar</button></div>
-      <div class="vhint">Busca en <b>todos los nomencladores</b> con el mismo buscador tolerante a erratas del resto de la app. Es una ayuda para no perder tiempo tipeando: <b>confirmá cada código antes de cargarlo</b>, no reemplaza leer la orden.</div>
+      <div class="vhint">Busca en <b>todos los nomencladores</b> con el mismo buscador tolerante a erratas del resto de la app. Es una ayuda para no perder tiempo tipeando: <b>confirmá cada código antes de cargarlo</b>, no reemplaza leer la orden. <b>Pegá sólo las prácticas: no hace falta el nombre, el DNI ni el número de afiliado del paciente.</b></div>
     </div>
     <div id="intItems"></div>
     <div class="int-resumen" id="intResumen" hidden></div>`;
@@ -3895,11 +3977,41 @@ function initInterprete(){
     // corresponde mandarlo como sugerencia de «pedida como».
     const N=window.NBUNube;
     if(!yaElegido&&b.dataset.intRank!=='0'&&!b.dataset.intCompanion&&N&&N.activa&&N.perfil()){
-      N.sugerirPedidaComo(k,b.dataset.intItem).catch(()=>{});
+      const txt=textoSugerible(b.dataset.intItem);
+      if(txt)N.sugerirPedidaComo(k,txt).catch(()=>{});
     }
     renderIntResumen();
   });
 }
+/* Minimización de datos (Ley 25.326, art. 4): el renglón de una orden pegada
+   puede traer datos del paciente —nombre, DNI, número de afiliado, teléfono—, y
+   eso es un dato de salud. Para la sugerencia de «pedida como» sólo hace falta
+   cómo se escribió la práctica, así que sólo viajan las palabras que el manual
+   ya conoce (nombres de prácticas, sinónimos, abreviaturas) y las abreviaturas
+   de una o dos letras («F y P»). Un número suelto o una palabra que no es del
+   vocabulario médico no sale del dispositivo. Si no queda nada que describa la
+   práctica, no se manda nada. */
+let VOCAB_MED=null;
+function vocabMedico(){
+  if(VOCAB_MED)return VOCAB_MED;
+  const v=new Set();
+  for(const c of CODES)for(const t of (c._tk||tokens(c._h||c.nombre||'')))v.add(t);
+  for(const g of ABREV_UNIQ)for(const t of tokens(g._h||g.abrev||''))v.add(t);
+  return VOCAB_MED=v;
+}
+// Un renglón que nombra al paciente (o a su documento, afiliación, teléfono o
+// edad) no se manda: aunque el resto se filtre, es justo el renglón donde más
+// probable es que quede algo que lo identifique.
+const MARCA_IDENTIDAD=/\b(pacientes?|pte|sra?|srta|dni|d\.n\.i|documento|afiliad[oa]s?|n[°º]\s*afil|credencial|tel|telefono|cel|celular|edad|anos|nacimiento|domicilio|hc|historia clinica)\b/;
+function textoSugerible(txt){
+  if(MARCA_IDENTIDAD.test(norm(String(txt||'')).replace(/[.:,;()]/g,' ')))return '';
+  const voc=vocabMedico();
+  const ok=w=>{const ps=tokens(w);return ps.length>0&&ps.every(t=>/[a-z]/.test(t)&&(t.length<=2||voc.has(t)));};
+  const quedan=String(txt||'').split(/\s+/).filter(ok);
+  if(!quedan.some(w=>tokens(w).some(t=>t.length>2)))return '';
+  return quedan.join(' ').slice(0,80).trim();
+}
+window.NBUPrivacidad={textoSugerible};
 /* Busca los candidatos de un ítem, y si la búsqueda con todos los términos
    no encuentra nada, reintenta sin los sueltos de 1-2 letras. buscar()
    exige que TODOS los términos coincidan (ver puntuar()): un renglón como
@@ -6242,9 +6354,12 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       headers:()=>hdrAuth(),
       correo:()=>ses&&ses.user&&ses.user.email||'',
 
-      async registrar(nombre,correo,pass){
+      // La aceptación de términos y privacidad queda en los metadatos de la
+      // cuenta (auth.users.raw_user_meta_data): versión y fecha, sin tocar el
+      // esquema de la base.
+      async registrar(nombre,correo,pass,legales){
         const r=await fetch(`${URL_}/auth/v1/signup`,{method:'POST',headers:hdrBase(),
-          body:JSON.stringify({email:correo,password:pass,data:{nombre:nombre}})});
+          body:JSON.stringify({email:correo,password:pass,data:{nombre:nombre,legales_version:legales,legales_aceptado_en:new Date().toISOString()}})});
         await leer(r);
         // No se inicia sesión: la cuenta nace pendiente y no entra hasta que la aprueben.
       },
@@ -6279,6 +6394,19 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
           headers:Object.assign(hdrBase(),{'Authorization':'Bearer '+t}),
           body:JSON.stringify({password:nueva})});
         return await leer(r);
+      },
+      legalesAceptados:()=>(ses&&ses.user&&ses.user.user_metadata&&ses.user.user_metadata.legales_version)||'',
+      // La sesión guardada en este dispositivo puede ser de antes de aceptar en
+      // otro: antes de pedir la aceptación se pregunta a la nube.
+      async refrescarUsuario(){
+        const u=await api('/auth/v1/user',{method:'GET'});
+        if(ses&&u&&u.user_metadata){ses.user=Object.assign({},ses.user,{user_metadata:u.user_metadata});guardarSes(ses);}
+      },
+      async aceptarLegales(version){
+        const r=await fetch(`${URL_}/auth/v1/user`,{method:'PUT',headers:hdrAuth(),
+          body:JSON.stringify({data:{legales_version:version,legales_aceptado_en:new Date().toISOString()}})});
+        const u=await leer(r);
+        if(ses){ses.user=Object.assign({},ses.user,{user_metadata:Object.assign({},(ses.user&&ses.user.user_metadata)||{},(u&&u.user_metadata)||{legales_version:version})});guardarSes(ses);}
       },
       async salir(){
         try{if(ses)await fetch(`${URL_}/auth/v1/logout`,{method:'POST',headers:hdrAuth()});}catch(e){}
@@ -6599,7 +6727,12 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
 
 
   /* ---- registro de auditoría de ediciones ---- */
-  function logEdit(action,code){CONTENT.log=CONTENT.log||[];CONTENT.log.unshift({t:Date.now(),who:current?current.name:'',action,code:code||''});if(CONTENT.log.length>200)CONTENT.log.length=200;}
+  /* Qué fichas se editaron y cuándo (un reloj propio, no la hora): lo usa
+     cargarContenidoNube() para no pisar con datos leídos ANTES una edición
+     hecha mientras la lectura estaba en vuelo. Toda edición de ficha pasa por
+     logEdit(), por eso se anota acá y no en cada lugar que edita. */
+  let relojEdicion=0; const editadoEn={};
+  function logEdit(action,code){if(code)editadoEn[code]=++relojEdicion;CONTENT.log=CONTENT.log||[];CONTENT.log.unshift({t:Date.now(),who:current?current.name:'',action,code:code||''});if(CONTENT.log.length>200)CONTENT.log.length=200;}
 
   function persistAuth(){AUTH.updated=Date.now();save(KEY.auth,AUTH);actualizarPendientes();}
   function persistContent(){CONTENT.updated=Date.now();save(KEY.content,CONTENT);actualizarPendientes();}
@@ -6620,6 +6753,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   async function cargarContenidoNube(){
     if(!(NUBE.activa&&current&&current._nube))return false;
     const antesFicha=currentCode?huella(currentCode):'';
+    const desde=relojEdicion;
     const [perfiles,corr,ver,props,aj,obs]=await Promise.all([
       NUBE.equipo().catch(()=>[]),          // sólo para poner nombres a los uuid
       NUBE.correcciones(), NUBE.verificaciones(), NUBE.propuestas(), NUBE.ajustes(),
@@ -6715,6 +6849,11 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         .sort((a,b)=>b.t-a.t);
     obsNuevas=CONTENT.novedades.length;
 
+    // Lo que se editó acá mientras la lectura estaba en vuelo es más nuevo que lo
+    // leído (ya se mandó a la nube por su cuenta): manda lo local. Sin esto, un
+    // anexo hecho en el primer segundo después de entrar desaparecía de la
+    // pantalla, y la edición siguiente lo borraba también de la nube.
+    for(const k in editadoEn)if(editadoEn[k]>desde){if(CONTENT.codes[k])codes[k]=CONTENT.codes[k];else delete codes[k];}
     CONTENT.codes=codes; CONTENT.verif=verif; CONTENT.propuestas=propuestas;
     // Los conteos salen de lo mismo que se acaba de leer, así el número del
     // aviso y las listas del panel no pueden contradecirse.
@@ -6748,8 +6887,15 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
        Sólo cuando de verdad cambió algo de ESA ficha: redibujar por redibujar le
        mueve la pantalla a alguien que está leyendo. */
     if(currentCode&&el('drawer').classList.contains('on')&&
-       (primeraNube||huella(currentCode)!==antesFicha))
+       (primeraNube||huella(currentCode)!==antesFicha)){
+      // Lo que se estaba escribiendo en la ficha (p. ej. «+ Anexar código») no se
+      // pierde con el redibujo, ni el lugar donde estaba el cursor.
+      const dr=el('drawer'),foco=dr.contains(document.activeElement)?document.activeElement.id:'';
+      const escrito=[...dr.querySelectorAll('input[id],textarea[id]')].filter(x=>x.value).map(x=>[x.id,x.value]);
       openCode(currentCode);
+      escrito.forEach(([id,v])=>{const x=el(id);if(x&&!x.value)x.value=v;});
+      if(foco&&el(foco))el(foco).focus();
+    }
     primeraNube=false;
     return true;
   }
@@ -7046,6 +7192,12 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   /* «opts» trae lo que cambia el teclado del celular y habilita el gestor de
      contraseñas: sin autocomplete el navegador no ofrece guardar ni completar, y
      sin autocapitalize el teclado arranca en mayúscula justo sobre el correo. */
+  // Versión de Términos + Privacidad. Cambiarla (con la fecha del documento
+  // nuevo) hace que a cada cuenta se le vuelva a pedir la aceptación al entrar.
+  const LEGALES_VERSION='2026-09-23';
+  const LEGALES_LINKS=`<a href="terms-conditions.html" target="_blank" rel="noopener">Términos y condiciones</a> y la <a href="privacy-policy.html" target="_blank" rel="noopener">Política de privacidad</a>`;
+  const aceptoHTML=id=>`<label class="gacepto" for="${id}"><input type="checkbox" id="${id}">
+      <span>Leí y acepto los ${LEGALES_LINKS}, incluida la transferencia de mis datos a proveedores de Estados Unidos (Supabase y GitHub).</span></label>`;
   function field(id,label,type,opts){
     const o=opts||{}, t=type||'text';
     const attrs=[`autocomplete="${o.ac||'off'}"`];
@@ -7170,6 +7322,22 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         <button class="gbtn" id="mfaGo">Verificar</button>
         <button class="gback" id="mfaBack">← Volver</button>
       </div>`;
+    } else if(v==='nubeLegales'){
+      html=`<div class="gcard">
+        <div class="glogo brand hasimg">${logoInner('gate')}</div>
+        <h2>Antes de seguir</h2>
+        <div class="gsub">Publicamos los términos de uso y la política de privacidad del manual. Leelos y aceptalos para continuar.</div>
+        <ul class="gresumen">
+          <li>Guardamos sólo tu nombre, tu correo, tu contraseña y lo que hacés en la app.</li>
+          <li>Sin publicidad, analítica ni cookies.</li>
+          <li>Los datos se alojan en Supabase y GitHub, en Estados Unidos.</li>
+          <li><b>No cargues datos de pacientes.</b></li>
+        </ul>
+        ${aceptoHTML('lgAcepto')}
+        <div class="gerr" id="gErr"></div>
+        <button class="gbtn" id="lgGo">Aceptar y entrar</button>
+        <button class="gback" id="lgSalir">Cerrar sesión</button>
+      </div>`;
     } else if(v==='nubeOlvide'){
       html=`<div class="gcard">
         <div class="glogo brand hasimg">${logoInner('gate')}</div>
@@ -7203,6 +7371,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         ${field('naMail','Correo','email',{ac:'username',im:'email'})}
         ${field('naPass',`Contraseña (mínimo ${PASS_MIN})`,'password',{ac:'new-password'})}
         ${field('naPass2','Repetir contraseña','password',{ac:'new-password'})}
+        ${aceptoHTML('naAcepto')}
         <div class="gerr" id="gErr"></div>
         <button class="gbtn" id="naGo">Crear mi cuenta</button>
         <button class="gback" id="naBack">← Volver</button>
@@ -7222,6 +7391,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         ${field('npName','Nombre')}
         ${field('npPass','Contraseña','password')}
         ${field('npPass2','Repetir contraseña','password')}
+        ${aceptoHTML('npAcepto')}
         <div class="gerr" id="gErr"></div>
         <button class="gbtn" id="npGo">Crear mi cuenta</button>
         <button class="gback" id="npBack">← Volver</button>
@@ -7232,6 +7402,9 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     const card=gate.querySelector('.gcard');
     if(card){const au=document.createElement('div');au.className='au-gate';
       au.innerHTML='Diseñado por <b>Juan Pablo Besada</b>';card.appendChild(au);
+      const lg=document.createElement('nav');lg.className='glegales';lg.setAttribute('aria-label','Documentos legales');
+      lg.innerHTML='<a href="privacy-policy.html" target="_blank" rel="noopener">Privacidad</a><a href="terms-conditions.html" target="_blank" rel="noopener">Términos</a><a href="cookie-policy.html" target="_blank" rel="noopener">Cookies</a>';
+      card.appendChild(lg);
       // Antes había que cerrar la pestaña del todo para saber si había una
       // versión nueva. Este botón lo pregunta al toque, sin esperar a que
       // alguien se dé cuenta del cartel de abajo o cierre y reabra.
@@ -7248,7 +7421,12 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     const eb=el('gErr'); if(eb){eb.setAttribute('role','alert');eb.setAttribute('aria-live','assertive');}
     // En el celular, enfocar solo levanta el teclado y tapa la tarjeta apenas se abre.
     const first=gate.querySelector('input');
-    if(first&&matchMedia('(pointer:fine)').matches)setTimeout(()=>first.focus(),40);
+    // Sólo si nadie eligió ya otro campo en esos 40 ms: si no, el foco
+    // saltaba al primero y lo que se estaba escribiendo quedaba en otro lado.
+    if(first&&matchMedia('(pointer:fine)').matches)setTimeout(()=>{
+      const a=document.activeElement;
+      if(!a||a===document.body||!gate.contains(a))first.focus();
+    },40);
   }
   const gv=id=>{const e=el(id);return e?e.value.trim():'';};
   const gerr=m=>{const e=el('gErr');if(e)e.textContent=m||'';
@@ -7309,10 +7487,12 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         if(AUTH.profiles.some(x=>x.name.toLowerCase()===nm.toLowerCase()))return gerr('Ya existe un perfil con ese nombre.');
         if(p1.length<4)return gerr('La contraseña debe tener al menos 4 caracteres.');
         if(p1!==p2)return gerr('Las contraseñas no coinciden.');
+        if(!el('npAcepto').checked)return gerr('Para crear la cuenta tenés que aceptar los términos y la política de privacidad.');
         const ph=await mkHash(p1);
         // La cuenta nace pendiente: la habilita el administrador.
         const prof={id:uid(),name:nm,role:'usuario',estado:'pendiente',hash:ph.hash,salt:ph.salt,it:ph.it,
-                    favs:[],ub:null,created:Date.now(),updated:Date.now()};
+                    favs:[],ub:null,created:Date.now(),updated:Date.now(),
+                    legales:{version:LEGALES_VERSION,en:new Date().toISOString()}};
         AUTH.profiles.push(prof);persistAuth();
         gate._nuevo=nm; renderGate('espera');
       };
@@ -7390,6 +7570,18 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         };
         el('cpGo').addEventListener('click',go);onEnter(go);
       }
+    } else if(v==='nubeLegales'){
+      const go=async()=>{
+        if(!el('lgAcepto').checked)return gerr('Para entrar tenés que aceptar los términos y la política de privacidad.');
+        const b=el('lgGo');b.disabled=true;b.textContent='Guardando…';gerr('');
+        try{
+          await NUBE.aceptarLegales(LEGALES_VERSION);
+          const pf=gate._pfPendiente;gate._pfPendiente=null;
+          enterProfile(perfilDesdeNube(pf));
+        }catch(e){gerr('No se pudo guardar la aceptación: '+e.message);if(el('lgGo')){b.disabled=false;b.textContent='Aceptar y entrar';}}
+      };
+      el('lgGo').addEventListener('click',go);
+      el('lgSalir').addEventListener('click',async()=>{gate._pfPendiente=null;await NUBE.salir();renderGate('nubeLogin');});
     } else if(v==='nubeAlta'){
       const go=async()=>{
         const nm=gv('naNom'),m=gv('naMail'),p1=gv('naPass'),p2=gv('naPass2');
@@ -7397,8 +7589,9 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m))return gerr('Revisá el correo.');
         if(p1.length<PASS_MIN)return gerr(`La contraseña debe tener al menos ${PASS_MIN} caracteres.`);
         if(p1!==p2)return gerr('Las contraseñas no coinciden.');
+        if(!el('naAcepto').checked)return gerr('Para crear la cuenta tenés que aceptar los términos y la política de privacidad.');
         const b=el('naGo');b.disabled=true;b.textContent='Creando…';gerr('');
-        try{ await NUBE.registrar(nm,m,p1); gate._nuevo=nm; renderGate('espera'); }
+        try{ await NUBE.registrar(nm,m,p1,LEGALES_VERSION); gate._nuevo=nm; renderGate('espera'); }
         catch(e){ gerr(e.message); if(el('naGo')){b.disabled=false;b.textContent='Crear mi cuenta';} }
       };
       el('naGo').addEventListener('click',go);onEnter(go);
@@ -7457,6 +7650,11 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     if(!pf){gerr('La cuenta existe pero no tiene perfil en la base. Avisale al administrador.');return;}
     if(pf.estado==='pendiente'){gate._nuevo=pf.nombre;return renderGate('espera');}
     if(pf.estado==='rechazado')return renderGate('nubeRechazada');
+    if(NUBE.legalesAceptados()!==LEGALES_VERSION){
+      const pedir=()=>{gate._pfPendiente=pf;renderGate('nubeLegales');};
+      NUBE.refrescarUsuario().then(()=>NUBE.legalesAceptados()===LEGALES_VERSION?enterProfile(perfilDesdeNube(pf)):pedir()).catch(pedir);
+      return;
+    }
     enterProfile(perfilDesdeNube(pf));
   }
 
@@ -7941,15 +8139,15 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       // archivo —ni siquiera uno que hable del bug— debe escribir esa apertura
       // tal cual dentro de un bloque de script.)
       p.innerHTML=`<div class="ahint">Editá los textos generales de la página. El contenido de cada código (nombre, normas, auditoría, asociaciones) se edita desde su ficha con el botón <b>✎ Editar ficha</b> (activá el <b>modo edición</b> en la barra superior).</div>
-        <label>Logo de la empresa (PNG/JPG/SVG)</label>
+        <label for="pgLogo">Logo de la empresa (PNG/JPG/SVG)</label>
         <div class="logo-row" style="display:flex;align-items:center;gap:12px;margin-top:4px">
           <div class="logo hasimg" style="height:44px">${logoInner()}</div>
           <input id="pgLogo" type="file" accept="image/png,image/jpeg,image/gif,image/webp" style="border:none;padding:0;background:none;flex:1">
           ${CONTENT.page.logo?'<button class="minibtn danger" id="pgLogoDel">Quitar</button>':''}
         </div>
         <div class="ahint">Se muestra en la barra superior y en las pantallas de acceso. Recomendado: fondo transparente, alto ~80px.</div>
-        <label>Título</label><input id="pgTitle" type="text" value="${E(CONTENT.page.title||DEF.title)}">
-        <label>Subtítulo</label><input id="pgSub" type="text" value="${E(CONTENT.page.subtitle||DEF.subtitle)}">
+        <label for="pgTitle">Título</label><input id="pgTitle" type="text" value="${E(CONTENT.page.title||DEF.title)}">
+        <label for="pgSub">Subtítulo</label><input id="pgSub" type="text" value="${E(CONTENT.page.subtitle||DEF.subtitle)}">
         <button class="minibtn" id="pgSave" style="margin-top:14px">Guardar textos</button>
         <button class="minibtn" id="pgReset" style="margin-top:14px;margin-left:6px">Restaurar por defecto</button>
         ${(()=>{
@@ -8011,20 +8209,20 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       p.innerHTML=`<div class="ahint">Estos valores deciden qué tan estricta es la búsqueda tolerante en <b>toda la app</b> —listado principal, CIE-10, abreviaturas, SURGE y el Intérprete de orden—, no una pantalla sola. Los de fábrica ya están afinados con casos reales de la base; cambialos con cuidado y probá una búsqueda conocida después de guardar.</div>
         <label>Erratas de tipeo toleradas, según el largo del término</label>
         <div class="cfg-grupo">
-          <div><small>Cortos (≤4 letras)</small><input id="bqTolCorta" type="number" min="0" max="3" step="1" value="${C.tol.corta}"></div>
-          <div><small>Medianos (5–7)</small><input id="bqTolMedia" type="number" min="0" max="3" step="1" value="${C.tol.media}"></div>
-          <div><small>Largos (8 o más)</small><input id="bqTolLarga" type="number" min="0" max="3" step="1" value="${C.tol.larga}"></div>
+          <div><label class="cfg-lbl" for="bqTolCorta">Cortos (≤4 letras)</label><input id="bqTolCorta" type="number" min="0" max="3" step="1" value="${C.tol.corta}"></div>
+          <div><label class="cfg-lbl" for="bqTolMedia">Medianos (5–7)</label><input id="bqTolMedia" type="number" min="0" max="3" step="1" value="${C.tol.media}"></div>
+          <div><label class="cfg-lbl" for="bqTolLarga">Largos (8 o más)</label><input id="bqTolLarga" type="number" min="0" max="3" step="1" value="${C.tol.larga}"></div>
         </div>
         <div class="ahint">Cuántas letras puede diferir un término de lo que dice la ficha y seguir contando como coincidencia. 0 = exacto (nada de erratas).</div>
-        <label>Umbral de "coincidencia fuerte" (%)</label>
+        <label for="bqUmbral">Umbral de "coincidencia fuerte" (%)</label>
         <input id="bqUmbral" type="number" min="50" max="100" step="1" value="${C.umbralFuerte}" style="max-width:120px">
         <div class="ahint">Desde qué porcentaje de coincidencia una fila del listado se resalta como respuesta probable.</div>
         <label>Peso de cada tipo de coincidencia</label>
         <div class="cfg-grupo">
-          <div><small>Empieza con el término</small><input id="bqPesoInicio" type="number" min="1" max="20" step="1" value="${C.pesos.inicio}"></div>
-          <div><small>Aparece en el nombre</small><input id="bqPesoBorde" type="number" min="1" max="20" step="1" value="${C.pesos.borde}"></div>
-          <div><small>En cualquier parte</small><input id="bqPesoContiene" type="number" min="1" max="20" step="1" value="${C.pesos.contiene}"></div>
-          <div><small>Sólo en código/sinónimo</small><input id="bqPesoSolo" type="number" min="1" max="20" step="1" value="${C.pesos.solo}"></div>
+          <div><label class="cfg-lbl" for="bqPesoInicio">Empieza con el término</label><input id="bqPesoInicio" type="number" min="1" max="20" step="1" value="${C.pesos.inicio}"></div>
+          <div><label class="cfg-lbl" for="bqPesoBorde">Aparece en el nombre</label><input id="bqPesoBorde" type="number" min="1" max="20" step="1" value="${C.pesos.borde}"></div>
+          <div><label class="cfg-lbl" for="bqPesoContiene">En cualquier parte</label><input id="bqPesoContiene" type="number" min="1" max="20" step="1" value="${C.pesos.contiene}"></div>
+          <div><label class="cfg-lbl" for="bqPesoSolo">Sólo en código/sinónimo</label><input id="bqPesoSolo" type="number" min="1" max="20" step="1" value="${C.pesos.solo}"></div>
         </div>
         <div class="ahint">Cuánto suma cada forma de coincidencia al ordenar los resultados. Tienen que quedar de mayor a menor, en ese orden, o la búsqueda deja de tener sentido — se corrigen solos si los cargás al revés.</div>
         <button class="minibtn" id="bqSave" style="margin-top:14px">Guardar</button>
@@ -8233,10 +8431,10 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         ? `<div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--line)">
              <div class="pmeta" style="font-weight:700;color:var(--ink);font-size:14px">Restaurar el trabajo del equipo</div>
              <div class="ahint">Elegí un respaldo bajado antes y te muestro <b>qué cambiaría</b> en la base. Nada se escribe hasta que lo confirmes. No toca las cuentas ni los pedidos en curso —verificaciones y propuestas—, sólo las fichas corregidas, las observaciones y los textos.</div>
-             <input id="bkImp" type="file" accept="application/json,.json" style="border:none;padding:6px 0;background:none">
+             <input id="bkImp" type="file" accept="application/json,.json" aria-label="Elegir un respaldo para restaurar" style="border:none;padding:6px 0;background:none">
              <div id="bkPrev"></div>
            </div>`
-        : `<label style="margin-top:16px">Restaurar desde archivo</label>
+        : `<label for="bkImp" style="margin-top:16px">Restaurar desde archivo</label>
         <input id="bkImp" type="file" accept="application/json,.json" style="border:none;padding:6px 0;background:none">
         <div class="ahint" style="color:var(--urg);margin-top:6px">Restaurar reemplaza los perfiles y ediciones de esta computadora.</div>`}`;
       (function(){
@@ -9603,8 +9801,10 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     nombre:          {txt:'Elegido por la práctica · revisar',  cls:'warn'},
     manual_fuera:    {txt:'A mano · no está en la base',        cls:'warn'},
     conflicto:       {txt:'Código repetido con otro valor',     cls:'warn'},
+    valor_ok:        {txt:'Valor confirmado',                   cls:'ok'},
     sin_equivalencia:{txt:'Sin equivalencia en el Único',       cls:'err'},
     unidad:          {txt:'Unidad de valor a definir',          cls:'err'},
+    falta_unico:     {txt:'Falta código en el Único',           cls:'info'},
     descartada:      {txt:'Valor no usado (código repetido)',   cls:'mute'},
     duplicada:       {txt:'Repetida con el mismo valor',        cls:'mute'},
     cubierto:        {txt:'Rango tapado por valores propios',   cls:'mute'},
@@ -9612,10 +9812,15 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   };
   const contrExporta=l=>!!l.desde&&(CONTR_EST[l.estado].cls==='ok'||CONTR_EST[l.estado].cls==='warn');
   // Va a la hoja «Sin equivalencia» del archivo: lo que tenía algo para cargar y no se exportó.
-  const contrPendiente=l=>['err'].includes(CONTR_EST[l.estado].cls)||l.estado==='descartada'||l.estado==='omitida';
+  const contrPendiente=l=>['err','info'].includes(CONTR_EST[l.estado].cls)||l.estado==='descartada'||l.estado==='omitida';
 
   let contrArchivo=null, contrWS=null, contrOrig={r:0,c:0}, contrAOA=null, contrCfg=null, contrRes=null;
-  let contrEdit={}, contrElegido={}, contrFiltro='todo', contrNombre='', contrFormato='xls', contrIdx=null;
+  // Decisiones de la revisión, por renglón de la grilla: código elegido a mano
+  // (clave "fila|código", o "fila|*" para un renglón que no traía código), área
+  // de una línea puntual, valor confirmado entre repetidos, y códigos que se
+  // reconocen como faltantes en el Único.
+  let contrEdit={}, contrElegido={}, contrAreaFila={}, contrConfirmado={}, contrFalta={};
+  let contrBuscando=null, contrBuscaQ='', contrFiltro='todo', contrNombre='', contrFormato='xls', contrIdx=null;
 
   function contrCel(i,j){
     if(!contrWS||j<0)return null;
@@ -9813,6 +10018,41 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     const cabeza=(p[0].match(/^\S+/)||[''])[0];
     return p.map((x,k)=>k&&contrTokens(x).length<3&&!norm(x).startsWith(norm(cabeza))?cabeza+' '+x:x);
   }
+  // Buscador del Único para la revisión: por código (prefijo) o por nombre con
+  // el mismo buscar() de la app (sinónimos, erratas). buscar() exige todas las
+  // palabras, así que si trae poco se completa con la comparación por palabras
+  // de contrParecido — lo que permite abrirlo ya con la práctica de la grilla.
+  function contrBuscarUnico(q){
+    const limpio=norm(q||'').replace(/[^a-z0-9]+/g,' ').trim();
+    if(!limpio)return [];
+    const out=[],vistos=new Set();
+    const sumar=c=>{if(!vistos.has(c.code)){vistos.add(c.code);out.push(c);}};
+    const dig=limpio.replace(/ /g,'');
+    if(/^\d{3,}$/.test(dig))for(const c of CODES)if(c.nomenclador==='UNICO'&&c.code.startsWith(dig))sumar(c);
+    for(const c of buscar(CODES,limpio.split(' '),c=>c.nomenclador==='UNICO').slice(0,12))sumar(c);
+    if(out.length<8){
+      const td=contrTokens(q);
+      if(td.length){
+        const lst=[];
+        for(const c of CODES){
+          if(c.nomenclador!=='UNICO')continue;
+          const s=contrParecido(td,c._ctk||(c._ctk=contrTokens(c.nombre)));
+          if(s>=0.34)lst.push([s,c]);
+        }
+        lst.sort((a,b)=>b[0]-a[0]).slice(0,12).forEach(x=>sumar(x[1]));
+      }
+    }
+    return out.slice(0,12);
+  }
+  function contrResultadosHTML(q){
+    const res=contrBuscarUnico(q);
+    if(!q.trim())return '<div class="contr-busca-vacio">Escribí el nombre de la práctica o parte del código.</div>';
+    if(!res.length)return '<div class="contr-busca-vacio">No se encontró nada en el Único con eso.</div>';
+    return res.map(c=>`<button type="button" class="contr-res" data-pick="${esc(c.code)}">
+      <span class="mono contr-res-c">${esc(c.code)}</span>
+      <span class="contr-res-n">${esc(c.nombre)}<small>${esc(c.grupo||'')}${c.unico_tipo==='lab'?' · laboratorio':''}</small></span>
+    </button>`).join('');
+  }
   const contrFmt=n=>'$ '+Number(n).toLocaleString('es-AR',{minimumFractionDigits:2,maximumFractionDigits:2});
   const contrRed=n=>Math.round(n*100)/100;
 
@@ -9884,12 +10124,19 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       const vals=valCols.map(vc=>({vc,v:contrValor(i,vc.col)})).filter(x=>x.v);
       if(!codTxt&&!vals.length)continue; // título de sección o renglón vacío
       const valorTxt=vals.map(({v})=>v.num!=null?contrFmt(v.num):v.unidad?v.txt:v.texto).join(' · ');
-      const base={fila:contrOrig.r+i+1,codTxt,desc,valorTxt,imp:{esp:0,ayu:0,ane:0,gto:0},uni:{esp:'',ayu:'',ane:'',gto:''}};
-      const omitir=motivo=>lineas.push({...base,estado:'omitida',motivo,area:'',desde:'',hasta:''});
-      if(!codTxt){if(desc&&vals.some(({v})=>v.num!==0))omitir('Sin código en la fila');continue;}
-      const cods=contrParsearCodigos(codTxt);
-      if(!cods){omitir('Código no reconocido');continue;}
+      const filaN=contrOrig.r+i+1, claveFila=filaN+'|*';
+      const base={fila:filaN,codTxt,desc,valorTxt,imp:{esp:0,ayu:0,ane:0,gto:0},uni:{esp:'',ayu:'',ane:'',gto:''}};
       const utiles=vals.filter(x=>!x.v.texto);
+      // Un renglón omitido con un importe se puede asociar a un código del Único
+      // desde la revisión: ese código queda en contrEdit con la clave "fila|*".
+      const omitir=motivo=>lineas.push({...base,estado:'omitida',motivo,area:'',desde:'',hasta:'',clave:claveFila,buscable:utiles.length>0});
+      let cods;
+      if(contrEdit[claveFila])cods={items:[{desde:contrEdit[claveFila],hasta:contrEdit[claveFila]}],aMano:true};
+      else{
+        if(!codTxt){if(desc&&vals.some(({v})=>v.num!==0))omitir('Sin código en la fila');continue;}
+        cods=contrParsearCodigos(codTxt);
+        if(!cods){omitir('Código no reconocido');continue;}
+      }
       if(!utiles.length){omitir(vals.length?'El valor no es un importe':'Sin valor');continue;}
       const areaFila=cfg.colArea>=0?contrArea(contrTexto(i,cfg.colArea)):'';
       const porArea={};
@@ -9905,13 +10152,17 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
             :{desde:'',hasta:'',estado:'sin_equivalencia',origen:it.desde+' al '+it.hasta});
           return;
         }
-        const x=it.desde,clave=(contrOrig.r+i+1)+'|'+x,man=contrEdit[clave];
+        const x=it.desde,clave=cods.aMano?claveFila:filaN+'|'+x,man=contrEdit[clave];
         const r=man?{code:man,nombre:BYCODE['U'+man]?BYCODE['U'+man].nombre:'',estado:BYCODE['U'+man]?'manual':'manual_fuera'}
                    :contrResolver(x,partes?partes[k]:desc);
+        if(r.estado==='sin_equivalencia'&&contrFalta[clave])Object.assign(r,{estado:'falta_unico',motivo:'Reconocido: la práctica no tiene código en el Único',sugerencia:null,talCual:''});
         destinos.push({...r,desde:r.code,hasta:r.code,origen:x,clave,editable:true});
       });
       for(const d of destinos)for(const a of Object.keys(porArea)){
-        const lin={...base,imp:{...base.imp},uni:{...base.uni},area:a,desde:d.desde,hasta:d.hasta,rango:!!d.rango,codigos:d.codigos,
+        // El área se puede cambiar línea por línea desde la revisión, sin tocar
+        // el área por defecto ni las demás líneas con el mismo código.
+        const areaClave=(d.clave||filaN+'|'+(d.origen||codTxt))+'|'+a;
+        const lin={...base,imp:{...base.imp},uni:{...base.uni},area:contrAreaFila[areaClave]||a,areaClave,areaEditada:!!contrAreaFila[areaClave],desde:d.desde,hasta:d.hasta,rango:!!d.rango,codigos:d.codigos,
           origen:d.origen||codTxt,clave:d.clave,editable:!!d.editable,estado:d.estado,nombre:d.nombre||'',alternativa:d.alternativa,sugerencia:d.sugerencia,score:d.score,motivo:d.motivo||'',talCual:d.talCual||''};
         if(d.desde){
           const esLab=d.esLab||(d.desde.length===8&&d.desde[0]==='6');
@@ -9947,7 +10198,11 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       const elegida=g.find(l=>l.fila===contrElegido[k])||g[0];
       for(const l of g){
         l.conflicto=k;
-        if(l===elegida){l.estado='conflicto';l.motivo=`Aparece ${g.length} veces con valores distintos. Se usa este.`;}
+        if(l===elegida){
+          const ok=contrConfirmado[k]===l.fila;
+          l.estado=ok?'valor_ok':'conflicto';
+          l.motivo=ok?`Elegido entre ${g.length} valores del mismo código.`:`Aparece ${g.length} veces con valores distintos. Se usa este.`;
+        }
         else if(firma(l)===firma(elegida)){l.estado='duplicada';l.motivo='Mismo código y valor que la fila '+elegida.fila;}
         else{l.estado='descartada';l.motivo='Se exportó el valor de la fila '+elegida.fila;}
       }
@@ -9970,18 +10225,83 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     contrRes=final;
   }
 
+  // ---------- lo decidido no se pierde ----------
+  // Cerrar la ventana ya no borra nada: el trabajo sigue en memoria. Además cada
+  // decisión se guarda en este navegador, por usuario y por archivo (huella del
+  // contenido, no del nombre): recargar la app retoma el último archivo, y volver
+  // a subir una grilla ya trabajada trae de vuelta lo que se decidió sobre ella.
+  // En localStorage y no en la nube a propósito: es trabajo en curso de una
+  // persona, no algo que el resto del equipo tenga que ver.
+  const CONTR_MAX_ARCHIVOS=20, CONTR_MAX_B64=3e6;
+  let contrHuella='', contrRestaurado=0, contrDuenio=null;
+  const contrClaveLS=suf=>'nbu-contr:'+((current&&current.id)||'-')+':'+suf;
+  function contrLeerLS(suf){try{return JSON.parse(localStorage.getItem(contrClaveLS(suf))||'null');}catch(e){return null;}}
+  function contrEscribirLS(suf,v){try{if(v==null)localStorage.removeItem(contrClaveLS(suf));else localStorage.setItem(contrClaveLS(suf),JSON.stringify(v));return true;}catch(e){return false;}}
+  function contrHuellaDe(buf){
+    const b=new Uint8Array(buf);let h=0x811c9dc5;
+    for(let i=0;i<b.length;i++){h^=b[i];h=Math.imul(h,0x01000193);}
+    return (h>>>0).toString(36)+'-'+b.length;
+  }
+  function contrGuardar(){
+    if(!contrHuella||!contrCfg)return;
+    const todos=contrLeerLS('archivos')||{};
+    const c=contrCfg;
+    todos[contrHuella]={nombre:contrArchivo.name,t:Date.now(),
+      cfg:{fila:c.fila,colCodigo:c.colCodigo,colDesc:c.colDesc,colArea:c.colArea,areaDef:c.areaDef,valores:c.valores.map(v=>({col:v.col,rol:v.rol,area:v.area}))},
+      edit:contrEdit,elegido:contrElegido,area:contrAreaFila,confirmado:contrConfirmado,falta:contrFalta,salida:contrNombre,formato:contrFormato};
+    Object.keys(todos).sort((a,b)=>todos[b].t-todos[a].t).slice(CONTR_MAX_ARCHIVOS).forEach(k=>delete todos[k]);
+    contrEscribirLS('archivos',todos);
+  }
+  function contrAplicarGuardado(g){
+    const c=g.cfg||{};
+    if(Number.isInteger(c.fila)&&c.fila!==contrCfg.fila&&c.fila<contrAOA.length)contrConfigurar(c.fila);
+    const col=j=>Number.isInteger(j)&&j<contrCfg.ancho?j:-1;
+    if(c.colCodigo!=null)contrCfg.colCodigo=col(c.colCodigo);
+    if(c.colDesc!=null)contrCfg.colDesc=col(c.colDesc);
+    if(c.colArea!=null)contrCfg.colArea=col(c.colArea);
+    if(CONTR_AREAS[c.areaDef])contrCfg.areaDef=c.areaDef;
+    for(const v of contrCfg.valores){const gv=(c.valores||[]).find(x=>x.col===v.col);if(gv){if(CONTR_ROLES[gv.rol])v.rol=gv.rol;v.area=CONTR_AREAS[gv.area]?gv.area:'';}}
+    contrEdit=g.edit||{};contrElegido=g.elegido||{};contrAreaFila=g.area||{};contrConfirmado=g.confirmado||{};contrFalta=g.falta||{};
+    contrNombre=g.salida||'';contrFormato=g.formato==='xlsx'?'xlsx':'xls';
+  }
+  function contrHayDecisiones(g){
+    return !!g&&[g.edit,g.elegido,g.area,g.confirmado,g.falta].some(o=>o&&Object.keys(o).length)||!!(g&&g.salida);
+  }
+  // El último archivo viaja entero (base64) para poder retomarlo después de
+  // recargar; si es muy grande sólo se guardan las decisiones.
+  function contrGuardarUltimo(buf,nombre){
+    const b=new Uint8Array(buf);
+    if(b.length*1.37>CONTR_MAX_B64){contrEscribirLS('ultimo',null);return;}
+    let bin='';for(let i=0;i<b.length;i+=0x8000)bin+=String.fromCharCode.apply(null,b.subarray(i,i+0x8000));
+    if(!contrEscribirLS('ultimo',{nombre,b64:btoa(bin)}))contrEscribirLS('ultimo',null);
+  }
+  function contrRetomarUltimo(){
+    const u=contrLeerLS('ultimo');if(!u||!u.b64)return;
+    try{
+      const bin=atob(u.b64),b=new Uint8Array(bin.length);
+      for(let i=0;i<bin.length;i++)b[i]=bin.charCodeAt(i);
+      contrAbrirLibro(b.buffer,u.nombre,false);
+    }catch(e){contrReiniciar();contrEscribirLS('ultimo',null);}
+  }
+
   // ---------- pantalla ----------
   function contrReiniciar(){
     contrArchivo=null;contrWS=null;contrAOA=null;contrCfg=null;contrRes=null;
-    contrEdit={};contrElegido={};contrFiltro='todo';contrNombre='';
+    contrEdit={};contrElegido={};contrAreaFila={};contrConfirmado={};contrFalta={};
+    contrBuscando=null;contrBuscaQ='';contrFiltro='todo';contrNombre='';contrFormato='xls';
+    contrHuella='';contrRestaurado=0;
   }
   function closeContr(){
     el('contrModal').classList.remove('on');
-    contrReiniciar();
+    contrBuscando=null;
     devolverFoco();
   }
   function openContr(){
     if(!CAP.contrataciones(current))return;
+    // Lo que está en memoria es de quien lo cargó: con otra sesión se arranca de
+    // lo que esa persona tenga guardado.
+    if(contrDuenio!==(current&&current.id)){contrReiniciar();contrDuenio=current&&current.id;}
+    if(!contrAOA)contrRetomarUltimo();
     renderContr();el('contrModal').classList.add('on');tomarFoco(el('contrBox'));
   }
   el('contrModal').addEventListener('click',e=>{if(e.target===el('contrModal'))closeContr();});
@@ -10020,30 +10340,58 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     for(const k in R)if(l.uni[k])p.push(`<span class="contr-imp uni"><small>uni_${k}</small>${esc(l.uni[k])}</span>`);
     return p.length?p.join(''):`<span class="contr-mute">${esc(l.valorTxt||'—')}</span>`;
   }
-  function contrFilaHTML(l,n){
+  const CONTR_LUPA='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>';
+  function contrFilaHTML(l){
     const e=CONTR_EST[l.estado];
+    const editable=(l.editable&&l.estado!=='duplicada')||(l.estado==='omitida'&&l.buscable);
     let cod;
-    if(l.editable&&l.estado!=='duplicada'&&l.estado!=='descartada'){
-      cod=`<input class="contr-cod" data-clave="${esc(l.clave)}" value="${esc(l.desde)}" placeholder="Cargar código" inputmode="numeric" aria-label="Código Único para ${esc(l.origen)}">`;
+    if(editable){
+      cod=`<div class="contr-codbox">
+        <input class="contr-cod" data-clave="${esc(l.clave)}" value="${esc(l.desde)}" placeholder="Cargar código" inputmode="numeric" aria-label="Código Único para la fila ${l.fila}">
+        <button type="button" class="contr-lupa${contrBuscando===l.clave?' on':''}" data-buscar="${esc(l.clave)}" data-q="${esc(l.desc||'')}" title="Buscar en el Único por nombre" aria-label="Buscar en el Único por nombre">${CONTR_LUPA}</button>
+      </div>`;
     }else if(l.desde){
       cod=`<span class="mono contr-codtxt">${esc(l.desde)}${l.hasta!==l.desde?`<span class="contr-flecha">→</span>${esc(l.hasta)}`:''}</span>`;
     }else cod='<span class="contr-mute">—</span>';
-    const extra=[];
-    if(l.nombre)extra.push(`<div class="contr-nom">${esc(l.nombre)}</div>`);
-    const notas=[];
+    const nom=l.nombre?`<div class="contr-nom">${esc(l.nombre)}</div>`:'';
+    const area=contrExporta(l)
+      ?`<select class="contr-area-sel${l.areaEditada?' editada':''}" data-akey="${esc(l.areaClave)}" title="${esc(CONTR_AREAS[l.area])}${l.areaEditada?' · cambiada a mano':''}" aria-label="Área de la fila ${l.fila}">${
+          Object.keys(CONTR_AREAS).map(k=>`<option value="${k}"${k===l.area?' selected':''}>${k}</option>`).join('')}</select>`
+      :(l.area?`<span class="contr-area" title="${esc(CONTR_AREAS[l.area])}">${esc(l.area)}</span>`:'');
+    const notas=[],acciones=[];
     if(l.motivo)notas.push(esc(l.motivo));
-    if(l.alternativa)notas.push(`Por código era <b class="mono">${esc(l.alternativa.code)}</b> · ${esc(l.alternativa.nombre||'')} <button class="contr-link" data-usar="${esc(l.alternativa.code)}" data-clave="${esc(l.clave)}">Usar ese</button>`);
-    if(l.talCual)notas.push(`<button class="contr-link" data-usar="${esc(l.talCual)}" data-clave="${esc(l.clave)}">Exportar ${esc(l.talCual)} tal cual</button>`);
-    if(l.sugerencia)notas.push(`Parecida: <b class="mono">${esc(l.sugerencia.code)}</b> · ${esc(l.sugerencia.nombre)} <button class="contr-link" data-usar="${esc(l.sugerencia.code)}" data-clave="${esc(l.clave)}">Usar esta</button>`);
-    if(l.estado==='descartada'&&l.conflicto)notas.push(`<button class="contr-link" data-elegir="${esc(l.conflicto)}" data-fila="${l.fila}">Usar este valor</button>`);
-    if(l.estado==='manual'||l.estado==='manual_fuera')notas.push(`<button class="contr-link" data-deshacer="${esc(l.clave)}">Volver a la sugerencia</button>`);
-    return `<tr class="contr-st-${e.cls}">
-      <td>${cod}${extra.join('')}</td>
-      <td>${l.area?`<span class="contr-area" title="${esc(CONTR_AREAS[l.area])}">${esc(l.area)}</span>`:''}</td>
+    if(l.alternativa){notas.push(`Por código era <b class="mono">${esc(l.alternativa.code)}</b> · ${esc(l.alternativa.nombre||'')}`);
+      acciones.push(`<button class="contr-link" data-usar="${esc(l.alternativa.code)}" data-clave="${esc(l.clave)}">Usar ese</button>`);}
+    if(l.sugerencia){notas.push(`Parecida: <b class="mono">${esc(l.sugerencia.code)}</b> · ${esc(l.sugerencia.nombre)}`);
+      acciones.push(`<button class="contr-link" data-usar="${esc(l.sugerencia.code)}" data-clave="${esc(l.clave)}">Usar esta</button>`);}
+    if(l.talCual)acciones.push(`<button class="contr-link" data-usar="${esc(l.talCual)}" data-clave="${esc(l.clave)}">Exportar ${esc(l.talCual)} tal cual</button>`);
+    if(l.estado==='sin_equivalencia'&&l.clave)acciones.push(`<button class="contr-act" data-falta="${esc(l.clave)}">Falta código en el Único</button>`);
+    if(l.estado==='falta_unico')acciones.push(`<button class="contr-link" data-nofalta="${esc(l.clave)}">Deshacer</button>`);
+    if(l.estado==='conflicto')acciones.push(`<button class="contr-act" data-confirmar="${esc(l.conflicto)}" data-fila="${l.fila}">Confirmar valor</button>`);
+    if(l.estado==='valor_ok')acciones.push(`<button class="contr-link" data-desconfirmar="${esc(l.conflicto)}">Deshacer</button>`);
+    if(l.estado==='descartada'&&l.conflicto){notas.push('Si es otra práctica, buscale su código con la lupa.');
+      acciones.push(`<button class="contr-link" data-elegir="${esc(l.conflicto)}" data-fila="${l.fila}">Usar este valor</button>`);}
+    if(l.estado==='omitida'&&l.buscable)notas.push('Buscale un código con la lupa para exportarla.');
+    if((l.estado==='manual'||l.estado==='manual_fuera')&&l.clave)acciones.push(`<button class="contr-link" data-deshacer="${esc(l.clave)}">${l.clave.endsWith('|*')?'Quitar el código':'Volver a la sugerencia'}</button>`);
+    if(l.areaEditada)acciones.push(`<button class="contr-link" data-noarea="${esc(l.areaClave)}">Área por defecto</button>`);
+    const fila=`<tr class="contr-st-${e.cls}">
+      <td>${cod}${nom}</td>
+      <td>${area}</td>
       <td class="contr-vals-td">${contrValorHTML(l)}</td>
       <td><div class="contr-orig"><span class="mono">${esc(l.codTxt||'—')}</span>${l.desc?` · ${esc(l.desc)}`:''}</div><div class="contr-mute">fila ${l.fila}</div></td>
-      <td><span class="contr-pill ${e.cls}">${esc(e.txt)}</span>${notas.length?`<div class="contr-nota">${notas.join('<br>')}</div>`:''}</td>
+      <td><span class="contr-pill ${e.cls}">${esc(e.txt)}</span>${notas.length?`<div class="contr-nota">${notas.join('<br>')}</div>`:''}${acciones.length?`<div class="contr-acc">${acciones.join('')}</div>`:''}</td>
     </tr>`;
+    if(!editable||contrBuscando!==l.clave)return fila;
+    return fila+`<tr class="contr-busca-tr"><td colspan="5">
+      <div class="contr-busca" role="search">
+        <div class="contr-busca-h">
+          ${CONTR_LUPA}
+          <input type="search" id="contrBuscaQ" value="${esc(contrBuscaQ)}" placeholder="Buscar en el Nomenclador Único por nombre o código" autocomplete="off" aria-label="Buscar en el Nomenclador Único">
+          <button type="button" class="minibtn" id="contrBuscaX">Cerrar</button>
+        </div>
+        <div class="contr-busca-res" id="contrBuscaRes">${contrResultadosHTML(contrBuscaQ)}</div>
+      </div>
+    </td></tr>`;
   }
   function contrHTMLProcesado(){
     const c=contrCfg;
@@ -10053,6 +10401,11 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         <span><b>${esc(contrArchivo.name)}</b>${contrArchivo._hoja?' · hoja «'+esc(contrArchivo._hoja)+'»':''}</span>
         <button class="minibtn" id="contrOtroArchivo">Cambiar archivo</button>
       </div>
+      ${contrRestaurado?`<div class="contr-retomado" role="status">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+          <span>Se recuperó lo que decidiste sobre este archivo ${(d=>`el ${d.getDate()}/${d.getMonth()+1} a las ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`)(new Date(contrRestaurado))}.</span>
+          <button class="contr-link" id="contrDeCero">Empezar de cero</button>
+        </div>`:`<div class="contr-guardado">Lo que decidas se guarda solo en esta computadora: podés cerrar la ventana y seguir después.</div>`}
       <details class="contr-cfg"${c.colCodigo<0?' open':''}>
         <summary>Columnas de la grilla <span class="contr-mute">· detectadas solas, cambialas si algo no cuadra</span></summary>
         <div class="contr-cfg-grid">
@@ -10076,10 +10429,10 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         <span class="contr-mute">Se usa cuando la grilla no aclara el área.</span>
       </div>`;
     if(!contrRes)return cfgHTML+`<div class="contr-vacio">Elegí la columna del código del prestador para ver el resultado.</div>`;
-    const cuenta={ok:0,warn:0,err:0,mute:0};
+    const cuenta={ok:0,warn:0,err:0,info:0,mute:0};
     contrRes.forEach(l=>cuenta[CONTR_EST[l.estado].cls]++);
     const exportables=contrRes.filter(contrExporta),pendientes=contrRes.filter(contrPendiente);
-    const filtros=[['todo','Todo',contrRes.length,''],['ok','Listas',cuenta.ok,'ok'],['warn','A revisar',cuenta.warn,'warn'],['err','Sin equivalencia',cuenta.err,'err'],['mute','Omitidas',cuenta.mute,'mute']];
+    const filtros=[['todo','Todo',contrRes.length,''],['ok','Listas',cuenta.ok,'ok'],['warn','A revisar',cuenta.warn,'warn'],['err','Sin equivalencia',cuenta.err,'err'],['info','Falta en el Único',cuenta.info,'info'],['mute','Omitidas',cuenta.mute,'mute']];
     const vis=contrRes.filter(l=>contrFiltro==='todo'||CONTR_EST[l.estado].cls===contrFiltro);
     const LIM=600;
     const nombreOk=!!contrNombre.trim();
@@ -10104,20 +10457,27 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         </button>
       </div>
       <div class="ahint contr-export-h">Se exportan <b>${exportables.length}</b> fila${exportables.length===1?'':'s'}${cuenta.warn?`, ${cuenta.warn} marcada${cuenta.warn===1?'':'s'} para revisar`:''}.
-        ${pendientes.length?`Los <b>${pendientes.length}</b> renglones sin equivalencia, repetidos u omitidos van aparte, en la hoja «Sin equivalencia» del mismo archivo.`:'No quedó ningún código sin equivalencia.'}</div>`;
+        ${pendientes.length?`Los <b>${pendientes.length}</b> renglones sin equivalencia, sin código en el Único, repetidos u omitidos van aparte, en la hoja «Sin equivalencia» del mismo archivo.`:'No quedó ningún código sin equivalencia.'}</div>`;
   }
-  function contrRehacer(){contrProcesar();renderContr();}
+  function contrRehacer(){contrProcesar();contrGuardar();renderContr();}
   function contrWireProcesado(){
     const box=el('contrBox');
-    el('contrOtroArchivo').addEventListener('click',()=>{contrReiniciar();renderContr();});
-    el('contrFila').addEventListener('change',e=>{contrEdit={};contrElegido={};contrConfigurar(+e.target.value);contrRehacer();});
+    el('contrOtroArchivo').addEventListener('click',()=>{contrReiniciar();contrEscribirLS('ultimo',null);renderContr();});
+    if(el('contrDeCero'))el('contrDeCero').addEventListener('click',()=>{
+      if(!confirm('¿Descartar todo lo que decidiste sobre este archivo?\n\nVuelve a quedar como recién subido.'))return;
+      const todos=contrLeerLS('archivos')||{};delete todos[contrHuella];contrEscribirLS('archivos',todos);
+      contrEdit={};contrElegido={};contrAreaFila={};contrConfirmado={};contrFalta={};contrBuscando=null;contrNombre='';contrFormato='xls';
+      contrCfg=null;contrConfigurar(contrDetectarEncabezado());
+      contrRestaurado=0;contrRehacer();toast('Listo: el archivo quedó como recién subido');
+    });
+    el('contrFila').addEventListener('change',e=>{contrEdit={};contrElegido={};contrAreaFila={};contrConfirmado={};contrFalta={};contrBuscando=null;contrConfigurar(+e.target.value);contrRehacer();});
     el('contrColCod').addEventListener('change',e=>{contrCfg.colCodigo=+e.target.value;contrRehacer();});
     el('contrColDesc').addEventListener('change',e=>{contrCfg.colDesc=+e.target.value;contrRehacer();});
     el('contrColArea').addEventListener('change',e=>{contrCfg.colArea=+e.target.value;contrRehacer();});
     box.querySelectorAll('[data-vrol]').forEach(s=>s.addEventListener('change',()=>{contrCfg.valores[+s.dataset.vrol].rol=s.value;contrRehacer();}));
     box.querySelectorAll('[data-varea]').forEach(s=>s.addEventListener('change',()=>{contrCfg.valores[+s.dataset.varea].area=s.value;contrRehacer();}));
     box.querySelectorAll('#contrAreaDef button').forEach(b=>b.addEventListener('click',()=>{contrCfg.areaDef=b.dataset.v;contrRehacer();}));
-    box.querySelectorAll('#contrFormato button').forEach(b=>b.addEventListener('click',()=>{contrFormato=b.dataset.v;renderContr();}));
+    box.querySelectorAll('#contrFormato button').forEach(b=>b.addEventListener('click',()=>{contrFormato=b.dataset.v;contrGuardar();renderContr();}));
     box.querySelectorAll('[data-filtro]').forEach(b=>b.addEventListener('click',()=>{contrFiltro=b.dataset.filtro;renderContr();}));
     box.querySelectorAll('.contr-cod').forEach(inp=>{
       inp.addEventListener('change',()=>{
@@ -10127,38 +10487,75 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       });
       inp.addEventListener('keydown',e=>{if(e.key==='Enter')inp.blur();});
     });
-    box.querySelectorAll('[data-usar]').forEach(b=>b.addEventListener('click',()=>{contrEdit[b.dataset.clave]=b.dataset.usar;contrRehacer();}));
+    box.querySelectorAll('[data-usar]').forEach(b=>b.addEventListener('click',()=>{contrEdit[b.dataset.clave]=b.dataset.usar;delete contrFalta[b.dataset.clave];contrRehacer();}));
     box.querySelectorAll('[data-deshacer]').forEach(b=>b.addEventListener('click',()=>{delete contrEdit[b.dataset.deshacer];contrRehacer();}));
-    box.querySelectorAll('[data-elegir]').forEach(b=>b.addEventListener('click',()=>{contrElegido[b.dataset.elegir]=+b.dataset.fila;contrRehacer();}));
+    box.querySelectorAll('[data-elegir]').forEach(b=>b.addEventListener('click',()=>{contrElegido[b.dataset.elegir]=+b.dataset.fila;delete contrConfirmado[b.dataset.elegir];contrRehacer();}));
+    box.querySelectorAll('[data-confirmar]').forEach(b=>b.addEventListener('click',()=>{contrConfirmado[b.dataset.confirmar]=+b.dataset.fila;contrRehacer();}));
+    box.querySelectorAll('[data-desconfirmar]').forEach(b=>b.addEventListener('click',()=>{delete contrConfirmado[b.dataset.desconfirmar];contrRehacer();}));
+    box.querySelectorAll('[data-falta]').forEach(b=>b.addEventListener('click',()=>{contrFalta[b.dataset.falta]=true;contrRehacer();}));
+    box.querySelectorAll('[data-nofalta]').forEach(b=>b.addEventListener('click',()=>{delete contrFalta[b.dataset.nofalta];contrRehacer();}));
+    box.querySelectorAll('[data-noarea]').forEach(b=>b.addEventListener('click',()=>{delete contrAreaFila[b.dataset.noarea];contrRehacer();}));
+    box.querySelectorAll('.contr-area-sel').forEach(sel=>sel.addEventListener('change',()=>{contrAreaFila[sel.dataset.akey]=sel.value;contrRehacer();}));
+    box.querySelectorAll('[data-buscar]').forEach(b=>b.addEventListener('click',()=>{
+      if(contrBuscando===b.dataset.buscar){contrBuscando=null;renderContr();return;}
+      contrBuscando=b.dataset.buscar;contrBuscaQ=b.dataset.q||'';renderContr();
+    }));
+    const bq=el('contrBuscaQ');
+    if(bq){
+      const elegir=()=>el('contrBuscaRes').querySelectorAll('[data-pick]').forEach(b=>b.addEventListener('click',()=>{
+        contrEdit[contrBuscando]=b.dataset.pick;delete contrFalta[contrBuscando];contrBuscando=null;contrRehacer();
+      }));
+      let t=null;
+      bq.addEventListener('input',()=>{
+        contrBuscaQ=bq.value;clearTimeout(t);
+        t=setTimeout(()=>{el('contrBuscaRes').innerHTML=contrResultadosHTML(contrBuscaQ);elegir();},140);
+      });
+      bq.addEventListener('keydown',e=>{
+        if(e.key==='Escape'){e.stopPropagation();e.preventDefault();contrBuscando=null;renderContr();}
+        if(e.key==='Enter'){e.preventDefault();const p=el('contrBuscaRes').querySelector('[data-pick]');if(p)p.click();}
+      });
+      el('contrBuscaX').addEventListener('click',()=>{contrBuscando=null;renderContr();});
+      elegir();
+      bq.focus();bq.setSelectionRange(bq.value.length,bq.value.length);
+      const tr=bq.closest('tr'),w=box.querySelector('.contr-tbl-wrap');
+      if(tr&&w){const tb=tr.previousElementSibling||tr;if(tb.offsetTop<w.scrollTop||tr.offsetTop+tr.offsetHeight>w.scrollTop+w.clientHeight)w.scrollTop=Math.max(0,tb.offsetTop-40);}
+    }
     const nom=el('contrNombre');
     if(nom)nom.addEventListener('input',()=>{
       contrNombre=nom.value;
+      clearTimeout(nom._t);nom._t=setTimeout(contrGuardar,300);
       el('contrDescargar').disabled=!(contrNombre.trim()&&contrRes&&contrRes.some(contrExporta));
     });
     if(el('contrDescargar'))el('contrDescargar').addEventListener('click',contrDescargarExcel);
+  }
+  function contrAbrirLibro(buf,nombre,nuevo){
+    // codepage:65001 (UTF-8): sin esto un .csv con tildes se lee mal
+    // ("Código" -> "CÃ³digo"). Un .xlsx declara su propia codificación.
+    const wb=XLSX.read(buf,{type:'array',codepage:65001});
+    const nombreHoja=wb.SheetNames[0];
+    const hoja=wb.Sheets[nombreHoja];
+    if(!hoja||!hoja['!ref'])throw new Error('el archivo no tiene filas');
+    // Sin blankrows:false a propósito: cada índice de contrAOA tiene que ser
+    // la fila real de la hoja (contrCel la ubica por posición).
+    const aoa=XLSX.utils.sheet_to_json(hoja,{header:1,defval:'',raw:false,blankrows:true});
+    if(!aoa.length)throw new Error('el archivo no tiene filas');
+    contrReiniciar();
+    const rg=XLSX.utils.decode_range(hoja['!ref']);
+    contrOrig={r:rg.s.r,c:rg.s.c};contrWS=hoja;contrAOA=aoa;
+    contrArchivo={name:nombre,_hoja:wb.SheetNames.length>1?nombreHoja:''};
+    contrHuella=contrHuellaDe(buf);contrDuenio=current&&current.id;
+    contrConfigurar(contrDetectarEncabezado());
+    const g=(contrLeerLS('archivos')||{})[contrHuella];
+    if(g){contrAplicarGuardado(g);if(contrHayDecisiones(g))contrRestaurado=g.t||Date.now();}
+    if(nuevo)contrGuardarUltimo(buf,nombre);
+    contrRehacer();
   }
   function contrCargarArchivo(e){
     const f=e.target.files[0];if(!f)return;
     const rd=new FileReader();
     rd.onload=()=>{
-      try{
-        // codepage:65001 (UTF-8): sin esto un .csv con tildes se lee mal
-        // ("Código" -> "CÃ³digo"). Un .xlsx declara su propia codificación.
-        const wb=XLSX.read(rd.result,{type:'array',codepage:65001});
-        const nombreHoja=wb.SheetNames[0];
-        const hoja=wb.Sheets[nombreHoja];
-        if(!hoja||!hoja['!ref'])throw new Error('el archivo no tiene filas');
-        // Sin blankrows:false a propósito: cada índice de contrAOA tiene que ser
-        // la fila real de la hoja (contrCel la ubica por posición).
-        const aoa=XLSX.utils.sheet_to_json(hoja,{header:1,defval:'',raw:false,blankrows:true});
-        if(!aoa.length)throw new Error('el archivo no tiene filas');
-        contrReiniciar();
-        const rg=XLSX.utils.decode_range(hoja['!ref']);
-        contrOrig={r:rg.s.r,c:rg.s.c};contrWS=hoja;contrAOA=aoa;
-        contrArchivo=f;contrArchivo._hoja=wb.SheetNames.length>1?nombreHoja:'';
-        contrConfigurar(contrDetectarEncabezado());
-        contrRehacer();
-      }catch(err){ toast('Ese archivo no se pudo leer: '+err.message,true); }
+      try{contrAbrirLibro(rd.result,f.name,true);}
+      catch(err){ toast('Ese archivo no se pudo leer: '+err.message,true); }
     };
     rd.onerror=()=>toast('No se pudo leer el archivo',true);
     rd.readAsArrayBuffer(f);
@@ -10174,7 +10571,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     const hoja=XLSX.utils.aoa_to_sheet([CONTR_COLS,...filas]);
     hoja['!cols']=CONTR_COLS.map(c=>({wch:c.startsWith('uni')?22:12}));
     XLSX.utils.book_append_sheet(wb,hoja,nombre.replace(/[\[\]:*?\/\\]/g,'').slice(0,31)||'Grilla');
-    const orden={err:0,mute:1};
+    const orden={err:0,info:1,mute:2};
     const pend=contrRes.filter(contrPendiente).sort((x,y)=>(orden[CONTR_EST[x.estado].cls]-orden[CONTR_EST[y.estado].cls])||(x.estado==='omitida')-(y.estado==='omitida')||x.fila-y.fila);
     if(pend.length){
       const h2=XLSX.utils.aoa_to_sheet([['Fila','Código del prestador','Práctica según prestador','Valor en la grilla','Área','Código Único','Motivo'],

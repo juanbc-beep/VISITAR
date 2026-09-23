@@ -77,6 +77,9 @@ jobs:
           test -f web/index.html || { echo "Falta web/index.html"; exit 1; }
           test -f web/sw.js || { echo "Falta el service worker"; exit 1; }
           test -f web/manifest.webmanifest || { echo "Falta el manifest"; exit 1; }
+          for f in privacy-policy.html terms-conditions.html cookie-policy.html legal.css; do
+            test -f "web/$f" || { echo "Falta web/$f (documentos legales enlazados desde la app)"; exit 1; }
+          done
           python3 -c "import json;json.load(open('web/manifest.webmanifest'))"
           grep -q "nbu_db.bin" web/sw.js || { echo "El service worker no guarda la base"; exit 1; }
           if [ -s web/nbu_db.bin ]; then
