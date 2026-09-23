@@ -11,15 +11,20 @@ import { servirWeb, saltarOnboarding, esperarArranque, vigilarErrores, afirmar, 
 
 const PUERTO = 8641;
 
+// Con una sesión guardada, la app muestra el login un instante mientras la
+// recupera y después entra sola. Mirar si el formulario está visible era una
+// carrera (visto en CI): el test empezaba a escribir y la app entraba en el
+// medio. Se decide por la sesión guardada, que no cambia mientras tanto.
 async function entrar(page, base, email) {
   await page.goto(base);
   await esperarArranque(page);
-  if (await page.isVisible('#nbMail')) {
+  const conSesion = await page.evaluate(() => { try { return !!localStorage.getItem('nbu-sesion'); } catch (e) { return false; } });
+  if (!conSesion) {
     await page.fill('#nbMail', email);
     await page.fill('#nbPass', 'Password123!');
     await page.click('#nbGo');
   }
-  await page.waitForSelector('#acctChip:not([hidden])', { timeout: 5000 });
+  await page.waitForSelector('#acctChip:not([hidden])', { timeout: 10000 });
   await page.evaluate(() => { const t = document.getElementById('tratoModal'); if (t) t.classList.remove('on'); });
 }
 

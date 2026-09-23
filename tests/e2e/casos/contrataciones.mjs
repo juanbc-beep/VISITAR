@@ -202,12 +202,11 @@ async function main() {
     await abrir();
     await decisionesPuestas('al cerrar y volver a abrir la ventana');
 
+    // La sesión quedó guardada: la app entra sola. No se mira si el login está
+    // visible, porque se ve un instante mientras recupera la sesión (carrera).
     await page.reload();
     await esperarArranque(page);
-    if (await page.isVisible('#nbMail')) {
-      await page.fill('#nbMail', 'admin@visitar.test'); await page.fill('#nbPass', 'Password123!'); await page.click('#nbGo');
-    }
-    await page.waitForSelector('#acctChip:not([hidden])', { timeout: 5000 });
+    await page.waitForSelector('#acctChip:not([hidden])', { timeout: 10000 });
     await sinOverlays(page);
     await abrir();
     await decisionesPuestas('al recargar la app');
