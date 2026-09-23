@@ -121,6 +121,14 @@ async function main() {
     // Área de una sola línea: el rango de ecografías pasa a Ambulatorio, el resto sigue Dual.
     await page.selectOption('.contr-area-sel[data-akey^="5|"]', 'A');
 
+    // Tipo de importe de una sola línea: el monto de las ecografías (columna
+    // «Gastos») pasa a especialista; el resto de la columna sigue siendo gasto.
+    await page.selectOption('.contr-rol-sel[data-rkey^="5|"]', 'esp');
+    afirmar(await page.locator('.contr-rol-sel[data-rkey^="5|"].editado').count() === 1, 'el tipo cambiado a mano debería verse resaltado');
+    // En una fila con dos montos, el campo que ya usa uno no se ofrece al otro.
+    afirmar(await page.locator('.contr-rol-sel[data-rkey^="13|"][data-def="gto"] option[value="esp"]').isDisabled(),
+      'en la fila con honorarios y gastos, «Especialista» no debería poder elegirse para el gasto');
+
     // Densitometría por regiones: se elige el segundo valor y se confirma.
     await page.click('.contr-tbl [data-elegir^="341201|"]');
     await page.click('.contr-tbl [data-confirmar^="341201|"]');
@@ -144,7 +152,7 @@ async function main() {
     const fila = (d, a = 'D') => filas.find(f => f[1] === d && f[3] === a);
     const igual = (f, esperado, que) => afirmar(f && JSON.stringify(f) === JSON.stringify(esperado), `${que}: esperaba ${JSON.stringify(esperado)}, vino ${JSON.stringify(f)}`);
     afirmar(filas.every(f => f[0] === 'Unico'), 'nom_nom siempre "Unico"');
-    igual(fila(180104, 'A'), ['Unico', 180104, 180121, 'A', 0, 0, 0, 12487.57, '', '', '', ''], 'rango de la grilla, con el área cambiada sólo en esa línea');
+    igual(fila(180104, 'A'), ['Unico', 180104, 180121, 'A', 12487.57, 0, 0, 0, '', '', '', ''], 'rango de la grilla, con el área y el tipo de importe cambiados sólo en esa línea');
     igual(fila(170101), ['Unico', 170101, 170101, 'D', 0, 0, 0, 18378, '', '', '', ''], 'renglón sin código asociado con el buscador');
     igual(fila(180301), ['Unico', 180301, 180301, 'D', 0, 0, 0, 59449.6, '', '', '', ''], '180201/04 -> una sola fila 180301');
     igual(fila(420103), ['Unico', 420103, 420103, 'D', 25220.84, 0, 0, 0, '', '', '', ''], 'honorarios -> imp_esp');
