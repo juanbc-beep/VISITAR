@@ -164,6 +164,48 @@ async function main() {
     await ctx.close();
   });
 
+  // Carrera real, vista en CI (23/9/2026): al entrar, la app pide el contenido
+  // del equipo a la nube. Si en ese rato se edita una ficha, la respuesta llega
+  // DESPUÉS con los datos de antes de la edición y los pisaba: el anexo
+  // desaparecía de la pantalla, y la edición siguiente lo borraba también de
+  // la nube. Acá la respuesta de «correcciones» se demora a propósito para
+  // que la edición caiga siempre en el medio.
+  await correrCaso('anexar: lo editado mientras llega el contenido de la nube no se pierde', async () => {
+    const db = crearDB();
+    altaUsuario(db, { nombre: 'Admin General', email: 'admin@visitar.test', password: 'Password123!', rol: 'admin', estado: 'activo' });
+    const ctx = await nuevoContexto(browser);
+    await instalarSimulador(ctx, db);
+    let demoradas = 0;
+    await ctx.route('**/rest/v1/correcciones*', async (route) => {
+      if (route.request().method() === 'GET' && demoradas++ === 0) await new Promise(r => setTimeout(r, 2500));
+      await route.fallback();
+    });
+    const page = await ctx.newPage();
+    await saltarOnboarding(page);
+    const { errores, csp } = vigilarErrores(page);
+    await page.goto(base);
+    await esperarArranque(page);
+    await page.fill('#nbMail', 'admin@visitar.test');
+    await page.fill('#nbPass', 'Password123!');
+    await page.click('#nbGo');
+    await page.waitForSelector('#acctChip:not([hidden])', { timeout: 5000 });
+    await sinOverlays(page);
+
+    const CODIGO_PMO = '200124', A_UNICO = '430111';
+    await page.evaluate((c) => { location.hash = c; }, CODIGO_PMO);
+    await sinOverlays(page);
+    await page.waitForSelector('#cgAnexBtn', { timeout: 5000 });
+    await page.fill('#cgAnexInput', A_UNICO);
+    await page.click('#cgAnexBtn');
+    afirmar(demoradas === 1, 'la lectura de correcciones todavía debería estar en vuelo al anexar');
+    await page.waitForTimeout(3500);   // llega la respuesta demorada (con los datos de antes)
+    const cargar = await page.locator('#cgCargarOl').textContent();
+    afirmar(cargar.includes(A_UNICO), `el anexo hecho mientras llegaba la nube no debería desaparecer, "Cargá esto" tiene: ${cargar}`);
+    afirmar(csp.length === 0, 'no debería haber violaciones de CSP: ' + csp.join(' | '));
+    afirmar(errores.length === 0, 'no debería haber errores: ' + errores.join(' | '));
+    await ctx.close();
+  });
+
   await browser.close();
   srv.close();
 }

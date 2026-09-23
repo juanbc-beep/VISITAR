@@ -2292,6 +2292,19 @@ contratistas, subsidiadas); si VISITAR entra o no es para el abogado. Se cumple 
 8. Revisar en Supabase: confirmación de correo, protección de contraseñas filtradas y
    límites de intentos de login (Authentication → Settings).
 9. Probar con lector de pantalla real (NVDA/VoiceOver): axe no cubre todo.
+**Bug real destapado por el CI del PR #68 (23/9/2026) — ediciones que se perdían al
+entrar.** `anexar` falló una vez en CI («Cargar 200124 — cantidad 1»), nunca en local. No
+era un test inestable: `cargarContenidoNube()` pide el contenido del equipo al entrar y
+REEMPLAZA `CONTENT.codes` con lo leído. Una ficha editada mientras esa lectura estaba en
+vuelo (el CI es lento, pero a una persona le pasa en el primer segundo) quedaba pisada
+con los datos de antes: el cambio desaparecía de la pantalla, y la edición siguiente,
+calculada sobre esa versión vieja, lo borraba también de la nube. Arreglo: `logEdit()`
+(por donde pasa toda edición de ficha) anota cada código con un reloj propio, y lo
+editado después de iniciada la lectura manda sobre lo leído. De paso, el redibujo de la
+ficha al llegar la nube conserva lo que se estaba escribiendo y el foco. Test
+determinístico en `casos/anexar.mjs`: demora 2,5 s la lectura de `correcciones` y anexa
+en el medio; fallaba igual que en CI antes del arreglo.
+
 10. **Baja de cuentas:** «Borrar» en Administración borra la fila de `perfiles` (la API
    pública no puede borrar usuarios de Supabase Auth), así que el correo y el hash de la
    contraseña quedan en Authentication → Users. Ante un pedido de supresión (art. 16, 5

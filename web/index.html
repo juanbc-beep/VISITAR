@@ -34,7 +34,7 @@
      alojamiento. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-MXq2q5t2rrJvd00GMwTNlFpKjlTqi7XRxh3rt8KhP2E=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-2wz0oPHs/E9HsHnyrEEe4PEZW+jcCh0XI3imR5K1O6A=';
+  script-src 'self' 'sha256-MXq2q5t2rrJvd00GMwTNlFpKjlTqi7XRxh3rt8KhP2E=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-b4TFsQKK23bc2qSHzLlTtsGIDbFfCA+P6Pf0goDDR2Y=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -6727,7 +6727,12 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
 
 
   /* ---- registro de auditoría de ediciones ---- */
-  function logEdit(action,code){CONTENT.log=CONTENT.log||[];CONTENT.log.unshift({t:Date.now(),who:current?current.name:'',action,code:code||''});if(CONTENT.log.length>200)CONTENT.log.length=200;}
+  /* Qué fichas se editaron y cuándo (un reloj propio, no la hora): lo usa
+     cargarContenidoNube() para no pisar con datos leídos ANTES una edición
+     hecha mientras la lectura estaba en vuelo. Toda edición de ficha pasa por
+     logEdit(), por eso se anota acá y no en cada lugar que edita. */
+  let relojEdicion=0; const editadoEn={};
+  function logEdit(action,code){if(code)editadoEn[code]=++relojEdicion;CONTENT.log=CONTENT.log||[];CONTENT.log.unshift({t:Date.now(),who:current?current.name:'',action,code:code||''});if(CONTENT.log.length>200)CONTENT.log.length=200;}
 
   function persistAuth(){AUTH.updated=Date.now();save(KEY.auth,AUTH);actualizarPendientes();}
   function persistContent(){CONTENT.updated=Date.now();save(KEY.content,CONTENT);actualizarPendientes();}
@@ -6748,6 +6753,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   async function cargarContenidoNube(){
     if(!(NUBE.activa&&current&&current._nube))return false;
     const antesFicha=currentCode?huella(currentCode):'';
+    const desde=relojEdicion;
     const [perfiles,corr,ver,props,aj,obs]=await Promise.all([
       NUBE.equipo().catch(()=>[]),          // sólo para poner nombres a los uuid
       NUBE.correcciones(), NUBE.verificaciones(), NUBE.propuestas(), NUBE.ajustes(),
@@ -6843,6 +6849,11 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         .sort((a,b)=>b.t-a.t);
     obsNuevas=CONTENT.novedades.length;
 
+    // Lo que se editó acá mientras la lectura estaba en vuelo es más nuevo que lo
+    // leído (ya se mandó a la nube por su cuenta): manda lo local. Sin esto, un
+    // anexo hecho en el primer segundo después de entrar desaparecía de la
+    // pantalla, y la edición siguiente lo borraba también de la nube.
+    for(const k in editadoEn)if(editadoEn[k]>desde){if(CONTENT.codes[k])codes[k]=CONTENT.codes[k];else delete codes[k];}
     CONTENT.codes=codes; CONTENT.verif=verif; CONTENT.propuestas=propuestas;
     // Los conteos salen de lo mismo que se acaba de leer, así el número del
     // aviso y las listas del panel no pueden contradecirse.
@@ -6876,8 +6887,15 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
        Sólo cuando de verdad cambió algo de ESA ficha: redibujar por redibujar le
        mueve la pantalla a alguien que está leyendo. */
     if(currentCode&&el('drawer').classList.contains('on')&&
-       (primeraNube||huella(currentCode)!==antesFicha))
+       (primeraNube||huella(currentCode)!==antesFicha)){
+      // Lo que se estaba escribiendo en la ficha (p. ej. «+ Anexar código») no se
+      // pierde con el redibujo, ni el lugar donde estaba el cursor.
+      const dr=el('drawer'),foco=dr.contains(document.activeElement)?document.activeElement.id:'';
+      const escrito=[...dr.querySelectorAll('input[id],textarea[id]')].filter(x=>x.value).map(x=>[x.id,x.value]);
       openCode(currentCode);
+      escrito.forEach(([id,v])=>{const x=el(id);if(x&&!x.value)x.value=v;});
+      if(foco&&el(foco))el(foco).focus();
+    }
     primeraNube=false;
     return true;
   }
