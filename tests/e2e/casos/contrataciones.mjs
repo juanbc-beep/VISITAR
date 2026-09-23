@@ -129,6 +129,21 @@ async function main() {
     afirmar(await page.locator('.contr-rol-sel[data-rkey^="13|"][data-def="gto"] option[value="esp"]').isDisabled(),
       'en la fila con honorarios y gastos, «Especialista» no debería poder elegirse para el gasto');
 
+    // Importes cargados a mano: la consulta trae sólo el honorario del
+    // especialista; se le suman ayudante, anestesista y gasto hasta los cuatro.
+    const agregar = async (monto) => {
+      await page.click('[data-eagregar="7|420103|D"]');
+      await page.waitForFunction(() => document.activeElement && document.activeElement.classList.contains('contr-imp-in'));
+      await page.keyboard.type(monto);
+      await page.keyboard.press('Enter');
+      await page.waitForTimeout(150);
+    };
+    await agregar('800');
+    await agregar('300');
+    await agregar('1.500,50');
+    afirmar(await page.locator('[data-eagregar="7|420103|D"]').count() === 0, 'con los cuatro importes cargados no debería ofrecer agregar otro');
+    afirmar(await page.locator('.contr-imp-in[data-ekey="7|420103|D"]').count() === 3, 'deberían quedar tres importes cargados a mano en la consulta');
+
     // Densitometría por regiones: se elige el segundo valor y se confirma.
     await page.click('.contr-tbl [data-elegir^="341201|"]');
     await page.click('.contr-tbl [data-confirmar^="341201|"]');
@@ -155,7 +170,7 @@ async function main() {
     igual(fila(180104, 'A'), ['Unico', 180104, 180121, 'A', 12487.57, 0, 0, 0, '', '', '', ''], 'rango de la grilla, con el área y el tipo de importe cambiados sólo en esa línea');
     igual(fila(170101), ['Unico', 170101, 170101, 'D', 0, 0, 0, 18378, '', '', '', ''], 'renglón sin código asociado con el buscador');
     igual(fila(180301), ['Unico', 180301, 180301, 'D', 0, 0, 0, 59449.6, '', '', '', ''], '180201/04 -> una sola fila 180301');
-    igual(fila(420103), ['Unico', 420103, 420103, 'D', 25220.84, 0, 0, 0, '', '', '', ''], 'honorarios -> imp_esp');
+    igual(fila(420103), ['Unico', 420103, 420103, 'D', 25220.84, 800, 300, 1500.5, '', '', '', ''], 'honorarios de la grilla + ayudante, anestesista y gasto cargados a mano');
     igual(fila(340101), ['Unico', 340101, 340213, 'D', 0, 0, 0, 0, 'GALENO RADIOLOGICO', '', '', 'UNIDAD RADIOLOGICA'], 'rango radiológico por unidad, tramo 1');
     igual(fila(340214), ['Unico', 340214, 340214, 'D', 0, 0, 0, 18037.6, '', '', '', ''], 'código con valor propio dentro del rango');
     afirmar(fila(340215) && fila(340215)[2] === 340304, 'el rango radiológico debería seguir después de 340214 hasta 340304');

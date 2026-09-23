@@ -34,7 +34,7 @@
      alojamiento. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-MXq2q5t2rrJvd00GMwTNlFpKjlTqi7XRxh3rt8KhP2E=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-kpqKLKXImX0Nd71718N/DbYsspEZKADInp0UsCCAj0E=';
+  script-src 'self' 'sha256-MXq2q5t2rrJvd00GMwTNlFpKjlTqi7XRxh3rt8KhP2E=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-BVpXAyRerdU47kyCph1uNdiTSHbG+aJwuO2jWDwHck8=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -1861,6 +1861,19 @@ body:has(#modal.on,#adminModal.on,#tratoModal.on,#contrModal.on) #pista{display:
   border:1px dashed var(--line-2)!important;border-radius:5px!important;background:transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%235f6f79'/%3E%3C/svg%3E") no-repeat right 6px center!important;
   font-family:var(--font-condensed)!important;font-size:10.5px!important;letter-spacing:.5px;text-transform:uppercase;font-weight:700!important;color:var(--muted)!important;cursor:pointer;min-height:22px}
 .contr-rol-sel:hover,.contr-rol-sel:focus{border-style:solid!important;border-color:var(--accent)!important;color:var(--accent-ink)!important}
+.contr-imp-extra{margin-top:6px}
+.contr-imp-cab{display:flex;align-items:center;gap:4px}
+.contr-imp-cab .contr-rol-sel{margin-bottom:2px}
+.contr-rol-sel.manual{border-style:solid!important;border-color:transparent!important;background-color:var(--norma-soft)!important;color:var(--norma)!important}
+.contr-imp-x{display:inline-grid;place-items:center;width:24px;height:24px;border:none;border-radius:6px;background:none;color:var(--muted);font:700 16px/1 var(--font-ui);cursor:pointer}
+.contr-imp-x:hover{background:var(--exc-soft);color:var(--exc)}
+.contr-imp-monto{display:flex;align-items:center;gap:3px;font-family:var(--font-mono);font-weight:700}
+.contr-imp-in{width:112px;padding:4px 7px;border:1px solid var(--line-2);border-radius:6px;background:var(--surface-2);color:var(--ink);font:inherit;font-size:12.5px;font-variant-numeric:tabular-nums}
+.contr-imp-in:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.contr-imp-in:placeholder-shown{border-style:dashed}
+.contr-imp-add{display:inline-flex;align-items:center;min-height:24px;margin-top:6px;padding:2px 8px;border:1px dashed var(--line-2);border-radius:6px;background:none;
+  color:var(--accent-ink);font:inherit;font-size:11.5px;font-weight:700;cursor:pointer}
+.contr-imp-add:hover{border-color:var(--accent);border-style:solid;background:var(--accent-soft)}
 .contr-rol-sel.editado{border-style:solid!important;border-color:transparent!important;background-color:var(--urg-soft)!important;color:var(--urg)!important}
 .contr-imp small{display:block;font-family:var(--font-condensed);font-size:10px;letter-spacing:.5px;text-transform:uppercase;color:var(--faint);font-weight:700}
 .contr-imp.uni{font-size:11.5px}
@@ -9825,6 +9838,10 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   // de una línea puntual, valor confirmado entre repetidos, y códigos que se
   // reconocen como faltantes en el Único.
   let contrEdit={}, contrElegido={}, contrAreaFila={}, contrConfirmado={}, contrFalta={}, contrRolFila={};
+  // Importes que la grilla no trae y quien revisa carga a mano (una práctica o
+  // una intervención puede tener hasta cuatro: especialista, ayudante,
+  // anestesista y gasto). Por línea: {areaClave: [{rol, valor}]}.
+  let contrImpExtra={}, contrFocoExtra='';
   let contrBuscando=null, contrBuscaQ='', contrFiltro='todo', contrNombre='', contrFormato='xls', contrIdx=null;
 
   function contrCel(i,j){
@@ -10188,6 +10205,11 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
               else{lin.estado='unidad';lin.motivo='Valor por unidad ('+v.txt+') fuera de radiología y laboratorio';}
             }
           }
+          // Los cargados a mano no pisan un campo que ya trae la grilla (la
+          // pantalla no lo ofrece; esto cubre una grilla que cambió de columnas).
+          lin.extras=(contrImpExtra[areaClave]||[]).map((x,i)=>({i,rol:x.rol,valor:x.valor}));
+          for(const x of lin.extras)
+            if(CONTR_IMP[x.rol]&&x.valor>0&&!lin.importes.some(im=>im.rol===x.rol))lin.imp[x.rol]=contrRed(x.valor);
         }
         lineas.push(lin);
       }
@@ -10261,7 +10283,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     const c=contrCfg;
     todos[contrHuella]={nombre:contrArchivo.name,t:Date.now(),
       cfg:{fila:c.fila,colCodigo:c.colCodigo,colDesc:c.colDesc,colArea:c.colArea,areaDef:c.areaDef,valores:c.valores.map(v=>({col:v.col,rol:v.rol,area:v.area}))},
-      edit:contrEdit,elegido:contrElegido,area:contrAreaFila,confirmado:contrConfirmado,falta:contrFalta,rol:contrRolFila,salida:contrNombre,formato:contrFormato};
+      edit:contrEdit,elegido:contrElegido,area:contrAreaFila,confirmado:contrConfirmado,falta:contrFalta,rol:contrRolFila,impExtra:contrImpExtra,salida:contrNombre,formato:contrFormato};
     Object.keys(todos).sort((a,b)=>todos[b].t-todos[a].t).slice(CONTR_MAX_ARCHIVOS).forEach(k=>delete todos[k]);
     contrEscribirLS('archivos',todos);
   }
@@ -10274,11 +10296,11 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     if(c.colArea!=null)contrCfg.colArea=col(c.colArea);
     if(CONTR_AREAS[c.areaDef])contrCfg.areaDef=c.areaDef;
     for(const v of contrCfg.valores){const gv=(c.valores||[]).find(x=>x.col===v.col);if(gv){if(CONTR_ROLES[gv.rol])v.rol=gv.rol;v.area=CONTR_AREAS[gv.area]?gv.area:'';}}
-    contrEdit=g.edit||{};contrElegido=g.elegido||{};contrAreaFila=g.area||{};contrConfirmado=g.confirmado||{};contrFalta=g.falta||{};contrRolFila=g.rol||{};
+    contrEdit=g.edit||{};contrElegido=g.elegido||{};contrAreaFila=g.area||{};contrConfirmado=g.confirmado||{};contrFalta=g.falta||{};contrRolFila=g.rol||{};contrImpExtra=g.impExtra||{};
     contrNombre=g.salida||'';contrFormato=g.formato==='xlsx'?'xlsx':'xls';
   }
   function contrHayDecisiones(g){
-    return !!g&&[g.edit,g.elegido,g.area,g.confirmado,g.falta,g.rol].some(o=>o&&Object.keys(o).length)||!!(g&&g.salida);
+    return !!g&&[g.edit,g.elegido,g.area,g.confirmado,g.falta,g.rol,g.impExtra].some(o=>o&&Object.keys(o).length)||!!(g&&g.salida);
   }
   // El último archivo viaja entero (base64) para poder retomarlo después de
   // recargar; si es muy grande sólo se guardan las decisiones.
@@ -10300,7 +10322,7 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   // ---------- pantalla ----------
   function contrReiniciar(){
     contrArchivo=null;contrWS=null;contrAOA=null;contrCfg=null;contrRes=null;
-    contrEdit={};contrElegido={};contrAreaFila={};contrConfirmado={};contrFalta={};contrRolFila={};
+    contrEdit={};contrElegido={};contrAreaFila={};contrConfirmado={};contrFalta={};contrRolFila={};contrImpExtra={};
     contrBuscando=null;contrBuscaQ='';contrFiltro='todo';contrNombre='';contrFormato='xls';
     contrHuella='';contrRestaurado=0;
   }
@@ -10349,14 +10371,25 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
   function contrValorHTML(l){
     const p=[];
     const R=CONTR_IMP;
-    if(contrExporta(l)&&l.importes&&l.importes.length){
+    if(contrExporta(l)){
       // Un selector por monto: a qué campo de la grilla de carga va. Los campos
       // que ya usa otro monto de la misma fila no se ofrecen (se pisarían).
-      for(const im of l.importes){
-        const usados=new Set(l.importes.filter(o=>o!==im).map(o=>o.rol));
+      const extras=l.extras||[];
+      const rolesDe=(salvo)=>new Set([...(l.importes||[]).filter(o=>o!==salvo).map(o=>o.rol),...extras.filter(o=>o!==salvo).map(o=>o.rol)]);
+      for(const im of (l.importes||[])){
+        const usados=rolesDe(im);
         p.push(`<span class="contr-imp"><select class="contr-rol-sel${im.editado?' editado':''}" data-rkey="${esc(im.rk)}" data-def="${im.def}" aria-label="Tipo de importe de ${contrFmt(im.valor)} (fila ${l.fila})" title="Campo de la grilla de carga: imp_${im.rol}${im.editado?' · cambiado a mano':''}">${
           Object.entries(R).map(([k,t])=>`<option value="${k}"${k===im.rol?' selected':''}${usados.has(k)?' disabled':''}>${t}</option>`).join('')}</select>${contrFmt(im.valor)}</span>`);
       }
+      for(const x of extras){
+        const usados=rolesDe(x);
+        p.push(`<span class="contr-imp contr-imp-extra"><span class="contr-imp-cab"><select class="contr-rol-sel manual" data-ekey="${esc(l.areaClave)}" data-ei="${x.i}" aria-label="Tipo del importe agregado a mano (fila ${l.fila})">${
+          Object.entries(R).map(([k,t])=>`<option value="${k}"${k===x.rol?' selected':''}${usados.has(k)?' disabled':''}>${t}</option>`).join('')}</select>
+          <button type="button" class="contr-imp-x" data-equitar="${esc(l.areaClave)}" data-ei="${x.i}" aria-label="Quitar el importe de ${R[x.rol]||'este tipo'} (fila ${l.fila})" title="Quitar">×</button></span>
+          <span class="contr-imp-monto"><span aria-hidden="true">$</span><input class="contr-imp-in" data-ekey="${esc(l.areaClave)}" data-ei="${x.i}" inputmode="decimal" autocomplete="off" value="${x.valor>0?esc(Number(x.valor).toLocaleString('es-AR',{minimumFractionDigits:2,maximumFractionDigits:2})):''}" placeholder="0,00" aria-label="Monto de ${R[x.rol]||'importe'} (fila ${l.fila})"></span></span>`);
+      }
+      const libres=Object.keys(R).filter(k=>!rolesDe(null).has(k));
+      if(libres.length)p.push(`<button type="button" class="contr-imp-add" data-eagregar="${esc(l.areaClave)}" data-libre="${libres[0]}" aria-label="Agregar otro importe a la fila ${l.fila}">+ Importe</button>`);
     }else for(const k in R)if(l.imp[k])p.push(`<span class="contr-imp"><small>${R[k]}</small>${contrFmt(l.imp[k])}</span>`);
     for(const k in R)if(l.uni[k])p.push(`<span class="contr-imp uni"><small>uni_${k}</small>${esc(l.uni[k])}</span>`);
     return p.length?p.join(''):`<span class="contr-mute">${esc(l.valorTxt||'—')}</span>`;
@@ -10488,11 +10521,11 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
     if(el('contrDeCero'))el('contrDeCero').addEventListener('click',()=>{
       if(!confirm('¿Descartar todo lo que decidiste sobre este archivo?\n\nVuelve a quedar como recién subido.'))return;
       const todos=contrLeerLS('archivos')||{};delete todos[contrHuella];contrEscribirLS('archivos',todos);
-      contrEdit={};contrElegido={};contrAreaFila={};contrConfirmado={};contrFalta={};contrRolFila={};contrBuscando=null;contrNombre='';contrFormato='xls';
+      contrEdit={};contrElegido={};contrAreaFila={};contrConfirmado={};contrFalta={};contrRolFila={};contrImpExtra={};contrBuscando=null;contrNombre='';contrFormato='xls';
       contrCfg=null;contrConfigurar(contrDetectarEncabezado());
       contrRestaurado=0;contrRehacer();toast('Listo: el archivo quedó como recién subido');
     });
-    el('contrFila').addEventListener('change',e=>{contrEdit={};contrElegido={};contrAreaFila={};contrConfirmado={};contrFalta={};contrRolFila={};contrBuscando=null;contrConfigurar(+e.target.value);contrRehacer();});
+    el('contrFila').addEventListener('change',e=>{contrEdit={};contrElegido={};contrAreaFila={};contrConfirmado={};contrFalta={};contrRolFila={};contrImpExtra={};contrBuscando=null;contrConfigurar(+e.target.value);contrRehacer();});
     el('contrColCod').addEventListener('change',e=>{contrCfg.colCodigo=+e.target.value;contrRehacer();});
     el('contrColDesc').addEventListener('change',e=>{contrCfg.colDesc=+e.target.value;contrRehacer();});
     el('contrColArea').addEventListener('change',e=>{contrCfg.colArea=+e.target.value;contrRehacer();});
@@ -10523,6 +10556,36 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       contrRehacer();
     }));
     box.querySelectorAll('[data-norol]').forEach(b=>b.addEventListener('click',()=>{b.dataset.norol.split('\n').forEach(k=>delete contrRolFila[k]);contrRehacer();}));
+    box.querySelectorAll('[data-eagregar]').forEach(b=>b.addEventListener('click',()=>{
+      const k=b.dataset.eagregar,arr=contrImpExtra[k]=contrImpExtra[k]||[];
+      arr.push({rol:b.dataset.libre,valor:null});
+      contrFocoExtra=k+'|'+(arr.length-1);
+      contrRehacer();
+    }));
+    box.querySelectorAll('.contr-rol-sel.manual').forEach(sel=>sel.addEventListener('change',()=>{
+      const arr=contrImpExtra[sel.dataset.ekey];if(!arr||!arr[+sel.dataset.ei])return;
+      arr[+sel.dataset.ei].rol=sel.value;contrRehacer();
+    }));
+    box.querySelectorAll('.contr-imp-in').forEach(inp=>{
+      inp.addEventListener('change',()=>{
+        const arr=contrImpExtra[inp.dataset.ekey];if(!arr||!arr[+inp.dataset.ei])return;
+        const n=contrNumero(inp.value);
+        arr[+inp.dataset.ei].valor=n!=null&&n>0?contrRed(n):null;
+        contrRehacer();
+      });
+      inp.addEventListener('keydown',e=>{if(e.key==='Enter')inp.blur();});
+    });
+    box.querySelectorAll('[data-equitar]').forEach(b=>b.addEventListener('click',()=>{
+      const k=b.dataset.equitar,arr=contrImpExtra[k];if(!arr)return;
+      arr.splice(+b.dataset.ei,1);if(!arr.length)delete contrImpExtra[k];
+      contrRehacer();
+    }));
+    if(contrFocoExtra){
+      const [k,i]=[contrFocoExtra.slice(0,contrFocoExtra.lastIndexOf('|')),contrFocoExtra.slice(contrFocoExtra.lastIndexOf('|')+1)];
+      contrFocoExtra='';
+      const inp=[...box.querySelectorAll('.contr-imp-in')].find(x=>x.dataset.ekey===k&&x.dataset.ei===i);
+      if(inp)inp.focus();
+    }
     box.querySelectorAll('[data-buscar]').forEach(b=>b.addEventListener('click',()=>{
       if(contrBuscando===b.dataset.buscar){contrBuscando=null;renderContr();return;}
       contrBuscando=b.dataset.buscar;contrBuscaQ=b.dataset.q||'';renderContr();

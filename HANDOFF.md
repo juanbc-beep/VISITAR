@@ -2181,6 +2181,12 @@ Pedidos del usuario sobre la tabla de revisión, todos por renglón (no globales
   queda en naranja con «Tipo de importe por defecto». En una fila con dos montos, el campo
   que ya usa uno no se ofrece al otro (se pisarían). Se aplica antes de agrupar repetidos, y
   se guarda con el resto de las decisiones.
+- **Importes cargados a mano** (pedido del usuario: «una práctica o una intervención puede
+  tener 4 importes distintos»): «+ Importe» en cada fila exportable agrega un monto con su
+  tipo (el primero libre), editable y con × para quitarlo, hasta completar los cuatro
+  (`contrImpExtra`, por `areaClave`: `[{rol, valor}]`). Se suman a los que trae la grilla;
+  un tipo que ya usa otro monto de la fila no se ofrece. Acepta «1.500,50» o «1500.50».
+  Van en azul para distinguirlos de los de la grilla, y se guardan con el resto.
 - **Lo decidido no se pierde** (pedido del usuario): cerrar la ventana ya no borra nada
   (queda en memoria). Además cada decisión se guarda en `localStorage`, por usuario
   (`nbu-contr:<id>:archivos`) y por archivo — la clave es una huella del contenido (FNV-1a
