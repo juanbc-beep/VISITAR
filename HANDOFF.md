@@ -4,6 +4,16 @@
 > Última actualización: 2026-09-09, rama `claude/nomenclador-sweep-continue-1ayph3`
 > (sobre `claude/unified-medical-codes-manual-o9nw1w`, que ya trae mergeado el PR #58).
 >
+> **✅ «No se pudo guardar la aceptación: invalid JWT … token is expired» (24/9/2026)** —
+> reporte del usuario: no podía entrar. `NUBE.aceptarLegales()` hacía un `fetch` suelto con el
+> access token guardado, sin pasar por `api()`: si el token había vencido (vale una hora; la
+> pantalla «Antes de seguir» puede quedar abierta, o la sesión guardada venir vencida) Supabase
+> lo rechazaba y nadie entraba hasta tocar «Cerrar sesión». Ahora va por `api()`, que lo renueva
+> con el refresh token. Si el refresh también murió, la pantalla vuelve al ingreso con «Tu sesión
+> venció» (antes quedaba trabada: `cerrarSesionMuerta()` no hace nada sin `current`). Mismo
+> arreglo en `cambiarPass()` para quien ya está adentro. Tests: dos casos nuevos en
+> `casos/legales.mjs` (confirmado que fallan sin el arreglo). CSP re-sellada.
+>
 > **✅ Los títulos «denominación a confirmar» (`titulo_revisar`) quedaron revisados el
 > 9/9/2026** — ver «Lo que queda por confirmar en los datos» más abajo para el detalle
 > completo. Eran 76, no 84 (8 ya se habían corregido sin bajar el flag); 72 ya estaban bien

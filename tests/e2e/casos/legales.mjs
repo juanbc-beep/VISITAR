@@ -133,6 +133,57 @@ async function main() {
     await ctx.close();
   });
 
+  // Reporte del usuario (24/9/2026): «No se pudo guardar la aceptación: invalid
+  // JWT … token is expired». El token de acceso vale una hora y la pantalla
+  // «Antes de seguir» puede quedar abierta más que eso: aceptarLegales() lo
+  // mandaba vencido sin renovarlo. Se simula revocando sólo el access token
+  // (el refresh sigue vivo, como cuando vence solo).
+  await correrCaso('legales: aceptar funciona aunque el token de la sesión haya vencido mientras la pantalla estaba abierta', async () => {
+    const db = crearDB();
+    altaUsuario(db, { nombre: 'Token Vencido', email: 'vencido@visitar.test', password: 'Password123!', legales: null });
+    const ctx = await nuevoContexto(browser);
+    await instalarSimulador(ctx, db);
+    const page = await ctx.newPage();
+    await saltarOnboarding(page);
+    const { csp } = vigilarErrores(page);
+    await page.goto(base);
+    await esperarArranque(page);
+    await login(page, 'vencido@visitar.test');
+    await page.waitForSelector('#lgGo');
+    const sesion = await page.evaluate(() => JSON.parse(localStorage.getItem('nbu-sesion')));
+    db.tokens.delete(sesion.access_token);
+    await page.check('#lgAcepto');
+    await page.click('#lgGo');
+    await page.waitForSelector('#acctChip:not([hidden])', { timeout: 5000 });
+    afirmar(!(await page.textContent('#gErr').catch(() => '')).includes('JWT'), 'no debería mostrar el error de token vencido');
+    afirmar(db.users.get('vencido@visitar.test').meta.legales_version === LEGALES_VERSION, 'la aceptación debería quedar guardada en la cuenta');
+    afirmar(csp.length === 0, 'no debería haber violaciones de CSP: ' + csp.join(' | '));
+    await ctx.close();
+  });
+
+  await correrCaso('legales: si la sesión murió del todo, aceptar vuelve al ingreso con «Tu sesión venció»', async () => {
+    const db = crearDB();
+    altaUsuario(db, { nombre: 'Sesion Muerta', email: 'muerta@visitar.test', password: 'Password123!', legales: null });
+    const ctx = await nuevoContexto(browser);
+    await instalarSimulador(ctx, db);
+    const page = await ctx.newPage();
+    await saltarOnboarding(page);
+    const { csp } = vigilarErrores(page);
+    await page.goto(base);
+    await esperarArranque(page);
+    await login(page, 'muerta@visitar.test');
+    await page.waitForSelector('#lgGo');
+    const sesion = await page.evaluate(() => JSON.parse(localStorage.getItem('nbu-sesion')));
+    db.tokens.delete(sesion.access_token);
+    db.refresh.delete(sesion.refresh_token);
+    await page.check('#lgAcepto');
+    await page.click('#lgGo');
+    await page.waitForSelector('text=Tu sesión venció', { timeout: 5000 });
+    afirmar(await page.isVisible('#nbMail'), 'debería volver a la pantalla de ingreso');
+    afirmar(csp.length === 0, 'no debería haber violaciones de CSP: ' + csp.join(' | '));
+    await ctx.close();
+  });
+
   await correrCaso('legales: si ya la aceptó en otro dispositivo, no se le vuelve a pedir', async () => {
     const db = crearDB();
     altaUsuario(db, { nombre: 'Dos Equipos', email: 'dos@visitar.test', password: 'Password123!', legales: null });

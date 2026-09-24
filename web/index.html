@@ -34,7 +34,7 @@
      alojamiento. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-MXq2q5t2rrJvd00GMwTNlFpKjlTqi7XRxh3rt8KhP2E=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-BVpXAyRerdU47kyCph1uNdiTSHbG+aJwuO2jWDwHck8=';
+  script-src 'self' 'sha256-MXq2q5t2rrJvd00GMwTNlFpKjlTqi7XRxh3rt8KhP2E=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-VOLJwKjF+3/viLXtHUKEYfI8aVJp4Qj1gtzdHfssyyE=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -6406,10 +6406,14 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
       },
       // Con «token» viene del enlace del correo; sin él, es alguien ya adentro.
       async cambiarPass(nueva,token){
-        const t=token||(ses&&ses.access_token);
-        if(!t)throw new Error('No hay una sesión válida para cambiar la contraseña.');
+        // Ya adentro, por api(): si el token de la sesión venció (vale una
+        // hora) lo renueva antes, en vez de mandarlo vencido — ver aceptarLegales().
+        if(!token){
+          if(!ses)throw new Error('No hay una sesión válida para cambiar la contraseña.');
+          return api('/auth/v1/user',{method:'PUT',body:JSON.stringify({password:nueva})});
+        }
         const r=await fetch(`${URL_}/auth/v1/user`,{method:'PUT',
-          headers:Object.assign(hdrBase(),{'Authorization':'Bearer '+t}),
+          headers:Object.assign(hdrBase(),{'Authorization':'Bearer '+token}),
           body:JSON.stringify({password:nueva})});
         return await leer(r);
       },
@@ -6420,10 +6424,16 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
         const u=await api('/auth/v1/user',{method:'GET'});
         if(ses&&u&&u.user_metadata){ses.user=Object.assign({},ses.user,{user_metadata:u.user_metadata});guardarSes(ses);}
       },
+      /* Por api() y no con fetch suelto: el token de la sesión vale una hora y
+         la pantalla «Antes de seguir» puede quedar abierta más que eso (o la
+         sesión guardada venir vencida). Con fetch suelto se mandaba vencido y
+         Supabase contestaba «invalid JWT … token is expired»: nadie podía
+         entrar hasta cerrar sesión (reporte del usuario, 24/9/2026). api()
+         lo renueva antes con el refresh token, y si el refresh también murió
+         vuelve al login con «Tu sesión venció» en vez de un error en inglés. */
       async aceptarLegales(version){
-        const r=await fetch(`${URL_}/auth/v1/user`,{method:'PUT',headers:hdrAuth(),
+        const u=await api('/auth/v1/user',{method:'PUT',
           body:JSON.stringify({data:{legales_version:version,legales_aceptado_en:new Date().toISOString()}})});
-        const u=await leer(r);
         if(ses){ses.user=Object.assign({},ses.user,{user_metadata:Object.assign({},(ses.user&&ses.user.user_metadata)||{},(u&&u.user_metadata)||{legales_version:version})});guardarSes(ses);}
       },
       async salir(){
@@ -7596,7 +7606,12 @@ else if(initial&&BYCODE[initial]&&!ocultoNom(BYCODE[initial].nomenclador)){state
           await NUBE.aceptarLegales(LEGALES_VERSION);
           const pf=gate._pfPendiente;gate._pfPendiente=null;
           enterProfile(perfilDesdeNube(pf));
-        }catch(e){gerr('No se pudo guardar la aceptación: '+e.message);if(el('lgGo')){b.disabled=false;b.textContent='Aceptar y entrar';}}
+        }catch(e){
+          // Si el refresh también murió, api() ya borró la sesión: acá todavía
+          // no hay `current`, así que cerrarSesionMuerta() no vuelve sola al
+          // ingreso y la pantalla quedaba trabada. Se vuelve desde acá.
+          if(!NUBE.hay()){gate._pfPendiente=null;renderGate('nubeLogin');gerr('Tu sesión venció. Iniciá sesión de nuevo.');return;}
+          gerr('No se pudo guardar la aceptación: '+e.message);if(el('lgGo')){b.disabled=false;b.textContent='Aceptar y entrar';}}
       };
       el('lgGo').addEventListener('click',go);
       el('lgSalir').addEventListener('click',async()=>{gate._pfPendiente=null;await NUBE.salir();renderGate('nubeLogin');});
