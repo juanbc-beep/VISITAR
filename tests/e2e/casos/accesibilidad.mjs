@@ -99,6 +99,31 @@ async function recorrer(browser, base, tema) {
   fallas.push(...await auditar(page, 'contrataciones: buscador', '#contrModal'));
   await page.click('#contrClose');
 
+  // Códigos nuevos: la lista con un código cargado, el formulario con todas las
+  // secciones opcionales abiertas y el buscador de equivalencias desplegado.
+  await page.evaluate(() => { const p = document.getElementById('pista'); if (p) p.classList.remove('on'); });
+  await page.click('#nuevosBtn');
+  await page.waitForSelector('#nvNuevo');
+  fallas.push(...await auditar(page, 'códigos nuevos: vacío', '#nuevosModal'));
+  await page.click('#nvNuevo');
+  await page.fill('#nvCode', '999001');
+  await page.fill('#nvNombre', 'Práctica nueva de prueba');
+  await page.click('#nvGuardar');
+  await page.waitForSelector('.nv-item');
+  fallas.push(...await auditar(page, 'códigos nuevos: lista', '#nuevosModal'));
+  await page.click('[data-nved="U999001"]');
+  await page.waitForSelector('#nvNombre');
+  for (const d of await page.locator('details.nv-sec > summary').all()) await d.click();
+  await page.click('#nvCobTipo button[data-v="obligacion"]');
+  fallas.push(...await auditar(page, 'códigos nuevos: formulario', '#nuevosModal'));
+  await page.fill('#nvEqQ', 'consulta');
+  await page.waitForSelector('.nv-op');
+  fallas.push(...await auditar(page, 'códigos nuevos: buscador de equivalencias', '#nuevosModal'));
+  await page.keyboard.press('Escape');
+  page.on('dialog', d => d.accept());   // «tenés cambios sin guardar»: se descartan
+  await page.click('#nvCancelar');
+  await page.click('#nvCerrar');
+
   await page.click('#adminBtn');
   await page.waitForSelector('#adminModal .atab');
   const pestañas = await page.locator('#adminModal .atab').count();

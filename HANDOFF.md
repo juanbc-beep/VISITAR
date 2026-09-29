@@ -1,8 +1,16 @@
 # TRASPASO DE SESIÓN — Manual Inteligente Unificado (VISITAR SRL)
 
 > Documento para retomar el trabajo en una sesión nueva sobre **la misma app**.
-> Última actualización: 2026-09-09, rama `claude/nomenclador-sweep-continue-1ayph3`
+> Última actualización: 2026-09-29, rama `claude/nomenclador-sweep-continue-1ayph3`
 > (sobre `claude/unified-medical-codes-manual-o9nw1w`, que ya trae mergeado el PR #58).
+>
+> **✅ Módulo nuevo: «Códigos nuevos» (29/9/2026)** — pedido del usuario: un módulo **sólo del
+> administrador general** para dar de alta códigos que se vayan creando y que queden
+> establecidos en la app, con equivalencias entre nomencladores, observaciones, tipo de
+> cobertura y más — **todo lo que no es código + nomenclador + denominación es opcional**.
+> ⚠️ **En el proyecto vivo hay que correr UNA VEZ `docs/supabase_codigos_nuevos.sql`** (SQL
+> Editor de Supabase); sin eso el módulo avisa que falta y el resto de la app sigue igual.
+> Ver **4.11**.
 >
 > **✅ «No se pudo guardar la aceptación: invalid JWT … token is expired» (24/9/2026)** —
 > reporte del usuario: no podía entrar. `NUBE.aceptarLegales()` hacía un `fetch` suelto con el
@@ -617,6 +625,7 @@ con **Transferir administración**, nunca sumando un segundo.
 | `verificaciones` | activos | pedir: cualquier activo (por función) · validar: sólo admin |
 | `propuestas` | activos | crear: cualquier activo · resolver: sólo admin |
 | `ajustes` | activos | sólo el admin (textos, logo y **favoritos del equipo**) |
+| `codigos_nuevos` | activos | **sólo el admin** (códigos dados de alta a mano, ver 4.11) |
 
 Funciones de apoyo: `es_admin()`, `es_activo()`, `pendientes()`, `transferir_admin()`,
 `hacerme_admin()` (arranque, sólo desde el SQL Editor), `pedir_verificacion()` y
@@ -2373,6 +2382,122 @@ claro/oscuro; atajos `/`, `Ctrl+K`, `↑`/`↓`, `Enter`; objetivos táctiles �
 aria-labels, `role="tablist"`, `aria-modal`, `focus-visible`.
 **Accesos rápidos** (`#rapidos`): los favoritos del perfil, arriba, a un clic; se ocultan
 al buscar.
+
+---
+
+### 4.11 Códigos nuevos — el administrador general da de alta códigos (29/9/2026)
+
+**Qué es.** Pantalla nueva (botón `#nuevosBtn` en la barra superior, modal `#nuevosModal` /
+`#nuevosBox`) donde el administrador general carga códigos que las fuentes oficiales no
+traen —un código nuevo del Único, una práctica que el PMO todavía no incorporó— y quedan
+para **todo el equipo**: se buscan, se abren, tienen etiqueta «nuevo» y se comportan como
+cualquier código (observaciones, «Editar ficha», vincular, anexar, favoritos…).
+
+**Quién.** `CAP.codigosNuevos` (= `admin`, un solo lugar, mismo criterio que
+`CAP.contrataciones`). Pantalla **aparte** del panel de Administración a propósito, como
+Contrataciones (el usuario no quiere herramientas de trabajo dentro del panel de ajustes).
+El médico administrador **no** lo ve ni puede escribir: lo hace cumplir la base (CN-015).
+
+**Qué es obligatorio y qué no** (pedido explícito: *«no tiene que ser un campo obligatorio,
+pero sí debe estar la opción»*). Obligatorio: nomenclador (Único / PMO / NBU), código y
+denominación. Todo lo demás vive en secciones plegadas marcadas «Opcional», con un punto
+verde cuando tienen datos: **equivalencias**, **tipo de cobertura** (sin cobertura
+especial / obligación / observación + casos + tope), **observación para el equipo**,
+**valorización** (U.B. sólo NBU + texto libre — *no* se arman `valores`/`total_2002`: son
+valores de la Res. 201/02 y no se inventan), **normas y auditoría**, **para que se encuentre**
+(sinónimos, abreviaturas, «pedida como») y **marcas** (urgencia, requiere norma, desuso,
+lateralidad). Relaciones de módulos (incluye/no incluye/anexar): se hacen **después** con las
+herramientas de siempre sobre la ficha del código, no se duplicaron acá.
+
+**Dónde viaja (⚠️ tabla nueva).** `public.codigos_nuevos (codigo, nomenclador, datos jsonb,
+autor, creado, actualizado)`. `codigo` es la **clave interna** (los del Único con prefijo
+`U`, igual que `nbu_db.json`: `U999001`). RLS: **leen** las cuentas activas, **escriben sólo
+el administrador general** (insertar/cambiar/borrar). Auditada con el mismo trigger
+`auditar()`. Migración: `docs/supabase_codigos_nuevos.sql` (idempotente; también incluida en
+`supabase.sql` para instalaciones nuevas). **Hay que correrla una vez en el proyecto vivo.**
+Si no se corrió, `cargarContenidoNube()` la lee con `.catch(()=>null)` (no rompe el resto y
+**conserva** la copia local en vez de hacer desaparecer códigos) y al guardar el módulo dice
+«hay que correr supabase_codigos_nuevos.sql» en vez de fingir que guardó.
+
+**Cómo se guarda y se ve.** `datos` es una forma **compacta** (lo que cargó el administrador:
+`{v,nom,code,nombre,grupo,tipo,seccion,eq[],cobertura,ub,arancel,norma,auditoria,sinonimos,
+abreviaturas,pedida_como,flags,lateralidad,alta,mod}`), no el registro completo. En
+`web/index.html`: `expandirNuevo()` arma con eso la ficha con la forma de un código de
+`nbu_db.json` (todos los campos que el resto de la app da por hechos salen vacíos: sin ellos
+el listado se rompe) y `sincronizarNuevos()` la mete en `BYCODE`/`CODES`. Se llama al
+principio de `applyContent()`, o sea con cada lectura de la nube y cada edición; sin códigos
+nuevos **sale en la primera línea** (arranque sin costo). El estado local es
+`CONTENT.nuevos[clave]`, así que también viaja con el respaldo y abre sin internet.
+Después de cada sincronización se rehacen `armarEQGRUPO()` y `armarINCLUDED()` —antes eran
+un bloque que corría una sola vez al arrancar; ahora son funciones que vacían y rellenan el
+mismo objeto, porque el resto de la app tiene la referencia— y se invalida `VOCAB_MED`.
+
+⚠️ **Si la base oficial incorpora después un código con la misma clave, manda la oficial**:
+el nuevo se ignora y el módulo lo marca «ya está en la base oficial» para poder quitarlo.
+Nunca se pisa un código oficial.
+
+**Equivalencias, de los dos lados.** Un Único nuevo equivale a **una** práctica del PMO o
+del NBU (`equivalencia`, como en `nbu_db.json`); un PMO/NBU nuevo puede equivaler a **varias**
+del Único (`equivalencia_unico`). Se busca por número o nombre con el mismo `buscar()` del
+listado, **restringido al nomenclador que corresponde** (para un PMO sólo ofrece códigos del
+Único; y al resolver «010101» para un Único nunca confunde el PMO con el Único, que comparten
+dígitos). El otro lado se **espeja en memoria** (`espejarNuevos`): el PMO al que equivale un
+Único nuevo empieza a decir «= Único», y un Único sin equivalencia que un PMO nuevo nombra
+queda apuntándole. Nunca se toca `nbu_db.json`; todo se **deshace entero** en la sincronización
+siguiente (`NUEVOS_UNDO`), así que quitar un código nuevo deja a los demás exactamente como
+estaban, incluido su índice de búsqueda (`NUEVOS_TOCADOS`). De paso resuelve el caso «equiv.
+sin importar»: un Único que declaraba equivaler a un código no cargado como ficha, si ese
+código es uno de los nuevos, queda enlazado.
+
+**La observación es la de siempre** (una por práctica, `NBUProfile.guardarObs`, mismo
+mecanismo y mismo grupo `EQGRUPO`): sólo se toca si el texto cambió, y si el código equivale
+a otro que ya tenía observación, la ofrece en vez de pisarla. ⚠️ Al **quitar** un código nuevo
+sólo se borra la observación guardada **bajo su propia clave**, nunca la del grupo: si estaba
+en el gemelo oficial, es del gemelo.
+
+**Guardar es «escribir y después leer»**, no optimista: en modo nube se manda a la base y
+recién si la aceptó se actualiza la pantalla; si la base la rechaza (migración sin correr,
+sin permiso) el formulario queda abierto con el motivo y **no** queda nada a medias. Sin
+conexión con la base (`NUBE.activa` pero `nubeContenido` falso) no deja guardar: el código
+no quedaría para los demás y la próxima lectura lo borraría de esta pantalla.
+
+**Respaldo y Restaurar.** `content.nuevos` viaja en el respaldo (`content:CONTENT`) y
+`difRestaurar`/`previaRestaurar`/`aplicarRestaurar` lo restauran. ⚠️ Un respaldo **de antes**
+de esta función no trae la clave `nuevos`: se lo trata como «sin cambios» y **no** se
+interpreta como «borrá todos los códigos nuevos» (probado).
+
+**Interfaz.** Lista con búsqueda, «⬇ Excel» y «＋ Nuevo código»; estado vacío que explica qué
+hace falta; formulario con pie fijo, aviso de «cambios sin guardar», código validado en vivo
+(«Disponible» / «Ya existe en Único: …»), y en el celular a pantalla completa. Etiqueta
+**`nuevo`** (`.t-nuevo`) en el listado (`decTags`), en la ficha («Código nuevo · quien lo
+cargó») y en la leyenda; el cartel de cobertura de la ficha dice «Cargado a mano por el
+administrador…» en vez de citar la Res. 201/02.
+
+**Probado.** `tests/rls/` — **CN-015** (médico administrador, administrativo y cuenta
+pendiente no pueden escribir/leer) + regresión (el administrador maneja, el equipo lee, queda
+rastro de auditoría), en los tres escenarios de `correr.sh`, contra PostgreSQL 16 real.
+`tests/e2e/casos/codigos_nuevos.mjs` (5 casos): alta con equivalencia + cobertura +
+observación y espejo en el PMO, otra persona lo ve, sobrevive a recargar, editar y quitar
+(el PMO vuelve a como estaba), duplicado rechazado, el médico administrador no ve el botón,
+migración sin correr avisa, respaldo/Restaurar (y respaldo viejo). El simulador
+(`simulador.mjs`) tiene la tabla y un interruptor `sinTablaCodigosNuevos`. **Accesibilidad**:
+`casos/accesibilidad.mjs` audita las cuatro pantallas del módulo (vacío, lista, formulario
+abierto, buscador) en claro y oscuro, WCAG 2.2 AA, sin violaciones — y encontró dos reales
+que se corrigieron: el badge del Único sobre `--surface-2` no llegaba a 4,5:1 (la fila
+pasó a `--surface`) y la lista de sugerencias, flotando, tapaba el objetivo táctil de la
+sección de abajo (ahora va en el flujo, no en absoluto). Necesita `npm install` en
+`tests/e2e/` si falta `axe-core`.
+
+**No se hizo (propuesto, por orden de utilidad):**
+- **Alta masiva desde Excel** (subir una planilla de códigos nuevos): SheetJS ya está; es la
+  extensión natural si aparecen decenas de códigos de una vez.
+- **`assemble.py` no lee `codigos_nuevos`**: los códigos nuevos viven sólo en Supabase. Para
+  volverlos parte de la base oficial habría que exportarlos (el «⬇ Excel» y el respaldo sirven
+  de punto de partida) y sumarlos a `data/` — y como manda la oficial, no hay que quitarlos
+  antes: se ignoran solos.
+- Odontología (`ODO`) no se ofrece: está oculto en la app (regla 12).
+- Un rol propio para quien cargue códigos: el gate cambia en `CAP.codigosNuevos`, pero la
+  base (`es_admin()` en las policies) también habría que abrirla.
 
 ---
 

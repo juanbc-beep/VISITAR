@@ -369,3 +369,84 @@ begin
   end if;
 end $$;
 \echo '   ok  CN-014  las sugerencias de "pedida como" son del administrador general'
+
+-- ---------------------------------------------------------------------
+-- CN-015  Los códigos nuevos son del administrador general
+--
+--   Un código agregado al manual llega a todo el equipo y se trata como uno
+--   más de la base oficial. Si un médico administrador o un administrativo
+--   pudieran darlo de alta, cambiarlo o borrarlo, cualquiera podría
+--   inventarle una práctica a todos. Y una cuenta que todavía no fue
+--   aprobada no tiene que ver ninguno.
+-- ---------------------------------------------------------------------
+do $ident$ begin perform set_config('request.jwt.claim.sub',
+                  (select id::text from public.perfiles where nombre = 'Admin General'), false); end $ident$;
+set role authenticated;
+insert into public.codigos_nuevos (codigo, nomenclador, datos)
+  values ('U999901', 'UNICO', '{"code":"999901","nomenclador":"UNICO","nombre":"Código de prueba"}'::jsonb);
+reset role;
+
+do $ident$ begin perform set_config('request.jwt.claim.sub',
+                  (select p.id::text from public.perfiles p
+                     join auth.users u on u.id = p.id where u.email = 'medico@test'), false); end $ident$;
+set role authenticated;
+do $$
+begin
+  begin
+    insert into public.codigos_nuevos (codigo, nomenclador, datos)
+      values ('U999902', 'UNICO', '{"code":"999902"}'::jsonb);
+    raise exception 'CN-015: un médico administrador pudo dar de alta un código nuevo.';
+  exception when insufficient_privilege then null;
+  end;
+end $$;
+update public.codigos_nuevos set datos = '{"code":"999901","nombre":"pisado"}'::jsonb where codigo = 'U999901';
+delete from public.codigos_nuevos where codigo = 'U999901';
+reset role;
+do $$
+declare n text;
+begin
+  select datos ->> 'nombre' into n from public.codigos_nuevos where codigo = 'U999901';
+  if n is null then
+    raise exception 'CN-015: un médico administrador pudo borrar un código nuevo.';
+  end if;
+  if n <> 'Código de prueba' then
+    raise exception 'CN-015: un médico administrador pudo cambiar un código nuevo (quedó «%»).', n;
+  end if;
+end $$;
+
+do $ident$ begin perform set_config('request.jwt.claim.sub',
+                  (select p.id::text from public.perfiles p
+                     join auth.users u on u.id = p.id where u.email = 'user@test'), false); end $ident$;
+set role authenticated;
+do $$
+begin
+  begin
+    insert into public.codigos_nuevos (codigo, nomenclador, datos)
+      values ('U999903', 'UNICO', '{"code":"999903"}'::jsonb);
+    raise exception 'CN-015: un administrativo pudo dar de alta un código nuevo.';
+  exception when insufficient_privilege then null;
+  end;
+end $$;
+delete from public.codigos_nuevos where codigo = 'U999901';
+reset role;
+do $$
+begin
+  if not exists (select 1 from public.codigos_nuevos where codigo = 'U999901') then
+    raise exception 'CN-015: un administrativo pudo borrar un código nuevo.';
+  end if;
+end $$;
+
+do $ident$ begin perform set_config('request.jwt.claim.sub',
+                  (select p.id::text from public.perfiles p
+                     join auth.users u on u.id = p.id where u.email = 'pend@test'), false); end $ident$;
+set role authenticated;
+do $$
+declare n int;
+begin
+  select count(*) into n from public.codigos_nuevos;
+  if n <> 0 then
+    raise exception 'CN-015: una cuenta pendiente lee % código(s) nuevo(s).', n;
+  end if;
+end $$;
+reset role;
+\echo '   ok  CN-015  los códigos nuevos sólo los escribe el administrador general'

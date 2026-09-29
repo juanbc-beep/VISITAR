@@ -313,6 +313,19 @@ create table if not exists public.sugerencias_pedida_como (
 create index if not exists sugpc_pendientes on public.sugerencias_pedida_como (estado) where estado = 'pendiente';
 insert into public.ajustes (id) values (1) on conflict (id) do nothing;
 
+-- Códigos que el administrador general da de alta a mano desde el módulo
+-- «Códigos nuevos» (ver supabase_codigos_nuevos.sql para el detalle). «datos»
+-- lleva lo que cargó el administrador; la app arma con eso la ficha completa.
+create table if not exists public.codigos_nuevos (
+  codigo       text primary key check (length(codigo) between 1 and 40),
+  nomenclador  text not null check (nomenclador in ('NBU','PMO','UNICO')),
+  datos        jsonb not null check (jsonb_typeof(datos) = 'object' and octet_length(datos::text) <= 200000),
+  autor        uuid references public.perfiles(id) on delete set null,
+  creado       timestamptz not null default now(),
+  actualizado  timestamptz not null default now()
+);
+
+
 -- ---------------------------------------------------------------------
 -- 6 bis. EL LÍMITE DEL MÉDICO ADMINISTRADOR
 --    Abrirle «correcciones» sin más le daría la ficha entera: denominación,
@@ -384,6 +397,7 @@ alter table public.verificaciones enable row level security;
 alter table public.propuestas     enable row level security;
 alter table public.ajustes        enable row level security;
 alter table public.sugerencias_pedida_como enable row level security;
+alter table public.codigos_nuevos enable row level security;
 
 -- PERFILES ------------------------------------------------------------
 -- La fila entera —notas personales, favoritos, U.B.— la ve sólo su dueño y el
@@ -545,6 +559,25 @@ create policy sugpc_resolver on public.sugerencias_pedida_como for update to aut
 
 drop policy if exists sugpc_borrar on public.sugerencias_pedida_como;
 create policy sugpc_borrar on public.sugerencias_pedida_como for delete to authenticated
+  using (public.es_admin());
+
+-- CÓDIGOS NUEVOS ------------------------------------------------------
+-- Los lee todo el equipo; los da de alta, cambia y borra sólo el administrador
+-- general (el médico administrador no: es contenido del manual, no una ficha).
+drop policy if exists cnuevos_ver on public.codigos_nuevos;
+create policy cnuevos_ver on public.codigos_nuevos for select to authenticated
+  using (public.es_activo());
+
+drop policy if exists cnuevos_insertar on public.codigos_nuevos;
+create policy cnuevos_insertar on public.codigos_nuevos for insert to authenticated
+  with check (public.es_admin());
+
+drop policy if exists cnuevos_actualizar on public.codigos_nuevos;
+create policy cnuevos_actualizar on public.codigos_nuevos for update to authenticated
+  using (public.es_admin()) with check (public.es_admin());
+
+drop policy if exists cnuevos_borrar on public.codigos_nuevos;
+create policy cnuevos_borrar on public.codigos_nuevos for delete to authenticated
   using (public.es_admin());
 
 -- ---------------------------------------------------------------------
@@ -795,6 +828,10 @@ create trigger auditar_observaciones after insert or update or delete
 drop trigger if exists auditar_perfiles      on public.perfiles;
 create trigger auditar_perfiles      after insert or update or delete
   on public.perfiles      for each row execute function public.auditar();
+
+drop trigger if exists auditar_codigos_nuevos on public.codigos_nuevos;
+create trigger auditar_codigos_nuevos after insert or update or delete
+  on public.codigos_nuevos for each row execute function public.auditar();
 
 -- ---------------------------------------------------------------------
 -- QUIÉN LO LEE
