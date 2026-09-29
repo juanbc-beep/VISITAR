@@ -24,6 +24,7 @@ contra una base real, no son hipótesis.
 | CN-004 | Renombrar el código de una corrección la vacía |
 | CN-005 | Un usuario activo lee las notas personales y la U.B. de sus compañeros |
 | CN-006 | Alguien registra una verificación con la firma de otro |
+| CN-015 | Un médico administrador o un administrativo da de alta, cambia o borra un código nuevo; una cuenta pendiente los lee |
 
 **`regresion.sql`** — lo que **sí** tiene que seguir andando. Es el contrapeso:
 cerrar de más rompe el trabajo del equipo, y eso también tiene que fallar la

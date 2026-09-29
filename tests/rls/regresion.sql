@@ -257,3 +257,50 @@ begin
   end if;
 end $$;
 \echo '   ok  el Intérprete de orden puede sugerir, y el administrador revisar'
+
+-- --- Los códigos nuevos: el administrador los maneja, el equipo los lee ---
+do $ident$ begin perform set_config('request.jwt.claim.sub',
+                  (select id::text from public.perfiles where nombre = 'Admin General'), false); end $ident$;
+set role authenticated;
+insert into public.codigos_nuevos (codigo, nomenclador, datos, autor)
+  values ('U999910', 'UNICO', '{"code":"999910","nombre":"Uno nuevo"}'::jsonb, auth.uid());
+update public.codigos_nuevos
+   set datos = '{"code":"999910","nombre":"Uno nuevo, corregido"}'::jsonb, actualizado = now()
+ where codigo = 'U999910';
+reset role;
+do $$
+begin
+  if (select datos ->> 'nombre' from public.codigos_nuevos where codigo = 'U999910') is distinct from 'Uno nuevo, corregido' then
+    raise exception 'REG: el administrador no pudo dar de alta y corregir un código nuevo.';
+  end if;
+end $$;
+
+do $ident$ begin perform set_config('request.jwt.claim.sub',
+                  (select p.id::text from public.perfiles p
+                     join auth.users u on u.id = p.id where u.email = 'user@test'), false); end $ident$;
+set role authenticated;
+do $$
+begin
+  if not exists (select 1 from public.codigos_nuevos where codigo = 'U999910') then
+    raise exception 'REG: un administrativo activo no ve los códigos nuevos.';
+  end if;
+end $$;
+reset role;
+
+do $ident$ begin perform set_config('request.jwt.claim.sub',
+                  (select id::text from public.perfiles where nombre = 'Admin General'), false); end $ident$;
+set role authenticated;
+delete from public.codigos_nuevos where codigo in ('U999910','U999901');
+reset role;
+do $$
+begin
+  if exists (select 1 from public.codigos_nuevos) then
+    raise exception 'REG: el administrador no pudo borrar los códigos nuevos.';
+  end if;
+  -- El rastro: alta, cambio y baja quedaron anotados por el trigger.
+  if to_regprocedure('public.auditar()') is not null
+     and (select count(*) from public.auditoria where tabla = 'codigos_nuevos' and clave = 'U999910') < 3 then
+    raise exception 'REG: los códigos nuevos no dejaron rastro de auditoría (alta, cambio y baja).';
+  end if;
+end $$;
+\echo '   ok  los códigos nuevos: el administrador los maneja y el equipo los lee'

@@ -40,6 +40,8 @@ export function crearDB() {
     verificaciones: new Map(),// codigo -> fila
     propuestas: new Map(),    // id (uuid) -> fila, como la tabla real
     observaciones: new Map(), // codigo -> fila
+    codigosNuevos: new Map(), // codigo (clave interna) -> fila de public.codigos_nuevos
+    sinTablaCodigosNuevos: false, // true = simula que la migración todavía no se corrió
     ajustes: { contenido: {} },
     recovers: [],             // correos que pidieron recuperar contraseña (para el caso "recup")
     factores: new Map(),      // uid -> [{id, factor_type:'totp', status, friendly_name}]
@@ -469,6 +471,28 @@ export async function instalarSimulador(context, db) {
       }
       if (method === 'DELETE') {
         db.observaciones.delete(filtroEq(url, 'codigo'));
+        return responder(route, 204);
+      }
+    }
+
+    // ---------------- REST: codigos_nuevos (módulo «Códigos nuevos») ----------
+    if (path === '/rest/v1/codigos_nuevos') {
+      // La tabla no existe si la migración no se corrió: PostgREST contesta 404.
+      if (db.sinTablaCodigosNuevos) {
+        return responder(route, 404, { code: 'PGRST205', message: "Could not find the table 'public.codigos_nuevos' in the schema cache" });
+      }
+      if (method === 'GET') {
+        const filas = [...db.codigosNuevos.values()].slice()
+          .sort((a, b) => (b.actualizado || '').localeCompare(a.actualizado || ''));
+        return responder(route, 200, filas);
+      }
+      if (method === 'POST') {
+        const body = leerCuerpo(req);
+        db.codigosNuevos.set(body.codigo, body);
+        return responder(route, esMinimal(req) ? 201 : 200, esMinimal(req) ? undefined : [body]);
+      }
+      if (method === 'DELETE') {
+        db.codigosNuevos.delete(filtroEq(url, 'codigo'));
         return responder(route, 204);
       }
     }
