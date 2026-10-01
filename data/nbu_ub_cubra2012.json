@@ -1,0 +1,680 @@
+{
+ "aplicado": "2026-10-01",
+ "fuente": "20140624_NBUCUBRA2012CODIGO.pdf — «Prácticas del PMO e NBU CUBRA 2012» y «Prácticas especiales de alta y baja frecuencia NBU CUBRA 2012»",
+ "no_aplicadas": {
+  "660005": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 15.0,
+   "ub_pdf": 10.0
+  },
+  "660033": {
+   "motivo": "El PDF dice «ANGIOTENSINA»; la base «ANGIOTENSINA I»: la práctica se desdobló. (Además, la base es más nueva.)",
+   "ub_base": 30.0,
+   "ub_pdf": 15.0
+  },
+  "660035": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 6.0,
+   "ub_pdf": 4.0
+  },
+  "660046": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 10.0,
+   "ub_pdf": 6.0
+  },
+  "660060": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 30.0,
+   "ub_pdf": 18.0
+  },
+  "660101": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 4.0,
+   "ub_pdf": 2.0
+  },
+  "660102": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 10.0,
+   "ub_pdf": 8.0
+  },
+  "660105": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 7.0,
+   "ub_pdf": 5.0
+  },
+  "660138": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 12.0,
+   "ub_pdf": 8.0
+  },
+  "660167": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 10.0,
+   "ub_pdf": 6.0
+  },
+  "660171": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 6.0,
+   "ub_pdf": 5.5
+  },
+  "660181": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 28.0,
+   "ub_pdf": 5.0
+  },
+  "660186": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 12.0,
+   "ub_pdf": 6.0
+  },
+  "660187": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 10.0,
+   "ub_pdf": 8.0
+  },
+  "660244": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 6.0,
+   "ub_pdf": 3.0
+  },
+  "660298": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 28.0,
+   "ub_pdf": 9.0
+  },
+  "660355": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 5.0,
+   "ub_pdf": 3.0
+  },
+  "660373": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 30.0,
+   "ub_pdf": 22.0
+  },
+  "660417": {
+   "motivo": "El PDF dice «GLUCOSA 6-FOSFATO-DEHIDROGENASA»; la base tiene «GLUCOSA en orina»: otra práctica con el mismo número. (Además, la base es más nueva.)",
+   "ub_base": 1.5,
+   "ub_pdf": 8.0
+  },
+  "660418": {
+   "motivo": "El PDF dice «GLUCOSA 6-FOSFATO»; la base «GLUCOSA 6-FOSFATO ISOMERASA»: enzimas distintas. (Además, la base es más nueva.)",
+   "ub_base": 13.0,
+   "ub_pdf": 5.0
+  },
+  "660433": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 5.0,
+   "ub_pdf": 4.0
+  },
+  "660464": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 3.0,
+   "ub_pdf": 1.5
+  },
+  "660468": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 10.0,
+   "ub_pdf": 7.5
+  },
+  "660472": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 4.0,
+   "ub_pdf": 2.0
+  },
+  "660481": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 6.0,
+   "ub_pdf": 5.0
+  },
+  "660484": {
+   "motivo": "La base tiene «HIDATIDOSIS Ac. IgG ó Totales (IFI)» con 10 U.B., que coincide con el 666163 del PDF; el 660484 del PDF es una práctica genérica distinta. (Además, la base es más nueva.)",
+   "ub_base": 10.0,
+   "ub_pdf": 4.0
+  },
+  "660598": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 5.0,
+   "ub_pdf": 2.0
+  },
+  "660619": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 15.0,
+   "ub_pdf": 7.5
+  },
+  "660620": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 15.0,
+   "ub_pdf": 10.0
+  },
+  "660656": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 20.0,
+   "ub_pdf": 9.0
+  },
+  "660664": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 4.0,
+   "ub_pdf": 2.0
+  },
+  "660665": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 10.0,
+   "ub_pdf": 8.0
+  },
+  "660711": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 3.0,
+   "ub_pdf": 2.5
+  },
+  "660761": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 5.0,
+   "ub_pdf": 2.5
+  },
+  "660833": {
+   "motivo": "La base agrega «inmunológico» a la sangre oculta en materia fecal: la práctica cambió respecto del PDF. (Además, la base es más nueva.)",
+   "ub_base": 8.0,
+   "ub_pdf": 4.0
+  },
+  "660835": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 24.0,
+   "ub_pdf": 17.5
+  },
+  "660837": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 9.0,
+   "ub_pdf": 1.0
+  },
+  "660838": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 20.0,
+   "ub_pdf": 10.0
+  },
+  "660846": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 11.0,
+   "ub_pdf": 10.0
+  },
+  "660911": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 15.0,
+   "ub_pdf": 11.0
+  },
+  "660931": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 16.0,
+   "ub_pdf": 12.0
+  },
+  "660933": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 4.0,
+   "ub_pdf": 2.0
+  },
+  "661015": {
+   "motivo": "El PDF dice «CD4 - CD8»; la base sólo «CD8»: no es seguro que sea la misma práctica. (Además, la base es más nueva.)",
+   "ub_base": 35.0,
+   "ub_pdf": 23.0
+  },
+  "662469": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 30.0
+  },
+  "662495": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 20.0,
+   "ub_pdf": 16.0
+  },
+  "662538": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 30.0
+  },
+  "662820": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 150.0,
+   "ub_pdf": 320.0
+  },
+  "663016": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 30.0
+  },
+  "663068": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 120.0,
+   "ub_pdf": 12.0
+  },
+  "663093": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 95.0,
+   "ub_pdf": 75.0
+  },
+  "663427": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 230.0,
+   "ub_pdf": 140.0
+  },
+  "663430": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 140.0,
+   "ub_pdf": 100.0
+  },
+  "663576": {
+   "motivo": "El PDF dice «CHAGAS AC. TOTALES ANTI- (ELISA)»; la base tiene «CHAGAS (PCR)» con ese código: otra práctica (el PDF le da el 663581 al PCR). (Además, la base es más nueva.)",
+   "ub_base": 90.0,
+   "ub_pdf": 12.0
+  },
+  "663649": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 90.0,
+   "ub_pdf": 80.0
+  },
+  "663720": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 150.0,
+   "ub_pdf": 135.0
+  },
+  "663722": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 70.0,
+   "ub_pdf": 95.0
+  },
+  "663756": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 30.0
+  },
+  "664141": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 150.0,
+   "ub_pdf": 217.0
+  },
+  "664150": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 220.0,
+   "ub_pdf": 180.0
+  },
+  "664307": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 30.0
+  },
+  "664315": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 30.0
+  },
+  "664324": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 30.0
+  },
+  "664350": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 30.0
+  },
+  "664369": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 110.0,
+   "ub_pdf": 80.0
+  },
+  "664388": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 30.0
+  },
+  "664392": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 30.0
+  },
+  "664435": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 30.0
+  },
+  "664452": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 30.0
+  },
+  "664648": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 30.0
+  },
+  "664649": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 30.0
+  },
+  "664652": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 30.0
+  },
+  "664666": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 30.0
+  },
+  "664691": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 90.0,
+   "ub_pdf": 95.0
+  },
+  "664717": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 150.0,
+   "ub_pdf": 250.0
+  },
+  "664858": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 49.0,
+   "ub_pdf": 45.0
+  },
+  "665043": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 30.0
+  },
+  "665102": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 75.0,
+   "ub_pdf": 70.0
+  },
+  "665119": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 70.0
+  },
+  "665127": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 30.0
+  },
+  "665204": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 30.0
+  },
+  "665307": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 30.0
+  },
+  "665520": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 30.0
+  },
+  "665576": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 24.0,
+   "ub_pdf": 30.0
+  },
+  "665583": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 24.0,
+   "ub_pdf": 30.0
+  },
+  "666016": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 30.0
+  },
+  "666019": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 30.0
+  },
+  "666708": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 13.5,
+   "ub_pdf": 1.0
+  },
+  "666711": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 3.0,
+   "ub_pdf": 1.0
+  },
+  "666713": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 15.5,
+   "ub_pdf": 1.0
+  },
+  "666717": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 5.0,
+   "ub_pdf": 1.0
+  },
+  "666730": {
+   "motivo": "La base es sólo el subtipo H1N1; el PDF habla de subtipos en plural, con otro valor. (Además, la base es más nueva.)",
+   "ub_base": 20.0,
+   "ub_pdf": 70.0
+  },
+  "667119": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 30.0
+  },
+  "667319": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 30.0
+  },
+  "667449": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 30.0
+  },
+  "667454": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 30.0
+  },
+  "667460": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 75.0,
+   "ub_pdf": 70.0
+  },
+  "667669": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 70.0,
+   "ub_pdf": 120.0
+  },
+  "667919": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 30.0
+  },
+  "667999": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 150.0,
+   "ub_pdf": 90.0
+  },
+  "668011": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 110.0,
+   "ub_pdf": 135.0
+  },
+  "668170": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 30.0
+  },
+  "668332": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 30.0
+  },
+  "668337": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 30.0
+  },
+  "668387": {
+   "motivo": "La base es la determinación molecular (PAI 4G/5G); el PDF es el PAI-AIP genérico. (Además, la base es más nueva.)",
+   "ub_base": 90.0,
+   "ub_pdf": 50.0
+  },
+  "668554": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 95.0,
+   "ub_pdf": 110.0
+  },
+  "668691": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 75.0,
+   "ub_pdf": 80.0
+  },
+  "669041": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 120.0,
+   "ub_pdf": 30.0
+  },
+  "669045": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 24.0,
+   "ub_pdf": 30.0
+  },
+  "669246": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 30.0
+  },
+  "669426": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 60.0,
+   "ub_pdf": 20.0
+  },
+  "669503": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 80.0,
+   "ub_pdf": 45.0
+  },
+  "669591": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 70.0,
+   "ub_pdf": 100.0
+  },
+  "669834": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 70.0,
+   "ub_pdf": 100.0
+  },
+  "669987": {
+   "motivo": "La U.B. de la base (v2012 con actualización 2016) es más nueva que la del PDF: se deja la de la base.",
+   "ub_base": 25.0,
+   "ub_pdf": 20.0
+  }
+ },
+ "nota": "U.B. del PDF aplicadas SÓLO a los códigos donde la base no tenía U.B. del nomenclador («valor.ub» vacío): se completa el dato y se rotula «CUBRA 2012» en la ficha. Donde la base ya tenía otra U.B. NO se cambia: la de la base (v2012 con actualización 2016) es más nueva que la del PDF (2012–2014), por decisión del usuario. No toca «ub_vigente», que es lo que la app muestra y multiplica. «no_aplicadas» deja registro de las 114 que difieren (con el valor del PDF y el de la base) por si algún día se quiere revisarlas; en 9 de ellas, además, el nombre del PDF describe otra práctica.",
+ "rotulo": "CUBRA 2012",
+ "valores": {
+  "660032": 15.0,
+  "660034": 2.0,
+  "660043": 3.0,
+  "660044": 6.0,
+  "660050": 3.0,
+  "660052": 3.0,
+  "660054": 4.0,
+  "660061": 5.0,
+  "660064": 11.0,
+  "660135": 5.0,
+  "660143": 25.0,
+  "660157": 5.0,
+  "660158": 5.0,
+  "660159": 5.0,
+  "660160": 5.0,
+  "660161": 10.0,
+  "660180": 5.0,
+  "660182": 1.0,
+  "660196": 2.0,
+  "660261": 3.0,
+  "660266": 1.0,
+  "660296": 1.0,
+  "660358": 5.0,
+  "660359": 5.0,
+  "660364": 8.0,
+  "660365": 1.0,
+  "660367": 2.0,
+  "660368": 5.0,
+  "660401": 8.0,
+  "660403": 8.0,
+  "660415": 4.0,
+  "660419": 3.0,
+  "660428": 5.0,
+  "660467": 4.0,
+  "660474": 1.0,
+  "660476": 2.0,
+  "660477": 2.0,
+  "660478": 5.0,
+  "660485": 5.0,
+  "660486": 5.0,
+  "660492": 8.0,
+  "660493": 10.0,
+  "660534": 4.0,
+  "660542": 5.0,
+  "660548": 4.0,
+  "660591": 5.0,
+  "660599": 6.0,
+  "660618": 3.0,
+  "660652": 10.0,
+  "660658": 2.0,
+  "660674": 4.0,
+  "660675": 2.0,
+  "660713": 3.0,
+  "660755": 6.0,
+  "660756": 8.0,
+  "660760": 3.0,
+  "660762": 7.5,
+  "660845": 3.0,
+  "660868": 4.0,
+  "660869": 4.0,
+  "660872": 6.0,
+  "660877": 9.0,
+  "660934": 4.0,
+  "660971": 6.0,
+  "661134": 19.0,
+  "661190": 9.0,
+  "662042": 8.0,
+  "662708": 26.0,
+  "662925": 300.0,
+  "663213": 24.0,
+  "664751": 25.0,
+  "664777": 60.0,
+  "664785": 10.0,
+  "664845": 13.0,
+  "664854": 13.0,
+  "664862": 9.0,
+  "664897": 5.0,
+  "664922": 10.0,
+  "664931": 60.0,
+  "664939": 70.0,
+  "664965": 22.0,
+  "664982": 8.0,
+  "665572": 14.0,
+  "665580": 14.0,
+  "665674": 200.0,
+  "665794": 150.0,
+  "666161": 25.0,
+  "666307": 250.0,
+  "666845": 300.0,
+  "666922": 25.0,
+  "667022": 280.0,
+  "667272": 20.0,
+  "667626": 26.0,
+  "667990": 50.0,
+  "668665": 33.0,
+  "668973": 8.0,
+  "669460": 14.0,
+  "669634": 152.0,
+  "669863": 30.0,
+  "669918": 4.0
+ }
+}

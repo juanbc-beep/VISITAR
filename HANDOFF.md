@@ -4,6 +4,12 @@
 > Última actualización: 2026-09-29, rama `claude/nomenclador-sweep-continue-1ayph3`
 > (sobre `claude/unified-medical-codes-manual-o9nw1w`, que ya trae mergeado el PR #58).
 >
+> **✅ U.B. faltantes del NBU completadas con el PDF «NBU CUBRA 2012» (1/10/2026)** — se
+> cargó la U.B. en **100 códigos que no tenían ninguna** (`valor.ub`). **No se cambió ninguna
+> U.B. que la base ya tuviera**: la de la base (v2012 con actualización 2016) es más nueva
+> que la del PDF (2012–2014), decisión del usuario. Tampoco cambia nada de lo que se ve ni
+> se multiplica (la app usa `ub_vigente`). Ver **4.12**.
+>
 > **✅ Módulo nuevo: «Códigos nuevos» (29/9/2026)** — pedido del usuario: un módulo **sólo del
 > administrador general** para dar de alta códigos que se vayan creando y que queden
 > establecidos en la app, con equivalencias entre nomencladores, observaciones, tipo de
@@ -2498,6 +2504,57 @@ sección de abajo (ahora va en el flujo, no en absoluto). Necesita `npm install`
 - Odontología (`ODO`) no se ofrece: está oculto en la app (regla 12).
 - Un rol propio para quien cargue códigos: el gate cambia en `CAP.codigosNuevos`, pero la
   base (`es_admin()` en las policies) también habría que abrirla.
+
+---
+
+### 4.12 U.B. faltantes del NBU, completadas con el PDF «NBU CUBRA 2012» (1/10/2026)
+
+**Pedido.** El usuario pasó `20140624_NBUCUBRA2012CODIGO.pdf` («Prácticas del PMO e NBU
+CUBRA 2012» + «Prácticas especiales de alta y baja frecuencia NBU CUBRA 2012», 19 páginas,
+1.208 filas / 1.201 códigos) y pidió ver cuántos coinciden con la base y cómo está la U.B.
+
+**Cruce** (1.185 de 1.201 códigos del PDF existen en el NBU de la base; 16 no): U.B. igual a
+`valor.ub` en 971, distinta en 114, base sin `ub` en 100. Los 16 que faltan: 5 son un cambio
+de numeración (mismo nombre, otro código), 3 hay que revisarlos y 8 faltan de verdad
+(p. ej. `669490` TOPIRAMATO, `662873` BANDEO G): se pueden cargar con «Códigos nuevos».
+
+**Decisión del usuario, en dos tiempos (⚠️ no re-litigar).** Primero pidió actualizar los 100
+sin U.B. *y* los 114 que difieren; se aplicaron 205 (9 se excluyeron por ser otra práctica
+con el mismo número). Después, al recordarle que **la U.B. de la base es más nueva** que la
+del PDF, **revirtió la parte de los que difieren**: *«si la U.B. que teníamos en la base es
+más nueva, no cambiemos los UB en la APP… lo que sí deberíamos agregar son las UB a los
+códigos que no tienen nada cargado»*. Quedó así:
+
+- **100 códigos** (los que no tenían `valor.ub`): `valor.ub` = U.B. del PDF y
+  `valor.ub_fuente = "CUBRA 2012"`. Se refresca la copia que lleva el Único (`nbu_valor`,
+  que sale de `propagar_al_unico.py`, ahora con `ub_fuente` en su lista).
+- **114 códigos que difieren: NO se tocan.** Siguen con la U.B. de la base. Quedan anotados
+  en `no_aplicadas` de `data/nbu_ub_cubra2012.json` (valor del PDF y de la base) por si
+  algún día se quiere revisarlos; en 9 de ellos, además, el nombre del PDF describe otra
+  práctica con el mismo número (`663576` Chagas ELISA vs PCR, `660417` G6PD vs glucosa en
+  orina, `660484`, `660418`, `660833`, `668387`, `666730`, `660033`, `661015`).
+- **`ub_vigente` nunca se toca**: es lo que la app muestra y multiplica por el valor de la
+  U.B. **Ningún valor visible ni ningún arancel cambió.** Cambia sólo el valor de
+  referencia de la ficha para esos 100, que ahora dice **«CUBRA 2012: N»** en vez de «base
+  v2016» (`ubRotulo()` en `web/index.html`; decirle «base v2016» a un valor de 2012 sería
+  falso). Sólo se ve cuando difiere de la vigente (en 31 de los 100).
+- Quedan 2 códigos NBU sin ninguna U.B. (ni `ub` ni vigente); no están en el PDF.
+
+**Cómo sobrevive a un rebuild.** Es dato curado (patrón 3.1): `assemble.py` tiene
+`aplicar_ub_cubra2012()`, que lee `data/nbu_ub_cubra2012.json` justo después de la U.B.
+vigente y antes de `propagar_al_unico`, y **sólo completa donde `valor.ub` es `None`**:
+nunca pisa. ⚠️ **No se pudo correr `assemble.py` entero** (sus intermedios viven en el
+scratchpad, ver 3.2): la función se probó aislada sobre los registros NBU del commit anterior
+y reproduce **exactamente** el `valor` de los 100 códigos (0 diferencias). `data/nbu_db.json`
+se escribió con `json.dumps(…, ensure_ascii=False, separators=(',',':'))`, que reproduce
+**byte a byte** el archivo original: el diff contra la base anterior son sólo 200 registros
+(100 NBU: `valor.ub` y `valor.ub_fuente`; 100 Único: `nbu_valor`).
+
+**Probado.** `tests/e2e/casos/ub_cubra2012.mjs`: la ficha de `660044` (sin `ub`, PDF 6, vigente
+5) conserva la vigente y dice «CUBRA 2012: 6»; `660005` (base 15, PDF 10) **sigue diciendo «base
+v2016: 15»**; `660001` (fuera del PDF) igual; la ficha del Único cita «CUBRA 2012: 6»; y los
+datos: sólo los 100 llevan `ub_fuente` y los 114 que difieren conservan la U.B. de la base.
+`scripts/comprobar_datos.mjs` sin errores.
 
 ---
 

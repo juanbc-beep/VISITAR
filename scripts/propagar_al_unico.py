@@ -90,9 +90,11 @@ def propagar(records, log=None):
             U["nbu_seccion_label"] = N["seccion_label"]
             st["seccion"] += 1
 
-        # La U.B. del NBU, como referencia y sin tocar la del Único.
+        # La U.B. del NBU, como referencia y sin tocar la del Único. «ub_fuente»
+        # (hoy sólo «CUBRA 2012», ver data/nbu_ub_cubra2012.json) viaja con ella:
+        # sin eso la ficha del Único rotularía «base v2016» un valor de otra versión.
         v = N.get("valor") or {}
-        ref = {k: v[k] for k in ("ub", "ub_vigente", "ub_actualizado_2024") if v.get(k) is not None}
+        ref = {k: v[k] for k in ("ub", "ub_vigente", "ub_actualizado_2024", "ub_fuente") if v.get(k) is not None}
         if ref:
             U["nbu_valor"] = ref
             st["valor_ref"] += 1

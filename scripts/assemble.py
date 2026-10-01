@@ -204,6 +204,32 @@ for full, nom, ubv in XLSUB:
         ub_vig_new += 1
 print(f"U.B. vigente: actualizados {ub_vig_upd} · nuevos {ub_vig_new}", file=sys.stderr)
 
+# ---------- U.B. del PDF «NBU CUBRA 2012»: sólo completa las que faltan (dato curado) ----------
+def aplicar_ub_cubra2012(records, rutas=("data/nbu_ub_cubra2012.json", "nbu_ub_cubra2012.json")):
+    """Completa «valor.ub» con la U.B. del PDF de CUBRA 2012 en los códigos que la base no
+    traía (data/nbu_ub_cubra2012.json). NO pisa las que ya existían: la U.B. de la base
+    (v2012 con actualización 2016) es más nueva que la del PDF, por decisión del usuario.
+    No toca «ub_vigente», que es lo que la app muestra. Deja «ub_fuente» para que la
+    ficha rotule el valor como lo que es y no como «base v2016»."""
+    for ruta in rutas:
+        try:
+            datos = json.load(open(ruta, encoding="utf-8"))
+            break
+        except FileNotFoundError:
+            continue
+    else:
+        return 0
+    n = 0
+    for code, ub in datos.get("valores", {}).items():
+        rec = records.get(code)
+        if rec and rec.get("nomenclador") == "NBU" and rec["valor"].get("ub") is None:
+            rec["valor"]["ub"] = float(ub)
+            rec["valor"]["ub_fuente"] = datos.get("rotulo", "CUBRA 2012")
+            n += 1
+    return n
+_ub_cubra = aplicar_ub_cubra2012(records)
+print(f"U.B. CUBRA 2012 (PDF): aplicadas {_ub_cubra}", file=sys.stderr)
+
 # ---------- reverse relationships (bidirectional graph) ----------
 for code, rec in records.items():
     for tgt in rec["relaciones"]["incluye"]:

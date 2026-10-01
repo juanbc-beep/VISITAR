@@ -34,7 +34,7 @@
      alojamiento. -->
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'sha256-MXq2q5t2rrJvd00GMwTNlFpKjlTqi7XRxh3rt8KhP2E=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-0NTjfcr9LCS/hnPt3yHAoQQkp7RNILv7Ydb9nvhfvFg=';
+  script-src 'self' 'sha256-MXq2q5t2rrJvd00GMwTNlFpKjlTqi7XRxh3rt8KhP2E=' 'sha256-BM86PXUZpwaeT/Anw+GFvkrNHO+QLxIddmHnjoGeEAs=' 'sha256-sWOWPSeX9U8jZ/zdHPFwPR0s6lAbCU6K66xBwXtQnYw=';
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob:;
   font-src 'self' data:;
@@ -2763,6 +2763,10 @@ function saveFavs(){
 }
 function toggleFav(code){if(FAVS.has(code))FAVS.delete(code);else FAVS.add(code);saveFavs();}
 function fmtMoney(n){return '$'+Number(n).toLocaleString('es-AR',{maximumFractionDigits:2});}
+/* De dónde sale «valor.ub». Por defecto es la base 2012/2016 («base v2016»); si se le
+   aplicó la U.B. de otro documento (data/nbu_ub_cubra2012.json, «ub_fuente») se rotula
+   con ése: llamar «base v2016» a un valor de 2012 sería mentirle al que audita. */
+const ubRotulo=v=>(v&&v.ub_fuente)?esc(v.ub_fuente):'base v2016';
 function getUB(c){if(!c||!c.valor)return null;return c.valor.ub_vigente!=null?c.valor.ub_vigente:c.valor.ub;}
 function aranStr(ub){return (ubValue>0&&ub!=null)?fmtMoney(ub*ubValue):'';}
 function starBtn(code){return `<span class="star${FAVS.has(code)?' on':''}" data-fav="${code}" role="button" aria-label="Favorito" title="Marcar favorito">${FAVS.has(code)?'★':'☆'}</span>`;}
@@ -5385,13 +5389,13 @@ function openCode(code,origen){
   // Esa diferencia es el convenio, no un error, así que se muestran las dos y se
   // dice cuál es cuál.
   const nv=c.nbu_valor, nvUB=nv?(nv.ub_vigente!=null?nv.ub_vigente:nv.ub):null;
-  const refNBU=(nvUB!=null)?`<div class="val2024" style="color:var(--ink-2)">En el <b>NBU${c.equivalencia&&c.equivalencia.code?' '+esc(c.equivalencia.code):''}</b>, la misma práctica figura con <b>${nvUB}</b> U.B.${nv.ub_vigente!=null?' vigentes':''}${nv.ub!=null&&nv.ub!==nvUB?` (base v2016: ${nv.ub})`:''}. El valor de arriba es el de la planilla del Único.</div>`:'';
+  const refNBU=(nvUB!=null)?`<div class="val2024" style="color:var(--ink-2)">En el <b>NBU${c.equivalencia&&c.equivalencia.code?' '+esc(c.equivalencia.code):''}</b>, la misma práctica figura con <b>${nvUB}</b> U.B.${nv.ub_vigente!=null?' vigentes':''}${nv.ub!=null&&nv.ub!==nvUB?` (${ubRotulo(nv)}: ${nv.ub})`:''}. El valor de arriba es el de la planilla del Único.</div>`:'';
   if(!(c.nomenclador==='UNICO'&&getUB(c)==null&&!refNBU))html+=`<div class="sec"><div class="slabel">Valorización</div><div class="valcard">
     ${ubEff!=null?`<div class="big">${ubEff}</div><div class="lbl">${v.unidad}${v.ub_vigente!=null?' · <b style="color:var(--new)">vigente</b>':''}</div>`:`<div class="lbl" style="font-size:15px;color:var(--ink)">${novalor}</div>`}
     ${aran?`<div class="big" style="color:var(--accent-ink)">${aran}</div><div class="lbl">arancel (U.B. × ${fmtMoney(ubValue)})</div>`:''}
     <div class="arancel">${aran?'Arancel calculado con el valor de U.B. que cargaste arriba.':esc(v.arancel)}</div>
-    ${v.ub_vigente!=null?`<div class="val2024">U.B. <b>vigente</b> (act. al día): <b>${v.ub_vigente}</b>${v.ub!=null&&v.ub!==v.ub_vigente?` · base v2016: ${v.ub}`:''}${v.ub_actualizado_2024!=null&&v.ub_actualizado_2024!==v.ub_vigente?` · Anexo 2024: ${v.ub_actualizado_2024}`:''}</div>`
-      :(v.ub_actualizado_2024!=null?`<div class="val2024">Anexo Enero 2024 · U.B. actualizada: <b>${v.ub_actualizado_2024}</b>${v.ub!=null?` (base v2016: ${v.ub})`:''}${aran?` · arancel 2024: <b>${fmtMoney(v.ub_actualizado_2024*ubValue)}</b>`:''}</div>`:'')}
+    ${v.ub_vigente!=null?`<div class="val2024">U.B. <b>vigente</b> (act. al día): <b>${v.ub_vigente}</b>${v.ub!=null&&v.ub!==v.ub_vigente?` · ${ubRotulo(v)}: ${v.ub}`:''}${v.ub_actualizado_2024!=null&&v.ub_actualizado_2024!==v.ub_vigente?` · Anexo 2024: ${v.ub_actualizado_2024}`:''}</div>`
+      :(v.ub_actualizado_2024!=null?`<div class="val2024">Anexo Enero 2024 · U.B. actualizada: <b>${v.ub_actualizado_2024}</b>${v.ub!=null?` (${ubRotulo(v)}: ${v.ub})`:''}${aran?` · arancel 2024: <b>${fmtMoney(v.ub_actualizado_2024*ubValue)}</b>`:''}</div>`:'')}
     ${refNBU}
   </div></div>`;
 
